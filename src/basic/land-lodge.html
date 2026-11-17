@@ -1,0 +1,34 @@
+<!--Mountain Lodge Landing|Landings|A hotel page: full-bleed landscape hero with a date + guests booking bar, rooms as a horizontal snap row, and a seasons switcher that swaps the activities.|landing,hotel,travel,booking,photo-->
+<div class="k pg ll">
+<section class="ll-hero"><img class="ph" src="media/pics/w/1036.jpg" alt="Snowy mountain valley"><header class="ll-nav w"><a class="logo" href="#">Hütte Alpenglüh</a><nav class="ll-l"><a href="#">Rooms</a><a href="#">Dining</a><a href="#">Spa</a></nav></header>
+<div class="w ll-ht"><h1 class="h1 ser">Twelve rooms,<br>one mountain.</h1></div>
+<form class="ll-book w" onsubmit="return false"><label><span>Arrive</span><input type="date" class="in" id="d1"></label><label><span>Leave</span><input type="date" class="in" id="d2"></label><label><span>Guests</span><select class="in"><option>2 adults</option><option>1 adult</option><option>2 adults, 1 child</option><option>4 adults</option></select></label><button class="b ac lg" id="ck">Check availability</button><p class="ll-msg" id="cm" role="status"></p></form></section>
+<section class="sec"><div class="w ll-rh"><h2 class="h2 ser">Rooms</h2><p class="mu">All with balcony and wood-burning stove.</p></div><div class="ll-rooms w" tabindex="0" aria-label="Rooms">
+<article><img src="media/pics/c/1051.jpg" alt="Wooden jetty on a lake"><h3 class="h3">Lake View Double</h3><p class="mu">28 m² · sleeps 2</p><b class="tn">from €240</b></article>
+<article><img src="media/pics/c/1043.jpg" alt="Valley with granite cliffs"><h3 class="h3">Valley Suite</h3><p class="mu">46 m² · sleeps 3</p><b class="tn">from €390</b></article>
+<article><img src="media/pics/c/1039.jpg" alt="Waterfall in green moss"><h3 class="h3">Falls Loft</h3><p class="mu">38 m² · sleeps 2</p><b class="tn">from €310</b></article>
+<article><img src="media/pics/c/1040.jpg" alt="Castle above a forest"><h3 class="h3">Tower Family Room</h3><p class="mu">55 m² · sleeps 5</p><b class="tn">from €460</b></article></div></section>
+<section class="sec ll-ss"><div class="w"><div class="ll-st" role="tablist" aria-label="Season"><button role="tab" aria-selected="true" data-s="0">Winter</button><button role="tab" aria-selected="false" data-s="1">Summer</button></div><ul class="ll-act" id="la"></ul></div></section>
+<footer class="foot"><div class="w"><span>Hütte Alpenglüh · 1,840 m</span><span>Open Dec–Apr and Jun–Sep</span></div></footer>
+</div>
+<style>
+.ll{--ac:light-dark(#1e3a5f,#9cc3ef);--ac-h:light-dark(#152a45,#bcd7f5);--ac-fg:light-dark(#fff,#0b1a2b)}
+.ll-hero{position:relative;min-height:min(92dvh,820px);display:grid;grid-template-rows:auto 1fr auto;color:#fff;padding-bottom:24px}.ll-hero>img{position:absolute;inset:0}.ll-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(#0006,#0000 40%,#0007)}
+.ll-hero>*:not(img){position:relative;z-index:1}.ll-nav{display:flex;justify-content:space-between;align-items:center;height:72px}.ll-nav .logo{color:#fff}.ll-l{display:flex;gap:24px}.ll-l a{color:#fffc;text-decoration:none;font-size:14px}
+.ll-ht{align-self:center}.ll-ht .h1{font-size:clamp(48px,9vw,120px)}
+.ll-book{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:12px;align-items:end;background:var(--bg);color:var(--fg);padding:16px;border-radius:18px;box-shadow:var(--shadow)}.ll-book label{min-width:0}.ll-book .in{min-width:0}.ll-book label span{display:block;font-size:12px;font-weight:600;color:var(--mu);margin-bottom:6px}.ll-book .in{height:48px;font-size:16px}
+.ll-msg{grid-column:1/-1;font-size:14px;min-height:0}.ll-msg:empty{display:none}
+.ll-rh{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.ll-rooms{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:32px 0 8px;overscroll-behavior-x:contain}.ll-rooms article{scroll-snap-align:start;display:grid;gap:6px}.ll-rooms img{aspect-ratio:4/5;object-fit:cover;border-radius:14px;margin-bottom:8px;width:100%}
+.ll-ss{background:var(--sf)}.ll-st{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;background:var(--bg)}.ll-st button{height:40px;padding:0 20px;border-radius:999px;font-weight:550;color:var(--mu)}.ll-st [aria-selected=true]{background:var(--fg);color:var(--bg)}
+.ll-act{list-style:none;padding:0;margin:32px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}.ll-act li{border-top:2px solid var(--fg);padding-top:16px;display:grid;gap:8px;animation:llf .35s var(--ease) both}.ll-act b{font-size:19px}
+@keyframes llf{from{opacity:0;transform:translateY(8px)}}
+@media (max-width:760px){.ll-l{display:none}.ll-book{grid-template-columns:1fr 1fr}.ll-book label:nth-child(3),.ll-book .b{grid-column:1/-1}.ll-act{grid-template-columns:1fr}}
+</style>
+<script>
+const S=[[["Ski-in, ski-out","The Nordhang lift is 90 m from the boot room."],["Sauna at dusk","Cedar sauna with a snow plunge, open until 22:00."],["Torchlit sledging","4 km run every Thursday, sledges included."]],[["Hut-to-hut hiking","Maps, packed lunch and luggage transfer arranged."],["Lake swimming","Our jetty on the Grünsee, a 12-minute walk."],["Alpine cheese dairy","Watch the morning make, taste at 11."]]];
+const la=document.getElementById('la');function show(i){la.innerHTML=S[i].map(([t,d])=>`<li><b>${t}</b><span class="mu">${d}</span></li>`).join('')}
+document.querySelectorAll('.ll-st button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.ll-st button').forEach(x=>x.setAttribute('aria-selected',x===b));show(+b.dataset.s)});show(0);
+const t=new Date(),iso=d=>d.toISOString().slice(0,10),d1=document.getElementById('d1'),d2=document.getElementById('d2');d1.min=iso(t);d1.value=iso(new Date(+t+864e5*14));d2.value=iso(new Date(+t+864e5*17));
+document.getElementById('ck').onclick=e=>{const b=e.currentTarget,m=document.getElementById('cm');if(d2.value<=d1.value){m.textContent='Leave date must be after arrival.';m.style.color='var(--err)';return}b.disabled=true;b.textContent='Checking…';setTimeout(()=>{b.disabled=false;b.textContent='Check availability';const n=(new Date(d2.value)-new Date(d1.value))/864e5;m.style.color='var(--ok)';m.textContent=`3 rooms free for ${n} night${n>1?'s':''}. Lake View Double from €${240*n}.`},900)};
+</script>

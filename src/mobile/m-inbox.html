@@ -1,0 +1,45 @@
+<!--Mail Inbox|An inbox with real swipe gestures: drag a row left to reveal Archive (a full swipe archives it with Undo), right to toggle read. Unread rows are bold with a dot, stars toggle, and a compose button floats above the glass pill.|mail,inbox,swipe,gesture,undo-->
+<header class="bar"><div class="nb"><span></span><h2 class="ib-t">Inbox</h2><span><button class="ib" aria-label="Filter">@I(filter)</button></span></div></header>
+<main class="sc"><h1 class="lt">Inbox</h1><p class="sub" id="un">3 unread</p><div id="l" style="margin-top:8px"></div></main>
+<div class="mi-undo" id="ud" role="status"><span>Archived</span><button id="ub">Undo</button></div>
+<button class="mi-fab gl" aria-label="Compose">@I(edit)</button>
+@PILL(mail:Inbox|star:Starred|folder:Folders;0;s)
+<style>
+.ib-t{opacity:0;transition:opacity .2s}.bar.sd .ib-t{opacity:1}
+.mi-w{position:relative;overflow:hidden;display:grid;grid-template-rows:1fr;transition:grid-template-rows .3s var(--ease)}
+.mi-w.gone{grid-template-rows:0fr}.mi-w>div{min-height:0;overflow:hidden;position:relative}
+.mi-bg{position:absolute;inset:0;display:flex;justify-content:space-between;align-items:center;padding:0 24px;color:#fff;font-size:13px;font-weight:600}
+.mi-bg span{display:flex;flex-direction:column;align-items:center;gap:2px;transition:transform .2s}
+.mi-bg .l{background:var(--info)}.mi-bg.r{background:light-dark(#15803d,#166534)}
+.mi-r{position:relative;display:flex;gap:12px;padding:12px var(--gut) 12px 28px;background:var(--bg);touch-action:pan-y;user-select:none;cursor:grab;border-bottom:.5px solid var(--line)}
+.mi-r.snap{transition:transform .35s var(--ease)}
+.mi-r .tx{flex:1;min-width:0}
+.mi-h{display:flex;gap:8px;align-items:baseline}.mi-h b{flex:1;font-size:17px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mi-h time{font-size:14px;color:var(--mu);font-variant-numeric:tabular-nums}
+.mi-s{display:block;font-size:15px;line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mi-p{margin:2px 0 0;font-size:15px;line-height:20px;color:var(--mu);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mi-r.u b,.mi-r.u .mi-s{font-weight:650}
+.mi-r.u::before{content:"";position:absolute;left:10px;top:20px;width:9px;height:9px;border-radius:50%;background:var(--info)}
+.mi-st{position:absolute;right:8px;bottom:8px;width:44px;height:44px;display:grid;place-items:center;color:var(--ctl)}.mi-st .i{width:18px;height:18px}
+.mi-st[aria-pressed=true]{color:var(--warn)}.mi-st[aria-pressed=true] .i{fill:currentColor}
+.mi-p{padding-right:28px}
+.mi-fab{position:absolute;right:20px;bottom:calc(var(--sbt) + 70px);z-index:79;width:56px;height:56px;border-radius:28px;display:grid;place-items:center;color:var(--ac)}
+@media (max-width:500px){.mi-fab{bottom:calc(max(16px,var(--sbt) - 4px) + 76px)}}
+.mi-undo{position:absolute;left:20px;right:92px;bottom:calc(var(--sbt) + 74px);z-index:81;display:flex;justify-content:space-between;align-items:center;min-height:48px;padding:0 6px 0 16px;border-radius:14px;background:var(--fg);color:var(--bg);font-size:15px;transform:translateY(20px);opacity:0;pointer-events:none;transition:.3s var(--ease)}
+.mi-undo.on{transform:none;opacity:1;pointer-events:auto}.mi-undo button{min-height:44px;padding:0 12px;color:light-dark(#ffa36e,#c2410c);font-weight:650}
+</style>
+<script>
+const M=[[1,"Norrfly","Your boarding pass for NF 612","Check-in is open. Gate C21, boarding from 08:25. Bring ID that matches your booking.","09:41"],[1,"Ines Duarte","Dinner Saturday?","I booked a table at Bryggeloftet for 19:30, does that still work for you and Theo?","08:02"],[1,"GitHub","[katsyka/ui] New issue: tab bar lens","The lens overshoots when switching quickly between the first and last tab on Android.","07:15"],[0,"Theo","Photos from the hike","Uploaded 46 photos to the shared album. The one at the summit is my favourite.","Tue"],[0,"Bergen Kommune","Waste collection changes","From December, paper is collected every other Thursday.","Mon"],[0,"Mara Lind","Re: Print order","The frame arrived today, it looks great. Thank you for the extra packaging.","Sun"]];
+const I=p=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`,ST=I('<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>'),AR=I('<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v11h14V9M10 13h4"/>'),RD=I('<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/>');
+l.innerHTML=M.map(([u,f,s,p,t],i)=>`<div class="mi-w" data-i="${i}"><div><div class="mi-bg"><span>${RD}<span class="lb">${u?"Read":"Unread"}</span></span><span>${AR}Archive</span></div><div class="mi-r${u?" u":""}"><span class="tx"><span class="mi-h"><b>${f}</b><time>${t}</time></span><span class="mi-s">${s}</span><p class="mi-p">${p}</p></span><button class="mi-st" aria-label="Star" aria-pressed="false">${ST}</button></div></div></div>`).join("");
+const cnt=()=>{const n=l.querySelectorAll(".mi-w:not(.gone) .mi-r.u").length;un.textContent=n?n+" unread":"All read"};
+let last,ut;
+const archive=w=>{w.classList.add("gone");last=w;ud.classList.add("on");clearTimeout(ut);ut=setTimeout(()=>ud.classList.remove("on"),4000);cnt()};
+ub.onclick=()=>{if(!last)return;last.classList.remove("gone");const r=last.querySelector(".mi-r");r.classList.add("snap");r.style.transform="";ud.classList.remove("on");cnt()};
+l.querySelectorAll(".mi-w").forEach(w=>{const r=w.querySelector(".mi-r"),bg=w.querySelector(".mi-bg");let x0=0,y0=0,dx=0,on=false,lock=0;
+ r.addEventListener("pointerdown",e=>{if(e.target.closest("button"))return;on=true;lock=0;x0=e.clientX;y0=e.clientY;dx=0;r.classList.remove("snap")});
+ r.addEventListener("pointermove",e=>{if(!on)return;const ddx=e.clientX-x0,ddy=e.clientY-y0;if(!lock){if(Math.abs(ddx)>8&&Math.abs(ddx)>Math.abs(ddy)){lock=1;r.setPointerCapture(e.pointerId)}else if(Math.abs(ddy)>8){on=false;return}}if(lock!==1)return;dx=ddx;const W=r.offsetWidth;const v=dx>0?Math.min(dx,W*.5):dx;r.style.transform=`translateX(${v}px)`;bg.classList.toggle("r",dx>0);bg.firstElementChild.style.visibility=dx>0?"visible":"hidden";bg.lastElementChild.style.visibility=dx<0?"visible":"hidden";bg.lastElementChild.style.transform=dx<-W*.55?"scale(1.15)":""});
+ const end=()=>{if(!on)return;on=false;if(lock!==1)return;const W=r.offsetWidth;r.classList.add("snap");if(dx<-W*.55){r.style.transform=`translateX(${-W}px)`;setTimeout(()=>archive(w),200)}else if(dx<-80){r.style.transform="translateX(-96px)"}else{if(dx>70){r.classList.toggle("u");w.querySelector(".lb").textContent=r.classList.contains("u")?"Read":"Unread";cnt()}r.style.transform=""}};
+ r.addEventListener("pointerup",end);r.addEventListener("pointercancel",end);
+ bg.lastElementChild.onclick=()=>archive(w);
+ w.querySelector(".mi-st").onclick=e=>{const b=e.currentTarget;b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")}});
+</script>

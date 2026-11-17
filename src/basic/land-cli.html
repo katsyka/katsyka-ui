@@ -1,0 +1,27 @@
+<!--CLI Tool Landing|Landings|A developer tool page: monospace hero with a copyable install command, an auto-typing terminal demo, a flags table and a dark-first look.|landing,developer,cli,terminal,copy-->
+<div class="k pg lc">
+<header class="top"><div class="w"><a class="logo" href="#"><span class="lc-mk">›_</span>shipit</a><nav class="links"><a href="#">Docs</a><a href="#">Changelog</a><a href="#">GitHub</a></nav><a class="b sec" href="#">@I(download,16)v2.4.0</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lc-hero"><p class="eb">Open source · MIT · 4 MB binary</p><h1 class="h1">Deploy from the terminal<br>in <span class="lc-ac">one command.</span></h1><p class="lead">shipit builds, uploads and rolls out your app with zero config. Previews per branch, instant rollbacks, logs that stream back to your shell.</p>
+<div class="lc-inst"><code><span class="mu">$</span> curl -fsSL shipit.sh/install | sh</code><button class="b sec sm" id="cp" aria-live="polite">@I(copy,14)<span>Copy</span></button></div></section>
+<section class="w"><div class="lc-term" role="img" aria-label="Terminal running shipit deploy"><div class="lc-tb"><i></i><i></i><i></i><span>~/harbor-web</span></div><pre id="tt"></pre></div></section>
+<section class="sec w lc-feat"><div><h2 class="h2">Boring on purpose.</h2><p class="lead">No dashboard to learn. Everything is a flag, every flag has a sane default.</p></div><table class="lc-tbl"><thead><tr><th>Flag</th><th>Default</th><th>What it does</th></tr></thead><tbody><tr><td><code>--prod</code></td><td class="mu">off</td><td>Promote straight to production</td></tr><tr><td><code>--env</code></td><td class="mu">.env</td><td>Read secrets from a file</td></tr><tr><td><code>--region</code></td><td class="mu">auto</td><td>Pin to a region, e.g. fra1</td></tr><tr><td><code>--rollback</code></td><td class="mu">none</td><td>Restore the previous release in ~2 s</td></tr><tr><td><code>--watch</code></td><td class="mu">off</td><td>Redeploy on every save</td></tr></tbody></table></section>
+<footer class="foot"><div class="w"><span>shipit is maintained by 9 people and 214 contributors.</span><span class="tn">MIT License</span></div></footer>
+</div>
+<style>
+.lc{--ac:light-dark(#0f766e,#5eead4);--ac-h:light-dark(#115e59,#99f6e4);--ac-fg:light-dark(#fff,#042f2e)}
+.lc-mk{font:600 14px 'Geist Mono',monospace;background:var(--fg);color:var(--bg);border-radius:6px;padding:2px 6px}
+.lc-hero{padding:96px 0 48px;display:grid;gap:24px;justify-items:start}.lc-hero .h1{font-size:clamp(38px,6.4vw,76px)}.lc-ac{color:var(--ac)}
+.lc-inst{min-width:0;width:fit-content;display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--sf);border-radius:12px;padding:8px 8px 8px 16px;max-width:100%}.lc-inst code{min-width:0;flex:1;font:14px 'Geist Mono',monospace;white-space:nowrap;overflow:auto}
+.lc-term{border-radius:14px;background:#0c0c0e;color:#e4e4e7;border:1px solid #27272a;overflow:hidden;box-shadow:var(--shadow)}.lc-tb{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid #27272a;font:12px 'Geist Mono',monospace;color:#a1a1aa}.lc-tb i{width:10px;height:10px;border-radius:50%;background:#3f3f46}.lc-tb span{margin-left:8px}
+.lc-term pre{margin:0;padding:20px;font:13.5px/1.7 'Geist Mono',monospace;min-height:260px;white-space:pre-wrap}.lc-term .g{color:#5eead4}.lc-term .d{color:#71717a}.lc-term .y{color:#fde68a}
+.lc-feat{display:grid;grid-template-columns:1fr 1.3fr;gap:48px}.lc-feat .lead{margin-top:16px}
+.lc-tbl{width:100%;border-collapse:collapse;font-size:14px}.lc-tbl th{text-align:left;font-weight:550;color:var(--mu);padding:0 12px 12px 0;border-bottom:1px solid var(--line)}.lc-tbl td{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}.lc-tbl code{font:13px 'Geist Mono',monospace;color:var(--ac)}
+@media (max-width:760px){.lc-feat{grid-template-columns:1fr}.lc-hero{padding-top:48px}.lc-tbl th:nth-child(2),.lc-tbl td:nth-child(2){display:none}}
+</style>
+<script>
+const L=[['$ ','shipit deploy',1],['d','› Detected Next.js 15 · pnpm'],['d','› Building… 41 files changed'],['','  ✓ Compiled in 8.2s'],['','  ✓ Uploaded 3.1 MB to fra1'],['y','› Preview  https://harbor-web-git-feat-cart.shipit.app'],['g','✓ Live in 14s · rollback with shipit --rollback']];
+const pre=document.getElementById('tt');const red=matchMedia('(prefers-reduced-motion:reduce)').matches;
+async function run(){pre.innerHTML='';for(const [c,t,typed] of L){const s=document.createElement('span');s.className=c==='$ '?'g':c;pre.append(s);if(typed&&!red){s.textContent='$ ';for(const ch of t){s.textContent+=ch;await new Promise(r=>setTimeout(r,45))}}else s.textContent=(c==='$ '?'$ ':'')+t;pre.append('\n');await new Promise(r=>setTimeout(r,red?0:420))}}
+new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){run();o.disconnect()}}).observe(pre);
+const cp=document.getElementById('cp');cp.onclick=()=>{const t='curl -fsSL shipit.sh/install | sh',done=()=>{cp.querySelector('span').textContent='Copied';setTimeout(()=>cp.querySelector('span').textContent='Copy',1600)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(done).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove();done()})};
+</script>

@@ -1,0 +1,62 @@
+<style>
+.tv{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.tv :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tv ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.tv *,.tv *::before,.tv *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.tv{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.tv-pn{width:min(340px,100%);padding:10px;background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.tv-hd{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px;font:500 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.tv-hd button{width:26px;height:26px;border:0;border-radius:6px;background:none;color:var(--mu);cursor:pointer;display:grid;place-items:center}
+.tv-hd button:hover{background:var(--sf2);color:var(--fg)}
+.tv-hd svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tv ul{list-style:none;margin:0;padding:0}
+.tv [role=group]{display:grid;grid-template-rows:0fr;transition:grid-template-rows .22s var(--ease)}
+.tv [role=group]>div{overflow:hidden;position:relative}
+.tv [role=group]>div::before{content:"";position:absolute;top:0;bottom:4px;left:calc(var(--d) * 16px + 17px);width:1px;background:var(--line)}
+.tv [aria-expanded=true]>[role=group]{grid-template-rows:1fr}
+.tv-r{display:flex;align-items:center;gap:6px;height:32px;padding-right:8px;padding-left:calc(var(--d) * 16px + 6px);border-radius:8px;font-size:14px;color:var(--fg);cursor:pointer;user-select:none;white-space:nowrap}
+.tv-r:hover{background:var(--sf)}
+.tv [role=treeitem]:focus{outline:0}
+.tv [role=treeitem]:focus-visible>.tv-r{outline:2px solid var(--focus);outline-offset:-2px}
+.tv [aria-selected=true]>.tv-r{background:var(--ac-sf);color:var(--ac);font-weight:550}
+.tv-cv{flex:none;width:16px;height:16px;fill:none;stroke:var(--mu);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s var(--ease)}
+.tv [aria-expanded=true]>.tv-r .tv-cv{transform:rotate(90deg)}
+.tv-sp{flex:none;width:16px}
+.tv-ic{flex:none;width:16px;height:16px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tv-ic.fo{stroke:#d97706;fill:color-mix(in oklab,#f59e0b 25%,transparent)}
+.tv-ic.ts{stroke:#2563eb}.tv-ic.cs{stroke:#db2777}.tv-ic.md{stroke:var(--mu)}.tv-ic.js{stroke:#ca8a04}
+.tv-r em{margin-left:auto;font-style:normal;font:500 11px "Geist Mono",monospace;padding:1px 6px;border-radius:4px}
+.tv-r em.m{color:var(--warn);background:var(--warn-sf)}.tv-r em.a{color:var(--ok);background:var(--ok-sf)}
+.tv-ft{margin-top:8px;padding:10px 8px 4px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mu);font-family:"Geist Mono",monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+<div class="tv">
+  <div class="tv-pn">
+    <div class="tv-hd"><span>Explorer</span><span><button aria-label="Collapse all" id="tvC"><svg viewBox="0 0 24 24"><path d="m7 20 5-5 5 5M7 4l5 5 5-5"/></svg></button></span></div>
+    <ul role="tree" aria-label="Files" id="tvT"></ul>
+    <div class="tv-ft" aria-live="polite" id="tvP"></div>
+  </div>
+</div>
+<script>
+const DATA=["katsyka-ui",[["src",[["components",[["Button.tsx","ts","M"],["Dialog.tsx","ts"],["Tabs.tsx","ts","A"]]],["styles",[["tokens.css","cs"],["reset.css","cs"]]],["index.ts","ts"]]],["public",[["favicon.svg","md"]]],["package.json","js"],["README.md","md"]]];
+const ic={fo:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',f:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6"/>'};
+const T=document.getElementById("tvT"),P=document.getElementById("tvP");
+const build=(node,d,path)=>{const [name,kids,badge]=node,isDir=Array.isArray(kids),p=path?path+"/"+name:name;
+  const li=document.createElement("li");li.setAttribute("role","treeitem");li.dataset.p=p;li.tabIndex=-1;li.setAttribute("aria-selected","false");
+  li.innerHTML=`<div class="tv-r" style="--d:${d}">${isDir?'<svg class="tv-cv" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>':'<span class="tv-sp"></span>'}<svg class="tv-ic ${isDir?"fo":kids}" viewBox="0 0 24 24">${isDir?ic.fo:ic.f}</svg><span>${name}</span>${badge?`<em class="${badge==="M"?"m":"a"}" title="${badge==="M"?"Modified":"Added"}">${badge}</em>`:""}</div>`;
+  if(isDir){li.setAttribute("aria-expanded",name!=="public"?"true":"false");const g=document.createElement("ul");g.setAttribute("role","group");const inner=document.createElement("div");inner.style.setProperty("--d",d);kids.forEach(k=>inner.append(build(k,d+1,p)));g.append(inner);li.append(g)}
+  return li};
+T.append(build(DATA,0,""));
+const visible=()=>[...T.querySelectorAll("[role=treeitem]")].filter(li=>{let p=li.parentElement.closest("[role=treeitem]");while(p){if(p.getAttribute("aria-expanded")!=="true")return false;p=p.parentElement.closest("[role=treeitem]")}return true});
+const focus=li=>{T.querySelectorAll("[role=treeitem]").forEach(x=>x.tabIndex=-1);li.tabIndex=0;li.focus()};
+const select=li=>{T.querySelectorAll("[aria-selected=true]").forEach(x=>x.setAttribute("aria-selected","false"));li.setAttribute("aria-selected","true");P.textContent=li.dataset.p};
+const toggle=(li,o)=>{if(li.hasAttribute("aria-expanded"))li.setAttribute("aria-expanded",o??li.getAttribute("aria-expanded")!=="true")};
+T.addEventListener("click",e=>{const r=e.target.closest(".tv-r");if(!r)return;const li=r.parentElement;toggle(li);select(li);focus(li)});
+T.addEventListener("keydown",e=>{const li=document.activeElement.closest("[role=treeitem]");if(!li)return;const v=visible(),i=v.indexOf(li);
+  const k=e.key;if(["ArrowDown","ArrowUp","ArrowRight","ArrowLeft","Home","End","Enter"," "].includes(k))e.preventDefault();
+  if(k==="ArrowDown"&&v[i+1])focus(v[i+1]);else if(k==="ArrowUp"&&v[i-1])focus(v[i-1]);else if(k==="Home")focus(v[0]);else if(k==="End")focus(v[v.length-1]);
+  else if(k==="ArrowRight"){if(li.getAttribute("aria-expanded")==="false")toggle(li,true);else if(li.getAttribute("aria-expanded")==="true")focus(li.querySelector("[role=treeitem]"))}
+  else if(k==="ArrowLeft"){if(li.getAttribute("aria-expanded")==="true")toggle(li,false);else{const p=li.parentElement.closest("[role=treeitem]");if(p)focus(p)}}
+  else if(k==="Enter"||k===" "){select(li);toggle(li)}});
+document.getElementById("tvC").addEventListener("click",()=>T.querySelectorAll("[aria-expanded]").forEach((x,i)=>i&&x.setAttribute("aria-expanded","false")));
+const first=T.querySelector('[data-p="katsyka-ui/src/components/Button.tsx"]');select(first);first.tabIndex=0;
+</script>

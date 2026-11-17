@@ -1,0 +1,41 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.sp4{width:min(860px,100%);display:grid;gap:20px}.sp4-h{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}.sp4-h h2{margin:0;font-size:24px;letter-spacing:-.02em}.sp4-h p{margin:4px 0 0;font-size:14px}
+.sp4-m{display:flex;background:var(--sf2);border-radius:10px;padding:3px}.sp4-m button{height:34px;padding:0 14px;border-radius:8px;font-size:13px;font-weight:550;color:var(--mu)}.sp4-m [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 2px #0000001a}
+.sp4-g{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;border-top:2px solid var(--fg)}.sp4-s{padding:18px 0;border-bottom:1px solid var(--line)}.sp4-s h3{margin:0 0 10px;font-size:13px;font-weight:650}.sp4-s dl{margin:0;display:grid;grid-template-columns:130px 1fr;gap:6px 14px;font-size:14px}.sp4-s dt{color:var(--mu)}.sp4-s dd{margin:0;font-variant-numeric:tabular-nums}.sp4-s dd.ch{font-weight:650}.sp4-s dd.ch::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--ac);margin-left:8px;vertical-align:middle}.sp4-s dd.fl{animation:spf 1s}@keyframes spf{0%{background:var(--ac-sf)}100%{background:transparent}}
+#dl{justify-self:start}@media (max-width:700px){.sp4-g{grid-template-columns:1fr}}
+</style>
+<div class="k"><section class="sp4"><div class="sp4-h"><div><h2>Kestrel 14 · technical specifications</h2><p class="mu">Values that differ between models are marked.</p></div><div class="sp4-m" role="radiogroup" aria-label="Model" id="m"><button role="radio" aria-checked="true" data-m="0">Kestrel 14</button><button role="radio" aria-checked="false" data-m="1">Kestrel 14 Pro</button></div></div><div class="sp4-g" id="g"></div><button class="b sec sm" id="dl"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download as text</button></section></div>
+<script>
+const S=[["Display",[["Size","14.2″","14.2″"],["Resolution","2880 × 1800","3024 × 1964"],["Refresh","60 Hz","120 Hz adaptive"],["Brightness","500 nits","1,000 nits"]]],["Performance",[["Chip","K3, 8-core","K3 Pro, 12-core"],["Memory","16 GB","32 GB"],["Storage","512 GB","1 TB"]]],["Battery & power",[["Battery","70 Wh","72 Wh"],["Video playback","Up to 18 h","Up to 20 h"],["Charger","65 W USB-C","96 W USB-C"]]],["Size & weight",[["Thickness","14.9 mm","15.5 mm"],["Weight","1.38 kg","1.55 kg"]]],["Ports",[["USB-C / TB4","2","3"],["HDMI","None","HDMI 2.1"],["Card reader","None","SDXC"]]],["Wireless",[["Wi-Fi","Wi-Fi 7","Wi-Fi 7"],["Bluetooth","5.4","5.4"]]]];let m=0;
+function draw(fl){document.getElementById('g').innerHTML=S.map(([g,R])=>`<section class="sp4-s"><h3>${g}</h3><dl>${R.map(([k,a,b])=>`<dt>${k}</dt><dd class="${a!==b?'ch':''}${fl&&a!==b?' fl':''}">${m?b:a}</dd>`).join('')}</dl></section>`).join('')}
+document.getElementById('m').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));m=+b.dataset.m;draw(1)};
+document.getElementById('dl').onclick=()=>{const t=`${m?'Kestrel 14 Pro':'Kestrel 14'}\n\n`+S.map(([g,R])=>g+'\n'+R.map(([k,a,b])=>`  ${k}: ${m?b:a}`).join('\n')).join('\n\n'),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/plain'}));a.download='kestrel-14-specs.txt';a.click()};draw();
+</script>

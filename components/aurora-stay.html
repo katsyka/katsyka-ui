@@ -1,0 +1,79 @@
+<style>
+.as{position:relative;height:420vh;background:#060b12;color:#fff}
+.as-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.as canvas{position:absolute;inset:0;width:100%;height:100%}
+.as-fc{position:absolute;right:clamp(20px,4vw,56px);top:clamp(20px,4vh,36px);display:flex;gap:22px;font:500 12px "Geist Mono",monospace;letter-spacing:.12em;color:#ffffffd8}
+.as-fc b{color:#fff;font-weight:500}
+.as-fc span::before{content:"";display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:#4ade80;vertical-align:1px}
+.as-t{position:absolute;left:clamp(20px,5vw,72px);top:clamp(64px,12vh,120px);max-width:640px}
+.as small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:#ffffffd0}
+.as h2{margin:14px 0 0;font-size:clamp(48px,6.8vw,108px);line-height:.88;letter-spacing:-.06em;font-weight:600}
+.as em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.025em}
+.as-t p{margin:22px 0 0;max-width:400px;font-size:17px;line-height:1.55;color:#ffffffe6}
+.as-f{position:absolute;left:clamp(20px,5vw,72px);bottom:clamp(32px,9vh,84px);max-width:640px}
+.as-f p{max-width:460px}
+.as-f h3{margin:12px 0 14px;font-size:clamp(32px,4vw,58px);line-height:.95;letter-spacing:-.05em;font-weight:600}
+.as-f p{margin:0;font-size:16.5px;line-height:1.6;color:#ffffffe6}
+.as-bk{position:absolute;left:50%;bottom:clamp(20px,6vh,56px);translate:-50% 0;width:min(860px,calc(100% - 32px));display:grid;grid-template-columns:1fr 1fr auto auto;align-items:center;gap:6px;padding:8px;border-radius:22px;background:#0b111acc;-webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);box-shadow:inset 0 0 0 1px #ffffff1f,0 30px 60px -30px #000}
+.as-bk label,.as-g{display:grid;gap:3px;padding:8px 16px;border-radius:14px;transition:background .2s}
+.as-bk label:hover,.as-bk label:focus-within{background:#ffffff10}
+.as-bk label>span,.as-g>span{font:500 10.5px "Geist Mono",monospace;letter-spacing:.14em;color:#ffffffa8}
+.as-bk input{width:100%;padding:0;border:0;background:none;color:#fff;font:500 15px Geist,system-ui,sans-serif;color-scheme:dark;outline:0}
+.as-bk label:focus-within{box-shadow:inset 0 0 0 2px #93c5fd}
+.as-g div{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
+.as-g button{width:26px;height:26px;border-radius:50%;border:0;background:#ffffff1a;color:#fff;font-size:16px;line-height:1;cursor:pointer;transition:background .2s}
+.as-g button:hover:not(:disabled){background:#ffffff33}.as-g button:disabled{opacity:.35;cursor:default}
+.as-g button:focus-visible,.as-go:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+.as-go{height:58px;padding:0 26px;border:0;border-radius:15px;background:#fff;color:#060b12;font:600 15px Geist,system-ui,sans-serif;cursor:pointer;display:grid;align-content:center;text-align:left;transition:transform .2s}
+.as-go:hover{transform:translateY(-1px)}
+.as-go small{font:500 11px Geist,system-ui,sans-serif;letter-spacing:0;color:#52525b}
+.as .bt{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .9s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.as .bt.on{opacity:1;transform:none;pointer-events:auto}
+.as-bk.bt{transform:translateY(40px)}.as-bk.bt.on{transform:none}
+.as-after{height:40vh;display:grid;place-items:center;background:#060b12;color:#64748b;font-size:15px}
+@media (max-width:760px){.as-bk{grid-template-columns:1fr 1fr}.as-go{grid-column:1/-1}.as-fc span:last-child{display:none}}
+@media (prefers-reduced-motion:reduce){.as .bt,.as-bk.bt{transform:none;transition:opacity .3s}}
+</style>
+<section class="as" aria-label="Kuru Cabin">
+  <div class="as-pin">
+    <canvas role="img" aria-label="Slow orbit around a lit glass cabin on a frozen lake under green aurora"></canvas>
+    <div class="as-fc"><span>AURORA TONIGHT <b>Kp 6</b></span><span>CLEAR SKY <b>82%</b></span></div>
+    <div class="as-t bt on"><small>KURU CABIN · 69° N</small><h2>Sleep under<br><em>the lights.</em></h2><p>One glass cabin on a frozen lake, three hours past the last road.</p></div>
+    <div class="as-f bt"><small>THE ROOM</small><h3>Four glass walls, <em>one stove.</em></h3><p>Heated floors, a bed that faces north and a sauna on the ice. Your nearest neighbour is eleven kilometres away.</p></div>
+    <div class="as-t bt"><small>DARK SEASON · NOV–MAR</small><h2>Pick your<br><em>nights.</em></h2></div>
+    <form class="as-bk bt" onsubmit="return false" aria-label="Check availability">
+      <label><span>CHECK IN</span><input type="date" name="in" value="2026-12-12" min="2026-11-01"></label>
+      <label><span>CHECK OUT</span><input type="date" name="out" value="2026-12-15" min="2026-11-02"></label>
+      <div class="as-g" role="group" aria-label="Guests"><span>GUESTS</span><div><button type="button" data-d="-1" aria-label="Fewer guests">−</button><output aria-live="polite">2</output><button type="button" data-d="1" aria-label="More guests">+</button></div></div>
+      <button class="as-go" type="submit">Reserve<small>3 nights · €1,260</small></button>
+    </form>
+  </div>
+</section>
+<div class="as-after">The page continues.</div>
+<script>
+(()=>{
+// 120 frames scrubbed by scroll (a half orbit around the cabin). The booking bar is a working form: nights and total update from the dates and guests.
+const N=120,DIR="media/aurora/",RATE=420,EXTRA=40;
+const root=document.querySelector(".as"),c=root.querySelector("canvas"),x=c.getContext("2d"),$=s=>root.querySelector(s);
+const [t1,t2]=root.querySelectorAll(".as-t"),fact=$(".as-f"),bk=$(".as-bk"),din=bk.elements.in,dout=bk.elements.out,out=bk.querySelector("output"),sum=bk.querySelector(".as-go small"),[minus,plus]=bk.querySelectorAll(".as-g button");
+let guests=2;
+function price(){const n=Math.round((new Date(dout.value)-new Date(din.value))/864e5);
+  sum.textContent=n>0?`${n} night${n>1?"s":""} · €${(n*(RATE+Math.max(0,guests-2)*EXTRA)).toLocaleString("en-US")}`:"Choose your dates";
+  out.textContent=guests;minus.disabled=guests<=1;plus.disabled=guests>=4}
+din.addEventListener("change",()=>{if(din.value){const d=new Date(din.value);d.setDate(d.getDate()+1);dout.min=d.toISOString().slice(0,10);if(dout.value<=din.value)dout.value=dout.min}price()});
+dout.addEventListener("change",price);
+bk.querySelectorAll(".as-g button").forEach(b=>b.addEventListener("click",()=>{guests=Math.max(1,Math.min(4,guests+ +b.dataset.d));price()}));
+bk.addEventListener("submit",()=>{const s=sum.textContent;sum.textContent="Checking…";setTimeout(()=>{sum.textContent="Available · "+s},700)});price();
+const imgs=[],load=i=>{if(imgs[i])return;const im=imgs[i]=new Image();im.onload=()=>{if(Math.abs(i-cur)<9)draw(true)};im.src=DIR+String(i+1).padStart(3,"0")+".jpg"};
+load(0);new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){o.disconnect();[8,4,2,1].forEach(s=>{for(let i=0;i<N;i+=s)load(i)})}},{rootMargin:"100%"}).observe(root);
+let cur=0,tgt=0,shown=-1,raf=0;
+const pick=f=>{for(let d=0;d<N;d++)for(const j of[f-d,f+d]){const im=imgs[j];if(im&&im.complete&&im.naturalWidth)return im}};
+function draw(force){const f=Math.round(cur);if(f===shown&&!force)return;const im=pick(f);if(!im)return;shown=f;
+  const s=Math.max(c.width/im.naturalWidth,c.height/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;x.drawImage(im,(c.width-w)/2,(c.height-h)/2,w,h)}
+new ResizeObserver(()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;draw(true)}).observe(c);
+function update(){draw();const p=cur/(N-1);t1.classList.toggle("on",p<.25);fact.classList.toggle("on",p>.33&&p<.62);t2.classList.toggle("on",p>.72);bk.classList.toggle("on",p>.72)}
+const tick=()=>{cur+=(tgt-cur)*.2;if(Math.abs(tgt-cur)<.05)cur=tgt;update();raf=cur===tgt?0:requestAnimationFrame(tick)};
+const onScroll=()=>{const r=root.getBoundingClientRect();tgt=Math.max(0,Math.min(1,-r.top/(root.offsetHeight-innerHeight)))*(N-1);if(!raf)raf=requestAnimationFrame(tick)};
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+})();
+</script>

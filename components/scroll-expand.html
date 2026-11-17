@@ -1,0 +1,39 @@
+<style>
+.se{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.se :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.se ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.se *,.se *::before,.se *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.se{position:relative;height:320vh;background:var(--bg);color:var(--fg);font-family:Geist,system-ui,sans-serif}
+.se-pin{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center}
+.se-m{--p:0;position:absolute;left:50%;top:50%;width:calc(min(420px,62vw) + (100vw - min(420px,62vw))*var(--e,0));height:calc(min(300px,46vh) + (100vh - min(300px,46vh))*var(--e,0));translate:-50% -50%;border-radius:calc(var(--r3)*(1 - var(--e,0)));overflow:hidden}
+.se-m img{width:100%;height:100%;object-fit:cover;scale:calc(1.3 - .3*var(--e,0))}
+.se-w{position:absolute;margin:0;font-size:clamp(48px,9vw,150px);line-height:.85;letter-spacing:-.065em;font-weight:600;white-space:nowrap;opacity:calc(1 - var(--e,0)*1.6)}
+.se-w em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.03em}
+.se-a{left:clamp(16px,6vw,96px);top:calc(50% - min(150px,23vh) - .9em);translate:calc(var(--e,0)*-60vw) 0}
+.se-b{right:clamp(16px,6vw,96px);top:calc(50% + min(150px,23vh) + .08em);translate:calc(var(--e,0)*60vw) 0}
+.se-c{position:absolute;left:clamp(20px,5vw,64px);bottom:clamp(28px,8vh,72px);max-width:520px;color:#fff;opacity:0;translate:0 24px;transition:opacity .6s,translate .8s cubic-bezier(.2,.8,.2,1)}
+.se-c.on{opacity:1;translate:0}
+.se-c small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:#ffffffe0}
+.se-c h3{margin:12px 0 18px;font-size:clamp(32px,4vw,56px);line-height:.95;letter-spacing:-.05em;font-weight:600}
+.se-c a{display:inline-flex;align-items:center;height:46px;padding:0 22px;border-radius:99px;background:#fff;color:#1a0f0a;font-size:15px;font-weight:550;text-decoration:none}
+.se-c a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.se-after{height:40vh;display:grid;place-items:center;background:var(--bg);color:var(--mu);font-size:15px}
+</style>
+<section class="se" aria-label="Red rock country">
+  <div class="se-pin">
+    <div class="se-m"><img src="media/pics/w/1016.jpg" alt="Red sandstone cliffs lit by late sun"></div>
+    <h2 class="se-w se-a">Red rock</h2>
+    <p class="se-w se-b"><em>country.</em></p>
+    <div class="se-c"><small>FIELD TRIP · 6 DAYS</small><h3>Walk the canyon rim at last light.</h3><a href="#">See the route</a></div>
+  </div>
+</section>
+<div class="se-after">The page continues.</div>
+<script>
+(()=>{
+// Scroll progress drives one custom property (--e, eased); the card grows to full bleed while the headline splits off both sides.
+const root=document.querySelector(".se"),m=root.querySelector(".se-pin"),cap=root.querySelector(".se-c");let raf=0;
+function update(){raf=0;const r=root.getBoundingClientRect(),p=Math.max(0,Math.min(1,-r.top/(root.offsetHeight-innerHeight))),q=Math.min(1,p/.7),e=q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2;
+  m.style.setProperty("--e",e.toFixed(4));cap.classList.toggle("on",p>.78)}
+addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(update)},{passive:true});update();
+})();
+</script>

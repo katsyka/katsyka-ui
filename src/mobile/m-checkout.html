@@ -1,0 +1,47 @@
+<!--Checkout|One-page mobile checkout: address card, delivery speed as large radio rows, saved payment methods, an order summary and a Pay button that loads into a success sheet.|checkout,payment,radio,form,success-->
+<header class="bar"><div class="nb"><span><button class="ib" aria-label="Back">@I(left)</button></span><h2>Checkout</h2><span></span></div></header>
+<main class="sc ck">
+  <p class="cap">Ship to</p>
+  <div class="grp"><a class="row" href="#">@I(pin)<span class="tx"><b>Mara Lind</b><small>Strandgaten 12, 5013 Bergen</small></span><span class="ck-e">Edit</span></a></div>
+  <p class="cap">Delivery</p>
+  <div class="grp ck-r" style="--inset:52px">
+    <label class="row"><input type="radio" name="d" value="0" checked><span class="tx"><b>Standard</b><small>Thu 14 – Mon 18 Nov</small></span><span class="tn">Free</span></label>
+    <label class="row"><input type="radio" name="d" value="12"><span class="tx"><b>Express</b><small>Tomorrow by 18:00</small></span><span class="tn">$12</span></label>
+  </div>
+  <p class="cap">Pay with</p>
+  <div class="grp ck-r" style="--inset:52px">
+    <label class="row"><input type="radio" name="p" checked><span class="tx"><b>Visa ·· 4242</b><small>Expires 08/28</small></span>@I(card)</label>
+    <label class="row"><input type="radio" name="p"><span class="tx"><b>Wallet balance</b><small class="tn">$212.40 available</small></span>@I(wallet)</label>
+    <a class="row" href="#" style="color:var(--ac)">@I(plus)<span class="tx"><b>Add payment method</b></span></a>
+  </div>
+  <dl class="ca-s"><div><dt>Items (3)</dt><dd class="tn">$288</dd></div><div><dt>Delivery</dt><dd class="tn" id="dl">Free</dd></div><div class="tot"><dt>Total</dt><dd class="tn" id="tt">$288</dd></div></dl>
+  <p class="ck-n">By paying you agree to the Terms of sale. You can cancel within 30 minutes.</p>
+</main>
+<div class="cta"><button class="btn" id="pay">@I(lock,18)<span>Pay <span class="tn" id="pt">$288</span></span></button></div>
+<div class="ck-ok" id="ok" hidden><div class="ck-sh" role="dialog" aria-modal="true" aria-labelledby="okh"><span class="ck-ck"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="m15 27 7 7 15-16"/></svg></span><h2 id="okh">Order placed</h2><p>Order <b class="tn">#48213</b> is confirmed. We'll text you when it ships.</p><button class="btn" id="done">Done</button></div></div>
+<style>
+.ck{padding-bottom:calc(var(--sbt) + 96px)}
+.ck .row>.i{color:var(--mu)}.ck-e{color:var(--ac);font-weight:500}
+.ck-r input{appearance:none;-webkit-appearance:none;margin:0;width:24px;height:24px;flex:none;border-radius:50%;border:2px solid var(--ctl);transition:border .15s}
+.ck-r input:checked{border:7px solid var(--ac)}
+.ck-r .row{cursor:pointer}
+.ca-s{margin:24px var(--gut) 0}.ca-s div{display:flex;justify-content:space-between;padding:6px 0;font-size:15px}.ca-s dt{color:var(--mu)}.ca-s dd{margin:0}
+.ca-s .tot{margin-top:6px;padding-top:12px;border-top:.5px solid var(--line);font-size:17px;font-weight:650}.ca-s .tot dt{color:var(--fg)}
+.ck-n{margin:12px var(--gut);font-size:13px;line-height:18px;color:var(--mu)}
+.btn.load span{opacity:0}.btn.load .i{opacity:0}.btn.load{position:relative}.btn.load::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(1turn)}}
+.ck-ok{position:absolute;inset:0;z-index:100;background:#0006;display:flex;align-items:flex-end;animation:fd .25s}
+.ck-ok[hidden]{display:none}
+.ck-sh{width:100%;background:var(--bg);border-radius:28px 28px 0 0;padding:32px 24px max(24px,var(--sbt));text-align:center;animation:up .4s var(--ease)}
+.ck-sh h2{margin:16px 0 4px;font-size:24px;font-weight:700;letter-spacing:-.02em}.ck-sh p{margin:0 0 24px;color:var(--mu);font-size:16px;line-height:22px}
+.ck-ck svg{width:72px;height:72px;fill:none;stroke:var(--ok);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ck-ck circle{stroke-dasharray:151;stroke-dashoffset:151;animation:dr .6s .1s var(--ease) forwards}.ck-ck path{stroke-dasharray:36;stroke-dashoffset:36;animation:dr .35s .55s var(--ease) forwards}
+@keyframes dr{to{stroke-dashoffset:0}}@keyframes up{from{transform:translateY(100%)}}@keyframes fd{from{opacity:0}}
+</style>
+<script>
+document.querySelectorAll("[name=d]").forEach(r=>r.onchange=()=>{const d=+r.value;dl.textContent=d?"$"+d:"Free";tt.textContent=pt.textContent="$"+(288+d)});
+document.querySelectorAll('a[href="#"]').forEach(a=>a.onclick=e=>e.preventDefault());
+pay.onclick=()=>{pay.classList.add("load");pay.disabled=true;setTimeout(()=>{pay.classList.remove("load");pay.disabled=false;ok.hidden=false;done.focus()},1400)};
+done.onclick=()=>{ok.hidden=true;pay.focus()};ok.onclick=e=>{if(e.target===ok)done.click()};
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!ok.hidden)done.click()});
+</script>

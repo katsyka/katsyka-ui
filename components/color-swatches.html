@@ -1,0 +1,55 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.cs{width:min(380px,100%);padding:24px}.cs h2{margin:0;font-size:17px;font-weight:650}.cs>p{margin:4px 0 16px}
+.cs-g{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.cs-g button{position:relative;aspect-ratio:1;border-radius:50%;background:var(--c)!important;box-shadow:inset 0 0 0 1px #0000001a;transition:transform .15s,box-shadow .15s}
+.cs-g button:hover{transform:scale(1.08)}
+.cs-g [aria-checked=true]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--c)}
+.cs-g [aria-checked=true]::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:13px;margin:-8px 0 0 -4px;border:solid var(--ck);border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.cs-hx{display:flex;align-items:center;gap:8px}.cs-dot{width:40px;height:40px;border-radius:10px;flex:none;background:var(--pick);box-shadow:inset 0 0 0 1px #0000001a}
+.cs-hx input{font-family:"Geist Mono",monospace;text-transform:uppercase}
+.cs-e{min-height:18px;margin:6px 0 0;font-size:13px;color:var(--err)}
+.cs-pv{display:flex;align-items:center;gap:16px;margin-top:12px;padding-top:16px;border-top:1px solid var(--line)}
+.cs-pv .b{background:var(--pick);color:var(--pfg)}.cs-pv a{color:var(--pick);font-weight:600;text-underline-offset:3px}
+</style>
+<div class="k"><section class="card cs"><h2>Accent colour</h2><p class="mu">Used for buttons, links and highlights.</p>
+  <div class="cs-g" role="radiogroup" aria-label="Accent colour" id="g"></div>
+  <label class="lbl" for="hx" style="margin-top:16px">Custom hex</label><div class="cs-hx"><span class="cs-dot" id="dot"></span><input class="in tn" id="hx" maxlength="7" spellcheck="false" autocomplete="off"></div><p class="cs-e" id="er" role="alert"></p>
+  <div class="cs-pv"><span class="mu">Preview</span><button class="b" id="pv">Save changes</button><a href="#" id="pl">View settings</a></div></section></div>
+<script>
+const S=["#c2410c","#dc2626","#db2777","#9333ea","#4f46e5","#2563eb","#0891b2","#0d9488","#16a34a","#65a30d","#ca8a04","#18181b"];
+const lum=h=>{const c=[1,3,5].map(i=>{let v=parseInt(h.substr(i,2),16)/255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4});return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+const k=document.querySelector(".k");
+g.innerHTML=S.map((c,i)=>`<button role="radio" aria-checked="false" tabindex="-1" aria-label="${c}" style="--c:${c};--ck:${lum(c)>.4?"#111":"#fff"}"></button>`).join("");
+const B=[...g.children];
+const set=(h,from)=>{k.style.setProperty("--pick",h);k.style.setProperty("--pfg",lum(h)>.4?"#111":"#fff");B.forEach(b=>{const on=b.getAttribute("aria-label").toLowerCase()===h.toLowerCase();b.setAttribute("aria-checked",on);b.tabIndex=on?0:-1});if(!B.some(b=>b.tabIndex===0))B[0].tabIndex=0;if(from!=="hex")hx.value=h.toUpperCase();er.textContent=""};
+B.forEach((b,i)=>{b.onclick=()=>set(S[i]);b.onkeydown=e=>{const d={ArrowRight:1,ArrowDown:6,ArrowLeft:-1,ArrowUp:-6}[e.key];if(d){e.preventDefault();const n=B[(i+d+B.length)%B.length];n.focus();n.click()}}});
+hx.oninput=()=>{let v=hx.value.trim();if(v&&v[0]!=="#")v="#"+v;if(/^#[0-9a-f]{6}$/i.test(v)){set(v,"hex");hx.removeAttribute("aria-invalid")}else{er.textContent=v.length>=7?"Use six hex digits, like #2563EB.":"";hx.setAttribute("aria-invalid",v.length>=7)}};
+set(S[0]);pl.onclick=e=>e.preventDefault();
+</script>

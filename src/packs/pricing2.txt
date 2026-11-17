@@ -1,0 +1,131 @@
+=== price-enterprise
+<!--Enterprise Contact Pricing|Pricing|Two self-serve plans plus a dark enterprise panel with a short qualifying form (company size, needs as chips), a promised response time and a booked-call confirmation.|pricing,enterprise,sales,contact,form-->
+<div class="k">
+<section class="pn"><div class="pn-c"><span class="eb">Pro</span><b class="tn">€24<small>/mo</small></b><p class="mu">For individuals and small teams.</p><a class="b sec" href="#">Start trial</a></div><div class="pn-c"><span class="eb">Team</span><b class="tn">€19<small>/seat/mo</small></b><p class="mu">Shared workspaces and admin tools.</p><a class="b sec" href="#">Start trial</a></div>
+<div class="pn-e"><span class="eb">Enterprise</span><h2>Custom contracts, SSO, on-prem.</h2><form id="f" novalidate><label><span class="lbl">Work email</span><input class="in" id="em" type="email" autocomplete="email"></label><label><span class="lbl">Company size</span><select class="in" id="sz"><option>200–1,000</option><option>1,000–5,000</option><option>5,000+</option></select></label><fieldset><legend class="lbl">What do you need?</legend><div class="pn-ch" id="ch"><button type="button" aria-pressed="true">SSO / SCIM</button><button type="button" aria-pressed="false">On-prem</button><button type="button" aria-pressed="false">Custom DPA</button><button type="button" aria-pressed="false">Invoicing</button></div></fieldset><p class="pn-er" id="er" role="alert"></p><button class="b pn-go" id="go">Talk to sales</button><p class="pn-n">@I(clock,14) A human replies within one business day.</p></form><div class="pn-ok" id="ok" hidden>@I(check,24)<b>Thanks, request received.</b><span>We'll email you to book a 30-minute call.</span></div></div></section>
+</div>
+<style>
+.pn{width:min(1040px,100%);display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:16px;align-items:stretch}
+.pn-c{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:12px;align-content:start}.pn-c b{font-size:40px;letter-spacing:-.03em}.pn-c small{font-size:14px;color:var(--mu);font-weight:500}.pn-c p{margin:0;font-size:14px}.pn-c .b{height:44px;margin-top:8px}
+.pn-e{background:#111113;color:#f4f4f5;border-radius:18px;padding:28px;--line:#2a2a2f;--ctl:#52525b;--mu:#a1a1aa;--bg:#18181b;--fg:#f4f4f5}.pn-e .eb{color:#a1a1aa;font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:600}.pn-e h2{margin:6px 0 18px;font-size:22px;letter-spacing:-.02em}
+.pn-e form{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pn-e fieldset,.pn-er,.k .pn-go,.pn-n{grid-column:1/-1}.pn-e fieldset{border:0;margin:0;padding:0}.pn-e .in{height:44px;font-size:16px;color-scheme:dark}
+.pn-ch{display:flex;gap:6px;flex-wrap:wrap}.pn-ch button{height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--ctl);font-size:13px;color:#d4d4d8}.pn-ch [aria-pressed=true]{background:#f4f4f5;color:#111;border-color:#f4f4f5}
+.k .pn-go{height:44px;background:#f4f4f5;color:#111}.k .k .pn-go:hover{background:#fff}.pn-n{margin:0;font-size:12px;color:#a1a1aa;display:flex;gap:6px;align-items:center}.pn-er{color:#f87171;font-size:13px;margin:0}.pn-er:empty{display:none}
+.pn-ok{display:grid;gap:6px;padding:20px 0;animation:pno .3s var(--ease)}.pn-ok .i{color:#4ade80}.pn-ok span{color:#a1a1aa}@keyframes pno{from{opacity:0}}
+@media (max-width:860px){.pn{grid-template-columns:1fr 1fr}.pn-e{grid-column:1/-1}}@media (max-width:520px){.pn{grid-template-columns:1fr}.pn-e form{grid-template-columns:1fr}}
+</style>
+<script>
+const $=i=>document.getElementById(i);$('ch').onclick=e=>{const b=e.target.closest('button');if(b)b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true')};
+$('f').onsubmit=e=>{e.preventDefault();const em=$('em'),ok=/^\S+@\S+\.\S+$/.test(em.value),free=/@(gmail|yahoo|hotmail|outlook)\./i.test(em.value);em.setAttribute('aria-invalid',!ok||free);$('er').textContent=!ok?'Enter your work email.':free?'Please use your company email so we can route you.':'';if(!ok||free)return em.focus();const g=$('go');g.disabled=true;g.textContent='Sending…';setTimeout(()=>{$('f').hidden=true;$('ok').hidden=false},800)};
+</script>
+=== price-currency
+<!--Localised Pricing|Pricing|Plan cards with a currency and region picker that converts prices with local rounding (€9, $10, £8, ₹699), shows tax-inclusive notes per region, and remembers the choice in the URL hash.|pricing,currency,localisation,region,i18n-->
+<div class="k">
+<section class="pq"><header><h2>Pricing</h2><label class="pq-cur">@I(globe,16)<span class="vh">Currency</span><select id="cur" aria-label="Currency"><option value="EUR">EUR €</option><option value="USD">USD $</option><option value="GBP">GBP £</option><option value="INR">INR ₹</option><option value="JPY">JPY ¥</option></select></label></header>
+<div class="pq-g" id="g"></div><p class="mu pq-tx" id="tx"></p></section>
+</div>
+<style>
+.pq{width:min(860px,100%)}.pq header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.pq h2{margin:0;font-size:28px;letter-spacing:-.02em}
+.pq-cur{display:flex;gap:6px;align-items:center;height:40px;padding:0 4px 0 12px;border:1px solid var(--ctl);border-radius:10px;color:var(--mu)}.pq-cur select{border:0;background:none;font:inherit;color:var(--fg);height:100%;padding-right:6px;outline:0;font-size:16px}.pq-cur:focus-within{outline:2px solid var(--focus);outline-offset:2px}
+.pq-g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.pq-c{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:8px}.pq-c b{font-size:36px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;animation:pqf .3s var(--ease)}.pq-c small{color:var(--mu);font-size:13px}.pq-c .b{margin-top:10px;height:42px}@keyframes pqf{from{opacity:0;transform:translateY(4px)}}
+.pq-tx{font-size:13px;margin-top:14px}
+@media (max-width:700px){.pq-g{grid-template-columns:1fr}}
+</style>
+<script>
+const R={EUR:['de-DE',1,[5,9,19],'Prices include VAT for EU customers.'],USD:['en-US',1.08,[5,10,20],'Sales tax is added at checkout where applicable.'],GBP:['en-GB',.85,[4,8,16],'Prices include UK VAT.'],INR:['en-IN',90,[399,699,1499],'Prices include 18% GST.'],JPY:['ja-JP',165,[800,1500,3000],'Prices include consumption tax.']},P=[['Solo','For one person'],['Studio','Up to 5 people',1],['Agency','Up to 25 people']];
+const cur=document.getElementById('cur'),g=document.getElementById('g');
+function draw(){const c=cur.value,[loc,,pr,tx]=R[c],f=new Intl.NumberFormat(loc,{style:'currency',currency:c,maximumFractionDigits:0});g.innerHTML=P.map(([n,d,r],i)=>`<div class="pq-c"><span class="eb" style="font-weight:600">${n}</span><b>${f.format(pr[i])}</b><small>per month · ${d}</small><a class="b ${r?'ac':'sec'}" href="#">Choose ${n}</a></div>`).join('');document.getElementById('tx').textContent=tx;try{history.replaceState(null,'','#'+c)}catch(e){}}
+const h=(location.hash||'').slice(1);if(R[h])cur.value=h;else{const l=(navigator.language||'').toLowerCase();cur.value=l.includes('in')&&l.startsWith('hi')?'INR':l==='en-us'?'USD':l==='en-gb'?'GBP':l.startsWith('ja')?'JPY':'EUR'}cur.onchange=draw;draw();
+</script>
+=== price-lifetime
+<!--Lifetime Deal Pricing|Pricing|A limited lifetime-licence offer: tiers by number of devices, a stock meter showing licences left, an honest end date, a versus-subscription break-even line and a refund note.|pricing,lifetime,license,limited,scarcity-->
+<div class="k">
+<section class="card pl"><div class="pl-h"><span class="pill warn">@I(clock,12)Ends 31 Dec</span><h2>Own Darkroom forever</h2><p class="mu">Pay once, get every 3.x update. No subscription, no account.</p></div>
+<div class="pl-t" role="radiogroup" aria-label="Licence" id="t"></div>
+<div class="pl-st"><div class="pl-sh"><span><b class="tn">412</b> of 1,000 lifetime licences left</span><span class="mu tn">59% sold</span></div><div class="pl-bar"><i style="--w:59%"></i></div></div>
+<p class="pl-be" id="be"></p><button class="b ac lg pl-go" id="go"></button><p class="mu pl-r">14-day refund. Works offline. Licence is transferable once.</p></section>
+</div>
+<style>
+.pl{width:min(480px,100%);padding:28px;display:grid;gap:18px}.pl-h{display:grid;gap:8px;justify-items:start}.pl-h h2{margin:0;font-size:24px;letter-spacing:-.02em}.pl-h p{margin:0}
+.pl-t{display:grid;gap:8px}.pl-t button{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-align:left;min-height:56px}.pl-t button span{display:grid}.pl-t small{color:var(--mu);font-size:12px}.pl-t b{font-size:20px;font-variant-numeric:tabular-nums}.pl-t s{color:var(--mu);font-size:13px;margin-right:8px}.pl-t [aria-checked=true]{border:2px solid var(--ac);padding:13px 15px;background:var(--ac-sf)}
+.pl-sh{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}.pl-bar{height:8px;border-radius:4px;background:var(--sf2);overflow:hidden}.pl-bar i{display:block;height:100%;width:var(--w);background:var(--warn);border-radius:4px}
+.pl-be{margin:0;font-size:13px;padding:10px 12px;background:var(--sf);border-radius:10px}.pl-go{width:100%}.pl-r{margin:-6px 0 0;font-size:12px;text-align:center}
+</style>
+<script>
+const T=[["1 device","For a laptop",59,99],["3 devices","Laptop, desktop and one more",89,149],["Studio · 10 devices","For small teams",249,399]],t=document.getElementById('t');let s=1;
+function draw(){t.innerHTML=T.map(([n,d,p,o],i)=>`<button role="radio" aria-checked="${i===s}" data-i="${i}"><span><strong>${n}</strong><small>${d}</small></span><span><s class="tn">€${o}</s><b>€${p}</b></span></button>`).join('');const p=T[s][2],mo=Math.ceil(p/8);document.getElementById('be').textContent=`Equal to ${mo} months of the €8/mo subscription. After that, it's free.`;document.getElementById('go').textContent=`Buy lifetime for €${p}`}
+t.onclick=e=>{const b=e.target.closest('[data-i]');if(b){s=+b.dataset.i;draw();t.querySelector(`[data-i="${s}"]`).focus()}};draw();
+</script>
+=== price-student
+<!--Student Discount Pricing|Pricing|A discount verification flow: regular vs student price, verify with a school email (domain check for .edu/.ac.*), a pending state, then the unlocked price with a renewal note.|pricing,student,discount,verification,education-->
+<div class="k">
+<section class="card pd"><div class="pd-pr"><div><span class="mu">Regular</span><b class="tn" id="rp">€12<small>/mo</small></b></div>@I(arrowr,20)<div class="pd-st"><span class="mu">Students</span><b class="tn">€3<small>/mo</small></b></div></div>
+<div id="a"><h2>Verify you're a student</h2><p class="mu">Use your school email. We check it once a year.</p><form id="f" novalidate><label class="lbl" for="em">School email</label><input class="in" id="em" type="email" autocomplete="email" placeholder="you@university.edu"><p class="pd-er" id="er" role="alert"></p><button class="b ac pd-go" id="go">Send verification link</button></form><p class="pd-alt mu">No school email? <a href="#">Upload a student ID</a></p></div>
+<div id="b" hidden class="pd-ok">@I(check,22)<h2>Student price unlocked</h2><p class="mu">€3/month until <b id="un"></b>. We'll ask you to re-verify then.</p><a class="b ac pd-go" href="#">Continue to checkout</a></div></section>
+</div>
+<style>
+.pd{width:min(420px,100%);padding:28px}.pd-pr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border-radius:14px;background:var(--sf);margin-bottom:20px}.pd-pr>div{display:grid}.pd-pr .i{color:var(--mu)}.pd-pr b{font-size:28px;letter-spacing:-.02em}.pd-pr small{font-size:13px;color:var(--mu);font-weight:500}#rp{text-decoration:line-through;text-decoration-thickness:2px;color:var(--mu)}.pd-st b{color:var(--ac)}
+.pd h2{margin:0 0 4px;font-size:19px}.pd p{margin:0 0 16px}.pd .in{height:44px;font-size:16px}.pd-er{color:var(--err);font-size:13px;margin:6px 0 0!important}.pd-er:empty{display:none}.pd-go{width:100%;height:44px;margin-top:12px}.pd-alt{font-size:13px;text-align:center;margin-top:12px!important}.pd-alt a{color:var(--ac)}
+.pd-ok{display:grid;justify-items:center;text-align:center}.pd-ok>.i{width:48px;height:48px;padding:12px;border-radius:50%;background:var(--ok-sf);color:var(--ok);margin-bottom:10px}
+</style>
+<script>
+const $=i=>document.getElementById(i);
+$('f').onsubmit=e=>{e.preventDefault();const v=$('em').value.trim().toLowerCase(),ok=/^\S+@\S+\.\S+$/.test(v),sch=/\.(edu|ac\.[a-z]{2}|edu\.[a-z]{2})$|@(student|stud|uni)\./.test(v);$('em').setAttribute('aria-invalid',!(ok&&sch));$('er').textContent=!ok?'Enter an email address.':!sch?'That doesn\'t look like a school address. Try your .edu or .ac.* email, or upload an ID.':'';if(!(ok&&sch))return $('em').focus();const g=$('go');g.disabled=true;g.textContent='Waiting for you to click the link…';setTimeout(()=>{const d=new Date();d.setFullYear(d.getFullYear()+1);$('un').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});$('a').hidden=true;$('b').hidden=false},1400)};
+</script>
+=== price-addons
+<!--Plan Builder Pricing|Pricing|Build-your-plan pricing: a base plan plus toggleable add-ons with their own prices and dependency rules (add-on B requires A), a live itemised receipt and a share-this-quote link.|pricing,builder,add-ons,configurator,quote-->
+<div class="k">
+<section class="pb"><div class="pb-l"><h2>Build your plan</h2><div class="pb-base"><b>Base · Hosting</b><span class="mu">2 vCPU, 4 GB RAM, 80 GB SSD</span><span class="tn">€12</span></div><ul class="pb-a" id="a"></ul></div>
+<aside class="card pb-r"><p class="lbl">Your quote</p><ul id="r" class="tn"></ul><div class="pb-t"><span>Monthly</span><b class="tn" id="t"></b></div><button class="b ac pb-go">Deploy this plan</button><button class="b gh pb-go" id="sh">@I(share,16)<span>Copy quote link</span></button></aside></section>
+</div>
+<style>
+.pb{width:min(920px,100%);display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}.pb h2{margin:0 0 14px;font-size:22px;letter-spacing:-.02em}
+.pb-base{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:16px;border-radius:14px;background:var(--sf);margin-bottom:10px}.pb-base span:last-child{grid-row:1/3;grid-column:2;align-self:center;font-weight:650}
+.pb-a{list-style:none;padding:0;margin:0;display:grid;gap:8px}.pb-a label{display:grid;grid-template-columns:auto 1fr auto;gap:2px 14px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);cursor:pointer;transition:border-color .15s}.pb-a label:has(input:checked){border-color:var(--ac)}.pb-a input{width:20px;height:20px;accent-color:var(--ac);grid-row:1/3}.pb-a small{color:var(--mu);font-size:13px;grid-column:2}.pb-a .pr{grid-row:1/3;grid-column:3;font-weight:600;font-variant-numeric:tabular-nums}.pb-a .dis{opacity:.5;cursor:not-allowed}.pb-a .req{color:var(--warn)}
+.pb-r{padding:20px;position:sticky;top:16px;display:grid;gap:12px}.pb-r ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:14px}.pb-r li{display:flex;justify-content:space-between;animation:pbi .25s var(--ease)}@keyframes pbi{from{opacity:0;transform:translateX(-4px)}}
+.pb-t{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:12px}.pb-t b{font-size:28px;letter-spacing:-.02em}.pb-go{width:100%;height:44px}
+@media (max-width:760px){.pb{grid-template-columns:1fr}.pb-r{position:static}}
+</style>
+<script>
+const A=[["db","Managed Postgres","Daily backups, 10 GB",15],["rep","Read replica","Requires Managed Postgres",15,"db"],["cdn","Global CDN","1 TB egress included",8],["img","Image resizing","On-the-fly, requires CDN",5,"cdn"],["sup","Priority support","1-hour response, 24/7",29]],on=new Set(['db','cdn']),a=document.getElementById('a');
+function draw(){a.innerHTML=A.map(([k,n,d,p,req])=>{const dis=req&&!on.has(req);if(dis)on.delete(k);return `<li><label class="${dis?'dis':''}"><input type="checkbox" data-k="${k}" ${on.has(k)?'checked':''} ${dis?'disabled':''}><b>${n}</b><small class="${dis?'req':''}">${d}</small><span class="pr">+€${p}</span></label></li>`}).join('');const L=[["Hosting",12],...A.filter(x=>on.has(x[0])).map(x=>[x[1],x[3]])];document.getElementById('r').innerHTML=L.map(([n,p])=>`<li><span>${n}</span><span>€${p}</span></li>`).join('');document.getElementById('t').textContent='€'+L.reduce((s,x)=>s+x[1],0)}
+a.onchange=e=>{const k=e.target.dataset.k;e.target.checked?on.add(k):on.delete(k);draw();a.querySelector(`[data-k="${k}"]`).focus()};draw();
+document.getElementById('sh').onclick=()=>{const u=location.href.split('#')[0]+'#plan='+[...on].join(','),s=document.querySelector('#sh span'),d=()=>{s.textContent='Link copied';setTimeout(()=>s.textContent='Copy quote link',1500)};(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(d).catch(d)};
+</script>
+=== price-faq-split
+<!--Pricing with FAQ|Pricing|A compact two-plan pricing block on the left and a searchable billing FAQ on the right: questions filter as you type, matched words highlight, and an empty state links to support.|pricing,faq,search,billing,accordion-->
+<div class="k">
+<section class="pf"><div class="pf-p"><h2>Simple pricing</h2><div class="pf-c"><div><b>Free</b><span class="mu">Forever, for personal use</span></div><span class="tn">€0</span></div><div class="pf-c on"><div><b>Plus</b><span class="mu">Unlimited everything</span></div><span class="tn">€6<small>/mo</small></span></div><a class="b ac" href="#" style="height:44px">Get Plus</a></div>
+<div class="pf-q"><label class="pf-s">@I(search,16)<input id="q" type="search" placeholder="Search billing questions" aria-label="Search billing questions"></label><div id="l"></div></div></section>
+</div>
+<style>
+.pf{width:min(960px,100%);display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start}.pf h2{margin:0 0 14px;font-size:24px;letter-spacing:-.02em}
+.pf-p{display:grid;gap:10px}.pf-c{display:flex;justify-content:space-between;align-items:center;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.pf-c div{display:grid}.pf-c span.mu{font-size:13px}.pf-c>span{font-size:24px;font-weight:650;letter-spacing:-.02em}.pf-c small{font-size:13px;color:var(--mu);font-weight:500}.pf-c.on{border:2px solid var(--fg);padding:15px}
+.pf-s{display:flex;gap:8px;align-items:center;height:44px;padding:0 14px;border:1px solid var(--ctl);border-radius:12px;color:var(--mu);background:var(--bg)}.pf-s:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}.pf-s input{border:0;outline:0;background:none;flex:1;font-size:16px;color:var(--fg);min-width:0}
+#l{margin-top:12px}#l details{border-bottom:1px solid var(--line)}#l summary{padding:14px 0;cursor:pointer;font-weight:550;list-style:none;display:flex;justify-content:space-between;gap:12px}#l summary::-webkit-details-marker{display:none}#l summary::after{content:"+";color:var(--mu);font-size:20px;line-height:1}#l [open] summary::after{content:"−"}#l p{margin:0 0 14px;color:var(--mu);font-size:14px}#l mark{background:color-mix(in srgb,var(--ac) 25%,transparent);color:inherit;border-radius:2px}
+.pf-em{padding:24px;text-align:center;color:var(--mu);font-size:14px}.pf-em a{color:var(--ac)}
+@media (max-width:760px){.pf{grid-template-columns:1fr}}
+</style>
+<script>
+const Q=[["Can I cancel any time?","Yes. Cancel from Settings → Billing and you keep Plus until the end of the period."],["Do you offer refunds?","Within 14 days of any payment, just reply to the receipt."],["Which payment methods do you accept?","Cards, Apple Pay, Google Pay, SEPA debit and PayPal."],["Is there a discount for yearly billing?","Yes, yearly is €60, two months free."],["What happens to my data if I downgrade?","Nothing is deleted. Items over the free limit become read-only."],["Do you charge VAT?","EU customers pay their local VAT. Businesses with a VAT ID are reverse-charged."]],l=document.getElementById('l'),q=document.getElementById('q');
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function draw(){const v=q.value.trim(),re=v?new RegExp('('+v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'):null,hl=s=>re?esc(s).replace(re,'<mark>$1</mark>'):esc(s);const R=Q.filter(([a,b])=>!re||re.test(a)||(re.lastIndex=0,re.test(b)));if(re)re.lastIndex=0;l.innerHTML=R.length?R.map(([a,b])=>`<details ${v?'open':''}><summary>${hl(a)}</summary><p>${hl(b)}</p></details>`).join(''):`<p class="pf-em">No answers for “${esc(v)}”. <a href="#">Ask billing support</a></p>`}q.oninput=draw;draw();
+</script>
+=== price-tier-tabs
+<!--Audience Tabs Pricing|Pricing|Pricing that changes by audience: tabs for Personal, Teams and Education swap the whole plan set with a cross-fade, keep the tab in sync with arrow keys, and highlight one plan per audience.|pricing,tabs,audience,segments,plans-->
+<div class="k">
+<section class="pa"><div class="pa-tb" role="tablist" aria-label="Audience" id="tb"><button role="tab" aria-selected="true" data-i="0" id="t0">Personal</button><button role="tab" aria-selected="false" data-i="1" tabindex="-1" id="t1">Teams</button><button role="tab" aria-selected="false" data-i="2" tabindex="-1" id="t2">Education</button></div>
+<div class="pa-g" id="g" role="tabpanel" aria-labelledby="t0"></div></section>
+</div>
+<style>
+.pa{width:min(900px,100%)}.pa-tb{display:flex;gap:4px;justify-content:center;margin-bottom:24px}.pa-tb button{height:40px;padding:0 18px;border-radius:999px;font-weight:550;color:var(--mu)}.pa-tb [aria-selected=true]{background:var(--fg);color:var(--bg)}
+.pa-g{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;animation:paf .3s var(--ease)}@keyframes paf{from{opacity:0;transform:translateY(6px)}}
+.pa-c{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:10px;align-content:start}.pa-c.hl{border:2px solid var(--ac)}.pa-c h3{margin:0;font-size:17px;display:flex;justify-content:space-between;align-items:center}.pa-c b{font-size:40px;letter-spacing:-.03em}.pa-c b small{font-size:14px;color:var(--mu);font-weight:500}.pa-c p{margin:0;color:var(--mu);font-size:14px}.pa-c ul{list-style:none;padding:0;margin:6px 0;display:grid;gap:8px;font-size:14px}.pa-c li{display:flex;gap:8px}.pa-c li .i{color:var(--ok);width:16px;height:16px;margin-top:2px}.pa-c .b{height:44px}
+@media (max-width:640px){.pa-g{grid-template-columns:1fr}}
+</style>
+<script>
+const S=[[["Free","€0","Notes, tasks and a calendar for one.",["5 GB","Sync on 2 devices"]],["Plus","€5","Everything, on every device.",["100 GB","Unlimited devices","Offline mode"],1]],[["Team","€9","Per member, for groups up to 50.",["Shared spaces","Admin console","Guest access"],1],["Business","€18","Per member, for regulated work.",["SSO & SCIM","Audit log","Data residency"]]],[["Student","€0","Free with a school email.",["Everything in Plus","Renews yearly"],1],["Campus","Custom","For whole schools and districts.",["Rostering","LMS integrations","Volume pricing"]]]];
+const tb=document.getElementById('tb'),g=document.getElementById('g'),T=[...tb.children];
+function sel(i,f){T.forEach((t,j)=>{t.setAttribute('aria-selected',i===j);t.tabIndex=i===j?0:-1});g.setAttribute('aria-labelledby','t'+i);g.style.animation='none';g.offsetWidth;g.style.animation='';g.innerHTML=S[i].map(([n,p,d,f,h])=>`<div class="pa-c${h?' hl':''}"><h3>${n}${h?'<span class="pill info">Recommended</span>':''}</h3><b class="tn">${p}${p[0]==='€'?'<small> /mo</small>':''}</b><p>${d}</p><ul>${f.map(x=>`<li>@I(check)${x}</li>`).join('')}</ul><a class="b ${h?'ac':'sec'}" href="#">${p==='Custom'?'Contact us':'Choose '+n}</a></div>`).join('');if(f)T[i].focus()}
+tb.onclick=e=>{const b=e.target.closest('[role=tab]');if(b)sel(+b.dataset.i)};tb.onkeydown=e=>{const i=T.findIndex(t=>t.getAttribute('aria-selected')==='true');if(e.key==='ArrowRight')sel((i+1)%3,1);if(e.key==='ArrowLeft')sel((i+2)%3,1)};sel(0);
+</script>

@@ -1,0 +1,80 @@
+<style>
+.fl-page{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;background:#f8fafc}
+.fl{background:#f8fafc;color:#475569;border-top:1px solid #e2e8f0;padding:72px clamp(16px,4vw,24px) 44px}
+.fl-in{max-width:1180px;margin:0 auto}
+.fl-top{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:40px;margin-bottom:56px}
+.fl-logo{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:20px;color:#0f172a;text-decoration:none;letter-spacing:-.03em;margin-bottom:18px}
+.fl-tag{font-size:14px;line-height:1.6;color:#64748b;margin:0 0 22px;max-width:250px;text-wrap:pretty}
+.fl-loc{position:relative;display:inline-block}
+.fl-locb{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px;background:#fff;border:1px solid #e2e8f0;border-radius:999px;font:500 13px Geist,sans-serif;color:#0f172a;box-shadow:0 1px 2px #0f172a0a;cursor:pointer;transition:border-color .15s,transform .1s}
+.fl-locb:hover{border-color:#cbd5e1}.fl-locb:active{transform:scale(.97)}
+.fl-locb svg:last-child{transition:transform .2s ease-out}.fl-locb[aria-expanded=true] svg:last-child{transform:rotate(180deg)}
+.fl-menu{position:absolute;left:0;bottom:calc(100% + 8px);min-width:230px;margin:0;padding:6px;list-style:none;background:#fff;border:1px solid #e2e8f0;border-radius:14px;box-shadow:0 12px 32px -8px #0f172a26;transform-origin:bottom left;opacity:0;transform:scale(.95);pointer-events:none;transition:opacity .15s ease-out,transform .15s ease-out}
+.fl-menu.on{opacity:1;transform:none;pointer-events:auto;transition-duration:.2s}
+.fl-menu li{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:9px;font-size:13.5px;color:#0f172a;cursor:pointer}
+.fl-menu li:hover,.fl-menu li.act{background:#f1f5f9}
+.fl-menu li[aria-selected=true]::after{content:"";width:6px;height:6px;border-radius:50%;background:#4f46e5}
+.fl h4{font-size:13px;font-weight:600;color:#0f172a;margin:0 0 16px}
+.fl ul.fl-l{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px}
+.fl-l a{font-size:14px;color:#475569;text-decoration:none;transition:color .15s}
+.fl-l a:hover{color:#4f46e5}
+.fl a:focus-visible,.fl button:focus-visible,.fl-menu li:focus-visible{outline:2px solid #4f46e5;outline-offset:3px;border-radius:6px}
+.fl-new{display:inline-block;margin-left:6px;padding:2px 7px;font-size:10px;font-weight:600;border-radius:999px;background:#eef2ff;color:#4f46e5;text-transform:uppercase;letter-spacing:.06em;vertical-align:1px}
+.fl-bot{display:flex;align-items:center;justify-content:space-between;padding-top:28px;border-top:1px solid #e2e8f0;font-size:13px;color:#64748b;flex-wrap:wrap;gap:16px}
+.fl-bot nav{display:flex;gap:24px;flex-wrap:wrap}
+.fl-bot a{color:#64748b;text-decoration:none}.fl-bot a:hover{color:#0f172a}
+@media(max-width:920px){.fl-top{grid-template-columns:1fr 1fr}.fl-brand{grid-column:1/-1}}
+@media(max-width:520px){.fl-top{gap:32px 20px}.fl-l a{display:inline-block;padding:4px 0}}
+</style>
+<div class="fl-page">
+<footer class="fl">
+  <div class="fl-in">
+    <div class="fl-top">
+      <div class="fl-brand">
+        <a href="#" class="fl-logo"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17L10 4H14L8 17H4Z" fill="#4f46e5"/><path d="M11 20L17 7H21L15 20H11Z" fill="#0f172a"/></svg>Meridian</a>
+        <p class="fl-tag">Payments, billing and payouts for businesses selling in more than one country.</p>
+        <div class="fl-loc">
+          <button type="button" class="fl-locb" aria-haspopup="listbox" aria-expanded="false" aria-label="Region and currency">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            <span class="fl-cur">United Kingdom (GBP)</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+          </button>
+          <ul class="fl-menu" role="listbox" tabindex="-1">
+            <li role="option" tabindex="-1" aria-selected="true">United Kingdom (GBP)</li>
+            <li role="option" tabindex="-1">United States (USD)</li>
+            <li role="option" tabindex="-1">Germany (EUR)</li>
+            <li role="option" tabindex="-1">Japan (JPY)</li>
+            <li role="option" tabindex="-1">Brazil (BRL)</li>
+          </ul>
+        </div>
+      </div>
+      <div><h4>Products</h4><ul class="fl-l"><li><a href="#">Payments</a></li><li><a href="#">Billing</a></li><li><a href="#">Connect</a></li><li><a href="#">Treasury<span class="fl-new">New</span></a></li></ul></div>
+      <div><h4>Solutions</h4><ul class="fl-l"><li><a href="#">Enterprise</a></li><li><a href="#">Marketplaces</a></li><li><a href="#">SaaS platforms</a></li><li><a href="#">Retail</a></li></ul></div>
+      <div><h4>Resources</h4><ul class="fl-l"><li><a href="#">Support</a></li><li><a href="#">Developer docs</a></li><li><a href="#">Guides</a></li><li><a href="#">Partners</a></li></ul></div>
+      <div><h4>Company</h4><ul class="fl-l"><li><a href="#">About</a></li><li><a href="#">Customers</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li></ul></div>
+    </div>
+    <div class="fl-bot">
+      <span>&copy; 2026 Meridian Financial Ltd.</span>
+      <nav aria-label="Legal"><a href="#">Privacy &amp; terms</a><a href="#">Cookie settings</a><a href="#">Sitemap</a></nav>
+    </div>
+  </div>
+</footer>
+</div>
+<script>
+(()=>{
+  const b=document.querySelector('.fl-locb'),m=document.querySelector('.fl-menu'),cur=document.querySelector('.fl-cur'),opts=[...m.children];
+  let i=0;
+  const focus=n=>{i=(n+opts.length)%opts.length;opts.forEach((o,k)=>o.classList.toggle('act',k===i));opts[i].focus();};
+  const open=v=>{m.classList.toggle('on',v);b.setAttribute('aria-expanded',v);if(v)focus(opts.findIndex(o=>o.getAttribute('aria-selected')==='true'));};
+  const pick=o=>{opts.forEach(x=>x.setAttribute('aria-selected',x===o));cur.textContent=o.textContent;open(false);b.focus();};
+  b.addEventListener('click',()=>open(!m.classList.contains('on')));
+  opts.forEach(o=>o.addEventListener('click',()=>pick(o)));
+  m.addEventListener('keydown',e=>{
+    if(e.key==='ArrowDown'){e.preventDefault();focus(i+1)}
+    else if(e.key==='ArrowUp'){e.preventDefault();focus(i-1)}
+    else if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(opts[i])}
+    else if(e.key==='Escape'){open(false);b.focus()}
+  });
+  document.addEventListener('click',e=>{if(!e.target.closest('.fl-loc'))open(false)});
+})();
+</script>

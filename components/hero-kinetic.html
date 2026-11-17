@@ -1,0 +1,49 @@
+<style>
+.kt{background:#efece6;color:#111;overflow:hidden}
+.kt-top{display:flex;justify-content:space-between;align-items:center;padding:24px clamp(20px,4vw,48px);font-size:14px;font-weight:500}
+.kt-top nav{display:flex;gap:28px}.kt-top a{color:inherit;text-decoration:none}
+.kt-logo{font-weight:700;letter-spacing:-.04em;font-size:18px}
+.kt-rows{padding:6vh 0 4vh;display:flex;flex-direction:column;gap:.5vw}
+.kt-row{display:flex;white-space:nowrap;will-change:transform}
+.kt-row span{font-size:clamp(64px,13vw,200px);line-height:.86;font-weight:700;letter-spacing:-.06em;padding-right:.25em;text-transform:uppercase}
+.kt-row .o{color:transparent;-webkit-text-stroke:2px #111}
+.kt-row em{font-family:"Instrument Serif",serif;font-weight:400;text-transform:none;letter-spacing:-.03em;color:#ff4d1f}
+.kt-foot{display:grid;grid-template-columns:1.2fr 1fr auto;gap:32px;align-items:end;padding:28px clamp(20px,4vw,48px) 48px;border-top:1px solid #11111120}
+.kt-foot p{margin:0;max-width:420px;font-size:17px;line-height:1.5;color:#444}
+.kt-foot a.cta{display:inline-flex;align-items:center;justify-content:center;width:132px;height:132px;border-radius:50%;background:#111;color:#efece6;text-decoration:none;font-weight:550;transition:transform .5s cubic-bezier(.2,1.4,.4,1),background .3s}
+.kt-foot a.cta:hover{transform:scale(1.08) rotate(-8deg);background:#ff4d1f;color:#111}
+.kt-meta{font:500 12px "Geist Mono",monospace;color:#666;line-height:1.8}
+.kt-spacer{height:80vh;display:grid;place-items:center;color:#888;font:13px "Geist Mono",monospace}
+@media (max-width:760px){.kt-foot{grid-template-columns:1fr}.kt-top nav{display:none}}
+</style>
+<section class="kt">
+  <header class="kt-top"><span class="kt-logo">Studio Ore</span><nav><a href="#">Work</a><a href="#">Approach</a><a href="#">Journal</a><a href="#">Contact</a></nav></header>
+  <div class="kt-rows">
+    <div class="kt-row" data-dir="1"><span>Brands</span><span class="o">that</span><span><em>move</em></span><span>Brands</span><span class="o">that</span><span><em>move</em></span></div>
+    <div class="kt-row" data-dir="-1"><span class="o">Identity</span><span>Motion</span><span class="o">Web</span><span>Identity</span><span class="o">Motion</span><span>Web</span></div>
+    <div class="kt-row" data-dir="1"><span><em>people</em></span><span>Remember</span><span class="o">✺</span><span><em>people</em></span><span>Remember</span><span class="o">✺</span></div>
+  </div>
+  <div class="kt-foot">
+    <p>An independent design studio building identities and websites for companies with something real to say.</p>
+    <div class="kt-meta">Based in Lisbon<br>Working worldwide<br>Est. 2016</div>
+    <a class="cta" href="#">Start a project</a>
+  </div>
+  <div class="kt-spacer">scroll to feel the velocity ↓</div>
+</section>
+<script>
+(()=>{
+const rows=[...document.querySelectorAll(".kt-row")].map(el=>({el,d:+el.dataset.dir,x:0}));
+let last=scrollY,vel=0;
+const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+(function f(){
+  const dy=scrollY-last;last=scrollY;vel+=(dy-vel)*.12;
+  for(const r of rows){
+    // content is duplicated once, so wrapping x inside [0,w) loops seamlessly
+    const w=r.el.scrollWidth/2;
+    if(!still) r.x+=r.d*(.6+Math.abs(vel)*.5)*(vel<0?-1:1);
+    r.x=((r.x%w)+w)%w;
+    r.el.style.transform=`translate3d(${-r.x}px,0,0) skewX(${Math.max(-12,Math.min(12,-vel*.4))}deg)`;
+  }
+  requestAnimationFrame(f)})();
+})();
+</script>

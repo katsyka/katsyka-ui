@@ -1,0 +1,56 @@
+<style>
+.ld{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ld :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ld ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ld *,.ld *::before,.ld *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ld{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.ld-g{width:min(680px,100%);display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.ld-c{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;height:150px;background:var(--bg);border:1px solid var(--line);border-radius:16px;color:var(--fg)}
+.ld-c small{font:500 11px "Geist Mono",monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)}
+.ld-ring{width:28px;height:28px;border-radius:50%;border:3px solid var(--sf2);border-top-color:var(--fg);animation:ld-r .75s linear infinite}
+.ld-arc{width:30px;height:30px;animation:ld-r 1.4s linear infinite}
+.ld-arc circle{fill:none;stroke:var(--ac);stroke-width:4;stroke-linecap:round;stroke-dasharray:1 200;stroke-dashoffset:0;animation:ld-dash 1.4s ease-in-out infinite}
+@keyframes ld-dash{0%{stroke-dasharray:1 200;stroke-dashoffset:0}50%{stroke-dasharray:90 200;stroke-dashoffset:-35}100%{stroke-dasharray:90 200;stroke-dashoffset:-124}}
+.ld-dots{display:flex;gap:6px}
+.ld-dots i{width:8px;height:8px;border-radius:50%;background:var(--fg);animation:ld-b 1s ease-in-out infinite}
+.ld-dots i:nth-child(2){animation-delay:.15s}.ld-dots i:nth-child(3){animation-delay:.3s}
+@keyframes ld-b{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-7px);opacity:1}}
+.ld-bars{display:flex;gap:4px;align-items:center;height:28px}
+.ld-bars i{width:4px;height:100%;border-radius:2px;background:var(--fg);animation:ld-eq 1s ease-in-out infinite}
+.ld-bars i:nth-child(2){animation-delay:-.8s}.ld-bars i:nth-child(3){animation-delay:-.6s}.ld-bars i:nth-child(4){animation-delay:-.4s}.ld-bars i:nth-child(5){animation-delay:-.2s}
+@keyframes ld-eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.ld-pulse{position:relative;width:14px;height:14px;border-radius:50%;background:var(--ac)}
+.ld-pulse::before,.ld-pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--ac);animation:ld-p 1.8s cubic-bezier(.2,.6,.4,1) infinite}
+.ld-pulse::after{animation-delay:.9s}
+@keyframes ld-p{to{transform:scale(3.4);opacity:0}}
+.ld-sq{display:grid;grid-template-columns:repeat(3,8px);gap:3px}
+.ld-sq i{width:8px;height:8px;border-radius:2px;background:var(--fg);animation:ld-f 1.2s ease-in-out infinite}
+.ld-sq i:nth-child(1){animation-delay:0s}.ld-sq i:nth-child(2),.ld-sq i:nth-child(4){animation-delay:.1s}.ld-sq i:nth-child(3),.ld-sq i:nth-child(5),.ld-sq i:nth-child(7){animation-delay:.2s}.ld-sq i:nth-child(6),.ld-sq i:nth-child(8){animation-delay:.3s}.ld-sq i:nth-child(9){animation-delay:.4s}
+@keyframes ld-f{0%,70%,100%{transform:scale(1);opacity:1}35%{transform:scale(.3);opacity:.3}}
+.ld-spoke{position:relative;width:28px;height:28px}
+.ld-spoke i{position:absolute;left:12.5px;top:0;width:3px;height:8px;border-radius:2px;background:var(--fg);transform-origin:1.5px 14px;animation:ld-o 1s linear infinite}
+@keyframes ld-o{from{opacity:1}to{opacity:.12}}
+.ld-text{font:600 15px Geist,system-ui,sans-serif;background:linear-gradient(90deg,var(--mu) 0 40%,var(--fg) 50%,var(--mu) 60% 100%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:ld-sh 1.8s linear infinite}
+@keyframes ld-sh{from{background-position:100% 0}to{background-position:-150% 0}}
+.ld-btn{display:inline-flex;align-items:center;gap:9px;height:38px;padding:0 16px;border:0;border-radius:10px;background:var(--fg);color:var(--bg);font:550 13.5px Geist,system-ui,sans-serif}
+.ld-btn .ld-ring{width:15px;height:15px;border-width:2px;border-color:color-mix(in oklab,var(--bg) 30%,transparent);border-top-color:var(--bg)}
+@keyframes ld-r{to{transform:rotate(1turn)}}
+@media (max-width:620px){.ld-g{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){.ld *{animation-duration:1.6s!important;animation-iteration-count:infinite!important}}
+</style>
+<div class="ld">
+  <div class="ld-g">
+    <div class="ld-c" role="status" aria-label="Loading"><div class="ld-ring"></div><small>Ring</small></div>
+    <div class="ld-c" role="status" aria-label="Loading"><svg class="ld-arc" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20"/></svg><small>Arc</small></div>
+    <div class="ld-c" role="status" aria-label="Loading"><div class="ld-dots"><i></i><i></i><i></i></div><small>Dots</small></div>
+    <div class="ld-c" role="status" aria-label="Loading"><div class="ld-bars"><i></i><i></i><i></i><i></i><i></i></div><small>Bars</small></div>
+    <div class="ld-c" role="status" aria-label="Loading"><div class="ld-pulse"></div><small>Pulse</small></div>
+    <div class="ld-c" role="status" aria-label="Loading"><div class="ld-sq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><small>Grid</small></div>
+    <div class="ld-c" role="status" aria-label="Loading"><div class="ld-spoke" id="ldSp"></div><small>Spokes</small></div>
+    <div class="ld-c" role="status"><span class="ld-text">Thinking…</span><small>Shimmer text</small></div>
+    <div class="ld-c" role="status" style="grid-column:1/-1;height:110px;flex-direction:row;gap:24px"><span class="ld-btn"><span class="ld-ring"></span>Saving changes</span><small>Inline in a button</small></div>
+  </div>
+</div>
+<script>
+const sp=document.getElementById("ldSp");for(let i=0;i<8;i++){const s=document.createElement("i");s.style.transform=`rotate(${i*45}deg)`;s.style.animationDelay=`${-(8-i)/8}s`;sp.append(s)}
+</script>

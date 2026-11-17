@@ -1,0 +1,55 @@
+<style>
+.ck-stage{min-height:100vh;display:grid;place-items:start center;padding-top:12vh;background:radial-gradient(ellipse at top,#17151d,#08080a 70%)}
+.ck-open{font:13px "Geist Mono",monospace;color:#6f6f79;margin-top:22px;text-align:center}
+.ck-open kbd{padding:2px 7px;border:1px solid #ffffff1f;border-radius:6px;background:#111}
+.ck{width:min(620px,92vw);border-radius:18px;background:#121215f0;border:1px solid #ffffff17;box-shadow:0 40px 100px -30px #000,0 0 0 1px #00000080;backdrop-filter:blur(20px);overflow:hidden;transform-origin:top;transition:transform .25s cubic-bezier(.3,1.3,.5,1),opacity .2s}
+.ck.off{opacity:0;transform:scale(.96);pointer-events:none}
+.ck-in{display:flex;align-items:center;gap:12px;padding:0 18px;border-bottom:1px solid #ffffff10}
+.ck-in svg{width:18px;height:18px;fill:none;stroke:#77777f;stroke-width:2;stroke-linecap:round}
+.ck-in input{flex:1;height:58px;border:0;background:none;outline:0;color:#f4f3ef;font:16px Geist,sans-serif}
+.ck-in kbd{font:11px "Geist Mono",monospace;color:#77777f;padding:2px 6px;border:1px solid #ffffff17;border-radius:5px}
+.ck-l{position:relative;max-height:340px;overflow:auto;padding:6px 8px 8px}
+.ck-g{font:500 11.5px Geist,sans-serif;color:#66666f;padding:12px 10px 6px}
+.ck-hl{position:absolute;top:0;left:8px;right:8px;height:42px;border-radius:10px;background:#ffffff0e;transition:transform .18s cubic-bezier(.3,1,.4,1);pointer-events:none}
+.ck-it{position:relative;display:flex;align-items:center;gap:12px;height:42px;padding:0 10px;border-radius:10px;font-size:14.5px;color:#cfcfd6;cursor:pointer}
+.ck-it.on{color:#fff}
+.ck-it i{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-style:normal;font-size:13px;background:#ffffff0b;border:1px solid #ffffff10}
+.ck-it span{margin-left:auto;font:11.5px "Geist Mono",monospace;color:#66666f}
+.ck-t{font-weight:inherit}.ck-it mark{background:none;color:#ff8a5c}
+.ck-empty{padding:34px;text-align:center;color:#66666f;font-size:14px}
+.ck-f{display:flex;gap:16px;padding:10px 16px;border-top:1px solid #ffffff10;font-size:12px;color:#66666f}
+.ck-f b{font:500 11px "Geist Mono",monospace;color:#9a9aa3;margin-right:4px}
+</style>
+<div class="ck-stage"><div>
+  <div class="ck">
+    <div class="ck-in"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input placeholder="Type a command or search…" aria-label="Command"><kbd>esc</kbd></div>
+    <div class="ck-l"></div>
+    <div class="ck-f"><span><b>↑↓</b>navigate</span><span><b>↵</b>run</span><span><b>⌘K</b>toggle</span></div>
+  </div>
+  <div class="ck-open">press <kbd>⌘K</kbd> / <kbd>Ctrl K</kbd> to toggle</div>
+</div></div>
+<script>
+(()=>{
+const D={Suggestions:[["✦","Ask AI about this page","⌘J"],["＋","Create new project","N P"],["◎","Search documentation",""]],
+  Navigation:[["⌂","Go to dashboard","G D"],["▤","Go to invoices","G I"],["☰","Go to settings","G S"]],
+  Theme:[["☾","Switch to dark",""],["☀","Switch to light",""]],Team:[["✉","Invite teammates",""],["⇄","Switch workspace","⌘⇧W"]]};
+const box=document.querySelector(".ck"),inp=box.querySelector("input"),list=box.querySelector(".ck-l");let sel=0,items=[];
+const fuzzy=(q,s)=>{if(!q)return s;let i=0,out="";const L=s.toLowerCase();for(const ch of s){if(i<q.length&&ch.toLowerCase()===q[i]){out+=`<mark>${ch}</mark>`;i++}else out+=ch}return i===q.length?out:null};
+const draw=()=>{const q=inp.value.toLowerCase().replace(/\s/g,"");let h='<div class="ck-hl"></div>';items=[];
+  for(const[g,arr]of Object.entries(D)){const rows=arr.map(([ic,t,k])=>[ic,fuzzy(q,t),k]).filter(r=>r[1]!==null);if(!rows.length)continue;
+    h+=`<div class="ck-g">${g}</div>`+rows.map(([ic,t,k])=>`<div class="ck-it" data-i="${items.push(t)-1}"><i>${ic}</i><b class="ck-t">${t}</b>${k?`<span>${k}</span>`:""}</div>`).join("")}
+  list.innerHTML=items.length?h:'<div class="ck-empty">No results for “'+inp.value.replace(/</g,"&lt;")+'”</div>';sel=0;mv()};
+const mv=()=>{const els=list.querySelectorAll(".ck-it"),hl=list.querySelector(".ck-hl");els.forEach((e,i)=>e.classList.toggle("on",i===sel));
+  const el=els[sel];if(el&&hl){hl.style.transform=`translateY(${el.offsetTop}px)`;el.scrollIntoView({block:"nearest"})}};
+inp.addEventListener("input",draw);
+list.addEventListener("mousemove",e=>{const it=e.target.closest(".ck-it");if(it&&+it.dataset.i!==sel){sel=+it.dataset.i;mv()}});
+const run=()=>{const el=list.querySelectorAll(".ck-it")[sel];if(!el)return;el.animate([{transform:"scale(1)"},{transform:"scale(.98)"},{transform:"scale(1)"}],{duration:200});inp.value="";draw()};
+list.addEventListener("click",run);
+addEventListener("keydown",e=>{
+  if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();box.classList.toggle("off");if(!box.classList.contains("off"))inp.focus();return}
+  if(e.key==="Escape"){box.classList.add("off");return}
+  const n=list.querySelectorAll(".ck-it").length;
+  if(e.key==="ArrowDown"){e.preventDefault();sel=(sel+1)%n;mv()}else if(e.key==="ArrowUp"){e.preventDefault();sel=(sel-1+n)%n;mv()}else if(e.key==="Enter")run()});
+draw();setTimeout(()=>inp.focus(),200);
+})();
+</script>

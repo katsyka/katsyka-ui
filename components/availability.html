@@ -1,0 +1,72 @@
+<style>
+.av{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.av :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.av ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.av *,.av *::before,.av *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.av{min-height:100vh;padding:28px clamp(12px,3vw,40px);display:grid;grid-template-columns:auto 280px;gap:24px;justify-content:center;align-items:start}
+.av h2{margin:0 0 4px;font-size:20px;font-weight:600;letter-spacing:-.02em}.av-sub{margin:0 0 16px;color:var(--mu);font-size:14px}
+.av-grid{display:grid;grid-template-columns:52px repeat(7,minmax(44px,64px));user-select:none;touch-action:none}
+.av-dh{height:36px;display:grid;place-items:center;font-size:13px;font-weight:600}
+.av-dh small{display:block;font-weight:400;color:var(--mu);font-size:11.5px;line-height:1}
+.av-t{height:24px;font:11px "Geist Mono",monospace;color:var(--mu);text-align:right;padding-right:8px;transform:translateY(-7px)}
+.av-c{height:24px;border-left:1px solid var(--line);border-top:1px solid var(--line);background:var(--bg);cursor:cell;transition:background .08s}
+.av-c.hr{border-top-color:var(--ctl)}
+.av-c[aria-selected=true]{background:var(--ac-sf);box-shadow:inset 3px 0 0 var(--ac)}
+.av-c[aria-selected=true]+.av-c[aria-selected=true]{}
+.av-c:hover{background:var(--sf2)}.av-c[aria-selected=true]:hover{background:light-dark(#ffe1cf,#3a1c0c)}
+.av-c:focus-visible{outline-offset:-2px}
+.av-side{position:sticky;top:20px;padding:18px;border-radius:18px;background:var(--sf)}
+.av-side h3{margin:0 0 12px;font-size:15px;font-weight:600}
+.av-tz{width:100%;height:40px;margin-bottom:14px;padding:0 10px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:14px Geist,sans-serif}
+.av-sum{list-style:none;margin:0 0 14px;padding:0;font-size:13.5px}
+.av-sum li{display:grid;grid-template-columns:40px 1fr;gap:6px;padding:6px 0;border-bottom:1px solid var(--line)}
+.av-sum b{font-weight:600}.av-sum span{color:var(--mu)}.av-sum span.has{color:var(--fg)}
+.av-tot{font-size:13px;color:var(--mu);margin-bottom:12px}.av-tot b{color:var(--fg)}
+.av-btns{display:flex;flex-direction:column;gap:8px}
+.av-btns button{height:40px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:550 14px Geist,sans-serif;cursor:pointer}
+.av-btns button:hover{background:var(--sf2)}
+.av-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:900px){.av{grid-template-columns:1fr}.av-side{position:static}}
+</style>
+<section class="av">
+  <div><h2>When are you free?</h2><p class="av-sub">Drag to paint time. Start on a free slot to add, on a busy slot to erase. Keyboard: arrows + Space.</p>
+    <div class="av-grid" role="grid" aria-label="Weekly availability" aria-multiselectable="true"></div></div>
+  <aside class="av-side"><h3>Your week</h3>
+    <select class="av-tz" aria-label="Time zone"><option>Europe/Lisbon (GMT+0)</option><option>Europe/Berlin (GMT+1)</option><option>America/New_York (GMT−5)</option><option>Asia/Tokyo (GMT+9)</option></select>
+    <ul class="av-sum"></ul><div class="av-tot"></div>
+    <div class="av-btns"><button data-a="copy">Copy Monday to weekdays</button><button data-a="clear">Clear all</button></div></aside>
+  <div class="av-live" aria-live="polite"></div>
+</section>
+<script>
+(()=>{
+const D=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],START=8,SLOTS=24,grid=document.querySelector(".av-grid"),live=document.querySelector(".av-live");
+const on=D.map(()=>Array(SLOTS).fill(false));
+// pre-fill a believable week
+[[0,2,9],[0,12,16],[1,4,12],[2,2,9],[3,10,18],[4,2,6]].forEach(([d,a,b])=>{for(let i=a;i<b;i++)on[d][i]=true});
+const time=i=>{const m=START*60+i*30;return`${m/60|0}:${String(m%60).padStart(2,"0")}`};
+let html='<div role="row" style="display:contents"><span></span>'+D.map((d,i)=>`<div class="av-dh" role="columnheader">${d}<small>${17+i} Nov</small></div>`).join("")+"</div>";
+for(let s=0;s<SLOTS;s++){html+=`<div role="row" style="display:contents"><div class="av-t" role="rowheader">${s%2===0?time(s):""}</div>`;
+  for(let d=0;d<7;d++)html+=`<div class="av-c${s%2===0?" hr":""}" role="gridcell" tabindex="-1" data-d="${d}" data-s="${s}" aria-label="${D[d]} ${time(s)} to ${time(s+1)}"></div>`;html+="</div>"}
+grid.innerHTML=html;
+const cell=(d,s)=>grid.querySelector(`[data-d="${d}"][data-s="${s}"]`);
+function paint(){grid.querySelectorAll(".av-c").forEach(c=>c.setAttribute("aria-selected",on[c.dataset.d][c.dataset.s]));summary()}
+function ranges(d){const r=[];let a=null;for(let s=0;s<=SLOTS;s++){if(on[d][s]&&a===null)a=s;if(!on[d][s]&&a!==null){r.push(`${time(a)}–${time(s)}`);a=null}}return r}
+function summary(){document.querySelector(".av-sum").innerHTML=D.map((d,i)=>{const r=ranges(i);return`<li><b>${d}</b><span class="${r.length?"has":""}">${r.length?r.join(", "):"Unavailable"}</span></li>`}).join("");
+  const h=on.flat().filter(Boolean).length/2;document.querySelector(".av-tot").innerHTML=`<b>${h} hours</b> available this week`}
+let mode=null,last=null,anchor=null;
+const setRect=(a,b)=>{for(let d=Math.min(a.d,b.d);d<=Math.max(a.d,b.d);d++)for(let s=Math.min(a.s,b.s);s<=Math.max(a.s,b.s);s++)on[d][s]=mode;paint()};
+let snap=null;
+grid.addEventListener("pointerdown",e=>{const c=e.target.closest(".av-c");if(!c)return;e.preventDefault();const p={d:+c.dataset.d,s:+c.dataset.s};mode=!on[p.d][p.s];anchor=p;snap=on.map(r=>r.slice());grid.setPointerCapture(e.pointerId);setRect(p,p);rove(p)});
+grid.addEventListener("pointermove",e=>{if(mode===null)return;const c=document.elementFromPoint(e.clientX,e.clientY)?.closest(".av-c");if(!c)return;const p={d:+c.dataset.d,s:+c.dataset.s};if(last&&p.d===last.d&&p.s===last.s)return;last=p;
+  snap.forEach((r,d)=>r.forEach((v,s)=>on[d][s]=v));setRect(anchor,p)});
+grid.addEventListener("pointerup",()=>{if(mode!==null)live.textContent=`${mode?"Added":"Removed"} time. ${on.flat().filter(Boolean).length/2} hours available.`;mode=null;last=null});
+let focus={d:0,s:2};
+function rove(p){grid.querySelectorAll(".av-c").forEach(c=>c.tabIndex=-1);const c=cell(p.d,p.s);c.tabIndex=0;c.focus({preventScroll:false});focus=p}
+grid.addEventListener("keydown",e=>{const dd={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];
+  if(dd){e.preventDefault();const p={d:Math.max(0,Math.min(6,focus.d+dd[0])),s:Math.max(0,Math.min(SLOTS-1,focus.s+dd[1]))};if(e.shiftKey){on[p.d][p.s]=on[focus.d][focus.s];paint()}rove(p)}
+  if(e.key===" "||e.key==="Enter"){e.preventDefault();on[focus.d][focus.s]=!on[focus.d][focus.s];paint();live.textContent=`${D[focus.d]} ${time(focus.s)} ${on[focus.d][focus.s]?"available":"unavailable"}`}});
+document.querySelector("[data-a=copy]").onclick=()=>{for(let d=1;d<5;d++)on[d]=on[0].slice();paint();live.textContent="Copied Monday to Tuesday through Friday."};
+document.querySelector("[data-a=clear]").onclick=()=>{on.forEach(r=>r.fill(false));paint();live.textContent="Cleared all availability."};
+cell(0,2).tabIndex=0;paint();
+})();
+</script>

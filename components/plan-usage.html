@@ -1,0 +1,44 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.pu{width:min(680px,100%);padding:24px}
+.pu-h{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}.pu h2{margin:8px 0 2px;font-size:18px;font-weight:650}.pu-h p{margin:0}.pu-a{display:flex;gap:8px;align-items:flex-start}
+.pu-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 32px;margin-top:20px}
+.pu-m header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}.pu-m b{font-weight:550}.pu-m span{font-size:13px;color:var(--mu)}
+.pu-bar{height:8px;border-radius:4px;background:var(--sf2);overflow:hidden}.pu-bar i{display:block;height:100%;border-radius:4px;background:var(--fg);width:0;transition:width .9s var(--ease)}
+.pu-m.warn i{background:var(--warn)}.pu-m.over i{background:var(--err)}
+.pu-m small{display:block;margin-top:6px;font-size:12px;color:var(--mu)}.pu-m.warn small{color:var(--warn)}.pu-m.over small{color:var(--err)}
+</style>
+<div class="k"><section class="card pu"><header class="pu-h"><div><span class="pill info">Pro</span><h2>Pro plan · <span class="tn">$24</span>/month</h2><p class="mu">Renews on 1 December 2026 · Visa ·· 4242</p></div><div class="pu-a"><button class="b sec">Manage</button><button class="b ac"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>Upgrade</button></div></header>
+<div class="pu-g" id="g"></div></section></div>
+<script>
+const U=[["Storage",38.2,50,"GB"],["Seats",9,10,""],["API requests",128400,100000,""],["Bandwidth",212,1000,"GB"]];
+const f=(v,u)=>(v>=1e4?v.toLocaleString("en"):v)+(u?" "+u:"");
+g.innerHTML=U.map(([n,v,m,u])=>{const p=v/m,c=p>1?"over":p>=.85?"warn":"";return`<div class="pu-m ${c}"><header><b>${n}</b><span class="tn">${f(v,u)} of ${f(m,u)}</span></header><div class="pu-bar" role="meter" aria-valuemin="0" aria-valuemax="${m}" aria-valuenow="${v}" aria-label="${n}"><i data-w="${Math.min(100,p*100)}"></i></div><small>${p>1?`Over by ${f(Math.round(v-m),u)} · billed at $2 per 10k`:p>=.85?`${Math.round(p*100)}% used · close to your limit`:`${Math.round(p*100)}% used`}</small></div>`}).join("");
+requestAnimationFrame(()=>requestAnimationFrame(()=>g.querySelectorAll("i").forEach(i=>i.style.width=i.dataset.w+"%")));
+</script>

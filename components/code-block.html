@@ -1,0 +1,61 @@
+<style>
+.cb{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.cb :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.cb ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.cb *,.cb *::before,.cb *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.cb{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.cb-w{width:min(680px,100%);display:grid;gap:16px}
+.cb-box{--k:#ff7b72;--s:#a5d6ff;--f:#d2a8ff;--n:#79c0ff;--c:#8b949e;--t:#ffa657;border-radius:14px;background:#0d0d10;border:1px solid #26262b;overflow:hidden;color:#e6e6e9;box-shadow:0 20px 40px -20px #0006}
+.cb-bar{display:flex;align-items:center;gap:2px;padding:0 6px 0 8px;height:44px;border-bottom:1px solid #222227;background:#121216}
+.cb-bar [role=tab]{height:30px;padding:0 10px;border:0;border-radius:7px;background:none;color:#8b8b95;font:500 13px "Geist Mono",monospace;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.cb-bar [role=tab]:hover{color:#e6e6e9}
+.cb-bar [role=tab][aria-selected=true]{color:#fafafa;background:#ffffff12}
+.cb-bar [role=tab] i{width:8px;height:8px;border-radius:2px}
+.cb-bar [role=tab]:focus-visible{outline:2px solid #93c5fd;outline-offset:-2px}
+.cb-cp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:0;border-radius:7px;background:none;color:#a1a1aa;font:500 12.5px Geist,system-ui,sans-serif;cursor:pointer}
+.cb-cp:hover{background:#ffffff12;color:#fafafa}
+.cb-cp:focus-visible{outline:2px solid #93c5fd;outline-offset:-2px}
+.cb-cp svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cb-cp.ok{color:#4ade80}
+.cb pre{margin:0;padding:14px 0;overflow:auto;font:400 13.5px/1.7 "Geist Mono",ui-monospace,monospace;counter-reset:ln;tab-size:2}
+.cb pre:focus-visible{outline:2px solid #93c5fd;outline-offset:-2px}
+.cb pre .l{display:block;padding:0 18px 0 0;min-width:max-content}
+.cb pre .l::before{counter-increment:ln;content:counter(ln);display:inline-block;width:44px;padding-right:16px;text-align:right;color:#4b4b55;user-select:none}
+.cb pre .l.hl{background:#ff8a4c14;box-shadow:inset 2px 0 0 #ff8a4c}
+.cb pre .l.add{background:#4ade8012;box-shadow:inset 2px 0 0 #4ade80}
+.cb pre .l.add::before{content:"+";color:#4ade80}
+.cb pre .l.del{background:#f8717112;box-shadow:inset 2px 0 0 #f87171;opacity:.75}
+.cb pre .l.del::before{content:"−";color:#f87171}
+.k{color:var(--k)}.s{color:var(--s)}.f{color:var(--f)}.n{color:var(--n)}.c{color:var(--c);font-style:italic}.t{color:var(--t)}
+.cb [role=tabpanel][hidden]{display:none}
+.cb-file{padding:0 8px;color:#a1a1aa;font:500 12.5px "Geist Mono",monospace;display:flex;align-items:center;gap:8px}
+.cb-file svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+.cb-inl{font-size:15px;line-height:1.7;color:var(--mu);margin:0;padding:18px 20px;background:var(--bg);border:1px solid var(--line);border-radius:14px}
+.cb-inl code{font:500 13.5px "Geist Mono",monospace;padding:2px 6px;border-radius:6px;background:var(--sf2);color:var(--fg);border:1px solid var(--line)}
+</style>
+<div class="cb">
+  <div class="cb-w">
+    <div class="cb-box" data-cb>
+      <div class="cb-bar"><div role="tablist" aria-label="Language" style="display:flex;gap:2px"><button role="tab" aria-selected="true"><i style="background:#3178c6"></i>react.tsx</button><button role="tab" aria-selected="false"><i style="background:#f7df1e"></i>vanilla.js</button><button role="tab" aria-selected="false"><i style="background:#3fb950"></i>terminal</button></div><button class="cb-cp" type="button"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button></div>
+      <div role="tabpanel" tabindex="-1"><pre tabindex="0"><span class="l"><span class="k">import</span> { <span class="t">Button</span> } <span class="k">from</span> <span class="s">"@katsyka/ui"</span>;</span><span class="l"></span><span class="l"><span class="k">export function</span> <span class="f">SaveBar</span>({ <span class="n">onSave</span> }: <span class="t">Props</span>) {</span><span class="l hl">  <span class="k">const</span> [<span class="n">busy</span>, <span class="n">setBusy</span>] = <span class="f">useState</span>(<span class="n">false</span>);</span><span class="l">  <span class="k">return</span> (</span><span class="l">    &lt;<span class="t">Button</span> <span class="n">variant</span>=<span class="s">"primary"</span> <span class="n">loading</span>={<span class="n">busy</span>}&gt;</span><span class="l">      Save changes</span><span class="l">    &lt;/<span class="t">Button</span>&gt;</span><span class="l">  );</span><span class="l">}</span></pre></div>
+      <div role="tabpanel" tabindex="-1" hidden><pre tabindex="0"><span class="l"><span class="c">// no framework, same tokens</span></span><span class="l"><span class="k">const</span> <span class="n">btn</span> = document.<span class="f">querySelector</span>(<span class="s">".bk-load"</span>);</span><span class="l del"><span class="n">btn</span>.<span class="f">addEventListener</span>(<span class="s">"click"</span>, <span class="n">save</span>);</span><span class="l add"><span class="n">btn</span>.<span class="f">addEventListener</span>(<span class="s">"click"</span>, <span class="k">async</span> () =&gt; {</span><span class="l add">  <span class="n">btn</span>.<span class="f">setAttribute</span>(<span class="s">"aria-busy"</span>, <span class="s">"true"</span>);</span><span class="l add">  <span class="k">await</span> <span class="f">save</span>();</span><span class="l add">});</span></pre></div>
+      <div role="tabpanel" tabindex="-1" hidden><pre tabindex="0"><span class="l"><span class="c">$</span> npx katsyka-ui add button-kit</span><span class="l"><span class="s">✓</span> Added components/button-kit.html</span><span class="l"><span class="s">✓</span> Injected tokens into styles/tokens.css</span></pre></div>
+    </div>
+    <div class="cb-box" data-cb>
+      <div class="cb-bar"><span class="cb-file"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6"/></svg>tokens.css</span><button class="cb-cp" type="button"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span>Copy</span></button></div>
+      <div role="tabpanel"><pre tabindex="0"><span class="l"><span class="t">:root</span> {</span><span class="l">  <span class="n">color-scheme</span>: light dark;</span><span class="l hl">  <span class="n">--ac</span>: <span class="f">light-dark</span>(<span class="s">#c2410c</span>, <span class="s">#ff8a4c</span>);</span><span class="l">  <span class="n">--focus</span>: <span class="f">light-dark</span>(<span class="s">#1d4ed8</span>, <span class="s">#93c5fd</span>);</span><span class="l">}</span></pre></div>
+    </div>
+    <p class="cb-inl">Inline code like <code>aria-expanded</code> or <code>npm run build</code> sits on the text baseline without breaking line height.</p>
+  </div>
+</div>
+<script>
+document.querySelectorAll("[data-cb]").forEach(b=>{
+  const tabs=[...b.querySelectorAll("[role=tab]")],pans=[...b.querySelectorAll("[role=tabpanel]")],cp=b.querySelector(".cb-cp");
+  const sel=(t,f)=>{tabs.forEach((x,i)=>{const on=x===t;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;pans[i].hidden=!on});if(f)t.focus()};
+  tabs.forEach(t=>{t.tabIndex=t.getAttribute("aria-selected")==="true"?0:-1;t.onclick=()=>sel(t)});
+  b.querySelector("[role=tablist]")?.addEventListener("keydown",e=>{const i=tabs.indexOf(document.activeElement),d={ArrowRight:1,ArrowLeft:-1}[e.key];if(d&&i>-1){e.preventDefault();sel(tabs[(i+d+tabs.length)%tabs.length],true)}});
+  cp.addEventListener("click",async()=>{const p=pans.find(x=>!x.hidden);const txt=[...p.querySelectorAll(".l:not(.del)")].map(l=>l.textContent).join("\n");
+    try{await navigator.clipboard.writeText(txt)}catch{const a=document.createElement("textarea");a.value=txt;a.style.cssText="position:fixed;opacity:0";document.body.append(a);a.select();try{document.execCommand("copy")}catch{}a.remove()}
+    cp.classList.add("ok");cp.querySelector("span").textContent="Copied";clearTimeout(cp._t);cp._t=setTimeout(()=>{cp.classList.remove("ok");cp.querySelector("span").textContent="Copy"},1600)});
+});
+</script>

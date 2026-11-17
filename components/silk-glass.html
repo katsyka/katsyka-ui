@@ -1,0 +1,72 @@
+<style>
+.sg{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px;padding:90px clamp(20px,5vw,80px) 60px;overflow:hidden;background:#020718;color:#f2f5ff;isolation:isolate}
+.sg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.sg-glass{position:relative;background:linear-gradient(150deg,#ffffff24,#ffffff08 55%);box-shadow:inset 0 1px 0 #ffffff66,inset 0 -1px 0 #ffffff12,inset 0 0 0 1px #ffffff1f,0 18px 40px -18px #000c;-webkit-backdrop-filter:blur(16px) saturate(1.5);backdrop-filter:blur(16px) saturate(1.5)}
+.sg-nav{position:absolute;top:22px;left:clamp(20px,5vw,80px);right:clamp(20px,5vw,80px);display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 8px 0 20px;border-radius:99px}
+.sg-nav b{font-size:15px;letter-spacing:-.02em}.sg-nav nav{display:flex;gap:4px}.sg-nav nav a{padding:8px 14px;border-radius:99px;color:#dbe3ffcc;font-size:14px;text-decoration:none}.sg-nav nav a:hover{background:#ffffff14;color:#fff}
+.sg-nav>a{height:40px;padding:0 18px;border-radius:99px;background:#f2f5ff;color:#06123f;font-weight:600;font-size:14px;display:inline-flex;align-items:center;text-decoration:none}
+.sg h1{font-size:clamp(46px,6.4vw,100px);line-height:.9;letter-spacing:-.06em;font-weight:600;margin:0 0 20px}
+.sg h1 em{font-family:"Instrument Serif",serif;font-weight:400;letter-spacing:-.025em}
+.sg p{font-size:17px;line-height:1.6;color:#dbe3ffb3;max-width:420px;margin:0 0 30px}
+.sg-cta{display:flex;gap:10px}.sg-cta a{height:50px;padding:0 24px;border-radius:99px;display:inline-flex;align-items:center;font-weight:550;color:#fff;text-decoration:none;transition:transform .35s cubic-bezier(.3,1.5,.5,1)}.sg-cta a:hover{transform:scale(1.04)}
+.sg-stack{position:relative;height:460px}
+.sg-card{position:absolute;border-radius:28px;padding:24px;transition:transform .6s cubic-bezier(.2,1,.3,1)}
+.sg-m{left:6%;top:0;width:340px;height:214px;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(-5deg)}
+.sg-m:hover{transform:rotate(-2deg) translateY(-6px)}
+.sg-m header{display:flex;justify-content:space-between;font:500 12px "Geist Mono",monospace;letter-spacing:.12em;color:#dbe3ffcc}
+.sg-m b{font-size:26px;letter-spacing:-.03em;font-weight:600}.sg-m footer{display:flex;justify-content:space-between;font:13px "Geist Mono",monospace;color:#dbe3ffaa}
+.sg-p{right:0;top:170px;width:300px}
+.sg-p:hover{transform:translateY(-6px)}
+.sg-p h4{margin:0 0 14px;font-size:15px;font-weight:600}
+.sg-p li{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid #ffffff17;font-size:14px;color:#e6ebff}
+.sg-p ul{list-style:none;margin:0;padding:0}.sg-p li i{width:22px;height:22px;border-radius:7px;background:#ffffff1f;display:grid;place-items:center;font-style:normal;font-size:12px}
+.sg-s{left:14%;bottom:0;display:flex;gap:26px;padding:18px 24px;border-radius:22px}
+.sg-s b{display:block;font-size:24px;letter-spacing:-.03em;font-weight:600}.sg-s span{font-size:12px;color:#dbe3ffaa}
+@media (max-width:900px){.sg{grid-template-columns:1fr}.sg-stack{height:480px}.sg-nav nav{display:none}.sg-m{width:300px}.sg-p{width:260px}}
+</style>
+<section class="sg">
+  <video src="media/silk.mp4" poster="media/silk.jpg" autoplay muted loop playsinline></video>
+  <header class="sg-nav sg-glass" data-glass="pill"><b>Cobalt Club</b><nav><a href="#">Lounges</a><a href="#">Perks</a><a href="#">Journal</a></nav><a href="#">Apply</a></header>
+  <div>
+    <h1>Membership,<br><em>tailored.</em></h1>
+    <p>Real liquid glass over a live silk loop: every card bends the fabric moving behind it, and the rim splits the light slightly into colour.</p>
+    <div class="sg-cta"><a class="sg-glass" data-glass="pill" href="#">Request an invite</a><a class="sg-glass" data-glass="pill" href="#">See the lounges</a></div>
+  </div>
+  <div class="sg-stack">
+    <div class="sg-card sg-m sg-glass" data-glass="card"><header><span>COBALT</span><span>MEMBER</span></header><b>Mira Okafor</b><footer><span>Nº 0412</span><span>SINCE 2024</span></footer></div>
+    <div class="sg-card sg-p sg-glass" data-glass="card"><h4>Your perks</h4><ul><li><i>✦</i>Lounges in 38 cities</li><li><i>◐</i>Late checkout, always</li><li><i>❖</i>A concierge who texts back</li></ul></div>
+    <div class="sg-card sg-s sg-glass" data-glass="card"><div><b>38</b><span>cities</span></div><div><b>24/7</b><span>concierge</span></div><div><b>4.9</b><span>rating</span></div></div>
+  </div>
+</section>
+<script>
+(()=>{
+const root=document.querySelector(".sg");
+/* liquid glass: SVG displacement map as backdrop-filter (Chromium); other engines keep the frosted CSS skin */
+const RECIPE={card:{bezel:26,depth:18,disp:.05,blur:3,sat:1.5,zoom:0},pill:{bezel:14,depth:9,disp:.05,blur:1.5,sat:1.6,zoom:0}};
+const chromium=/Chrome\//.test(navigator.userAgent)&&!/Firefox\//.test(navigator.userAgent);
+const NS="http://www.w3.org/2000/svg",svg=document.createElementNS(NS,"svg");svg.style.cssText="position:absolute;width:0;height:0";document.body.append(svg);
+const mk=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e};
+// the map spans the default filter region (-10%..110%): a tight 0..1 region renders offset in Chromium
+function map(w,h,r,bz,depth,zoom){const cw=Math.round(w*1.2),ch=Math.round(h*1.2),cv=document.createElement("canvas");cv.width=cw;cv.height=ch;
+  const x=cv.getContext("2d"),img=x.createImageData(cw,ch),d=img.data,hw=w/2,hh=h/2,ix=hw-r,iy=hh-r;
+  for(let py=0;py<ch;py++)for(let px=0;px<cw;px++){const X=px+.5-cw/2,Y=py+.5-ch/2,qx=Math.abs(X)-ix,qy=Math.abs(Y)-iy;let dist,nx,ny;
+    if(qx>0&&qy>0){const L=Math.hypot(qx,qy)||1;dist=L-r;nx=qx/L;ny=qy/L}else if(qx>qy){dist=qx-r;nx=1;ny=0}else{dist=qy-r;nx=0;ny=1}
+    const ins=-dist;let mm=0;if(ins>0&&ins<bz){const tt=1-ins/bz;mm=Math.pow(tt,2.4)*(1-.15*tt)}
+    const sx=Math.max(-1,Math.min(1,-Math.sign(X)*nx*mm-zoom*X/depth)),sy=Math.max(-1,Math.min(1,-Math.sign(Y)*ny*mm-zoom*Y/depth)),i=(py*cw+px)*4;
+    d[i]=128+sx*127;d[i+1]=128+sy*127;d[i+2]=128;d[i+3]=255}
+  x.putImageData(img,0,0);return cv.toDataURL()}
+let seq=0;
+function glass(el){const R=RECIPE[el.dataset.glass],w=el.offsetWidth,h=el.offsetHeight;if(!w||!h)return;
+  const cr=getComputedStyle(el).borderTopLeftRadius,r=Math.min(cr.endsWith("%")?parseFloat(cr)/100*Math.min(w,h):parseFloat(cr)||0,Math.min(w,h)/2);
+  const url=map(w,h,r,Math.min(R.bezel,Math.min(w,h)/2-1),R.depth,R.zoom),id="sg-f"+ ++seq,f=mk("filter",{id,"color-interpolation-filters":"sRGB"});
+  f.append(mk("feGaussianBlur",{in:"SourceGraphic",stdDeviation:R.blur,result:"s"}),mk("feImage",{href:url,preserveAspectRatio:"none",result:"m"}));
+  [["r",1,"1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"],["g",1-R.disp,"0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0"],["b",1-2*R.disp,"0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"]].forEach(([ch,mul,mx])=>{
+    f.append(mk("feDisplacementMap",{in:"s",in2:"m",scale:R.depth*2*mul,xChannelSelector:"R",yChannelSelector:"G",result:"d"+ch}),mk("feColorMatrix",{in:"d"+ch,type:"matrix",values:mx,result:ch}))});
+  f.append(mk("feBlend",{in:"r",in2:"g",mode:"screen",result:"rg"}),mk("feBlend",{in:"rg",in2:"b",mode:"screen",result:"rgb"}),mk("feColorMatrix",{in:"rgb",type:"saturate",values:R.sat}));
+  // apply only once the map has decoded: attaching it earlier can leave the backdrop rendered offset
+  const im=new Image();im.src=url;im.decode().catch(()=>{}).then(()=>{el._f?.remove();el._f=f;svg.append(f);el.style.backdropFilter=el.style.webkitBackdropFilter=`url(#${id})`})}
+if(chromium){const all=[...root.querySelectorAll("[data-glass]")];const run=()=>all.forEach(glass);
+  document.fonts?document.fonts.ready.then(run):run();let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(run,150)})}
+
+})();
+</script>

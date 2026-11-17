@@ -1,0 +1,50 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.mx-w{display:grid;justify-items:center;gap:20px;width:min(440px,100%)}
+.mx-bowl{width:220px;height:130px;border-radius:0 0 110px 110px;border:6px solid var(--fg);border-top:0;position:relative;overflow:hidden}.mx-p{position:absolute;inset:auto 0 0;height:0;background:#ddd;transition:height .4s var(--ease),background .4s var(--ease);border-radius:0 0 104px 104px}
+.mx-p::before{content:"";position:absolute;left:10%;right:10%;top:8px;height:10px;border-radius:50%;background:rgb(255 255 255/.3)}
+.mx-info{display:grid;justify-items:center;gap:2px}.mx-info b{font:600 20px 'Geist Mono',monospace}
+.mx-pots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%}.mx-pots button{border:0;border-radius:16px 16px 22px 22px;height:64px;cursor:pointer;font:600 12px Geist,sans-serif;display:grid;place-items:end center;padding-bottom:8px;transition:transform .12s var(--ease)}.mx-pots button:active{transform:scale(.94)}
+.mx-ctl{display:flex;gap:8px}
+.mx-drop{position:fixed;width:18px;height:18px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);pointer-events:none;animation:mxd .4s ease-in forwards}@keyframes mxd{to{translate:var(--dx) var(--dy);opacity:.6}}
+</style>
+<div class="k mx"><div class="mx-w"><div class="mx-bowl" aria-hidden="true"><div class="mx-p" id="p"></div></div><div class="mx-info"><b id="hx" aria-live="polite">Empty bowl</b><span class="mu" id="ct">Add some paint</span></div>
+<div class="mx-pots" id="pots" role="group" aria-label="Paint pots"></div><div class="mx-ctl"><button class="b" id="un" disabled>Undo</button><button class="b" id="em" disabled>Empty</button></div></div></div>
+<script>
+const PA=[['Cyan','#00a6d6',[1,0,0,0]],['Magenta','#e6007e',[0,1,0,0]],['Yellow','#ffe600',[0,0,1,0]],['White','#ffffff',[0,0,0,0]],['Red','#e63022',[0,.9,.9,0]],['Blue','#1e3fd8',[.9,.7,0,0]],['Green','#14a35a',[.85,0,.85,0]],['Black','#1a1a1a',[0,0,0,1]]];
+const pots=document.getElementById('pots'),p=document.getElementById('p'),hx=document.getElementById('hx'),ct=document.getElementById('ct'),un=document.getElementById('un'),em=document.getElementById('em');let mix=[];
+PA.forEach((q,i)=>{const b=document.createElement('button');b.style.background=q[1];b.style.color=['Yellow','White'].includes(q[0])?'#222':'#fff';if(q[0]==='White')b.style.boxShadow='inset 0 0 0 1px var(--line)';b.textContent=q[0];b.onclick=e=>{mix.push(i);drop(b,q[1]);draw()};pots.append(b)});
+function drop(b,c){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const r=b.getBoundingClientRect(),t=p.parentElement.getBoundingClientRect(),d=document.createElement('i');d.className='mx-drop';d.style.background=c;d.style.left=r.left+r.width/2-9+'px';d.style.top=r.top+'px';d.style.setProperty('--dx',(t.left+t.width/2-r.left-r.width/2)+'px');d.style.setProperty('--dy',(t.top+t.height/2-r.top)+'px');document.body.append(d);setTimeout(()=>d.remove(),400)}
+function draw(){un.disabled=em.disabled=!mix.length;if(!mix.length){p.style.height='0';hx.textContent='Empty bowl';ct.textContent='Add some paint';return}
+let c=0,m=0,y=0,k=0;mix.forEach(i=>{const v=PA[i][2];c+=v[0];m+=v[1];y+=v[2];k+=v[3]});const n=mix.length;c/=n;m/=n;y/=n;k/=n;
+const rgb=[1-c,1-m,1-y].map(v=>Math.round(255*v*(1-k)*(1-.12*Math.min(1,(c+m+y)))));const h='#'+rgb.map(v=>Math.max(0,v).toString(16).padStart(2,'0')).join('').toUpperCase();
+p.style.background=h;p.style.height=Math.min(100,20+n*10)+'%';hx.textContent=h;const cnt={};mix.forEach(i=>cnt[PA[i][0]]=(cnt[PA[i][0]]||0)+1);ct.textContent=Object.entries(cnt).map(([a,b])=>b+' '+a.toLowerCase()).join(' + ')}
+un.onclick=()=>{mix.pop();draw()};em.onclick=()=>{mix=[];draw()};
+</script>

@@ -1,0 +1,43 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.qv-g{list-style:none;padding:0;margin:0;width:min(860px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.qv-g li{position:relative}.qv-g a{display:grid;gap:6px;color:inherit;text-decoration:none;font-size:14px}.qv-g img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px}.qv-g button{position:absolute;left:10px;right:10px;top:calc(100% - 120px);height:40px;border-radius:10px;background:var(--bg);font-weight:600;font-size:13px;opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s cubic-bezier(.23,1,.32,1);box-shadow:0 1px 2px #0002}.qv-g li:hover button,.qv-g button:focus-visible{opacity:1;transform:none}@media (hover:none){.qv-g button{opacity:1;transform:none}}
+.qv-d{width:min(760px,calc(100% - 32px));padding:0;border:0;border-radius:16px;background:var(--bg);color:var(--fg);overflow:hidden}.qv-d::backdrop{background:#0006}.qv-d[open]{animation:qvo .3s cubic-bezier(.23,1,.32,1)}@keyframes qvo{from{opacity:0;transform:translate(var(--tx,0),var(--ty,0)) scale(.6)}}
+.qv-x{position:absolute;top:10px;right:10px;z-index:2;background:var(--bg)}.qv-b{display:grid;grid-template-columns:1fr 1fr}.qv-b img{width:100%;height:100%;object-fit:cover;min-height:320px}.qv-i{padding:28px;display:grid;gap:10px;align-content:start}.qv-i h2{margin:0;font-size:22px;letter-spacing:-.02em;padding-right:32px}.qv-i b{font-size:18px}.qv-i p{margin:0;font-size:14px;line-height:1.55}
+.qv-sz{display:flex;gap:6px}.qv-sz button{min-width:44px;height:40px;border:1px solid var(--ctl);border-radius:8px;font-weight:600}.qv-sz [aria-checked=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}.qv-l{display:flex;gap:6px;align-items:center;font-size:14px;color:var(--fg);justify-self:start;min-height:32px}
+@media (max-width:600px){.qv-g{grid-template-columns:1fr 1fr}.qv-b{grid-template-columns:1fr}.qv-b img{min-height:0;aspect-ratio:4/3}}
+</style>
+<div class="k"><ul class="qv-g" id="g"></ul><dialog class="qv-d" id="d" aria-labelledby="qn"><button class="ibt qv-x" id="x" aria-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button><div class="qv-b"><img id="qi" alt=""><div class="qv-i"><h2 id="qn"></h2><b class="tn" id="qp"></b><p class="mu" id="qd"></p><span class="lbl">Size</span><div class="qv-sz" id="qs" role="radiogroup" aria-label="Size"></div><button class="b ac lg" id="qa">Add to bag</button><a href="#" class="qv-l">View full details <svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div></div></dialog></div>
+<script>
+const P=[["Rain shell","c/1052",180,"Seam-sealed, packs into its own pocket. 380 g."],["Quilted vest","c/1050",120,"Recycled fill, two hand pockets, drop hem."],["Linen chore coat","c/1047",140,"Washed linen, three patch pockets, horn buttons."]],g=document.getElementById('g'),d=document.getElementById('d');let from=null;
+g.innerHTML=P.map(([n,img,p],i)=>`<li><a href="#"><img src="media/pics/${img}.jpg" alt=""><b>${n}</b><span class="tn">€${p}</span></a><button data-i="${i}">Quick view</button></li>`).join('');
+g.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;from=b;const [n,img,p,ds]=P[+b.dataset.i],r=b.closest('li').getBoundingClientRect();d.style.setProperty('--tx',(r.left+r.width/2-innerWidth/2)+'px');d.style.setProperty('--ty',(r.top+r.height/2-innerHeight/2)+'px');document.getElementById('qi').src=`media/pics/${img}.jpg`;document.getElementById('qn').textContent=n;document.getElementById('qp').textContent='€'+p;document.getElementById('qd').textContent=ds;document.getElementById('qs').innerHTML=['S','M','L','XL'].map((s,k)=>`<button role="radio" aria-checked="${k===1}">${s}</button>`).join('');const a=document.getElementById('qa');a.textContent='Add to bag';a.disabled=false;d.showModal()};
+document.getElementById('qs').onclick=e=>{const b=e.target.closest('button');if(b)b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b))};document.getElementById('x').onclick=()=>d.close();d.onclick=e=>{if(e.target===d)d.close()};d.addEventListener('close',()=>from&&from.focus());
+document.getElementById('qa').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Added to bag ✓'};
+</script>

@@ -1,0 +1,75 @@
+<style>
+.tpm{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.tpm :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tpm ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.tpm *,.tpm *::before,.tpm *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.tpm{min-height:100vh;display:grid;place-items:center;padding:40px 16px}
+.tpm-card{width:min(860px,100%)}
+.tpm-top{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
+.tpm-top h3{margin:0;font-size:16px;font-weight:600}.tpm-top p{margin:2px 0 0;font-size:13px;color:var(--mu)}
+.tpm-out{text-align:right}
+.tpm-v{font:500 44px/1 "Geist Mono",monospace;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.tpm-v small{font-size:16px;color:var(--mu);margin-left:4px}
+.tpm-in{font:13px "Geist Mono",monospace;color:var(--mu);margin-top:6px}
+.tpm-rig{--u:5px;position:relative;height:150px}
+.tpm-tape{position:absolute;left:112px;bottom:22px;height:34px;width:calc(var(--w,0px) + 10px);border-radius:0 2px 2px 0;overflow:hidden;box-shadow:0 3px 6px -3px #0006;
+  background:repeating-linear-gradient(to left,#1c1a14 0 1.5px,#0000 1.5px calc(var(--u)*10)) right top/100% 17px no-repeat,
+  repeating-linear-gradient(to left,#1c1a14 0 1px,#0000 1px calc(var(--u)*5)) right top/100% 12px no-repeat,
+  repeating-linear-gradient(to left,#1c1a1499 0 1px,#0000 1px var(--u)) right top/100% 7px no-repeat,
+  repeating-linear-gradient(to left,#1c1a1499 0 1px,#0000 1px calc(var(--u)*2.54)) right bottom/100% 6px no-repeat,
+  linear-gradient(#f5cb3a,#e8b81f)}
+.tpm.fine .tpm-tape{background-size:100% 17px,100% 12px,0 0,100% 6px,auto}
+.tpm-n{position:absolute;bottom:8px;translate:50% 0;font:600 10px/1 "Geist Mono",monospace;color:#1c1a14}
+.tpm-n.r{color:#b91c1c}
+.tpm-hook{position:absolute;bottom:14px;left:calc(112px + var(--w,0px) + 6px);width:9px;height:50px;padding:0;border:0;border-radius:2px 3px 3px 2px;background:linear-gradient(90deg,#7c7c85,#e9e9ef 45%,#8d8d96);cursor:ew-resize;touch-action:none}
+.tpm-hook::before{content:"";position:absolute;inset:-14px -16px}
+.tpm-hook::after{content:"";position:absolute;left:2px;top:6px;width:5px;height:5px;border-radius:50%;background:#55555c}
+.tpm-case{position:absolute;left:0;bottom:0;width:128px;height:128px;border-radius:30px 30px 30px 22px;background:linear-gradient(150deg,#ff7a2e,#c2410c);box-shadow:inset 0 1px 0 #ffffff4d,inset 0 -3px 0 #0003,0 14px 28px -14px #000a}
+.tpm-case::before{content:"";position:absolute;inset:14px;border-radius:50%;background:#1f1f23;box-shadow:inset 0 2px 4px #000}
+.tpm-spin{position:absolute;inset:30px;border-radius:50%;background:repeating-conic-gradient(#3a3a40 0 8deg,#2a2a2f 8deg 16deg);box-shadow:0 0 0 3px #44444b;rotate:var(--rot,0deg)}
+.tpm-spin::after{content:"";position:absolute;inset:38%;border-radius:50%;background:linear-gradient(#cfcfd6,#7d7d86)}
+.tpm-lock{position:absolute;right:-6px;top:20px;height:26px;padding:0 9px;border-radius:999px;border:0;background:#1f1f23;color:#f4f4f5;font:600 10px/1 "Geist Mono",monospace;letter-spacing:.06em;cursor:pointer}
+.tpm-lock[aria-pressed="true"]{background:#f4f4f5;color:#1f1f23}
+.tpm.thunk .tpm-case{animation:tpm-th .25s}
+@keyframes tpm-th{30%{translate:-5px 0;rotate:-2deg}60%{translate:2px 0}}
+.tpm-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--mu)}
+.tpm-foot b{color:var(--fg);font-weight:600;font-variant-numeric:tabular-nums}
+</style>
+<section class="tpm">
+  <div class="tpm-card">
+    <div class="tpm-top"><div><h3>Oak shelf, cut to length</h3><p>Pull the hook out to the length you need. Unlock and let go to retract.</p></div>
+      <div class="tpm-out"><div class="tpm-v">64.5<small>cm</small></div><div class="tpm-in">25 ⅜ in</div></div></div>
+    <div class="tpm-rig">
+      <div class="tpm-tape"></div>
+      <button class="tpm-hook" role="slider" aria-label="Shelf length" aria-valuemin="0" aria-valuemax="120"></button>
+      <div class="tpm-case"><div class="tpm-spin"></div><button class="tpm-lock" aria-pressed="true">LOCK</button></div>
+    </div>
+    <div class="tpm-foot"><span>Arrows ±1 mm · Shift ±1 cm · PgUp/PgDn ±10 cm</span><span>Price <b class="tpm-p">$27.09</b></span></div>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".tpm"),rig=R.querySelector(".tpm-rig"),tape=R.querySelector(".tpm-tape"),hook=R.querySelector(".tpm-hook"),lock=R.querySelector(".tpm-lock"),
+  vo=R.querySelector(".tpm-v"),io=R.querySelector(".tpm-in"),po=R.querySelector(".tpm-p"),spin=R.querySelector(".tpm-spin");
+const MAX=120,X0=112,red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let u=5,v=64.5,locked=true,drag=null,raf=0;
+const frac=["","⅛","¼","⅜","½","⅝","¾","⅞"];
+const inch=cm=>{const e=Math.round(cm/2.54*8),w=Math.floor(e/8),f=e%8;return `${w}${f?" "+frac[f]:""} in`};
+const render=()=>{rig.style.setProperty("--w",v*u+"px");spin.style.setProperty("--rot",-v*7+"deg");
+  vo.firstChild.textContent=v.toFixed(1);io.textContent=inch(v);po.textContent=v<10?"Min 10 cm":"$"+(v*.42).toFixed(2);
+  hook.setAttribute("aria-valuenow",v.toFixed(1));hook.setAttribute("aria-valuetext",`${v.toFixed(1)} centimetres`)};
+const layout=()=>{u=Math.max(1.4,(rig.clientWidth-X0-24)/MAX);rig.style.setProperty("--u",u+"px");R.classList.toggle("fine",u<4);
+  const step=u<3?20:10;tape.innerHTML="";for(let n=step;n<=MAX;n+=step){const s=document.createElement("span");s.className="tpm-n"+(n%50===0?" r":"");s.textContent=n;s.style.right=n*u+"px";tape.append(s)}render()};
+new ResizeObserver(layout).observe(rig);
+const setV=n=>{cancelAnimationFrame(raf);v=Math.round(Math.max(0,Math.min(MAX,n))*10)/10;render()};
+const retract=()=>{cancelAnimationFrame(raf);if(red){v=0;return render()}let vel=0;
+  const f=()=>{vel=Math.min(vel+.5,9);v-=vel;if(v<=0){v=0;R.classList.remove("thunk");void R.offsetWidth;R.classList.add("thunk");return render()}render();raf=requestAnimationFrame(f)};raf=requestAnimationFrame(f)};
+hook.addEventListener("pointerdown",e=>{cancelAnimationFrame(raf);const r=rig.getBoundingClientRect();drag={off:e.clientX-(r.left+X0+v*u)};hook.setPointerCapture(e.pointerId)});
+hook.addEventListener("pointermove",e=>{if(!drag)return;const r=rig.getBoundingClientRect();setV((e.clientX-drag.off-r.left-X0)/u)});
+const up=()=>{if(!drag)return;drag=null;if(!locked)retract()};
+hook.addEventListener("pointerup",up);hook.addEventListener("pointercancel",up);
+hook.addEventListener("keydown",e=>{const k=e.key,s=e.shiftKey?1:.1,m={ArrowRight:s,ArrowUp:s,ArrowLeft:-s,ArrowDown:-s,PageUp:10,PageDown:-10}[k];
+  if(m!==undefined){e.preventDefault();setV(v+m)}else if(k==="Home"){e.preventDefault();setV(0)}else if(k==="End"){e.preventDefault();setV(MAX)}});
+lock.addEventListener("click",()=>{locked=!locked;lock.setAttribute("aria-pressed",locked);lock.textContent=locked?"LOCK":"FREE";if(!locked&&v>0)retract()});
+})();
+</script>

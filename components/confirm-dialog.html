@@ -1,0 +1,68 @@
+<style>
+.cd{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.cd :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.cd ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.cd *,.cd *::before,.cd *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.cd{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.cd-card{width:min(560px,100%);background:var(--bg);border:1px solid color-mix(in oklab,var(--err) 35%,var(--line));border-radius:16px;overflow:hidden}
+.cd-card .in{padding:22px 24px}
+.cd-card h2{margin:0;font-size:16px;font-weight:620}
+.cd-card p{margin:6px 0 0;font-size:14px;color:var(--mu);line-height:1.55}
+.cd-card .ft{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;background:var(--err-sf);border-top:1px solid color-mix(in oklab,var(--err) 25%,var(--line));font-size:13px;color:var(--mu)}
+.cd-btn{height:38px;padding:0 16px;border:0;border-radius:10px;background:var(--err);color:light-dark(#fff,#2a0606);font:550 14px Geist,system-ui,sans-serif;cursor:pointer}
+.cd-btn:hover{background:color-mix(in oklab,var(--err) 86%,var(--fg))}
+.cd-btn:disabled{opacity:.4;cursor:not-allowed}
+.cd dialog{width:min(440px,calc(100% - 32px));padding:0;border:1px solid var(--line);border-radius:18px;background:var(--bg);color:var(--fg);box-shadow:0 30px 70px -20px #00000066;opacity:0;transform:scale(.96);transition:opacity .18s,transform .22s var(--ease),overlay .22s allow-discrete,display .22s allow-discrete}
+.cd dialog[open]{opacity:1;transform:none}
+@starting-style{.cd dialog[open]{opacity:0;transform:scale(.96)}}
+.cd dialog::backdrop{background:#0a0a0b8c;opacity:0;transition:opacity .2s,overlay .22s allow-discrete,display .22s allow-discrete}
+.cd dialog[open]::backdrop{opacity:1}
+@starting-style{.cd dialog[open]::backdrop{opacity:0}}
+.cd dialog.shake{animation:cd-sh .35s}
+@keyframes cd-sh{25%,75%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+.cd-b{padding:24px 24px 18px}
+.cd-ic{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--err-sf);color:var(--err);margin-bottom:14px}
+.cd-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cd-b h2{margin:0;font-size:18px;font-weight:620;letter-spacing:-.02em}
+.cd-b>p{margin:6px 0 0;font-size:14px;color:var(--mu);line-height:1.55}
+.cd-b ul{margin:14px 0 0;padding:12px 14px 12px 32px;border-radius:10px;background:var(--sf);font-size:13.5px;line-height:1.7}
+.cd-b label{display:block;margin-top:16px;font-size:13.5px}
+.cd-b label code{font:600 13px "Geist Mono",monospace;padding:1px 6px;border-radius:5px;background:var(--sf2);user-select:all}
+.cd-b input{display:block;width:100%;height:40px;margin-top:8px;padding:0 12px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);color:var(--fg);font:500 16px "Geist Mono",monospace}
+@media (min-width:640px){.cd-b input{font-size:14px}}
+.cd-b input:focus-visible{outline:0;border-color:var(--err);box-shadow:0 0 0 3px color-mix(in oklab,var(--err) 22%,transparent)}
+.cd-ft{display:flex;gap:8px;padding:0 24px 22px}
+.cd-ft button{flex:1;height:42px;border-radius:11px;font:550 14px Geist,system-ui,sans-serif;cursor:pointer}
+.cd-ft .cn{border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.cd-ft .cn:hover{background:var(--sf2)}
+.cd-done{display:none;align-items:center;gap:10px;padding:14px 24px;background:var(--sf);border-top:1px solid var(--line);font-size:13.5px}
+.cd-done.on{display:flex}
+.cd-done button{margin-left:auto;border:0;background:none;color:var(--ac);font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+</style>
+<div class="cd">
+  <section class="cd-card" aria-labelledby="cdH">
+    <div class="in"><h2 id="cdH">Delete project</h2><p>Permanently remove <b>marketing-site</b> and all of its deployments, domains and environment variables. This cannot be undone.</p></div>
+    <div class="ft"><span>Danger zone</span><button class="cd-btn" id="cdOpen">Delete project</button></div>
+    <div class="cd-done" role="status"><span>Project <b>marketing-site</b> deleted.</span><button type="button" id="cdUndo">Undo</button></div>
+  </section>
+  <dialog id="cdD" role="alertdialog" aria-labelledby="cdT" aria-describedby="cdDe">
+    <form method="dialog">
+      <div class="cd-b"><div class="cd-ic"><svg viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/></svg></div>
+        <h2 id="cdT">Delete marketing-site?</h2>
+        <p id="cdDe">This will immediately take the site offline and remove:</p>
+        <ul><li>142 deployments</li><li>2 custom domains</li><li>18 environment variables</li></ul>
+        <label for="cdIn">Type <code>marketing-site</code> to confirm</label>
+        <input id="cdIn" autocomplete="off" spellcheck="false" autocapitalize="off">
+      </div>
+      <div class="cd-ft"><button class="cn" value="cancel" formnovalidate autofocus>Cancel</button><button class="cd-btn" value="ok" id="cdGo" disabled>Delete project</button></div>
+    </form>
+  </dialog>
+</div>
+<script>
+const D=document.getElementById("cdD"),I=document.getElementById("cdIn"),G=document.getElementById("cdGo"),open=document.getElementById("cdOpen"),done=document.querySelector(".cd-done");
+open.addEventListener("click",()=>{I.value="";G.disabled=true;D.returnValue="";D.showModal()});
+I.addEventListener("input",()=>G.disabled=I.value!=="marketing-site");
+I.addEventListener("keydown",e=>{if(e.key==="Enter"&&G.disabled){e.preventDefault();D.classList.remove("shake");void D.offsetWidth;D.classList.add("shake")}});
+D.addEventListener("close",()=>{if(D.returnValue==="ok"){open.disabled=true;done.classList.add("on");document.getElementById("cdUndo").focus()}else open.focus()});
+document.getElementById("cdUndo").addEventListener("click",()=>{done.classList.remove("on");open.disabled=false;open.focus()});
+</script>

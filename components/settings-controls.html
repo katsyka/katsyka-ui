@@ -1,0 +1,81 @@
+<style>
+.sc-stage{min-height:100vh;display:grid;place-items:center;padding:40px 16px;background:#0a0a0b}
+.sc{width:min(620px,100%);border-radius:22px;background:#111113;border:1px solid #ffffff10;box-shadow:0 30px 70px -30px #000}
+.sc-head{padding:22px 26px 6px}.sc-head h2{margin:0 0 4px;font-size:19px;letter-spacing:-.025em;font-weight:600}.sc-head p{margin:0;color:#71717a;font-size:13.5px}
+.sc-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 26px;border-top:1px solid #ffffff0b}
+.sc-row:first-of-type{border-top:0}
+.sc-row b{display:block;font-size:14.5px;font-weight:550}.sc-row small{display:block;margin-top:2px;font-size:12.5px;color:#71717a}
+/* segmented */
+.sc-seg{position:relative;display:flex;padding:3px;border-radius:10px;background:#09090b;border:1px solid #ffffff0d}
+.sc-seg button{position:relative;z-index:1;height:30px;padding:0 13px;border:0;background:none;color:#71717a;font:500 13px Geist,sans-serif;cursor:pointer;transition:color .25s;display:flex;align-items:center;gap:6px}
+.sc-seg button svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2}
+.sc-seg button.on{color:#fafafa}
+.sc-seg i{position:absolute;top:3px;bottom:3px;border-radius:7px;background:#27272a;box-shadow:0 1px 0 #ffffff12 inset,0 2px 6px #0006;transition:left .4s cubic-bezier(.3,1.25,.5,1),width .4s cubic-bezier(.3,1.25,.5,1)}
+/* switch */
+.sc-sw{position:relative;flex:none;width:44px;height:26px;border-radius:99px;border:0;background:#27272a;cursor:pointer;transition:background .3s}
+.sc-sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fafafa;box-shadow:0 2px 4px #0005;transition:transform .35s cubic-bezier(.3,1.4,.5,1),width .2s}
+.sc-sw:active::after{width:25px}
+.sc-sw[aria-checked=true]{background:#ff5a1f}.sc-sw[aria-checked=true]::after{transform:translateX(18px)}.sc-sw[aria-checked=true]:active::after{transform:translateX(13px)}
+/* slider */
+.sc-sl{position:relative;width:220px;height:28px;cursor:pointer;touch-action:none}
+.sc-sl .tr{position:absolute;left:0;right:0;top:12px;height:4px;border-radius:2px;background:#27272a}
+.sc-sl .fi{position:absolute;left:0;top:12px;height:4px;border-radius:2px;background:#ff5a1f}
+.sc-sl .th{position:absolute;top:5px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#fafafa;box-shadow:0 2px 6px #0007;transition:transform .2s}
+.sc-sl.drag .th{transform:scale(1.15)}
+.sc-sl .tip{position:absolute;bottom:30px;transform:translateX(-50%) translateY(4px);padding:3px 8px;border-radius:6px;background:#fafafa;color:#0a0a0b;font:600 12px "Geist Mono",monospace;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;white-space:nowrap}
+.sc-sl:hover .tip,.sc-sl.drag .tip{opacity:1;transform:translateX(-50%)}
+.sc-sl .tk{position:absolute;top:22px;width:1px;height:5px;background:#3f3f46}
+/* stepper */
+.sc-st{display:flex;align-items:center;border-radius:10px;border:1px solid #ffffff14;overflow:hidden}
+.sc-st button{width:34px;height:34px;border:0;background:none;color:#a1a1aa;font:500 17px Geist,sans-serif;cursor:pointer}.sc-st button:hover{background:#ffffff0a;color:#fff}.sc-st button:disabled{opacity:.3;cursor:default;background:none}
+.sc-st output{width:44px;text-align:center;font:600 14px "Geist Mono",monospace;overflow:hidden;height:34px;line-height:34px}
+.sc-st output span{display:block;animation:sc-up .3s cubic-bezier(.2,1,.3,1)}.sc-st output span.dn{animation-name:sc-dn}
+@keyframes sc-up{from{transform:translateY(100%);opacity:0}}@keyframes sc-dn{from{transform:translateY(-100%);opacity:0}}
+/* checkboxes */
+.sc-cks{display:flex;gap:16px;flex-wrap:wrap}
+.sc-ck{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#d4d4d8;cursor:pointer;user-select:none}
+.sc-ck input{position:absolute;opacity:0}
+.sc-ck i{width:20px;height:20px;border-radius:6px;border:1.5px solid #3f3f46;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.sc-ck svg{width:12px;height:12px;fill:none;stroke:#160a04;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .3s .05s}
+.sc-ck input:checked+i{background:#ff5a1f;border-color:#ff5a1f}.sc-ck input:checked+i svg{stroke-dashoffset:0}
+.sc-ck input:focus-visible+i{outline:2px solid #ff5a1f66;outline-offset:2px}
+.sc-foot{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:14px 18px;border-top:1px solid #ffffff0b;background:#0d0d0f;border-radius:0 0 22px 22px}
+.sc-foot span{margin-right:auto;font-size:12.5px;color:#71717a;opacity:0;transition:opacity .3s}.sc-foot span.on{opacity:1}
+.sc-foot button{height:36px;padding:0 16px;border-radius:10px;border:1px solid #ffffff17;background:none;color:#e4e4e7;font:550 13.5px Geist,sans-serif;cursor:pointer}
+.sc-foot button.pri{background:#fafafa;color:#0a0a0b;border-color:#fafafa}.sc-foot button:disabled{opacity:.35;cursor:default}
+@media (max-width:560px){.sc-row{flex-direction:column;align-items:flex-start}}
+</style>
+<div class="sc-stage"><div class="sc">
+  <div class="sc-head"><h2>Preferences</h2><p>Every control here is real and keyboard accessible.</p></div>
+  <div class="sc-row"><div><b>Theme</b><small>Applies to every device you sign in on.</small></div>
+    <div class="sc-seg" role="radiogroup"><i></i><button class="on" role="radio"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>Light</button><button role="radio"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>Dark</button><button role="radio"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8"/></svg>System</button></div></div>
+  <div class="sc-row"><div><b>Email digests</b><small>A weekly summary of what changed.</small></div><button class="sc-sw" role="switch" aria-checked="true" aria-label="Email digests"></button></div>
+  <div class="sc-row"><div><b>Interface density</b><small>How much fits on screen.</small></div><div class="sc-sl" role="slider" tabindex="0" aria-valuemin="0" aria-valuemax="100" data-v="60"><div class="tr"></div><div class="fi"></div><div class="th"></div><div class="tip"></div></div></div>
+  <div class="sc-row"><div><b>Seats</b><small class="sc-price">$12 per seat per month.</small></div><div class="sc-st"><button aria-label="Fewer">−</button><output><span>5</span></output><button aria-label="More">+</button></div></div>
+  <div class="sc-row"><div><b>Notify me about</b><small>Choose any.</small></div><div class="sc-cks"><label class="sc-ck"><input type="checkbox" checked><i><svg viewBox="0 0 14 14"><path d="m2.5 7.5 3 3 6-7"/></svg></i>Mentions</label><label class="sc-ck"><input type="checkbox"><i><svg viewBox="0 0 14 14"><path d="m2.5 7.5 3 3 6-7"/></svg></i>Comments</label><label class="sc-ck"><input type="checkbox" checked><i><svg viewBox="0 0 14 14"><path d="m2.5 7.5 3 3 6-7"/></svg></i>Releases</label></div></div>
+  <div class="sc-foot"><span>Unsaved changes</span><button class="rst" disabled>Reset</button><button class="pri" disabled>Save</button></div>
+</div></div>
+<script>
+(()=>{
+const root=document.querySelector(".sc"),foot=root.querySelector(".sc-foot"),dirty=()=>{foot.querySelector("span").classList.add("on");foot.querySelectorAll("button").forEach(b=>b.disabled=false)};
+const seg=root.querySelector(".sc-seg"),pill=seg.querySelector("i"),sb=[...seg.querySelectorAll("button")];
+const segGo=b=>{sb.forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-checked",x===b)});pill.style.left=b.offsetLeft+"px";pill.style.width=b.offsetWidth+"px"};
+sb.forEach((b,i)=>{b.onclick=()=>{segGo(b);dirty()};b.onkeydown=e=>{const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(d){const n=sb[(i+d+3)%3];n.focus();segGo(n);dirty()}}});
+root.querySelectorAll(".sc-sw").forEach(s=>s.onclick=()=>{s.setAttribute("aria-checked",s.getAttribute("aria-checked")!=="true");dirty()});
+const sl=root.querySelector(".sc-sl"),L=["Compact","Cozy","Comfortable","Roomy","Spacious"];
+for(let i=0;i<=4;i++)sl.insertAdjacentHTML("beforeend",`<i class="tk" style="left:${i*25}%"></i>`);
+const setV=v=>{v=Math.round(Math.max(0,Math.min(100,v))/25)*25;sl.dataset.v=v;sl.setAttribute("aria-valuenow",v);sl.querySelector(".fi").style.width=v+"%";sl.querySelector(".th").style.left=v+"%";const t=sl.querySelector(".tip");t.style.left=v+"%";t.textContent=L[v/25];sl.setAttribute("aria-valuetext",L[v/25])};
+const fromE=e=>{const r=sl.getBoundingClientRect();setV((e.clientX-r.left)/r.width*100)};
+sl.onpointerdown=e=>{sl.setPointerCapture(e.pointerId);sl.classList.add("drag");fromE(e);dirty()};sl.onpointermove=e=>{if(sl.classList.contains("drag"))fromE(e)};sl.onpointerup=()=>sl.classList.remove("drag");
+sl.onkeydown=e=>{const d={ArrowRight:25,ArrowUp:25,ArrowLeft:-25,ArrowDown:-25}[e.key];if(d){e.preventDefault();setV(+sl.dataset.v+d);dirty()}};
+const st=root.querySelector(".sc-st"),[minus,plus]=st.querySelectorAll("button"),out=st.querySelector("output");let n=5;
+const setN=d=>{n=Math.max(1,Math.min(50,n+d));out.innerHTML=`<span class="${d<0?"dn":""}">${n}</span>`;minus.disabled=n<=1;plus.disabled=n>=50;root.querySelector(".sc-price").textContent=`$12 per seat · $${n*12}/month`;dirty()};
+minus.onclick=()=>setN(-1);plus.onclick=()=>setN(1);
+root.querySelectorAll(".sc-ck input").forEach(c=>c.onchange=dirty);
+foot.querySelector(".pri").onclick=e=>{const b=e.currentTarget;b.textContent="Saved ✓";foot.querySelector("span").classList.remove("on");setTimeout(()=>{b.textContent="Save";foot.querySelectorAll("button").forEach(x=>x.disabled=true)},1200)};
+foot.querySelector(".rst").onclick=()=>{segGo(sb[0]);setV(50);n=5;out.innerHTML="<span>5</span>";minus.disabled=plus.disabled=false;
+  root.querySelector(".sc-sw").setAttribute("aria-checked","true");root.querySelectorAll(".sc-ck input").forEach((c,i)=>c.checked=i!==1);
+  root.querySelector(".sc-price").textContent="$12 per seat per month.";foot.querySelector("span").classList.remove("on");foot.querySelectorAll("button").forEach(b=>b.disabled=true)};
+requestAnimationFrame(()=>{segGo(sb[0]);setV(50)});
+})();
+</script>

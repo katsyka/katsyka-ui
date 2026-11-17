@@ -1,0 +1,70 @@
+<style>
+.bks{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.bks :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.bks ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.bks *,.bks *::before,.bks *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.bks{min-height:100vh;display:grid;place-items:center;padding:48px 16px}
+.bks-wrap{width:min(860px,100%)}
+.bks-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+.bks-head h2{font:400 36px/1 "Instrument Serif",serif;margin:0}.bks-head span{color:var(--mu);font-size:14px}
+.bks-shelf{position:relative;display:flex;align-items:flex-end;gap:4px;height:320px;padding:0 18px;perspective:1100px;overflow-x:auto;overflow-y:visible;scrollbar-width:none}
+.bks-shelf::after{content:"";position:sticky;flex:none;width:0}
+.bks-board{height:16px;border-radius:2px;background:linear-gradient(var(--sf2),color-mix(in oklab,var(--sf2),#000 18%));box-shadow:0 10px 24px -8px rgb(0 0 0/.35)}
+.bks-b{position:relative;flex:none;width:var(--w);height:var(--h);border:0;padding:0;background:none;cursor:pointer;transform-style:preserve-3d;transform-origin:bottom center;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.bks-b:hover,.bks-b:focus-visible{transform:translateY(-14px)}
+.bks-b:active{transform:translateY(-10px) scale(.98)}
+.bks-sp{position:absolute;inset:0;border-radius:3px;background:var(--c);color:var(--t);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:14px 0;box-shadow:inset 3px 0 0 rgb(255 255 255/.14),inset -4px 0 0 rgb(0 0 0/.18)}
+.bks-sp b{writing-mode:vertical-rl;transform:rotate(180deg);font:400 19px/1 "Instrument Serif",serif;letter-spacing:.01em;white-space:nowrap}
+.bks-sp small{writing-mode:vertical-rl;transform:rotate(180deg);font:500 10px "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.bks-sp i{width:60%;height:2px;background:currentColor;opacity:.5}
+.bks-b[aria-expanded=true]{visibility:hidden}
+.bks-open{position:fixed;inset:0;display:grid;place-items:center;padding:24px;background:color-mix(in oklab,var(--bg) 70%,transparent);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .2s ease-out;z-index:5}
+.bks-open.on{opacity:1;pointer-events:auto}
+.bks-card{display:grid;grid-template-columns:200px 1fr;gap:28px;width:min(640px,100%);padding:24px;border-radius:var(--r3);background:var(--bg);box-shadow:var(--shadow),0 0 0 1px var(--line)}
+.bks-cover{aspect-ratio:2/3;border-radius:3px 8px 8px 3px;background:var(--c);color:var(--t);padding:20px 18px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 6px 0 0 rgb(0 0 0/.15),0 12px 30px -10px rgb(0 0 0/.5);transform-origin:left center}
+.bks-cover b{font:400 30px/1 "Instrument Serif",serif}.bks-cover small{font:500 10px "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
+.bks-card h3{font:400 34px/1.05 "Instrument Serif",serif;margin:4px 0 6px}.bks-card p{color:var(--mu);margin:0 0 14px;max-width:40ch}
+.bks-meta{display:flex;gap:18px;font-size:13px;color:var(--mu);font-variant-numeric:tabular-nums;margin-bottom:20px}
+.bks-acts{display:flex;gap:8px}.bks-acts button{min-height:44px;padding:0 18px;border-radius:var(--r2);border:1px solid var(--ctl);background:none;color:var(--fg);font:500 14px Geist,system-ui,sans-serif;cursor:pointer}
+.bks-acts button:first-child{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.bks-acts button:active{transform:scale(.97)}
+@media (max-width:560px){.bks-card{grid-template-columns:1fr}.bks-cover{width:140px}}
+</style>
+<section class="bks">
+  <div class="bks-wrap">
+    <div class="bks-head"><h2>Reading shelf</h2><span>8 books · hover to pull, click to open</span></div>
+    <div class="bks-shelf" role="list"></div>
+    <div class="bks-board" aria-hidden="true"></div>
+  </div>
+  <div class="bks-open" role="dialog" aria-modal="true" aria-labelledby="bks-t">
+    <div class="bks-card"><div class="bks-cover"><small data-f="author"></small><b data-f="title"></b><small data-f="year"></small></div>
+      <div><small style="color:var(--mu);font-size:13px" data-f="genre"></small><h3 id="bks-t" data-f="title"></h3><p data-f="blurb"></p><div class="bks-meta"><span data-f="pages"></span><span data-f="year"></span></div>
+      <div class="bks-acts"><button type="button">Start reading</button><button type="button" data-close>Back to shelf</button></div></div></div>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".bks"),shelf=R.querySelector(".bks-shelf"),dlg=R.querySelector(".bks-open"),cover=R.querySelector(".bks-cover");
+const B=[["The Salt Orchard","I. Varga","Novel",312,2019,"#7c2d12","#fde7d3",58,286,"Three sisters inherit an orchard that only fruits in the sea fog."],
+["Quiet Machines","Teo Lind","Essays",208,2021,"#1e3a5f","#dbe7f5",44,250,"Short essays on the tools we stopped noticing."],
+["A Field Guide to Rain","M. Okafor","Nature",164,2017,"#3f5f3a","#e7f0dc",38,232,"Forty kinds of rain, how to hear them, and where to stand."],
+["Northbound","Ada Reyes","Travel",420,2022,"#c2410c","#fff1e6",66,300,"A winter walking from the coast to the last lighthouse."],
+["Small Hours","J. Petrov","Poems",96,2016,"#18181b","#f4f4f5",30,214,"Poems written between two and four in the morning."],
+["The Weaver's Map","Lena Fuchs","Novel",356,2020,"#6b21a8","#f3e8ff",54,276,"A cartographer stitches a city that keeps moving."],
+["Cast Iron","R. Mendes","Cooking",240,2018,"#a16207","#fef3c7",48,262,"One pan, ninety recipes, very little washing up."],
+["Low Orbit","Sami Haddad","Science",288,2023,"#0f766e","#ccfbf1",50,292,"What it is actually like to live four hundred kilometres up."]];
+let open=null;
+B.forEach((b,i)=>{const el=document.createElement("button");el.type="button";el.className="bks-b";el.setAttribute("role","listitem");el.setAttribute("aria-expanded","false");
+  el.setAttribute("aria-label",b[0]+" by "+b[1]);el.style.cssText=`--w:${b[7]}px;--h:${b[8]}px;--c:${b[5]};--t:${b[6]}`;
+  el.innerHTML=`<span class="bks-sp"><i></i><b>${b[0]}</b><small>${b[1]}</small></span>`;el.onclick=()=>show(i,el);shelf.appendChild(el)});
+function fill(b){const m={title:b[0],author:b[1],genre:b[2],pages:b[3]+" pages",year:b[4],blurb:b[9]};R.querySelectorAll("[data-f]").forEach(x=>x.textContent=m[x.dataset.f]);cover.style.cssText=`--c:${b[5]};--t:${b[6]}`}
+function show(i,el){fill(B[i]);open=el;const a=el.getBoundingClientRect();dlg.classList.add("on");const c=cover.getBoundingClientRect();
+  cover.animate([{transform:`translate(${a.left-c.left}px,${a.top-c.top}px) scale(${a.width/c.width},${a.height/c.height})`,opacity:.6},{transform:"none",opacity:1}],{duration:320,easing:"cubic-bezier(.2,.8,.2,1)"});
+  el.setAttribute("aria-expanded","true");R.querySelector("[data-close]").focus()}
+function close(){if(!open)return;const el=open;open=null;const a=el.getBoundingClientRect(),c=cover.getBoundingClientRect();
+  const an=cover.animate([{transform:"none"},{transform:`translate(${a.left-c.left}px,${a.top-c.top}px) scale(${a.width/c.width},${a.height/c.height})`}],{duration:240,easing:"cubic-bezier(.4,0,.2,1)"});
+  dlg.classList.remove("on");an.onfinish=()=>{el.setAttribute("aria-expanded","false");el.focus()}}
+R.querySelector("[data-close]").onclick=close;dlg.addEventListener("click",e=>{if(e.target===dlg)close()});
+document.addEventListener("keydown",e=>{if(!open)return;if(e.key==="Escape")close();if(e.key==="Tab"){const f=[...dlg.querySelectorAll("button")];const i=f.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();f[f.length-1].focus()}else if(!e.shiftKey&&i===f.length-1){e.preventDefault();f[0].focus()}}});
+})();
+</script>

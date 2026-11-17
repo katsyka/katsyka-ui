@@ -1,0 +1,59 @@
+<style>
+.kb{min-height:100vh;padding:40px clamp(12px,3vw,40px);background:#f3f2ef;color:#1c1b19;user-select:none}
+.kb h2{margin:0 0 4px;font-size:22px;letter-spacing:-.03em;font-weight:600}.kb>p{margin:0 0 22px;color:#7a776f;font-size:13.5px}
+.kb-cols{display:grid;grid-template-columns:repeat(3,minmax(250px,1fr));gap:14px;align-items:start;overflow-x:auto}
+.kb-col{border-radius:18px;background:#e9e7e2;padding:10px;transition:background .2s,box-shadow .2s}
+.kb-col.over{background:#e2dfd8;box-shadow:inset 0 0 0 2px #1c1b1920}
+.kb-h{display:flex;align-items:center;gap:8px;padding:4px 6px 10px;font-size:13.5px;font-weight:600}
+.kb-h i{width:8px;height:8px;border-radius:50%;background:var(--c)}.kb-h em{font-style:normal;font:500 12px "Geist Mono",monospace;color:#8a867d;margin-left:2px}
+.kb-h button{margin-left:auto;width:26px;height:26px;border-radius:7px;border:0;background:none;color:#7a776f;cursor:pointer;font-size:17px;line-height:1}.kb-h button:hover{background:#1c1b190d;color:#1c1b19}
+.kb-list{display:flex;flex-direction:column;gap:8px;min-height:60px}
+.kb-card{padding:12px 13px;border-radius:13px;background:#fff;box-shadow:0 1px 0 #1c1b190d,0 1px 3px #1c1b190a;cursor:grab;touch-action:none;transition:box-shadow .2s}
+.kb-card:hover{box-shadow:0 1px 0 #1c1b190d,0 6px 16px -6px #1c1b1926}
+.kb-card .t{display:inline-block;font:600 10.5px "Geist Mono",monospace;letter-spacing:.04em;padding:2px 7px;border-radius:5px;background:var(--tb);color:var(--tc);margin-bottom:8px}
+.kb-card b{display:block;font-size:14px;font-weight:550;line-height:1.35;letter-spacing:-.01em}
+.kb-card footer{display:flex;align-items:center;justify-content:space-between;margin-top:12px;font:12px "Geist Mono",monospace;color:#8a867d}
+.kb-av{display:flex}.kb-av i{width:22px;height:22px;border-radius:50%;border:2px solid #fff;margin-left:-6px;background:var(--c)}.kb-av i:first-child{margin-left:0}
+.kb-ghost{position:fixed;z-index:50;pointer-events:none;cursor:grabbing;box-shadow:0 24px 50px -12px #1c1b1955,0 0 0 1px #1c1b1910;transition:transform .15s,box-shadow .2s}
+.kb-ph{border-radius:13px;border:2px dashed #1c1b1926;background:#1c1b1906;transition:height .2s}
+.kb-new{display:none;margin-top:8px}.kb-new.on{display:block}
+.kb-new textarea{width:100%;height:70px;resize:none;border-radius:12px;border:1.5px solid #1c1b19;padding:10px 12px;font:14px Geist,sans-serif;outline:0;background:#fff}
+.kb-new small{font-size:12px;color:#8a867d}
+</style>
+<section class="kb"><h2>Sprint 24</h2><p>Drag cards between columns. Click + to add one, Enter to save.</p><div class="kb-cols"></div></section>
+<script>
+(()=>{
+const TAG={DESIGN:["#ede9fe","#6d28d9"],BUG:["#fee2e2","#b91c1c"],FEAT:["#dcfce7","#15803d"],DOCS:["#e0f2fe","#0369a1"]},AV=["#fdba74","#93c5fd","#c4b5fd","#86efac","#f9a8d4"];
+const D=[["To do","#a8a29e",[["FEAT","Bulk export for invoices",2,"Nov 3"],["DESIGN","Empty states for reports",1,"Nov 5"],["DOCS","Webhooks quickstart",1,"Nov 8"]]],
+ ["In progress","#f97316",[["BUG","Chart tooltip clips on mobile",1,"Today"],["FEAT","SSO with Okta",3,"Nov 2"]]],
+ ["Done","#22c55e",[["DESIGN","New pricing page",2,"Oct 28"],["BUG","Session expires too early",1,"Oct 27"]]]];
+const wrap=document.querySelector(".kb-cols");let uid=0;
+const card=([t,txt,n,due])=>`<div class="kb-card" data-id="${uid++}" style="--tb:${TAG[t][0]};--tc:${TAG[t][1]}"><span class="t">${t}</span><b>${txt}</b><footer><span class="kb-av">${[...Array(n)].map((_,i)=>`<i style="--c:${AV[(uid+i)%5]}"></i>`).join("")}</span><span>${due}</span></footer></div>`;
+wrap.innerHTML=D.map(([n,c,cs])=>`<div class="kb-col"><div class="kb-h"><i style="--c:${c}"></i>${n}<em></em><button aria-label="Add card">+</button></div><div class="kb-list">${cs.map(card).join("")}</div><div class="kb-new"><textarea placeholder="What needs doing?"></textarea><small>Enter to add · Esc to cancel</small></div></div>`).join("");
+const count=()=>wrap.querySelectorAll(".kb-col").forEach(c=>c.querySelector("em").textContent=c.querySelectorAll(".kb-list .kb-card").length);count();
+// FLIP: animate siblings from their old to new positions whenever the placeholder moves
+const flip=fn=>{const els=[...wrap.querySelectorAll(".kb-list .kb-card")],a=new Map(els.map(e=>[e,e.getBoundingClientRect()]));fn();
+  els.forEach(e=>{const b=e.getBoundingClientRect(),o=a.get(e);if(!o)return;const dy=o.top-b.top,dx=o.left-b.left;if(dx||dy)e.animate([{transform:`translate(${dx}px,${dy}px)`},{transform:"none"}],{duration:220,easing:"cubic-bezier(.2,1,.3,1)"})})};
+let drag=null;
+wrap.addEventListener("pointerdown",e=>{const c=e.target.closest(".kb-list .kb-card");if(!c||e.button)return;const r=c.getBoundingClientRect();
+  drag={c,dx:e.clientX-r.left,dy:e.clientY-r.top,sx:e.clientX,sy:e.clientY,moved:false,w:r.width,h:r.height}});
+addEventListener("pointermove",e=>{if(!drag)return;const d=drag;
+  if(!d.moved){if(Math.hypot(e.clientX-d.sx,e.clientY-d.sy)<4)return;d.moved=true;
+    d.ph=document.createElement("div");d.ph.className="kb-ph";d.ph.style.height=d.h+"px";d.c.after(d.ph);
+    document.body.append(d.c);d.c.classList.add("kb-ghost");d.c.style.width=d.w+"px";d.c.style.transform="rotate(2.5deg) scale(1.03)"}
+  d.c.style.left=e.clientX-d.dx+"px";d.c.style.top=e.clientY-d.dy+"px";
+  const col=document.elementsFromPoint(e.clientX,e.clientY).find(el=>el.classList?.contains("kb-col"));
+  wrap.querySelectorAll(".kb-col").forEach(x=>x.classList.toggle("over",x===col));if(!col)return;
+  const list=col.querySelector(".kb-list"),after=[...list.querySelectorAll(".kb-card")].find(x=>{const r=x.getBoundingClientRect();return e.clientY<r.top+r.height/2});
+  if((after&&d.ph.nextElementSibling!==after)||(!after&&list.lastElementChild!==d.ph))flip(()=>after?list.insertBefore(d.ph,after):list.append(d.ph))});
+addEventListener("pointerup",()=>{if(!drag)return;const d=drag;drag=null;if(!d.moved)return;
+  const r=d.ph.getBoundingClientRect();d.c.style.transition="left .25s cubic-bezier(.2,1,.3,1),top .25s cubic-bezier(.2,1,.3,1),transform .25s";
+  d.c.style.left=r.left+"px";d.c.style.top=r.top+"px";d.c.style.transform="none";
+  setTimeout(()=>{d.c.classList.remove("kb-ghost");d.c.removeAttribute("style");d.ph.replaceWith(d.c);wrap.querySelectorAll(".kb-col").forEach(x=>x.classList.remove("over"));count()},250)});
+wrap.querySelectorAll(".kb-col").forEach(col=>{const nw=col.querySelector(".kb-new"),ta=nw.querySelector("textarea");
+  col.querySelector(".kb-h button").onclick=()=>{nw.classList.add("on");ta.focus()};
+  ta.onkeydown=e=>{if(e.key==="Escape"){nw.classList.remove("on");ta.value=""}if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();const v=ta.value.trim();if(!v)return;
+    col.querySelector(".kb-list").insertAdjacentHTML("beforeend",card(["FEAT",v.replace(/</g,"&lt;"),1,"No date"]));ta.value="";nw.classList.remove("on");count();
+    col.querySelector(".kb-list").lastElementChild.animate([{opacity:0,transform:"translateY(-6px)"},{opacity:1,transform:"none"}],{duration:300})}}});
+})();
+</script>

@@ -1,0 +1,55 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.rs{width:min(620px,100%);padding:24px}
+.rs-top{display:flex;gap:32px;align-items:center;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.rs-avg{display:flex;flex-direction:column;align-items:flex-start;gap:4px}.rs-avg b{font-size:44px;line-height:1;font-weight:700;letter-spacing:-.03em}
+.rs-st{--s:18px;display:inline-block;width:calc(var(--s)*5);height:var(--s);background:linear-gradient(90deg,var(--warn) calc(var(--v)/5*100%),var(--sf2) 0);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z'/%3E%3C/svg%3E") 0 0/var(--s) var(--s) repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z'/%3E%3C/svg%3E") 0 0/var(--s) var(--s) repeat-x}
+.rs-br{flex:1;min-width:220px;list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.rs-br button{display:grid;grid-template-columns:28px 1fr 36px;align-items:center;gap:10px;width:100%;padding:3px 6px;border-radius:6px;font-size:13px}.rs-br button:hover{background:var(--sf)}
+.rs-br button[aria-pressed=true]{background:var(--ac-sf)}
+.rs-br i{height:8px;border-radius:4px;background:var(--sf2);overflow:hidden}.rs-br i::after{content:"";display:block;height:100%;width:var(--w);background:var(--warn);border-radius:4px}
+.rs-br span:last-child{text-align:right;color:var(--mu)}
+.rs-fh{display:flex;justify-content:space-between;align-items:center;margin:16px 0 4px}.rs-fh h3{margin:0;font-size:15px;font-weight:650}
+.rs-r{padding:14px 0;border-bottom:1px solid var(--line)}.rs-r:last-child{border:0}
+.rs-r header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rs-r .rs-st{--s:14px}.rs-r b{font-weight:600}.rs-r time{color:var(--mu);font-size:13px;margin-left:auto}
+.rs-r p{margin:6px 0 8px;line-height:21px}
+.rs-h{font-size:13px;color:var(--mu);display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:8px;border:1px solid var(--line)!important}.rs-h[aria-pressed=true]{color:var(--fg);background:var(--sf)!important}
+</style>
+<div class="k"><section class="card rs"><div class="rs-top"><div class="rs-avg"><b class="tn">4.6</b><span class="rs-st" style="--v:4.6" role="img" aria-label="4.6 out of 5 stars"></span><small class="mu tn">212 reviews</small></div>
+  <ul class="rs-br" id="br"></ul></div>
+  <div class="rs-fh"><h3 id="fh">All reviews</h3><button class="b gh sm" id="clr" hidden>Clear filter</button></div>
+  <div id="rv"></div></section></div>
+<script>
+const B={5:148,4:38,3:14,2:5,1:7},T=212;
+const R=[[5,"Ines D.","Beautiful print, colours match the screen exactly. Packaging was excellent.","2 days ago",12],[4,"Theo W.","Frame is lovely. Took a week longer than quoted, but they kept me updated.","1 week ago",4],[5,"Jun K.","Bought two, hanging side by side in the hallway. Paper has a nice texture.","3 weeks ago",7],[3,"Olek N.","Print is great, but the glass had a small scratch. Replacement on the way.","1 month ago",2],[1,"Sam R.","Arrived damaged. Support replied fast though.","2 months ago",1]];
+br.innerHTML=[5,4,3,2,1].map(s=>`<li><button aria-pressed="false" data-s="${s}" aria-label="${s} stars: ${B[s]} reviews"><span>${s} ★</span><i style="--w:${B[s]/T*100}%"></i><span class="tn">${B[s]}</span></button></li>`).join("");
+let f=0;const draw=()=>{rv.innerHTML=R.filter(r=>!f||r[0]===f).map(([s,n,t,d,h])=>`<article class="rs-r"><header><span class="rs-st" style="--v:${s}" role="img" aria-label="${s} out of 5"></span><b>${n}</b><span class="pill ok">Verified</span><time>${d}</time></header><p>${t}</p><button class="rs-h" aria-pressed="false" data-h="${h}">Helpful · <span class="tn">${h}</span></button></article>`).join("")||'<p class="mu">No reviews with this rating.</p>';
+ rv.querySelectorAll(".rs-h").forEach(b=>b.onclick=()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);b.querySelector("span").textContent=+b.dataset.h+(on?1:0)});fh.textContent=f?`${f}-star reviews`:"All reviews";clr.hidden=!f;br.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.s===f))};
+br.onclick=e=>{const b=e.target.closest("button");if(b){f=f===+b.dataset.s?0:+b.dataset.s;draw()}};clr.onclick=()=>{f=0;draw()};draw();
+</script>

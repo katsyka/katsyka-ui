@@ -1,0 +1,65 @@
+<style>
+.zpr{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.zpr :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.zpr ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.zpr *,.zpr *::before,.zpr *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.zpr{min-height:100vh;display:grid;place-items:center;padding:48px 16px}
+.zpr-box{position:relative;width:min(400px,100%);height:480px;border-radius:var(--r3);overflow:hidden;background:var(--sf);box-shadow:inset 0 0 0 1px var(--line)}
+.zpr-in{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:32px;text-align:center}
+.zpr-in small{font:500 11px "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
+.zpr-in h2{font:400 40px/1 "Instrument Serif",serif;margin:0}.zpr-in p{margin:0;color:var(--mu);max-width:28ch}
+.zpr-code{display:flex;align-items:center;gap:8px;margin-top:12px;padding:6px 6px 6px 16px;border:1px dashed var(--ctl);border-radius:var(--r2);font:500 16px "Geist Mono",monospace;letter-spacing:.06em}
+.zpr-code button{min-height:36px;padding:0 12px;border-radius:8px;border:0;background:var(--fg);color:var(--bg);font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.zpr-code button:active{transform:scale(.97)}
+.zpr-flap{position:absolute;top:0;bottom:0;width:50%;background:
+  repeating-linear-gradient(45deg,#ffffff0d 0 2px,transparent 2px 5px),repeating-linear-gradient(-45deg,#0000001a 0 1px,transparent 1px 4px),linear-gradient(#3b5a85,#2b4469);box-shadow:inset 0 0 0 1px #0003}
+.zpr-flap::after{content:"";position:absolute;top:0;bottom:0;width:10px;background:repeating-linear-gradient(#c9a227 0 5px,transparent 5px 9px)}
+.zpr-l{left:0;clip-path:polygon(0 0,calc(100% - var(--o)) 0,100% var(--y),100% 100%,0 100%)}.zpr-l::after{right:0}
+.zpr-r{right:0;clip-path:polygon(var(--o) 0,100% 0,100% 100%,0 100%,0 var(--y))}.zpr-r::after{left:0;background-position:0 4px}
+.zpr-flap{transition:transform .45s cubic-bezier(.2,.8,.2,1)}.zpr-l{transform-origin:0 100%}.zpr-r{transform-origin:100% 100%}
+.zpr-box[data-open=true] .zpr-l{transform:translateX(-92%) rotate(-6deg)}.zpr-box[data-open=true] .zpr-r{transform:translateX(92%) rotate(6deg)}
+.zpr-box[data-open=true] .zpr-pull,.zpr-box[data-open=true] .zpr-st{opacity:0;pointer-events:none}.zpr-pull,.zpr-st{transition:opacity .2s ease-out}
+.zpr-again{position:absolute;right:12px;top:12px;min-height:36px;padding:0 12px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 13px Geist,system-ui,sans-serif;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s ease-out .3s;z-index:3}.zpr-box[data-open=true] .zpr-again{opacity:1;pointer-events:auto}
+.zpr-st{position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;border-left:1px dashed #ffffff3d;border-right:1px dashed #ffffff3d;clip-path:inset(var(--y) 0 0 0)}
+.zpr-pull{position:absolute;left:50%;top:var(--y);width:44px;height:64px;margin:-6px 0 0 -22px;border:0;padding:0;background:none;cursor:grab;touch-action:none;z-index:2}
+.zpr-pull::before{content:"";position:absolute;left:12px;top:0;width:20px;height:14px;border-radius:4px;background:linear-gradient(#e8c75a,#a8841c);box-shadow:0 2px 3px rgb(0 0 0/.35)}
+.zpr-pull::after{content:"";position:absolute;left:15px;top:10px;width:14px;height:42px;border-radius:7px 7px 9px 9px;background:linear-gradient(90deg,#c9a227,#f0d675 45%,#a8841c);box-shadow:inset 0 -14px 0 -10px #0003,0 3px 5px rgb(0 0 0/.35)}
+.zpr-pull:active{cursor:grabbing}
+.zpr-pull:focus-visible{outline:2px solid #fff;outline-offset:0;border-radius:8px}
+.zpr-hint{position:absolute;left:calc(50% + 18px);right:auto;bottom:16px;margin:0;text-align:left;color:#ffffffb3;font-size:13px;pointer-events:none;transition:opacity .2s ease-out}
+</style>
+<section class="zpr">
+  <div class="zpr-box">
+    <div class="zpr-in" inert>
+      <small>Members only</small><h2>Early access</h2><p>You found it. Use this code at checkout before the sale opens on Friday.</p>
+      <div class="zpr-code"><span>ZIP-EARLY-24</span><button type="button" data-copy>Copy</button></div>
+      <span class="zpr-msg" role="status" style="min-height:20px;font-size:13px;color:var(--ok)"></span>
+    </div>
+    <div class="zpr-flap zpr-l" aria-hidden="true"></div><div class="zpr-flap zpr-r" aria-hidden="true"></div><div class="zpr-st" aria-hidden="true"></div>
+    <button class="zpr-pull" type="button" role="slider" aria-label="Zipper" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Closed"></button>
+    <p class="zpr-hint">Drag the zip down</p>
+    <button class="zpr-again" type="button">Zip it up</button>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".zpr"),box=R.querySelector(".zpr-box"),pull=R.querySelector(".zpr-pull"),inner=R.querySelector(".zpr-in"),hint=R.querySelector(".zpr-hint");
+const L=R.querySelector(".zpr-l"),Rt=R.querySelector(".zpr-r");
+let v=0,drag=null,anim=0;
+function set(k){v=Math.max(0,Math.min(1,k));const H=box.clientHeight,y=v*(H-60)+6;box.style.setProperty("--y",y+"px");
+  const o=Math.min(box.clientWidth*.46,v*box.clientWidth*.52);box.style.setProperty("--o",o+"px");
+  box.dataset.open=v>.98;
+  pull.setAttribute("aria-valuenow",Math.round(v*100));pull.setAttribute("aria-valuetext",v>.98?"Open":v<.02?"Closed":Math.round(v*100)+"% open");
+  hint.style.opacity=v>.05?0:1;inner.inert=v<.98}
+function to(k){cancelAnimationFrame(anim);const f=v,t0=performance.now();(function s(t){const p=Math.min(1,(t-t0)/280),e=1-Math.pow(1-p,3);set(f+(k-f)*e);if(p<1)anim=requestAnimationFrame(s)})(t0)}
+pull.addEventListener("pointerdown",e=>{pull.setPointerCapture(e.pointerId);cancelAnimationFrame(anim);drag={y:e.clientY,v}});
+pull.addEventListener("pointermove",e=>{if(!drag)return;let k=drag.v+(e.clientY-drag.y)/(box.clientHeight-60);if(k>1)k=1+(k-1)*.15;if(k<0)k=k*.15;set(Math.max(-.04,Math.min(1.04,k)))});
+const end=()=>{if(!drag)return;drag=null;if(v>.9)to(1);else if(v<0)to(0);else if(v>1)to(1)};
+pull.addEventListener("pointerup",end);pull.addEventListener("pointercancel",end);
+pull.addEventListener("keydown",e=>{const m={ArrowDown:.1,ArrowRight:.1,ArrowUp:-.1,ArrowLeft:-.1,Home:-1,End:1}[e.key];if(m===undefined)return;e.preventDefault();to(Math.max(0,Math.min(1,v+m)))});
+R.querySelector("[data-copy]").onclick=e=>{const done=()=>{R.querySelector(".zpr-msg").textContent="Copied to clipboard"};
+  (navigator.clipboard?navigator.clipboard.writeText("ZIP-EARLY-24"):Promise.reject()).then(done).catch(()=>{const t=document.createElement("textarea");t.value="ZIP-EARLY-24";document.body.appendChild(t);t.select();try{document.execCommand("copy");done()}catch(_){}t.remove()})};
+R.querySelector(".zpr-again").onclick=()=>{to(0);pull.focus()};
+new ResizeObserver(()=>set(v)).observe(box);set(0);
+})();
+</script>

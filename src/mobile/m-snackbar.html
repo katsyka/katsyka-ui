@@ -1,0 +1,35 @@
+<!--Snackbar & FAB|An extended floating action button that shrinks to an icon when you scroll down and grows back when you scroll up, plus snackbars for delete with Undo, a countdown line, and swipe-free auto-dismiss that waits while you're touching it.|snackbar,fab,undo,toast,material-->
+<header class="bar"><div class="nb"><span></span><h2>Notes</h2><span><button class="ib" aria-label="Search">@I(search,22)</button></span></div></header>
+<main class="sc sn" id="sc"><div id="l"></div></main>
+<button class="sn-fab" id="fab">@I(edit,22)<span>New note</span></button>
+<div class="sn-bar" id="sb" role="status" aria-live="polite"><span id="sm"></span><button id="un">Undo</button><i id="tl"></i></div>
+<style>
+.sn{padding:calc(var(--st) + 52px) var(--gut) calc(var(--sbt) + 100px)!important;display:block}
+#l{columns:2;column-gap:10px}
+.sn-n{break-inside:avoid;margin-bottom:10px;padding:14px;border-radius:16px;background:var(--c);position:relative;transition:opacity .25s,transform .25s}
+.sn-n b{display:block;font-size:16px;font-weight:650;margin-bottom:4px;padding-right:28px}.sn-n p{margin:0;font-size:14px;line-height:20px;color:color-mix(in srgb,var(--fg) 75%,transparent)}
+.sn-n .ib{position:absolute;top:2px;right:2px;width:40px;height:40px;color:color-mix(in srgb,var(--fg) 60%,transparent)}.sn-n .ib .i{width:18px;height:18px}
+.sn-n.out{opacity:0;transform:scale(.9)}
+.sn-fab{position:absolute;right:var(--gut);bottom:max(20px,var(--sbt));z-index:70;display:flex;align-items:center;gap:10px;height:56px;padding:0 18px;border-radius:18px;background:var(--ac)!important;color:var(--ac-fg)!important;font-size:16px!important;font-weight:600!important;box-shadow:0 8px 20px -6px light-dark(#c2410c80,#0009);transition:padding .3s var(--ease),transform .3s var(--ease);overflow:hidden;max-width:180px}
+.sn-fab span{white-space:nowrap;transition:opacity .2s,max-width .3s var(--ease);max-width:120px}
+.sn-fab.small{padding:0 17px}.sn-fab.small span{opacity:0;max-width:0;margin-left:-10px}
+.sn-fab.up{transform:translateY(-68px)}
+.sn-bar{position:absolute;left:var(--gut);right:var(--gut);bottom:max(20px,var(--sbt));z-index:71;display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 6px 0 16px;border-radius:14px;background:var(--fg);color:var(--bg);font-size:15px;overflow:hidden;transform:translateY(calc(100% + 40px));transition:transform .35s cubic-bezier(.3,1.2,.5,1)}
+.sn-bar.on{transform:none}
+.sn-bar button{min-height:44px;padding:0 12px;color:light-dark(#ffa36e,#c2410c);font-weight:650}
+.sn-bar i{position:absolute;left:0;bottom:0;height:3px;width:100%;background:light-dark(#ffa36e,#c2410c);transform-origin:left}
+</style>
+<script>
+const C=["light-dark(#fef3c7,#2a2410)","light-dark(#dcfce7,#0f2417)","light-dark(#e0f2fe,#0c1f2e)","light-dark(#fce7f3,#2a1020)","light-dark(#ede9fe,#1c1530)"];
+const N=[["Ferry times","06:40, 07:25, 08:10. Last back 22:15."],["Gift ideas","Ines: ceramic cup from the market. Theo: trail map print, framed."],["Pack list","Thermal layer, headlamp, offline map, blister kit, thermos, the good socks."],["Read","The ferry piece in Fjord Weekly"],["Print sizes","30×40 for the hallway, 50×70 above the sofa. Ask about oak frames."],["Dentist","Call before Friday"],["Recipe","Strawberry galette: rest the dough 30 min, 200°C for 35."],["Ideas","A map of places that only have local names."],["Wi-Fi","Cabin: fjordview / pass on the fridge"]];
+const X='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15"/></svg>';
+l.innerHTML=N.map(([t,p],i)=>`<div class="sn-n" style="--c:${C[i%5]}"><b>${t}</b><p>${p}</p><button class="ib" aria-label="Delete ${t}">${X}</button></div>`).join("");
+let ly=0;sc.addEventListener("scroll",()=>{const y=sc.scrollTop;if(Math.abs(y-ly)>4){fab.classList.toggle("small",y>ly&&y>20);ly=y}},{passive:true});
+let last,timer,anim,hold=false;
+const hide=()=>{sb.classList.remove("on");fab.classList.remove("up")};
+const show=msg=>{sm.textContent=msg;sb.classList.add("on");fab.classList.add("up");anim&&anim.cancel();anim=tl.animate([{transform:"scaleX(1)"},{transform:"scaleX(0)"}],{duration:4000,fill:"forwards"});anim.onfinish=()=>{if(!hold)hide()}};
+sb.addEventListener("pointerenter",()=>{hold=true;anim&&anim.pause()});sb.addEventListener("pointerleave",()=>{hold=false;anim&&anim.play()});
+l.addEventListener("click",e=>{const b=e.target.closest(".ib");if(!b)return;const n=b.closest(".sn-n");last={n,next:n.nextSibling};n.classList.add("out");setTimeout(()=>n.remove(),250);show(`“${n.querySelector("b").textContent}” deleted`)});
+un.onclick=()=>{if(!last)return;l.insertBefore(last.n,last.next);requestAnimationFrame(()=>last.n.classList.remove("out"));hide()};
+fab.onclick=()=>show("New note created");
+</script>

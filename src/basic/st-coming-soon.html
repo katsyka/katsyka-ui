@@ -1,0 +1,24 @@
+<!--Coming Soon Countdown|States|A launch countdown with split-flap style digits that flip on change, a waitlist field with position number after joining, and a referral link that moves you up the list.|coming soon,countdown,waitlist,launch,flip-->
+<div class="k cs"><main class="cs-w"><h1>Ferry opens to everyone in</h1><div class="cs-cd" id="cd" role="timer" aria-live="off"></div>
+<form id="f" class="cs-f" novalidate><label class="vh" for="em">Email</label><input class="in" id="em" type="email" autocomplete="email" placeholder="you@example.com"><button class="b ac" id="sb">Join the waitlist</button></form><p class="cs-er" id="er" role="alert"></p>
+<div class="cs-ok" id="ok" hidden><p>You're <b class="tn" id="pos"></b> on the list.</p><p class="mu">Share your link. Each friend who joins moves you up 25 places.</p><div class="cs-rf"><code id="rf">ferry.app/r/k7q2</code><button class="b sec sm" id="cp">@I(copy,14)<span>Copy link</span></button></div></div></main></div>
+<style>
+.cs-w{width:min(560px,100%);display:grid;gap:20px;justify-items:center;text-align:center}.cs-w h1{margin:0;font-size:clamp(22px,3.4vw,30px);letter-spacing:-.02em}
+.cs-cd{display:flex;gap:6px;align-items:flex-start}.cs-u{display:grid;gap:6px;justify-items:center}.cs-u small{font-size:12px;color:var(--mu)}.cs-ds{display:flex;gap:3px}
+.cs-d{position:relative;width:clamp(28px,7vw,52px);height:clamp(42px,10vw,72px);perspective:300px;font:600 clamp(22px,6vw,46px)/1 'Geist Mono',monospace}.cs-d span{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:var(--fg);color:var(--bg);display:flex;justify-content:center;backface-visibility:hidden}.cs-d .t{top:0;border-radius:8px 8px 0 0;align-items:flex-end;line-height:0}.cs-d .b2{bottom:0;border-radius:0 0 8px 8px;align-items:flex-start;line-height:0;border-top:1px solid color-mix(in srgb,var(--bg) 25%,transparent)}
+.cs-d .t>i,.cs-d .b2>i{font-style:normal;display:block}.cs-d .t>i{transform:translateY(50%)}.cs-d .b2>i{transform:translateY(-50%)}
+.cs-d .fl{top:0;border-radius:8px 8px 0 0;align-items:flex-end;transform-origin:bottom;animation:csf .45s cubic-bezier(.4,0,.6,1) forwards;z-index:2}@keyframes csf{to{transform:rotateX(-180deg)}}
+.cs-sep{font:600 clamp(18px,5vw,46px)/clamp(42px,10vw,72px) 'Geist Mono',monospace;color:var(--mu)}
+.cs-f{display:flex;gap:8px;width:100%}.cs-f .in{height:48px;font-size:16px}.cs-f .b{height:48px;flex:none}.cs-er{color:var(--err);font-size:13px;margin:-12px 0 0}.cs-er:empty{display:none}
+.cs-ok{display:grid;gap:8px;animation:cso .3s cubic-bezier(.23,1,.32,1)}.cs-ok p{margin:0}.cs-ok b{font-size:20px}.cs-rf{display:flex;gap:8px;align-items:center;justify-content:center}.cs-rf code{font:14px 'Geist Mono',monospace;background:var(--sf2);padding:6px 10px;border-radius:8px}@keyframes cso{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.cs-d .fl{animation:none;display:none}}
+@media (max-width:480px){.cs-f{flex-direction:column}}
+</style>
+<script>
+const end=Date.now()+((3*24+7)*3600+42*60+15)*1000,cd=document.getElementById('cd'),U=['days','hours','min','sec'];
+cd.innerHTML=U.map((u,i)=>`<div class="cs-u"><div class="cs-ds" data-u="${i}"><div class="cs-d"></div><div class="cs-d"></div></div><small>${u}</small></div>${i<3?'<span class="cs-sep" aria-hidden="true">:</span>':''}`).join('');
+const prev=['','','',''];function digit(el,v,o){el.innerHTML=`<span class="t"><i>${v}</i></span><span class="b2"><i>${v}</i></span>${o!==undefined&&o!==v?`<span class="fl t"><i>${o}</i></span>`:''}`}
+function tick(){let s=Math.max(0,Math.floor((end-Date.now())/1000));const v=[Math.floor(s/86400),Math.floor(s/3600)%24,Math.floor(s/60)%60,s%60].map(x=>String(x).padStart(2,'0'));v.forEach((x,i)=>{if(x!==prev[i]){const D=cd.querySelectorAll(`[data-u="${i}"] .cs-d`);[0,1].forEach(j=>{if(x[j]!==prev[i][j])digit(D[j],x[j],prev[i][j]||undefined)});prev[i]=x}});cd.setAttribute('aria-label',`${+v[0]} days ${+v[1]} hours ${+v[2]} minutes`)}tick();setInterval(tick,1000);
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const em=document.getElementById('em'),ok=/^\S+@\S+\.\S+$/.test(em.value);em.setAttribute('aria-invalid',!ok);document.getElementById('er').textContent=ok?'':'Enter your email to join.';if(!ok)return em.focus();const b=document.getElementById('sb');b.disabled=true;b.textContent='Joining…';setTimeout(()=>{document.getElementById('f').hidden=true;document.getElementById('pos').textContent='#4,218';document.getElementById('ok').hidden=false},700)};
+document.getElementById('cp').onclick=()=>{(navigator.clipboard?navigator.clipboard.writeText('https://ferry.app/r/k7q2'):Promise.reject()).catch(()=>{});document.querySelector('#cp span').textContent='Copied'};
+</script>

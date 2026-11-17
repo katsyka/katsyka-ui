@@ -1,0 +1,17 @@
+<!--Usage-based Pricing|Pricing|Pay-as-you-go pricing for an API: three meters (requests, storage, bandwidth) with steppers, a free-tier line on each bar, the cost breakdown and a monthly estimate.|pricing,usage,api,metered,calculator-->
+<div class="k">
+<div class="card pu"><h2>Estimate your bill</h2><p class="mu">You only pay above the free tier (the black tick on each bar). It resets monthly.</p><div id="m" class="pu-m"></div><div class="pu-tot"><span>Estimated monthly cost</span><b class="tn" id="tt"></b></div></div>
+</div>
+<style>
+.pu{width:min(520px,100%);padding:28px}.pu h2{margin:0;font-size:20px;letter-spacing:-.02em}.pu>p{margin:4px 0 20px;font-size:14px}
+.pu-m{display:grid;gap:22px}.pu-r{display:grid;gap:8px}.pu-h{display:flex;justify-content:space-between;align-items:center;gap:12px}.pu-h b{font-size:14px}.pu-h small{display:block;color:var(--mu);font-size:12px;font-weight:400}.pu-c{font-variant-numeric:tabular-nums;font-weight:600;font-size:14px}
+.pu-bar{position:relative;height:10px;border-radius:5px;background:var(--sf2)}.pu-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--ac);transition:width .3s var(--ease)}.pu-bar s{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg);border-radius:1px}
+.pu-st{display:flex;align-items:center;gap:8px}.pu-st .ibt{width:36px;height:36px;border:1px solid var(--line)}.pu-st output{min-width:84px;text-align:center;font-variant-numeric:tabular-nums;font-size:14px}
+.pu-tot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);margin-top:24px;padding-top:16px}.pu-tot b{font-size:32px;letter-spacing:-.03em}
+</style>
+<script>
+const M=[["Requests","€0.40 per 1M after 10M",[1,5,10,25,50,100,250],"M",10,.4],["Storage","€0.02 per GB after 50 GB",[10,50,100,250,500,1000],"GB",50,.02],["Bandwidth","€0.05 per GB after 100 GB",[50,100,250,500,1000,2500],"GB",100,.05]],v=[3,2,2];
+const m=document.getElementById('m');
+function draw(){let tot=0;m.innerHTML=M.map(([n,d,S,u,fr,p],i)=>{const q=S[v[i]],c=Math.max(0,q-fr)*p;tot+=c;const mx=S[S.length-1];return `<div class="pu-r"><div class="pu-h"><b>${n}<small>${d}</small></b><span class="pu-c">${c?'€'+c.toFixed(2):'Free'}</span></div><div class="pu-bar"><i style="width:${q/mx*100}%"></i><s style="left:${fr/mx*100}%"></s></div><div class="pu-st"><button class="ibt" data-i="${i}" data-d="-1" aria-label="Less ${n}" ${v[i]?'':'disabled'}>@I(minus,16)</button><output>${q.toLocaleString('en')} ${u}</output><button class="ibt" data-i="${i}" data-d="1" aria-label="More ${n}" ${v[i]<S.length-1?'':'disabled'}>@I(plus,16)</button></div></div>`}).join('');document.getElementById('tt').textContent='€'+tot.toFixed(2)}
+m.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;v[b.dataset.i]+= +b.dataset.d;draw();m.querySelector(`[data-i="${b.dataset.i}"][data-d="${b.dataset.d}"]`)?.focus()};draw();
+</script>

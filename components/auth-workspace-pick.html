@@ -1,0 +1,47 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.wp{width:min(440px,100%);padding:24px}.wp h1{margin:0;font-size:20px;letter-spacing:-.02em}.wp>p{margin:4px 0 16px;font-size:13px}.wp>p a{color:var(--ac)}
+.wp-s{display:flex;gap:8px;align-items:center;height:40px;padding:0 12px;border:1px solid var(--ctl);border-radius:10px;color:var(--mu)}.wp-s:focus-within{border-color:var(--ac)}.wp-s input{border:0;outline:0;background:none;flex:1;font-size:16px;color:var(--fg);min-width:0}
+.wp-l{list-style:none;padding:0;margin:12px 0;display:grid;gap:4px;max-height:300px;overflow:auto;outline:0}.wp-l li{display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;cursor:pointer;border:1px solid transparent}.wp-l li:hover{background:var(--sf)}.wp-l li[aria-selected=true]{background:var(--sf);border-color:var(--line)}.wp-l:focus-visible li[aria-selected=true]{border-color:var(--focus)}
+.wp-l .lg{width:40px;height:40px;border-radius:10px;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}.wp-l div{display:grid;flex:1;min-width:0}.wp-l small{color:var(--mu);font-size:12px}.wp-l .i{color:var(--mu)}.wp-l .em{padding:16px;text-align:center;color:var(--mu);cursor:default}
+.wp-new{display:flex;gap:12px;align-items:center;width:100%;padding:10px;border-radius:12px;border:1px dashed var(--ctl);text-align:left}.wp-new:hover{background:var(--sf)}.wp-new>.i{width:40px;height:40px;padding:10px;border-radius:10px;background:var(--sf2)}.wp-new span{display:grid}
+</style>
+<div class="k">
+<div class="card wp"><h1>Choose a workspace</h1><p class="mu">Signed in as lena@studio.example · <a href="#">Not you?</a></p><label class="wp-s"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" placeholder="Search workspaces" aria-label="Search workspaces"></label>
+<ul class="wp-l" id="l" role="listbox" aria-label="Workspaces" tabindex="0"></ul><button class="wp-new"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path d="M12 5v14M5 12h14"/></svg><span><b>Create a new workspace</b><small class="mu">Free for up to 3 people</small></span></button></div>
+</div>
+<script>
+const W=[["Studio Halvard","Owner","Pro","2 min ago","#0f766e"],["Kestrel Labs","Editor","Business","yesterday","#7c3aed"],["Night Owl Press","Viewer","Free","3 days ago","#b45309"],["Field Ops (archived)","Member","Pro","2 months ago","#64748b"],["Oak & Ash Freelance","Owner","Free","last week","#be123c"]];
+const l=document.getElementById('l'),q=document.getElementById('q');let sel=0,cur=W;
+function draw(){cur=W.filter(w=>w[0].toLowerCase().includes(q.value.toLowerCase()));sel=Math.min(sel,Math.max(0,cur.length-1));l.innerHTML=cur.length?cur.map(([n,r,p,t,c],i)=>`<li role="option" aria-selected="${i===sel}" data-i="${i}"><span class="lg" style="--c:${c}">${n[0]}</span><div><b>${n}</b><small>${r} · ${p} · active ${t}</small></div><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path d="m9 18 6-6-6-6"/></svg></li>`).join(''):'<li class="em">No workspace matches “'+q.value.replace(/</g,'&lt;')+'”</li>'}
+function open(i){const li=l.children[i];if(!li||!cur[i])return;li.querySelector('small').textContent='Opening…'}
+l.onclick=e=>{const li=e.target.closest('[data-i]');if(!li)return;sel=+li.dataset.i;draw();open(sel)};
+const key=e=>{if(e.key==='ArrowDown'){sel=Math.min(cur.length-1,sel+1);draw();e.preventDefault()}if(e.key==='ArrowUp'){sel=Math.max(0,sel-1);draw();e.preventDefault()}if(e.key==='Enter')open(sel)};l.onkeydown=key;q.onkeydown=key;q.oninput=()=>{sel=0;draw()};draw();
+</script>

@@ -1,0 +1,41 @@
+<!--Story Viewer|Full-screen stories: segmented progress bars, tap the right side for next and left for back, press and hold to pause, a glass reply field with a like and send, and the next person's stories after the last one.|stories,viewer,tap zones,progress,social-->
+<div class="sy" id="sy">
+  <img class="sy-img" id="im" alt="">
+  <div class="sy-top"><div class="sy-bars" id="bars"></div><div class="sy-who"><span class="av" id="av" style="width:36px;height:36px;font-size:14px"></span><b id="nm"></b><span id="tm"></span><button class="ib" aria-label="Close">@I(x)</button></div></div>
+  <button class="sy-z l" aria-label="Previous"></button><button class="sy-z r" aria-label="Next"></button>
+  <form class="sy-bot" id="f"><label class="sy-in gl"><span class="vh">Reply</span><input id="rp" placeholder="Send message" enterkeyhint="send"></label><button type="button" class="ib" id="lk" aria-label="Like" aria-pressed="false">@I(heart,26)</button><button class="ib" aria-label="Share">@I(send,26)</button></form>
+</div>
+<style>
+.ph{background:#000}
+.sy{position:relative;flex:1;background:#111;color:#fff;overflow:hidden;border-radius:inherit}
+.sy-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .25s}
+.sy::before,.sy::after{content:"";position:absolute;left:0;right:0;z-index:1;pointer-events:none}
+.sy::before{top:0;height:160px;background:linear-gradient(#0008,transparent)}.sy::after{bottom:0;height:180px;background:linear-gradient(transparent,#0009)}
+.sy-top{position:absolute;inset:calc(var(--st) + 4px) 8px auto;z-index:3}
+.sy-bars{display:flex;gap:4px;padding:0 4px}.sy-bars i{flex:1;height:3px;border-radius:2px;background:#ffffff59;overflow:hidden}.sy-bars i::after{content:"";display:block;height:100%;background:#fff;transform-origin:left;transform:scaleX(var(--p,0))}
+.sy-who{display:flex;align-items:center;gap:10px;padding:8px 0 0 6px;font-size:15px}.sy-who b{font-weight:600}.sy-who span:not(.av){opacity:.75}.sy-who .ib{margin-left:auto;color:#fff}
+.sy-z{position:absolute;top:0;bottom:0;z-index:2;-webkit-tap-highlight-color:transparent}.sy-z.l{left:0;width:33%}.sy-z.r{right:0;width:67%}
+.sy-z:focus-visible{outline-offset:-4px}
+.sy-bot{position:absolute;left:12px;right:4px;bottom:max(12px,var(--sbt));z-index:3;display:flex;align-items:center;gap:4px;margin:0;color:#fff}
+.sy-in{flex:1;height:48px;border-radius:24px;display:flex;align-items:center;padding:0 18px;background:#ffffff1f!important;box-shadow:none}
+.sy-in::before{background:linear-gradient(135deg,#fff8,#fff2 30%,#fff2 70%,#fff6)!important}
+.sy-in input{width:100%;border:0;background:none;outline:0;color:#fff!important;font-size:16px!important}.sy-in input::placeholder{color:#ffffffcc}
+.sy-bot .ib{color:#fff}#lk[aria-pressed=true]{color:#ff4d6d}#lk[aria-pressed=true] .i{fill:currentColor;animation:bump .35s}
+@keyframes bump{40%{transform:scale(1.3)}}
+.sy.paused .sy-top,.sy.paused .sy-bot{opacity:0;transition:opacity .2s}
+</style>
+<script>
+const U=[["mara","#b45309",[["1043","2h"],["1039","2h"],["1035","1h"]]],["theo","#0369a1",[["1050","5h"],["1052","4h"]]],["jun","#7c3aed",[["1060","8h"]]]];
+let u=0,s=0,p=0,paused=false,last=performance.now();const DUR=5;
+const show=()=>{const[n,c,L]=U[u];av.textContent=n[0].toUpperCase();av.style.setProperty("--c",c);nm.textContent=n;tm.textContent=L[s][1];im.style.opacity=.3;im.onload=()=>im.style.opacity=1;im.src=`media/pics/c/${L[s][0]}.jpg`;bars.innerHTML=L.map((_,i)=>`<i style="--p:${i<s?1:0}"></i>`).join("")};
+const go=d=>{const L=U[u][2];s+=d;p=0;if(s>=L.length){u=(u+1)%U.length;s=0}else if(s<0){if(u>0){u--;s=U[u][2].length-1}else s=0}show()};
+const loop=t=>{const dt=(t-last)/1000;last=t;if(!paused&&document.activeElement!==rp){p+=dt/DUR;if(p>=1)go(1);const b=bars.children[s];if(b)b.style.setProperty("--p",Math.min(p,1))}requestAnimationFrame(loop)};
+show();requestAnimationFrame(loop);
+let ht,held=false;
+document.querySelectorAll(".sy-z").forEach(z=>{z.addEventListener("pointerdown",()=>{held=false;ht=setTimeout(()=>{held=true;paused=true;sy.classList.add("paused")},220)});
+ const up=()=>{clearTimeout(ht);if(paused){paused=false;sy.classList.remove("paused")}};z.addEventListener("pointerup",up);z.addEventListener("pointerleave",up);
+ z.addEventListener("click",()=>{if(!held)go(z.classList.contains("r")?1:-1)})});
+addEventListener("keydown",e=>{if(e.target===rp)return;if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
+lk.onclick=()=>lk.setAttribute("aria-pressed",lk.getAttribute("aria-pressed")!=="true");
+f.onsubmit=e=>{e.preventDefault();if(rp.value.trim()){rp.value="";rp.placeholder="Sent ✓";rp.blur();setTimeout(()=>rp.placeholder="Send message",1500)}};
+</script>

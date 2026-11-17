@@ -1,0 +1,91 @@
+<style>
+.cf{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.cf :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.cf ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.cf *,.cf *::before,.cf *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.cf{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.cf-wrap{width:min(920px,100%);display:grid;grid-template-columns:.8fr 1.2fr;background:var(--bg);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.cf-side{padding:36px 32px;background:var(--sf);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:22px}
+.cf-side h2{margin:0;font-size:30px;line-height:1.1;letter-spacing:-.035em;font-weight:650}
+.cf-side>p{margin:-10px 0 0;font-size:14.5px;color:var(--mu);line-height:1.55}
+.cf-ct{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.cf-ct li{display:flex;gap:12px;font-size:14px}
+.cf-ct li i{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--bg);border:1px solid var(--line)}
+.cf-ct svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cf-ct b{display:block;font-weight:550}.cf-ct small{color:var(--mu);font-size:13px}
+.cf-ct a{color:inherit}
+.cf-form{padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cf-f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cf-f.full{grid-column:1/-1}
+.cf-f label{font-size:13.5px;font-weight:550}
+.cf-f label em{font-style:normal;color:var(--err)}
+.cf-f input,.cf-f textarea,.cf-f select{width:100%;padding:0 12px;height:40px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);color:var(--fg);font:16px Geist,system-ui,sans-serif;box-shadow:0 1px 2px #0000000a;transition:border-color .15s,box-shadow .15s}
+@media (min-width:640px){.cf-f input,.cf-f textarea,.cf-f select{font-size:14.5px}}
+.cf-f textarea{height:auto;min-height:110px;padding:10px 12px;resize:vertical;line-height:1.5}
+.cf-f select{appearance:none;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center/16px;padding-right:34px;cursor:pointer}
+.cf-f :is(input,textarea,select):hover{border-color:var(--ctl)}
+.cf-f :is(input,textarea,select):focus-visible{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.cf-f .er{font-size:12.5px;color:var(--err);display:none}
+.cf-f.bad :is(input,textarea,select){border-color:var(--err)}
+.cf-f.bad .er{display:block}
+.cf-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cf-chips label{font-weight:500;cursor:pointer}
+.cf-chips input{position:absolute;opacity:0;width:1px;height:1px}
+.cf-chips span{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:99px;border:1px solid var(--line);font-size:13px;transition:background-color .15s,border-color .15s,color .15s}
+.cf-chips label:hover span{border-color:var(--ctl)}
+.cf-chips input:checked+span{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.cf-chips input:focus-visible+span{outline:2px solid var(--focus);outline-offset:2px}
+.cf-cons{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--mu);cursor:pointer}
+.cf-cons input{margin:2px 0 0;width:16px;height:16px;accent-color:var(--ac)}
+.cf-cons a{color:var(--fg)}
+.cf-sub{grid-column:1/-1;display:flex;align-items:center;gap:14px}
+.cf-sub button{height:44px;padding:0 22px;border:0;border-radius:11px;background:var(--ac);color:var(--ac-fg);font:600 14.5px Geist,system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.cf-sub button:hover{background:var(--ac-h)}
+.cf-sub button svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cf-sub small{font-size:12.5px;color:var(--mu)}
+.cf-sum{grid-column:1/-1;display:none;padding:12px 14px;border-radius:10px;background:var(--err-sf);color:var(--err);font-size:13.5px}
+.cf-sum.on{display:block}
+.cf-done{display:none;grid-column:1/-1;place-items:center;text-align:center;padding:50px 10px;gap:8px}
+.cf-done i{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--ok-sf);color:var(--ok)}
+.cf-done svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.cf-done h3{margin:8px 0 0;font-size:19px}.cf-done p{margin:0;color:var(--mu);font-size:14px}
+.cf-form.sent>*{display:none}.cf-form.sent .cf-done{display:grid}
+@media (max-width:760px){.cf-wrap{grid-template-columns:1fr}.cf-side{border-right:0;border-bottom:1px solid var(--line);padding:28px 22px}.cf-form{padding:22px;grid-template-columns:1fr}}
+</style>
+<div class="cf">
+  <div class="cf-wrap">
+    <aside class="cf-side">
+      <h2>Talk to our team</h2>
+      <p>Questions about pricing, a migration or a custom plan? We reply within one business day.</p>
+      <ul class="cf-ct">
+        <li><i><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></i><div><b>Email</b><small><a href="#">sales@northwind.dev</a></small></div></li>
+        <li><i><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></i><div><b>Live chat</b><small>Mon–Fri, 9:00–18:00 CET</small></div></li>
+        <li><i><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></i><div><b>Office</b><small>Rua do Alecrim 42, Lisbon</small></div></li>
+      </ul>
+    </aside>
+    <form class="cf-form" novalidate>
+      <div class="cf-sum" role="alert" tabindex="-1"></div>
+      <div class="cf-f"><label for="cfF">First name <em aria-hidden="true">*</em></label><input id="cfF" required autocomplete="given-name"><span class="er" id="cfFe">Enter your first name</span></div>
+      <div class="cf-f"><label for="cfL">Last name</label><input id="cfL" autocomplete="family-name"></div>
+      <div class="cf-f"><label for="cfE">Work email <em aria-hidden="true">*</em></label><input id="cfE" type="email" required autocomplete="email"><span class="er" id="cfEe">Enter a valid email</span></div>
+      <div class="cf-f"><label for="cfS">Company size</label><select id="cfS"><option>1–10</option><option selected>11–50</option><option>51–200</option><option>200+</option></select></div>
+      <div class="cf-f full"><label id="cfTl">What can we help with?</label><div class="cf-chips" role="group" aria-labelledby="cfTl"><label><input type="checkbox" checked><span>Pricing</span></label><label><input type="checkbox"><span>Migration</span></label><label><input type="checkbox"><span>Security review</span></label><label><input type="checkbox"><span>Partnership</span></label></div></div>
+      <div class="cf-f full"><label for="cfM">Message <em aria-hidden="true">*</em></label><textarea id="cfM" required placeholder="Tell us a little about your project"></textarea><span class="er" id="cfMe">Add a short message (at least 10 characters)</span></div>
+      <label class="cf-cons"><input type="checkbox" id="cfC"><span>I agree to the <a href="#">privacy policy</a> and to be contacted about my request.</span></label>
+      <div class="cf-sub"><button type="submit">Send message<svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button><small>Usually replies in 4 hours</small></div>
+      <div class="cf-done" role="status"><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></i><h3>Message sent</h3><p>Thanks — we’ll get back to you shortly.</p></div>
+    </form>
+  </div>
+</div>
+<script>
+const form=document.querySelector(".cf-form"),sum=document.querySelector(".cf-sum");
+const rules=[["cfF",v=>v.trim().length>0],["cfE",v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim())],["cfM",v=>v.trim().length>=10]];
+const check=(id,ok)=>{const el=document.getElementById(id),f=el.closest(".cf-f");f.classList.toggle("bad",!ok);el.setAttribute("aria-invalid",!ok);if(!ok)el.setAttribute("aria-describedby",id+"e");else el.removeAttribute("aria-describedby");return ok};
+rules.forEach(([id,fn])=>{const el=document.getElementById(id);el.addEventListener("blur",()=>{if(el.value)check(id,fn(el.value))});el.addEventListener("input",()=>{if(el.closest(".bad"))check(id,fn(el.value))})});
+form.addEventListener("submit",e=>{e.preventDefault();
+  const bad=rules.filter(([id,fn])=>!check(id,fn(document.getElementById(id).value)));
+  if(bad.length){sum.textContent=`Please fix ${bad.length} field${bad.length>1?"s":""} before sending.`;sum.classList.add("on");document.getElementById(bad[0][0]).focus();return}
+  sum.classList.remove("on");const b=form.querySelector("button[type=submit]");b.disabled=true;b.firstChild.textContent="Sending… ";
+  setTimeout(()=>form.classList.add("sent"),900)});
+document.querySelectorAll('.cf a[href="#"]').forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
+</script>

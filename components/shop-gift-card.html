@@ -1,0 +1,51 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.gc{width:min(900px,100%);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}.gc-pv{position:sticky;top:16px;perspective:900px}.gc-c{aspect-ratio:1.586;border-radius:18px;padding:22px;display:grid;grid-template-rows:auto 1fr auto auto;color:#fff;background:var(--g);box-shadow:0 1px 2px #0002,0 12px 28px -14px #0006;transition:background .4s;transform:rotateX(6deg) rotateY(-8deg)}
+.gc-b{font-weight:700;font-size:14px;opacity:.9}.gc-c b{font-size:44px;letter-spacing:-.03em;align-self:center}.gc-c p{margin:0;font-size:14px;line-height:1.4;opacity:.9;overflow-wrap:anywhere}.gc-to{font-size:12px;opacity:.75;margin-top:8px}
+.gc-f{display:grid;gap:16px}.gc-f h1{margin:0;font-size:26px;letter-spacing:-.02em}.gc-f fieldset{border:0;margin:0;padding:0}.gc-f .in{height:44px;font-size:16px}.gc-f textarea.in{height:auto;padding:10px 12px;resize:vertical}.gc-f .lbl{display:flex;justify-content:space-between}
+.gc-am{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.gc-am button{height:44px;border:1px solid var(--ctl);border-radius:10px;font-weight:600}.gc-am [aria-checked=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.gc-cu{display:flex;align-items:center;gap:6px;margin-top:8px;border:1px solid var(--ctl);border-radius:10px;padding-left:12px}.gc-cu .in{border:0}.gc-cu .in:focus{box-shadow:none}.gc-cu:focus-within{border-color:var(--ac)}.gc-er{color:var(--err);font-size:12px;display:block;margin-top:4px}.gc-er:empty{display:none}
+.gc-ds{display:flex;gap:10px}.gc-ds button{width:56px;height:36px;border-radius:8px;background:var(--g);outline-offset:3px}.gc-ds [aria-checked=true]{outline:2px solid var(--fg)}
+@media (max-width:760px){.gc{grid-template-columns:1fr}.gc-pv{position:static;max-width:360px}}
+</style>
+<div class="k"><div class="gc"><div class="gc-pv" id="pv" aria-hidden="true"><div class="gc-c" id="cc"><span class="gc-b">Mossware</span><b class="tn" id="ca">€50</b><p id="cm">A little something for your kitchen.</p><span class="gc-to" id="ct">For you</span></div></div>
+<form class="gc-f" id="f" novalidate><h1>Send a gift card</h1><fieldset><legend class="lbl">Amount</legend><div class="gc-am" id="am" role="radiogroup"></div><label class="gc-cu"><span class="vh">Custom amount</span><span>€</span><input class="in tn" id="cu" inputmode="numeric" placeholder="Other (10–500)"></label><small class="gc-er" id="ae"></small></fieldset>
+<fieldset><legend class="lbl">Design</legend><div class="gc-ds" id="ds" role="radiogroup"></div></fieldset>
+<label><span class="lbl">Recipient's name</span><input class="in" id="rn" autocomplete="off" maxlength="30"></label><label><span class="lbl">Their email</span><input class="in" id="re" type="email" autocomplete="off"><small class="gc-er" id="ee"></small></label><label><span class="lbl">Message <span class="mu tn" id="mc"></span></span><textarea class="in" id="ms" rows="2" maxlength="120">A little something for your kitchen.</textarea></label><label><span class="lbl">Send on</span><input class="in" id="dt" type="date"></label><button class="b ac lg" id="go"></button></form></div></div>
+<script>
+const G=[['Moss','linear-gradient(135deg,#3f6212,#1a2e05)'],['Clay','linear-gradient(135deg,#c2410c,#7c2d12)'],['Ink','linear-gradient(135deg,#1e3a8a,#0f172a)'],['Sand','linear-gradient(135deg,#a8865a,#5b4630)']],A=[25,50,100,150],$=i=>document.getElementById(i);let amt=50,g=0;
+$('am').innerHTML=A.map(a=>`<button type="button" role="radio" aria-checked="${a===50}" data-a="${a}">€${a}</button>`).join('');$('ds').innerHTML=G.map(([n,c],i)=>`<button type="button" role="radio" aria-checked="${!i}" aria-label="${n}" style="--g:${c}" data-i="${i}"></button>`).join('');
+function up(){$('cc').style.setProperty('--g',G[g][1]);$('ca').textContent='€'+(amt||0);$('cm').textContent=$('ms').value||' ';$('ct').textContent=$('rn').value?'For '+$('rn').value:'For you';$('mc').textContent=$('ms').value.length+'/120';const d=$('dt').value&&$('dt').value!==new Date().toISOString().slice(0,10);$('go').textContent=amt?`${d?'Schedule':'Send'} €${amt} gift card`:'Choose an amount'}
+$('am').onclick=e=>{const b=e.target.closest('button');if(!b)return;$('am').querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));amt=+b.dataset.a;$('cu').value='';$('ae').textContent='';up()};
+$('cu').oninput=()=>{const v=+$('cu').value.replace(/\D/g,'');$('cu').value=v||'';$('am').querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',false));amt=v;$('ae').textContent=v&&(v<10||v>500)?'Choose between €10 and €500.':'';if(v<10||v>500)amt=0;up()};
+$('ds').onclick=e=>{const b=e.target.closest('button');if(!b)return;$('ds').querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));g=+b.dataset.i;up()};['rn','ms','dt'].forEach(i=>$(i).addEventListener('input',up));
+$('dt').valueAsDate=new Date();$('dt').min=new Date().toISOString().slice(0,10);
+$('f').onsubmit=e=>{e.preventDefault();const ok=/^\S+@\S+\.\S+$/.test($('re').value);$('re').setAttribute('aria-invalid',!ok);$('ee').textContent=ok?'':'Where should we send it?';if(!ok)return $('re').focus();if(!amt)return $('cu').focus();const b=$('go');b.disabled=true;b.textContent='Adding to bag…';setTimeout(()=>{b.disabled=false;b.textContent='Added to bag ✓'},700)};up();
+</script>

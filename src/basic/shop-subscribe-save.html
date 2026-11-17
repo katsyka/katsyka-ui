@@ -1,0 +1,16 @@
+<!--Subscribe and Save|Commerce|A one-time vs subscription purchase toggle on a product: the subscribe option shows the discounted price, delivery frequency picker, the next three delivery dates, and “skip or cancel any time”.|ecommerce,subscription,purchase options,recurring,savings-->
+<div class="k"><div class="ss2"><img src="media/pics/c/1060.jpg" alt="Bag of filter coffee beans"><div class="ss2-i"><h1>House filter, 1 kg</h1><div class="ss2-o" role="radiogroup" aria-label="Purchase type"><button role="radio" aria-checked="false" data-s="0"><span><b>One-time purchase</b></span><b class="tn">€38.00</b></button><button role="radio" aria-checked="true" data-s="1"><span><b>Subscribe and save 15%</b><small>Free shipping on every delivery</small></span><b class="tn">€32.30</b></button></div>
+<div class="ss2-sub" id="sb"><label class="lbl" for="fq">Deliver every</label><select class="in" id="fq"><option value="2">2 weeks</option><option value="4" selected>4 weeks (most popular)</option><option value="6">6 weeks</option><option value="8">8 weeks</option></select><ol class="ss2-dt" id="dt"></ol><p class="mu">Skip, change or cancel any time from your account. We email you 3 days before each one.</p></div>
+<button class="b ac lg" id="go"></button></div></div></div>
+<style>
+.ss2{width:min(860px,100%);display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start}.ss2>img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px}.ss2-i{display:grid;gap:16px}.ss2-i h1{margin:0;font-size:26px;letter-spacing:-.02em}
+.ss2-o{display:grid;gap:8px}.ss2-o button{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:12px;text-align:left}.ss2-o button::before{content:"";width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ctl);box-sizing:border-box}.ss2-o [aria-checked=true]{border:2px solid var(--fg);padding:13px}.ss2-o [aria-checked=true]::before{border:5px solid var(--fg)}.ss2-o span{display:grid}.ss2-o small{color:var(--ok);font-size:12px}
+.ss2-sub{display:grid;gap:10px;padding:14px;border-radius:12px;background:var(--sf);animation:ssf .25s cubic-bezier(.23,1,.32,1)}@keyframes ssf{from{opacity:0;transform:translateY(-4px)}}.ss2-sub .in{height:42px}.ss2-sub p{margin:0;font-size:12px}
+.ss2-dt{list-style:none;padding:0;margin:0;display:flex;gap:6px}.ss2-dt li{flex:1;padding:8px;border-radius:8px;background:var(--bg);font-size:12px;display:grid;text-align:center}.ss2-dt li b{font-size:15px}.ss2-dt li:first-child{outline:1.5px solid var(--fg)}
+@media (max-width:700px){.ss2{grid-template-columns:1fr}.ss2>img{aspect-ratio:16/10}}
+</style>
+<script>
+const $=i=>document.getElementById(i);let sub=1;
+function draw(){$('sb').hidden=!sub;const f=+$('fq').value;$('dt').innerHTML=[0,1,2].map(k=>{const d=new Date(Date.now()+(2+k*f*7)*864e5);return`<li>${k?'then':'First'}<b>${d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</b></li>`}).join('');$('go').textContent=sub?`Subscribe for €32.30 every ${f} weeks`:'Add to bag for €38.00'}
+document.querySelector('.ss2-o').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));sub=+b.dataset.s;draw()};$('fq').onchange=draw;draw();
+</script>

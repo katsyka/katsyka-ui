@@ -1,0 +1,55 @@
+<style>
+.bt-stage{min-height:100vh;display:grid;place-items:center;background:#0a0a0c;padding:40px}
+.bt-grid{display:grid;grid-template-columns:repeat(2,minmax(240px,1fr));gap:16px;width:min(860px,100%)}
+.bt-cell{display:grid;place-items:center;gap:14px;height:260px;border-radius:22px;background:#111114;border:1px solid #1f1f24}
+.bt-cell small{font:12px "Geist Mono",monospace;color:#5d5d66;align-self:end}
+.bt{font:550 16px Geist,sans-serif;border:0;cursor:pointer;color:#fff;-webkit-tap-highlight-color:transparent}
+/* 1 conic border */
+@property --bt-a{syntax:"<angle>";inherits:false;initial-value:0deg}
+.bt-conic{position:relative;height:48px;padding:0 26px;border-radius:14px;background:#0d0d10;isolation:isolate}
+.bt-conic::before{content:"";position:absolute;inset:-1.5px;border-radius:15.5px;z-index:-2;background:conic-gradient(from var(--bt-a),#ff5a1f,#ffcf6b,#7a5cff,#ff5a1f);animation:bt-spin 3s linear infinite}
+.bt-conic::after{content:"";position:absolute;inset:0;border-radius:14px;z-index:-1;background:#0d0d10}
+.bt-conic:hover::before{animation-duration:1.2s}
+@keyframes bt-spin{to{--bt-a:360deg}}
+/* 2 magnetic */
+.bt-mag{height:56px;padding:0 30px;border-radius:99px;background:#f5f4f0;color:#0a0a0a;transition:transform .4s cubic-bezier(.2,1.5,.4,1)}
+.bt-mag span{display:inline-block;transition:transform .4s cubic-bezier(.2,1.5,.4,1)}
+/* 3 fill wipe */
+.bt-fill{position:relative;overflow:hidden;height:50px;padding:0 28px;border-radius:12px;background:transparent;border:1px solid #ffffff2a}
+.bt-fill i{position:absolute;width:0;height:0;border-radius:50%;background:#ff5a1f;transform:translate(-50%,-50%);transition:width .55s cubic-bezier(.6,0,.2,1),height .55s cubic-bezier(.6,0,.2,1)}
+.bt-fill:hover i{width:420px;height:420px}
+.bt-fill b{position:relative;font-weight:550;transition:color .3s}
+.bt-fill:hover b{color:#140a05}
+/* 4 hold */
+.bt-hold{position:relative;overflow:hidden;height:50px;width:190px;border-radius:12px;background:#2a1212;color:#ff8a80;border:1px solid #ff52522e;user-select:none}
+.bt-hold i{position:absolute;inset:0;background:#ff5252;transform-origin:left;transform:scaleX(0);transition:transform .35s ease-out}
+.bt-hold.on i{transform:scaleX(1);transition:transform 1.4s linear}
+.bt-hold b{position:relative;font-weight:550}
+.bt-hold.on b,.bt-hold.done b{color:#1a0505}
+.bt-hold.done i{transform:scaleX(1);transition:none}
+@media (max-width:560px){.bt-grid{grid-template-columns:1fr}}
+</style>
+<div class="bt-stage"><div class="bt-grid">
+  <div class="bt-cell"><button class="bt bt-conic">Generate preview</button><small>conic border</small></div>
+  <div class="bt-cell bt-magzone"><button class="bt bt-mag"><span>Get early access</span></button><small>magnetic</small></div>
+  <div class="bt-cell"><button class="bt bt-fill"><i></i><b>Hover me slowly</b></button><small>liquid fill</small></div>
+  <div class="bt-cell"><button class="bt bt-hold"><i></i><b>Hold to delete</b></button><small>press & hold</small></div>
+</div></div>
+<script>
+(()=>{
+// magnetic: button and label follow the pointer inside the zone
+document.querySelectorAll(".bt-magzone").forEach(z=>{const b=z.querySelector(".bt-mag"),s=b.firstElementChild;
+  z.addEventListener("pointermove",e=>{const r=b.getBoundingClientRect(),x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;
+    b.style.transform=`translate(${x*.35}px,${y*.45}px)`;s.style.transform=`translate(${x*.15}px,${y*.2}px)`});
+  z.addEventListener("pointerleave",()=>{b.style.transform=s.style.transform=""})});
+// fill grows from the entry point
+document.querySelectorAll(".bt-fill").forEach(b=>{const i=b.querySelector("i");
+  ["pointerenter","pointerleave"].forEach(t=>b.addEventListener(t,e=>{const r=b.getBoundingClientRect();i.style.left=e.clientX-r.left+"px";i.style.top=e.clientY-r.top+"px"}))});
+// hold to confirm
+document.querySelectorAll(".bt-hold").forEach(b=>{let t;const lbl=b.querySelector("b");
+  const stop=()=>{clearTimeout(t);b.classList.remove("on")};
+  b.addEventListener("pointerdown",()=>{if(b.classList.contains("done"))return;b.classList.add("on");
+    t=setTimeout(()=>{b.classList.replace("on","done");lbl.textContent="Deleted ✓";setTimeout(()=>{b.classList.remove("done");lbl.textContent="Hold to delete"},1800)},1400)});
+  ["pointerup","pointerleave"].forEach(e=>b.addEventListener(e,stop))});
+})();
+</script>

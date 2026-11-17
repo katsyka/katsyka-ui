@@ -1,0 +1,64 @@
+<style>
+.pr{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(12px,3vw,48px);padding:0 clamp(16px,4vw,56px);overflow:hidden;background:#eee9de;color:#181614;font-family:Geist,system-ui,sans-serif}
+.pr-w{font:italic 400 clamp(64px,11vw,190px)/.8 "Instrument Serif",serif;letter-spacing:-.04em;margin:0}
+.pr-w:last-of-type{justify-self:start}
+.pr-l{justify-self:end;text-align:right}
+.pr-l small,.pr-r small{display:block;margin-bottom:18px;font:500 12px "Geist Mono",monospace;font-style:normal;letter-spacing:.16em;color:#5d574e}
+.pr-r small{margin:18px 0 0}
+.pr-f{position:relative;height:min(100vh,1050px);aspect-ratio:2/3;margin:0;touch-action:none;cursor:none}
+.pr-f svg{display:block;width:100%;height:100%}
+.pr-dot{position:absolute;left:0;top:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#181614;pointer-events:none;opacity:0;transition:opacity .2s}
+.pr-f:hover .pr-dot{opacity:1}
+.pr-b{position:absolute;right:clamp(16px,3vw,32px);bottom:clamp(16px,3vh,28px);height:40px;padding:0 16px;border-radius:99px;border:1px solid #18161433;background:#eee9de;color:#181614;font:500 13px Geist,system-ui,sans-serif;cursor:pointer;transition:background .2s,color .2s}
+.pr-b[aria-pressed="true"],.pr-b:hover{background:#181614;color:#eee9de}
+.pr-b:focus-visible{outline:2px solid #b22228;outline-offset:3px}
+@media (max-width:820px){.pr{grid-template-columns:1fr;grid-template-rows:auto auto auto;justify-items:center;padding:28px 16px 84px;gap:16px}
+  .pr-l,.pr-r{justify-self:center!important;text-align:center}.pr-f{height:auto;width:min(100%,460px)}.pr-l small{margin-bottom:10px}.pr-r small{margin-top:10px}.pr-b{right:50%;translate:50% 0}}
+</style>
+<section class="pr" aria-label="Portrait with engraved reveal">
+  <p class="pr-w pr-l"><small>WHAT YOU SEE</small>Seen.</p>
+  <figure class="pr-f">
+    <svg viewBox="0 0 1000 1500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Portrait of a young woman; moving over it reveals a hand-engraved line version of the same portrait">
+      <defs>
+        <filter id="pr-goo" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="22"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 36 -15"/></filter>
+        <mask id="pr-m" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1500"><g filter="url(#pr-goo)" fill="#fff"></g></mask>
+      </defs>
+      <image href="media/pics/portrait.jpg" width="1000" height="1500"/>
+      <image href="media/pics/portrait-ink.jpg" width="1000" height="1500" mask="url(#pr-m)"/>
+    </svg>
+    <i class="pr-dot" aria-hidden="true"></i>
+  </figure>
+  <p class="pr-w pr-r">Drawn.<small>WHAT WE ENGRAVE</small></p>
+  <button class="pr-b" type="button" aria-pressed="false">Show the engraving</button>
+</section>
+<script>
+(()=>{
+// Lando-style reveal: a gooey blob (blurred circles + alpha threshold, used as an SVG mask) trails the cursor and uncovers the second, pixel-aligned image.
+const root=document.querySelector(".pr"),fig=root.querySelector(".pr-f"),svg=fig.querySelector("svg"),g=svg.querySelector("mask g"),dot=fig.querySelector(".pr-dot"),btn=root.querySelector(".pr-b");
+const NS="http://www.w3.org/2000/svg",R=210,still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const head=document.createElementNS(NS,"circle"),full=document.createElementNS(NS,"circle");g.append(full,head);full.setAttribute("cx",500);full.setAttribute("cy",620);
+let tx=500,ty=560,hx=500,hy=560,hr=0,want=0,fr=0,fw=0,trail=[],raf=0,vis=false,lastMove=-1e9,t0=performance.now();
+function frame(t){raf=0;
+  const idle=!still&&vis&&t-lastMove>2500&&!fw;
+  if(idle){const k=(t-t0)/1000;tx=500+Math.sin(k*.9)*230;ty=640+Math.sin(k*1.4)*300;want=1}
+  else if(t-lastMove>2500&&!fw)want=0;
+  const px=hx,py=hy;hx+=(tx-hx)*(still?1:.16);hy+=(ty-hy)*(still?1:.16);hr+=(want*R-hr)*.14;fr+=(fw*1300-fr)*.08;
+  if(!still&&Math.hypot(hx-px,hy-py)>3&&hr>20)trail.push({x:hx,y:hy,r:hr*.8});
+  trail.forEach(p=>p.r*=.9);trail=trail.filter(p=>p.r>6).slice(-24);
+  while(g.children.length-2<trail.length)g.append(document.createElementNS(NS,"circle"));
+  while(g.children.length-2>trail.length)g.lastChild.remove();
+  trail.forEach((p,i)=>{const c=g.children[i+2];c.setAttribute("cx",p.x);c.setAttribute("cy",p.y);c.setAttribute("r",p.r)});
+  head.setAttribute("cx",hx);head.setAttribute("cy",hy);head.setAttribute("r",Math.max(0,hr));full.setAttribute("r",Math.max(0,fr));
+  const busy=Math.abs(want*R-hr)>.5||Math.abs(fw*1300-fr)>.5||trail.length||Math.hypot(tx-hx,ty-hy)>.5||idle;
+  if(busy&&vis)raf=requestAnimationFrame(frame)}
+const go=()=>{if(!raf)raf=requestAnimationFrame(frame)};
+function at(e){const p=new DOMPoint(e.clientX,e.clientY).matrixTransform(svg.getScreenCTM().inverse());tx=p.x;ty=p.y;lastMove=performance.now();
+  const r=fig.getBoundingClientRect();dot.style.transform=`translate(${e.clientX-r.left}px,${e.clientY-r.top}px)`}
+fig.addEventListener("pointerenter",e=>{at(e);if(e.pointerType==="mouse"){hx=tx;hy=ty}want=1;go()});
+fig.addEventListener("pointermove",e=>{at(e);want=1;go()});
+fig.addEventListener("pointerleave",()=>{want=0;lastMove=performance.now();go()});
+fig.addEventListener("pointerup",e=>{if(e.pointerType!=="mouse"){want=0;lastMove=performance.now();go()}});
+btn.addEventListener("click",()=>{fw=fw?0:1;btn.setAttribute("aria-pressed",!!fw);btn.textContent=fw?"Show the photo":"Show the engraving";go()});
+new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis){t0=performance.now();go()}}).observe(root);
+})();
+</script>

@@ -1,0 +1,20 @@
+<style>
+.pt{--x:0px;--y:0px;position:relative;height:100vh;min-height:560px;display:grid;place-items:center;overflow:hidden;background:#000;color:#f5efe4;text-align:center}
+.pt video{position:absolute;left:50%;top:50%;width:max(100vw,177.8vh);height:max(56.25vw,100vh);transform:translate(-50%,-50%) translate(var(--x,0),var(--y,0)) scale(1.06);transition:transform .8s cubic-bezier(.2,.8,.2,1);object-fit:cover}
+.pt-in{position:absolute;left:0;right:0;top:calc(50% + 27vh);padding:0 20px;transform:translate(calc(var(--x,0)*-.5),calc(var(--y,0)*-.5));transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.pt-code{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translate(calc(var(--x,0)*.6),calc(var(--y,0)*.6));transition:transform .8s cubic-bezier(.2,.8,.2,1);font:500 clamp(48px,7vw,96px) "Geist Mono",monospace;letter-spacing:-.06em;line-height:1;color:#fff8ec}
+.pt h1{font-size:clamp(20px,2.2vw,28px);letter-spacing:-.03em;font-weight:500;margin:0 0 10px}
+.pt p{color:#b5ab9c;margin:0 auto 20px;max-width:380px;font-size:15.5px;line-height:1.55}
+.pt-btns{display:flex;gap:10px;justify-content:center}
+.pt-btns a{height:46px;padding:0 20px;border-radius:99px;display:inline-flex;align-items:center;font-weight:550;font-size:14px;text-decoration:none;color:#f5efe4;border:1px solid #ffffff2e;background:#0006;backdrop-filter:blur(8px)}
+.pt-btns a:first-child{background:#f5efe4;color:#000;border-color:#f5efe4}
+.pt-path{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font:12px "Geist Mono",monospace;color:#7a7266}
+</style>
+<section class="pt">
+  <video src="media/portal.mp4" poster="media/portal.jpg" autoplay muted loop playsinline></video>
+  <div class="pt-code">404</div><div class="pt-in"><h1>This page slipped through the ring.</h1><p>It may have moved, been renamed, or never existed. The way back is right here.</p>
+    <div class="pt-btns"><a href="#">Take me home</a><a href="#">Search the docs</a></div></div>
+</section>
+<script>
+(()=>{const s=document.querySelector(".pt");s.addEventListener("pointermove",e=>{const r=s.getBoundingClientRect();s.style.setProperty("--x",((e.clientX-r.left)/r.width-.5)*-22+"px");s.style.setProperty("--y",((e.clientY-r.top)/r.height-.5)*-22+"px")})})();
+</script>

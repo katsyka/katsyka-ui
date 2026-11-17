@@ -1,0 +1,39 @@
+<!--Files|A file browser with a storage meter split by type, coloured folders, and recent files that switch between list and grid with a shared toggle. Type badges are colour plus text, never colour alone.|files,storage,folders,grid,list-->
+<header class="bar"><div class="nb"><span></span><h2 class="fl-t">Files</h2><span><button class="ib" id="vw" aria-label="Show as grid">@I(grid,22)</button></span></div></header>
+<main class="sc">
+  <h1 class="lt">Files</h1>
+  <section class="fl-sto"><p><b class="tn">38.2 GB</b> <span class="mu">of 50 GB used</span></p><div class="fl-bar" aria-hidden="true"><i style="--w:38%;--c:var(--c1)"></i><i style="--w:22%;--c:var(--c2)"></i><i style="--w:10%;--c:var(--c3)"></i><i style="--w:6%;--c:var(--c4)"></i></div><ul class="fl-lg"><li style="--c:var(--c1)">Photos</li><li style="--c:var(--c2)">Video</li><li style="--c:var(--c3)">Documents</li><li style="--c:var(--c4)">Other</li></ul></section>
+  <h2 class="sh">Folders</h2>
+  <div class="hs fl-fo"><a href="#" style="--c:var(--c1)">@I(folder,28)<b>Trips</b><small>1 204 items</small></a><a href="#" style="--c:var(--c3)">@I(folder,28)<b>Invoices</b><small>86 items</small></a><a href="#" style="--c:var(--c2)">@I(folder,28)<b>Edits</b><small>32 items</small></a><a href="#" style="--c:var(--c4)">@I(folder,28)<b>Shared</b><small>14 items</small></a></div>
+  <h2 class="sh">Recent</h2>
+  <div class="fl-l" id="l"></div>
+</main>
+@PILL(clock:Recent|folder:Browse|users:Shared;1;s)
+<style>
+.ph{--c1:light-dark(#2563eb,#60a5fa);--c2:light-dark(#9333ea,#c084fc);--c3:light-dark(#ea580c,#fb923c);--c4:light-dark(#64748b,#94a3b8)}
+.fl-t{opacity:0;transition:opacity .2s}.bar.sd .fl-t{opacity:1}
+.fl-sto{margin:16px var(--gut) 0;padding:16px;border-radius:20px;background:var(--sf)}.fl-sto p{margin:0 0 10px;font-size:15px}.fl-sto b{font-size:20px}
+.fl-bar{display:flex;gap:2px;height:10px;border-radius:5px;overflow:hidden;background:var(--sf2)}.fl-bar i{width:var(--w);background:var(--c)}
+.fl-lg{display:flex;flex-wrap:wrap;gap:4px 14px;list-style:none;margin:10px 0 0;padding:0;font-size:13px;color:var(--mu)}.fl-lg li{display:flex;align-items:center;gap:6px}.fl-lg li::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--c)}
+.fl-fo a{width:140px;padding:14px;border-radius:18px;background:var(--sf);text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.fl-fo .i{color:var(--c);fill:color-mix(in srgb,var(--c) 22%,transparent);margin-bottom:12px}.fl-fo b{font-size:16px;font-weight:600}.fl-fo small{font-size:13px;color:var(--mu)}
+.fl-l{padding:0 var(--gut);display:grid;gap:0;transition:opacity .15s}
+.fl-i{display:flex;align-items:center;gap:12px;min-height:64px;border-bottom:.5px solid var(--line)}
+.fl-th{width:44px;height:52px;border-radius:8px;flex:none;background:var(--sf);display:grid;place-items:center;position:relative;overflow:hidden}
+.fl-th img{width:100%;height:100%;object-fit:cover}
+.fl-th em{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.04em;padding:2px 5px;border-radius:4px;background:var(--c);color:var(--bg)}
+.fl-i .tx{flex:1;min-width:0}.fl-i b{display:block;font-size:16px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fl-i small{font-size:13px;color:var(--mu)}
+.fl-l.grid{grid-template-columns:repeat(3,1fr);gap:16px 12px}
+.fl-l.grid .fl-i{flex-direction:column;align-items:stretch;gap:6px;border:0;min-height:0}
+.fl-l.grid .fl-th{width:100%;height:auto;aspect-ratio:1;border-radius:12px}
+.fl-l.grid b{font-size:13px}.fl-l.grid small{font-size:12px}
+.fl-l.grid .ib{display:none}
+</style>
+<script>
+const F=[["Field notes – October.pdf","PDF","2.4 MB · Yesterday",null,"--c3"],["IMG_4021.jpg","JPG","3.1 MB · Mon","1043","--c1"],["Valley edit v3.mov","MOV","418 MB · Mon",null,"--c2"],["Invoice 0412.pdf","PDF","88 KB · 6 Nov",null,"--c3"],["IMG_3998.jpg","JPG","2.8 MB · 4 Nov","1050","--c1"],["Packing list.txt","TXT","2 KB · 1 Nov",null,"--c4"]];
+const MO='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>';
+l.innerHTML=F.map(([n,t,m,img,c])=>`<div class="fl-i" style="--c:var(${c})"><span class="fl-th">${img?`<img src="media/pics/c/${img}.jpg" alt="">`:`<em>${t}</em>`}</span><span class="tx"><b>${n}</b><small>${m}</small></span><button class="ib" aria-label="More for ${n}">${MO}</button></div>`).join("");
+const GR=vw.innerHTML,LI='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>';
+vw.onclick=()=>{const g=!l.classList.contains("grid");l.style.opacity=0;setTimeout(()=>{l.classList.toggle("grid",g);l.style.opacity=1},150);vw.innerHTML=g?LI:GR;vw.setAttribute("aria-label",g?"Show as list":"Show as grid")};
+document.querySelectorAll('a[href="#"]').forEach(a=>a.onclick=e=>e.preventDefault());
+</script>

@@ -1,0 +1,71 @@
+<style>
+.pr{background:#08080b;color:#f2f2f4;padding:110px 24px 0;overflow:hidden}
+.pr-head{text-align:center;max-width:820px;margin:0 auto}
+.pr-pill{display:inline-flex;gap:8px;align-items:center;font-size:13px;color:#a3a3ad;padding:5px 12px;border:1px solid #ffffff17;border-radius:99px}
+.pr-pill i{width:6px;height:6px;border-radius:50%;background:#3ddc84}
+.pr h1{font-size:clamp(40px,6.6vw,92px);line-height:.96;letter-spacing:-.055em;font-weight:600;margin:24px 0 20px;background:linear-gradient(180deg,#fff 30%,#ffffff70);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pr p{color:#8f8f9a;font-size:18px;max-width:540px;margin:0 auto 34px;line-height:1.55}
+.pr-cta{display:flex;gap:10px;justify-content:center}
+.pr-cta a{height:46px;padding:0 20px;display:inline-flex;align-items:center;border-radius:12px;font-weight:550;text-decoration:none;color:#fff;border:1px solid #ffffff22}
+.pr-cta a:first-child{background:#f2f2f4;color:#08080b;border-color:#f2f2f4}
+.pr-scene{perspective:1400px;margin:70px auto 0;max-width:1120px;height:720px}
+.pr-app{transform-origin:50% 0;transform:rotateX(var(--rx,38deg)) rotateY(var(--ry,0deg)) scale(var(--sc,.86));transition:transform .15s linear;border-radius:18px;background:#101015;border:1px solid #ffffff17;box-shadow:0 -1px 0 #ffffff14 inset,0 60px 120px -40px #000,0 0 0 8px #ffffff05;display:grid;grid-template-columns:200px 1fr;height:640px;overflow:hidden}
+.pr-side{border-right:1px solid #ffffff10;padding:18px 12px;display:flex;flex-direction:column;gap:4px}
+.pr-side b{display:flex;align-items:center;gap:8px;font-size:14px;padding:4px 8px 16px}
+.pr-side b i{width:18px;height:18px;border-radius:5px;background:linear-gradient(135deg,#7c5cff,#3ddc84)}
+.pr-side a{font-size:13px;color:#8a8a95;padding:7px 10px;border-radius:7px}
+.pr-side a.on{background:#ffffff0d;color:#fff}
+.pr-main{padding:22px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto 1fr;gap:14px}
+.pr-k{border:1px solid #ffffff10;border-radius:12px;padding:16px;background:#ffffff03}
+.pr-k span{font-size:12px;color:#7d7d88}.pr-k b{display:block;font-size:26px;letter-spacing:-.03em;margin:6px 0 2px;font-weight:600}.pr-k em{font-style:normal;font-size:12px;color:#3ddc84}
+.pr-chart{grid-column:1/-1;border:1px solid #ffffff10;border-radius:12px;padding:16px;height:240px;position:relative}
+.pr-chart svg{position:absolute;inset:40px 16px 16px;width:calc(100% - 32px);height:calc(100% - 56px)}
+.pr-chart path.l{stroke-dasharray:1400;stroke-dashoffset:1400;animation:pr-draw 2.4s .4s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes pr-draw{to{stroke-dashoffset:0}}
+.pr-rows{grid-column:1/-1;display:flex;flex-direction:column}
+.pr-rows div{display:grid;grid-template-columns:2fr 1fr 1fr 80px;gap:12px;font-size:13px;color:#9b9ba6;padding:10px 4px;border-bottom:1px solid #ffffff0a}
+.pr-rows div b{color:#e9e9ee;font-weight:500}
+.pr-rows i{font-style:normal;font-size:11px;padding:2px 8px;border-radius:99px;background:#3ddc8418;color:#3ddc84;justify-self:start}
+.pr-scene::after{content:"";display:block;height:0}
+.pr-fade{height:200px;margin-top:-260px;position:relative;background:linear-gradient(transparent,#08080b)}
+.pr-after{height:70vh}
+@media (max-width:760px){.pr-app{grid-template-columns:1fr}.pr-side{display:none}.pr-main{grid-template-columns:1fr 1fr}.pr-scene{height:560px}}
+</style>
+<section class="pr">
+  <div class="pr-head">
+    <span class="pr-pill"><i></i>Analytics 3.0 is live</span>
+    <h1>Numbers you can actually read.</h1>
+    <p>Revenue, retention and usage in one honest dashboard. Connect a data source and get answers in minutes.</p>
+    <div class="pr-cta"><a href="#">Get started</a><a href="#">Live demo</a></div>
+  </div>
+  <div class="pr-scene"><div class="pr-app">
+    <aside class="pr-side"><b><i></i>Northstar</b><a class="on">Overview</a><a>Revenue</a><a>Customers</a><a>Funnels</a><a>Cohorts</a><a>Settings</a></aside>
+    <div class="pr-main">
+      <div class="pr-k"><span>MRR</span><b>$84,210</b><em>+12.4%</em></div>
+      <div class="pr-k"><span>Active users</span><b>18,902</b><em>+5.1%</em></div>
+      <div class="pr-k"><span>Net retention</span><b>118%</b><em>+2.0 pts</em></div>
+      <div class="pr-chart"><span style="font-size:13px;color:#9b9ba6">Revenue · last 12 months</span>
+        <svg viewBox="0 0 800 180" preserveAspectRatio="none"><defs><linearGradient id="prg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7c5cff" stop-opacity=".35"/><stop offset="1" stop-color="#7c5cff" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 150 C60 140 90 120 140 124 S230 90 280 96 360 70 420 76 520 40 580 48 690 20 800 14 V180 H0Z" fill="url(#prg)"/>
+        <path class="l" d="M0 150 C60 140 90 120 140 124 S230 90 280 96 360 70 420 76 520 40 580 48 690 20 800 14" fill="none" stroke="#9d86ff" stroke-width="2.5"/></svg></div>
+      <div class="pr-rows"><div><b>Acme Corp</b><span>Enterprise</span><span>$4,200</span><i>Paid</i></div><div><b>Globex</b><span>Team</span><span>$980</span><i>Paid</i></div><div><b>Initech</b><span>Team</span><span>$640</span><i>Paid</i></div></div>
+    </div>
+  </div></div>
+  <div class="pr-fade"></div>
+  <div class="pr-after"></div>
+</section>
+<script>
+(()=>{
+const app=document.querySelector(".pr-app"),scene=document.querySelector(".pr-scene");
+let mx=0;
+const up=()=>{
+  const r=scene.getBoundingClientRect(),p=Math.max(0,Math.min(1,1-(r.top-innerHeight*.15)/(innerHeight*.75)));
+  app.style.setProperty("--rx",(38*(1-p)).toFixed(2)+"deg");
+  app.style.setProperty("--sc",(.86+.14*p).toFixed(3));
+  app.style.setProperty("--ry",(mx*4*(1-p*.6)).toFixed(2)+"deg");
+};
+addEventListener("scroll",up,{passive:true});
+addEventListener("pointermove",e=>{mx=e.clientX/innerWidth*2-1;up()});
+up();
+})();
+</script>

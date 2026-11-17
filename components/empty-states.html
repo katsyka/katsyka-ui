@@ -1,0 +1,48 @@
+<style>
+.es{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.es :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.es ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.es *,.es *::before,.es *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.es{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.es-g{width:min(940px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.es-c{display:flex;flex-direction:column;align-items:center;text-align:center;padding:36px 24px 30px;background:var(--bg);border:1px solid var(--line);border-radius:18px}
+.es-c.dash{border-style:dashed;border-width:1.5px;background:transparent}
+.es-art{width:120px;height:96px;margin-bottom:18px}
+.es-art .ln{fill:none;stroke:var(--ctl);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.es-art .fl{fill:var(--sf2)}
+.es-art .ac{fill:var(--ac-sf);stroke:var(--ac);stroke-width:1.6}
+.es-art .acs{fill:none;stroke:var(--ac);stroke-width:1.8;stroke-linecap:round}
+.es-c h3{margin:0;font-size:16px;font-weight:620;letter-spacing:-.015em}
+.es-c p{margin:6px 0 18px;max-width:30ch;font-size:14px;line-height:1.5;color:var(--mu)}
+.es-c p q{color:var(--fg);font-weight:550}
+.es-btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.es-btn:hover{background:var(--sf2)}
+.es-btn.pr{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.es-btn.pr:hover{background:color-mix(in oklab,var(--fg) 85%,var(--bg))}
+.es-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.es-acts{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.es-sm{margin-top:14px;font-size:12.5px;color:var(--mu)}
+.es-sm a{color:var(--fg)}
+@media (max-width:820px){.es-g{grid-template-columns:1fr}}
+</style>
+<div class="es">
+  <div class="es-g">
+    <section class="es-c">
+      <svg class="es-art" viewBox="0 0 120 96" aria-hidden="true"><rect class="fl" x="14" y="22" width="72" height="54" rx="8"/><rect class="ln" x="34" y="14" width="72" height="54" rx="8" style="fill:var(--bg)"/><path class="ln" d="M46 32h30M46 42h44M46 52h22"/><circle class="ac" cx="98" cy="70" r="13"/><path class="acs" d="M98 64v12M92 70h12"/></svg>
+      <h3>No projects yet</h3><p>Projects hold your pages, assets and deploys. Start from scratch or a template.</p>
+      <div class="es-acts"><button class="es-btn pr"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New project</button><button class="es-btn">Browse templates</button></div>
+    </section>
+    <section class="es-c">
+      <svg class="es-art" viewBox="0 0 120 96" aria-hidden="true"><circle class="fl" cx="54" cy="44" r="30"/><circle class="ln" cx="54" cy="44" r="22" style="fill:var(--bg)"/><path class="ln" d="m70 60 20 20" style="stroke-width:5"/><path class="acs" d="m47 37 14 14M61 37 47 51"/></svg>
+      <h3>No results for <q>lumbar sofa</q></h3><p>Check the spelling or try a broader term, like <q>sofa</q>.</p>
+      <div class="es-acts"><button class="es-btn">Clear search</button></div>
+      <div class="es-sm">Still stuck? <a href="#">Ask our team</a></div>
+    </section>
+    <section class="es-c dash">
+      <svg class="es-art" viewBox="0 0 120 96" aria-hidden="true"><path class="fl" d="M18 48 36 22h48l18 26v24a6 6 0 0 1-6 6H24a6 6 0 0 1-6-6z"/><path class="ln" d="M18 48 36 22h48l18 26M18 48v24a6 6 0 0 0 6 6h72a6 6 0 0 0 6-6V48H78l-6 10H48l-6-10z" style="fill:none"/><path class="acs" d="m49 36 7 7 14-14"/></svg>
+      <h3>Inbox zero</h3><p>You’ve handled everything. New messages will show up here.</p>
+      <div class="es-acts"><button class="es-btn">View archive</button></div>
+    </section>
+  </div>
+</div>
+<script>document.querySelectorAll('.es a[href="#"]').forEach(a=>a.addEventListener("click",e=>e.preventDefault()));</script>

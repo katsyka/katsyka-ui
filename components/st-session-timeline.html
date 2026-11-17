@@ -1,0 +1,45 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.sx-w{width:min(640px,100%);display:grid;gap:16px}.sx-bn{padding:14px 16px;border-radius:12px;font-weight:600;display:flex;gap:10px;align-items:center}.sx-bn.warn{background:var(--warn-sf)}.sx-bn.ok{background:var(--ok-sf);color:var(--ok)}
+.sx-c{list-style:none;padding:0;margin:0;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.sx-c li{display:flex;justify-content:space-between;padding:12px 14px;border-top:1px solid var(--line);font-size:14px}.sx-c li:first-child{border:0}
+.sx-in{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:16px;display:grid;gap:12px;justify-items:start}.sx-in h2{margin:0;font-size:16px}.sx-tl{list-style:none;padding:0;margin:0;display:grid;gap:12px;width:100%}.sx-tl li{display:grid;grid-template-columns:110px 1fr;gap:12px;font-size:14px;animation:sxf .3s cubic-bezier(.23,1,.32,1)}.sx-tl b{display:block}.sx-tl time{font:12px 'Geist Mono',monospace;color:var(--mu);padding-top:2px}@keyframes sxf{from{opacity:0;transform:translateY(-4px)}}
+.sx-up{display:grid;gap:8px}.sx-uh{display:flex;justify-content:space-between;font-size:14px}.sx-bars{display:flex;gap:2px;height:32px}.sx-bars i{flex:1;border-radius:2px;background:var(--ok);opacity:.85}.sx-bars i:hover{opacity:1;transform:scaleY(1.1)}.sx-bars .w{background:var(--warn)}.sx-bars .e{background:var(--err)}.sx-tip{font-size:12px;margin:0;min-height:18px}
+@media (max-width:520px){.sx-tl li{grid-template-columns:1fr;gap:2px}}
+</style>
+<div class="k sx"><main class="sx-w"><div class="sx-bn" id="bn"></div><ul class="sx-c" id="c"></ul><section class="sx-in"><h2>Incident: delayed webhook deliveries</h2><ol class="sx-tl" id="tl"></ol><button class="b sec sm" id="nx">Next update</button></section>
+<section class="sx-up"><div class="sx-uh"><b>API uptime</b><span class="mu tn">99.94% · 90 days</span></div><div class="sx-bars" id="bars"></div><p class="mu tn sx-tip" id="tip">Hover a day</p></section></main></div>
+<script>
+const U=[["14:02","Investigating","Webhook deliveries are delayed by up to 20 minutes. API requests are not affected."],["14:19","Identified","A queue worker pool ran out of memory after a config change. Rolling it back."],["14:41","Monitoring","Rollback complete. Delayed webhooks are being delivered now, oldest first."],["15:05","Resolved","All delayed webhooks delivered. Total delay peaked at 23 minutes."]];let k=1;
+const C=()=>[["API","Operational"],["Webhooks",k<4?"Degraded":"Operational"],["Dashboard","Operational"],["Payments","Operational"]];
+function draw(){document.getElementById('c').innerHTML=C().map(([n,s])=>`<li><span>${n}</span><span class="pill ${s==='Operational'?'ok':'warn'}">${s}</span></li>`).join('');document.getElementById('tl').innerHTML=U.slice(0,k).reverse().map(([t,s,d])=>`<li><time>${t} UTC</time><div><b>${s}</b>${d}</div></li>`).join('');const bn=document.getElementById('bn');bn.className='sx-bn '+(k<4?'warn':'ok');bn.textContent=k<4?'Webhooks are degraded. Everything else is working.':'All systems operational';document.getElementById('nx').hidden=k>=4}
+document.getElementById('nx').onclick=()=>{k++;draw()};draw();
+const bars=document.getElementById('bars'),D=Array.from({length:90},(_,i)=>i===89?'w':i===61?'e':i===34||i===12?'w':'');bars.innerHTML=D.map((c,i)=>`<i class="${c}" data-i="${i}"></i>`).join('');
+bars.onpointerover=e=>{const b=e.target.closest('i');if(!b)return;const i=+b.dataset.i,d=new Date(Date.now()-(89-i)*864e5),c=D[i];document.getElementById('tip').textContent=`${d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})}: ${c==='e'?'Major outage, 41 min':c==='w'?'Degraded, 23 min':'No incidents'}`};
+</script>

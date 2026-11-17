@@ -1,0 +1,32 @@
+<!--Appearance Settings|Settings|Theme and display preferences with live preview: System/Light/Dark as mini-window cards, accent colour swatches, interface density, font size slider and reduced motion, all applied to a preview pane.|settings,appearance,theme,dark mode,preview,accent-->
+<div class="k ap"><div class="ap-w"><div class="ap-c"><h1>Appearance</h1>
+<fieldset><legend class="lbl">Theme</legend><div class="ap-th" role="radiogroup"><button role="radio" aria-checked="true" data-t="system"><span class="ap-mini sys"></span>System</button><button role="radio" aria-checked="false" data-t="light"><span class="ap-mini lt"></span>Light</button><button role="radio" aria-checked="false" data-t="dark"><span class="ap-mini dk"></span>Dark</button></div></fieldset>
+<fieldset><legend class="lbl">Accent</legend><div class="ap-ac" role="radiogroup" id="ac"></div></fieldset>
+<fieldset><legend class="lbl">Density</legend><div class="ap-seg" role="radiogroup" id="dn"><button role="radio" aria-checked="false" data-d="12">Compact</button><button role="radio" aria-checked="true" data-d="16">Default</button><button role="radio" aria-checked="false" data-d="22">Roomy</button></div></fieldset>
+<label class="ap-fs"><span class="lbl">Text size <b class="tn" id="fv">15px</b></span><input type="range" id="fs" min="13" max="19" value="15"></label>
+<label class="ap-rm"><input type="checkbox" id="rm"> Reduce motion <small class="mu">Overrides the system setting</small></label></div>
+<div class="ap-pv" id="pv" aria-label="Preview"><div class="ap-pt"><i></i><i></i><i></i></div><div class="ap-pb"><aside><span class="on">Inbox</span><span>Drafts</span><span>Sent</span></aside><div><b>Quarterly report draft</b><p>Hi team, the numbers for Q3 are in and they look better than expected.</p><button>Reply</button></div></div></div></div></div>
+<style>
+.k.ap{align-items:start}.ap-w{width:min(900px,100%);display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}.ap-c{display:grid;gap:22px}.ap-c h1{margin:0;font-size:24px;letter-spacing:-.02em}.ap-c fieldset{border:0;margin:0;padding:0}
+.ap-th{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.ap-th button{display:grid;gap:8px;font-size:13px;font-weight:550;justify-items:start}.ap-mini{width:100%;aspect-ratio:4/3;border-radius:10px;border:2px solid var(--line);display:block;transition:border-color .15s}.ap-th [aria-checked=true] .ap-mini{border-color:var(--ac)}
+.ap-mini.lt{background:linear-gradient(#fff 22%,#f4f4f5 22%)}.ap-mini.dk{background:linear-gradient(#27272a 22%,#18181b 22%)}.ap-mini.sys{background:linear-gradient(90deg,transparent 50%,#18181b 50%),linear-gradient(#fff 22%,#f4f4f5 22%)}
+.ap-ac{display:flex;gap:10px}.ap-ac button{width:36px;height:36px;border-radius:50%;background:var(--c);outline-offset:3px}.ap-ac [aria-checked=true]{outline:2px solid var(--fg)}
+.ap-seg{display:inline-flex;background:var(--sf2);border-radius:10px;padding:3px}.ap-seg button{height:34px;padding:0 14px;border-radius:8px;font-weight:550;color:var(--mu)}.ap-seg [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 2px #0000001a}
+.ap-fs{display:grid;gap:4px}.ap-fs .lbl{display:flex;justify-content:space-between}.ap-fs input{accent-color:var(--ac)}.ap-rm{display:flex;gap:8px;align-items:center;font-size:14px;flex-wrap:wrap}.ap-rm input{width:18px;height:18px;accent-color:var(--ac)}.ap-rm small{width:100%;padding-left:26px;margin-top:-6px}
+.ap-pv{--pa:#c2410c;--pd:16px;--pf:15px;color-scheme:light;--pbg:#fff;--psf:#f4f4f5;--pfg:#18181b;--pmu:#71717a;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--pbg);color:var(--pfg);position:sticky;top:16px;transition:background .3s,color .3s}
+.ap-pv.dark{--pbg:#18181b;--psf:#232327;--pfg:#f4f4f5;--pmu:#a1a1aa}.ap-pt{display:flex;gap:6px;padding:10px 12px;background:var(--psf)}.ap-pt i{width:10px;height:10px;border-radius:50%;background:var(--pmu);opacity:.4}
+.ap-pb{display:grid;grid-template-columns:110px 1fr;font-size:var(--pf);min-height:260px}.ap-pb aside{background:var(--psf);padding:var(--pd) 10px;display:grid;gap:calc(var(--pd)/3);align-content:start}.ap-pb aside span{padding:calc(var(--pd)/3) 8px;border-radius:6px;color:var(--pmu)}.ap-pb aside .on{background:color-mix(in srgb,var(--pa) 14%,transparent);color:var(--pa);font-weight:600}
+.ap-pb>div{padding:var(--pd);display:grid;gap:calc(var(--pd)/2);align-content:start}.ap-pb p{margin:0;color:var(--pmu);line-height:1.5}.ap-pb button{justify-self:start;background:var(--pa);color:#fff;border-radius:8px;padding:calc(var(--pd)/3) calc(var(--pd)*.9);font-weight:600;font-size:.9em;transition:background .3s}
+@media (max-width:760px){.ap-w{grid-template-columns:1fr}.ap-pv{position:static}}
+</style>
+<script>
+const pv=document.getElementById('pv'),A=[['Ember','#c2410c'],['Ocean','#0369a1'],['Moss','#4d7c0f'],['Plum','#7e22ce'],['Graphite','#3f3f46']],ac=document.getElementById('ac');
+ac.innerHTML=A.map(([n,c],i)=>`<button role="radio" aria-checked="${!i}" aria-label="${n}" style="--c:${c}" data-c="${c}"></button>`).join('');
+const radio=(g,b)=>g.querySelectorAll('[role=radio]').forEach(x=>x.setAttribute('aria-checked',x===b));
+const mq=matchMedia('(prefers-color-scheme:dark)');let th='system';const apply=()=>pv.classList.toggle('dark',th==='dark'||(th==='system'&&mq.matches));mq.addEventListener('change',apply);
+document.querySelector('.ap-th').onclick=e=>{const b=e.target.closest('button');if(!b)return;radio(b.parentElement,b);th=b.dataset.t;apply()};
+ac.onclick=e=>{const b=e.target.closest('button');if(!b)return;radio(ac,b);pv.style.setProperty('--pa',b.dataset.c)};
+document.getElementById('dn').onclick=e=>{const b=e.target.closest('button');if(!b)return;radio(b.parentElement,b);pv.style.setProperty('--pd',b.dataset.d+'px')};
+document.getElementById('fs').oninput=e=>{pv.style.setProperty('--pf',e.target.value+'px');document.getElementById('fv').textContent=e.target.value+'px'};
+document.getElementById('rm').onchange=e=>pv.style.transition=e.target.checked?'none':'';apply();
+</script>

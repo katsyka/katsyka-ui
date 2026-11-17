@@ -1,0 +1,17 @@
+<!--AI Edit Suggestions|AI|Inline AI writing suggestions shown as a diff inside the text (strikethrough red, inserted green); each suggestion has accept/reject, plus accept-all, keyboard shortcuts and a counter of remaining changes.|ai,diff,suggestions,editor,review,writing-->
+<div class="k"><div class="dr2"><div class="dr2-h"><b>Suggested edits</b><span class="mu tn" id="c"></span><button class="b sec sm" id="aa">Accept all</button></div><div class="dr2-t" id="t"></div><p class="mu dr2-k">Tip: <kbd>Tab</kbd> next suggestion · <kbd>A</kbd> accept · <kbd>R</kbd> reject</p></div></div>
+<style>
+.dr2{width:min(680px,100%);display:grid;gap:12px}.dr2-h{display:flex;gap:12px;align-items:center}.dr2-h .b{margin-left:auto}
+.dr2-t{padding:20px 22px;border:1px solid var(--line);border-radius:14px;background:var(--bg);font-size:17px;line-height:1.85}.dr2-t p{margin:0 0 1em}.dr2-t p:last-child{margin:0}
+.dr2-s{position:relative;border-radius:4px;outline-offset:2px}.dr2-s del{color:var(--err);background:var(--err-sf);text-decoration-thickness:1.5px}.dr2-s ins{color:var(--ok);background:var(--ok-sf);text-decoration:none;border-bottom:1.5px solid var(--ok)}.dr2-s:focus{outline:2px solid var(--focus)}
+.dr2-s .ac{position:absolute;left:0;top:calc(100% + 4px);display:none;gap:4px;z-index:3;background:var(--fg);padding:3px;border-radius:8px;white-space:nowrap}.dr2-s:hover .ac,.dr2-s:focus .ac,.dr2-s:focus-within .ac{display:flex}.dr2-s .ac button{height:28px;padding:0 9px;border-radius:6px;color:var(--bg);font-size:12px;font-weight:600}.dr2-s .ac button:hover{background:color-mix(in srgb,var(--bg) 15%,transparent)}.dr2-s .ac small{color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:11px;padding:0 6px;align-self:center}
+.dr2-k{font-size:12px;margin:0}.dr2-k kbd{font:11px 'Geist Mono',monospace;border:1px solid var(--line);border-radius:4px;padding:0 4px}
+</style>
+<script>
+const T=[["We are ",["very excited to announce","pleased to share"]," that the new dashboard ",["is now available to be used by","is now available to"]," all customers."],["It loads ",["a lot faster","three times faster"]," and works offline. ",["Please do not hesitate to","Feel free to"]," send us feedback ",["at any point in time","any time"],"."]],W=["Simpler","Specific","Shorter","Plainer","Shorter"];const st={};
+function draw(){let k=0;document.getElementById('t').innerHTML=T.map(p=>'<p>'+p.map(x=>{if(typeof x==='string')return x;const i=k++;return st[i]==='a'?x[1]:st[i]==='r'?x[0]:`<span class="dr2-s" tabindex="0" data-i="${i}" aria-label="Suggestion: replace “${x[0]}” with “${x[1]}”"><del>${x[0]}</del> <ins>${x[1]}</ins><span class="ac"><small>${W[i]}</small><button data-a="a">Accept</button><button data-a="r">Reject</button></span></span>`}).join('')+'</p>').join('');const left=k-Object.keys(st).length;document.getElementById('c').textContent=left?`${left} left`:'All reviewed';document.getElementById('aa').hidden=!left}
+function act(i,a){st[i]=a;draw();const n=document.querySelector('.dr2-s');n&&n.focus()}
+document.getElementById('t').onclick=e=>{const b=e.target.closest('[data-a]');if(b)act(+b.closest('.dr2-s').dataset.i,b.dataset.a)};
+document.getElementById('t').onkeydown=e=>{const s=e.target.closest('.dr2-s');if(!s)return;if(e.key==='a'){act(+s.dataset.i,'a')}if(e.key==='r'){act(+s.dataset.i,'r')}};
+document.getElementById('aa').onclick=()=>{document.querySelectorAll('.dr2-s').forEach(s=>st[s.dataset.i]='a');draw()};draw();
+</script>

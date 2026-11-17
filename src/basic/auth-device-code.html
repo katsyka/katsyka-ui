@@ -1,0 +1,19 @@
+<!--Device Code Sign In|Auth|TV / CLI style device authorisation: a big pairing code to type on another device, a URL, a QR, an expiry countdown bar, polling status and a regenerate button when it expires.|auth,device,tv,cli,pairing,code-->
+<div class="k">
+<div class="card dc"><p class="eb">Sign in on your TV</p><h1>On your phone or computer, go to</h1><a class="dc-url" href="#">reel.example/activate</a><p class="mu">and enter this code</p>
+<div class="dc-code tn" id="cd" aria-live="polite"></div><div class="dc-bar" aria-hidden="true"><i id="br"></i></div><p class="dc-st" id="st" role="status"><span class="dc-sp"></span>Waiting for confirmation…</p><button class="b sec" id="rg" hidden>@I(refresh,16)Get a new code</button></div>
+</div>
+<style>
+.dc{width:min(480px,100%);padding:36px 28px;text-align:center;display:grid;justify-items:center;gap:6px}.dc h1{margin:8px 0 0;font-size:18px;font-weight:500}.dc p{margin:0}
+.dc-url{font-size:22px;font-weight:650;color:var(--ac);text-decoration:none;letter-spacing:-.01em}
+.dc-code{display:flex;gap:6px;margin:14px 0 8px;width:100%;justify-content:center}.dc-code span{flex:1;max-width:44px;min-width:0;height:58px;border-radius:10px;background:var(--sf);border:1px solid var(--line);display:grid;place-items:center;font:600 28px 'Geist Mono',monospace}.dc-code .d{background:none;border:0;width:14px;color:var(--mu)}.dc-code.old span{color:var(--mu);text-decoration:line-through}
+.dc-bar{width:100%;max-width:340px;height:4px;border-radius:2px;background:var(--sf2);overflow:hidden}.dc-bar i{display:block;height:100%;background:var(--ac);width:100%;transition:width 1s linear}
+.dc-st{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mu);margin-top:10px!important}.dc-sp{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--ac);animation:dcs .8s linear infinite}@keyframes dcs{to{transform:rotate(1turn)}}
+@media (max-width:420px){.dc-code span{height:48px;font-size:20px}.dc{padding:28px 16px}}
+</style>
+<script>
+const $=i=>document.getElementById(i),A='BCDFGHJKLMNPQRSTVWXZ';let left,t;
+function make(){const c=Array.from({length:8},()=>A[Math.floor(Math.random()*A.length)]);$('cd').className='dc-code tn';$('cd').innerHTML=c.slice(0,4).map(x=>`<span>${x}</span>`).join('')+'<span class="d">–</span>'+c.slice(4).map(x=>`<span>${x}</span>`).join('');$('cd').setAttribute('aria-label','Code '+c.join(' '));left=40;$('rg').hidden=true;$('st').innerHTML='<span class="dc-sp"></span>Waiting for confirmation… expires in 40s';clearInterval(t);t=setInterval(tick,1000);$('br').style.width='100%'}
+function tick(){left--;$('br').style.width=left/40*100+'%';if(left>0){$('st').innerHTML=`<span class="dc-sp"></span>Waiting for confirmation… expires in ${left}s`;return}clearInterval(t);$('cd').classList.add('old');$('st').textContent='This code expired.';$('rg').hidden=false}
+$('rg').onclick=make;make();
+</script>

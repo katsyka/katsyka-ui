@@ -1,0 +1,82 @@
+<style>
+.sp{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sp :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sp ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sp *,.sp *::before,.sp *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sp{min-height:100vh;display:grid;grid-template-columns:1fr 320px;background:var(--bg)}
+.sp-hall{padding:36px 20px;display:flex;flex-direction:column;align-items:center;overflow:auto}
+.sp-screen{width:min(560px,90%);height:40px;margin-bottom:28px;border-top:4px solid var(--ctl);border-radius:50%/100% 100% 0 0;text-align:center;padding-top:12px;font:500 11px "Geist Mono",monospace;letter-spacing:.3em;color:var(--mu)}
+.sp-grid{display:flex;flex-direction:column;gap:6px}
+.sp-row{display:flex;align-items:center;gap:4px}
+.sp-row b{width:22px;text-align:center;font:500 12px "Geist Mono",monospace;color:var(--mu)}
+.sp-gap{width:22px}
+.sp-s{position:relative;width:30px;height:28px;border:0;border-radius:8px 8px 5px 5px;background:var(--sf2);cursor:pointer;padding:0;transition:background .15s,transform .2s cubic-bezier(.3,1.6,.5,1)}
+.sp-s::after{content:"";position:absolute;left:4px;right:4px;bottom:-3px;height:3px;border-radius:0 0 3px 3px;background:inherit;filter:brightness(.9)}
+.sp-s:hover:not(:disabled){background:light-dark(#d9d9d6,#3a3a40)}
+.sp-s.pr{background:light-dark(#ede4ff,#2a2143)}.sp-s.pr:hover{background:light-dark(#dccdfc,#3a2d5c)}
+.sp-s.wc{background:light-dark(#dbeafe,#172554)}
+.sp-s.wc::before{content:"♿";position:absolute;inset:0;display:grid;place-items:center;font-size:13px}
+.sp-s:disabled{cursor:not-allowed;background:repeating-linear-gradient(45deg,var(--line) 0 3px,transparent 3px 6px);opacity:.8}
+.sp-s[aria-pressed=true]{background:var(--ac);transform:translateY(-2px)}
+.sp-s[aria-pressed=true]::before{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:var(--ac-fg);font:700 13px Geist,sans-serif}
+.sp-s:focus-visible{z-index:1}
+.sp-key{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:24px;font-size:13px;color:var(--mu)}
+.sp-key span{display:flex;align-items:center;gap:6px}.sp-key i{width:16px;height:14px;border-radius:4px;background:var(--c)}
+.sp-side{border-left:1px solid var(--line);padding:24px;display:flex;flex-direction:column;background:var(--sf)}
+.sp-side h3{margin:0;font-size:18px;font-weight:600}.sp-side>p{margin:4px 0 18px;color:var(--mu);font-size:14px}
+.sp-chips{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;align-content:flex-start}
+.sp-chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 4px 0 10px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font:500 13px "Geist Mono",monospace;animation:sp-in .25s var(--ease)}
+@keyframes sp-in{from{opacity:0;transform:scale(.85)}}
+.sp-chip button{width:24px;height:24px;border:0;border-radius:6px;background:none;color:var(--mu);cursor:pointer}.sp-chip button:hover{background:var(--sf2);color:var(--fg)}
+.sp-empty{font-size:14px;color:var(--mu)}
+.sp-sum{margin-top:auto;padding-top:16px;border-top:1px solid var(--line)}
+.sp-sum div{display:flex;justify-content:space-between;font-size:14px;color:var(--mu);margin-bottom:6px}.sp-sum div b{color:var(--fg);font-variant-numeric:tabular-nums}
+.sp-sum .tot{font-size:16px;color:var(--fg);font-weight:600}
+.sp-sum button{width:100%;height:48px;margin-top:10px;border:0;border-radius:12px;background:var(--ac);color:var(--ac-fg);font:600 15px Geist,sans-serif;cursor:pointer}
+.sp-sum button:disabled{background:var(--sf2);color:var(--mu);cursor:not-allowed}
+.sp-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.sp-tip{position:fixed;z-index:9;padding:6px 10px;border-radius:8px;background:var(--fg);color:var(--bg);font-size:12.5px;pointer-events:none;opacity:0;transform:translate(-50%,-100%) translateY(-8px);transition:opacity .12s;white-space:nowrap}
+@media (max-width:860px){.sp{grid-template-columns:1fr}.sp-side{border-left:0;border-top:1px solid var(--line)}}
+</style>
+<section class="sp">
+  <div class="sp-hall"><div class="sp-screen">SCREEN</div><div class="sp-grid" role="group" aria-label="Seats. Use arrow keys to move between seats, Space to select"></div>
+    <div class="sp-key"><span><i style="--c:var(--sf2)"></i>Standard $14</span><span><i style="--c:light-dark(#ede4ff,#2a2143)"></i>Premium $19</span><span><i style="--c:light-dark(#dbeafe,#172554)"></i>Wheelchair space</span><span><i style="--c:var(--ac)"></i>Your pick</span></div></div>
+  <aside class="sp-side"><h3>Dune: Part Three</h3><p>Fri 21 Nov · 19:30 · Hall 4 · up to 6 seats</p><div class="sp-chips"><span class="sp-empty">No seats selected yet.</span></div>
+    <div class="sp-sum"><div><span>Tickets</span><b data-o="n">0</b></div><div><span>Booking fee</span><b data-o="fee">$0.00</b></div><div class="tot"><span>Total</span><b data-o="tot">$0.00</b></div><button disabled>Continue</button></div></aside>
+  <div class="sp-live" aria-live="polite"></div><div class="sp-tip"></div>
+</section>
+<script>
+(()=>{
+const ROWS="ABCDEFGHIJ",COLS=14,AISLE=[3,10],MAX=6,PRICE={st:14,pr:19,wc:14};
+let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const grid=document.querySelector(".sp-grid"),live=document.querySelector(".sp-live"),tip=document.querySelector(".sp-tip"),chips=document.querySelector(".sp-chips");
+const seats=[];
+[...ROWS].forEach((r,ri)=>{const row=document.createElement("div");row.className="sp-row";row.innerHTML=`<b aria-hidden="true">${r}</b>`;seats[ri]=[];
+  for(let c=1;c<=COLS;c++){if(AISLE.includes(c-1))row.insertAdjacentHTML("beforeend",'<span class="sp-gap"></span>');
+    const t=ri>=6&&ri<=8&&c>3&&c<12?"pr":ri===9&&(c===1||c===2||c===13||c===14)?"wc":"st",taken=rnd()<.28&&t!=="wc";
+    const b=document.createElement("button");b.className="sp-s "+t;b.dataset.r=r;b.dataset.c=c;b.dataset.t=t;b.tabIndex=-1;b.disabled=taken;b.setAttribute("aria-pressed","false");
+    b.setAttribute("aria-label",`Row ${r}, seat ${c}, ${t==="pr"?"premium":t==="wc"?"wheelchair space":"standard"}, $${PRICE[t]}${taken?", taken":""}`);
+    row.append(b);seats[ri].push(b)}
+  row.insertAdjacentHTML("beforeend",`<b aria-hidden="true">${r}</b>`);grid.append(row)});
+const sel=new Set();let focusR=4,focusC=6;
+const at=(r,c)=>seats[r]?.[c];
+function roveTo(r,c){const b=at(r,c);if(!b)return;seats.flat().forEach(x=>x.tabIndex=-1);b.tabIndex=0;b.focus();focusR=r;focusC=c}
+function toggle(b){const on=b.getAttribute("aria-pressed")==="true";if(!on&&sel.size>=MAX){live.textContent=`You can pick up to ${MAX} seats.`;b.animate([{transform:"translateX(-3px)"},{transform:"translateX(3px)"},{transform:"none"}],{duration:200});return}
+  b.setAttribute("aria-pressed",!on);on?sel.delete(b):sel.add(b);live.textContent=`${on?"Removed":"Added"} row ${b.dataset.r} seat ${b.dataset.c}. ${sel.size} selected.`;render()}
+function render(){const list=[...sel].sort((a,b)=>a.dataset.r.localeCompare(b.dataset.r)||a.dataset.c-b.dataset.c);
+  chips.innerHTML=list.length?list.map(b=>`<span class="sp-chip">${b.dataset.r}${b.dataset.c}<button aria-label="Remove ${b.dataset.r}${b.dataset.c}" data-k="${b.dataset.r}-${b.dataset.c}">✕</button></span>`).join(""):'<span class="sp-empty">No seats selected yet.</span>';
+  const sub=list.reduce((a,b)=>a+PRICE[b.dataset.t],0),fee=list.length?1.5*list.length:0;
+  document.querySelector("[data-o=n]").textContent=list.length;document.querySelector("[data-o=fee]").textContent="$"+fee.toFixed(2);document.querySelector("[data-o=tot]").textContent="$"+(sub+fee).toFixed(2);
+  const btn=document.querySelector(".sp-sum button");btn.disabled=!list.length;btn.textContent=list.length?`Continue with ${list.length} seat${list.length>1?"s":""}`:"Continue"}
+chips.onclick=e=>{const k=e.target.closest("[data-k]");if(!k)return;const[r,c]=k.dataset.k.split("-");toggle(seats[ROWS.indexOf(r)][c-1])};
+grid.addEventListener("click",e=>{const b=e.target.closest(".sp-s");if(b&&!b.disabled){toggle(b);roveTo(ROWS.indexOf(b.dataset.r),b.dataset.c-1)}});
+grid.addEventListener("keydown",e=>{const d={ArrowLeft:[0,-1],ArrowRight:[0,1],ArrowUp:[-1,0],ArrowDown:[1,0]}[e.key];
+  if(d){e.preventDefault();roveTo(Math.max(0,Math.min(ROWS.length-1,focusR+d[0])),Math.max(0,Math.min(COLS-1,focusC+d[1])))}
+  if(e.key==="Home"){e.preventDefault();roveTo(focusR,0)}if(e.key==="End"){e.preventDefault();roveTo(focusR,COLS-1)}});
+grid.addEventListener("pointerover",e=>{const b=e.target.closest(".sp-s");if(!b){tip.style.opacity=0;return}const r=b.getBoundingClientRect();tip.textContent=`${b.dataset.r}${b.dataset.c} · ${b.disabled?"Taken":b.dataset.t==="pr"?"Premium $19":b.dataset.t==="wc"?"Wheelchair space":"Standard $14"}`;tip.style.left=r.left+r.width/2+"px";tip.style.top=r.top+"px";tip.style.opacity=1});
+grid.addEventListener("pointerleave",()=>tip.style.opacity=0);
+// first available seat near the centre is the roving entry point
+let start=seats[4][6];for(const b of seats.flat())if(!b.disabled){if(Math.abs(b.dataset.c-7)+Math.abs(ROWS.indexOf(b.dataset.r)-4)<Math.abs(start.dataset.c-7)+Math.abs(ROWS.indexOf(start.dataset.r)-4)||start.disabled)start=b}
+start.tabIndex=0;focusR=ROWS.indexOf(start.dataset.r);focusC=start.dataset.c-1;
+})();
+</script>

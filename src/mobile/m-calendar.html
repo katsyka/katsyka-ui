@@ -1,0 +1,38 @@
+<!--Calendar Agenda|A week strip you can swipe and tap, dots under days with events, and an agenda with a time rail, colour-coded event cards, a now line and an empty state for free days.|calendar,agenda,week,events,schedule-->
+<header class="ca-hd"><div class="nb" style="grid-template-columns:1fr auto"><h1 class="cl-m">November <span class="mu">2026</span></h1><span><button class="ib" aria-label="Today" id="today">@I(cal,22)</button><button class="ib" aria-label="New event">@I(plus)</button></span></div>
+<div class="cl-w" id="wk" role="tablist" aria-label="Days"></div></header>
+<main class="sc cl-sc"><h2 class="cl-d" id="dh"></h2><div id="ev"></div></main>
+@PILL(cal:Calendar|list:Inbox|user:Shared;0)
+<style>
+.ca-hd{position:absolute;inset:0 0 auto;z-index:50;padding-top:var(--st);background:var(--bg);border-bottom:.5px solid var(--line)}
+.cl-m{margin:0;padding-left:8px;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-.025em;text-align:left!important}
+.cl-w{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:8px 8px 12px}.cl-w::-webkit-scrollbar{display:none}
+.cl-day{flex:none;width:calc((100% - 0px)/7);scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0 8px;border-radius:16px;transition:background .2s,color .2s}
+.cl-day small{font-size:12px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
+.cl-day b{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums}
+.cl-day i{width:5px;height:5px;border-radius:50%;background:var(--ctl);visibility:hidden}.cl-day.has i{visibility:visible}
+.cl-day.now b{color:var(--ac)}
+.cl-day.on b{background:var(--fg);color:var(--bg)}.cl-day.on.now b{background:var(--ac);color:var(--ac-fg)}
+.cl-sc{padding-top:calc(var(--st) + 136px)!important}
+.cl-d{margin:0;padding:16px var(--gut) 8px;font-size:15px;font-weight:600;color:var(--mu)}
+.cl-e{display:grid;grid-template-columns:52px 1fr;gap:8px;padding:4px var(--gut)}
+.cl-e time{font-size:13px;line-height:18px;color:var(--mu);font-variant-numeric:tabular-nums;padding-top:10px}
+.cl-c{position:relative;padding:10px 12px 10px 16px;border-radius:14px;background:color-mix(in srgb,var(--c) 14%,var(--bg));animation:cin .35s var(--ease) backwards}
+.cl-c::before{content:"";position:absolute;left:6px;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--c)}
+.cl-c b{display:block;font-size:16px;line-height:21px;font-weight:600}.cl-c small{display:flex;gap:4px;align-items:center;font-size:14px;color:var(--mu)}
+.cl-c .avs{display:flex;margin-top:8px}.cl-c .avs span{width:24px;height:24px;font-size:11px;margin-right:-6px;border:2px solid color-mix(in srgb,var(--c) 14%,var(--bg))}
+@keyframes cin{from{opacity:0;transform:translateY(6px)}}
+.cl-now{display:grid;grid-template-columns:52px 1fr;align-items:center;padding:2px var(--gut)}.cl-now span{font-size:12px;font-weight:700;color:var(--err)}.cl-now i{height:2px;background:var(--err);position:relative}.cl-now i::before{content:"";position:absolute;left:-4px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--err)}
+.cl-x{padding:56px 32px;text-align:center;color:var(--mu)}.cl-x b{display:block;color:var(--fg);font-size:17px;margin-bottom:4px}
+</style>
+<script>
+const NOW=11,D=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const E={11:[["08:30","Standup","Video call","#3b82f6",["A","T"]],["11:00","Design crit","Room 4 · 45 min","#8b5cf6",["M","J","I"]],["now"],["14:30","Dentist","Strandgaten 8","#ef4444"],["19:00","Climbing","Bouldering hall","#16a34a",["O"]]],12:[["09:00","Flight to Oslo","BGO → OSL · Gate 21","#f59e0b"]],13:[["10:00","Workshop","All day","#8b5cf6",["M","S"]],["18:30","Dinner with Ines","Bryggen","#ec4899"]],15:[["11:00","Farmers market","Torget","#16a34a"]],17:[["08:30","Standup","Video call","#3b82f6"]]};
+const C=["#b45309","#0369a1","#7c3aed","#15803d","#be185d"];
+wk.innerHTML=Array.from({length:21},(_,i)=>{const d=1+i+7;const dow=(d+0)%7;return`<button class="cl-day${d===NOW?" now on":""}${E[d]?" has":""}" role="tab" aria-selected="${d===NOW}" data-d="${d}" aria-label="${D[dow]} ${d} November"><small>${D[dow][0]}</small><b>${d}</b><i></i></button>`}).join("");
+const show=d=>{const dow=D[d%7];dh.textContent=(d===NOW?"Today · ":"")+dow+" "+d+" November";const L=E[d]||[];
+ ev.innerHTML=L.length?L.map((e,k)=>e[0]==="now"?`<div class="cl-now"><span>13:12</span><i></i></div>`:`<div class="cl-e"><time>${e[0]}</time><div class="cl-c" style="--c:${e[3]};animation-delay:${k*30}ms"><b>${e[1]}</b><small>${e[2]}</small>${e[4]?`<span class="avs">${e[4].map((a,j)=>`<span class="av" style="--c:${C[j]}">${a}</span>`).join("")}</span>`:""}</div></div>`).join(""):`<div class="cl-x"><b>Nothing planned</b>A free day. Tap + to add something.</div>`};
+wk.querySelectorAll(".cl-day").forEach(b=>b.onclick=()=>{wk.querySelectorAll(".cl-day").forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-selected",x===b)});show(+b.dataset.d)});
+const go=()=>{const n=wk.querySelector(".now");n.click();wk.scrollLeft=n.offsetLeft-8-wk.clientWidth/7*3};
+today.onclick=go;show(NOW);requestAnimationFrame(()=>{wk.scrollLeft=wk.querySelector(".now").offsetLeft-8-(wk.clientWidth-16)/7*(new Date(2026,10,NOW).getDay())});
+</script>

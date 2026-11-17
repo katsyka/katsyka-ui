@@ -1,0 +1,12 @@
+<!--Colour Toggle Set|Forms|A settings list of switches where each switch has its own colour when on, with a springy knob, an icon that swaps state, and proper role="switch" semantics with labels and descriptions.|switch,toggle,settings,colourful,forms-->
+<div class="k rt"><ul class="card rt-l" id="l"></ul></div>
+<style>
+.rt-l{list-style:none;margin:0;padding:6px 18px;width:min(440px,100%)}.rt-l li{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}.rt-l li:last-child{border:0}
+.rt-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#fff;flex:none}.rt-tx{flex:1;display:grid;gap:2px;min-width:0}.rt-tx label{font-weight:550;font-size:15px}.rt-tx span{font-size:13px;color:var(--mu)}
+.rt-sw{width:52px;height:32px;border-radius:99px;border:0;background:var(--ctl);position:relative;cursor:pointer;flex:none;transition:background .2s var(--ease)}.rt-sw::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgb(0 0 0/.3);transition:transform .3s cubic-bezier(.3,1.4,.5,1)}
+.rt-sw[aria-checked=true]{background:var(--c)}.rt-sw[aria-checked=true]::after{transform:translateX(20px)}@media (prefers-reduced-motion:reduce){.rt-sw::after{transition:none}}
+</style>
+<script>
+const S=[['Notifications','Pings for replies and mentions','#ff3d7f','bell',1],['Sound effects','Little clicks on actions','#ff8a00','note',0],['Location','Show nearby events','#1fbf75','pin',1],['Night mode','Warmer screen after sunset','#5b6cff','moon2',0],['Auto-play video','Only on Wi-Fi','#a855f7','play',0]],I={bell:'@I(bell,18)',note:'@I(note,18)',pin:'@I(pin,18)',moon2:'@I(moon2,18)',play:'@I(play,18)'};
+const l=document.getElementById('l');S.forEach((s,i)=>{const li=document.createElement('li');li.innerHTML=`<span class="rt-ic" style="background:${s[4]?s[2]:'var(--mu)'}">${I[s[3]]}</span><div class="rt-tx"><label id="lb${i}">${s[0]}</label><span id="ds${i}">${s[1]}</span></div><button class="rt-sw" role="switch" aria-checked="${!!s[4]}" aria-labelledby="lb${i}" aria-describedby="ds${i}" style="--c:${s[2]}"></button>`;const b=li.querySelector('button'),ic=li.querySelector('.rt-ic');b.onclick=()=>{const on=b.getAttribute('aria-checked')!=='true';b.setAttribute('aria-checked',on);ic.style.background=on?s[2]:'var(--mu)'};li.querySelector('label').onclick=()=>b.click();l.append(li)});
+</script>

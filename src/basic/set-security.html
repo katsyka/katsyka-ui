@@ -1,0 +1,21 @@
+<!--Security Settings|Settings|Account security: password change row, two-factor status with methods, active sessions list with device, location and “sign out” per session, and a sign-out-everywhere action with undo.|settings,security,sessions,2fa,devices-->
+<div class="k ss"><div class="ss-w"><h1>Security</h1>
+<section class="ss-r"><div><b>Password</b><span class="mu">Last changed 4 months ago</span></div><button class="b sec sm">Change password</button></section>
+<section class="ss-r"><div><b>Two-factor authentication</b><span class="mu">Authenticator app and 2 security keys</span></div><span class="pill ok">@I(check,12)On</span></section>
+<section class="ss-r"><div><b>Passkeys</b><span class="mu">Sign in with Face ID or Touch ID on this device</span></div><button class="b sec sm" id="pk">Add passkey</button></section>
+<h2>Where you're signed in</h2><ul class="ss-l" id="l"></ul><button class="b sec" id="all">@I(off,16)Sign out of all other sessions</button><p class="ss-m" id="m" role="status"></p></div></div>
+<style>
+.k.ss{align-items:start}.ss-w{width:min(680px,100%);display:grid;gap:0}.ss-w h1{margin:0 0 16px;font-size:24px;letter-spacing:-.02em}.ss-w h2{font-size:15px;margin:32px 0 10px}
+.ss-r{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;border-top:1px solid var(--line)}.ss-r div{display:grid}.ss-r span.mu{font-size:13px}
+.ss-l{list-style:none;padding:0;margin:0 0 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.ss-l li{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:center;padding:14px 16px;border-top:1px solid var(--line);transition:opacity .25s}.ss-l li:first-child{border:0}.ss-l .ic{width:40px;height:40px;border-radius:10px;background:var(--sf2);display:grid;place-items:center;color:var(--mu)}.ss-l div{display:grid}.ss-l small{color:var(--mu);font-size:13px}.ss-l .cur{color:var(--ok);font-weight:600;font-size:12px}.ss-l .out{opacity:.45}
+.ss-w>.b{justify-self:start}.ss-m{font-size:14px;margin:10px 0 0;display:flex;gap:10px;align-items:center}.ss-m:empty{display:none}.ss-m button{text-decoration:underline;font-weight:600;min-height:32px}
+</style>
+<script>
+let S=[["phone","iPhone 16 · Safari","Hamburg, Germany","Active now",1],["file","MacBook Pro · Chrome 131","Hamburg, Germany","2 hours ago"],["grid","Windows · Edge","Vienna, Austria","3 days ago"],["phone","Pixel 8 · Quill app","Lisbon, Portugal","12 days ago"]].map((s,i)=>({i,ic:s[0],d:s[1],l:s[2],t:s[3],cur:!!s[4],out:false}));
+const l=document.getElementById('l'),m=document.getElementById('m'),IC={phone:'@I(phone,18)',file:'@I(file,18)',grid:'@I(grid,18)'};
+function draw(){l.innerHTML=S.map(s=>`<li class="${s.out?'out':''}"><span class="ic">${IC[s.ic]}</span><div><b>${s.d}</b><small>${s.l} · ${s.out?'Signed out':s.t}</small></div>${s.cur?'<span class="cur">This device</span>':s.out?'':`<button class="b gh sm" data-i="${s.i}">Sign out</button>`}</li>`).join('')}
+function undoable(ids,msg){ids.forEach(i=>S[i].out=true);draw();m.innerHTML=`${msg} <button id="u">Undo</button>`;document.getElementById('u').onclick=()=>{ids.forEach(i=>S[i].out=false);draw();m.textContent='Restored.'}}
+l.onclick=e=>{const b=e.target.closest('[data-i]');if(b)undoable([+b.dataset.i],`Signed out ${S[b.dataset.i].d.split(' ·')[0]}.`)};
+document.getElementById('all').onclick=()=>{const ids=S.filter(s=>!s.cur&&!s.out).map(s=>s.i);if(!ids.length){m.textContent='No other sessions.';return}undoable(ids,`Signed out of ${ids.length} other session${ids.length>1?'s':''}.`)};
+document.getElementById('pk').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Waiting for device…';setTimeout(()=>{b.textContent='Passkey added';},1200)};draw();
+</script>

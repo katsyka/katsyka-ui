@@ -1,0 +1,43 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.rm{width:min(1000px,100%);display:grid;gap:20px}.rm-h h2{margin:0;font-size:clamp(28px,4vw,40px);letter-spacing:-.03em}.rm-h p{margin:6px 0 0}
+.rm-g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}.rm-c h3{margin:0 0 10px;font-size:14px;display:flex;gap:8px;align-items:center}.rm-c h3 i{width:8px;height:8px;border-radius:50%;background:var(--c)}.rm-c h3 span{color:var(--mu);font-weight:400}.rm-c ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.rm-c li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);animation:rmf .25s}@keyframes rmf{from{opacity:0}}.rm-c li div{display:grid;gap:4px;font-size:14px}.rm-c li small{color:var(--mu);font-size:12px;line-height:1.45}
+.rm-v{height:52px;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;align-content:center;gap:0;font-size:13px;font-weight:650;font-variant-numeric:tabular-nums;transition:background .15s,border-color .15s}.rm-v .i{width:14px;height:14px;transition:transform .2s cubic-bezier(.23,1,.32,1)}.rm-v[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}.rm-v[aria-pressed=true] .i{transform:translateY(-2px)}.rm-v:active{transform:scale(.96)}
+.rm-f{display:flex;gap:8px;max-width:520px}.rm-f .in{height:44px;font-size:15px}.rm-f .b{height:44px}
+@media (max-width:760px){.rm-g{grid-template-columns:1fr}}
+</style>
+<div class="k"><section class="rm"><div class="rm-h"><h2>Roadmap</h2><p class="mu">Vote for what matters to you. We read every suggestion.</p></div><div class="rm-g" id="g"></div><form class="rm-f" id="f"><label class="vh" for="sg">Suggest an idea</label><input class="in" id="sg" placeholder="Suggest something we should build" maxlength="80"><button class="b sec">Suggest</button></form></section></div>
+<script>
+let R=[["Offline mode","Shipping to beta testers this month.",0,412],["Shared templates","Design done, building now.",0,288],["Recurring tasks","Starts after offline mode.",1,341],["Calendar sync (Google, Outlook)","Spec in review.",1,267],["Time tracking","Exploring. Tell us how you'd use it.",2,198],["Native Linux app","Not planned yet, but counting votes.",2,154]];const C=[["Now","var(--ok)"],["Next","var(--info)"],["Later","var(--ctl)"]],me=new Set(),g=document.getElementById('g');
+function draw(){g.innerHTML=C.map(([n,c],k)=>{const L=R.map((r,i)=>[r,i]).filter(([r])=>r[2]===k).sort((a,b)=>b[0][3]-a[0][3]);return`<div class="rm-c"><h3><i style="--c:${c}"></i>${n} <span>${L.length}</span></h3><ul>${L.map(([[t,s,,v],i])=>`<li><button class="rm-v" data-i="${i}" aria-pressed="${me.has(i)}" aria-label="Vote for ${t}, ${v+(me.has(i)?1:0)} votes"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>${v+(me.has(i)?1:0)}</button><div><b>${t}</b><small>${s}</small></div></li>`).join('')}</ul></div>`}).join('')}
+g.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;const i=+b.dataset.i;me.has(i)?me.delete(i):me.add(i);draw();g.querySelector(`[data-i="${i}"]`).focus()};
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const s=document.getElementById('sg'),v=s.value.trim();if(!v)return s.focus();R.push([v,'Suggested by you just now.',2,0]);me.add(R.length-1);s.value='';draw()};draw();
+</script>

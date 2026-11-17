@@ -1,0 +1,57 @@
+<style>
+.p3{min-height:100vh;display:grid;grid-template-columns:.85fr 1.15fr;align-items:center;gap:20px;padding:56px clamp(20px,5vw,80px);background:#050505;color:#f2efe9;overflow:hidden}
+.p3-eye{font:500 12px "Geist Mono",monospace;letter-spacing:.14em;color:#8a857c}
+.p3 h1{font-size:clamp(44px,6vw,92px);line-height:.92;letter-spacing:-.055em;font-weight:600;margin:16px 0 18px}
+.p3 h1 em{font-family:"Instrument Serif",serif;font-weight:400;letter-spacing:-.025em;color:#d9d2c5}
+.p3 p{color:#9a958c;font-size:16.5px;line-height:1.6;max-width:400px;margin:0 0 28px}
+.p3-specs{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:28px;padding-top:22px;border-top:1px solid #ffffff14;margin-bottom:30px}
+.p3-specs b{display:block;font-size:22px;letter-spacing:-.03em;font-weight:600}.p3-specs span{font-size:12.5px;color:#7d786f}
+.p3-buy{display:flex;align-items:center;gap:16px}
+.p3-buy a{height:50px;padding:0 24px;border-radius:99px;background:#f2efe9;color:#050505;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.p3-buy a:hover{transform:scale(1.04)}.p3-buy span{font-size:15px;color:#9a958c}.p3-buy span b{color:#f2efe9;font-weight:550}
+.p3-view{position:relative;aspect-ratio:1;width:100%;max-width:640px;justify-self:center;cursor:grab;touch-action:pan-y;user-select:none}
+.p3-view:active{cursor:grabbing}
+.p3-view canvas{width:100%;height:100%;display:block;-webkit-mask:radial-gradient(closest-side,#000 82%,transparent);mask:radial-gradient(closest-side,#000 82%,transparent)}
+.p3-ring{position:absolute;left:50%;bottom:6%;width:62%;height:12%;transform:translateX(-50%);pointer-events:none}
+.p3-ring svg{width:100%;height:100%;overflow:visible}
+.p3-ring ellipse{fill:none;stroke:#ffffff14;stroke-width:1}
+.p3-ring circle{fill:#f2efe9}
+.p3-hud{position:absolute;left:50%;bottom:0;transform:translateX(-50%);display:flex;align-items:center;gap:10px;font:500 12px "Geist Mono",monospace;color:#7d786f;white-space:nowrap}
+.p3-hud b{color:#f2efe9;font-weight:500;width:38px;text-align:right;font-variant-numeric:tabular-nums}
+.p3-load{position:absolute;inset:0;display:grid;place-items:center;font:12px "Geist Mono",monospace;color:#7d786f;transition:opacity .4s}
+@media (max-width:860px){.p3{grid-template-columns:1fr}.p3-view{order:-1;max-width:420px}}
+</style>
+<section class="p3">
+  <div>
+    <div class="p3-eye">HALO · HOME SPEAKER</div>
+    <h1>Sound you<br>can <em>hold.</em></h1>
+    <p>Fired ceramic, a woven grille and 360° acoustics tuned to fill a room without shouting. Drag it around and look at every side.</p>
+    <div class="p3-specs"><div><b>360°</b><span>sound field</span></div><div><b>22 h</b><span>battery</span></div><div><b>1.1 kg</b><span>ceramic body</span></div></div>
+    <div class="p3-buy"><a href="#">Pre-order</a><span>from <b>$249</b> · ships Dec</span></div>
+  </div>
+  <div class="p3-view" aria-label="360° product viewer, drag to rotate">
+    <canvas></canvas>
+    <div class="p3-ring"><svg viewBox="0 0 100 20" preserveAspectRatio="none"><ellipse cx="50" cy="10" rx="49" ry="9"/><circle r="1.6"/></svg></div>
+    <div class="p3-hud">DRAG TO ROTATE <b>0°</b></div>
+    <div class="p3-load">loading 0%</div>
+  </div>
+</section>
+<script>
+(()=>{
+// 60 frames = one full turn (6° per frame). Swap FRAMES for your own turntable sequence.
+const FRAMES=60,SRC=i=>`media/turntable/${String(i+1).padStart(2,"0")}.jpg`;
+const view=document.querySelector(".p3-view"),c=view.querySelector("canvas"),x=c.getContext("2d"),hud=view.querySelector(".p3-hud b"),dot=view.querySelector(".p3-ring circle"),load=view.querySelector(".p3-load");
+const imgs=[];let ready=0;
+for(let i=0;i<FRAMES;i++){const im=new Image();im.onload=()=>{ready++;load.textContent=`loading ${Math.round(ready/FRAMES*100)}%`;if(ready===FRAMES)load.style.opacity=0;if(i===0)draw()};im.src=SRC(i);imgs.push(im)}
+const fit=()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;draw()};new ResizeObserver(fit).observe(c);
+let pos=0,vel=.12,drag=null,idle=true,last=0;
+function draw(){const f=((Math.round(pos)%FRAMES)+FRAMES)%FRAMES,im=imgs[f];if(!im||!im.complete||!im.naturalWidth)return;
+  x.clearRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);
+  const deg=Math.round(f*360/FRAMES);hud.textContent=deg+"°";const a=f/FRAMES*Math.PI*2;dot.setAttribute("cx",50+Math.sin(a)*49);dot.setAttribute("cy",10+Math.cos(a)*9)}
+view.addEventListener("pointerdown",e=>{drag={x:e.clientX,p:pos,t:performance.now()};idle=false;view.setPointerCapture(e.pointerId);vel=0});
+view.addEventListener("pointermove",e=>{if(!drag)return;const np=drag.p-(e.clientX-drag.x)/view.clientWidth*FRAMES*1.2,now=performance.now();vel=(np-pos)/Math.max(1,now-last)*16;last=now;pos=np});
+view.addEventListener("pointerup",()=>{drag=null;setTimeout(()=>idle=true,2500)});
+addEventListener("keydown",e=>{if(e.key==="ArrowLeft"||e.key==="ArrowRight"){idle=false;pos+=e.key==="ArrowRight"?1:-1}});
+(function f(){requestAnimationFrame(f);if(!drag){pos+=vel;vel*=.94;if(idle&&Math.abs(vel)<.12)vel+=(.12-vel)*.05}draw()})();
+})();
+</script>

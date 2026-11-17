@@ -1,0 +1,35 @@
+<!--Address Form|Forms|A shipping address form with the right autocomplete tokens, country-aware postcode label and pattern, errors on blur and on submit with a summary that links to each field, and a saved state.|form,address,validation,autocomplete,checkout-->
+<div class="k"><form class="card af2" id="f" novalidate><h2>Shipping address</h2>
+  <div class="af2-sum" id="sum" role="alert" tabindex="-1" hidden></div>
+  <div class="af2-g">
+    <div class="f2 full"><label class="lbl" for="nm">Full name</label><input class="in" id="nm" autocomplete="name" required></div>
+    <div class="f2 full"><label class="lbl" for="co">Country</label><select class="in" id="co" autocomplete="country"><option value="NO">Norway</option><option value="GB">United Kingdom</option><option value="US">United States</option><option value="DE">Germany</option></select></div>
+    <div class="f2 full"><label class="lbl" for="a1">Street address</label><input class="in" id="a1" autocomplete="address-line1" required></div>
+    <div class="f2 full"><label class="lbl" for="a2">Apartment, floor <span class="mu">(optional)</span></label><input class="in" id="a2" autocomplete="address-line2"></div>
+    <div class="f2"><label class="lbl" for="pc" id="pcl">Postcode</label><input class="in tn" id="pc" autocomplete="postal-code" required></div>
+    <div class="f2"><label class="lbl" for="ct">City</label><input class="in" id="ct" autocomplete="address-level2" required></div>
+    <div class="f2 full"><label class="lbl" for="ph">Phone <span class="mu">(for the courier)</span></label><input class="in tn" id="ph" type="tel" autocomplete="tel" inputmode="tel"></div>
+  </div>
+  <label class="af2-ck"><input type="checkbox" checked> Use as billing address</label>
+  <button class="b ac" id="sv">Save address</button></form></div>
+<style>
+.af2{width:min(520px,100%);padding:24px}.af2 h2{margin:0 0 16px;font-size:17px;font-weight:650}
+.af2-g{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px}.f2.full{grid-column:1/-1}
+.af2 select.in{appearance:auto}
+.f2 .er{display:block;margin-top:4px;font-size:12px;color:var(--err)}
+.af2-sum{margin-bottom:16px;padding:12px 14px;border-radius:10px;background:var(--err-sf);color:var(--err);border:1px solid color-mix(in srgb,var(--err) 30%,transparent)}.af2-sum b{display:block;margin-bottom:4px}.af2-sum a{color:inherit;display:block;font-size:13px}
+.af2-ck{display:flex;align-items:center;gap:8px;margin:16px 0;cursor:pointer}.af2-ck input{accent-color:var(--ac);width:16px;height:16px;margin:0}
+#sv{width:100%;height:44px}
+@media (max-width:420px){.af2-g{grid-template-columns:1fr}}
+</style>
+<script>
+const PC={NO:["Postcode",/^\d{4}$/,"4 digits, like 5013"],GB:["Postcode",/^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i,"like SW1A 1AA"],US:["ZIP code",/^\d{5}(-\d{4})?$/,"5 digits, like 94103"],DE:["Postleitzahl",/^\d{5}$/,"5 digits, like 10115"]};
+const L={nm:"Full name",a1:"Street address",pc:"",ct:"City"};
+const chk=el=>{let m="";const v=el.value.trim();if(el.required&&!v)m=(el.id==="pc"?PC[co.value][0]:L[el.id])+" is required";else if(el.id==="pc"&&v&&!PC[co.value][1].test(v))m=`${PC[co.value][0]} should be ${PC[co.value][2]}`;
+ let er=el.parentElement.querySelector(".er");if(m){if(!er){er=document.createElement("span");er.className="er";er.id=el.id+"-e";el.parentElement.append(er)}er.textContent=m;el.setAttribute("aria-invalid","true");el.setAttribute("aria-describedby",er.id)}else{er&&er.remove();el.removeAttribute("aria-invalid");el.removeAttribute("aria-describedby")}return m};
+co.onchange=()=>{pcl.textContent=PC[co.value][0];if(pc.value)chk(pc)};
+f.querySelectorAll("[required]").forEach(i=>{i.addEventListener("blur",()=>i.value&&chk(i));i.addEventListener("input",()=>i.hasAttribute("aria-invalid")&&chk(i))});
+f.onsubmit=e=>{e.preventDefault();const errs=[...f.querySelectorAll("[required]")].map(i=>[i,chk(i)]).filter(x=>x[1]);
+ if(errs.length){sum.hidden=false;sum.innerHTML=`<b>Fix ${errs.length} field${errs.length>1?"s":""} to continue</b>`+errs.map(([i,m])=>`<a href="#${i.id}">${m}</a>`).join("");sum.focus();sum.querySelectorAll("a").forEach(a=>a.onclick=ev=>{ev.preventDefault();document.querySelector(a.getAttribute("href")).focus()});return}
+ sum.hidden=true;sv.textContent="Saving…";sv.disabled=true;setTimeout(()=>{sv.textContent="Saved ✓";setTimeout(()=>{sv.textContent="Save address";sv.disabled=false},1400)},800)};
+</script>

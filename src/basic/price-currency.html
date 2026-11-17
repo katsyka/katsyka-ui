@@ -1,0 +1,18 @@
+<!--Localised Pricing|Pricing|Plan cards with a currency and region picker that converts prices with local rounding (€9, $10, £8, ₹699), shows tax-inclusive notes per region, and remembers the choice in the URL hash.|pricing,currency,localisation,region,i18n-->
+<div class="k">
+<section class="pq"><header><h2>Pricing</h2><label class="pq-cur">@I(globe,16)<span class="vh">Currency</span><select id="cur" aria-label="Currency"><option value="EUR">EUR €</option><option value="USD">USD $</option><option value="GBP">GBP £</option><option value="INR">INR ₹</option><option value="JPY">JPY ¥</option></select></label></header>
+<div class="pq-g" id="g"></div><p class="mu pq-tx" id="tx"></p></section>
+</div>
+<style>
+.pq{width:min(860px,100%)}.pq header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.pq h2{margin:0;font-size:28px;letter-spacing:-.02em}
+.pq-cur{display:flex;gap:6px;align-items:center;height:40px;padding:0 4px 0 12px;border:1px solid var(--ctl);border-radius:10px;color:var(--mu)}.pq-cur select{border:0;background:none;font:inherit;color:var(--fg);height:100%;padding-right:6px;outline:0;font-size:16px}.pq-cur:focus-within{outline:2px solid var(--focus);outline-offset:2px}
+.pq-g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.pq-c{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:8px}.pq-c b{font-size:36px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;animation:pqf .3s var(--ease)}.pq-c small{color:var(--mu);font-size:13px}.pq-c .b{margin-top:10px;height:42px}@keyframes pqf{from{opacity:0;transform:translateY(4px)}}
+.pq-tx{font-size:13px;margin-top:14px}
+@media (max-width:700px){.pq-g{grid-template-columns:1fr}}
+</style>
+<script>
+const R={EUR:['de-DE',1,[5,9,19],'Prices include VAT for EU customers.'],USD:['en-US',1.08,[5,10,20],'Sales tax is added at checkout where applicable.'],GBP:['en-GB',.85,[4,8,16],'Prices include UK VAT.'],INR:['en-IN',90,[399,699,1499],'Prices include 18% GST.'],JPY:['ja-JP',165,[800,1500,3000],'Prices include consumption tax.']},P=[['Solo','For one person'],['Studio','Up to 5 people',1],['Agency','Up to 25 people']];
+const cur=document.getElementById('cur'),g=document.getElementById('g');
+function draw(){const c=cur.value,[loc,,pr,tx]=R[c],f=new Intl.NumberFormat(loc,{style:'currency',currency:c,maximumFractionDigits:0});g.innerHTML=P.map(([n,d,r],i)=>`<div class="pq-c"><span class="eb" style="font-weight:600">${n}</span><b>${f.format(pr[i])}</b><small>per month · ${d}</small><a class="b ${r?'ac':'sec'}" href="#">Choose ${n}</a></div>`).join('');document.getElementById('tx').textContent=tx;try{history.replaceState(null,'','#'+c)}catch(e){}}
+const h=(location.hash||'').slice(1);if(R[h])cur.value=h;else{const l=(navigator.language||'').toLowerCase();cur.value=l.includes('in')&&l.startsWith('hi')?'INR':l==='en-us'?'USD':l==='en-gb'?'GBP':l.startsWith('ja')?'JPY':'EUR'}cur.onchange=draw;draw();
+</script>

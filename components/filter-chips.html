@@ -1,0 +1,73 @@
+<style>
+.fc{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.fc :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.fc ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.fc *,.fc *::before,.fc *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.fc{min-height:100vh;display:grid;place-items:start center;padding:56px 16px;background:var(--sf)}
+.fc-w{width:min(760px,100%)}
+.fc-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fc-c{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:99px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 13.5px Geist,system-ui,sans-serif;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s;white-space:nowrap}
+.fc-c:hover{border-color:var(--ctl)}
+.fc-c svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+.fc-c .ck{width:0;margin-left:-6px;opacity:0;transition:width .2s var(--ease),opacity .2s,margin .2s}
+.fc-c[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.fc-c[aria-pressed=true] .ck{width:14px;margin-left:0;opacity:1}
+.fc-c .n{font:500 11.5px "Geist Mono",monospace;opacity:.6}
+.fc-dd{position:relative}
+.fc-dd>.fc-c[aria-expanded=true]{border-color:var(--fg)}
+.fc-dd>.fc-c.set{background:var(--ac-sf);color:var(--ac);border-color:color-mix(in oklab,var(--ac) 40%,transparent)}
+.fc-menu{position:absolute;top:calc(100% + 6px);left:0;z-index:5;min-width:200px;padding:6px;border-radius:12px;background:var(--bg);border:1px solid var(--line);box-shadow:0 14px 34px -10px #0003;display:none}
+.fc-menu.on{display:block}
+.fc-menu label{display:flex;align-items:center;gap:10px;height:34px;padding:0 8px;border-radius:7px;font-size:14px;cursor:pointer}
+.fc-menu label:hover{background:var(--sf2)}
+.fc-menu input{width:16px;height:16px;margin:0;accent-color:var(--ac)}
+.fc-sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+.fc-clr{border:0;background:none;color:var(--mu);font:500 13px Geist,system-ui,sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0 4px}
+.fc-clr:hover{color:var(--fg)}
+.fc-act{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:30px;margin-top:14px;font-size:13px;color:var(--mu)}
+.fc-tag{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 4px 0 10px;border-radius:7px;background:var(--sf2);color:var(--fg);font-size:12.5px;font-weight:500}
+.fc-tag button{width:20px;height:20px;border:0;border-radius:5px;background:none;color:var(--mu);display:grid;place-items:center;cursor:pointer}
+.fc-tag button:hover{background:color-mix(in oklab,var(--fg) 10%,transparent);color:var(--fg)}
+.fc-tag svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round}
+.fc-res{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-top:16px}
+.fc-res div{padding:14px;border-radius:14px;background:var(--bg);border:1px solid var(--line);animation:fc-in .25s var(--ease)}
+.fc-res i{display:block;aspect-ratio:4/3;border-radius:9px;margin-bottom:10px;background:var(--g)}
+.fc-res b{display:block;font-size:14px;font-weight:550}
+.fc-res small{font-size:12.5px;color:var(--mu)}
+.fc-none{grid-column:1/-1;text-align:center;padding:40px 0;color:var(--mu);font-size:14px;border:1px dashed var(--line)!important;background:none!important}
+@keyframes fc-in{from{opacity:0;transform:scale(.98)}}
+</style>
+<div class="fc">
+  <div class="fc-w">
+    <div class="fc-bar" role="toolbar" aria-label="Filters">
+      <button class="fc-c" aria-pressed="false" data-f="instant"><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Instant book</button>
+      <button class="fc-c" aria-pressed="true" data-f="pets"><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Pets allowed</button>
+      <button class="fc-c" aria-pressed="false" data-f="pool"><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Pool</button>
+      <span class="fc-sep" aria-hidden="true"></span>
+      <div class="fc-dd"><button class="fc-c" aria-expanded="false" aria-haspopup="true" id="fcT">Type<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="fc-menu" role="group" aria-labelledby="fcT"><label><input type="checkbox" value="Cabin">Cabin</label><label><input type="checkbox" value="Villa">Villa</label><label><input type="checkbox" value="Apartment">Apartment</label><label><input type="checkbox" value="Farmhouse">Farmhouse</label></div></div>
+      <button class="fc-clr" type="button">Clear all</button>
+    </div>
+    <div class="fc-act" aria-live="polite"></div>
+    <div class="fc-res"></div>
+  </div>
+</div>
+<script>
+const D=[["Pine Ridge Cabin","Cabin",["pets","instant"],"#065f46,#34d399"],["Casa Azul","Villa",["pool","pets"],"#1e3a8a,#60a5fa"],["Old Mill Loft","Apartment",["instant"],"#7c2d12,#fb923c"],["Olive Grove","Farmhouse",["pets","pool"],"#3f6212,#bef264"],["Fjord View","Cabin",["instant","pool"],"#164e63,#67e8f9"],["Sunset Terrace","Apartment",["pets"],"#831843,#f9a8d4"],["Villa Limone","Villa",["pool","instant"],"#854d0e,#fde047"]];
+const chips=[...document.querySelectorAll(".fc-c[aria-pressed]")],menu=document.querySelector(".fc-menu"),tb=document.getElementById("fcT"),act=document.querySelector(".fc-act"),res=document.querySelector(".fc-res");
+const ic='<svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+const state=()=>({f:chips.filter(c=>c.getAttribute("aria-pressed")==="true"),t:[...menu.querySelectorAll("input:checked")]});
+const draw=()=>{const {f,t}=state(),fk=f.map(c=>c.dataset.f),tk=t.map(i=>i.value);
+  const r=D.filter(([n,ty,fe])=>fk.every(k=>fe.includes(k))&&(!tk.length||tk.includes(ty)));
+  tb.classList.toggle("set",!!tk.length);tb.firstChild.textContent=tk.length?`Type · ${tk.length}`:"Type";
+  act.innerHTML=(f.length||t.length)?`<span>${r.length} stay${r.length===1?"":"s"} ·</span>`+f.map(c=>`<span class="fc-tag">${c.textContent.trim()}<button data-c="${c.dataset.f}" aria-label="Remove ${c.textContent.trim()}">${ic}</button></span>`).join("")+t.map(i=>`<span class="fc-tag">${i.value}<button data-t="${i.value}" aria-label="Remove ${i.value}">${ic}</button></span>`).join(""):`<span>${r.length} stays</span>`;
+  res.innerHTML=r.length?r.map(([n,ty,fe,g])=>`<div><i style="--g:linear-gradient(135deg,${g.split(",")[1]},${g.split(",")[0]})"></i><b>${n}</b><small>${ty} · ${fe.join(", ")}</small></div>`).join(""):`<div class="fc-none">No stays match. Try removing a filter.</div>`};
+chips.forEach(c=>c.addEventListener("click",()=>{c.setAttribute("aria-pressed",c.getAttribute("aria-pressed")!=="true");draw()}));
+tb.addEventListener("click",()=>{const o=!menu.classList.contains("on");menu.classList.toggle("on",o);tb.setAttribute("aria-expanded",o);if(o)menu.querySelector("input").focus()});
+menu.addEventListener("change",draw);
+menu.addEventListener("keydown",e=>{if(e.key==="Escape"){menu.classList.remove("on");tb.setAttribute("aria-expanded","false");tb.focus()}});
+document.addEventListener("pointerdown",e=>{if(!e.target.closest(".fc-dd")){menu.classList.remove("on");tb.setAttribute("aria-expanded","false")}});
+act.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.dataset.c)chips.find(c=>c.dataset.f===b.dataset.c).setAttribute("aria-pressed","false");else menu.querySelector(`input[value="${b.dataset.t}"]`).checked=false;draw();(act.querySelector("button")||tb).focus()});
+document.querySelector(".fc-clr").addEventListener("click",()=>{chips.forEach(c=>c.setAttribute("aria-pressed","false"));menu.querySelectorAll("input").forEach(i=>i.checked=false);draw()});
+draw();
+</script>

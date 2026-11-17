@@ -1,0 +1,22 @@
+<!--Comparison Line Chart|Charts|Two series (this year vs last year) with labels at the line ends instead of a legend, a hover/keyboard crosshair that reads both values and the difference, and a toggle to show the data as a table.|chart,line,comparison,tooltip,svg,accessible-->
+<div class="k"><figure class="lc2 card"><figcaption><b>Monthly revenue</b><span class="mu">2026 vs 2025, € thousands</span><button class="b gh sm" id="tg" aria-pressed="false">Show table</button></figcaption><div class="lc2-c" id="c" tabindex="0" role="img" aria-label="Line chart: 2026 revenue is above 2025 in 10 of 12 months, ending at 184k versus 139k"><svg id="s"></svg><div class="lc2-tip" id="tp" hidden></div></div><table class="lc2-t" id="tb" hidden></table></figure></div>
+<style>
+.lc2{width:min(760px,100%);padding:20px;margin:0}.lc2 figcaption{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:12px}.lc2 figcaption .b{margin-left:auto}
+.lc2-c{position:relative;height:280px;outline:0}.lc2-c:focus-visible{outline:2px solid var(--focus);outline-offset:4px;border-radius:6px}.lc2-c svg{width:100%;height:100%;overflow:visible}
+.lc2 .g{stroke:var(--line)}.lc2 .ax{fill:var(--mu);font-size:11px}.lc2 .a{fill:none;stroke:var(--ac);stroke-width:2.5}.lc2 .b2{fill:none;stroke:var(--ctl);stroke-width:2;stroke-dasharray:4 4}.lc2 .lb{font-size:12px;font-weight:650}.lc2 .x{stroke:var(--fg);stroke-opacity:.25}
+.lc2-tip{position:absolute;top:0;background:var(--fg);color:var(--bg);font-size:12px;padding:8px 10px;border-radius:8px;pointer-events:none;translate:-50% 0;white-space:nowrap;display:grid;gap:2px}.lc2-tip b{font-size:13px}
+.lc2-t{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}.lc2-t th,.lc2-t td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right}.lc2-t th:first-child,.lc2-t td:first-child{text-align:left}
+</style>
+<script>
+const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],A=[96,101,118,112,130,141,138,150,162,158,171,184],B=[88,92,97,104,101,112,118,115,121,126,131,139];
+const s=document.getElementById('s'),c=document.getElementById('c'),tp=document.getElementById('tp');let W,H=280,L=36,R=56,T=10,Bm=24,hi=-1;
+const X=i=>L+i/11*(W-L-R),Y=v=>T+(1-(v-60)/140)*(H-T-Bm);
+function draw(){W=c.clientWidth;s.setAttribute('viewBox',`0 0 ${W} ${H}`);const p=a=>a.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('L');
+s.innerHTML=[80,120,160,200].map(v=>`<line class="g" x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}"/><text class="ax" x="${L-8}" y="${Y(v)+4}" text-anchor="end">${v}</text>`).join('')+M.map((m,i)=>i%2?'':`<text class="ax" x="${X(i)}" y="${H-6}" text-anchor="middle">${m}</text>`).join('')+
+`<path class="b2" d="M${p(B)}"/><path class="a" d="M${p(A)}"/><text class="lb" x="${X(11)+8}" y="${Y(A[11])+4}" fill="var(--ac)">2026</text><text class="lb" x="${X(11)+8}" y="${Y(B[11])+4}" fill="var(--mu)">2025</text>${hi>=0?`<line class="x" x1="${X(hi)}" x2="${X(hi)}" y1="${T}" y2="${H-Bm}"/><circle cx="${X(hi)}" cy="${Y(A[hi])}" r="4.5" fill="var(--ac)" stroke="var(--bg)" stroke-width="2"/><circle cx="${X(hi)}" cy="${Y(B[hi])}" r="4" fill="var(--ctl)" stroke="var(--bg)" stroke-width="2"/>`:''}`;
+if(hi>=0){const d=A[hi]-B[hi];tp.hidden=false;tp.style.left=Math.max(70,Math.min(W-70,X(hi)))+'px';tp.innerHTML=`<b>${M[hi]}</b><span>2026: €${A[hi]}k · 2025: €${B[hi]}k</span><span>${d>=0?'+':''}${d}k (${d>=0?'+':''}${(d/B[hi]*100).toFixed(0)}%)</span>`}else tp.hidden=true}
+c.onpointermove=e=>{const r=c.getBoundingClientRect();hi=Math.max(0,Math.min(11,Math.round((e.clientX-r.left-L)/(W-L-R)*11)));draw()};c.onpointerleave=()=>{hi=-1;draw()};
+c.onkeydown=e=>{if(e.key==='ArrowRight'){hi=Math.min(11,hi+1);draw()}if(e.key==='ArrowLeft'){hi=Math.max(0,hi<0?11:hi-1);draw()}if(e.key==='Escape'){hi=-1;draw()}};
+document.getElementById('tb').innerHTML='<thead><tr><th>Month</th><th>2026</th><th>2025</th></tr></thead><tbody>'+M.map((m,i)=>`<tr><td>${m}</td><td>${A[i]}</td><td>${B[i]}</td></tr>`).join('')+'</tbody>';
+document.getElementById('tg').onclick=e=>{const t=document.getElementById('tb'),o=t.hidden;t.hidden=!o;c.hidden=o;e.currentTarget.setAttribute('aria-pressed',o);e.currentTarget.textContent=o?'Show chart':'Show table'};draw();addEventListener('resize',draw);
+</script>

@@ -1,0 +1,45 @@
+<style>
+.vs{--fg:#f4f2ee;--ink:#141412;position:relative;height:var(--len,560vh);background:#0d0d0c;color:var(--fg);font:16px/1.5 Geist,system-ui,sans-serif}
+.vs-st{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+.vs canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.vs-nav{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:24px;padding:20px clamp(16px,4vw,48px);z-index:3;transition:color .3s}
+.vs-nav b{font-weight:650;letter-spacing:-.01em;font-size:17px}.vs-nav nav{display:flex;gap:22px;margin-left:auto;font-size:14px}.vs-nav nav a{color:inherit;text-decoration:none;opacity:.85}.vs-nav nav a:hover{opacity:1}
+.vs-cta{display:inline-flex;align-items:center;height:44px;padding:0 20px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;background:var(--fg);color:var(--ink);transition:background .3s,color .3s}
+.vs .dk{color:var(--ink)}.vs .dk .vs-cta,.vs-nav.dk .vs-cta{background:var(--ink);color:var(--fg)}
+.vs-ch{position:absolute;z-index:2;width:min(440px,calc(100% - 32px));opacity:0;transform:translateY(16px);transition:opacity .45s cubic-bezier(.23,1,.32,1),transform .45s cubic-bezier(.23,1,.32,1),color .3s;pointer-events:none}
+.vs-ch.on{opacity:1;transform:none;pointer-events:auto}
+.vs-ch.tl{left:clamp(16px,4vw,48px);top:16vh}.vs-ch.bl{left:clamp(16px,4vw,48px);bottom:12vh}.vs-ch.tr{right:clamp(16px,4vw,48px);top:16vh}.vs-ch.br{right:clamp(16px,4vw,48px);bottom:12vh}
+.vs-ch h2{margin:0 0 12px;font-size:clamp(34px,5vw,64px);line-height:1;letter-spacing:-.035em;font-weight:620;text-wrap:balance}
+.vs-ch p{margin:0;font-size:17px;max-width:38ch;opacity:.9;text-wrap:pretty}
+.vs-ch dl{display:flex;gap:28px;margin:20px 0 0}.vs-ch dt{font-size:12px;opacity:.75}.vs-ch dd{margin:0;font-size:26px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.vs-ch .vs-cta{margin-top:22px}
+.vs-rail{position:absolute;right:clamp(12px,2vw,28px);top:50%;translate:0 -50%;display:grid;gap:6px;z-index:3;transition:color .3s}
+.vs-rail button{width:44px;height:28px;display:grid;place-items:center;background:none;border:0;padding:0;cursor:pointer;color:inherit}
+.vs-rail button i{width:2px;height:14px;border-radius:1px;background:currentColor;opacity:.35;transition:opacity .2s,height .25s cubic-bezier(.23,1,.32,1)}
+.vs-rail button[aria-current=true] i{opacity:1;height:24px}
+.vs-rail button:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
+.vs-hint{position:absolute;left:50%;bottom:24px;translate:-50% 0;font-size:12px;letter-spacing:.04em;opacity:.8;transition:opacity .3s,color .3s;z-index:2}
+.vs-hint.off{opacity:0}
+@media (max-width:760px){.vs-nav nav{display:none}.vs-ch,.vs-ch.tl,.vs-ch.bl,.vs-ch.tr,.vs-ch.br{left:16px;right:auto;top:auto;bottom:max(80px,calc(env(safe-area-inset-bottom) + 64px))}.vs-ch h2{font-size:clamp(32px,9vw,44px)}.vs-ch p{font-size:16px}.vs-rail{right:4px}}
+@media (prefers-reduced-motion:reduce){.vs-ch{transition:opacity .2s}}
+</style>
+<div class="vs" data-dir="media/sportcar/" data-lum='{"tl": "666666667777777777777777777776666666666666666555555555555555544444444444333333333333333333333333344444444444444444444444", "bl": "cccbbaaaa99999888888877777777777777777777666666666666677777777777777777777777777777788888999999aaaaaaaaaaaaaaaaaaabbbbbb", "tr": "333333333334444444444444445555555555566666666667777777777777777777777777777777777777766666666666666666666666666666666666", "br": "888888888888888888888888887777777777777777777777777777777788877777777777777777888888888888888888888888888888888887777777", "m": "766776666677777776777777777777777777777777777777777777777776666666666666555555555556666677777777778888888999999999999999", "nav": "8888877777777777777888888888999899999999999999999999999aa99999a999999999999888888899999999999999999999999999999999999999"}'><div class="vs-st"><canvas role="img" aria-label="Scroll a matte supercar from a smoky studio arrival to doors up and the engine bay exposed; specs appear per chapter, chapter rail jumps between them."></canvas><header class="vs-nav"><b>Vanta</b><nav><a href="#">Models</a><a href="#">Configure</a><a href="#">Dealers</a></nav><a class="vs-cta" href="#">Configure yours</a></header><section class="vs-ch tl" data-a="0" data-b="0.3" data-r="tl"><h2>Vanta GT</h2><p>Carbon tub, 1,390 kg dry. Built in batches of forty.</p></section><section class="vs-ch bl" data-a="0.36" data-b="0.64" data-r="bl"><h2>Doors up.</h2><p>Dihedral doors open in 1.2 seconds and clear a standard parking bay.</p><dl><div><dt>0–100 km/h</dt><dd>2.6 s</dd></div><div><dt>Top speed</dt><dd>338 km/h</dd></div></dl></section><section class="vs-ch tl" data-a="0.72" data-b="1.01" data-r="tl"><h2>Nothing hidden.</h2><p>A 4.0 litre twin-turbo V8 with a 160 kW e-motor on the front axle, under glass.</p><dl><div><dt>Combined</dt><dd>1,040 hp</dd></div><div><dt>Torque</dt><dd>1,100 Nm</dd></div></dl><a class="vs-cta" href="#">Configure yours</a></section><div class="vs-rail" aria-label="Chapters"></div><span class="vs-hint">Scroll</span></div></div>
+<script>
+(()=>{
+const root=document.querySelector('.vs'),c=root.querySelector('canvas'),x=c.getContext('2d'),N=120,DIR=root.dataset.dir,L=JSON.parse(root.dataset.lum),CH=[...root.querySelectorAll('.vs-ch')],rail=root.querySelector('.vs-rail'),nav=root.querySelector('.vs-nav'),hint=root.querySelector('.vs-hint');
+const imgs=[],load=i=>{if(imgs[i])return;const im=imgs[i]=new Image();im.onload=()=>{if(Math.abs(i-cur)<9)draw(true)};im.src=DIR+String(i+1).padStart(3,'0')+'.jpg'};
+load(0);new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){o.disconnect();[8,4,2,1].forEach(s=>{for(let i=0;i<N;i+=s)load(i)})}},{rootMargin:'100%'}).observe(root);
+let cur=0,tgt=0,shown=-1,raf=0;
+const pick=f=>{for(let d=0;d<N;d++)for(const j of[f-d,f+d]){const im=imgs[j];if(im&&im.complete&&im.naturalWidth)return im}};
+function draw(force){const f=Math.round(cur);if(f===shown&&!force)return;const im=pick(f);if(!im)return;shown=f;const s=Math.max(c.width/im.naturalWidth,c.height/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;x.drawImage(im,(c.width-w)/2,(c.height-h)/2,w,h)}
+new ResizeObserver(()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;draw(true)}).observe(c);
+const mob=matchMedia('(max-width:760px)'),dk=(el,k,f)=>el.classList.toggle('dk',parseInt(L[k][f],36)>=17);
+rail.innerHTML=CH.map((ch,i)=>`<button aria-label="Go to: ${ch.querySelector('h2').textContent}"><i></i></button>`).join('');const RB=[...rail.children];
+RB.forEach((b,i)=>b.onclick=()=>{const a=+CH[i].dataset.a,top=root.getBoundingClientRect().top+scrollY;scrollTo({top:top+(a+.02)*(root.offsetHeight-innerHeight),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'})});
+function update(){draw();const f=Math.round(cur),p=cur/(N-1);dk(nav,'nav',f);dk(rail,'tr',f);hint&&(hint.classList.toggle('off',p>.04),dk(hint,'m',f));
+CH.forEach((ch,i)=>{const on=p>=+ch.dataset.a&&p<+ch.dataset.b;ch.classList.toggle('on',on);ch.inert=!on;dk(ch,mob.matches?'m':ch.dataset.r,f);RB[i].setAttribute('aria-current',on)})}
+const tick=()=>{cur+=(tgt-cur)*.2;if(Math.abs(tgt-cur)<.05)cur=tgt;update();raf=cur===tgt?0:requestAnimationFrame(tick)};
+const onScroll=()=>{const r=root.getBoundingClientRect();tgt=Math.max(0,Math.min(1,-r.top/(root.offsetHeight-innerHeight)))*(N-1);if(!raf)raf=requestAnimationFrame(tick)};
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>

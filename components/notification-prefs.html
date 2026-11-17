@@ -1,0 +1,61 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.np{width:min(620px,100%);padding:24px}.np h2{margin:0;font-size:17px;font-weight:650}.np>p{margin:4px 0 16px}
+.np-t{width:100%;border-collapse:collapse}
+.np-t th{font-size:13px;font-weight:550;padding:8px 6px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}.np-t th:first-child{text-align:left}
+.np-t th label{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+.np-t td{padding:12px 6px;border-bottom:1px solid var(--line);text-align:center}.np-t td:first-child{text-align:left}
+.np-t td b{display:block;font-weight:550}.np-t td small{color:var(--mu);font-size:12px}
+.np input[type=checkbox]{width:18px;height:18px;margin:0;accent-color:var(--ac);cursor:pointer}
+.np-q{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px}
+.np-sw{display:flex;gap:10px;align-items:center;cursor:pointer}.np-sw b{display:block;font-weight:550}.np-sw small{font-size:12px}
+.np-tm{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mu)}.np-tm label{display:flex;gap:6px;align-items:center}.np-tm input{width:auto;height:34px}
+.np-tm.off{opacity:.45;pointer-events:none}
+.np-bar{position:sticky;bottom:12px;display:flex;align-items:center;gap:8px;margin-top:20px;padding:8px 8px 8px 14px;border-radius:12px;background:var(--fg);color:var(--bg);animation:nb .25s var(--ease)}
+.np-bar span{flex:1;font-weight:550}.np-bar .gh{color:var(--bg)}.np-bar .gh:hover{background:#ffffff1f}
+@keyframes nb{from{opacity:0;transform:translateY(8px)}}
+</style>
+<div class="k"><section class="card np"><h2>Notifications</h2><p class="mu">Choose how you hear about activity in Field Prints.</p>
+  <table class="np-t"><thead><tr><th scope="col"><span class="vh">Event</span></th><th scope="col"><label><input type="checkbox" data-col="0"> Email</label></th><th scope="col"><label><input type="checkbox" data-col="1"> Push</label></th><th scope="col"><label><input type="checkbox" data-col="2"> SMS</label></th></tr></thead><tbody id="tb"></tbody></table>
+  <div class="np-q"><label class="np-sw"><input type="checkbox" id="qh" checked><span><b>Quiet hours</b><small class="mu">Hold push and SMS overnight</small></span></label><div class="np-tm" id="tm"><label>From <input class="in tn" type="time" value="22:00"></label><label>to <input class="in tn" type="time" value="07:30"></label></div></div>
+  <div class="np-bar" id="bar" hidden><span>Unsaved changes</span><button class="b gh sm" id="rs">Reset</button><button class="b ac sm" id="sv">Save</button></div></section></div>
+<script>
+const E=[["Orders","Placed, shipped and delivered",[1,1,1]],["Comments","Replies and mentions",[1,1,0]],["Team","Invites and role changes",[1,0,0]],["Billing","Receipts and failed payments",[1,0,1]],["Product news","New features, once a month",[0,0,0]]];
+tb.innerHTML=E.map(([n,d,v],r)=>`<tr><td><b>${n}</b><small>${d}</small></td>${v.map((x,c)=>`<td><input type="checkbox" data-r="${r}" data-c="${c}" ${x?"checked":""} aria-label="${n} by ${["email","push","SMS"][c]}"></td>`).join("")}</tr>`).join("");
+const snap=()=>[...document.querySelectorAll(".np input")].map(i=>i.type==="checkbox"?i.checked:i.value).join();let base;
+const cols=()=>[0,1,2].forEach(c=>{const L=[...tb.querySelectorAll(`[data-c="${c}"]`)],n=L.filter(i=>i.checked).length,h=document.querySelector(`[data-col="${c}"]`);h.checked=n===L.length;h.indeterminate=n>0&&n<L.length});
+const dirty=()=>{cols();bar.hidden=snap()===base};
+document.querySelectorAll("[data-col]").forEach(h=>h.onchange=()=>{tb.querySelectorAll(`[data-c="${h.dataset.col}"]`).forEach(i=>i.checked=h.checked);dirty()});
+document.querySelector(".np").addEventListener("input",e=>{if(!e.target.dataset.col)dirty()});
+qh.addEventListener("change",()=>tm.classList.toggle("off",!qh.checked));
+cols();base=snap();
+let saved=[...document.querySelectorAll(".np input")].map(i=>i.type==="checkbox"?i.checked:i.value);
+rs.onclick=()=>{document.querySelectorAll(".np input").forEach((i,k)=>i.type==="checkbox"?i.checked=saved[k]:i.value=saved[k]);tm.classList.toggle("off",!qh.checked);dirty()};
+sv.onclick=()=>{sv.textContent="Saved ✓";setTimeout(()=>{saved=[...document.querySelectorAll(".np input")].map(i=>i.type==="checkbox"?i.checked:i.value);base=snap();bar.hidden=true;sv.textContent="Save"},700)};
+</script>

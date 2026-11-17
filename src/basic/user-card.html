@@ -1,0 +1,26 @@
+<!--User Card|Cards|A profile card: cover strip, avatar overlapping it, name with a verified mark, role, three tabular stats and Follow / Message actions where Follow flips to Following.|profile,user,card,follow,stats-->
+<div class="k"><article class="card uc">
+  <div class="uc-cv"></div>
+  <div class="uc-b"><span class="av uc-av" style="--c:#b45309">ML</span>
+    <h2>Mara Lind <svg class="uc-v" viewBox="0 0 24 24" aria-label="Verified"><path d="M12 2l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="var(--bg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></h2>
+    <p class="mu">Landscape photographer in Bergen. Prints, workshops and the occasional ferry story.</p>
+    <dl class="uc-s"><div><dd class="tn">214</dd><dt>Posts</dt></div><div><dd class="tn">18.4K</dd><dt>Followers</dt></div><div><dd class="tn">389</dd><dt>Following</dt></div></dl>
+    <div class="uc-a"><button class="b ac" id="fo" aria-pressed="false">@I(plus,16)<span>Follow</span></button><button class="b sec">@I(msg,16)Message</button></div>
+  </div></article></div>
+<style>
+.uc{width:min(340px,100%);overflow:hidden}
+.uc-cv{height:88px;background:linear-gradient(120deg,var(--ac-sf),var(--sf2))}
+.uc-b{padding:0 20px 20px}
+.uc-av{width:72px;height:72px;font-size:24px;margin-top:-36px;box-shadow:0 0 0 4px var(--bg)}
+.uc h2{display:flex;align-items:center;gap:6px;margin:12px 0 0;font-size:18px;font-weight:650;letter-spacing:-.01em}
+.uc-v{width:18px;height:18px;fill:var(--info)}
+.uc p{margin:4px 0 0;line-height:20px}
+.uc-s{display:grid;grid-template-columns:repeat(3,1fr);margin:16px 0 0;padding:12px 0;border-block:1px solid var(--line)}
+.uc-s div{display:flex;flex-direction:column}.uc-s dd{margin:0;font-size:17px;font-weight:650}.uc-s dt{font-size:12px;color:var(--mu)}
+.uc-a{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+#fo[aria-pressed=true]{background:var(--sf2);color:var(--fg)}
+</style>
+<script>
+const fo=document.getElementById("fo"),CK='<svg class="i" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="M20 6 9 17l-5-5"/></svg>',PL=fo.querySelector("svg").outerHTML;
+fo.onclick=()=>{const on=fo.getAttribute("aria-pressed")!=="true";fo.setAttribute("aria-pressed",on);fo.innerHTML=(on?CK:PL)+`<span>${on?"Following":"Follow"}</span>`};
+</script>

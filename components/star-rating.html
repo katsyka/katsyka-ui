@@ -1,0 +1,63 @@
+<style>
+.sr{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sr :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sr ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sr *,.sr *::before,.sr *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sr{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.sr-pn{width:min(460px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.sr-sum{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;padding:24px}
+.sr-big{text-align:center}
+.sr-big b{display:block;font-size:44px;font-weight:650;letter-spacing:-.04em;line-height:1}
+.sr-big small{font-size:12.5px;color:var(--mu)}
+.sr-ro{--v:0;position:relative;display:inline-block;font-size:16px;line-height:1;letter-spacing:2px;margin:6px 0 4px}
+.sr-ro::before{content:"★★★★★";color:var(--sf2)}
+.sr-ro::after{content:"★★★★★";position:absolute;left:0;top:0;width:calc(var(--v) / 5 * 100%);overflow:hidden;color:#f59e0b}
+.sr-bars{display:grid;gap:5px}
+.sr-bars div{display:grid;grid-template-columns:14px 1fr 34px;gap:8px;align-items:center;font:500 12px "Geist Mono",monospace;color:var(--mu)}
+.sr-bars i{height:6px;border-radius:3px;background:var(--sf2);overflow:hidden}
+.sr-bars i::before{content:"";display:block;height:100%;width:var(--w);background:#f59e0b;border-radius:3px}
+.sr-bars span{text-align:right}
+.sr-you{padding:20px 24px 24px;border-top:1px solid var(--line)}
+.sr-you h3{margin:0 0 10px;font-size:15px;font-weight:600}
+.sr-in{display:inline-flex;gap:2px}
+.sr-in input{position:absolute;opacity:0;width:1px;height:1px}
+.sr-in label{cursor:pointer;padding:3px;border-radius:8px}
+.sr-in svg{display:block;width:32px;height:32px;fill:var(--sf2);stroke:color-mix(in oklab,var(--ctl) 60%,var(--bg));stroke-width:1.2;stroke-linejoin:round;transition:fill .12s,stroke .12s,transform .2s var(--ease)}
+.sr-in label.on svg{fill:#f59e0b;stroke:#d97706}
+.sr-in label.pv svg{fill:color-mix(in oklab,#f59e0b 55%,var(--bg));stroke:#f59e0b}
+.sr-in label:hover svg{transform:scale(1.12)}
+.sr-in input:focus-visible+label{outline:2px solid var(--focus);outline-offset:0}
+.sr-in label.pop svg{animation:sr-pop .35s var(--ease)}
+@keyframes sr-pop{40%{transform:scale(1.3) rotate(-8deg)}}
+.sr-cap{display:inline-block;margin-left:12px;vertical-align:12px;font-size:14px;font-weight:550;min-width:90px}
+.sr-cap small{display:block;font-weight:400;font-size:12.5px;color:var(--mu)}
+.sr-sm{display:flex;flex-wrap:wrap;gap:8px 20px;padding:16px 24px;border-top:1px solid var(--line);background:var(--sf);font-size:13px;color:var(--mu);align-items:center}
+.sr-sm .sr-ro{font-size:13px;margin:0 6px 0 0;vertical-align:-1px}
+</style>
+<div class="sr">
+  <div class="sr-pn">
+    <div class="sr-sum">
+      <div class="sr-big"><b>4.6</b><span class="sr-ro" style="--v:4.6" role="img" aria-label="Rated 4.6 out of 5"></span><small>2,184 reviews</small></div>
+      <div class="sr-bars" aria-label="Rating distribution">
+        <div><span>5</span><i style="--w:72%"></i><span>72%</span></div><div><span>4</span><i style="--w:18%"></i><span>18%</span></div><div><span>3</span><i style="--w:6%"></i><span>6%</span></div><div><span>2</span><i style="--w:2%"></i><span>2%</span></div><div><span>1</span><i style="--w:2%"></i><span>2%</span></div>
+      </div>
+    </div>
+    <div class="sr-you">
+      <h3 id="srL">Rate this product</h3>
+      <div class="sr-in" role="radiogroup" aria-labelledby="srL"></div><span class="sr-cap" aria-live="polite"></span>
+    </div>
+    <div class="sr-sm"><span><span class="sr-ro" style="--v:5" role="img" aria-label="5 stars"></span>Fits true to size</span><span><span class="sr-ro" style="--v:3.5" role="img" aria-label="3.5 stars"></span>Battery life</span></div>
+  </div>
+</div>
+<script>
+const box=document.querySelector(".sr-in"),cap=document.querySelector(".sr-cap"),W=["Terrible","Poor","Okay","Good","Excellent"],D=["Not for me","Needs work","It does the job","Would recommend","Love it"];
+const star='<svg viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z"/></svg>';
+box.innerHTML=W.map((w,i)=>`<input type="radio" name="srR" id="srS${i+1}" value="${i+1}"><label for="srS${i+1}" title="${w}">${star}<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">${i+1} star${i?"s":""}, ${w}</span></label>`).join("");
+const L=[...box.querySelectorAll("label")],I=[...box.querySelectorAll("input")];let val=0;
+const paint=(n,cls)=>L.forEach((l,i)=>l.classList.toggle(cls,i<n));
+const caption=n=>cap.innerHTML=n?`${W[n-1]}<small>${D[n-1]}</small>`:`<small>Select 1–5 stars</small>`;
+L.forEach((l,i)=>{l.addEventListener("pointerenter",()=>{paint(0,"on");paint(i+1,"pv");caption(i+1)})});
+box.addEventListener("pointerleave",()=>{paint(0,"pv");paint(val,"on");caption(val)});
+I.forEach((r,i)=>r.addEventListener("change",()=>{val=i+1;paint(0,"pv");paint(val,"on");caption(val);L[i].classList.remove("pop");void L[i].offsetWidth;L[i].classList.add("pop")}));
+caption(0);
+</script>

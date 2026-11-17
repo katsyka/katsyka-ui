@@ -1,0 +1,55 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.tm{width:min(600px,100%);padding:24px}.tm h2{margin:0;font-size:17px;font-weight:650}.tm>p{margin:4px 0 16px}
+.tm-inv{display:flex;gap:8px;flex-wrap:wrap}.tm-inv input{flex:1;min-width:180px}.k .tm-sel{width:auto;padding-right:28px;appearance:auto}
+.tm-err{min-height:18px;margin:6px 0 4px;font-size:13px;color:var(--err)}
+.tm-l{list-style:none;margin:0;padding:0}
+.tm-i{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.tm-i .av{width:36px;height:36px;font-size:13px}.tm-i .tx{flex:1;min-width:0}.tm-i b{display:block;font-weight:550}.tm-i small{color:var(--mu);font-size:13px}
+.k .tm-i select.in{height:32px;width:auto;flex:none;font-size:13px;appearance:auto}
+.tm-i.pend .av{background:var(--sf2);color:var(--mu)}
+.tm-cf{display:flex;gap:6px;align-items:center;font-size:13px}
+.tm-i.new{animation:ni .3s var(--ease)}@keyframes ni{from{opacity:0;transform:translateY(-4px)}}
+</style>
+<div class="k"><section class="card tm"><h2>Team members</h2><p class="mu">Invite people to collaborate on Field Prints.</p>
+  <form class="tm-inv" id="f" novalidate><label class="vh" for="em">Email</label><input class="in" id="em" type="email" placeholder="name@company.com" autocomplete="off"><label class="vh" for="rl">Role</label><select class="in tm-sel" id="rl"><option>Member</option><option>Admin</option><option>Viewer</option></select><button class="b ac">Invite</button></form>
+  <p class="tm-err" id="er" role="alert"></p>
+  <ul class="tm-l" id="l"></ul></section></div>
+<script>
+const M=[["Mara Lind","mara@fieldprints.no","Owner","#b45309"],["Ines Duarte","ines@fieldprints.no","Admin","#15803d"],["Theo Wright","theo@fieldprints.no","Member","#0369a1"],["jun@kato.studio","Invited 2 days ago","Member",null]];
+const X='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+const row=([n,e,r,c],nw)=>{const li=document.createElement("li");li.className="tm-i"+(c?"":" pend")+(nw?" new":"");const ini=c?n.split(" ").map(w=>w[0]).join(""):"@";
+ li.innerHTML=`<span class="av" style="--c:${c||"none"}">${ini}</span><span class="tx"><b>${n}</b><small>${e}</small></span>`+(c?`<select class="in" aria-label="Role for ${n}"><option${r==="Owner"?" selected":""}>Owner</option><option${r==="Admin"?" selected":""}>Admin</option><option${r==="Member"?" selected":""}>Member</option><option>Viewer</option></select>`:`<button class="b gh sm rs">Resend</button>`)+`<button class="ibt rm" aria-label="Remove ${n}">${X}</button>`;l.append(li);
+ const sel=li.querySelector("select");if(sel)sel.onchange=()=>{const owners=[...l.querySelectorAll("select")].filter(s=>s.value==="Owner").length;if(!owners){sel.value="Owner";er.textContent="A team needs at least one owner."}else er.textContent=""};
+ const rs=li.querySelector(".rs");if(rs)rs.onclick=()=>{rs.textContent="Sent ✓";rs.disabled=true};
+ li.querySelector(".rm").onclick=()=>{const sv=li.innerHTML;if(sel&&sel.value==="Owner"&&[...l.querySelectorAll("select")].filter(s=>s.value==="Owner").length<2){er.textContent="Transfer ownership before removing the last owner.";return}
+  const cf=document.createElement("span");cf.className="tm-cf";cf.innerHTML=`Remove? <button class="b sm" style="background:var(--err);color:#fff">Remove</button><button class="b sec sm">Cancel</button>`;li.querySelectorAll("select,.rs,.rm").forEach(x=>x.hidden=true);li.append(cf);cf.children[0].focus();cf.children[0].onclick=()=>li.remove();cf.children[1].onclick=()=>{cf.remove();li.querySelectorAll("select,.rs,.rm").forEach(x=>x.hidden=false)}}};
+M.forEach(m=>row(m));
+f.onsubmit=e=>{e.preventDefault();const v=em.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){er.textContent="Enter a valid email address.";em.setAttribute("aria-invalid","true");em.focus();return}er.textContent="";em.removeAttribute("aria-invalid");row([v,"Invited just now",rl.value,null],1);em.value=""};
+</script>

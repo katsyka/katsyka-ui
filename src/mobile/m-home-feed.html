@@ -1,0 +1,53 @@
+<!--Social Feed|A photo feed with a story rail (unseen rings, seen ones fade), post cards with double-tap to like, a save toggle and a glass tab bar.|feed,social,stories,posts,double tap-->
+<header class="bar"><div class="hf-top"><b class="hf-logo">Driftwood</b><span><button class="ib" aria-label="Activity">@I(heart)</button><button class="ib" aria-label="Messages">@I(msg)</button></span></div></header>
+<main class="sc">
+  <div class="hs hf-st" id="st"></div>
+  <div id="feed"></div>
+</main>
+@PILL(home:Home|search:Search|plus:Post|bell:Activity|user:You;0)
+<style>
+.hf-top{display:flex;align-items:center;justify-content:space-between;min-height:44px;padding:0 4px 0 var(--gut)}
+.hf-logo{font:italic 400 28px/1 "Instrument Serif",serif;letter-spacing:-.01em}
+.hf-top span{display:flex}
+.hf-st{padding-top:8px;padding-bottom:12px;gap:14px;border-bottom:.5px solid var(--line)}
+.hf-s{display:flex;flex-direction:column;align-items:center;gap:6px;width:68px;font-size:12px;line-height:16px;color:var(--fg)}
+.hf-s i{display:block;width:68px;height:68px;border-radius:50%;padding:3px;background:var(--ac)}
+.hf-s.seen i{background:var(--line)}
+.hf-s img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2.5px solid var(--bg);display:block}
+.hf-s span{max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hf-s.seen span{color:var(--mu)}
+.hf-p{padding:12px 0 16px}
+.hf-h{display:flex;align-items:center;gap:10px;padding:0 4px 8px var(--gut)}
+.hf-h .av{width:36px;height:36px;font-size:14px}
+.hf-h b{display:block;font-size:15px;line-height:20px;font-weight:600}.hf-h small{display:block;font-size:13px;line-height:16px;color:var(--mu)}
+.hf-h div{flex:1}
+.hf-m{position:relative;aspect-ratio:4/5;background:var(--sf);overflow:hidden;user-select:none}
+.hf-m img{width:100%;height:100%;object-fit:cover;display:block}
+.hf-m .pop{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px;color:#fff;fill:#fff;stroke:none;opacity:0;transform:scale(.4);filter:drop-shadow(0 4px 16px #0006)}
+.hf-m .pop.go{animation:pop .8s var(--ease)}
+@keyframes pop{15%{opacity:1;transform:scale(1.1)}30%{transform:scale(.95)}70%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.05) translateY(-8px)}}
+.hf-a{display:flex;align-items:center;padding:4px 4px 0}
+.hf-a .sp{flex:1}
+.hf-a .lk.on{color:var(--err)}.hf-a .lk.on .i{fill:currentColor;animation:bump .35s var(--ease)}
+.hf-a .sv.on .i{fill:currentColor}
+@keyframes bump{40%{transform:scale(1.25)}}
+.hf-c{padding:0 var(--gut);font-size:15px;line-height:21px}
+.hf-c b{font-weight:600}.hf-c .mu{display:block;margin-top:2px;font-size:13px}
+</style>
+<script>
+const P=[["Mara","#b45309","1043","Morning light on the valley floor. Worth the 5am start.","2h",1284],["Theo","#0369a1","1050","Low tide, no one around.","5h",842],["Jun","#7c3aed","1060","Third pour-over this week. Getting the bloom right finally.","8h",311],["Ines","#15803d","1035","Mist everywhere. Shoes still wet.","1d",2093]];
+const S=[["Your story","1080",0],["mara","1043",0],["theo","1050",0],["jun","1060",1],["ines","1035",1],["olek","1022",1],["sana","1067",1]];
+st.innerHTML=S.map(([n,p,s])=>`<button class="hf-s${s?" seen":""}"><i><img src="media/pics/c/${p}.jpg" alt=""></i><span>${n}</span></button>`).join("");
+st.querySelectorAll(".hf-s").forEach(b=>b.onclick=()=>b.classList.add("seen"));
+const H='<svg class="pop" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg>';
+const ic=n=>({heart:'<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/>',msg:'<path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.4A8.5 8.5 0 1 1 21 12z"/>',share:'<path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',bm:'<path d="M6 3h12v18l-6-4-6 4z"/>',more:'<circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/>'})[n];
+const I=n=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ic(n)}</svg>`;
+feed.innerHTML=P.map(([n,c,p,t,ago,l],k)=>`<article class="hf-p"><div class="hf-h"><span class="av" style="--c:${c}">${n[0]}</span><div><b>${n}</b><small>${ago} ago</small></div><button class="ib" aria-label="More">${I("more")}</button></div>
+<div class="hf-m"><img src="media/pics/c/${p}.jpg" alt="" loading="lazy">${H}</div>
+<div class="hf-a"><button class="ib lk" aria-label="Like" aria-pressed="false">${I("heart")}</button><button class="ib" aria-label="Comment">${I("msg")}</button><button class="ib" aria-label="Share">${I("share")}</button><span class="sp"></span><button class="ib sv" aria-label="Save" aria-pressed="false">${I("bm")}</button></div>
+<p class="hf-c"><b class="tn" data-n="${l}">${l.toLocaleString("en")} likes</b><br><b>${n}</b> ${t}<span class="mu">View all ${12+k*7} comments</span></p></article>`).join("");
+const like=(a,force)=>{const b=a.querySelector(".lk"),on=force??!b.classList.contains("on");b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);const c=a.querySelector("[data-n]"),n=+c.dataset.n+(on?1:0);c.textContent=n.toLocaleString("en")+" likes"};
+feed.querySelectorAll(".hf-p").forEach(a=>{a.querySelector(".lk").onclick=()=>like(a);
+  const sv=a.querySelector(".sv");sv.onclick=()=>{sv.classList.toggle("on");sv.setAttribute("aria-pressed",sv.classList.contains("on"))};
+  let last=0;a.querySelector(".hf-m").addEventListener("pointerup",()=>{const n=Date.now();if(n-last<300){like(a,true);const p=a.querySelector(".pop");p.classList.remove("go");void p.offsetWidth;p.classList.add("go")}last=n})});
+</script>

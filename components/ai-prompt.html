@@ -1,0 +1,106 @@
+<style>
+.aip{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 16px;background:#0b0b0d;color:#ededf0}
+.aip h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-.04em;font-weight:500;margin:0 0 28px;text-align:center}
+.aip h2 em{font-family:"Instrument Serif",serif;font-weight:400;color:#ff8a5c}
+.aip-log{width:min(680px,100%);display:flex;flex-direction:column;gap:16px;margin-bottom:18px}
+.aip-u{align-self:flex-end;max-width:80%;padding:10px 16px;border-radius:18px 18px 4px 18px;background:#1d1d22;font-size:15px;animation:aip-in .35s cubic-bezier(.2,1,.3,1)}
+.aip-a{font-size:15.5px;line-height:1.65;color:#d6d6dc;animation:aip-in .35s}
+.aip-a b{color:#fff;font-weight:550}.aip-a .cur{display:inline-block;width:8px;height:15px;background:#ff8a5c;vertical-align:-2px;border-radius:2px;animation:aip-bl .8s steps(1) infinite}
+.aip-tool{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#8b8b94;padding:6px 10px;border-radius:8px;background:#ffffff08;margin-bottom:10px}
+.aip-tool i{width:12px;height:12px;border-radius:50%;border:1.5px solid #ffffff30;border-top-color:#ff8a5c;animation:aip-sp .8s linear infinite}
+.aip-tool.done i{border-color:#3ddc84;animation:none;background:#3ddc84}
+@keyframes aip-in{from{opacity:0;transform:translateY(8px)}}@keyframes aip-bl{50%{opacity:0}}@keyframes aip-sp{to{transform:rotate(1turn)}}
+.aip-box{position:relative;width:min(680px,100%);border-radius:22px;background:#141417;border:1px solid #ffffff14;box-shadow:0 1px 0 #ffffff0a inset,0 24px 60px -24px #000;transition:border-color .25s,box-shadow .25s}
+.aip-box:focus-within{border-color:#ffffff2a;box-shadow:0 1px 0 #ffffff0a inset,0 24px 60px -24px #000,0 0 0 4px #ffffff08}
+.aip-box.drag{border-color:#ff8a5c;border-style:dashed}
+.aip-files{display:flex;gap:8px;padding:12px 12px 0;flex-wrap:wrap}.aip-files:empty{display:none}
+.aip-file{display:flex;align-items:center;gap:8px;height:36px;padding:0 6px 0 8px;border-radius:10px;background:#1f1f24;font-size:13px;animation:aip-in .3s}
+.aip-file i{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#ff8a5c,#ff5a1f);display:grid;place-items:center;font:600 9px "Geist Mono",monospace;font-style:normal;color:#1a0a04}
+.aip-file button{border:0;background:none;color:#77777f;cursor:pointer;font-size:15px}
+.aip-ta{position:relative}
+.aip textarea{display:block;width:100%;min-height:58px;max-height:200px;resize:none;border:0;outline:0;background:none;color:#ededf0;font:16px/1.5 Geist,sans-serif;padding:18px 18px 8px}
+.aip-ph{position:absolute;left:18px;top:18px;font-size:16px;color:#66666f;pointer-events:none;white-space:nowrap;overflow:hidden}
+.aip-ph span{display:inline-block;animation:aip-ph .45s cubic-bezier(.2,1,.3,1)}
+@keyframes aip-ph{from{opacity:0;transform:translateY(10px);filter:blur(3px)}}
+.aip-bar{display:flex;align-items:center;gap:6px;padding:8px 10px 10px}
+.aip-ic{width:34px;height:34px;border-radius:10px;border:0;background:none;color:#8b8b94;cursor:pointer;display:grid;place-items:center;transition:all .2s}
+.aip-ic:hover{background:#ffffff0d;color:#fff}
+.aip svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.aip-tg{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:99px;border:1px solid #ffffff14;background:none;color:#8b8b94;font:500 13px Geist,sans-serif;cursor:pointer;transition:all .25s}
+.aip-tg svg{width:15px;height:15px}
+.aip-tg.on{color:#ff8a5c;border-color:#ff8a5c55;background:#ff5a1f14}
+.aip-model{position:relative;margin-left:auto}
+.aip-model>button{display:flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:9px;border:0;background:none;color:#b8b8c0;font:500 13px Geist,sans-serif;cursor:pointer}
+.aip-model>button:hover{background:#ffffff0a}
+.aip-menu{position:absolute;right:0;bottom:calc(100% + 8px);width:250px;padding:6px;border-radius:14px;background:#1a1a1e;border:1px solid #ffffff17;box-shadow:0 20px 40px -10px #000;opacity:0;transform:translateY(6px) scale(.97);transform-origin:bottom right;pointer-events:none;transition:all .2s cubic-bezier(.2,1,.3,1);z-index:2}
+.aip-model.open .aip-menu{opacity:1;transform:none;pointer-events:auto}
+.aip-menu button{display:block;width:100%;text-align:left;padding:9px 10px;border:0;border-radius:9px;background:none;color:#ededf0;cursor:pointer;font:500 14px Geist,sans-serif}
+.aip-menu button small{display:block;font-size:12px;color:#77777f;font-weight:400;margin-top:1px}
+.aip-menu button:hover{background:#ffffff0a}.aip-menu button.on::after{content:"✓";float:right;color:#ff8a5c;margin-top:-18px}
+.aip-send{position:relative;width:36px;height:36px;border-radius:12px;border:0;background:#2a2a30;color:#66666f;cursor:pointer;display:grid;place-items:center;transition:background .25s,color .25s,transform .2s}
+.aip-send.ready{background:#ededf0;color:#0b0b0d}.aip-send.ready:active{transform:scale(.92)}
+.aip-send .stop{display:none;width:11px;height:11px;border-radius:2px;background:currentColor}
+.aip-send.busy{background:#ededf0;color:#0b0b0d}.aip-send.busy svg{display:none}.aip-send.busy .stop{display:block}
+.aip-send.busy::before{content:"";position:absolute;inset:-4px;border-radius:15px;border:2px solid transparent;border-top-color:#ff8a5c;animation:aip-sp 1s linear infinite}
+.aip-sugs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px;width:min(680px,100%)}
+.aip-sugs button{height:34px;padding:0 14px;border-radius:99px;border:1px solid #ffffff14;background:none;color:#9b9ba4;font:13px Geist,sans-serif;cursor:pointer;transition:all .2s}
+.aip-sugs button:hover{color:#fff;border-color:#ffffff2a;transform:translateY(-1px)}
+.aip-hidden{display:none}
+</style>
+<section class="aip">
+  <h2>What should we <em>build</em> today?</h2>
+  <div class="aip-log"></div>
+  <div class="aip-box">
+    <div class="aip-files"></div>
+    <div class="aip-ta"><textarea rows="1" aria-label="Prompt"></textarea><div class="aip-ph"></div></div>
+    <div class="aip-bar">
+      <button class="aip-ic" data-attach title="Attach file"><svg viewBox="0 0 24 24"><path d="m21 11-8.5 8.5a5 5 0 0 1-7-7L14 4a3.5 3.5 0 0 1 5 5l-8.6 8.5a2 2 0 0 1-2.8-2.8L15.5 7"/></svg></button>
+      <button class="aip-tg" data-t="search"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>Search</button>
+      <button class="aip-tg" data-t="think"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z"/></svg>Think</button>
+      <div class="aip-model"><button><span>Atlas Large</span><svg viewBox="0 0 24 24" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="aip-menu"><button class="on">Atlas Large<small>Best quality for hard tasks</small></button><button>Atlas Fast<small>Quick answers, lower cost</small></button><button>Atlas Vision<small>Understands images and PDFs</small></button></div></div>
+      <button class="aip-send" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg><i class="stop"></i></button>
+    </div>
+    <input type="file" class="aip-hidden" multiple>
+  </div>
+  <div class="aip-sugs"><button>Plan a 3-day trip to Lisbon</button><button>Write a launch tweet</button><button>Explain this error</button></div>
+</section>
+<script>
+(()=>{
+const root=document.querySelector(".aip"),box=root.querySelector(".aip-box"),ta=root.querySelector("textarea"),ph=root.querySelector(".aip-ph"),send=root.querySelector(".aip-send"),log=root.querySelector(".aip-log"),files=root.querySelector(".aip-files"),fileIn=root.querySelector("input[type=file]");
+const PH=["Ask anything…","Draft a landing page for a coffee brand","Summarize this PDF in five bullets","Refactor this function to be pure"];let pi=0,busy=false,stream;
+const showPh=()=>{ph.style.display=ta.value?"none":"";ph.innerHTML=`<span>${PH[pi]}</span>`};
+setInterval(()=>{if(!ta.value&&document.activeElement!==ta){pi=(pi+1)%PH.length;showPh()}},2800);showPh();
+const grow=()=>{ta.style.height="auto";ta.style.height=Math.min(ta.scrollHeight,200)+"px";send.classList.toggle("ready",!!ta.value.trim()&&!busy);ph.style.display=ta.value?"none":""};
+ta.addEventListener("input",grow);
+ta.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();submit()}});
+root.querySelectorAll(".aip-tg").forEach(b=>b.onclick=()=>b.classList.toggle("on"));
+const model=root.querySelector(".aip-model");
+model.firstElementChild.onclick=e=>{e.stopPropagation();model.classList.toggle("open")};
+model.querySelectorAll(".aip-menu button").forEach(b=>b.onclick=()=>{model.querySelector(".on").classList.remove("on");b.classList.add("on");model.querySelector("span").textContent=b.firstChild.textContent;model.classList.remove("open")});
+document.addEventListener("click",()=>model.classList.remove("open"));
+const addFile=n=>{const ext=(n.split(".").pop()||"file").slice(0,3).toUpperCase(),el=document.createElement("div");el.className="aip-file";
+  el.innerHTML=`<i>${ext}</i>${n.length>22?n.slice(0,20)+"…":n}<button aria-label="Remove">×</button>`;el.querySelector("button").onclick=()=>el.remove();files.append(el)};
+root.querySelector("[data-attach]").onclick=()=>fileIn.click();
+fileIn.onchange=()=>{[...fileIn.files].forEach(f=>addFile(f.name));fileIn.value=""};
+["dragenter","dragover"].forEach(t=>box.addEventListener(t,e=>{e.preventDefault();box.classList.add("drag")}));
+["dragleave","drop"].forEach(t=>box.addEventListener(t,e=>{e.preventDefault();box.classList.remove("drag");if(t==="drop")[...e.dataTransfer.files].forEach(f=>addFile(f.name))}));
+root.querySelectorAll(".aip-sugs button").forEach(b=>b.onclick=()=>{ta.value=b.textContent;grow();ta.focus()});
+const REPLY="Here's a plan that keeps it simple. **Day 1:** Alfama on foot, then sunset at Miradouro da Graça. **Day 2:** a morning train to Sintra, back for dinner in Príncipe Real. **Day 3:** LX Factory, pastéis in Belém, and the river walk home. Want restaurant picks for each night?";
+const stop=()=>{clearTimeout(stream);busy=false;send.classList.remove("busy");root.querySelector(".aip-a .cur")?.remove();grow()};
+function submit(){
+  if(busy)return stop();const q=ta.value.trim();if(!q)return;
+  root.querySelector(".aip-sugs").style.display="none";
+  log.insertAdjacentHTML("beforeend",`<div class="aip-u"></div>`);log.lastChild.textContent=q;ta.value="";files.innerHTML="";grow();
+  busy=true;send.classList.add("busy");send.classList.remove("ready");
+  const a=document.createElement("div");a.className="aip-a";
+  const searching=root.querySelector('[data-t="search"]').classList.contains("on");
+  a.innerHTML=searching?'<div class="aip-tool"><i></i>Searching the web…</div><div class="txt"></div>':'<div class="txt"></div>';log.append(a);
+  const txt=a.querySelector(".txt"),parts=REPLY.split(/(\s+)/);let i=0;
+  const go=()=>{const html=parts.slice(0,i).join("").replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\*\*[^*]*$/,"");txt.innerHTML=html+'<span class="cur"></span>';
+    if(i++<parts.length)stream=setTimeout(go,28+Math.random()*40);else stop()};
+  stream=setTimeout(()=>{const tl=a.querySelector(".aip-tool");if(tl){tl.classList.add("done");tl.lastChild.textContent="Read 6 sources"}go()},searching?1400:500);
+}
+send.onclick=submit;
+})();
+</script>

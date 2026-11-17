@@ -1,0 +1,39 @@
+<!--Permission Primer|Ask for notifications the respectful way: a preview of the exact alerts you'll get, a clear reason, Turn on / Not now, and only then the system prompt. Declining is remembered, not punished.|permissions,notifications,onboarding,primer,system dialog-->
+<main class="pm">
+  <div class="pm-pv" aria-hidden="true">
+    <div class="pm-n" style="--d:0s"><span class="pm-ic">@I(bike,18)</span><span><b>Your order is on the way</b><small>Jonas picked it up. Arriving in 12 min.</small></span><time>now</time></div>
+    <div class="pm-n" style="--d:.15s"><span class="pm-ic">@I(check,18)</span><span><b>Delivered</b><small>Left at your door. Enjoy!</small></span><time>2m</time></div>
+  </div>
+  <h1>Know when your order moves</h1>
+  <p>We'll only notify you about orders you place: picked up, nearby, delivered. No promotions, ever.</p>
+  <div class="pm-a"><button class="btn" id="on">Turn on notifications</button><button class="btn ghost" id="no">Not now</button></div>
+  <p class="pm-s" id="st" role="status"></p>
+</main>
+<div class="pm-sys" id="sys" hidden><div class="pm-al" role="alertdialog" aria-modal="true" aria-labelledby="alh"><div class="pm-at"><b id="alh">“Kafe Blå” Would Like to Send You Notifications</b><small>Notifications may include alerts, sounds and icon badges. These can be configured in Settings.</small></div><div class="pm-ab"><button id="den">Don't Allow</button><button id="alw"><b>Allow</b></button></div></div></div>
+<style>
+.pm{flex:1;display:flex;flex-direction:column;padding:calc(var(--st) + 24px) 24px max(16px,var(--sbt));text-align:center}
+.pm-pv{flex:1;display:flex;flex-direction:column;justify-content:center;gap:8px;min-height:200px;padding:16px;margin:0 -8px;border-radius:32px;background:var(--sf)}
+.pm-n{display:flex;gap:10px;align-items:flex-start;text-align:left;padding:12px;border-radius:18px;background:var(--bg);box-shadow:0 6px 20px -8px light-dark(#0003,#000a);animation:nin .6s var(--d) cubic-bezier(.3,1.3,.5,1) backwards}
+@keyframes nin{from{opacity:0;transform:translateY(-16px) scale(.96)}}
+.pm-ic{width:36px;height:36px;border-radius:10px;flex:none;display:grid;place-items:center;background:var(--ac);color:var(--ac-fg)}
+.pm-n>span:nth-child(2){flex:1;min-width:0}.pm-n b{display:block;font-size:15px;font-weight:600}.pm-n small{display:block;font-size:14px;line-height:19px;color:var(--mu)}.pm-n time{font-size:12px;color:var(--mu)}
+.pm h1{margin:32px 0 0;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+.pm>p{margin:10px auto 0;max-width:32ch;font-size:17px;line-height:24px;color:var(--mu)}
+.pm-a{margin-top:28px;display:grid;gap:4px}
+.pm-s{min-height:20px;margin:8px 0 0!important;font-size:15px!important;color:var(--ok)!important}
+.pm-sys{position:absolute;inset:0;z-index:100;display:grid;place-items:center;background:#0005;animation:fd .2s}
+@keyframes fd{from{opacity:0}}
+.pm-al{width:270px;border-radius:14px;overflow:hidden;background:light-dark(#f2f2f2e6,#2c2c2ee6);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);text-align:center;animation:al .3s cubic-bezier(.3,1.3,.5,1)}
+@keyframes al{from{transform:scale(1.15);opacity:0}}
+.pm-at{padding:20px 16px 16px}.pm-at b{display:block;font-size:17px;line-height:22px;font-weight:600}.pm-at small{display:block;margin-top:4px;font-size:13px;line-height:18px}
+.pm-ab{display:grid;grid-template-columns:1fr 1fr;border-top:.5px solid light-dark(#3c3c4349,#54545899)}
+.pm-ab button{min-height:44px;font-size:17px;color:light-dark(#007aff,#0a84ff)!important}.pm-ab button+button{border-left:.5px solid light-dark(#3c3c4349,#54545899)}
+.pm-ab button:active{background:light-dark(#0000000d,#ffffff12)!important}
+</style>
+<script>
+on.onclick=()=>{sys.hidden=false;alw.focus()};
+const fin=(m,ok)=>{sys.hidden=true;st.textContent=m;st.style.color=ok?"":"var(--mu)";on.textContent=ok?"Notifications on ✓":"Turn on notifications";on.disabled=ok;no.hidden=ok};
+alw.onclick=()=>fin("You're set. We'll ping you when your order moves.",1);
+den.onclick=()=>fin("No problem. You can turn them on later in Settings.",0);
+no.onclick=()=>fin("Okay. We'll ask again only when you place an order.",0);
+</script>

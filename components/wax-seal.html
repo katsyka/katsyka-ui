@@ -1,0 +1,62 @@
+<style>
+.wax{min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:#2b2724;font-family:Geist,system-ui,sans-serif;color:#efe7da;overflow:hidden}
+.wax-in{display:flex;flex-direction:column;align-items:center;gap:26px;width:min(460px,100%)}
+.wax-env{position:relative;width:100%;aspect-ratio:1.55;perspective:900px;transition:transform .9s cubic-bezier(.6,-0.2,.7,0),opacity .9s}
+.wax.sent .wax-env{transform:translate(0,-130%) rotate(-6deg) scale(.7);opacity:0}
+.wax-back,.wax-front{position:absolute;inset:0;border-radius:6px}
+.wax-back{background:#d8ccb4}
+.wax-letter{position:absolute;left:7%;right:7%;top:8%;height:80%;background:#fbf8f1;border-radius:3px;padding:18px;font:400 20px/1.2 "Instrument Serif",serif;color:#3a332b;transition:transform .6s cubic-bezier(.3,.7,.2,1)}
+.wax-letter small{display:block;margin-top:8px;font:11px/1.5 "Geist Mono",monospace;color:#8a8070}
+.wax.closing .wax-letter,.wax.sealed .wax-letter{transform:translateY(9%)}
+.wax-front{background:linear-gradient(to top right,#0000 calc(50% - 1px),#0000001a 50%,#0000 calc(50% + 1px)) left bottom/50% 100% no-repeat,linear-gradient(to top left,#0000 calc(50% - 1px),#0000001a 50%,#0000 calc(50% + 1px)) right bottom/50% 100% no-repeat,#e8dcc4;clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);pointer-events:none}
+.wax-flap{position:absolute;left:0;right:0;top:0;height:58%;transform-origin:50% 0;transform:rotateX(180deg);transition:transform .7s cubic-bezier(.5,0,.3,1);z-index:2}
+.wax-flap::before{content:"";position:absolute;inset:0;background:#d2c4a8;clip-path:polygon(0 0,100% 0,50% 100%);box-shadow:0 0 0 #000}
+.wax.closing .wax-flap,.wax.sealed .wax-flap{transform:rotateX(0)}
+.wax.closing .wax-flap::before,.wax.sealed .wax-flap::before{background:#e6dac1}
+.wax-blob{position:absolute;left:50%;top:58%;width:84px;height:84px;margin:-42px 0 0 -42px;z-index:3;border-radius:46% 54% 50% 50%/52% 48% 52% 48%;background:radial-gradient(circle at 38% 32%,#d8463b,#9c1f18 58%,#6e130e);box-shadow:inset 0 -4px 8px #0006,inset 0 3px 4px #ffffff40,0 4px 10px -2px #0008;scale:0;opacity:0}
+.wax-blob b{position:absolute;inset:16px;border-radius:50%;display:grid;place-items:center;font:italic 400 36px/1 "Instrument Serif",serif;color:#7a1711;box-shadow:inset 2px 2px 3px #0007,inset -2px -2px 3px #ffffff38,0 0 0 2px #b8322a;opacity:0}
+.wax.sealed .wax-blob{animation:wax-drop .5s cubic-bezier(.3,1.4,.5,1) forwards}
+.wax.sealed .wax-blob b{animation:wax-press .35s .55s ease-out forwards}
+@keyframes wax-drop{0%{scale:.2;opacity:1;border-radius:50%}60%{scale:1.12}100%{scale:1;opacity:1}}
+@keyframes wax-press{0%{opacity:0;scale:1.2}100%{opacity:1;scale:1}}
+.wax-seal{position:absolute;left:50%;top:58%;z-index:4;width:62px;height:120px;margin:-150px 0 0 -31px;pointer-events:none;opacity:0}
+.wax-seal i{position:absolute;left:50%;translate:-50% 0;display:block}
+.wax-seal .h{top:0;width:30px;height:70px;border-radius:15px 15px 6px 6px;background:linear-gradient(90deg,#2c1d12,#6b4426,#2c1d12)}
+.wax-seal .f{top:66px;width:62px;height:20px;border-radius:5px;background:linear-gradient(#c9a35a,#7d5e26)}
+.wax.sealed .wax-seal{animation:wax-st .9s .3s cubic-bezier(.5,0,.5,1) forwards}
+@keyframes wax-st{0%{opacity:0;transform:translateY(-30px)}35%{opacity:1;transform:translateY(0)}55%{transform:translateY(64px)}75%{transform:translateY(64px)}100%{opacity:0;transform:translateY(-40px)}}
+.wax-row{display:flex;gap:8px}
+.wax-row button{height:44px;padding:0 22px;border-radius:999px;border:1px solid #efe7da40;background:none;color:#efe7da;font:500 14px Geist,system-ui,sans-serif;cursor:pointer}
+.wax-row .wax-go{background:#b8322a;border-color:#b8322a;color:#fff}
+.wax-row button:disabled{opacity:.4;cursor:default}
+.wax-row button:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+.wax-st{min-height:20px;font-size:13px;color:#a89d8c}
+@media (prefers-reduced-motion:reduce){.wax *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+<section class="wax">
+  <div class="wax-in">
+    <div class="wax-env" aria-hidden="true">
+      <div class="wax-back"></div>
+      <div class="wax-letter">Dear Ines, the drawings are finally done.<small>— M. · 31 October</small></div>
+      <div class="wax-front"></div>
+      <div class="wax-flap"></div>
+      <div class="wax-blob"><b>M</b></div>
+      <div class="wax-seal"><i class="h"></i><i class="f"></i></div>
+    </div>
+    <div class="wax-row"><button class="wax-go">Seal the letter</button><button class="wax-send" disabled>Send</button></div>
+    <div class="wax-st" aria-live="polite">An open envelope. Seal it before you send it.</div>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".wax"),go=R.querySelector(".wax-go"),send=R.querySelector(".wax-send"),st=R.querySelector(".wax-st");
+const red=matchMedia("(prefers-reduced-motion:reduce)").matches,T=ms=>red?0:ms;
+let stage=0;
+go.onclick=()=>{if(stage===0){stage=1;go.disabled=true;R.classList.add("closing");st.textContent="Folding the flap…";
+    setTimeout(()=>{R.classList.add("sealed");st.textContent="Pressing the seal…"},T(700));
+    setTimeout(()=>{stage=2;send.disabled=false;go.disabled=false;go.textContent="Break the seal";st.textContent="Sealed with an M. Ready to send."},T(1700))}
+  else if(stage===2){stage=0;R.classList.remove("sealed","closing");send.disabled=true;go.textContent="Seal the letter";st.textContent="Seal broken. The envelope is open again."}};
+send.onclick=()=>{if(stage!==2)return;stage=3;send.disabled=go.disabled=true;R.classList.add("sent");st.textContent="Sent. It should arrive Tuesday.";
+  setTimeout(()=>{R.classList.remove("sent","sealed","closing");stage=0;go.disabled=false;go.textContent="Seal the letter";st.textContent="A fresh envelope. Write another?"},T(2200))};
+})();
+</script>

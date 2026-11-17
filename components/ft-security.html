@@ -1,0 +1,42 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.sx2{width:min(980px,100%);display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}.sx2 h2{margin:0 0 10px;font-size:clamp(28px,4vw,40px);letter-spacing:-.03em;line-height:1.1}.sx2-t>p{margin:0 0 24px;font-size:16px;line-height:1.6}
+.sx2-f>div{display:flex;gap:8px}.sx2-f .in{height:44px;font-size:16px}.sx2-f .b{height:44px}.sx2-m{font-size:13px;margin:8px 0 0}.sx2-m:empty{display:none}
+.sx2-l details{border-top:1px solid var(--line)}.sx2-l details:last-child{border-bottom:1px solid var(--line)}.sx2-l summary{display:grid;grid-template-columns:24px 1fr 20px;gap:14px;align-items:center;padding:18px 0;cursor:pointer;list-style:none;font-size:16px;font-weight:550}.sx2-l summary::-webkit-details-marker{display:none}.sx2-l summary .i:first-child{color:var(--ok)}.sx2-l summary .i:last-child{color:var(--mu);transition:transform .2s cubic-bezier(.23,1,.32,1)}.sx2-l [open] summary .i:last-child{transform:rotate(45deg)}
+.sx2-l p{margin:0 0 18px 38px;font-size:14px;line-height:1.65;color:var(--mu)}.sx2-l code{font:12.5px 'Geist Mono',monospace;background:var(--sf2);padding:1px 4px;border-radius:4px}
+@media (max-width:760px){.sx2{grid-template-columns:1fr;gap:28px}}
+</style>
+<div class="k"><section class="sx2"><div class="sx2-t"><h2>Your data, handled carefully</h2><p class="mu">What we actually do, in plain words. Open any line for the technical version.</p><form class="sx2-f" id="f" novalidate><label class="lbl" for="em">Get our security documentation</label><div><input class="in" id="em" type="email" autocomplete="email" placeholder="you@company.com"><button class="b sec">Request</button></div><p class="sx2-m" id="m" role="status"></p></form></div>
+<div class="sx2-l" id="l"></div></section></div>
+<script>
+const S=[["Encrypted everywhere","Data is encrypted in transit with TLS 1.3 and at rest with AES-256. Keys live in a managed HSM and rotate every 90 days."],["Stored in the EU","Primary storage in Frankfurt, backups in Amsterdam. Nothing is replicated outside the EU unless you turn on a US region."],["Least-privilege access","Engineers can't read customer content by default. Access requires a ticket, a second approver and expires after 4 hours. Every access is logged."],["Independent audits","SOC 2 Type II report renewed every October, plus a yearly external penetration test. Reports available under NDA."],["You can leave","Export everything as JSON or CSV at any time. On deletion, data is purged from live systems in 7 days and backups in 35."]];
+document.getElementById('l').innerHTML=S.map(([a,b],i)=>`<details ${i?'':'open'}><summary><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>${a}</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path d="M12 5v14M5 12h14"/></svg></summary><p>${b}</p></details>`).join('');
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const em=document.getElementById('em'),m=document.getElementById('m'),v=em.value.trim(),ok=/^\S+@\S+\.\S+$/.test(v),free=/@(gmail|yahoo|hotmail|outlook|icloud)\./i.test(v);em.setAttribute('aria-invalid',!ok||free);m.style.color=ok&&!free?'var(--ok)':'var(--err)';m.textContent=!ok?'Enter a valid email.':free?'Please use your work email, the documents are shared under NDA.':`Sent. Check ${v} for the NDA and download link.`;if(!ok||free)em.focus()};
+</script>

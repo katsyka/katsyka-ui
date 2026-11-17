@@ -1,0 +1,41 @@
+<!--Music Library|A library home with the mini player docked above the glass tab bar: tap play without leaving the list, a hairline shows progress, and recently added albums sit in a two-column grid.|music,library,mini player,list,albums-->
+<header class="bar"><div class="nb"><span></span><h2 class="lb-t">Library</h2><span><button class="ib" aria-label="Sort">@I(sliders,22)</button></span></div></header>
+<main class="sc" id="sc">
+  <h1 class="lt">Library</h1>
+  <div class="lst lb-l" style="--inset:56px;margin-top:8px">
+    <a class="row" href="#">@I(list)<span class="tx"><b>Playlists</b></span>@I(right)</a>
+    <a class="row" href="#">@I(user)<span class="tx"><b>Artists</b></span>@I(right)</a>
+    <a class="row" href="#">@I(layers)<span class="tx"><b>Albums</b></span>@I(right)</a>
+    <a class="row" href="#">@I(note)<span class="tx"><b>Songs</b></span>@I(right)</a>
+    <a class="row" href="#">@I(download)<span class="tx"><b>Downloaded</b></span>@I(right)</a>
+  </div>
+  <h2 class="sh">Recently added</h2>
+  <div class="lb-g" id="g"></div>
+</main>
+<div class="lb-mini gl" id="mini"><img src="media/pics/c/1050.jpg" alt=""><span><b>Saltwater Clock</b><small>Ferns &amp; Rowan</small></span><button class="ib" id="pp" aria-label="Pause">@I(pause,22)</button><button class="ib" aria-label="Next">@I(next,22)</button><i id="pr"></i></div>
+@PILL(play:Listen|library:Library|compass:Browse;1;s)
+<style>
+.lb-t{opacity:0;transition:opacity .2s}.bar.sd .lb-t{opacity:1}
+.lb-l .row>.i:first-child{color:var(--ac)}.lb-l .row>.i:last-child{width:18px;height:18px;color:var(--ctl)}
+.lb-l .row b{font-size:20px!important;font-weight:400!important}
+.lb-g{display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;padding:0 var(--gut)}
+.lb-g a{text-decoration:none;color:inherit;display:block;transition:transform .15s}.lb-g a:active{transform:scale(.97)}
+.lb-g img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;display:block;background:var(--sf);box-shadow:0 0 0 .5px var(--line)}
+.lb-g b{display:block;margin-top:6px;font-size:15px;line-height:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-g small{display:block;font-size:15px;line-height:20px;color:var(--mu)}
+.lb-mini{position:absolute;left:20px;right:20px;bottom:calc(var(--sbt) + 62px);z-index:79;height:56px;border-radius:18px;display:flex;align-items:center;gap:10px;padding:0 4px 0 8px;overflow:hidden}
+@media (max-width:500px){.lb-mini{bottom:calc(max(16px,var(--sbt) - 4px) + 70px)}}
+.lb-mini img{width:40px;height:40px;border-radius:8px;object-fit:cover}
+.lb-mini span{flex:1;min-width:0}.lb-mini b{display:block;font-size:15px;line-height:19px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lb-mini small{display:block;font-size:13px;line-height:16px;color:var(--mu)}
+.lb-mini i{position:absolute;left:16px;right:16px;bottom:0;height:2px;border-radius:1px;background:color-mix(in srgb,var(--fg) 12%,transparent);overflow:hidden}
+.lb-mini i::after{content:"";position:absolute;inset:0;background:var(--fg);transform-origin:left;transform:scaleX(var(--p,.22))}
+.has-pill .sc{padding-bottom:calc(var(--sbt) + 168px)}
+</style>
+<script>
+const AL=[["1043","Valley Hours","Mire"],["1022","Northern Static","Aske"],["1060","Slow Pour","Jun Kato"],["1082","Hammers","Lise Brandt"],["1041","Undertow","Ferns & Rowan"],["1067","City Lights, Late","The Ninth"]];
+g.innerHTML=AL.map(([p,t,a])=>`<a href="#"><img src="media/pics/c/${p}.jpg" alt="" loading="lazy"><b>${t}</b><small>${a}</small></a>`).join("");
+document.querySelectorAll('a[href="#"]').forEach(a=>a.onclick=e=>e.preventDefault());
+const PA=pp.innerHTML,PL='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px"><path d="M7 4v16l13-8z" fill="currentColor"/></svg>';
+let on=true,p=.22;setInterval(()=>{if(on){p=(p+.004)%1;mini.style.setProperty("--p",p)}},200);
+pp.onclick=()=>{on=!on;pp.innerHTML=on?PA:PL;pp.setAttribute("aria-label",on?"Pause":"Play")};
+</script>

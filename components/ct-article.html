@@ -1,0 +1,67 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+
+.k.pg{display:block;place-items:normal;padding:0;background:var(--bg);font-size:16px;min-height:0}
+.pg .w{width:min(1180px,100% - 32px);margin-inline:auto;min-width:0}
+.pg{overflow-x:clip}
+.pg img{display:block;max-width:100%}
+.pg h1,.pg h2,.pg h3,.pg p{margin:0}
+.pg .ser{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.pg .h1{font-size:clamp(40px,7vw,84px);line-height:1;letter-spacing:-.035em;font-weight:650;text-wrap:balance}
+.pg .h2{font-size:clamp(30px,4.4vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:620;text-wrap:balance}
+.pg .h3{font-size:19px;line-height:1.3;font-weight:620;letter-spacing:-.01em}
+.pg .lead{font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--mu);text-wrap:pretty;max-width:60ch}
+.pg .eb{font:500 12px/1 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pg .sec{padding:clamp(64px,10vw,128px) 0}
+.pg .b.lg{height:48px;padding:0 22px;font-size:15px;border-radius:12px}
+.pg .ph{width:100%;height:100%;object-fit:cover}
+.pg .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.pg .top .w{display:flex;align-items:center;gap:24px;height:64px}
+.pg .logo{white-space:nowrap;font-weight:700;letter-spacing:-.02em;font-size:17px;display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}
+.pg .links{display:flex;gap:24px;margin-left:auto;font-size:14px}.pg .links a{color:var(--mu);text-decoration:none}.pg .links a:hover{color:var(--fg)}
+.pg .menu{display:none;margin-left:auto;width:44px;height:44px;place-items:center;border-radius:10px}
+.pg .foot{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--mu)}.pg .foot .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:760px){.pg .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px}.pg .links a{padding:12px 0;font-size:16px}.pg .top.open .links{display:flex}.pg .menu{display:grid}.pg .top .b{display:none}}
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.ar{--ac:light-dark(#9a3412,#fdba74)}.ar-pr{position:fixed;top:0;left:0;height:3px;background:var(--ac);width:0;z-index:30;transform-origin:left}
+.ar-w{width:min(68ch,100% - 32px);margin:0 auto;padding:64px 0 96px;font-size:18px;line-height:1.7}.ar-tag{font-size:13px;font-weight:600;color:var(--ac);text-decoration:none}.ar-w h1{margin:12px 0 16px;font-size:clamp(32px,5vw,48px);line-height:1.1;letter-spacing:-.03em;text-wrap:balance}.ar-dk{margin:0;color:var(--mu);font-size:20px;line-height:1.5;text-wrap:pretty}
+.ar-by{display:flex;gap:12px;align-items:center;margin:28px 0 40px;padding-bottom:28px;border-bottom:1px solid var(--line)}.ar-by img{width:44px;height:44px;border-radius:50%;object-fit:cover}.ar-by div{display:grid;font-size:14px;line-height:1.4}
+.ar-b p{margin:0 0 1.2em;text-wrap:pretty}.ar-b h2{font-size:24px;letter-spacing:-.02em;margin:2em 0 .6em;line-height:1.25}.ar-b figure{margin:2em 0;}.ar-b figure img{width:100%;border-radius:10px}.ar-b figcaption{font-size:14px;color:var(--mu);margin-top:8px}
+.ar-b blockquote{margin:2em 0;padding:0;font-size:26px;line-height:1.3;letter-spacing:-.02em;font-weight:550;text-wrap:balance}.ar-b blockquote p{margin:0}
+.ar-ft{border-top:1px solid var(--line);padding-top:24px;display:grid;gap:4px}.ar-ft span{font-size:13px}.ar-ft a{display:flex;gap:8px;align-items:center;font-size:20px;font-weight:600;color:var(--fg);text-decoration:none;letter-spacing:-.01em}.ar-ft a:hover{color:var(--ac)}
+</style>
+<div class="k pg ar"><div class="ar-pr" id="pr" aria-hidden="true"></div><article class="ar-w"><header><a href="#" class="ar-tag">Infrastructure</a><h1>What we learned moving 40 TB off the cloud</h1><p class="ar-dk">Nine months, two outages and one very large spreadsheet. Here is the cost curve and what we would do differently.</p><div class="ar-by"><img src="media/pics/c/1014.jpg" alt=""><div><b>Ines Aldana</b><span class="mu">10 November 2026 · <span id="rt"></span> min read</span></div></div></header>
+<div class="ar-b" id="b"><p>In January our storage bill passed our payroll for the first time. That was the week we started pricing out racks. This post is the honest version of what happened next, including the parts that made us look silly.</p><h2>The number that started it</h2><p>We stored 40 terabytes of customer uploads, most of which nobody had opened in a year. Object storage is cheap per gigabyte, but egress is not, and every backup, every thumbnail regeneration and every analytics job paid it again.</p><p>We modelled three options: tiering to cold storage, a second cheaper provider, and our own hardware in a colocation space two kilometres from the office. The third looked best on paper by a wide margin, which is exactly when you should distrust paper.</p>
+<figure><img src="media/pics/w/1033.jpg" alt="Escalators in an empty station hall"><figcaption>The colocation building's entrance. It used to be a ticket hall.</figcaption></figure>
+<h2>What went wrong</h2><p>Twice we lost writes for a few minutes during the cut-over. Both times the cause was the same: a replication check that passed in staging, where latency is near zero, and failed under real load.</p><blockquote><p>Every migration plan is a plan for the happy path. Write the unhappy one first.</p></blockquote><p>The fix was boring. We added a canary that wrote, read and deleted one object every ten seconds and paged us if any step took over 200 ms. It caught the next problem forty minutes before customers would have.</p><h2>Would we do it again?</h2><p>Yes, at this size. Our monthly storage cost fell by 71%. Below about 10 TB, we wouldn't bother: the people-hours eat the savings.</p></div>
+<footer class="ar-ft"><span class="mu">Next article</span><a href="#">A field guide to accessible colour <svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></footer></article></div>
+<script>
+const b=document.getElementById('b');document.getElementById('rt').textContent=Math.max(1,Math.round(b.textContent.split(/\s+/).length/230));
+const pr=document.getElementById('pr');const up=()=>{const r=b.getBoundingClientRect(),p=Math.min(1,Math.max(0,-r.top/(r.height-innerHeight+200)));pr.style.width=p*100+'%'};addEventListener('scroll',up,{passive:true});up();
+</script>

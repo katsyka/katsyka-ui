@@ -1,0 +1,55 @@
+<style>
+.env{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.env :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.env ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.env *,.env *::before,.env *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.env{min-height:100vh;display:grid;place-items:center;padding:120px 16px 48px}
+.env-box{position:relative;width:min(420px,100%);aspect-ratio:1.55;perspective:1200px}
+.env-back{position:absolute;inset:0;border-radius:10px;background:color-mix(in oklab,var(--ac) 22%,var(--sf2))}
+.env-letter{position:absolute;left:6%;right:6%;top:8%;height:86%;border-radius:8px;background:var(--bg);box-shadow:0 1px 3px rgb(0 0 0/.12);padding:22px 22px 18px;transition:transform .5s cubic-bezier(.2,.8,.2,1) .18s,height .4s cubic-bezier(.2,.8,.2,1);z-index:1}
+.env[data-open=true] .env-letter{transform:translateY(-62%);height:150%;z-index:3;transition:transform .5s cubic-bezier(.2,.8,.2,1) .28s,height .45s cubic-bezier(.2,.8,.2,1) .28s,z-index 0s .62s}
+.env-front{position:absolute;inset:0;border-radius:10px;z-index:2;pointer-events:none;background:color-mix(in oklab,var(--ac) 30%,var(--sf));clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);filter:drop-shadow(0 -1px 0 rgb(0 0 0/.06))}
+.env-flap{position:absolute;left:0;right:0;top:0;height:58%;transform-origin:top;transform-style:preserve-3d;z-index:4;transition:transform .42s cubic-bezier(.2,.8,.2,1),z-index 0s .2s}
+.env-flap::before{content:"";position:absolute;inset:0;clip-path:polygon(0 0,100% 0,50% 100%);background:color-mix(in oklab,var(--ac) 38%,var(--sf));border-radius:10px 10px 0 0}
+.env[data-open=true] .env-flap{transform:rotateX(180deg);z-index:0;transition:transform .42s cubic-bezier(.2,.8,.2,1),z-index 0s .21s}
+.env-seal{position:absolute;left:50%;top:58%;width:52px;height:52px;margin:-26px 0 0 -26px;border-radius:50%;border:0;background:radial-gradient(circle at 40% 35%,color-mix(in oklab,var(--ac),#fff 18%),var(--ac) 60%,color-mix(in oklab,var(--ac),#000 25%));color:var(--ac-fg);font:400 22px "Instrument Serif",serif;cursor:pointer;z-index:5;transition:opacity .2s ease-out,transform .2s ease-out;box-shadow:0 3px 8px rgb(0 0 0/.25)}
+.env-seal:active{transform:scale(.94)}
+.env[data-open=true] .env-seal{opacity:0;transform:scale(.6);pointer-events:none}
+.env-letter small{font:500 11px "Geist Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)}
+.env-letter h2{font:400 34px/1 "Instrument Serif",serif;margin:10px 0 8px}
+.env-letter p{margin:0 0 6px;color:var(--mu);font-size:14.5px}
+.env-when{display:flex;gap:16px;margin:14px 0 18px;font-size:14px;font-variant-numeric:tabular-nums}.env-when b{display:block;font-size:17px}
+.env-rsvp{display:flex;gap:8px;opacity:0;transform:translateY(6px);transition:opacity .2s ease-out,transform .2s ease-out}
+.env[data-open=true] .env-rsvp{opacity:1;transform:none;transition-delay:.7s}
+.env-rsvp button{flex:1;min-height:44px;border-radius:var(--r2);border:1px solid var(--ctl);background:none;color:var(--fg);font:500 14px Geist,system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.env-rsvp button[data-k=yes]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.env-rsvp button:active{transform:scale(.97)}.env-rsvp button:disabled{opacity:.6;cursor:default}
+.env-msg{min-height:22px;margin-top:10px;font-size:13.5px;color:var(--ok)}
+.env-spin{width:14px;height:14px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:envs .7s linear infinite}@keyframes envs{to{transform:rotate(1turn)}}
+.env-close{position:absolute;right:0;bottom:-56px;min-height:44px;padding:0 14px;border:0;background:none;color:var(--mu);font:500 14px Geist,system-ui,sans-serif;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s ease-out}
+.env[data-open=true] .env-close{opacity:1;pointer-events:auto;transition-delay:.7s}
+</style>
+<section class="env" data-open="false">
+  <div class="env-box">
+    <div class="env-back"></div>
+    <article class="env-letter" aria-hidden="true">
+      <small>You're invited</small><h2>Rooftop screening</h2><p>Blankets, popcorn and a film chosen by vote on the night.</p>
+      <div class="env-when"><span>Date<b>Fri 14 June</b></span><span>Doors<b>20:30</b></span><span>Where<b>Level 9</b></span></div>
+      <div class="env-rsvp"><button type="button" data-k="yes">I'm in</button><button type="button" data-k="maybe">Maybe</button></div>
+      <p class="env-msg" role="status"></p>
+    </article>
+    <div class="env-front"></div><div class="env-flap"></div>
+    <button class="env-seal" type="button" aria-label="Open the invitation" aria-expanded="false">R</button>
+    <button class="env-close" type="button">Put it back</button>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".env"),seal=R.querySelector(".env-seal"),letter=R.querySelector(".env-letter"),msg=R.querySelector(".env-msg"),close=R.querySelector(".env-close");
+function set(o){R.dataset.open=o;seal.setAttribute("aria-expanded",o);letter.setAttribute("aria-hidden",!o);letter.inert=!o;if(o)setTimeout(()=>R.querySelector("[data-k=yes]").focus({preventScroll:true}),720);else seal.focus()}
+letter.inert=true;seal.onclick=()=>set(true);close.onclick=()=>set(false);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&R.dataset.open==="true")set(false)});
+R.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const bs=R.querySelectorAll("[data-k]"),t=b.textContent;bs.forEach(x=>x.disabled=true);b.innerHTML='<span class="env-spin" aria-hidden="true"></span>Sending…';msg.textContent="";
+  setTimeout(()=>{bs.forEach(x=>x.disabled=false);b.textContent=t;msg.textContent=b.dataset.k==="yes"?"See you on the roof. We've added it to your calendar.":"Noted. We'll remind you on Thursday."},900)});
+})();
+</script>

@@ -1,0 +1,58 @@
+<style>
+.pp{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.pp :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.pp ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.pp *,.pp *::before,.pp *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.pp{position:relative;height:100vh;min-height:560px;overflow:hidden;background:var(--sf);color:var(--fg);font-family:Geist,system-ui,sans-serif;touch-action:none;user-select:none}
+.pp-h{position:absolute;left:clamp(16px,4vw,48px);top:clamp(20px,5vh,44px);right:clamp(16px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;gap:12px;z-index:100;pointer-events:none}
+.pp-h h2{margin:0 auto 0 0;font-size:clamp(24px,2.6vw,34px);letter-spacing:-.04em;font-weight:600}
+.pp-h em{font:italic 400 1.05em "Instrument Serif",serif}
+.pp-h button{pointer-events:auto;height:38px;padding:0 16px;border-radius:99px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.pp-h button:hover{background:var(--sf2)}
+.pp-p{position:absolute;left:0;top:0;width:clamp(130px,15vw,210px);padding:10px 10px 0;background:#fbfaf7;border-radius:3px;box-shadow:0 1px 2px #0000001f,0 10px 24px -12px #0006;cursor:grab;transition:box-shadow .2s}
+.pp-p:active{cursor:grabbing}
+.pp-p.up{box-shadow:0 2px 4px #00000024,0 30px 50px -20px #0008}
+.pp-p img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;pointer-events:none}
+.pp-p span{display:block;padding:10px 2px 12px;font:italic 400 19px/1 "Instrument Serif",serif;color:#2a2722}
+.pp-p:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.pp-n{position:absolute;left:0;right:0;bottom:clamp(16px,4vh,32px);text-align:center;font:500 12px "Geist Mono",monospace;letter-spacing:.12em;color:var(--mu);pointer-events:none}
+</style>
+<section class="pp" aria-label="Photo pile">
+  <div class="pp-h"><h2>Summer, <em>unsorted.</em></h2><button type="button" data-a="tidy">Lay them out</button><button type="button" data-a="pile">Pile them up</button></div>
+  <p class="pp-n">DRAG AND THROW · ARROW KEYS MOVE THE FOCUSED PRINT</p>
+</section>
+<script>
+(()=>{
+// Prints are absolutely positioned; dragging tracks velocity and releasing throws the print with friction, bouncing off the edges. Last touched print goes on top.
+const root=document.querySelector(".pp"),still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const P=[[1001,"low tide"],[1004,"night swim"],[1005,"first light"],[1009,"the long way"],[1013,"van life"],[1015,"fjord, day 3"],[1020,"the visitor"],[1029,"city of glass"]];
+let z=1,raf=0;
+const items=P.map(([id,cap],i)=>{const el=document.createElement("button");el.type="button";el.className="pp-p";el.setAttribute("aria-label",`Print: ${cap}`);
+  el.innerHTML=`<img src="media/pics/t/${id}.jpg" alt="" draggable="false"><span>${cap}</span>`;root.append(el);
+  const o={el,x:0,y:0,r:0,vx:0,vy:0,vr:0,tx:null,ty:null,tr:0,drag:false};return o});
+const bounds=o=>[root.clientWidth-o.el.offsetWidth,root.clientHeight-o.el.offsetHeight];
+const put=o=>{o.el.style.transform=`translate(${o.x}px,${o.y}px) rotate(${o.r}deg)`};
+const front=o=>{o.el.style.zIndex=++z};
+function pile(){items.forEach((o,i)=>{const[bw,bh]=bounds(o);o.tx=bw/2+(Math.random()-.5)*Math.min(260,bw*.5);o.ty=bh/2+30+(Math.random()-.5)*Math.min(180,bh*.4);o.tr=(Math.random()-.5)*24;o.vx=o.vy=0});go()}
+function tidy(){const n=items.length,w=root.clientWidth,h=root.clientHeight,cols=w<700?2:4,rows=Math.ceil(n/cols),pw=items[0].el.offsetWidth,ph=items[0].el.offsetHeight,
+  gx=Math.min(28,(w-cols*pw)/(cols+1));
+  items.forEach((o,i)=>{const c=i%cols,r=Math.floor(i/cols);o.tx=(w-cols*pw-(cols-1)*gx)/2+c*(pw+gx);o.ty=86+r*(rows>1?Math.min(ph+20,(h-110-ph)/(rows-1)):0);o.tr=(Math.random()-.5)*3;o.vx=o.vy=0});go()}
+function step(){raf=0;let moving=false;items.forEach(o=>{if(o.drag){put(o);moving=true;return}const[bw,bh]=bounds(o);
+  if(o.tx!==null){const k=still?1:.14;o.x+=(o.tx-o.x)*k;o.y+=(o.ty-o.y)*k;o.r+=(o.tr-o.r)*k;if(Math.abs(o.tx-o.x)+Math.abs(o.ty-o.y)<.5){o.x=o.tx;o.y=o.ty;o.tx=null}else moving=true}
+  else if(Math.abs(o.vx)+Math.abs(o.vy)>.1){o.x+=o.vx;o.y+=o.vy;o.r+=o.vr;o.vx*=.94;o.vy*=.94;o.vr*=.92;
+    if(o.x<0||o.x>bw){o.x=Math.max(0,Math.min(bw,o.x));o.vx*=-.6}if(o.y<0||o.y>bh){o.y=Math.max(0,Math.min(bh,o.y));o.vy*=-.6}moving=true}
+  put(o)});if(moving)raf=requestAnimationFrame(step)}
+const go=()=>{if(!raf)raf=requestAnimationFrame(step)};
+items.forEach(o=>{const el=o.el;let sx,sy,ox,oy,hist=[];
+  el.addEventListener("pointerdown",e=>{el.setPointerCapture(e.pointerId);front(o);o.drag=true;o.tx=null;el.classList.add("up");sx=e.clientX;sy=e.clientY;ox=o.x;oy=o.y;hist=[[e.clientX,e.clientY,e.timeStamp]];go()});
+  el.addEventListener("pointermove",e=>{if(!o.drag)return;o.x=ox+e.clientX-sx;o.y=oy+e.clientY-sy;hist.push([e.clientX,e.clientY,e.timeStamp]);if(hist.length>5)hist.shift()});
+  const up=()=>{if(!o.drag)return;o.drag=false;el.classList.remove("up");const a=hist[0],b=hist[hist.length-1],dt=Math.max(16,b[2]-a[2]);
+    o.vx=(b[0]-a[0])/dt*16;o.vy=(b[1]-a[1])/dt*16;o.vr=o.vx*.15;if(still)o.vx=o.vy=o.vr=0;go()};
+  el.addEventListener("pointerup",up);el.addEventListener("pointercancel",up);
+  el.addEventListener("focus",()=>front(o));
+  el.addEventListener("keydown",e=>{const d={ArrowLeft:[-24,0],ArrowRight:[24,0],ArrowUp:[0,-24],ArrowDown:[0,24]}[e.key];if(!d)return;e.preventDefault();
+    const[bw,bh]=bounds(o);o.tx=Math.max(0,Math.min(bw,o.x+d[0]));o.ty=Math.max(0,Math.min(bh,o.y+d[1]));o.tr=o.r;go()})});
+root.querySelector("[data-a=tidy]").addEventListener("click",tidy);root.querySelector("[data-a=pile]").addEventListener("click",pile);
+items.forEach(o=>{const[bw,bh]=bounds(o);o.x=bw/2;o.y=bh/2+30;o.r=0;put(o)});pile();
+})();
+</script>

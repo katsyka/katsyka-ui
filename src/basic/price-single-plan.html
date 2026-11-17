@@ -1,0 +1,16 @@
+<!--Single Plan Pricing|Pricing|One honest plan: a large price with everything included listed in two columns, a monthly/yearly segmented control, a team-size note and a money-back guarantee strip.|pricing,single plan,simple,guarantee-->
+<div class="k">
+<section class="card p1"><div class="p1-l"><span class="eb">One plan. Everything in it.</span><h2>Bramble Pro</h2><div class="p1-seg" role="radiogroup" aria-label="Billing"><button role="radio" aria-checked="true" data-p="8">Monthly</button><button role="radio" aria-checked="false" data-p="6.5">Yearly</button></div><div class="p1-pr"><b class="tn" id="pr">€8</b><span class="mu">per person / month<br><span id="bl">billed monthly</span></span></div><a class="b ac lg p1-go" href="#">Start 14-day trial</a><p class="mu p1-n">No card needed. Teams of 50+ get invoicing.</p></div>
+<div class="p1-r"><p class="lbl">Included</p><ul><li>@I(check,16)Unlimited notes &amp; boards</li><li>@I(check,16)Offline on every device</li><li>@I(check,16)End-to-end encryption</li><li>@I(check,16)Version history forever</li><li>@I(check,16)Guests for free</li><li>@I(check,16)API &amp; webhooks</li><li>@I(check,16)Export to Markdown/PDF</li><li>@I(check,16)Human support, &lt;4 h</li></ul><div class="p1-g">@I(shield,18)<span>30-day money-back guarantee, no questions asked.</span></div></div></section>
+</div>
+<style>
+.p1{width:min(860px,100%);display:grid;grid-template-columns:1fr 1.2fr;overflow:hidden}.p1-l{padding:32px;display:grid;gap:16px;align-content:start;border-right:1px solid var(--line)}.p1-l h2{margin:0;font-size:28px;letter-spacing:-.02em}
+.p1-seg{display:inline-flex;background:var(--sf2);border-radius:10px;padding:3px;justify-self:start}.p1-seg button{height:34px;padding:0 14px;border-radius:8px;font-weight:550;color:var(--mu)}.p1-seg [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:var(--shadow)}
+.p1-pr{display:flex;gap:12px;align-items:center}.p1-pr b{font-size:64px;letter-spacing:-.04em;line-height:1}.p1-pr>span{font-size:13px;line-height:1.4}.p1-go{width:100%}.p1-n{font-size:13px;margin:0}
+.p1-r{padding:32px;background:var(--sf);display:grid;gap:16px;align-content:start}.p1-r ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;font-size:14px}.p1-r li{display:flex;gap:8px}.p1-r li .i{color:var(--ok);margin-top:2px}
+.p1-g{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font-size:13px;margin-top:8px}.p1-g .i{color:var(--ok)}
+@media (max-width:760px){.p1{grid-template-columns:1fr}.p1-l{border-right:0;border-bottom:1px solid var(--line)}.p1-r ul{grid-template-columns:1fr}}
+</style>
+<script>
+document.querySelectorAll('.p1-seg button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.p1-seg button').forEach(x=>x.setAttribute('aria-checked',x===b));const p=+b.dataset.p;document.getElementById('pr').textContent='€'+(p%1?p.toFixed(2):p);document.getElementById('bl').textContent=p<8?'billed €78 yearly':'billed monthly'});
+</script>

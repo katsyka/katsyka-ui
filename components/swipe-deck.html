@@ -1,0 +1,48 @@
+<style>
+.sw{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:30px 16px;background:#efede8;color:#1d1b18;overflow:hidden;user-select:none}
+.sw h2{margin:0;font-size:22px;letter-spacing:-.03em;font-weight:600;text-align:center}.sw h2 small{display:block;font:500 12px "Geist Mono",monospace;color:#8f8a80;letter-spacing:.06em;margin-top:6px}
+.sw-deck{position:relative;width:min(330px,86vw);height:440px}
+.sw-c{position:absolute;inset:0;border-radius:24px;background:#fff;box-shadow:0 1px 0 #0000000d,0 20px 40px -20px #0004;overflow:hidden;touch-action:none;cursor:grab;transition:transform .45s cubic-bezier(.2,1.2,.3,1),opacity .3s;will-change:transform}
+.sw-c.drag{transition:none;cursor:grabbing}
+.sw-c img{display:block;width:100%;height:300px;object-fit:cover;pointer-events:none;background:#ddd}
+.sw-c div{padding:16px 18px}.sw-c b{display:block;font-size:19px;letter-spacing:-.03em;font-weight:600}.sw-c span{font-size:13.5px;color:#8f8a80}
+.sw-c em{position:absolute;top:22px;padding:6px 12px;border:3px solid;border-radius:10px;font:800 22px Geist,sans-serif;font-style:normal;letter-spacing:.06em;opacity:0;background:#fff}
+.sw-c em.y{left:20px;color:#16a34a;transform:rotate(-12deg)}.sw-c em.n{right:20px;color:#dc2626;transform:rotate(12deg)}
+.sw-btns{display:flex;gap:14px;align-items:center}
+.sw-btns button{width:58px;height:58px;border-radius:50%;border:0;background:#fff;box-shadow:0 1px 0 #0000000d,0 10px 24px -12px #0005;cursor:pointer;font-size:22px;display:grid;place-items:center;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.sw-btns button:hover{transform:scale(1.1)}.sw-btns button:active{transform:scale(.92)}
+.sw-btns .u{width:44px;height:44px;font-size:17px;color:#8f8a80}.sw-btns .n{color:#dc2626}.sw-btns .y{color:#16a34a}
+.sw-btns button:disabled{opacity:.35;transform:none;cursor:default}
+.sw-done{position:absolute;inset:0;display:grid;place-items:center;text-align:center;opacity:0;pointer-events:none;transition:opacity .4s}
+.sw-done.on{opacity:1;pointer-events:auto}.sw-done b{font-size:20px;letter-spacing:-.03em}.sw-done p{color:#8f8a80;font-size:14px;margin:6px 0 14px}
+.sw-done button{height:40px;padding:0 18px;border-radius:99px;border:0;background:#1d1b18;color:#fff;font:600 13.5px Geist,sans-serif;cursor:pointer}
+</style>
+<section class="sw">
+  <h2>Where to next?<small>DRAG · OR USE ← → KEYS</small></h2>
+  <div class="sw-deck"><div class="sw-done"><div><b>That's every trip.</b><p></p><button>Start over</button></div></div></div>
+  <div class="sw-btns"><button class="u" aria-label="Undo">↺</button><button class="n" aria-label="Skip">✕</button><button class="y" aria-label="Save">♥</button></div>
+</section>
+<script>
+(()=>{
+const T=[["Lofoten, Norway","5 nights · cabins on the water","1036"],["Kyoto, Japan","4 nights · temple stays","1047"],["Dolomites, Italy","6 nights · hut to hut","1018"],["Azores, Portugal","5 nights · volcanic lakes","1015"],["Patagonia, Chile","8 nights · W trek","1044"]];
+const deck=document.querySelector(".sw-deck"),done=deck.querySelector(".sw-done"),undo=document.querySelector(".sw-btns .u");let stack=[],gone=[],liked=[];
+function build(){deck.querySelectorAll(".sw-c").forEach(c=>c.remove());stack=T.map(([t,s,id],i)=>{const c=document.createElement("article");c.className="sw-c";c.dataset.t=t;
+  c.innerHTML=`<img src="https://picsum.photos/id/${id}/660/600" alt="" draggable="false"><div><b>${t}</b><span>${s}</span></div><em class="y">SAVE</em><em class="n">SKIP</em>`;deck.prepend(c);return c}).reverse();
+  stack.reverse();gone=[];liked=[];done.classList.remove("on");layout()}
+function layout(){stack.forEach((c,i)=>{c.style.zIndex=10-i;c.style.transform=i<3?`translateY(${i*14}px) scale(${1-i*.05})`:"translateY(28px) scale(.9)";c.style.opacity=i<3?1:0;c.style.pointerEvents=i?"none":"auto"});
+  undo.disabled=!gone.length;if(!stack.length){done.querySelector("p").textContent=liked.length?"Saved: "+liked.join(", "):"Nothing saved this time.";done.classList.add("on")}}
+function fling(dir){const c=stack.shift();if(!c)return;gone.push([c,dir]);if(dir>0)liked.push(c.dataset.t.split(",")[0]);
+  c.style.transition="transform .5s cubic-bezier(.3,.7,.4,1),opacity .5s";c.style.transform=`translate(${dir*innerWidth}px,-40px) rotate(${dir*30}deg)`;c.style.opacity=0;c.querySelector(dir>0?".y":".n").style.opacity=1;layout()}
+function back(){const g=gone.pop();if(!g)return;const[c,dir]=g;if(dir>0)liked.pop();c.style.transition="";c.querySelectorAll("em").forEach(e=>e.style.opacity=0);stack.unshift(c);done.classList.remove("on");layout()}
+let d=null;
+deck.addEventListener("pointerdown",e=>{const c=e.target.closest(".sw-c");if(!c||c!==stack[0])return;d={c,x:e.clientX,y:e.clientY};c.classList.add("drag");c.setPointerCapture(e.pointerId)});
+deck.addEventListener("pointermove",e=>{if(!d)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;d.dx=dx;d.c.style.transform=`translate(${dx}px,${dy*.4}px) rotate(${dx/14}deg)`;
+  d.c.querySelector(".y").style.opacity=Math.max(0,Math.min(1,dx/110));d.c.querySelector(".n").style.opacity=Math.max(0,Math.min(1,-dx/110));
+  stack[1]&&(stack[1].style.transform=`translateY(${14-Math.min(1,Math.abs(dx)/150)*14}px) scale(${.95+Math.min(1,Math.abs(dx)/150)*.05})`)});
+deck.addEventListener("pointerup",()=>{if(!d)return;const{c,dx=0}=d;d=null;c.classList.remove("drag");if(Math.abs(dx)>110)fling(Math.sign(dx));else{c.querySelectorAll("em").forEach(e=>e.style.opacity=0);layout()}});
+document.querySelector(".sw-btns .n").onclick=()=>fling(-1);document.querySelector(".sw-btns .y").onclick=()=>fling(1);undo.onclick=back;
+done.querySelector("button").onclick=build;
+addEventListener("keydown",e=>{if(e.key==="ArrowLeft")fling(-1);if(e.key==="ArrowRight")fling(1);if(e.key==="Backspace")back()});
+build();
+})();
+</script>

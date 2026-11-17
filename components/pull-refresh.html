@@ -1,0 +1,55 @@
+<style>
+.prf{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.prf :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.prf ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.prf *,.prf *::before,.prf *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.prf{min-height:100vh;display:grid;place-items:center;padding:48px 16px}
+.prf-phone{position:relative;width:min(360px,100%);height:620px;border-radius:40px;background:var(--sf);box-shadow:inset 0 0 0 1px var(--line),var(--shadow);overflow:hidden}
+.prf-bar{position:absolute;left:0;right:0;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:40px 20px 12px;background:linear-gradient(var(--sf) 75%,transparent)}
+.prf-bar h2{font:700 28px/1 Geist,system-ui,sans-serif;letter-spacing:-.03em;margin:0}
+.prf-bar button{min-height:44px;padding:0 12px;border-radius:var(--r2);border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.prf-bar button:active{transform:scale(.97)}
+.prf-ind{position:absolute;left:50%;top:96px;width:32px;height:32px;margin-left:-16px;z-index:1;opacity:0}
+.prf-ind circle{transform-origin:16px 16px}
+.prf-ind.spin svg{animation:prfs .8s linear infinite}@keyframes prfs{to{transform:rotate(1turn)}}
+.prf-feed{position:absolute;inset:0;padding:96px 14px 20px;overflow:auto;touch-action:pan-x;overscroll-behavior:contain;scrollbar-width:none}
+.prf-feed ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.prf-it{display:flex;gap:12px;padding:12px;border-radius:var(--r2);background:var(--bg);box-shadow:0 0 0 1px var(--line)}
+.prf-it.new{animation:prfin .35s cubic-bezier(.2,.8,.2,1) both}
+@keyframes prfin{from{opacity:0;transform:translateY(-8px) scale(.98)}}
+.prf-it.new::after{content:"";position:absolute}
+.prf-av{width:40px;height:40px;border-radius:50%;flex:none;background:var(--g);display:grid;place-items:center;color:#fff;font-weight:600;font-size:14px}
+.prf-it b{font-size:14.5px;font-weight:600}.prf-it time{color:var(--mu);font-size:12.5px;margin-left:6px;font-variant-numeric:tabular-nums}.prf-it p{margin:2px 0 0;font-size:14px;color:var(--mu)}
+.prf-dot{width:8px;height:8px;border-radius:50%;background:var(--ac);flex:none;margin-top:6px}
+</style>
+<section class="prf">
+  <div class="prf-phone">
+    <div class="prf-bar"><h2>Inbox</h2><button type="button" data-r>Refresh</button></div>
+    <div class="prf-ind" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="none" stroke="var(--line)" stroke-width="3"/><circle cx="16" cy="16" r="11" fill="none" stroke="var(--ac)" stroke-width="3" stroke-linecap="round" stroke-dasharray="69.1" stroke-dashoffset="69.1" transform="rotate(-90 16 16)" data-arc/></svg></div>
+    <div class="prf-feed"><ul></ul></div>
+    <p class="prf-live" role="status" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></p>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".prf"),feed=R.querySelector(".prf-feed"),ul=feed.querySelector("ul"),ind=R.querySelector(".prf-ind"),arc=R.querySelector("[data-arc]"),live=R.querySelector(".prf-live");
+const TH=80;let pull=0,drag=null,busy=false,anim=0;
+const G=["#f97316,#c2410c","#0ea5e9,#0369a1","#22c55e,#15803d","#a855f7,#7e22ce","#ec4899,#be185d","#eab308,#a16207"];
+const OLD=[["Nina","Lunch on Thursday?","10:12"],["Build bot","Deploy #482 finished","09:58"],["Oskar","Sent the slides over","09:31"],["Pia","Photos from the weekend","08:47"],["Studio","Your invoice is ready","Yesterday"],["Teo","Re: kitchen tiles","Yesterday"]];
+const NEW=[["Mira","Running 5 min late, sorry"],["Calendar","Standup moved to 10:30"],["Jonas","Can you review the PR?"],["Ada","Tickets booked for Friday"],["Bank","Card payment of €12.40"]];
+let ni=0;
+function item(d,i,fresh){const li=document.createElement("li");li.className="prf-it"+(fresh?" new":"");li.style.position="relative";
+  li.innerHTML=`<span class="prf-av" style="--g:linear-gradient(135deg,${G[i%G.length]})">${d[0][0]}</span><div style="flex:1;min-width:0"><b>${d[0]}</b><time>${d[2]}</time><p>${d[1]}</p></div>${fresh?'<span class="prf-dot" aria-label="Unread"></span>':""}`;return li}
+OLD.forEach((d,i)=>ul.appendChild(item(d,i)));
+function set(p){pull=p;feed.style.transform=`translateY(${p}px)`;const k=Math.min(1,p/TH);ind.style.opacity=busy?1:Math.min(1,p/30);ind.style.transform=`translateY(${Math.min(p,TH)*.45}px) rotate(${k*270}deg)`;arc.style.strokeDashoffset=69.1*(1-(busy?.75:k*.85))}
+function to(p,ms=260){cancelAnimationFrame(anim);const f=pull,t0=performance.now();(function s(t){const k=Math.min(1,(t-t0)/ms),e=1-Math.pow(1-k,3);set(f+(p-f)*e);if(k<1)anim=requestAnimationFrame(s)})(t0)}
+function refresh(){if(busy)return;busy=true;ind.classList.add("spin");to(56);live.textContent="Refreshing";
+  setTimeout(()=>{const n=1+(ni%2);for(let j=0;j<n;j++){const d=NEW[ni%NEW.length];const li=item([d[0],d[1],"now"],ni+3,true);li.style.animationDelay=j*30+"ms";ul.prepend(li);ni++}
+    busy=false;ind.classList.remove("spin");to(0);live.textContent=n+" new message"+(n>1?"s":"")},1100)}
+feed.addEventListener("pointerdown",e=>{if(busy||feed.scrollTop>0)return;drag={y:e.clientY,id:e.pointerId}});
+feed.addEventListener("pointermove",e=>{if(!drag)return;const dy=e.clientY-drag.y;if(dy<=0){set(0);return}if(!feed.hasPointerCapture(e.pointerId))feed.setPointerCapture(e.pointerId);cancelAnimationFrame(anim);set(Math.pow(dy,.82)*1.1)});
+const end=()=>{if(!drag)return;drag=null;if(pull>=TH)refresh();else to(0)};
+feed.addEventListener("pointerup",end);feed.addEventListener("pointercancel",end);
+R.querySelector("[data-r]").onclick=refresh;
+})();
+</script>

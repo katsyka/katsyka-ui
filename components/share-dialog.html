@@ -1,0 +1,58 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.sd{width:min(480px,calc(100% - 32px));padding:20px;color:var(--fg)}
+.sd::backdrop{background:#0006;backdrop-filter:blur(2px)}
+.sd[open]{animation:sdi .2s var(--ease)}@keyframes sdi{from{opacity:0;transform:translateY(8px) scale(.98)}}
+.sd header{display:flex;justify-content:space-between;align-items:center}.sd h2{margin:0;font-size:17px;font-weight:650}
+.sd-inv{display:flex;gap:8px;margin-top:16px}.sd-inv input{flex:1;min-width:0}.sd-s{width:auto;appearance:auto}
+.sd h3{margin:20px 0 8px;font-size:13px;font-weight:600;color:var(--mu)}
+.sd-l{list-style:none;margin:0;padding:0;max-height:200px;overflow:auto}.sd-l li{display:flex;align-items:center;gap:10px;padding:6px 0}.sd-l .av{width:32px;height:32px;font-size:12px}
+.sd-l .tx{flex:1;min-width:0}.sd-l b{display:block;font-weight:550}.sd-l small{color:var(--mu);font-size:12px}
+.sd-l select,.sd-ga{border:0;background:none;font-size:13px;font-weight:550;color:var(--fg);padding:4px;border-radius:6px;cursor:pointer}.sd-l select:hover,.sd-ga:hover{background:var(--sf)}
+.sd-g{display:flex;align-items:center;gap:10px}.sd-gi{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--sf2)}.sd-gi.on{background:var(--ok-sf);color:var(--ok)}
+.sd-g .tx{display:flex;flex-direction:column;align-items:flex-start}.sd-ga{margin-left:-4px;font-size:14px}.sd-g small{font-size:12px}
+.sd footer{display:flex;justify-content:space-between;margin-top:20px}
+</style>
+<div class="k"><button class="b" id="op"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Share</button>
+<dialog class="card sd" id="dl" aria-labelledby="sdh"><header><h2 id="sdh">Share “Valley prints”</h2><button class="ibt" id="x" aria-label="Close"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M18 6 6 18M6 6l12 12"/></svg></button></header>
+  <form class="sd-inv" id="f"><input class="in" id="em" type="email" placeholder="Add people by email" aria-label="Email"><select class="in sd-s" aria-label="Permission"><option>Can edit</option><option selected>Can view</option></select><button class="b ac">Invite</button></form>
+  <h3>People with access</h3><ul class="sd-l" id="l"></ul>
+  <h3>General access</h3><div class="sd-g"><span class="sd-gi" id="gi"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><span class="tx"><select class="sd-ga" id="ga" aria-label="General access"><option value="r">Restricted</option><option value="a">Anyone with the link</option></select><small class="mu" id="gd">Only people added can open</small></span></div>
+  <footer><button class="b sec" id="cp"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg><span>Copy link</span></button><button class="b" id="dn">Done</button></footer></dialog></div>
+<script>
+const P=[["Mara Lind (you)","mara@fieldprints.no","Owner","#b45309"],["Ines Duarte","ines@duarte.no","Can edit","#15803d"],["Theo Wright","theo@wright.io","Can view","#0369a1"]];
+const li=([n,e,r,c])=>`<li><span class="av" style="--c:${c}">${n[0]}</span><span class="tx"><b>${n}</b><small>${e}</small></span>${r==="Owner"?'<span class="mu" style="font-size:13px">Owner</span>':`<select aria-label="Access for ${n}"><option${r==="Can edit"?" selected":""}>Can edit</option><option${r==="Can view"?" selected":""}>Can view</option><option>Remove access</option></select>`}</li>`;
+const draw=()=>{l.innerHTML=P.map(li).join("");l.querySelectorAll("select").forEach((s,i)=>s.onchange=()=>{if(s.value==="Remove access"){P.splice(i+1,1);draw()}else P[i+1][2]=s.value})};draw();
+op.onclick=()=>{dl.showModal();em.focus()};const close=()=>{dl.close()};x.onclick=dn.onclick=close;dl.addEventListener("close",()=>op.focus());
+dl.addEventListener("click",e=>{if(e.target===dl)close()});
+f.onsubmit=e=>{e.preventDefault();const v=em.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){em.setAttribute("aria-invalid","true");return}em.removeAttribute("aria-invalid");P.push([v.split("@")[0],v,f.querySelector("select").value,"#7c3aed"]);em.value="";draw()};
+const LK='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',GL='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>';
+ga.onchange=()=>{const a=ga.value==="a";gi.innerHTML=a?GL:LK;gi.classList.toggle("on",a);gd.textContent=a?"Anyone on the internet with the link can view":"Only people added can open"};
+cp.onclick=()=>{const t="https://fieldprints.no/s/valley-8h2k",s=cp.querySelector("span"),ok=()=>{s.textContent="Link copied";setTimeout(()=>s.textContent="Copy link",1400)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(ok).catch(()=>{const a=document.createElement("textarea");a.value=t;dl.append(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();ok()})};
+</script>

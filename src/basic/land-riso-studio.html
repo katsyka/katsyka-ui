@@ -1,0 +1,30 @@
+<!--Riso Studio Landing|Landings|A design-studio page in risograph style: overlapping fluorescent pink, blue and yellow shapes printed with multiply blending and a slight misregistration that shifts with the pointer, a project index with colour-coded disciplines and a filter.|landing,studio,portfolio,risograph,colourful-->
+<div class="k pg rs">
+<header class="top"><div class="w"><a class="logo" href="#">Twoink Studio</a><nav class="links"><a href="#wk">Work</a><a href="#ct">Contact</a></nav><a class="b ac" href="#ct">Start a project</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w rs-hero" id="hero"><div class="rs-art" aria-hidden="true"><i class="rs-1"></i><i class="rs-2"></i><i class="rs-3"></i></div>
+<h1 class="rs-t">We print loud things for quiet brands.</h1><p class="lead">Identity, packaging and print for independent shops, presses and festivals. Two people, one Riso machine, too many inks.</p></section>
+<section class="w rs-wk" id="wk"><div class="rs-hd"><h2 class="h2">Work</h2><div class="rs-fl" role="group" aria-label="Filter by discipline" id="fl"></div></div><ul class="rs-list" id="list"></ul></section>
+<section class="rs-ct" id="ct"><div class="w"><h2 class="rs-big">hello@twoink.example</h2><p>Replies within two working days. We take four projects a season.</p></div></section>
+<footer class="foot"><div class="w"><span>Twoink is demo content.</span><span>Printed in fluorescent pink, medium blue and yellow.</span></div></footer>
+</div>
+<style>
+.rs{--pk:#ff48b0;--bl:#0078bf;--ye:#ffe800;background:light-dark(#f6f1e7,#17150f)!important}
+.rs .b.ac{background:var(--bl);color:#fff}
+.rs-hero{padding:56px 0 72px;position:relative;display:grid;gap:20px}.rs-art{position:relative;width:min(720px,100%);aspect-ratio:2/1;isolation:isolate}
+.rs-art i{position:absolute;mix-blend-mode:multiply;transition:transform .25s var(--ease)}.rs-1{width:44%;aspect-ratio:1;border-radius:50%;background:var(--pk);left:6%;top:0}.rs-2{width:36%;height:80%;background:var(--bl);left:34%;top:14%;border-radius:0 160px 0 0}.rs-3{width:32%;aspect-ratio:1;background:var(--ye);left:58%;top:4%;clip-path:polygon(50% 0,100% 100%,0 100%)}
+@media (prefers-color-scheme:dark){.rs:not([data-x]) .rs-art i{mix-blend-mode:screen}}
+.rs-t{font-size:clamp(40px,6.4vw,88px);line-height:.98;letter-spacing:-.04em;font-weight:780;max-width:16ch;text-wrap:balance}
+.rs-wk{padding:40px 0 80px}.rs-hd{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:20px}.rs-fl{display:flex;gap:6px;flex-wrap:wrap}.rs-fl button{height:40px;padding:0 14px;border-radius:99px;border:1.5px solid var(--line);background:none;color:var(--fg);font:500 14px Geist,sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px}.rs-fl button i{width:10px;height:10px;border-radius:50%}.rs-fl button[aria-pressed=true]{border-color:var(--fg);background:var(--fg);color:var(--bg)}
+.rs-list{list-style:none;margin:0;padding:0}.rs-list li{display:grid;grid-template-columns:40px 1fr auto auto;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line);animation:fen .3s var(--ease) both}.rs-list .n{font:13px 'Geist Mono',monospace;color:var(--mu)}.rs-list b{font-size:clamp(18px,2.4vw,26px);font-weight:650;letter-spacing:-.02em}.rs-list .tg{font-size:13px;padding:4px 10px;border-radius:99px;color:#111}.rs-list .y{color:var(--mu);font-variant-numeric:tabular-nums;font-size:14px}
+@keyframes fen{from{opacity:0;transform:translateY(8px)}}
+.rs-ct{background:var(--pk);color:#1a0010;padding:80px 0}.rs-big{font-size:clamp(28px,6vw,80px);font-weight:800;letter-spacing:-.04em;line-height:1;word-break:break-all}.rs-ct p{margin-top:16px!important;font-size:17px}
+@media (max-width:600px){.rs-list li{grid-template-columns:28px 1fr}.rs-list .tg,.rs-list .y{grid-column:2;justify-self:start}}
+</style>
+<script>
+const C={Identity:'#ff48b0',Packaging:'#ffe800',Print:'#7cc4ec'},W=[['Kiosk Coffee','Identity',2026],['Ferment & Co. jars','Packaging',2026],['Small Press Fair poster','Print',2025],['Lido swimming club','Identity',2025],['Halva bar wrappers','Packaging',2025],['Night Market zine','Print',2024],['Bicycle Library','Identity',2024]];
+const fl=document.getElementById('fl'),list=document.getElementById('list');let cur='All';
+function draw(){list.innerHTML=W.filter(w=>cur==='All'||w[1]===cur).map((w,i)=>`<li style="animation-delay:${i*35}ms"><span class="n">${String(W.indexOf(w)+1).padStart(2,'0')}</span><b>${w[0]}</b><span class="tg" style="background:${C[w[1]]}">${w[1]}</span><span class="y">${w[2]}</span></li>`).join('');fl.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===cur))}
+['All',...Object.keys(C)].forEach(f=>{const b=document.createElement('button');b.dataset.f=f;b.innerHTML=(C[f]?`<i style="background:${C[f]}"></i>`:'')+f;b.onclick=()=>{cur=f;draw()};fl.append(b)});draw();
+const hero=document.getElementById('hero'),sh=[...hero.querySelectorAll('.rs-art i')];
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches)hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;sh.forEach((s,i)=>s.style.transform=`translate(${x*(i+1)*10}px,${y*(i+1)*8}px)`)});
+</script>

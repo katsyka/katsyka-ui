@@ -1,0 +1,53 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.k.dz{align-items:start}.dz-w{width:min(680px,100%);display:grid;gap:0}.dz-w h1{margin:0;font-size:24px;letter-spacing:-.02em}.dz-w>p{margin:4px 0 16px}
+.dz-r{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;border-top:1px solid var(--line)}.dz-r div{display:grid;gap:2px}.dz-r span.mu{font-size:13px;max-width:52ch}.dz-r.del b{color:var(--err)}
+.k .dz-db{background:var(--err-sf);color:var(--err);border:1px solid color-mix(in srgb,var(--err) 30%,transparent)}.k .k .dz-db:hover{background:var(--err);color:#fff}
+.dz-cf{display:grid;grid-template-columns:1fr auto;gap:10px;padding:16px;border-radius:12px;background:var(--err-sf);margin-top:4px;animation:dzf .2s cubic-bezier(.23,1,.32,1)}.dz-cf label{grid-column:1/-1;font-size:14px}.dz-cf .in{height:44px;font-family:'Geist Mono',monospace;font-size:15px}.dz-cf .gh{grid-column:1/-1;justify-self:start}@keyframes dzf{from{opacity:0;transform:translateY(-4px)}}
+.k .dz-hold{height:44px;padding:0 18px;background:var(--err);color:#fff;position:relative;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:none}.k .k .dz-hold:disabled{background:var(--sf2);color:var(--mu)}.dz-hold>span{position:relative}.dz-pr{position:absolute!important;inset:0;background:#0003;transform:scaleX(0);transform-origin:left}
+.dz-m{margin:12px 0 0;font-size:14px;display:flex;gap:8px;align-items:center}.dz-m:empty{display:none}.dz-m button{text-decoration:underline;font-weight:600;min-height:32px}
+@media (max-width:560px){.dz-r{flex-direction:column;align-items:flex-start}.dz-cf{grid-template-columns:1fr}}
+</style>
+<div class="k dz"><div class="dz-w"><h1>Danger zone</h1><p class="mu">These affect everyone in <b>Northwind Design</b>.</p>
+<section class="dz-r"><div><b>Transfer ownership</b><span class="mu">Make another admin the owner. You become an admin.</span></div><button class="b sec sm">Transfer</button></section>
+<section class="dz-r"><div><b>Archive workspace</b><span class="mu">Read-only for everyone. You can restore it any time in the next 12 months.</span></div><button class="b sec sm" id="ar">Archive</button></section>
+<section class="dz-r del"><div><b>Delete workspace</b><span class="mu">Permanently deletes 48 projects, 1,204 files and all history. This can't be undone.</span></div><button class="b sm dz-db" id="dl">Delete…</button></section>
+<div class="dz-cf" id="cf" hidden><label for="nm">Type <b>northwind-design</b> to confirm</label><input class="in" id="nm" autocomplete="off" spellcheck="false"><button class="b dz-hold" id="hd" disabled><span class="dz-pr" id="pr"></span><span id="ht">Hold to delete</span></button><button class="b gh sm" id="cx">Cancel</button></div><p class="dz-m" id="m" role="status"></p></div></div>
+<script>
+const $=i=>document.getElementById(i),m=$('m');
+$('ar').onclick=e=>{const b=e.currentTarget;b.textContent='Archived';b.disabled=true;m.innerHTML='Workspace archived. <button id="un">Undo</button>';$('un').onclick=()=>{b.textContent='Archive';b.disabled=false;m.textContent='Restored.'}};
+$('dl').onclick=()=>{$('cf').hidden=false;$('nm').focus()};$('cx').onclick=()=>{$('cf').hidden=true;$('nm').value='';$('hd').disabled=true};
+$('nm').oninput=e=>$('hd').disabled=e.target.value.trim()!=='northwind-design';
+const hd=$('hd'),pr=$('pr');let raf,t0;const DUR=3000;
+hd.onpointerdown=()=>{if(hd.disabled)return;t0=performance.now();const f=t=>{const p=Math.min(1,(t-t0)/DUR);pr.style.transform=`scaleX(${p})`;$('ht').textContent=p<1?`Keep holding… ${Math.ceil((1-p)*3)}`:'Deleting…';if(p>=1){done();return}raf=requestAnimationFrame(f)};raf=requestAnimationFrame(f)};
+const stop=()=>{cancelAnimationFrame(raf);if($('ht').textContent!=='Deleting…'){pr.style.transform='scaleX(0)';$('ht').textContent='Hold to delete'}};hd.onpointerup=hd.onpointerleave=stop;
+hd.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&!e.repeat){e.preventDefault();hd.onpointerdown()}};hd.onkeyup=e=>{if(e.key==='Enter'||e.key===' ')stop()};
+function done(){hd.disabled=true;setTimeout(()=>{$('cf').hidden=true;m.textContent='Workspace scheduled for deletion. Everyone has been emailed. (Demo: nothing was deleted.)'},700)}
+</script>

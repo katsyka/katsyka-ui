@@ -1,0 +1,62 @@
+<style>
+.th{min-height:100vh;display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;padding:72px clamp(20px,5vw,80px);background:#0a0a0b;color:#ededef}
+.th-eye{display:inline-flex;align-items:center;gap:8px;font:500 12px "Geist Mono",monospace;color:#8b8b93}
+.th-eye i{width:6px;height:6px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 3px #3ddc8422}
+.th h1{font-size:clamp(40px,5.2vw,74px);line-height:.98;letter-spacing:-.05em;font-weight:600;margin:20px 0}
+.th h1 span{color:#6b6b74}
+.th p{color:#8b8b93;font-size:17px;line-height:1.6;max-width:440px;margin:0 0 30px}
+.th-cmd{display:inline-flex;align-items:center;gap:14px;height:52px;padding:0 6px 0 18px;border-radius:14px;background:#141416;border:1px solid #ffffff14;font:14px "Geist Mono",monospace}
+.th-cmd span{color:#6b6b74}
+.th-cmd button{display:flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-radius:10px;border:0;background:#ededef;color:#0a0a0b;font:600 13px Geist,sans-serif;cursor:pointer;transition:background .25s,transform .15s}
+.th-cmd button:active{transform:scale(.95)}
+.th-cmd button.ok{background:#3ddc84}
+.th-links{display:flex;gap:22px;margin-top:22px;font-size:14px}.th-links a{color:#8b8b93;text-decoration:none}.th-links a:hover{color:#fff}
+.th-term{border-radius:16px;background:#0f0f11;border:1px solid #ffffff14;box-shadow:0 40px 90px -40px #000;overflow:hidden}
+.th-bar{display:flex;align-items:center;gap:8px;height:42px;padding:0 14px;border-bottom:1px solid #ffffff0d}
+.th-bar i{width:11px;height:11px;border-radius:50%;background:#2a2a2e}
+.th-tabs{display:flex;gap:2px;margin-left:14px}
+.th-tabs button{height:28px;padding:0 12px;border-radius:7px;border:0;background:none;color:#6b6b74;font:12.5px "Geist Mono",monospace;cursor:pointer}
+.th-tabs button.on{background:#1b1b1e;color:#ededef}
+.th-body{height:380px;padding:18px 20px;font:13.5px/1.75 "Geist Mono",monospace;color:#c8c8ce;overflow:hidden;white-space:pre}
+.th-body .p{color:#ff8a5c}.th-body .d{color:#6b6b74}.th-body .g{color:#3ddc84}.th-body .u{color:#7fb4ff;text-decoration:underline}.th-body .w{color:#ffd166}
+.th-cur{display:inline-block;width:8px;height:16px;background:#ededef;vertical-align:-3px;animation:th-b 1s steps(1) infinite}
+@keyframes th-b{50%{opacity:0}}
+@media (max-width:900px){.th{grid-template-columns:1fr}.th-body{height:320px;font-size:12px}}
+</style>
+<section class="th">
+  <div>
+    <div class="th-eye"><i></i>v4.2 · 18k deploys today</div>
+    <h1>Ship from the terminal. <span>Stay in flow.</span></h1>
+    <p>One binary, zero config. It detects your framework, builds in the cloud and hands you a URL before your coffee cools.</p>
+    <div class="th-cmd"><span>$</span>npm i -g katsyka-ui<button><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><b>Copy</b></button></div>
+    <div class="th-links"><a href="#">Read the docs →</a><a href="#">View on GitHub</a></div>
+  </div>
+  <div class="th-term">
+    <div class="th-bar"><i></i><i></i><i></i><div class="th-tabs"><button class="on" data-s="deploy">deploy</button><button data-s="logs">logs</button></div></div>
+    <div class="th-body"></div>
+  </div>
+</section>
+<script>
+(()=>{
+const body=document.querySelector(".th-body"),SP="⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏";
+// script steps: [type, text, ms]; "cmd" is typed char by char, "spin" shows a spinner that resolves to "done"
+const S={deploy:[["cmd","acme deploy --prod"],["line",'<span class="d">  Detected</span> Next.js 15 · pnpm',250],["spin","Installing dependencies","<span class='g'>✓</span> Installed 412 packages <span class='d'>(3.1s)</span>",1300],
+  ["bar","Building"],["spin","Optimizing images","<span class='g'>✓</span> 86 images optimized <span class='d'>(−4.2 MB)</span>",900],["spin","Uploading to 48 regions","<span class='g'>✓</span> Edge network ready",1100],
+  ["line","",120],["line",'<span class="g">  ✓ Live</span>  <span class="u">https://acme-7f3k.example.app</span>',200],["line",'<span class="d">    Deployed in 11.4s · preview of commit 4e1a9c2</span>',200]],
+ logs:[["cmd","acme logs --follow"],...["GET  /           200  12ms","GET  /pricing    200  18ms","POST /api/signup 201  64ms","GET  /blog/v4    200  9ms","<span class='w'>WARN slow query 840ms on /api/search</span>","GET  /docs       200  14ms","GET  /api/me     304  4ms"].map((t,i)=>["line",`<span class="d">12:04:${String(10+i*3).padStart(2,"0")}</span>  ${t}`,450])]};
+let run=0;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function play(name){const id=++run,lines=[];const draw=tail=>{body.innerHTML=lines.join("\n")+(tail??"")};
+  for(const [k,a,b,c] of S[name]){if(id!==run)return;
+    if(k==="cmd"){for(let i=0;i<=a.length;i++){if(id!==run)return;draw((lines.length?"\n":"")+`<span class="p">❯</span> ${a.slice(0,i)}<span class="th-cur"></span>`);await sleep(45+Math.random()*50)}lines.push(`<span class="p">❯</span> ${a}`);await sleep(350)}
+    else if(k==="line"){lines.push(a);draw();await sleep(b)}
+    else if(k==="spin"){const t0=performance.now();while(performance.now()-t0<c){if(id!==run)return;draw(`\n<span class="w">  ${SP[(performance.now()/80|0)%10]}</span> ${a}…`);await sleep(80)}lines.push("  "+b);draw()}
+    else if(k==="bar"){for(let p=0;p<=30;p++){if(id!==run)return;draw(`\n  ${a}  <span class="g">${"█".repeat(p)}</span><span class="d">${"░".repeat(30-p)}</span> ${Math.round(p/30*100)}%`);await sleep(40)}lines.push(`  <span class='g'>✓</span> Compiled 214 routes <span class="d">(4.8s)</span>`);draw()}}
+  draw("\n"+`<span class="p">❯</span> <span class="th-cur"></span>`);await sleep(4200);if(id===run)play(name)}
+document.querySelectorAll(".th-tabs button").forEach(b=>b.onclick=()=>{document.querySelector(".th-tabs .on").classList.remove("on");b.classList.add("on");play(b.dataset.s)});
+const cb=document.querySelector(".th-cmd button");
+cb.onclick=async()=>{const t="npm i -g katsyka-ui";try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement("textarea");a.value=t;document.body.append(a);a.select();document.execCommand("copy");a.remove()}
+  cb.classList.add("ok");cb.querySelector("b").textContent="Copied";setTimeout(()=>{cb.classList.remove("ok");cb.querySelector("b").textContent="Copy"},1600)};
+play("deploy");
+})();
+</script>

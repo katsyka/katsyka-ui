@@ -1,0 +1,45 @@
+<style>
+.lth{--lit:0;position:relative;min-height:100vh;overflow:hidden;background:#1d2e33 url(media/lighthouse.jpg) center/cover;color:#c9d6d8;font-family:Geist,system-ui,sans-serif}
+.lth video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lth-shade{position:absolute;inset:0;background:linear-gradient(270deg,#0e1a1ee6 0%,#0e1a1e99 38%,#0e1a1e00 70%)}
+.lth-copy{position:absolute;right:clamp(16px,6vw,96px);top:50%;translate:0 -50%;width:min(440px,calc(100% - 32px))}
+.lth-copy small{font:12px/1 "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:#7f9599}
+.lth-copy h1{margin:14px 0 14px;font:400 clamp(48px,6.5vw,88px)/.92 "Instrument Serif",serif;letter-spacing:-.01em;color:color-mix(in oklab,#a9bcc0,#fff0d4 calc(var(--lit)*100%))}
+.lth-copy h1 em{color:color-mix(in oklab,#8aa1a6,#ffc27a calc(var(--lit)*100%))}
+.lth-copy p{margin:0 0 24px;font-size:15px;line-height:1.55;color:#93a9ad}
+.lth-f{display:flex;gap:6px;padding:5px;border-radius:999px;background:#0e1a1e99;border:1px solid color-mix(in oklab,#ffffff1f,#ffc27a99 calc(var(--lit)*100%))}
+.lth-f input{flex:1;min-width:0;height:40px;padding:0 14px;border:0;background:none;color:#e8eff0;font:15px Geist,system-ui,sans-serif;outline:none}
+.lth-f input::placeholder{color:#7f9599}
+.lth-f button{height:40px;padding:0 18px;border:0;border-radius:999px;background:color-mix(in oklab,#d7e2e3,#ffd9a3 calc(var(--lit)*100%));color:#0e1a1e;font:600 14px Geist,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.lth-f:focus-within{outline:2px solid #93c5fd;outline-offset:2px}
+.lth-f button:focus-visible{outline:2px solid #0e1a1e;outline-offset:-4px}
+.lth-ok{min-height:20px;margin-top:12px;font-size:13px;color:#93a9ad}
+.lth-foot{position:absolute;left:clamp(16px,5vw,64px);bottom:24px;font:11px/1 "Geist Mono",monospace;letter-spacing:.08em;color:#7f9599;text-transform:uppercase}
+@media (max-width:720px){.lth-shade{background:linear-gradient(0deg,#0e1a1ef2 0%,#0e1a1eb3 55%,#0e1a1e33)}.lth-copy{top:auto;bottom:56px;translate:none}}
+@media (prefers-reduced-motion:reduce){.lth video{display:none}}
+</style>
+<section class="lth">
+  <video src="media/lighthouse.mp4" poster="media/lighthouse.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+  <div class="lth-shade"></div>
+  <div class="lth-copy">
+    <small>The Night Watch · Issue 41</small>
+    <h1>One light,<br><em>once a week.</em></h1>
+    <p>A single careful letter every Sunday night: what changed, what's worth your attention, nothing else. Watch the type — it catches the beam.</p>
+    <form class="lth-f"><input type="email" required placeholder="you@harbour.co" aria-label="Email address"><button>Keep watch</button></form>
+    <div class="lth-ok" aria-live="polite"></div>
+  </div>
+  <div class="lth-foot">Beam synced to footage · 12 samples/s</div>
+</section>
+<script>
+(()=>{
+// Brightness of the lamp region, sampled offline at 12/s (chars '0'..'X' = 0..40), so it works from any origin.
+const CURVE="000000000000011111111222333446689;=@ERWXUM>;8765443322222111111111111111111111222334567:AMOPNJA:876554433322221111111111";
+const R=document.querySelector(".lth"),v=R.querySelector("video"),f=R.querySelector(".lth-f"),ok=R.querySelector(".lth-ok");
+const red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const at=t=>{const p=t*12,i=Math.floor(p)%CURVE.length,j=(i+1)%CURVE.length,k=p-Math.floor(p);return((CURVE.charCodeAt(i)-48)*(1-k)+(CURVE.charCodeAt(j)-48)*k)/40};
+let lit=0,vis=true;
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;vis&&!red?v.play().catch(()=>{}):v.pause()}).observe(R);
+f.addEventListener("submit",e=>{e.preventDefault();ok.textContent="You're on the watch list. First letter this Sunday."});
+(function loop(){requestAnimationFrame(loop);if(!vis||red)return;const tg=v.readyState>=2?Math.pow(at(v.currentTime),1.4):0;lit+=(tg-lit)*.2;R.style.setProperty("--lit",lit.toFixed(3))})();
+})();
+</script>

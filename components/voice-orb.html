@@ -1,0 +1,71 @@
+<style>
+.vo{position:relative;min-height:100vh;display:grid;place-items:center;background:#000;color:#f5eee8;overflow:hidden;user-select:none}
+.vo canvas{position:absolute;left:50%;top:38%;width:min(600px,110vw,70vh);aspect-ratio:1;transform:translate(-50%,-50%)}
+.vo-ui{position:relative;display:flex;flex-direction:column;align-items:center;gap:0;margin-top:auto;padding-bottom:9vh;width:100%}
+.vo-state{font:500 12px "Geist Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#8c88a8;height:16px;margin-bottom:14px;transition:color .3s}
+.vo-text{min-height:58px;max-width:520px;text-align:center;font-size:20px;line-height:1.45;letter-spacing:-.015em;padding:0 24px;color:#ecebf5}
+.vo-text span{opacity:0;animation:vo-w .4s forwards}
+@keyframes vo-w{from{opacity:0;filter:blur(4px)}to{opacity:1;filter:none}}
+.vo-mic{position:relative;margin-top:26px;width:68px;height:68px;border-radius:50%;border:1px solid #ffffff22;background:#ffffff0d;backdrop-filter:blur(10px);color:#fff;cursor:pointer;display:grid;place-items:center;transition:transform .35s cubic-bezier(.3,1.5,.5,1),background .3s;touch-action:none}
+.vo-mic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.vo-mic:hover{background:#ffffff17}
+.vo.live .vo-mic{transform:scale(1.12);background:#fff;color:#05050a}
+.vo.live .vo-state{color:#ffb36b}
+.vo-hint{margin-top:14px;font-size:13px;color:#5f5c74}
+.vo.nogl canvas{display:none}
+</style>
+<section class="vo">
+  <canvas></canvas>
+  <div class="vo-ui">
+    <div class="vo-state">Idle</div>
+    <div class="vo-text">Hold the button and talk.<br><span style="opacity:.45;animation:none">The ring listens with you.</span></div>
+    <button class="vo-mic" aria-label="Hold to talk"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+    <div class="vo-hint">press & hold · or hold space</div>
+  </div>
+</section>
+<script>
+(()=>{
+const FS=`precision highp float;uniform vec2 r;uniform float t,a,th;
+float h(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}
+vec3 ring(vec2 p,float ph,vec3 tint){float an=atan(p.y,p.x),L=length(p);
+ float w=.012+a*(.05*n(vec2(cos(an),sin(an))*1.7+vec2(ph,t*1.8))+.025*sin(an*3.+t*2.3+ph))+th*.02*sin(an*6.-t*6.);
+ float R=.30+w+.008*sin(an*2.+t*.7+ph);float d=abs(L-R);
+ return tint*(.0016/(d+.0012)+.012/(d+.03));}
+void main(){vec2 p=(gl_FragCoord.xy-.5*r)/r.y;float an=atan(p.y,p.x);
+ vec3 A=vec3(1.,.5,.2),B=vec3(1.,.82,.55),C=vec3(1.,.28,.32);
+ vec3 k=mix(A,B,.5+.5*sin(an+t*.6));k=mix(k,C,smoothstep(.6,1.,.5+.5*sin(an*2.-t*.9))*.7);
+ vec3 col=ring(p,0.,k)+ring(p,2.1,k.zxy*.8)*.55+ring(p,4.2,k.yzx)*.45;
+ col*=.55;col=1.-exp(-col*1.6);
+ col*=smoothstep(.62,.32,length(p));
+ gl_FragColor=vec4(col,1);}`;
+const root=document.querySelector(".vo"),c=root.querySelector("canvas"),gl=c.getContext("webgl",{premultipliedAlpha:false});
+if(!gl){root.classList.add("nogl");return}
+const sh=(k,s)=>{const o=gl.createShader(k);gl.shaderSource(o,s);gl.compileShader(o);return o};
+const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,"attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}"));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));
+gl.bindAttribLocation(pr,0,"p");gl.linkProgram(pr);
+// fall back to a CSS gradient if the GPU refuses the shader instead of leaving a blank canvas
+if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){console.error(gl.getProgramInfoLog(pr));root.classList.add("nogl");return}
+gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+const U=k=>gl.getUniformLocation(pr,k);
+const fit=()=>{const s=Math.min(devicePixelRatio,2);c.width=c.clientWidth*s;c.height=c.clientHeight*s;gl.viewport(0,0,c.width,c.height)};
+new ResizeObserver(fit).observe(c);fit();
+let amp=0,ampT=0,think=0,thinkT=0,live=false,timer;
+const state=root.querySelector(".vo-state"),text=root.querySelector(".vo-text");
+const words=s=>{text.innerHTML="";s.split(" ").forEach((w,i)=>{const e=document.createElement("span");e.textContent=w+" ";e.style.animationDelay=i*70+"ms";text.append(e)})};
+const Q="Find me a quiet table for two tonight, somewhere near the river.",A="Done. Lume has a window table at 8:30, ten minutes from you. Want me to book it?";
+const start=()=>{if(live)return;live=true;clearTimeout(timer);root.classList.add("live");state.textContent="Listening";ampT=1;thinkT=0;
+  let i=0;text.textContent="";const qw=Q.split(" ");(function step(){if(!live||i>=qw.length)return;const e=document.createElement("span");e.textContent=qw[i++]+" ";text.append(e);timer=setTimeout(step,170+Math.random()*120)})()};
+const stop=()=>{if(!live)return;live=false;root.classList.remove("live");ampT=.15;thinkT=1;state.textContent="Thinking";clearTimeout(timer);
+  timer=setTimeout(()=>{thinkT=0;ampT=.45;state.textContent="Speaking";words(A);timer=setTimeout(()=>{ampT=0;state.textContent="Idle"},4200)},1300)};
+const mic=root.querySelector(".vo-mic");
+mic.addEventListener("pointerdown",e=>{mic.setPointerCapture(e.pointerId);start()});mic.addEventListener("pointerup",stop);mic.addEventListener("pointercancel",stop);
+addEventListener("keydown",e=>{if(e.code==="Space"&&!e.repeat){e.preventDefault();start()}});addEventListener("keyup",e=>{if(e.code==="Space")stop()});
+const t0=performance.now();
+(function f(now){requestAnimationFrame(f);
+  const jitter=live?.25*Math.sin(now/90)*Math.sin(now/37):0;amp+=(ampT+jitter-amp)*.08;think+=(thinkT-think)*.06;
+  gl.uniform2f(U("r"),c.width,c.height);gl.uniform1f(U("t"),(now-t0)/1000);gl.uniform1f(U("a"),Math.max(0,amp));gl.uniform1f(U("th"),think);gl.drawArrays(gl.TRIANGLES,0,3)})(t0);
+})();
+</script>

@@ -1,0 +1,37 @@
+<style>
+.np-page{min-height:220vh;background:linear-gradient(#0b0b0e,#141019);padding-top:160px}
+.np{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:10;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 16px;border-radius:99px;background:#18181ccc;border:1px solid #ffffff14;backdrop-filter:blur(16px) saturate(1.5);box-shadow:0 10px 40px -12px #000a;transition:padding .45s cubic-bezier(.2,.9,.3,1),top .45s cubic-bezier(.2,.9,.3,1),gap .45s}
+.np.sm{top:10px;padding:4px 4px 4px 12px}
+.np-logo{display:flex;align-items:center;gap:8px;font-weight:650;letter-spacing:-.03em;margin-right:10px;font-size:15px;white-space:nowrap}
+.np-logo i{width:18px;height:18px;border-radius:50%;background:conic-gradient(#ff5a1f,#ffd36b,#ff5a1f)}
+.np-links{position:relative;display:flex}
+.np-links a{position:relative;z-index:1;padding:8px 14px;font-size:14px;color:#a1a1aa;text-decoration:none;transition:color .25s;white-space:nowrap}
+.np-links a:hover,.np-links a.on{color:#fff}
+.np-hl{position:absolute;top:0;height:100%;border-radius:99px;background:#ffffff12;opacity:0;transition:left .4s cubic-bezier(.3,1.25,.5,1),width .4s cubic-bezier(.3,1.25,.5,1),opacity .2s}
+.np-links a.on::after{content:"";position:absolute;left:50%;bottom:2px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#ff5a1f}
+.np-cta{height:36px;padding:0 16px;border-radius:99px;background:#fafafa;color:#09090b;font-weight:600;font-size:13.5px;display:inline-flex;align-items:center;text-decoration:none;margin-left:6px;white-space:nowrap;transition:transform .2s}
+.np-cta:hover{transform:scale(1.04)}
+.np-hint{text-align:center;color:#55555e;font:13px "Geist Mono",monospace}
+.np-hint h2{font:600 clamp(36px,6vw,64px)/1 Geist,sans-serif;letter-spacing:-.05em;color:#e9e9ee;margin:0 0 14px}
+@media (max-width:640px){.np-links a:nth-child(n+4){display:none}}
+</style>
+<div class="np-page">
+  <nav class="np">
+    <span class="np-logo"><i></i>Halcyon</span>
+    <div class="np-links"><span class="np-hl"></span><a href="#" class="on">Product</a><a href="#">Customers</a><a href="#">Pricing</a><a href="#">Changelog</a><a href="#">Docs</a></div>
+    <a class="np-cta" href="#">Sign up</a>
+  </nav>
+  <div class="np-hint"><h2>Hover the links.</h2>then scroll · the bar compacts</div>
+</div>
+<script>
+(()=>{
+const nav=document.querySelector(".np"),wrap=nav.querySelector(".np-links"),hl=wrap.querySelector(".np-hl");
+const go=a=>{hl.style.left=a.offsetLeft+"px";hl.style.width=a.offsetWidth+"px";hl.style.opacity=1};
+wrap.querySelectorAll("a").forEach(a=>{
+  a.addEventListener("mouseenter",()=>go(a));
+  a.addEventListener("click",e=>{e.preventDefault();wrap.querySelector(".on").classList.remove("on");a.classList.add("on")});
+});
+wrap.addEventListener("mouseleave",()=>hl.style.opacity=0);
+addEventListener("scroll",()=>nav.classList.toggle("sm",scrollY>40),{passive:true});
+})();
+</script>

@@ -1,0 +1,60 @@
+<style>
+.sw{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sw :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sw ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sw *,.sw *::before,.sw *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sw{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.sw-pn{width:min(560px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.sw-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 24px;border-bottom:1px solid var(--line)}
+.sw-hd h2{margin:0;font-size:17px;font-weight:600;letter-spacing:-.015em}
+.sw-hd p{margin:2px 0 0;font-size:13.5px;color:var(--mu)}
+.sw-sec{padding:6px 24px 8px}
+.sw-sec+.sw-sec{border-top:1px solid var(--line)}
+.sw-sec h3{margin:14px 0 2px;font:500 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.sw-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0}
+.sw-row+.sw-row{border-top:1px dashed var(--line)}
+.sw-row b{display:block;font-size:14.5px;font-weight:550}
+.sw-row small{display:block;font-size:13px;color:var(--mu);margin-top:1px}
+.sw-s{--w:40px;--h:24px;flex:none;position:relative;width:var(--w);height:var(--h);padding:0;border:0;border-radius:99px;background:color-mix(in oklab,var(--ctl) 55%,var(--sf2));cursor:pointer;transition:background-color .2s}
+.sw-s::before{content:"";position:absolute;top:3px;left:3px;width:calc(var(--h) - 6px);height:calc(var(--h) - 6px);border-radius:99px;background:#fff;box-shadow:0 1px 3px #0000004d;transition:transform .25s var(--ease),width .15s}
+.sw-s:active::before{width:calc(var(--h) - 1px)}
+.sw-s[aria-checked=true]{background:var(--ac)}
+.sw-s[aria-checked=true]::before{transform:translateX(calc(var(--w) - var(--h)))}
+.sw-s[aria-checked=true]:active::before{transform:translateX(calc(var(--w) - var(--h) - 5px))}
+.sw-s:disabled{opacity:.4;cursor:not-allowed}
+.sw-s.sm{--w:32px;--h:18px}
+.sw-s.lg{--w:52px;--h:30px}
+.sw-s.ic::after{content:"";position:absolute;top:50%;left:calc(var(--w) - var(--h) / 2 - 3px);width:6px;height:6px;margin:-3px;border-radius:50%;border:1.5px solid #fff;opacity:.9}
+.sw-s.ic[aria-checked=true]::after{left:calc(var(--h) / 2 + 3px);width:1.5px;height:9px;margin:-4.5px 0 0 -.75px;border:0;border-radius:1px;background:#fff}
+.sw-sizes{display:flex;gap:14px;align-items:center}
+.sw-ft{padding:12px 24px;font-size:12.5px;color:var(--mu);background:var(--sf);border-top:1px solid var(--line);min-height:44px;display:flex;align-items:center}
+</style>
+<div class="sw">
+  <div class="sw-pn">
+    <div class="sw-hd"><div><h2>Notifications</h2><p>Pick how and when we reach you.</p></div>
+      <button class="sw-s lg ic" role="switch" aria-checked="true" aria-label="All notifications" id="swAll"></button></div>
+    <div class="sw-sec" id="swGrp">
+      <h3>Email</h3>
+      <div class="sw-row"><div id="sw1"><b>Mentions</b><small>When someone @mentions you.</small></div><button class="sw-s" role="switch" aria-checked="true" aria-labelledby="sw1"></button></div>
+      <div class="sw-row"><div id="sw2"><b>Weekly digest</b><small>Monday summary of activity.</small></div><button class="sw-s" role="switch" aria-checked="false" aria-labelledby="sw2"></button></div>
+      <div class="sw-row"><div id="sw3"><b>Product updates</b><small>New features, at most monthly.</small></div><button class="sw-s" role="switch" aria-checked="true" aria-labelledby="sw3"></button></div>
+      <h3>Push</h3>
+      <div class="sw-row"><div id="sw4"><b>Direct messages</b><small>Instantly on all devices.</small></div><button class="sw-s" role="switch" aria-checked="true" aria-labelledby="sw4"></button></div>
+      <div class="sw-row"><div id="sw5"><b>Security alerts</b><small>Required for account safety.</small></div><button class="sw-s" role="switch" aria-checked="true" aria-labelledby="sw5" disabled data-lock></button></div>
+    </div>
+    <div class="sw-sec"><h3>Sizes</h3>
+      <div class="sw-row"><div><b>Small, default, large</b></div><div class="sw-sizes"><button class="sw-s sm" role="switch" aria-checked="true" aria-label="Small"></button><button class="sw-s" role="switch" aria-checked="false" aria-label="Default"></button><button class="sw-s lg ic" role="switch" aria-checked="true" aria-label="Large"></button></div></div>
+    </div>
+    <div class="sw-ft" aria-live="polite" id="swMsg">Changes save automatically.</div>
+  </div>
+</div>
+<script>
+const msg=document.getElementById("swMsg"),all=document.getElementById("swAll"),grp=[...document.querySelectorAll("#swGrp .sw-s:not([data-lock])")];
+let t;
+document.querySelectorAll(".sw-s").forEach(s=>s.addEventListener("click",()=>{
+  const on=s.getAttribute("aria-checked")!=="true";s.setAttribute("aria-checked",on);
+  if(s===all)grp.forEach(g=>{g.setAttribute("aria-checked",on);g.disabled=!on});
+  const name=s.getAttribute("aria-label")||document.getElementById(s.getAttribute("aria-labelledby"))?.querySelector("b").textContent;
+  msg.textContent=`${name} ${on?"on":"off"} · saved`;clearTimeout(t);t=setTimeout(()=>msg.textContent="Changes save automatically.",2200);
+}));
+</script>

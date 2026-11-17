@@ -1,0 +1,36 @@
+<style>
+.ts{background:#09090b;padding:80px clamp(16px,4vw,48px);overflow:hidden}
+.ts h2{text-align:center;font-size:clamp(34px,4.6vw,56px);letter-spacing:-.05em;font-weight:600;line-height:1;margin:0 0 12px}
+.ts>p{text-align:center;color:#85858f;margin:0 0 48px}
+.ts-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1100px;margin:0 auto;height:620px;-webkit-mask:linear-gradient(transparent,#000 14%,#000 86%,transparent);mask:linear-gradient(transparent,#000 14%,#000 86%,transparent)}
+.ts-col{overflow:hidden}
+.ts-track{display:flex;flex-direction:column;gap:16px;animation:ts-up var(--d,30s) linear infinite}
+.ts-col:hover .ts-track{animation-play-state:paused}
+@keyframes ts-up{to{transform:translateY(calc(-50% - 8px))}}
+.ts-q{padding:22px;border-radius:18px;background:#111114;border:1px solid #ffffff10}
+.ts-q p{margin:0 0 18px;font-size:15px;line-height:1.55;color:#d6d6dc}
+.ts-q div{display:flex;align-items:center;gap:10px}
+.ts-q i{width:34px;height:34px;border-radius:50%;background:var(--c);flex:none;display:grid;place-items:center;font:600 13px Geist,sans-serif;font-style:normal;color:#0a0a0a}
+.ts-q b{display:block;font-size:14px;font-weight:550}.ts-q span{font-size:12.5px;color:#6f6f79}
+@media (max-width:860px){.ts-cols{grid-template-columns:1fr 1fr}.ts-col:nth-child(3){display:none}}
+@media (max-width:560px){.ts-cols{grid-template-columns:1fr}.ts-col:nth-child(2){display:none}}
+</style>
+<section class="ts">
+  <h2>Teams don't go back.</h2><p>Words from people who switched this year.</p>
+  <div class="ts-cols"><div class="ts-col" style="--d:34s"></div><div class="ts-col" style="--d:26s"></div><div class="ts-col" style="--d:40s"></div></div>
+</section>
+<script>
+(()=>{
+const Q=[["We cut our release cycle from two weeks to two days. Nobody misses the old process.","Lena Brandt","VP Eng, Fieldwork","#ff8a5c"],
+["The first tool our designers and engineers both open without being asked.","Kenji Mori","Design lead, Atlas","#9d86ff"],
+["Setup took an afternoon. The dashboards answered questions we'd argued about for months.","Priya Nair","Founder, Loop","#3ddc84"],
+["Support replied in four minutes on a Sunday. With a fix.","Tomás Ruiz","CTO, Harbor","#ffd43b"],
+["It quietly replaced three subscriptions and a spreadsheet nobody trusted.","Amara Osei","Ops, Northwind","#5ab8ff"],
+["Our onboarding went from a 40-page doc to a single link.","Sofia Lind","Head of People, Kiteline","#ff7ab6"],
+["Fast, opinionated, and the opinions are good ones.","Daniel Cho","Staff engineer, Prism","#ff8a5c"],
+["I stopped writing status updates. The tool writes them for me.","Hana Ivers","PM, Bright","#9d86ff"],
+["We evaluated six options. This was the only one the whole team agreed on.","Marcus Webb","Eng manager, Relay","#3ddc84"]];
+const card=([t,n,r,c])=>`<figure class="ts-q" style="margin:0"><p>“${t}”</p><div><i style="--c:${c}">${n.split(" ").map(w=>w[0]).join("")}</i><figcaption><b>${n}</b><span>${r}</span></figcaption></div></figure>`;
+document.querySelectorAll(".ts-col").forEach((col,i)=>{const items=Q.filter((_,k)=>k%3===i).map(card).join("");col.innerHTML=`<div class="ts-track">${items}${items}${items}${items}</div>`});
+})();
+</script>

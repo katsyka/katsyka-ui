@@ -1,0 +1,41 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.fn3{width:min(64ch,100%);font-size:18px;line-height:1.75;position:relative}.fn3 p{margin:0 0 1.2em}.fn3 sup{line-height:0}.fn3 .fr{font:600 12px Geist,sans-serif;color:var(--ac);text-decoration:none;padding:2px 3px;border-radius:4px}.fn3 .fr:hover,.fn3 .fr:focus-visible{background:var(--ac-sf)}
+.fn3 hr{border:0;border-top:1px solid var(--line);margin:32px 0 16px;width:120px}.fn3-l{font-size:14px;line-height:1.6;color:var(--mu);padding-left:20px;margin:0;display:grid;gap:6px}.fn3-l li{border-radius:6px;transition:background .6s}.fn3-l li.fl{background:var(--warn-sf);color:var(--fg)}.fn3-l a{color:var(--ac);text-decoration:none;font-size:12px}
+.fn3-pop{position:absolute;z-index:5;max-width:320px;background:var(--fg);color:var(--bg);font-size:13px;line-height:1.5;padding:10px 12px;border-radius:10px;box-shadow:0 8px 24px -10px #0006;animation:fnp .15s cubic-bezier(.23,1,.32,1);pointer-events:none;transform-origin:bottom center}@keyframes fnp{from{opacity:0;transform:scale(.96)}}
+</style>
+<div class="k"><article class="fn3"><p>Tokyo's decorated manhole covers began as a public-relations fix in the 1980s, when sewer construction was unpopular with residents.<sup><a href="#n1" id="r1" class="fr" aria-describedby="n1">1</a></sup> Today more than 6,000 designs exist across Japan, and collectors trade cards that show each one.<sup><a href="#n2" id="r2" class="fr" aria-describedby="n2">2</a></sup></p><p>The idea spread to other cities, though rarely with the same budget.<sup><a href="#n1" id="r3" class="fr" aria-describedby="n1">1</a></sup> In Europe the closest equivalent is Bremen's cast-iron covers, made since 1906.<sup><a href="#n3" id="r4" class="fr" aria-describedby="n3">3</a></sup></p>
+<hr><ol class="fn3-l"><li id="n1">Ministry of Construction, <i>Sewerage in Japan</i>, 1988, p. 41. <a href="#r1" aria-label="Back to citation 1a">↩a</a> <a href="#r3" aria-label="Back to citation 1b">↩b</a></li><li id="n2">Japan Society of Ground Utilities, manhole card programme, launched April 2016. <a href="#r2" aria-label="Back to citation 2">↩</a></li><li id="n3">Stadtentwässerung Bremen, archive catalogue, 2004. <a href="#r4" aria-label="Back to citation 3">↩</a></li></ol><div class="fn3-pop" id="pp" role="tooltip" hidden></div></article></div>
+<script>
+const art=document.querySelector('.fn3'),pp=document.getElementById('pp');
+function show(a){const n=document.querySelector(a.getAttribute('href'));pp.textContent=n.firstChild.textContent+(n.querySelector('i')?n.querySelector('i').textContent+n.childNodes[2].textContent.split('↩')[0]:'');pp.textContent=n.textContent.replace(/↩.*/s,'').trim();pp.hidden=false;const r=a.getBoundingClientRect(),ar=art.getBoundingClientRect();pp.style.left=Math.max(0,Math.min(ar.width-320,r.left-ar.left-150))+'px';pp.style.top=(r.top-ar.top-pp.offsetHeight-8)+'px'}
+art.addEventListener('pointerover',e=>{const a=e.target.closest('.fr');if(a)show(a)});art.addEventListener('pointerout',e=>{if(e.target.closest('.fr'))pp.hidden=true});art.addEventListener('focusin',e=>{const a=e.target.closest('.fr');if(a)show(a)});art.addEventListener('focusout',()=>pp.hidden=true);
+art.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;e.preventDefault();pp.hidden=true;const t=document.querySelector(a.getAttribute('href'));t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'});if(t.tagName==='LI'){t.classList.add('fl');setTimeout(()=>t.classList.remove('fl'),1400);t.querySelector('a').focus({preventScroll:true})}else t.focus({preventScroll:true})});
+</script>

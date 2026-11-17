@@ -1,0 +1,69 @@
+<style>
+.fa-page{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;background:#faf8f5}
+.fa{background:#faf8f5;color:#292524;padding:88px clamp(16px,4vw,24px) 44px;border-top:1px solid #e7e2da}
+.fa-in{max-width:1200px;margin:0 auto}
+.fa-top{display:grid;grid-template-columns:1.5fr 2fr;gap:80px;padding-bottom:64px;border-bottom:1px solid #e7e2da}
+.fa h3{font:400 40px/1.1 "Instrument Serif",Georgia,serif;letter-spacing:-.01em;color:#1c1917;margin:0 0 14px;text-wrap:balance}
+.fa h3 em{font-style:italic}
+.fa-sub{font-size:14px;color:#78716c;line-height:1.6;margin:0 0 28px;max-width:360px;text-wrap:pretty}
+.fa-form{display:flex;align-items:center;border-bottom:1px solid #1c1917;max-width:380px;transition:border-color .2s}
+.fa-form.err{border-color:#b4442c}
+.fa-form input{flex:1;min-width:0;height:44px;border:0;background:none;font:16px Geist,sans-serif;color:#1c1917;outline:0}
+.fa-form input::placeholder{color:#a8a29e}
+.fa-form button{min-width:118px;height:44px;background:none;border:0;color:#1c1917;font:500 12px Geist,sans-serif;text-transform:uppercase;letter-spacing:.14em;cursor:pointer;display:inline-flex;align-items:center;justify-content:flex-end;gap:6px}
+.fa-form button svg{transition:transform .2s ease-out}.fa-form button:hover svg{transform:translateX(3px)}
+.fa-form button:disabled{cursor:default;opacity:.5}
+.fa-msg{min-height:20px;margin:10px 0 0;font-size:13px;color:#78716c}.fa-msg.err{color:#b4442c}
+.fa-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.fa h4{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#78716c;margin:0 0 20px;font-weight:600}
+.fa ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+.fa ul a{font-size:14px;color:#292524;text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .25s ease-out}
+.fa ul a:hover{background-size:100% 1px}
+.fa a:focus-visible,.fa button:focus-visible{outline:1px solid #1c1917;outline-offset:4px}
+.fa-form input:focus-visible{outline:0}
+.fa-bot{display:flex;align-items:center;justify-content:space-between;padding-top:32px;font-size:12px;letter-spacing:.04em;color:#78716c;flex-wrap:wrap;gap:16px}
+.fa-mark{font:400 22px "Instrument Serif",Georgia,serif;letter-spacing:.14em;color:#1c1917;text-transform:uppercase}
+@media(max-width:900px){.fa-top{grid-template-columns:1fr;gap:48px}.fa{padding-top:64px}}
+@media(max-width:560px){.fa-cols{grid-template-columns:1fr 1fr}.fa ul a{display:inline-block;padding:3px 0}.fa-bot{flex-direction:column;align-items:flex-start}}
+</style>
+<div class="fa-page">
+<footer class="fa">
+  <div class="fa-in">
+    <div class="fa-top">
+      <div>
+        <h3>Notes from the <em>atelier</em>.</h3>
+        <p class="fa-sub">Four letters a year: new pieces before they reach the boutiques, and the people who make them.</p>
+        <form class="fa-form" novalidate>
+          <label for="fa-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+          <input id="fa-email" type="email" placeholder="Your email address" autocomplete="email" required>
+          <button type="submit"><span>Subscribe</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></button>
+        </form>
+        <p class="fa-msg" role="status" aria-live="polite"></p>
+      </div>
+      <div class="fa-cols">
+        <div><h4>Maison</h4><ul><li><a href="#">Our heritage</a></li><li><a href="#">Craftsmanship</a></li><li><a href="#">Boutiques</a></li><li><a href="#">Materials</a></li></ul></div>
+        <div><h4>Client care</h4><ul><li><a href="#">Private appointments</a></li><li><a href="#">Shipping &amp; returns</a></li><li><a href="#">Care &amp; repair</a></li><li><a href="#">Concierge</a></li></ul></div>
+        <div><h4>Connect</h4><ul><li><a href="#">Instagram</a></li><li><a href="#">Journal</a></li><li><a href="#">Press</a></li></ul></div>
+      </div>
+    </div>
+    <div class="fa-bot">
+      <span class="fa-mark">Maison Valeur</span>
+      <span>Paris &middot; London &middot; Tokyo</span>
+      <span>&copy; 2026 Maison Valeur</span>
+    </div>
+  </div>
+</footer>
+</div>
+<script>
+(()=>{
+  const f=document.querySelector('.fa-form'),inp=f.querySelector('input'),btn=f.querySelector('button'),lbl=btn.querySelector('span'),msg=document.querySelector('.fa-msg');
+  const say=(t,e)=>{msg.textContent=t;msg.classList.toggle('err',!!e);f.classList.toggle('err',!!e)};
+  inp.addEventListener('input',()=>f.classList.contains('err')&&say(''));
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!inp.validity.valid){say(inp.value?'That email doesn’t look right.':'Enter your email first.',1);inp.focus();return}
+    btn.disabled=true;lbl.textContent='Sending…';say('');
+    setTimeout(()=>{lbl.textContent='Subscribed';say('Thank you. The next letter arrives in spring.');inp.value=''},900);
+  });
+})();
+</script>

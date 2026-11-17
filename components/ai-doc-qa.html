@@ -1,0 +1,45 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.dq{width:min(980px,100%);display:grid;grid-template-columns:1.1fr 1fr;gap:16px;height:min(560px,calc(100dvh - 96px))}.dq-d{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:28px 32px;overflow:auto;font:15px/1.7 Georgia,serif;outline:0}.dq-d h3{margin:0 0 16px;font:600 18px Geist,sans-serif}.dq-d p{margin:0 0 14px;padding:4px 6px;margin-left:-6px;border-radius:6px;transition:background .5s}.dq-d p.hl{background:color-mix(in srgb,#facc15 40%,transparent)}
+.dq-c{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--bg);overflow:hidden}.dq-l{flex:1;overflow:auto;padding:16px;display:grid;gap:12px;align-content:start}.dq-q{justify-self:end;background:var(--sf2);padding:8px 12px;border-radius:12px 12px 4px 12px;font-size:14px}.dq-a{font-size:14.5px;line-height:1.6;animation:dqf .25s}@keyframes dqf{from{opacity:0}}.dq-a button{display:inline-flex;align-items:center;margin-left:4px;height:22px;padding:0 7px;border-radius:6px;background:var(--sf2);font:600 11px 'Geist Mono',monospace;color:var(--mu);vertical-align:1px}.dq-a button:hover{background:var(--fg);color:var(--bg)}
+.dq-sg{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 10px}.dq-sg button{height:30px;padding:0 10px;border:1px solid var(--line);border-radius:999px;font-size:12px}.dq-f{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}.dq-f .in{height:38px;font-size:15px}
+@media (max-width:760px){.dq{grid-template-columns:1fr;height:auto}.dq-d{max-height:300px}.dq-c{min-height:340px}}
+</style>
+<div class="k"><div class="dq"><article class="dq-d" id="d" tabindex="0" aria-label="Document"><h3>Lease agreement, Flat 4B</h3><p data-p="1"><b>1. Term.</b> This lease runs for 24 months from 1 February 2027. Either party may end it after the first 12 months with two months' written notice.</p><p data-p="2"><b>2. Rent.</b> Monthly rent is €1,450, due on the 1st. Rent may rise once a year by no more than the national consumer price index.</p><p data-p="3"><b>3. Deposit.</b> A deposit of two months' rent (€2,900) is held in a separate account and returned within 30 days of the end of the lease, less documented damage.</p><p data-p="4"><b>4. Pets.</b> One cat or small dog is allowed with written permission. The tenant pays for professional cleaning at the end of the lease.</p><p data-p="5"><b>5. Repairs.</b> The landlord fixes structural problems and appliances supplied with the flat. The tenant handles small repairs under €150.</p></article>
+<section class="dq-c"><div class="dq-l" id="l"></div><div class="dq-sg" id="sg"></div><form class="dq-f" id="f"><label class="vh" for="q">Ask about this document</label><input class="in" id="q" placeholder="Ask about this lease…"><button class="b ac sm">Ask</button></form></section></div></div>
+<script>
+const KB=[[/deposit|back|return/i,"You get the €2,900 deposit back within 30 days after the lease ends, minus documented damage.",3],[/rent|increase|rise|price/i,"Rent is €1,450 a month. It can go up once a year, by at most the consumer price index.",2],[/leave|end|notice|break|cancel/i,"After the first 12 months, you can end the lease with two months' written notice.",1],[/pet|cat|dog/i,"One cat or small dog is allowed with written permission. You'd pay for professional cleaning at the end.",4],[/repair|fix|broken/i,"The landlord fixes structural issues and supplied appliances. Small repairs under €150 are yours.",5]];
+const l=document.getElementById('l'),d=document.getElementById('d'),q=document.getElementById('q');
+function ask(t){l.insertAdjacentHTML('beforeend',`<div class="dq-q">${t.replace(/</g,'&lt;')}</div>`);const h=KB.find(k=>k[0].test(t));setTimeout(()=>{l.insertAdjacentHTML('beforeend',h?`<div class="dq-a">${h[1]}<button data-p="${h[2]}" aria-label="Show source, section ${h[2]}">§${h[2]}</button></div>`:`<div class="dq-a">I couldn't find that in this lease. Try asking about rent, deposit, notice, pets or repairs.</div>`);l.scrollTop=l.scrollHeight;if(h)show(h[2])},500)}
+function show(p){const el=d.querySelector(`[data-p="${p}"]`);d.querySelectorAll('p').forEach(x=>x.classList.remove('hl'));el.classList.add('hl');el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'center'})}
+l.onclick=e=>{const b=e.target.closest('[data-p]');if(b)show(b.dataset.p)};
+document.getElementById('sg').innerHTML=['When do I get my deposit back?','Can I leave early?','Is a cat OK?'].map(s=>`<button>${s}</button>`).join('');document.getElementById('sg').onclick=e=>{const b=e.target.closest('button');if(b)ask(b.textContent)};
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const v=q.value.trim();if(!v)return;q.value='';ask(v)};
+</script>

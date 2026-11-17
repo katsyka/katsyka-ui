@@ -1,0 +1,52 @@
+<style>
+.stk{min-height:100vh;display:flex;flex-direction:column;padding:24px 16px;gap:14px;background:#2a2723;font-family:Geist,system-ui,sans-serif;color:#efe8dc}
+.stk-bar{display:flex;align-items:center;gap:10px;width:min(1000px,100%);margin:0 auto;flex-wrap:wrap}
+.stk-bar b{font:400 28px/1 "Instrument Serif",serif;margin-right:auto}
+.stk-bar button{height:36px;padding:0 14px;border-radius:999px;border:1px solid #efe8dc33;background:none;color:#efe8dc;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.stk-bar .stk-sw{width:26px;height:26px;padding:0;border:2px solid #2a2723;background:var(--c);box-shadow:0 0 0 1px #efe8dc40}
+.stk-bar .stk-sw[aria-pressed="true"]{box-shadow:0 0 0 2px #efe8dc}
+.stk button:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+.stk-cork{position:relative;flex:1;min-height:560px;width:min(1000px,100%);margin:0 auto;border-radius:10px;overflow:hidden;box-shadow:inset 0 0 0 10px #6b4a2f,inset 0 0 0 12px #3e2a1a,inset 0 0 40px #0006;
+  background:radial-gradient(#8a623880 1px,#0000 1.6px) 0 0/7px 7px,radial-gradient(#d9ae7a66 1px,#0000 1.6px) 3px 4px/9px 9px,#b98c5a}
+.stk-n{position:absolute;width:170px;min-height:150px;padding:30px 16px 16px;background:var(--c);color:#2b2620;font:400 22px/1.15 "Instrument Serif",serif;box-shadow:0 2px 2px #0002,0 12px 18px -10px #0007;rotate:var(--r);cursor:grab;touch-action:none;transition:box-shadow .2s,scale .2s;outline:none}
+.stk-n::before{content:"";position:absolute;left:50%;top:9px;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--pin,#ef4444),#7f1d1d);box-shadow:2px 3px 2px #0004}
+.stk-n.up{scale:1.06;box-shadow:0 30px 34px -14px #0008;cursor:grabbing;z-index:999!important}
+.stk-n:focus-visible{box-shadow:0 0 0 3px #93c5fd,0 12px 18px -10px #0007}
+.stk-n[contenteditable="true"]{cursor:text}
+.stk-bin{position:absolute;right:22px;bottom:22px;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#2a2723cc;color:#efe8dc;font-size:12px;opacity:0;transition:opacity .2s,scale .2s;pointer-events:none}
+.stk.dragging .stk-bin{opacity:1}.stk-bin.hot{scale:1.25;background:#b91c1c}
+.stk-st{width:min(1000px,100%);margin:0 auto;font-size:12px;color:#a69c8c}
+</style>
+<section class="stk">
+  <div class="stk-bar"><b>Sprint wall</b>
+    <button class="stk-sw" style="--c:#fde68a" aria-label="Yellow" aria-pressed="true"></button><button class="stk-sw" style="--c:#fbcfe8" aria-label="Pink" aria-pressed="false"></button><button class="stk-sw" style="--c:#bbf7d0" aria-label="Green" aria-pressed="false"></button><button class="stk-sw" style="--c:#bfdbfe" aria-label="Blue" aria-pressed="false"></button>
+    <button class="stk-add">+ New note</button></div>
+  <div class="stk-cork"><div class="stk-bin" aria-hidden="true">Drop to bin</div></div>
+  <div class="stk-st" aria-live="polite">Drag notes around, double-click (or Enter) to write, drag to the bin to remove. Arrow keys move the focused note.</div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".stk"),cork=R.querySelector(".stk-cork"),bin=R.querySelector(".stk-bin"),st=R.querySelector(".stk-st"),sws=[...R.querySelectorAll(".stk-sw")];
+let color="#fde68a",z=1;
+const PINS=["#ef4444","#3b82f6","#22c55e","#f59e0b"];
+const add=(txt,x,y,c=color)=>{const n=document.createElement("div");n.className="stk-n";n.tabIndex=0;n.setAttribute("role","note");n.textContent=txt;
+  n.style.cssText=`--c:${c};--r:${(Math.random()*8-4).toFixed(1)}deg;--pin:${PINS[Math.random()*4|0]};left:${x}px;top:${y}px;z-index:${z++}`;cork.append(n);bind(n);return n};
+const edit=n=>{n.contentEditable="true";n.focus();const s=getSelection(),r=document.createRange();r.selectNodeContents(n);r.collapse(false);s.removeAllRanges();s.addRange(r)};
+function bind(n){let d=null,vx=0,lx=0;
+  n.addEventListener("pointerdown",e=>{if(n.isContentEditable)return;const r=n.getBoundingClientRect(),c=cork.getBoundingClientRect();d={ox:e.clientX-r.left,oy:e.clientY-r.top,cl:c.left,ct:c.top};lx=e.clientX;n.style.zIndex=z++;n.classList.add("up");R.classList.add("dragging");n.setPointerCapture(e.pointerId)});
+  n.addEventListener("pointermove",e=>{if(!d)return;vx=vx*.7+(e.clientX-lx)*.3;lx=e.clientX;n.style.left=e.clientX-d.cl-d.ox+"px";n.style.top=e.clientY-d.ct-d.oy+"px";n.style.rotate=`${Math.max(-14,Math.min(14,vx*1.2))}deg`;
+    const b=bin.getBoundingClientRect();bin.classList.toggle("hot",e.clientX>b.left-20&&e.clientY>b.top-20)});
+  const up=()=>{if(!d)return;d=null;n.classList.remove("up");R.classList.remove("dragging");n.style.rotate="";
+    if(bin.classList.contains("hot")){bin.classList.remove("hot");n.remove();st.textContent="Note binned."}};
+  n.addEventListener("pointerup",up);n.addEventListener("pointercancel",up);
+  n.addEventListener("dblclick",()=>edit(n));
+  n.addEventListener("keydown",e=>{if(n.isContentEditable){if(e.key==="Escape"||(e.key==="Enter"&&!e.shiftKey)){e.preventDefault();n.contentEditable="false";n.focus();st.textContent="Saved."}return}
+    if(e.key==="Enter"){e.preventDefault();edit(n);return}if(e.key==="Delete"||e.key==="Backspace"){n.remove();st.textContent="Note removed.";return}
+    const m={ArrowLeft:[-10,0],ArrowRight:[10,0],ArrowUp:[0,-10],ArrowDown:[0,10]}[e.key];if(m){e.preventDefault();n.style.left=n.offsetLeft+m[0]+"px";n.style.top=n.offsetTop+m[1]+"px"}});
+  n.addEventListener("blur",()=>{n.contentEditable="false"})}
+sws.forEach(b=>b.onclick=()=>{color=getComputedStyle(b).getPropertyValue("--c").trim();sws.forEach(o=>o.setAttribute("aria-pressed",o===b))});
+R.querySelector(".stk-add").onclick=()=>{const n=add("",40+Math.random()*(cork.clientWidth-260),40+Math.random()*(cork.clientHeight-240));edit(n);st.textContent="New note. Type, then Enter to save."};
+[["Ship the onboarding copy",60,50,"#fde68a"],["Fix the flaky date test",290,90,"#fbcfe8"],["Talk to 5 users before Friday",520,40,"#bbf7d0"],["Price page → A/B the annual toggle",160,290,"#bfdbfe"],["Kill the old settings modal",420,300,"#fde68a"],["Dark mode contrast pass",680,230,"#fbcfe8"]]
+  .forEach(([t,x,y,c])=>add(t,x,y,c));
+})();
+</script>

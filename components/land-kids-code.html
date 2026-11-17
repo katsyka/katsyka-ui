@@ -1,0 +1,89 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+
+.k.pg{display:block;place-items:normal;padding:0;background:var(--bg);font-size:16px;min-height:0}
+.pg .w{width:min(1180px,100% - 32px);margin-inline:auto;min-width:0}
+.pg{overflow-x:clip}
+.pg img{display:block;max-width:100%}
+.pg h1,.pg h2,.pg h3,.pg p{margin:0}
+.pg .ser{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.pg .h1{font-size:clamp(40px,7vw,84px);line-height:1;letter-spacing:-.035em;font-weight:650;text-wrap:balance}
+.pg .h2{font-size:clamp(30px,4.4vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:620;text-wrap:balance}
+.pg .h3{font-size:19px;line-height:1.3;font-weight:620;letter-spacing:-.01em}
+.pg .lead{font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--mu);text-wrap:pretty;max-width:60ch}
+.pg .eb{font:500 12px/1 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pg .sec{padding:clamp(64px,10vw,128px) 0}
+.pg .b.lg{height:48px;padding:0 22px;font-size:15px;border-radius:12px}
+.pg .ph{width:100%;height:100%;object-fit:cover}
+.pg .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.pg .top .w{display:flex;align-items:center;gap:24px;height:64px}
+.pg .logo{white-space:nowrap;font-weight:700;letter-spacing:-.02em;font-size:17px;display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}
+.pg .links{display:flex;gap:24px;margin-left:auto;font-size:14px}.pg .links a{color:var(--mu);text-decoration:none}.pg .links a:hover{color:var(--fg)}
+.pg .menu{display:none;margin-left:auto;width:44px;height:44px;place-items:center;border-radius:10px}
+.pg .foot{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--mu)}.pg .foot .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:760px){.pg .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px}.pg .links a{padding:12px 0;font-size:16px}.pg .top.open .links{display:flex}.pg .menu{display:grid}.pg .top .b{display:none}}
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.kc{--r:#ff4d4d;--y:#ffc800;--bu:#2f6bff;--g:#1fbf75;background:light-dark(#fffaf0,#14130f)!important}
+.kc .b.ac{background:var(--bu);color:#fff}.kc .b{border-radius:14px}
+.kc-hero{padding:64px 0 40px;display:grid;gap:20px}.kc-t{font-size:clamp(40px,7vw,92px);line-height:1.12;letter-spacing:-.04em;font-weight:850;max-width:15ch}.kc-t span{padding:0 .12em;border-radius:.18em;color:#fff;display:inline;-webkit-box-decoration-break:clone;box-decoration-break:clone}.kc-t .c1{background:var(--r)}.kc-t .c2{background:var(--bu)}.kc-t .c3{background:var(--y);color:#2a2000}
+.kc-pz{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start;border:3px solid var(--fg);border-radius:28px;padding:28px;box-shadow:8px 8px 0 var(--y)}
+.kc-pal{display:flex;gap:8px;margin:16px 0}.kc-pal button{width:52px;height:52px;border-radius:14px;border:0;font-size:24px;font-weight:800;color:#fff;cursor:pointer;box-shadow:0 4px 0 rgb(0 0 0/.25);transition:transform .1s}.kc-pal button:active{transform:translateY(3px);box-shadow:0 1px 0 rgb(0 0 0/.25)}.kc-pal [data-d=u]{background:var(--r)}.kc-pal [data-d=d]{background:var(--bu)}.kc-pal [data-d=l]{background:var(--g)}.kc-pal [data-d=r]{background:var(--y);color:#2a2000}
+.kc-prog{list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:10px;margin:0 0 14px;min-height:56px;border-radius:14px;background:var(--sf2)}.kc-prog li{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#fff}.kc-prog li.on{outline:3px solid var(--fg)}
+.kc-ctl{display:flex;gap:8px}.kc-res{margin-top:12px!important;font-weight:600;min-height:1.4em}
+.kc-grid{display:grid;grid-template-columns:repeat(5,52px);grid-template-rows:repeat(5,52px);gap:4px;position:relative}.kc-grid i{border-radius:10px;background:var(--sf2)}.kc-grid i.wall{background:var(--fg);opacity:.85}.kc-grid i.star{background:var(--y)}
+.kc-bot{position:absolute;width:52px;height:52px;border-radius:14px;background:var(--r);display:grid;place-items:center;transition:transform .28s var(--ease);top:0;left:0}.kc-bot::before{content:"";width:22px;height:8px;border-radius:4px;background:#fff;box-shadow:0 -10px 0 -2px #fff}
+.kc-ages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:72px 0}.kc-age{border-radius:24px;padding:24px;display:grid;gap:8px;color:#fff}.kc-age b{font-size:44px;font-weight:900;letter-spacing:-.03em}.kc-age h3{margin:0;font-size:22px}.kc-age p{margin:0;opacity:.9}.a1{background:var(--r)}.a2{background:var(--bu)}.a3{background:var(--g)}
+.kc-join{padding:0 0 80px}.kc-f{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:12px;align-items:end;margin-top:20px}.kc-f div{display:grid;gap:6px}.kc-f label{font-size:14px;font-weight:550}.kc-f .in{height:48px;font-size:16px}
+@media (max-width:760px){.kc-pz{grid-template-columns:1fr;padding:18px}.kc-grid{grid-template-columns:repeat(5,1fr);grid-template-rows:none;width:100%;max-width:300px}.kc-grid i{aspect-ratio:1}.kc-bot{width:calc((100% - 16px)/5);height:auto;aspect-ratio:1}.kc-ages,.kc-f{grid-template-columns:1fr}}
+</style>
+<div class="k pg kc">
+<header class="top"><div class="w"><a class="logo" href="#">Bitbuddies</a><nav class="links"><a href="#try">Try it</a><a href="#ages">Groups</a><a href="#join">Join</a></nav><a class="b ac" href="#join">Book a free class</a><button class="menu ibt" aria-label="Menu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></button></div></header>
+<section class="w kc-hero"><h1 class="kc-t">Kids who <span class="c1">build</span> <span class="c2">games</span>, not just <span class="c3">play</span> them.</h1><p class="lead">Saturday coding club for ages 7 to 14. Small groups, real projects, no screens-for-the-sake-of-screens.</p></section>
+<section class="w kc-try" id="try"><div class="kc-pz"><div><h2 class="h3">Get the robot to the star</h2><p class="mu">Tap arrows to build a program, then press Run.</p>
+<div class="kc-pal"><button data-d="u" aria-label="Up">↑</button><button data-d="d" aria-label="Down">↓</button><button data-d="l" aria-label="Left">←</button><button data-d="r" aria-label="Right">→</button></div>
+<ol class="kc-prog" id="prog" aria-label="Program"></ol><div class="kc-ctl"><button class="b ac" id="run">Run</button><button class="b" id="rst">Clear</button></div><p id="res" role="status" class="kc-res"></p></div>
+<div class="kc-grid" id="grid" aria-hidden="true"></div></div></section>
+<section class="w kc-ages" id="ages"><div class="kc-age a1"><b>7–9</b><h3>Tinkerers</h3><p>Block coding, little robots, making things move.</p></div><div class="kc-age a2"><b>10–12</b><h3>Makers</h3><p>First real games in Scratch, then Python turtles.</p></div><div class="kc-age a3"><b>13–14</b><h3>Builders</h3><p>Python and a web page of their own by summer.</p></div></section>
+<section class="w kc-join" id="join"><h2 class="h2">Book a free first class</h2><form id="f" class="kc-f" novalidate><div><label for="pn">Parent's name</label><input class="in" id="pn" autocomplete="name"></div><div><label for="pe">Email</label><input class="in" id="pe" type="email" autocomplete="email"></div><div><label for="ag">Child's age</label><select class="in" id="ag"><option value="">Choose</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option></select></div><button class="b ac lg" id="sb">Book</button></form><p id="fm" role="status" class="kc-res"></p></section>
+<footer class="foot"><div class="w"><span>Bitbuddies is demo content.</span><span>Max 8 kids per group</span></div></footer>
+</div>
+<script>
+document.querySelectorAll('.pg .menu').forEach(m=>m.addEventListener('click',()=>{const t=m.closest('.top');const o=t.classList.toggle('open');m.setAttribute('aria-expanded',o)}));
+const G=document.getElementById('grid'),WALL=[7,8,12,17,13],STAR=24,N=5;for(let i=0;i<25;i++){const c=document.createElement('i');if(WALL.includes(i))c.className='wall';if(i===STAR)c.className='star';G.append(c)}
+const bot=document.createElement('div');bot.className='kc-bot';G.append(bot);
+const prog=[],pl=document.getElementById('prog'),res=document.getElementById('res'),run=document.getElementById('run'),COL={u:'var(--r)',d:'var(--bu)',l:'var(--g)',r:'var(--y)'},AR={u:'↑',d:'↓',l:'←',r:'→'};let pos=0,busy=false;
+function place(p){const c=G.children[p];bot.style.transform=`translate(${c.offsetLeft}px,${c.offsetTop}px)`}place(0);addEventListener('resize',()=>place(pos));
+function drawP(a=-1){pl.innerHTML=prog.map((d,i)=>`<li class="${i===a?'on':''}" style="background:${COL[d]}">${AR[d]}</li>`).join('')}
+document.querySelectorAll('.kc-pal button').forEach(b=>b.onclick=()=>{if(busy||prog.length>=14)return;prog.push(b.dataset.d);drawP();res.textContent=''});
+document.getElementById('rst').onclick=()=>{if(busy)return;prog.length=0;drawP();pos=0;place(0);res.textContent=''};
+run.onclick=async()=>{if(busy||!prog.length){res.textContent=prog.length?'':'Add some arrows first.';return}busy=true;run.disabled=true;pos=0;place(0);res.textContent='Running…';
+for(let i=0;i<prog.length;i++){drawP(i);await new Promise(r=>setTimeout(r,330));const x=pos%N,y=pos/N|0,d=prog[i];let nx=x+(d==='r')-(d==='l'),ny=y+(d==='d')-(d==='u');if(nx<0||ny<0||nx>=N||ny>=N||WALL.includes(ny*N+nx)){res.textContent='Bonk! Step '+(i+1)+' hits a wall. Try again.';break}pos=ny*N+nx;place(pos)}
+if(pos===STAR)res.textContent='You reached the star in '+prog.length+' steps!';else if(res.textContent==='Running…')res.textContent='Not there yet. Add more steps.';drawP();busy=false;run.disabled=false};
+const f=document.getElementById('f'),fm=document.getElementById('fm');f.onsubmit=e=>{e.preventDefault();const pn=document.getElementById('pn'),pe=document.getElementById('pe'),ag=document.getElementById('ag');const bad=[[pn,pn.value.trim()],[pe,/^\S+@\S+\.\S{2,}$/.test(pe.value)],[ag,ag.value]].filter(x=>!x[1]);[pn,pe,ag].forEach(x=>x.removeAttribute('aria-invalid'));if(bad.length){bad.forEach(x=>x[0].setAttribute('aria-invalid','true'));bad[0][0].focus();fm.textContent='Please fill in the highlighted fields.';return}const sb=document.getElementById('sb');sb.disabled=true;sb.textContent='Booking…';setTimeout(()=>{sb.textContent='Book';sb.disabled=false;f.reset();fm.textContent='Booked! We sent the details by email. (Demo)'},800)};
+</script>

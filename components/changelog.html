@@ -1,0 +1,44 @@
+<style>
+.cl{min-height:100vh;padding:70px clamp(20px,6vw,90px);background:#0b0b0c;color:#e4e4e7}
+.cl-head{max-width:860px;margin:0 auto 46px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.cl h2{margin:0;font-size:clamp(34px,4.6vw,58px);letter-spacing:-.05em;line-height:1;font-weight:600}
+.cl-f{display:flex;gap:4px;padding:3px;border-radius:10px;background:#141416;border:1px solid #ffffff0d}
+.cl-f button{height:30px;padding:0 12px;border-radius:7px;border:0;background:none;color:#71717a;font:500 12.5px Geist,sans-serif;cursor:pointer}.cl-f button.on{background:#27272a;color:#fafafa}
+.cl-list{max-width:860px;margin:0 auto}
+.cl-e{display:grid;grid-template-columns:150px 1fr;gap:34px;padding-bottom:46px;transition:opacity .3s}
+.cl-e.hide{display:none}
+.cl-d{position:sticky;top:24px;align-self:start}
+.cl-d time{display:block;font:500 13px "Geist Mono",monospace;color:#a1a1aa}
+.cl-d span{display:inline-block;margin-top:8px;font:600 11px "Geist Mono",monospace;padding:3px 8px;border-radius:6px;background:#ffffff0d;color:#e4e4e7}
+.cl-b{position:relative;padding-left:30px;border-left:1px solid #ffffff12}
+.cl-b::before{content:"";position:absolute;left:-5px;top:6px;width:9px;height:9px;border-radius:50%;background:#0b0b0c;border:2px solid #ff7a3d}
+.cl-b h3{margin:0 0 10px;font-size:22px;letter-spacing:-.03em;font-weight:600}
+.cl-b>p{margin:0 0 16px;color:#a1a1aa;line-height:1.65;font-size:15px}
+.cl-img{height:200px;border-radius:16px;margin-bottom:16px;background:var(--g);border:1px solid #ffffff0d;position:relative;overflow:hidden}
+.cl-img::after{content:"";position:absolute;inset:18px 18px auto auto;width:42%;height:60%;border-radius:12px;background:#ffffff14;backdrop-filter:blur(6px);border:1px solid #ffffff1f}
+.cl-tags{display:flex;gap:6px;margin-bottom:14px}.cl-tags i{font:600 10.5px "Geist Mono",monospace;font-style:normal;letter-spacing:.05em;padding:3px 8px;border-radius:5px}
+.t-new{background:#4ade801a;color:#4ade80}.t-imp{background:#60a5fa1a;color:#60a5fa}.t-fix{background:#f871711a;color:#f87171}
+.cl-more{border:0;background:none;color:#ff9a6b;font:500 13.5px Geist,sans-serif;cursor:pointer;padding:0}
+.cl-det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.6,0,.2,1)}.cl-det.open{grid-template-rows:1fr}.cl-det>div{overflow:hidden}
+.cl-det ul{margin:12px 0 0;padding-left:18px;color:#a1a1aa;font-size:14px;line-height:1.8}
+@media (max-width:700px){.cl-e{grid-template-columns:1fr;gap:12px}.cl-d{position:static}}
+</style>
+<section class="cl">
+  <div class="cl-head"><h2>Changelog</h2><div class="cl-f"><button class="on" data-f="all">All</button><button data-f="new">New</button><button data-f="imp">Improved</button><button data-f="fix">Fixed</button></div></div>
+  <div class="cl-list"></div>
+</section>
+<script>
+(()=>{
+const E=[["Oct 28, 2026","v4.2",["new","imp"],"Session replay","Watch exactly what happened before a bug report, with network and console timelines side by side.","linear-gradient(135deg,#ff7a3d,#7c2d12)",["Replays are sampled at 10% by default","Mask any element with data-private","Jump from an error straight to the replay moment"]],
+ ["Oct 14, 2026","v4.1",["imp"],"Faster dashboards","Charts now render from a columnar cache. Large dashboards load 3.4× faster on average.","linear-gradient(135deg,#3b82f6,#1e1b4b)",["Cold loads under 400 ms at p50","Incremental refresh every 15 s"]],
+ ["Sep 30, 2026","v4.0.3",["fix"],"Timezone fixes","Weekly reports now respect the workspace timezone instead of UTC, and DST transitions no longer double-count an hour.",null,["Fixed duplicate rows around DST","Fixed CSV export dates in Safari"]],
+ ["Sep 16, 2026","v4.0",["new"],"Workflows","Trigger actions from any event with plain code. Logs, retries and versioning are built in.","linear-gradient(135deg,#22c55e,#052e16)",["Write rules in TypeScript","Automatic retries with backoff","Every run is replayable"]]];
+const L={new:"NEW",imp:"IMPROVED",fix:"FIXED"},list=document.querySelector(".cl-list");
+list.innerHTML=E.map(([d,v,t,h,p,g,det],i)=>`<article class="cl-e" data-t="${t.join(" ")}"><div class="cl-d"><time>${d}</time><span>${v}</span></div><div class="cl-b">
+  <div class="cl-tags">${t.map(x=>`<i class="t-${x}">${L[x]}</i>`).join("")}</div><h3>${h}</h3><p>${p}</p>${g?`<div class="cl-img" style="--g:${g}"></div>`:""}
+  <button class="cl-more" aria-expanded="false">Details ↓</button><div class="cl-det"><div><ul>${det.map(x=>`<li>${x}</li>`).join("")}</ul></div></div></div></article>`).join("");
+list.onclick=e=>{const b=e.target.closest(".cl-more");if(!b)return;const d=b.nextElementSibling,o=d.classList.toggle("open");b.textContent=o?"Hide details ↑":"Details ↓";b.setAttribute("aria-expanded",o)};
+document.querySelectorAll(".cl-f button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".cl-f button").forEach(x=>x.classList.toggle("on",x===b));
+  list.querySelectorAll(".cl-e").forEach(a=>{const show=b.dataset.f==="all"||a.dataset.t.includes(b.dataset.f);a.classList.toggle("hide",!show);if(show)a.animate([{opacity:0,transform:"translateY(8px)"},{opacity:1,transform:"none"}],{duration:300})})});
+})();
+</script>

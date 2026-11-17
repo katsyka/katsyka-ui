@@ -1,0 +1,67 @@
+<style>
+.ad{position:relative;height:460vh;background:#0b0d12;--fg:#fff;--mu:#ffffffe0;--inv:#0b0d12}
+.ad .dk{--fg:#0f1218;--mu:#0f1218b0;--inv:#fff}
+.ad-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.ad canvas{position:absolute;inset:0;width:100%;height:100%}
+.ad-nav,.ad-alt,.ad-t,.ad-fog,.ad-end{position:absolute;color:var(--fg);transition:color .5s}
+.ad-nav{left:clamp(20px,4vw,56px);right:clamp(20px,4vw,56px);top:22px;display:flex;align-items:center;gap:28px;font-size:14px}
+.ad-nav b{font-weight:650;letter-spacing:-.02em;font-size:16px;margin-right:auto}
+.ad-links:not(.dk){--fg:#fff}.ad-links{display:flex;gap:28px;color:var(--fg);transition:color .5s}.ad-nav a{color:inherit;text-decoration:none;opacity:.8}.ad-nav a:hover{opacity:1}
+.ad-alt{right:clamp(20px,4vw,56px);top:78px;text-align:right;font:500 12px/1.7 "Geist Mono",monospace;letter-spacing:.08em}
+.ad-alt strong{display:block;font:500 clamp(22px,2.4vw,30px)/1 "Geist Mono",monospace;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.ad-t{left:clamp(20px,4vw,56px);top:clamp(96px,16vh,150px);max-width:760px}
+.ad-t h2{margin:0;font-size:clamp(56px,9vw,148px);line-height:.86;letter-spacing:-.065em;font-weight:600}
+.ad em{font:italic 400 1.04em "Instrument Serif",serif;letter-spacing:-.03em}
+.ad-t p{margin:26px 0 0;max-width:400px;font-size:17px;line-height:1.55;color:var(--mu)}
+.ad-fog{left:0;right:0;top:50%;translate:0 -50%;text-align:center;padding:0 24px;font:italic 400 clamp(30px,4vw,58px)/1.05 "Instrument Serif",serif;letter-spacing:-.02em}
+.ad-end{left:clamp(20px,4vw,56px);bottom:clamp(28px,8vh,72px);max-width:620px}
+.ad-end small{font:500 12px "Geist Mono",monospace;letter-spacing:.14em;color:var(--mu)}
+.ad-end h3{margin:14px 0 26px;font-size:clamp(34px,4.6vw,68px);line-height:.96;letter-spacing:-.055em;font-weight:600}
+.ad-cta{display:flex;flex-wrap:wrap;gap:10px}
+.ad-cta a{display:inline-flex;align-items:center;height:46px;padding:0 22px;border-radius:99px;font-size:15px;font-weight:550;text-decoration:none;color:var(--inv);background:var(--fg);transition:transform .2s}
+.ad-cta a+a{background:none;color:var(--fg);box-shadow:inset 0 0 0 1px currentColor}
+.ad-cta a:hover{transform:translateY(-2px)}
+.ad .bt{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .9s cubic-bezier(.2,.8,.2,1),color .5s;pointer-events:none}
+.ad .bt.on{opacity:1;transform:none;pointer-events:auto}
+.ad-after{height:40vh;display:grid;place-items:center;background:#0b0d12;color:#6b7280;font-size:15px}
+@media (max-width:700px){.ad-nav a{display:none}.ad-alt{top:64px}.ad-t{top:130px}}
+@media (prefers-reduced-motion:reduce){.ad .bt{transition:opacity .3s}.ad .bt{transform:none}}
+</style>
+<section class="ad" aria-label="Port Aveline night guide">
+  <div class="ad-pin">
+    <canvas role="img" aria-label="Camera descends through golden clouds onto a coastal city at dusk"></canvas>
+    <nav class="ad-nav"><b>Aveline After Dark</b><span class="ad-links"><a href="#">Guide</a><a href="#">Map</a><a href="#">Late trams</a></span></nav>
+    <div class="ad-alt" aria-hidden="true">ALTITUDE<strong>10,400 m</strong></div>
+    <div class="ad-t bt on"><h2>Land<br>after <em>dark.</em></h2><p>A night guide to Port Aveline, written by the people who keep it awake.</p></div>
+    <p class="ad-fog bt dk">Somewhere under all this, a city is switching on.</p>
+    <div class="ad-end bt"><small>TONIGHT · SUNSET 18:42</small><h3>312 bars, 41 rooftops and a last tram at <em>02:10.</em></h3>
+      <div class="ad-cta"><a href="#">Start the night</a><a href="#">Open the map</a></div></div>
+  </div>
+</section>
+<div class="ad-after">The page continues.</div>
+<script>
+(()=>{
+// 120 frames scrubbed by scroll. Strings are precomputed brightness of the area behind each text block (one base-36 char per frame), so type flips dark/light with the footage.
+const N=120,DIR="media/descent/",
+L1="ttttttttttttttttttttttttttttuuuuuuuuuttuuuuuuuuuutttssrqpoooppqrrrrrrqqqqqqqqqqqpppppppppppppppppppppppppppppppppppppppp",
+L2="ppppppppppppppppppppppppppppppppppppppppppppqqqqqqpppppponllkjiiiiihhgffeddddddddddddddddddddddddddddddddddddddddddddddd",
+L3="jjjjjjjjjjjjjjkkkklmnnoooppppppppponljjjjjjjjjjjjjjjjjjjjjjjjjjjjjiihggfedddccbba999888888888888888888888888888888888888";
+const root=document.querySelector(".ad"),c=root.querySelector("canvas"),x=c.getContext("2d"),$=s=>root.querySelector(s);
+const nav=$(".ad-nav"),links=$(".ad-links"),alt=$(".ad-alt"),altN=alt.querySelector("strong"),t=$(".ad-t"),fog=$(".ad-fog"),end=$(".ad-end");
+const imgs=[],load=i=>{if(imgs[i])return;const im=imgs[i]=new Image();im.onload=()=>{if(Math.abs(i-cur)<9)draw(true)};im.src=DIR+String(i+1).padStart(3,"0")+".jpg"};
+load(0);new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){o.disconnect();[8,4,2,1].forEach(s=>{for(let i=0;i<N;i+=s)load(i)})}},{rootMargin:"100%"}).observe(root);
+let cur=0,tgt=0,shown=-1,raf=0;
+const pick=f=>{for(let d=0;d<N;d++)for(const j of[f-d,f+d]){const im=imgs[j];if(im&&im.complete&&im.naturalWidth)return im}};
+function draw(force){const f=Math.round(cur);if(f===shown&&!force)return;const im=pick(f);if(!im)return;shown=f;
+  const s=Math.max(c.width/im.naturalWidth,c.height/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;x.drawImage(im,(c.width-w)/2,(c.height-h)/2,w,h)}
+new ResizeObserver(()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;draw(true)}).observe(c);
+const dark=(el,s,f)=>el.classList.toggle("dk",parseInt(s[f],36)>=20);
+function update(){draw();const f=Math.round(cur),p=cur/(N-1);
+  dark(nav,L1,f);dark(t,L1,f);dark(alt,L2,f);dark(links,L2,f);dark(end,L3,f);
+  altN.textContent=Math.round(10400-9800*Math.pow(p,.7)).toLocaleString("en-US")+" m";
+  t.classList.toggle("on",p<.2);fog.classList.toggle("on",p>.3&&p<.5);end.classList.toggle("on",p>.72)}
+const tick=()=>{cur+=(tgt-cur)*.2;if(Math.abs(tgt-cur)<.05)cur=tgt;update();raf=cur===tgt?0:requestAnimationFrame(tick)};
+const onScroll=()=>{const r=root.getBoundingClientRect();tgt=Math.max(0,Math.min(1,-r.top/(root.offsetHeight-innerHeight)))*(N-1);if(!raf)raf=requestAnimationFrame(tick)};
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+})();
+</script>

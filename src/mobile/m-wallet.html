@@ -1,0 +1,44 @@
+<!--Wallet|A card wallet: tap a card in the stack to bring it forward, a tabular balance, four round quick actions and transactions grouped by day with signed amounts.|wallet,bank,cards,transactions,finance-->
+<header class="bar"><div class="nb"><span></span><h2 class="wl-t">Wallet</h2><span><button class="ib" aria-label="Add card">@I(plus)</button></span></div></header>
+<main class="sc">
+  <h1 class="lt">Wallet</h1>
+  <div class="wl-st" id="st">
+    <button class="wl-c" style="--c1:#1f2937;--c2:#111827" data-b="4 218.60" data-n="Everyday ·· 4242"><span class="wl-ch"></span><b>Everyday</b><span class="wl-no tn">•••• 4242</span><span class="wl-br">VISA</span></button>
+    <button class="wl-c" style="--c1:#9a3412;--c2:#7c2d12" data-b="12 940.00" data-n="Savings ·· 8810"><span class="wl-ch"></span><b>Savings</b><span class="wl-no tn">•••• 8810</span><span class="wl-br">VISA</span></button>
+    <button class="wl-c" style="--c1:#e7e5e4;--c2:#d6d3d1;--tc:#1c1917" data-b="312.15" data-n="Travel ·· 0031"><span class="wl-ch"></span><b>Travel</b><span class="wl-no tn">•••• 0031</span><span class="wl-br">VISA</span></button>
+  </div>
+  <div class="wl-bal"><small id="bn">Everyday ·· 4242</small><b class="tn">$<span id="bal">4 218.60</span></b></div>
+  <div class="wl-q"><button>@I(send)<span>Send</span></button><button>@I(download)<span>Request</span></button><button>@I(plus)<span>Top up</span></button><button>@I(more)<span>More</span></button></div>
+  <h2 class="sh">Transactions <a href="#">See all</a></h2>
+  <div id="tx"></div>
+</main>
+@PILL(home:Home|wallet:Cards|chart:Insights|user:Profile;1)
+<style>
+.wl-t{opacity:0;transition:opacity .2s}.bar.sd .wl-t{opacity:1}
+.wl-st{position:relative;height:272px;margin:16px var(--gut) 0}
+.wl-c{position:absolute;left:0;right:0;top:0;aspect-ratio:1.586;border-radius:20px;padding:18px 20px;text-align:left;color:var(--tc,#fff)!important;background:linear-gradient(140deg,var(--c1),var(--c2))!important;box-shadow:0 1px 0 #ffffff26 inset,0 12px 24px -12px #0007;transition:transform .5s cubic-bezier(.3,1.2,.4,1),filter .3s;display:grid;grid-template-rows:auto 1fr auto;font-family:Geist}
+.wl-c b{font-size:17px;font-weight:600}
+.wl-ch{position:absolute;right:20px;top:18px;width:36px;height:28px;border-radius:6px;background:linear-gradient(135deg,#e9d8a6,#b89b5e);opacity:.9}
+.wl-no{align-self:end;font:500 16px "Geist Mono",monospace;letter-spacing:.06em;opacity:.85}
+.wl-br{position:absolute;right:20px;bottom:16px;font:italic 800 20px/1 Geist;letter-spacing:-.02em;opacity:.9}
+.wl-c[data-p="0"]{transform:translateY(32px);z-index:3}.wl-c[data-p="1"]{transform:translateY(16px) scale(.95);z-index:2;filter:brightness(.92)}.wl-c[data-p="2"]{transform:translateY(0) scale(.9);z-index:1;filter:brightness(.85)}
+.wl-bal{padding:12px var(--gut) 0}.wl-bal small{display:block;font-size:13px;color:var(--mu);font-weight:500}
+.wl-bal b{display:block;font-size:40px;line-height:46px;font-weight:700;letter-spacing:-.03em}
+.wl-q{display:grid;grid-template-columns:repeat(4,1fr);padding:16px var(--gut) 0}
+.wl-q button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:13px;font-weight:500}
+.wl-q .i{box-sizing:content-box;padding:14px;border-radius:50%;background:var(--sf);width:24px;height:24px;transition:transform .15s}
+.wl-q button:active .i{transform:scale(.9)}
+.wl-d{margin:0;padding:12px var(--gut) 4px;font-size:13px;font-weight:600;color:var(--mu)}
+.wl-r{display:flex;align-items:center;gap:12px;padding:8px var(--gut);min-height:60px}
+.wl-r .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--sf);flex:none;font-weight:700;font-size:15px}
+.wl-r .tx{flex:1;min-width:0}.wl-r b{display:block;font-size:16px;font-weight:500}.wl-r small{font-size:14px;color:var(--mu)}
+.wl-r .am{font-weight:600;font-variant-numeric:tabular-nums}.wl-r .am.in{color:var(--ok)}
+</style>
+<script>
+const T=[["Today",[["K","Kafe Blå","Food & drink","−4.80"],["S","Spotify","Subscription","−10.99"]]],["Yesterday",[["↓","Ines Duarte","Dinner split","+32.00",1],["N","NSB","Train · Bergen–Voss","−24.50"],["R","Rema 1000","Groceries","−41.27"]]],["Mon 9 Nov",[["A","Apple","iCloud+","−2.99"],["↓","Salary","Northwind AS","+3 200.00",1]]]];
+tx.innerHTML=T.map(([d,L])=>`<h3 class="wl-d">${d}</h3>`+L.map(([i,n,c,a,inn])=>`<div class="wl-r"><span class="ic">${i}</span><span class="tx"><b>${n}</b><small>${c}</small></span><span class="am${inn?" in":""}">${a}</span></div>`).join("")).join("");
+const cs=[...st.children];let ord=[0,1,2];
+const lay=()=>cs.forEach((c,i)=>c.dataset.p=ord.indexOf(i));lay();
+cs.forEach((c,i)=>c.onclick=()=>{if(ord[0]===i)return;ord=[i,...ord.filter(x=>x!==i)];lay();bn.textContent=c.dataset.n;bal.textContent=c.dataset.b});
+document.querySelector(".sh a").onclick=e=>e.preventDefault();
+</script>

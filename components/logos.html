@@ -1,0 +1,39 @@
+<style>
+.lg{min-height:100vh;display:grid;place-content:center;gap:28px;background:#09090b;padding:40px 0;overflow:hidden}
+.lg p{text-align:center;margin:0;color:#6f6f79;font-size:14px}
+.lg-m{display:flex;width:100vw;-webkit-mask:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);mask:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent)}
+.lg-t{display:flex;gap:64px;padding-right:64px;flex:none;animation:lg-x 32s linear infinite}
+.lg-m.r .lg-t{animation-direction:reverse;animation-duration:40s}
+.lg-m:hover .lg-t{animation-play-state:paused}
+@keyframes lg-x{to{transform:translateX(-100%)}}
+.lg-t span{display:flex;align-items:center;gap:10px;flex:none;font-size:22px;font-weight:600;letter-spacing:-.04em;color:#ffffff66;transition:color .3s,transform .3s cubic-bezier(.3,1.5,.5,1);cursor:default;white-space:nowrap}
+.lg-t span:hover{color:#fff;transform:translateY(-3px)}
+.lg-t svg{width:26px;height:26px}
+.lg-t .sf{font-family:"Instrument Serif",serif;font-weight:400;font-size:28px;letter-spacing:-.01em}
+.lg-t .mn{font-family:"Geist Mono",monospace;font-size:18px;font-weight:500;letter-spacing:0}
+</style>
+<section class="lg">
+  <p>Trusted by product teams at</p>
+  <div class="lg-m"><div class="lg-t">
+    <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 22 20H2z"/></svg>Apexa</span>
+    <span class="sf">Northwind</span>
+    <span><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="8" cy="12" r="6"/><circle cx="16" cy="12" r="6" opacity=".55"/></svg>Overlap</span>
+    <span class="mn">relay_</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 18 12 6l8 12"/></svg>Summit</span>
+    <span class="sf">Fieldwork</span>
+    <span><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="4"/></svg>Blocks</span>
+    <span class="mn">harbor.io</span>
+  </div></div>
+  <div class="lg-m r"><div class="lg-t">
+    <span class="sf">Kiteline</span>
+    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg>Meridian</span>
+    <span class="mn">loop/</span>
+    <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>Polaris</span>
+    <span class="sf">Bright&amp;Co</span>
+    <span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v4H8v4h10v4H8v4H4z"/></svg>Forma</span>
+    <span class="mn">atlas</span>
+  </div></div>
+</section>
+<script>
+document.querySelectorAll(".lg-m").forEach(m=>{const t=m.firstElementChild;m.append(t.cloneNode(true))});
+</script>

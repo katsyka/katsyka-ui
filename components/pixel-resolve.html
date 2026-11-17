@@ -1,0 +1,46 @@
+<style>
+.px{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.px :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.px ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.px *,.px *::before,.px *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.px{min-height:100vh;padding:clamp(40px,8vh,88px) clamp(16px,4vw,56px);background:var(--bg);color:var(--fg);font-family:Geist,system-ui,sans-serif}
+.px-h{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;max-width:1180px;margin:0 auto 32px}
+.px-h h2{margin:0;font-size:clamp(36px,4.6vw,64px);line-height:.95;letter-spacing:-.05em;font-weight:600}
+.px-h em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.02em}
+.px-h button{height:38px;padding:0 16px;border-radius:99px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.px-h button:hover{background:var(--sf)}
+.px-g{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,24px);max-width:1180px;margin:0 auto;list-style:none;padding:0}
+.px-g li{display:grid;gap:12px}
+.px-g a{display:block;position:relative;aspect-ratio:4/5;border-radius:var(--r2);overflow:hidden;background:var(--sf2)}
+.px-g canvas{position:absolute;inset:0;width:100%;height:100%}
+.px-g p{display:flex;justify-content:space-between;margin:0;font-size:15px;font-weight:550;letter-spacing:-.01em}
+.px-g p span{font:500 12px "Geist Mono",monospace;letter-spacing:.08em;color:var(--mu);align-self:center}
+@media (max-width:760px){.px-g{grid-template-columns:1fr 1fr}.px-g li:last-child{display:none}}
+</style>
+<section class="px" aria-label="Pixel resolve gallery">
+  <div class="px-h"><h2>Field notes, <em>in focus.</em></h2><button type="button">Resolve again</button></div>
+  <ul class="px-g">
+    <li><a href="#" aria-label="Slot canyon"><canvas data-src="media/pics/c/564.jpg"></canvas></a><p>Slot canyon <span>NO. 01</span></p></li>
+    <li><a href="#" aria-label="Granite valley"><canvas data-src="media/pics/c/1043.jpg"></canvas></a><p>Granite valley <span>NO. 02</span></p></li>
+    <li><a href="#" aria-label="Sea nettle"><canvas data-src="media/pics/c/1069.jpg"></canvas></a><p>Sea nettle <span>NO. 03</span></p></li>
+  </ul>
+</section>
+<script>
+(()=>{
+// Each canvas draws the photo into a tiny buffer and scales it back up without smoothing; block size steps down until the photo is sharp.
+const root=document.querySelector(".px"),STEPS=[64,40,24,14,8,4,2,1],still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const cards=[...root.querySelectorAll("canvas")].map(c=>{const im=new Image();im.src=c.dataset.src;return{c,x:c.getContext("2d"),im,k:0,timer:0,tiny:document.createElement("canvas")}});
+function draw(o){const{c,x,im,tiny}=o;if(!im.complete||!im.naturalWidth||!c.width)return;
+  const s=Math.max(c.width/im.naturalWidth,c.height/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s,ox=(c.width-w)/2,oy=(c.height-h)/2,b=STEPS[o.k]*c.width/600;
+  if(b<=1.2){x.imageSmoothingEnabled=true;x.drawImage(im,ox,oy,w,h);return}
+  tiny.width=Math.max(1,Math.round(c.width/b));tiny.height=Math.max(1,Math.round(c.height/b));const t=tiny.getContext("2d");
+  t.drawImage(im,ox/b,oy/b,w/b,h/b);x.imageSmoothingEnabled=false;x.drawImage(tiny,0,0,c.width,c.height)}
+function resolve(o,from=0,delay=0){clearTimeout(o.timer);o.k=still?STEPS.length-1:from;draw(o);
+  const next=()=>{if(o.k>=STEPS.length-1)return;o.k++;draw(o);o.timer=setTimeout(next,70+o.k*12)};o.timer=setTimeout(next,delay+90)}
+cards.forEach((o,i)=>{o.im.onload=()=>draw(o);
+  new ResizeObserver(()=>{const d=Math.min(devicePixelRatio,2);o.c.width=o.c.clientWidth*d;o.c.height=o.c.clientHeight*d;draw(o)}).observe(o.c);
+  new IntersectionObserver((e,ob)=>{if(e[0].isIntersecting){ob.disconnect();resolve(o,0,i*180)}},{threshold:.35}).observe(o.c);
+  const a=o.c.parentElement,again=()=>{if(o.k===STEPS.length-1)resolve(o,3)};a.addEventListener("pointerenter",again);a.addEventListener("focus",again);a.addEventListener("click",e=>e.preventDefault())});
+root.querySelector(".px-h button").addEventListener("click",()=>cards.forEach((o,i)=>resolve(o,0,i*180)));
+})();
+</script>

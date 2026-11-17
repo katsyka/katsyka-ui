@@ -1,0 +1,77 @@
+<style>
+.ct{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ct :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ct ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ct *,.ct *::before,.ct *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ct{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.ct-pn{width:min(620px,100%);padding:22px 24px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.ct-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.ct-hd h2{margin:0;font-size:16px;font-weight:620}
+.ct-hd select{height:30px;padding:0 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 12.5px Geist,system-ui,sans-serif}
+.ct-new{display:flex;gap:12px;margin-bottom:20px}
+.ct-box{flex:1;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));border-radius:12px;transition:border-color .15s,box-shadow .15s}
+.ct-box:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.ct-box textarea{display:block;width:100%;min-height:44px;padding:10px 12px;border:0;background:none;color:var(--fg);font:16px/1.5 Geist,system-ui,sans-serif;resize:none;outline:0;field-sizing:content}
+@media (min-width:640px){.ct-box textarea{font-size:14px}}
+.ct-box textarea:focus-visible{outline:0}
+.ct-box .bar{display:none;justify-content:flex-end;gap:6px;padding:0 8px 8px}
+.ct-box:focus-within .bar,.ct-box.has .bar{display:flex}
+.ct-btn{height:30px;padding:0 12px;border-radius:8px;font:550 12.5px Geist,system-ui,sans-serif;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.ct-btn.pr{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ct-btn:disabled{opacity:.35;cursor:not-allowed}
+.ct ul{list-style:none;margin:0;padding:0}
+.ct li{display:flex;gap:12px;padding:6px 0}
+.ct li .rep{margin-top:6px;padding-left:2px;border-left:2px solid var(--line);padding-left:14px}
+.ct-av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font:650 12px Geist,system-ui,sans-serif}
+.ct-rep .ct-av{width:28px;height:28px;font-size:10.5px}
+.ct-body{flex:1;min-width:0}
+.ct-m{display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--mu)}
+.ct-m b{color:var(--fg);font-weight:600;font-size:14px}
+.ct-m .au{padding:0 6px;border-radius:4px;background:var(--ac-sf);color:var(--ac);font-size:11px;font-weight:650}
+.ct-t{margin:3px 0 6px;font-size:14.5px;line-height:1.55;overflow-wrap:anywhere}
+.ct-a{display:flex;align-items:center;gap:4px;margin-left:-8px}
+.ct-a button{display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 8px;border:0;border-radius:7px;background:none;color:var(--mu);font:500 12.5px Geist,system-ui,sans-serif;cursor:pointer}
+.ct-a button:hover{background:var(--sf2);color:var(--fg)}
+.ct-a svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ct-a button[aria-pressed=true]{color:var(--ac)}
+.ct-a button[aria-pressed=true] svg{fill:currentColor}
+.ct-rx{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:99px;border:1px solid var(--line);background:var(--sf);font-size:12px;cursor:pointer;color:var(--fg)}
+.ct-rx[aria-pressed=true]{border-color:var(--ac);background:var(--ac-sf);color:var(--ac)}
+.ct-rep{margin-top:8px;padding-left:14px;border-left:2px solid var(--line)}
+.ct-rep li{padding:8px 0 4px}
+.ct-reply{margin:8px 0 4px}
+.ct li.new{animation:ct-in .3s var(--ease)}
+@keyframes ct-in{from{opacity:0;transform:translateY(-4px)}}
+</style>
+<div class="ct">
+  <section class="ct-pn" aria-labelledby="ctH">
+    <div class="ct-hd"><h2 id="ctH">Comments <span style="color:var(--mu);font-weight:500" id="ctN">3</span></h2><select aria-label="Sort comments"><option>Newest</option><option>Top</option></select></div>
+    <div class="ct-new"><span class="ct-av" style="background:#0e7490" aria-hidden="true">YO</span><div class="ct-box"><textarea placeholder="Add a comment…" aria-label="Add a comment" rows="1"></textarea><div class="bar"><button class="ct-btn" type="button" data-x>Cancel</button><button class="ct-btn pr" type="button" data-post disabled>Comment</button></div></div></div>
+    <ul id="ctL">
+      <li><span class="ct-av" style="background:#c2410c">MO</span><div class="ct-body"><div class="ct-m"><b>Mira Okafor</b><span class="au">AUTHOR</span><time>2h</time></div><p class="ct-t">Shipped the new token set. Every component now flips cleanly between light and dark, and contrast is checked at build time.</p>
+        <div class="ct-a"><button aria-pressed="true" data-like><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg><span>24</span></button><button data-reply><svg viewBox="0 0 24 24"><path d="M9 17 4 12l5-5"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>Reply</button><span class="ct-rx" role="button" tabindex="0" aria-pressed="false">🎉 <span>6</span></span><span class="ct-rx" role="button" tabindex="0" aria-pressed="true">🔥 <span>3</span></span></div>
+        <ul class="ct-rep">
+          <li><span class="ct-av" style="background:#7c3aed">SR</span><div class="ct-body"><div class="ct-m"><b>Sofia Ruiz</b><time>1h</time></div><p class="ct-t">Huge. The focus ring finally looks intentional.</p><div class="ct-a"><button aria-pressed="false" data-like><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg><span>5</span></button></div></div></li>
+        </ul></div></li>
+      <li><span class="ct-av" style="background:#15803d">TB</span><div class="ct-body"><div class="ct-m"><b>Tomás Brandt</b><time>45m</time></div><p class="ct-t">Any plans for a high-contrast theme on top of this?</p>
+        <div class="ct-a"><button aria-pressed="false" data-like><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg><span>2</span></button><button data-reply><svg viewBox="0 0 24 24"><path d="M9 17 4 12l5-5"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>Reply</button></div></div></li>
+    </ul>
+  </section>
+</div>
+<script>
+const L=document.getElementById("ctL"),N=document.getElementById("ctN");let n=3;
+const item=(txt,small)=>{const li=document.createElement("li");li.className="new";li.innerHTML=`<span class="ct-av" style="background:#0e7490">YO</span><div class="ct-body"><div class="ct-m"><b>You</b><time>now</time></div><p class="ct-t"></p><div class="ct-a"><button aria-pressed="false" data-like><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg><span>0</span></button></div></div>`;li.querySelector(".ct-t").textContent=txt;N.textContent=++n;return li};
+const wire=box=>{const t=box.querySelector("textarea"),p=box.querySelector("[data-post]"),x=box.querySelector("[data-x]");
+  t.addEventListener("input",()=>{p.disabled=!t.value.trim();box.classList.toggle("has",!!t.value)});
+  x.addEventListener("click",()=>{t.value="";p.disabled=true;box.classList.remove("has");if(box._onCancel)box._onCancel();else t.blur()});
+  const post=()=>{if(p.disabled)return;box._onPost(t.value.trim());t.value="";p.disabled=true;box.classList.remove("has")};
+  p.addEventListener("click",post);t.addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.metaKey||e.ctrlKey))post()})};
+const topBox=document.querySelector(".ct-new .ct-box");topBox._onPost=v=>L.prepend(item(v));wire(topBox);
+document.addEventListener("click",e=>{const b=e.target.closest("button,.ct-rx");if(!b||!b.closest(".ct-a"))return;
+  if(b.matches("[data-like]")||b.matches(".ct-rx")){const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);const s=b.querySelector("span");s.textContent=+s.textContent+(on?1:-1)}
+  if(b.matches("[data-reply]")){const body=b.closest(".ct-body");if(body.querySelector(".ct-reply"))return body.querySelector(".ct-reply textarea").focus();
+    const r=document.createElement("div");r.className="ct-reply";r.innerHTML=`<div class="ct-box has"><textarea placeholder="Write a reply…" aria-label="Reply" rows="1"></textarea><div class="bar"><button class="ct-btn" type="button" data-x>Cancel</button><button class="ct-btn pr" type="button" data-post disabled>Reply</button></div></div>`;
+    b.closest(".ct-a").after(r);const bx=r.querySelector(".ct-box");bx._onCancel=()=>{r.remove();b.focus()};
+    bx._onPost=v=>{let u=body.querySelector(".ct-rep");if(!u){u=document.createElement("ul");u.className="ct-rep";body.append(u)}u.append(item(v));r.remove()};wire(bx);bx.querySelector("textarea").focus()}});
+document.querySelectorAll(".ct-rx").forEach(r=>r.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();r.click()}}));
+</script>

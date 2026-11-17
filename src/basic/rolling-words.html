@@ -1,0 +1,20 @@
+<!--Rolling Words|Text|One word in a sentence rolls like a slot reel to the next, while its box eases to the new word's width so the rest of the line glides instead of jumping. Pauses on hover and when the tab is hidden.|text effect,rotating words,slot,headline,width animation-->
+<div class="k"><section class="rw"><h1 aria-live="off"><span>Ship interfaces that feel</span> <span class="rw-s" id="s"><span class="rw-r" id="r"></span></span></h1><p class="mu">Hover the headline to hold a word.</p></section></div>
+<style>
+.rw{width:min(900px,100%);text-align:center}
+.rw h1{margin:0;font-size:clamp(32px,6vw,64px);line-height:1.15;font-weight:650;letter-spacing:-.035em;text-wrap:balance}
+.rw-s{display:inline-block;vertical-align:bottom;height:1.15em;overflow:hidden;transition:width .5s cubic-bezier(.2,.8,.2,1);text-align:left}
+.rw-r{display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.rw-r b{display:block;height:1.15em;white-space:nowrap;font-weight:inherit;color:var(--ac)}
+.rw-r b:nth-child(2n){color:var(--fg);font-family:"Instrument Serif",serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.rw p{margin:20px 0 0}
+</style>
+<script>
+const W=["inevitable.","handmade.","fast.","calm.","yours."];let i=0,hold=false;
+r.innerHTML=W.concat(W[0]).map(w=>"<b>"+w+"</b>").join("");s.setAttribute("aria-label",W.join(" "));
+const B=[...r.children];const fit=()=>s.style.width=B[i].scrollWidth+"px";fit();
+const step=()=>{if(hold||document.hidden)return;i++;fit();r.style.transform="translateY(-"+i*1.15+"em)";if(i===W.length){setTimeout(()=>{r.style.transition="none";i=0;r.style.transform="none";fit();r.offsetHeight;r.style.transition=""},520)}};
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches)setInterval(step,2200);
+const h=document.querySelector(".rw h1");h.onpointerenter=()=>hold=true;h.onpointerleave=()=>hold=false;
+addEventListener("resize",fit);document.fonts&&document.fonts.ready.then(fit);
+</script>

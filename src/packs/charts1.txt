@@ -1,0 +1,123 @@
+=== ch-line-compare
+<!--Comparison Line Chart|Charts|Two series (this year vs last year) with labels at the line ends instead of a legend, a hover/keyboard crosshair that reads both values and the difference, and a toggle to show the data as a table.|chart,line,comparison,tooltip,svg,accessible-->
+<div class="k"><figure class="lc2 card"><figcaption><b>Monthly revenue</b><span class="mu">2026 vs 2025, € thousands</span><button class="b gh sm" id="tg" aria-pressed="false">Show table</button></figcaption><div class="lc2-c" id="c" tabindex="0" role="img" aria-label="Line chart: 2026 revenue is above 2025 in 10 of 12 months, ending at 184k versus 139k"><svg id="s"></svg><div class="lc2-tip" id="tp" hidden></div></div><table class="lc2-t" id="tb" hidden></table></figure></div>
+<style>
+.lc2{width:min(760px,100%);padding:20px;margin:0}.lc2 figcaption{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:12px}.lc2 figcaption .b{margin-left:auto}
+.lc2-c{position:relative;height:280px;outline:0}.lc2-c:focus-visible{outline:2px solid var(--focus);outline-offset:4px;border-radius:6px}.lc2-c svg{width:100%;height:100%;overflow:visible}
+.lc2 .g{stroke:var(--line)}.lc2 .ax{fill:var(--mu);font-size:11px}.lc2 .a{fill:none;stroke:var(--ac);stroke-width:2.5}.lc2 .b2{fill:none;stroke:var(--ctl);stroke-width:2;stroke-dasharray:4 4}.lc2 .lb{font-size:12px;font-weight:650}.lc2 .x{stroke:var(--fg);stroke-opacity:.25}
+.lc2-tip{position:absolute;top:0;background:var(--fg);color:var(--bg);font-size:12px;padding:8px 10px;border-radius:8px;pointer-events:none;translate:-50% 0;white-space:nowrap;display:grid;gap:2px}.lc2-tip b{font-size:13px}
+.lc2-t{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}.lc2-t th,.lc2-t td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right}.lc2-t th:first-child,.lc2-t td:first-child{text-align:left}
+</style>
+<script>
+const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],A=[96,101,118,112,130,141,138,150,162,158,171,184],B=[88,92,97,104,101,112,118,115,121,126,131,139];
+const s=document.getElementById('s'),c=document.getElementById('c'),tp=document.getElementById('tp');let W,H=280,L=36,R=56,T=10,Bm=24,hi=-1;
+const X=i=>L+i/11*(W-L-R),Y=v=>T+(1-(v-60)/140)*(H-T-Bm);
+function draw(){W=c.clientWidth;s.setAttribute('viewBox',`0 0 ${W} ${H}`);const p=a=>a.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('L');
+s.innerHTML=[80,120,160,200].map(v=>`<line class="g" x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}"/><text class="ax" x="${L-8}" y="${Y(v)+4}" text-anchor="end">${v}</text>`).join('')+M.map((m,i)=>i%2?'':`<text class="ax" x="${X(i)}" y="${H-6}" text-anchor="middle">${m}</text>`).join('')+
+`<path class="b2" d="M${p(B)}"/><path class="a" d="M${p(A)}"/><text class="lb" x="${X(11)+8}" y="${Y(A[11])+4}" fill="var(--ac)">2026</text><text class="lb" x="${X(11)+8}" y="${Y(B[11])+4}" fill="var(--mu)">2025</text>${hi>=0?`<line class="x" x1="${X(hi)}" x2="${X(hi)}" y1="${T}" y2="${H-Bm}"/><circle cx="${X(hi)}" cy="${Y(A[hi])}" r="4.5" fill="var(--ac)" stroke="var(--bg)" stroke-width="2"/><circle cx="${X(hi)}" cy="${Y(B[hi])}" r="4" fill="var(--ctl)" stroke="var(--bg)" stroke-width="2"/>`:''}`;
+if(hi>=0){const d=A[hi]-B[hi];tp.hidden=false;tp.style.left=Math.max(70,Math.min(W-70,X(hi)))+'px';tp.innerHTML=`<b>${M[hi]}</b><span>2026: €${A[hi]}k · 2025: €${B[hi]}k</span><span>${d>=0?'+':''}${d}k (${d>=0?'+':''}${(d/B[hi]*100).toFixed(0)}%)</span>`}else tp.hidden=true}
+c.onpointermove=e=>{const r=c.getBoundingClientRect();hi=Math.max(0,Math.min(11,Math.round((e.clientX-r.left-L)/(W-L-R)*11)));draw()};c.onpointerleave=()=>{hi=-1;draw()};
+c.onkeydown=e=>{if(e.key==='ArrowRight'){hi=Math.min(11,hi+1);draw()}if(e.key==='ArrowLeft'){hi=Math.max(0,hi<0?11:hi-1);draw()}if(e.key==='Escape'){hi=-1;draw()}};
+document.getElementById('tb').innerHTML='<thead><tr><th>Month</th><th>2026</th><th>2025</th></tr></thead><tbody>'+M.map((m,i)=>`<tr><td>${m}</td><td>${A[i]}</td><td>${B[i]}</td></tr>`).join('')+'</tbody>';
+document.getElementById('tg').onclick=e=>{const t=document.getElementById('tb'),o=t.hidden;t.hidden=!o;c.hidden=o;e.currentTarget.setAttribute('aria-pressed',o);e.currentTarget.textContent=o?'Show chart':'Show table'};draw();addEventListener('resize',draw);
+</script>
+=== ch-bars-grouped
+<!--Grouped Bar Chart|Charts|Grouped vertical bars by quarter for three regions in one hue family, value labels on hover/focus, a region toggle that re-scales the axis with animation, and rounded tops only.|chart,bar,grouped,svg,toggle-->
+<div class="k"><figure class="gb2 card"><figcaption><b>Orders by region</b><div class="gb2-f" role="group" aria-label="Regions" id="f"></div></figcaption><svg id="s" role="img" aria-label="Grouped bar chart of orders per quarter for three regions"></svg></figure></div>
+<style>
+.gb2{width:min(720px,100%);padding:20px;margin:0}.gb2 figcaption{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.gb2-f{display:flex;gap:6px}.gb2-f button{display:flex;gap:6px;align-items:center;height:30px;padding:0 10px;border-radius:999px;border:1px solid var(--line);font-size:12px}.gb2-f i{width:10px;height:10px;border-radius:3px;background:var(--c)}.gb2-f [aria-pressed=false]{opacity:.45}.gb2-f [aria-pressed=false] i{background:none;border:1.5px solid var(--c)}
+.gb2 svg{width:100%;height:280px;display:block}.gb2 .g{stroke:var(--line)}.gb2 .ax{fill:var(--mu);font-size:11px}.gb2 rect{transition:y .45s cubic-bezier(.23,1,.32,1),height .45s cubic-bezier(.23,1,.32,1),opacity .2s}.gb2 .bar:hover,.gb2 .bar:focus{opacity:.8;outline:0}.gb2 .v{font-size:11px;font-weight:650;fill:var(--fg);opacity:0;transition:opacity .15s;pointer-events:none}.gb2 g:hover .v,.gb2 g:focus-within .v{opacity:1}
+</style>
+<script>
+const Q=['Q1','Q2','Q3','Q4'],S=[['North','#1e3a8a',[420,480,510,620]],['Central','#3b6fd8',[300,360,340,410]],['South','#93b4f0',[180,240,300,350]]],on=[1,1,1],s=document.getElementById('s');
+document.getElementById('f').innerHTML=S.map(([n,c],i)=>`<button aria-pressed="true" data-i="${i}" style="--c:${c}"><i></i>${n}</button>`).join('');
+function draw(){const W=s.clientWidth,H=280,L=40,B=24,T=16,act=S.filter((_,i)=>on[i]),mx=Math.ceil(Math.max(1,...act.flatMap(x=>x[2]))/100)*100,Y=v=>T+(1-v/mx)*(H-T-B),gw=(W-L)/4,bw=Math.min(28,(gw-24)/Math.max(1,act.length));
+s.setAttribute('viewBox',`0 0 ${W} ${H}`);let h=[0,.25,.5,.75,1].map(f=>`<line class="g" x1="${L}" x2="${W}" y1="${Y(mx*f)}" y2="${Y(mx*f)}"/><text class="ax" x="${L-8}" y="${Y(mx*f)+4}" text-anchor="end">${Math.round(mx*f)}</text>`).join('');
+Q.forEach((q,qi)=>{const x0=L+qi*gw+(gw-bw*act.length-4*(act.length-1))/2;h+=`<text class="ax" x="${L+qi*gw+gw/2}" y="${H-6}" text-anchor="middle">${q}</text>`;act.forEach(([n,c,v],k)=>{const x=x0+k*(bw+4),y=Y(v[qi]);h+=`<g><path class="bar" tabindex="0" aria-label="${n} ${q}: ${v[qi]} orders" d="M${x},${H-B}V${y+4}a4,4 0 0 1 4,-4h${bw-8}a4,4 0 0 1 4,4V${H-B}Z" fill="${c}"/><text class="v" x="${x+bw/2}" y="${y-6}" text-anchor="middle">${v[qi]}</text></g>`})});s.innerHTML=h}
+document.getElementById('f').onclick=e=>{const b=e.target.closest('button');if(!b)return;const i=+b.dataset.i;if(on.filter(Boolean).length===1&&on[i])return;on[i]=on[i]?0:1;b.setAttribute('aria-pressed',!!on[i]);draw()};draw();addEventListener('resize',draw);
+</script>
+=== ch-donut
+<!--Labelled Donut Chart|Charts|A donut with labels and percentages beside each slice via leader lines (no legend), the centre showing the total or the hovered segment, small slices grouped into “Other”, and keyboard focus per slice.|chart,donut,pie,labels,svg-->
+<div class="k"><figure class="dn2 card"><figcaption><b>Where the time went</b><span class="mu">Last 30 days, 142 hours</span></figcaption><svg id="s" viewBox="0 0 420 280" role="img" aria-label="Donut chart of time by project"></svg></figure></div>
+<style>
+.dn2{width:min(520px,100%);padding:20px;margin:0}.dn2 figcaption{display:grid;margin-bottom:8px}.dn2 svg{width:100%;height:auto;display:block;overflow:visible}
+.dn2 .sl{transition:transform .2s cubic-bezier(.23,1,.32,1),opacity .2s;transform-origin:210px 140px;cursor:pointer;outline:0}.dn2 .sl:hover,.dn2 .sl:focus,.dn2 .sl.on{transform:scale(1.04)}.dn2 svg.f .sl:not(.on){opacity:.35}
+.dn2 .ln{stroke:var(--ctl);fill:none}.dn2 .lt{font-size:12px;fill:var(--fg)}.dn2 .lp{font-size:11px;fill:var(--mu)}.dn2 .c1{font-size:26px;font-weight:700;fill:var(--fg);letter-spacing:-.02em}.dn2 .c2{font-size:11px;fill:var(--mu)}
+</style>
+<script>
+const D=[["Client work",62,"#0f766e"],["Internal tools",31,"#14b8a6"],["Meetings",24,"#5eead4"],["Hiring",9,"#99f6e4"],["Admin",6,"#ccfbf1"],["Other",10,"#a1a1aa"]],tot=D.reduce((a,d)=>a+d[1],0),s=document.getElementById('s'),cx=210,cy=140,R=86,r=56;let on=-1;
+const pt=(a,rr)=>[cx+rr*Math.cos(a),cy+rr*Math.sin(a)];
+function draw(){let a0=-Math.PI/2,h='',LB=[];D.forEach(([n,v,c],i)=>{const a1=a0+v/tot*2*Math.PI,lg=a1-a0>Math.PI?1:0,[x0,y0]=pt(a0,R),[x1,y1]=pt(a1,R),[x2,y2]=pt(a1,r),[x3,y3]=pt(a0,r),m=(a0+a1)/2;
+h+=`<path class="sl${on===i?' on':''}" data-i="${i}" tabindex="0" aria-label="${n}: ${v} hours, ${Math.round(v/tot*100)}%" d="M${x0},${y0}A${R},${R} 0 ${lg} 1 ${x1},${y1}L${x2},${y2}A${r},${r} 0 ${lg} 0 ${x3},${y3}Z" fill="${c}" stroke="var(--bg)" stroke-width="2"/>`;const [lx,ly]=pt(m,R+8);LB.push({n,v,m,lx,ly,right:Math.cos(m)>=0,y:pt(m,R+26)[1]});a0=a1});
+[true,false].forEach(side=>{const G=LB.filter(l=>l.right===side).sort((p,q)=>p.y-q.y);for(let k=1;k<G.length;k++)if(G[k].y-G[k-1].y<30)G[k].y=G[k-1].y+30;const over=G.length?G[G.length-1].y-262:0;if(over>0)G.forEach(l=>l.y-=over);for(let k=G.length-2;k>=0;k--)if(G[k+1].y-G[k].y<30)G[k].y=G[k+1].y-30});
+LB.forEach(l=>{const tx=l.right?cx+R+34:cx-R-34;h+=`<path class="ln" d="M${l.lx},${l.ly}L${l.right?tx-8:tx+8},${l.y}L${tx},${l.y}"/><text class="lt" x="${tx+(l.right?4:-4)}" y="${l.y-2}" text-anchor="${l.right?'start':'end'}">${l.n}</text><text class="lp" x="${tx+(l.right?4:-4)}" y="${l.y+12}" text-anchor="${l.right?'start':'end'}">${l.v} h · ${Math.round(l.v/tot*100)}%</text>`});
+const sel=on>=0?D[on]:null;h+=`<text class="c1" x="${cx}" y="${cy+4}" text-anchor="middle">${sel?sel[1]+' h':tot+' h'}</text><text class="c2" x="${cx}" y="${cy+22}" text-anchor="middle">${sel?sel[0]:'total'}</text>`;s.innerHTML=h;s.classList.toggle('f',on>=0)}
+s.addEventListener('pointerover',e=>{const p=e.target.closest('.sl');if(p&&on!==+p.dataset.i){on=+p.dataset.i;draw()}});s.addEventListener('pointerleave',()=>{on=-1;draw()});s.addEventListener('focusin',e=>{const p=e.target.closest('.sl');if(p&&on!==+p.dataset.i){on=+p.dataset.i;draw();s.querySelector(`[data-i="${on}"]`).focus()}});draw();
+</script>
+=== ch-stacked-area
+<!--Stacked Area Chart|Charts|A stacked area of traffic sources over 12 weeks with a hover band that lists every layer's value top-down, layers you can isolate by clicking their label, and a 100% / absolute switch.|chart,stacked,area,svg,percentage-->
+<div class="k"><figure class="sa card"><figcaption><b>Signups by source</b><div class="sa-m" role="radiogroup" aria-label="Scale"><button role="radio" aria-checked="true" data-m="abs">Count</button><button role="radio" aria-checked="false" data-m="pct">Share</button></div></figcaption><div class="sa-c" id="c"><svg id="s" role="img" aria-label="Stacked area chart of weekly signups by source"></svg><div class="sa-tip" id="tp" hidden></div></div><div class="sa-l" id="l"></div></figure></div>
+<style>
+.sa{width:min(760px,100%);padding:20px;margin:0}.sa figcaption{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.sa-m{display:flex;background:var(--sf2);border-radius:8px;padding:2px}.sa-m button{height:28px;padding:0 10px;border-radius:6px;font-size:12px;color:var(--mu)}.sa-m [aria-checked=true]{background:var(--bg);color:var(--fg)}
+.sa-c{position:relative;height:260px}.sa-c svg{width:100%;height:100%;display:block}.sa path{transition:opacity .2s}.sa svg.iso path.ly:not(.on){opacity:.15}.sa .g{stroke:var(--line)}.sa .ax{fill:var(--mu);font-size:11px}.sa .x{stroke:var(--fg);stroke-opacity:.3}
+.sa-tip{position:absolute;top:4px;background:var(--fg);color:var(--bg);font-size:12px;padding:8px 10px;border-radius:8px;pointer-events:none;display:grid;gap:3px;min-width:140px}.sa-tip div{display:flex;justify-content:space-between;gap:12px}.sa-tip i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;background:var(--c)}
+.sa-l{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.sa-l button{display:flex;gap:6px;align-items:center;font-size:12px;height:28px;padding:0 8px;border-radius:6px}.sa-l button:hover{background:var(--sf)}.sa-l [aria-pressed=true]{background:var(--sf2);font-weight:600}.sa-l i{width:10px;height:10px;border-radius:3px;background:var(--c)}
+</style>
+<script>
+const L=[["Organic search","#4c1d95"],["Referral","#7c3aed"],["Social","#a78bfa"],["Direct","#ddd6fe"]],N=12,D=L.map((_,k)=>Array.from({length:N},(_,i)=>Math.round([140,60,40,90][k]+Math.sin(i/2+k)*[30,20,25,15][k]+i*[9,4,-1,2][k])));
+const s=document.getElementById('s'),c=document.getElementById('c'),tp=document.getElementById('tp');let pct=false,iso=-1,hi=-1;
+function draw(){const W=c.clientWidth,H=260,Lm=40,B=22,T=8,tot=Array.from({length:N},(_,i)=>D.reduce((a,d)=>a+d[i],0)),mx=pct?1:Math.ceil(Math.max(...tot)/100)*100,X=i=>Lm+i/(N-1)*(W-Lm-8),Y=v=>T+(1-v/mx)*(H-T-B);
+s.setAttribute('viewBox',`0 0 ${W} ${H}`);let acc=Array(N).fill(0),h=[0,.5,1].map(f=>`<line class="g" x1="${Lm}" x2="${W}" y1="${Y(mx*f)}" y2="${Y(mx*f)}"/><text class="ax" x="${Lm-6}" y="${Y(mx*f)+4}" text-anchor="end">${pct?Math.round(f*100)+'%':Math.round(mx*f)}</text>`).join('');
+D.forEach((d,k)=>{const lo=acc.slice(),hiA=acc.map((a,i)=>a+(pct?d[i]/tot[i]:d[i]));h+=`<path class="ly${iso===k?' on':''}" fill="${L[k][1]}" d="M${hiA.map((v,i)=>`${X(i)},${Y(v)}`).join('L')}L${lo.map((v,i)=>`${X(i)},${Y(v)}`).reverse().join('L')}Z"/>`;acc=hiA});
+h+=Array.from({length:N},(_,i)=>i%3?'':`<text class="ax" x="${X(i)}" y="${H-5}" text-anchor="middle">W${i+1}</text>`).join('');if(hi>=0)h+=`<line class="x" x1="${X(hi)}" x2="${X(hi)}" y1="${T}" y2="${H-B}"/>`;s.innerHTML=h;s.classList.toggle('iso',iso>=0);
+if(hi>=0){tp.hidden=false;tp.style.left=(X(hi)>W/2?X(hi)-160:X(hi)+12)+'px';tp.innerHTML=`<b>Week ${hi+1} · ${tot[hi]}</b>`+L.map((l,k)=>[l,k]).reverse().map(([[n,col],k])=>`<div><span><i style="--c:${col}"></i>${n}</span><b>${pct?Math.round(D[k][hi]/tot[hi]*100)+'%':D[k][hi]}</b></div>`).join('')}else tp.hidden=true}
+c.onpointermove=e=>{const r=c.getBoundingClientRect();hi=Math.max(0,Math.min(N-1,Math.round((e.clientX-r.left-40)/(r.width-48)*(N-1))));draw()};c.onpointerleave=()=>{hi=-1;draw()};
+document.getElementById('l').innerHTML=L.map(([n,col],k)=>`<button aria-pressed="false" data-k="${k}" style="--c:${col}"><i></i>${n}</button>`).reverse().join('');
+document.getElementById('l').onclick=e=>{const b=e.target.closest('button');if(!b)return;iso=iso===+b.dataset.k?-1:+b.dataset.k;document.querySelectorAll('.sa-l button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===iso));draw()};
+document.querySelector('.sa-m').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));pct=b.dataset.m==='pct';draw()};draw();addEventListener('resize',draw);
+</script>
+=== ch-spark-table
+<!--Sparkline Table|Charts|A metrics table where each row has an inline sparkline with its last point marked, min/max dots, a trend arrow and colour that respects whether up is good or bad for that metric.|chart,sparkline,table,trend,metrics-->
+<div class="k"><div class="st2 card"><table><thead><tr><th>Metric</th><th>Last 30 days</th><th>Now</th><th>Change</th></tr></thead><tbody id="b"></tbody></table></div></div>
+<style>
+.st2{width:min(720px,100%);padding:6px 0;overflow-x:auto}.st2 table{width:100%;border-collapse:collapse;font-size:14px}.st2 th{text-align:left;font-weight:550;font-size:12px;color:var(--mu);padding:10px 18px;border-bottom:1px solid var(--line)}.st2 td{padding:12px 18px;border-bottom:1px solid var(--line)}.st2 tr:last-child td{border:0}
+.st2 svg{width:140px;height:32px;display:block;overflow:visible}.st2 .ln{fill:none;stroke:var(--fg);stroke-width:1.5;stroke-linejoin:round}.st2 td:nth-child(3){font-weight:650;font-variant-numeric:tabular-nums}
+.st2 .ch{display:inline-flex;gap:4px;align-items:center;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}.st2 .good{color:var(--ok)}.st2 .bad{color:var(--err)}.st2 .ch .i{width:14px;height:14px}
+</style>
+<script>
+const M=[["Active users",1,12400,.003,"",0],["Churn rate",0,2.1,-.002,"%",1],["Avg. response time",0,284,.002,"ms",0],["Conversion",1,3.8,.0025,"%",1],["Support tickets",0,118,-.004,"",0]];
+document.getElementById('b').innerHTML=M.map(([n,upGood,v,tr,u,dec],k)=>{let s=k*7+3;const r=()=>(s=s*16807%2147483647)/2147483647,D=Array.from({length:30},(_,i)=>v*(1-tr*(29-i))*(1+(r()-.5)*.08));D[29]=v;const mn=Math.min(...D),mx=Math.max(...D),X=i=>i/29*140,Y=x=>2+(1-(x-mn)/(mx-mn||1))*28,ch=(D[29]-D[0])/D[0],good=(ch>0)===!!upGood,im=D.indexOf(mn),ix=D.indexOf(mx),f=x=>dec?x.toFixed(1):Math.round(x).toLocaleString('en');
+return `<tr><td>${n}</td><td><svg viewBox="0 0 140 32" role="img" aria-label="${n} trend, from ${f(D[0])}${u} to ${f(v)}${u}"><path class="ln" d="M${D.map((x,i)=>`${X(i).toFixed(1)},${Y(x).toFixed(1)}`).join('L')}"/><circle cx="${X(im)}" cy="${Y(mn)}" r="2" fill="var(--mu)"/><circle cx="${X(ix)}" cy="${Y(mx)}" r="2" fill="var(--mu)"/><circle cx="140" cy="${Y(v)}" r="3.5" fill="${good?'var(--ok)':'var(--err)'}"/></svg></td><td>${f(v)}${u}</td><td><span class="ch ${good?'good':'bad'}">${ch>0?'@I(up)':'@I(down)'}${(Math.abs(ch)*100).toFixed(1)}%</span></td></tr>`}).join('');
+</script>
+=== ch-gauge
+<!--Gauge Meter|Charts|A semicircle gauge with banded thresholds (good / watch / bad), a needle that eases to the value, a target tick, and a slider to try values; reads out the band in words for screen readers.|chart,gauge,meter,threshold,kpi-->
+<div class="k"><figure class="ga card"><figcaption><b>Server load</b><span class="mu">5-minute average</span></figcaption><svg viewBox="0 0 240 172" id="s" role="meter" aria-valuemin="0" aria-valuemax="100" aria-label="Server load"></svg><label class="ga-s"><span class="lbl">Try a value</span><input type="range" id="r" min="0" max="100" value="62"></label></figure></div>
+<style>
+.ga{width:min(360px,100%);padding:20px;margin:0;display:grid;gap:8px}.ga figcaption{display:grid}.ga svg{width:100%;height:auto;overflow:visible}.ga .nd{transition:transform .6s cubic-bezier(.23,1,.32,1);transform-origin:120px 120px}.ga .v{font-size:30px;font-weight:700;fill:var(--fg);letter-spacing:-.02em}.ga .w{font-size:12px;fill:var(--mu)}.ga .t{font-size:10px;fill:var(--mu)}.ga-s input{width:100%;accent-color:var(--fg)}
+@media (prefers-reduced-motion:reduce){.ga .nd{transition:none}}
+</style>
+<script>
+const s=document.getElementById('s'),r=document.getElementById('r'),cx=120,cy=120,R=92,TG=75,B=[[0,60,'var(--ok)','Healthy'],[60,85,'var(--warn)','Busy'],[85,100,'var(--err)','Overloaded']];
+const P=(v,rr)=>{const a=Math.PI*(1-v/100);return[cx+rr*Math.cos(a),cy-rr*Math.sin(a)]},arc=(a,b,rr)=>{const[x0,y0]=P(a,rr),[x1,y1]=P(b,rr);return`M${x0},${y0}A${rr},${rr} 0 0 1 ${x1},${y1}`};
+s.innerHTML=B.map(([a,b,c])=>`<path d="${arc(a+.6,b-.6,R)}" stroke="${c}" stroke-width="14" fill="none" stroke-linecap="butt" opacity=".9"/>`).join('')+(()=>{const[x0,y0]=P(TG,R-12),[x1,y1]=P(TG,R+12);return`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="var(--fg)" stroke-width="2"/><text class="t" x="${x1}" y="${y1-4}" text-anchor="middle">target</text>`})()+
+`<g class="nd" id="nd"><line x1="${cx}" y1="${cy}" x2="${cx-R+18}" y2="${cy}" stroke="var(--fg)" stroke-width="3" stroke-linecap="round"/></g><circle cx="${cx}" cy="${cy}" r="7" fill="var(--fg)"/><text class="v" id="v" x="${cx}" y="${cy+30}" text-anchor="middle"></text><text class="w" id="w" x="${cx}" y="${cy+48}" text-anchor="middle"></text><text class="t" x="${cx-R}" y="${cy+16}" text-anchor="middle">0</text><text class="t" x="${cx+R}" y="${cy+16}" text-anchor="middle">100</text>`;
+function set(v){document.getElementById('nd').style.transform=`rotate(${v/100*180}deg)`;document.getElementById('v').textContent=v+'%';const b=B.find(x=>v<=x[1]);document.getElementById('w').textContent=b[3];document.getElementById('w').style.fill=b[2];s.setAttribute('aria-valuenow',v);s.setAttribute('aria-valuetext',`${v}%, ${b[3]}`)}r.oninput=()=>set(+r.value);set(+r.value);
+</script>
+=== ch-radar
+<!--Radar Comparison Chart|Charts|A radar chart comparing two products across six attributes, with labelled axes, filled shapes in two contrasting hues, a hover readout per axis and a toggle to overlay or show one at a time.|chart,radar,spider,comparison,svg-->
+<div class="k"><figure class="rd card"><figcaption><b>Laptop comparison</b><div class="rd-t" role="radiogroup" aria-label="Show"><button role="radio" aria-checked="true" data-m="both">Both</button><button role="radio" aria-checked="false" data-m="a">Kestrel 14</button><button role="radio" aria-checked="false" data-m="b">Finch 13</button></div></figcaption><svg viewBox="0 0 360 320" id="s" role="img" aria-label="Radar chart comparing two laptops"></svg><p class="rd-o mu" id="o" aria-live="polite">Hover an attribute</p></figure></div>
+<style>
+.rd{width:min(480px,100%);padding:20px;margin:0}.rd figcaption{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.rd-t{display:flex;background:var(--sf2);border-radius:8px;padding:2px}.rd-t button{height:28px;padding:0 10px;border-radius:6px;font-size:12px;color:var(--mu)}.rd-t [aria-checked=true]{background:var(--bg);color:var(--fg)}
+.rd svg{width:100%;height:auto;overflow:visible}.rd .gr{fill:none;stroke:var(--line)}.rd .ax{stroke:var(--line)}.rd .lb{font-size:12px;fill:var(--fg);cursor:default}.rd .lb.on{font-weight:700}.rd .pa{fill:color-mix(in srgb,#0d9488 25%,transparent);stroke:#0d9488;stroke-width:2;transition:opacity .25s}.rd .pb{fill:color-mix(in srgb,#ea580c 22%,transparent);stroke:#ea580c;stroke-width:2;transition:opacity .25s}.rd .off{opacity:0}.rd .hz{fill:transparent;cursor:pointer}
+.rd-o{margin:4px 0 0;font-size:13px;min-height:20px;text-align:center}.rd-o b{font-weight:650}
+</style>
+<script>
+const AX=['Battery','Screen','Weight','Speed','Ports','Price'],A=[9,7,6,8,8,5],B=[6,8,9,7,4,8],s=document.getElementById('s'),cx=180,cy=160,R=110;let m='both',hi=-1;
+const P=(i,v)=>{const a=-Math.PI/2+i/6*2*Math.PI;return[cx+R*v/10*Math.cos(a),cy+R*v/10*Math.sin(a)]};
+function draw(){let h=[2,4,6,8,10].map(l=>`<polygon class="gr" points="${AX.map((_,i)=>P(i,l).join(',')).join(' ')}"/>`).join('')+AX.map((a,i)=>{const[x,y]=P(i,10),[lx,ly]=P(i,12.2);return`<line class="ax" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/><text class="lb${hi===i?' on':''}" x="${lx}" y="${ly+4}" text-anchor="middle">${a}</text>`}).join('');
+h+=`<polygon class="pa${m==='b'?' off':''}" points="${A.map((v,i)=>P(i,v).join(',')).join(' ')}"/><polygon class="pb${m==='a'?' off':''}" points="${B.map((v,i)=>P(i,v).join(',')).join(' ')}"/>`;
+h+=AX.map((a,i)=>{const[x,y]=P(i,12);return`<circle class="hz" cx="${x}" cy="${y}" r="26" data-i="${i}"/>`}).join('');s.innerHTML=h}
+s.addEventListener('pointerover',e=>{const c=e.target.closest('.hz');if(!c)return;hi=+c.dataset.i;draw();document.getElementById('o').innerHTML=`<b>${AX[hi]}</b>: <span style="color:#0d9488">Kestrel 14 ${A[hi]}/10</span> · <span style="color:#ea580c">Finch 13 ${B[hi]}/10</span>`});
+s.addEventListener('pointerleave',()=>{hi=-1;draw();document.getElementById('o').textContent='Hover an attribute'});
+document.querySelector('.rd-t').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));m=b.dataset.m;draw()};draw();
+</script>

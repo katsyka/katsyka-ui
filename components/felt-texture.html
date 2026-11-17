@@ -1,0 +1,85 @@
+<style>
+.bg-ftx{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;--ink:#f6ece4;--fb:#4a2418;--ink2:var(--ink);background:var(--fb);color:var(--ink);isolation:isolate;font:16px/1.5 Geist,system-ui,sans-serif}
+.bg-ftx canvas,.bg-ftx>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.bg-ftx>img{display:none;filter:none}
+.bg-ftx.nogl canvas{display:none}.bg-ftx.nogl>img{display:block}
+.bg-ftx-nav{display:flex;align-items:center;gap:28px;padding:20px clamp(16px,4vw,48px)}
+.bg-ftx-nav nav{display:flex;gap:22px}
+.bg-ftx-nav b{font-weight:600;font-size:16px;letter-spacing:-.01em}
+.bg-ftx-nav a{color:inherit;text-decoration:none;font-size:14px;opacity:.72;transition:opacity .15s ease-out}.bg-ftx-nav a:hover{opacity:1}
+.bg-ftx-main{flex:1;display:grid;padding:clamp(24px,5vw,64px) clamp(16px,4vw,48px) clamp(32px,6vw,72px)}
+.bg-ftx-eye{margin:0;font:500 11px/1.4 "Geist Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+.bg-ftx-sub{font-size:17px;line-height:1.55;max-width:44ch;margin:0;opacity:.8;text-wrap:pretty}
+.bg-ftx-mono{font:13px "Geist Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.bg-ftx-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:0;border-radius:10px;background:var(--ink);color:var(--fb);font:600 15px Geist,system-ui,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s ease-out,opacity .15s ease-out}
+.bg-ftx-btn:active{transform:scale(.97)}.bg-ftx-ghost{background:none;color:inherit;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--ink) 35%,transparent)}
+.bg-ftx-card{background:color-mix(in oklab,var(--fb) 84%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid color-mix(in oklab,var(--ink) 12%,transparent);border-radius:16px;padding:20px}
+.bg-ftx-card>.bg-ftx-eye:first-child{margin-bottom:10px}
+.bg-ftx-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.bg-ftx-pal{margin-left:auto;display:flex;gap:2px}
+.bg-ftx-pal button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
+.bg-ftx-pal button i{width:18px;height:18px;border-radius:50%;background:var(--g);box-shadow:0 0 0 1px color-mix(in oklab,var(--ink) 30%,transparent);transition:transform .15s ease-out}
+.bg-ftx-pal button[aria-pressed=true] i{box-shadow:0 0 0 2px var(--fb),0 0 0 3.5px var(--ink)}
+.bg-ftx :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media (max-width:760px){.bg-ftx-main{grid-template-columns:1fr!important;gap:28px!important}.bg-ftx-nav nav{display:none}}
+
+.bg-ftx-main{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:end}
+.bg-ftx h1{font:400 clamp(40px,6vw,80px)/1 "Instrument Serif",serif;letter-spacing:-.02em;margin:12px 0 16px;max-width:12ch;text-wrap:balance}
+.bg-ftx-play{display:flex;align-items:center;gap:14px;margin-top:28px}
+.bg-ftx-play .bg-ftx-btn{width:56px;padding:0;border-radius:50%}
+.bg-ftx-bar{flex:1;max-width:260px;height:4px;border-radius:2px;background:color-mix(in oklab,var(--ink) 25%,transparent)}.bg-ftx-bar i{display:block;width:34%;height:100%;border-radius:2px;background:var(--ink)}
+.bg-ftx-ep{list-style:none;margin:0;padding:0}.bg-ftx-ep li{display:grid;grid-template-columns:28px 1fr auto;gap:12px;padding:14px 0;border-top:1px solid color-mix(in oklab,var(--ink) 16%,transparent);font-size:15px}
+.bg-ftx-ep li:first-child{border-top:0}.bg-ftx-ep b{font-weight:500}.bg-ftx-ep span{opacity:.6}
+
+</style>
+<section class="bg-ftx">
+  <canvas aria-hidden="true"></canvas>
+  <header class="bg-ftx-nav"><b>Stitchwork Radio</b><nav aria-label="Stitchwork Radio"><a href="#">Stories</a><a href="#">Makers</a><a href="#">Sleep timer</a></nav><div class="bg-ftx-pal" role="group" aria-label="Colour"><button type="button" aria-pressed="true" data-k="#3a1d14,#8a4a32,#d49a76" style="--g:linear-gradient(135deg,#3a1d14,#8a4a32)" aria-label="Clay"><i></i></button><button type="button" aria-pressed="false" data-k="#1f2a1c,#3d5236,#7f9668" style="--g:linear-gradient(135deg,#1f2a1c,#3d5236)" aria-label="Moss"><i></i></button><button type="button" aria-pressed="false" data-k="#191c22,#363d4a,#7c8698" style="--g:linear-gradient(135deg,#191c22,#363d4a)" aria-label="Slate"><i></i></button></div></header>
+  <main class="bg-ftx-main">
+<div><p class="bg-ftx-eye">Tonight's story · Episode 31</p>
+<h1>The whale who kept the lighthouse</h1>
+<p class="bg-ftx-sub">Read slowly, with the lights low. Every character is cut and sewn from wool before we record a single word.</p>
+<div class="bg-ftx-play"><button class="bg-ftx-btn" type="button" aria-label="Play episode" data-tg aria-pressed="false"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button><div class="bg-ftx-bar"><i></i></div><span class="bg-ftx-mono">04:51 / 14:20</span></div></div>
+<div class="bg-ftx-card"><p class="bg-ftx-eye">This week</p><ol class="bg-ftx-ep">
+<li><span class="bg-ftx-mono">31</span><b>The whale who kept the lighthouse</b><span class="bg-ftx-mono">14:20</span></li>
+<li><span class="bg-ftx-mono">30</span><b>A fox learns to knit</b><span class="bg-ftx-mono">11:05</span></li>
+<li><span class="bg-ftx-mono">29</span><b>Moon in a teacup</b><span class="bg-ftx-mono">09:48</span></li></ol></div>
+</main>
+</section>
+<script>
+(()=>{
+const S=document.currentScript?document.currentScript.previousElementSibling:document.querySelector(".bg-ftx");
+const root=S&&S.classList.contains("bg-ftx")?S:document.querySelector(".bg-ftx");
+const cv=root.querySelector("canvas"),gl=cv.getContext("webgl",{antialias:false});
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,IMG=false;
+const off=()=>root.classList.add("nogl");
+if(!gl)return off();
+const FS="precision highp float;uniform vec2 r,m,us;uniform float t,ld;uniform sampler2D u;uniform vec3 k0,k1,k2;\nfloat h(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}\nvec2 h2(vec2 p){vec3 q=fract(vec3(p.xyx)*vec3(.1031,.103,.0973));q+=dot(q,q.yzx+33.33);return fract((q.xx+q.yz)*q.zy);}\nfloat n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}\nfloat fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=mat2(.8,.6,-.6,.8)*p*2.03+1.7;a*=.5;}return v;}\nvec2 cover(vec2 q){float ra=r.x/r.y,ia=us.x/us.y;vec2 s=ra>ia?vec2(1.,ia/ra):vec2(ra/ia,1.);return (q-.5)*s+.5;}\nvec3 img(vec2 q){return texture2D(u,clamp(q,.001,.999)).rgb;}\nfloat lum(vec3 c){return dot(c,vec3(.299,.587,.114));}\n\nfloat fib(vec2 p){float v=0.;for(int i=0;i<5;i++){float a=float(i)*1.256+.3;mat2 R=mat2(cos(a),sin(a),-sin(a),cos(a));v+=n(R*p*vec2(26.,2.2)+float(i)*7.);}return v/5.;}\nfloat H(vec2 p){return fbm(p*2.2)*.55+fib(p*4.)*.35+n(p*90.)*.1;}\nvoid main(){vec2 p=gl_FragCoord.xy/r.y;float e=1./r.y;\nfloat c=H(p),dx=H(p+vec2(e*2.,0))-c,dy=H(p+vec2(0,e*2.))-c;vec3 N=normalize(vec3(-dx*60.,-dy*60.,1.));\nvec3 L=normalize(vec3((m-.5)*vec2(2.4,2.)-(gl_FragCoord.xy/r-.5)*.8,.9));float d=max(dot(N,L),0.);\nvec3 col=mix(k0,k1,smoothstep(.25,.7,c));col=mix(col,k2,smoothstep(.62,.95,c)*.5);col*=.62+.55*d;\ncol+=(h(gl_FragCoord.xy+fract(t))-.5)*.03;vec2 v=gl_FragCoord.xy/r-.5;col*=1.-.5*dot(v,v);gl_FragColor=vec4(col,1);}";
+const sh=(ty,s)=>{const o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o};
+const P=gl.createProgram();gl.attachShader(P,sh(gl.VERTEX_SHADER,"attribute vec2 a;void main(){gl_Position=vec4(a,0,1);}"));gl.attachShader(P,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(P);
+if(!gl.getProgramParameter(P,gl.LINK_STATUS))return off();
+gl.useProgram(P);gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+const U={};["r","m","us","t","ld","k0","k1","k2"].forEach(k=>U[k]=gl.getUniformLocation(P,k));
+const hex=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)/255);
+let fr=0,ready=!IMG,vis=true,raf=0,t0=performance.now(),mx=.5,my=.5,sx=.5,sy=.5,ld=0,ldT=0;
+const pal=k=>{k.split(",").forEach((c,i)=>gl.uniform3fv(U["k"+i],hex(c)));if(RM)draw()};
+if(IMG){const im=root.querySelector("img"),tx=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tx);
+  [[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE],[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR]].forEach(p=>gl.texParameteri(gl.TEXTURE_2D,...p));
+  const go=()=>{try{gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im)}catch(e){return off()}gl.uniform2f(U.us,im.naturalWidth,im.naturalHeight);ready=true;ldT=performance.now();loop()};
+  im.complete&&im.naturalWidth?go():(im.onload=go,im.onerror=off)}
+function size(){const d=Math.min(devicePixelRatio||1,1.5)*1,w=Math.round(cv.clientWidth*d),h=Math.round(cv.clientHeight*d);if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)}gl.uniform2f(U.r,w,h)}
+function draw(){if(!ready)return;size();const now=performance.now();sx+=(mx-sx)*.06;sy+=(my-sy)*.06;
+  gl.uniform1f(U.t,RM?8:(now-t0)/1000);gl.uniform2f(U.m,sx,sy);gl.uniform1f(U.ld,IMG?Math.min(1,(now-ldT)/900):1);gl.drawArrays(gl.TRIANGLES,0,3)}
+function loop(){cancelAnimationFrame(raf);if(RM){draw();if(IMG&&performance.now()-ldT<1000)raf=requestAnimationFrame(loop);return}if(!vis||document.hidden)return;if(fr++%1===0)draw();raf=requestAnimationFrame(loop)}
+root.addEventListener("pointermove",e=>{const b=root.getBoundingClientRect();mx=(e.clientX-b.left)/b.width;my=1-(e.clientY-b.top)/b.height});
+root.addEventListener("pointerleave",()=>{mx=.5;my=.5});
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;loop()}).observe(root);
+document.addEventListener("visibilitychange",loop);
+new ResizeObserver(()=>{if(RM)draw()}).observe(root);
+root.querySelectorAll("[data-tg]").forEach(b=>b.addEventListener("click",()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")));
+root.querySelectorAll("[data-one]").forEach(b=>b.addEventListener("click",()=>b.parentNode.querySelectorAll("[data-one]").forEach(x=>x.setAttribute("aria-pressed",x===b))));
+const btns=[...root.querySelectorAll("[data-k]")];
+btns.forEach(b=>b.onclick=()=>{btns.forEach(x=>x.setAttribute("aria-pressed",x===b));pal(b.dataset.k);const s=root.style;["ink","fb"].forEach(k=>b.dataset[k]?s.setProperty("--"+k,b.dataset[k]):s.removeProperty("--"+k))});
+pal("#3a1d14,#8a4a32,#d49a76");loop();
+})();
+</script>

@@ -1,0 +1,51 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.tf{width:min(460px,100%);padding:28px}.tf h1{margin:6px 0 6px;font-size:20px;letter-spacing:-.02em}.tf p{margin:0}
+.tf-qr{display:flex;gap:20px;align-items:center;margin-top:20px;padding:16px;border:1px solid var(--line);border-radius:14px;flex-wrap:wrap}.tf-qr canvas{background:#fff;border-radius:8px;width:136px;height:136px;padding:6px}.tf-qr>div{display:grid;gap:8px;justify-items:start;flex:1;min-width:160px}.tf-k{font:14px 'Geist Mono',monospace;letter-spacing:.06em;background:var(--sf);padding:6px 8px;border-radius:6px}
+.tf-l{display:block;font-weight:550;margin:6px 0 10px}.tf-c{display:flex;gap:8px}.tf-c input{width:100%;min-width:0;height:52px;text-align:center;font:600 22px 'Geist Mono',monospace;border:1px solid var(--ctl);border-radius:10px;background:var(--bg);outline:0}.tf-c input:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}.tf-c input:nth-child(3){margin-right:10px}
+.tf-c.bad{animation:tfx .4s}.tf-c.bad input{border-color:var(--err)}@keyframes tfx{20%,60%{translate:-6px}40%,80%{translate:6px}}
+.tf-er{color:var(--err);font-size:13px;margin-top:8px!important}.tf-er:empty{display:none}.tf-go{width:100%;height:44px;margin-top:16px}.tf-h{font-size:12px;text-align:center;margin-top:10px!important}
+.tf-ok{text-align:center;display:grid;justify-items:center;gap:6px}.tf-ok>.i{width:56px;height:56px;padding:14px;border-radius:50%;background:var(--ok-sf);color:var(--ok);margin-bottom:8px}
+</style>
+<div class="k">
+<div class="card tf"><div id="s1"><span class="eb">Step 1 of 2</span><h1>Scan with your authenticator</h1><p class="mu">Use 1Password, Authy, Google Authenticator or any TOTP app.</p><div class="tf-qr"><canvas id="qr" width="168" height="168" aria-label="QR code for authenticator setup" role="img"></canvas><div><span class="lbl">Can't scan? Enter this key</span><code id="key" class="tf-k">JBSW Y3DP EHPK 3PXP</code><button class="b sec sm" id="cp"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg><span>Copy key</span></button></div></div>
+<span class="eb" style="display:block;margin-top:24px">Step 2 of 2</span><label class="tf-l" id="ll">Enter the 6-digit code from the app</label><div class="tf-c" id="cb" role="group" aria-labelledby="ll"></div><p class="tf-er" id="er" role="alert"></p><button class="b ac tf-go" id="vf" disabled>Verify and enable</button><p class="mu tf-h">Demo: any code except 000000 works.</p></div>
+<div id="s2" hidden class="tf-ok"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:28px;height:28px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><h1>Two-factor is on</h1><p class="mu">Next time you sign in we'll ask for a code from your app.</p><button class="b sec tf-go">Download recovery codes</button></div></div>
+</div>
+<script>
+const $=i=>document.getElementById(i),cv=$('qr'),x=cv.getContext('2d'),N=25,u=168/N;let s=11;const r=()=>(s=s*48271%2147483647)/2147483647;x.fillStyle='#111';
+const fin=(a,b)=>{x.fillRect(a*u,b*u,7*u,7*u);x.clearRect((a+1)*u,(b+1)*u,5*u,5*u);x.fillRect((a+2)*u,(b+2)*u,3*u,3*u)};
+for(let i=0;i<N;i++)for(let j=0;j<N;j++){const f=(i<8&&j<8)||(i>N-9&&j<8)||(i<8&&j>N-9);if(!f&&r()>.52)x.fillRect(i*u,j*u,u,u)}fin(0,0);fin(N-7,0);fin(0,N-7);
+$('cp').onclick=()=>{const t=$('key').textContent.replace(/ /g,''),d=()=>{$('cp').querySelector('span').textContent='Copied';setTimeout(()=>$('cp').querySelector('span').textContent='Copy key',1500)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(d).catch(d)};
+const cb=$('cb');for(let i=0;i<6;i++){const e=document.createElement('input');e.inputMode='numeric';e.maxLength=1;e.autocomplete=i?'off':'one-time-code';e.setAttribute('aria-label','Digit '+(i+1));cb.append(e)}const I=[...cb.children];
+const val=()=>I.map(i=>i.value).join('');function upd(){$('vf').disabled=val().length<6;cb.classList.remove('bad');$('er').textContent=''}
+I.forEach((e,i)=>{e.oninput=()=>{e.value=e.value.replace(/\D/g,'').slice(-1);if(e.value&&i<5)I[i+1].focus();upd()};e.onkeydown=k=>{if(k.key==='Backspace'&&!e.value&&i)I[i-1].focus();if(k.key==='Enter'&&val().length==6)$('vf').click()};e.onpaste=p=>{p.preventDefault();const d=(p.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,6);d.split('').forEach((c,j)=>I[j].value=c);I[Math.min(5,d.length)].focus();upd()}});
+$('vf').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Verifying…';setTimeout(()=>{b.textContent='Verify and enable';if(val()==='000000'){cb.classList.remove('bad');void cb.offsetWidth;cb.classList.add('bad');$('er').textContent='That code didn\'t match. Codes refresh every 30 seconds, try the newest one.';I.forEach(i=>i.value='');I[0].focus()}else{$('s1').hidden=true;$('s2').hidden=false}},700)};
+</script>

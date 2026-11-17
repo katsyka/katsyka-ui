@@ -1,0 +1,39 @@
+<!--Dark Accent Tuner|Dark|Pick a brand colour and get its dark-mode twin: OKLCH lightness raised and chroma lowered so it doesn't vibrate on dark surfaces, with live WCAG contrast for text and UI on every surface level, side by side with light mode.|dark mode,color,oklch,contrast,accessibility-->
+<div class="k"><section class="card at2"><header><h2>Accent for dark mode</h2><p class="mu">Never reuse the light-mode accent as is. Lift it, calm it, check it.</p></header>
+  <div class="at2-in"><label class="lbl" for="pk">Brand colour</label><div class="at2-row"><input type="color" id="pk" value="#c2410c"><input class="in tn" id="hx" value="#c2410c" maxlength="7" aria-label="Hex"></div>
+  <label class="lbl" for="lf" style="margin-top:12px">Lightness lift <span class="mu tn" id="lfv"></span></label><input type="range" id="lf" min="0" max="0.3" step="0.01" value="0.14"><label class="lbl" for="cf">Chroma kept <span class="mu tn" id="cfv"></span></label><input type="range" id="cf" min="0.4" max="1" step="0.05" value="0.8"></div>
+  <div class="at2-cmp"><div class="at2-p lt"><span class="at2-tag">Light</span><button class="at2-b" id="bl">Get started</button><a id="al">Read the docs →</a><table id="tl"></table></div><div class="at2-p dk"><span class="at2-tag">Dark</span><button class="at2-b" id="bd">Get started</button><a id="ad">Read the docs →</a><table id="td"></table></div></div>
+  <p class="at2-out tn" id="out"></p></section></div>
+<style>
+.at2{width:min(720px,100%);padding:24px}.at2 h2{margin:0;font-size:17px;font-weight:650}.at2 header p{margin:4px 0 16px}
+.at2-row{display:flex;gap:8px}.at2-row input[type=color]{width:44px;height:40px;padding:2px;border-radius:10px;border:1px solid var(--line);background:var(--bg);cursor:pointer}.at2-row .in{font-family:"Geist Mono",monospace;width:120px}
+.at2 input[type=range]{width:100%;accent-color:var(--ac)}
+.at2-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.at2-p{padding:16px;border-radius:14px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.at2-p.lt{background:#fff;color:#18181b;border:1px solid #e4e4e1;color-scheme:light}.at2-p.dk{background:#0f0f11;color:#ececee;border:1px solid #ffffff14;color-scheme:dark}
+.at2-tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.6}
+.at2-b{height:38px;padding:0 14px;border-radius:9px;font-weight:600;font-size:14px}
+.at2-p a{font-weight:600;font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:default}
+.at2-p table{width:100%;border-collapse:collapse;font-size:12px}.at2-p td{padding:4px 0;border-top:1px solid color-mix(in srgb,currentColor 12%,transparent)}.at2-p td:last-child{text-align:right}
+.at2-p .sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;box-shadow:inset 0 0 0 1px #8884}
+.ok{color:#16a34a}.dk .ok{color:#4ade80}.no{color:#dc2626}.dk .no{color:#f87171}
+.at2-out{margin:16px 0 0;font:500 13px "Geist Mono",monospace;padding:10px 12px;border-radius:10px;background:var(--sf);overflow-x:auto;white-space:nowrap}
+@media (max-width:560px){.at2-cmp{grid-template-columns:1fr}}
+</style>
+<script>
+const toLin=c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4,toS=c=>c<=.0031308?12.92*c:1.055*c**(1/2.4)-.055;
+const hex2rgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255);
+const rgb2hex=r=>"#"+r.map(c=>Math.round(Math.min(1,Math.max(0,c))*255).toString(16).padStart(2,"0")).join("");
+const rgb2ok=([r,g,b])=>{r=toLin(r);g=toLin(g);b=toLin(b);const l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b),m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b),s=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b);const L=.2104542553*l+.793617785*m-.0040720468*s,A=1.9779984951*l-2.428592205*m+.4505937099*s,B=.0259040371*l+.7827717662*m-.808675766*s;return[L,Math.hypot(A,B),Math.atan2(B,A)]};
+const ok2rgb=([L,C,H])=>{const A=C*Math.cos(H),B=C*Math.sin(H);const l=(L+.3963377774*A+.2158037573*B)**3,m=(L-.1055613458*A-.0638541728*B)**3,s=(L-.0894841775*A-1.291485548*B)**3;return[4.0767416621*l-3.3077115913*m+.2309699292*s,-1.2684380046*l+2.6097574011*m-.3413193965*s,-.0041960863*l-.7034186147*m+1.707614701*s].map(toS)};
+const lum=h=>{const[r,g,b]=hex2rgb(h).map(toLin);return .2126*r+.7152*g+.0722*b},cr=(a,b)=>{const x=lum(a),y=lum(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+const tbl=(acc,surf)=>surf.map(([n,s])=>{const c=cr(acc,s);return`<tr><td><span class="sw" style="background:${s}"></span>${n}</td><td class="${c>=4.5?"ok":c>=3?"":"no"}">${c.toFixed(2)}:1 ${c>=4.5?"text ✓":c>=3?"UI only":"✗"}</td></tr>`}).join("");
+const run=()=>{const h=hx.value;if(!/^#[0-9a-f]{6}$/i.test(h))return;const[L,C,H]=rgb2ok(hex2rgb(h));const lift=+lf.value,keep=+cf.value;let dL=Math.min(.86,Math.max(L+lift,.68)),dC=C*keep,dh;
+ for(let k=0;k<20;k++){dh=rgb2hex(ok2rgb([dL,dC,H]));if(cr(dh,"#26262b")>=4.5)break;dL+=.01}
+ lfv.textContent="+"+lift.toFixed(2);cfv.textContent=Math.round(keep*100)+"%";
+ const lfg=lum(h)>.4?"#111":"#fff",dfg=lum(dh)>.35?"#111":"#fff";
+ bl.style.cssText=`background:${h};color:${lfg}`;al.style.color=h;bd.style.cssText=`background:${dh};color:${dfg}`;ad.style.color=dh;
+ tl.innerHTML=tbl(h,[["Page #ffffff","#ffffff"],["Surface #f6f6f4","#f6f6f4"],["Raised #ececea","#ececea"]]);td.innerHTML=tbl(dh,[["Page #0f0f11","#0f0f11"],["Surface #18181b","#18181b"],["Raised #26262b","#26262b"]]);
+ out.textContent=`--ac: light-dark(${h}, ${dh});  /* oklch(${dL.toFixed(3)} ${dC.toFixed(3)} ${((H*180/Math.PI+360)%360).toFixed(1)}) */`};
+pk.oninput=()=>{hx.value=pk.value;run()};hx.oninput=()=>{if(/^#[0-9a-f]{6}$/i.test(hx.value))pk.value=hx.value;run()};lf.oninput=cf.oninput=run;run();
+</script>

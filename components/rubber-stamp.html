@@ -1,0 +1,60 @@
+<style>
+.stp{--ink:#c2261b;min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:#d9d3c7;font-family:Geist,system-ui,sans-serif;color:#26221c;overflow:hidden}
+.stp-wrap{width:min(560px,100%)}
+.stp-bar{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.stp-bar span{font:12px/1 "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#6b6457;margin-right:auto}
+.stp-bar button{height:34px;padding:0 12px;border-radius:8px;border:1px solid #26221c26;background:#f4f0e8;color:#26221c;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.stp-bar button[aria-pressed="true"]{background:#26221c;color:#f4f0e8}
+.stp-bar button:focus-visible,.stp-doc:focus-visible{outline:2px solid #1d4ed8;outline-offset:2px}
+.stp-doc{position:relative;aspect-ratio:1/1.12;max-height:72vh;margin:0 auto;padding:clamp(20px,5%,40px);background:#fbf9f4;box-shadow:0 1px 0 #fff inset,0 24px 50px -24px #0006,0 2px 6px #0000001a;cursor:none;overflow:hidden;touch-action:manipulation}
+.stp-doc h3{margin:0 0 2px;font:400 32px/1 "Instrument Serif",serif}.stp-doc small{font:11px/1.6 "Geist Mono",monospace;color:#857d6f}
+.stp-doc table{width:100%;margin-top:22px;border-collapse:collapse;font:12px/1.4 "Geist Mono",monospace}
+.stp-doc td{padding:7px 0;border-bottom:1px dashed #26221c2e}.stp-doc td:last-child{text-align:right}
+.stp-doc tr:last-child td{border:0;font-weight:600;font-size:14px;padding-top:12px}
+.stp-doc.shake{animation:stp-sh .18s}
+@keyframes stp-sh{40%{transform:translateY(1.5px)}}
+.stp-mark{position:absolute;padding:6px 16px;border:4px double var(--c);border-radius:8px;color:var(--c);font:800 30px/1 Geist,system-ui,sans-serif;letter-spacing:.12em;white-space:nowrap;translate:-50% -50%;opacity:.88;pointer-events:none;mix-blend-mode:multiply;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.6 2.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='120'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.6 2.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");animation:stp-in .22s cubic-bezier(.2,.9,.3,1.3) both}
+@keyframes stp-in{from{scale:1.35;opacity:0}}
+.stp-tool{position:absolute;left:0;top:0;width:96px;height:118px;margin:-118px 0 0 -48px;pointer-events:none;transition:translate .09s ease-in;opacity:0}
+.stp-doc:hover .stp-tool{opacity:1}
+.stp-tool.down{translate:0 14px}
+.stp-tool i{position:absolute;left:50%;translate:-50% 0;display:block}
+.stp-knob{top:0;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#a8714a,#5a361d 75%)}
+.stp-neck{top:38px;width:18px;height:40px;background:linear-gradient(90deg,#5a361d,#8a5733,#5a361d)}
+.stp-base{top:76px;width:96px;height:28px;border-radius:6px;background:linear-gradient(#8a5733,#5a361d)}
+.stp-rub{top:102px;width:88px;height:12px;border-radius:0 0 4px 4px;background:var(--ink)}
+.stp-st{margin-top:12px;min-height:20px;font-size:13px;color:#6b6457;text-align:center}
+@media (hover:none){.stp-doc{cursor:auto}.stp-tool{display:none}}
+</style>
+<section class="stp">
+  <div class="stp-wrap">
+    <div class="stp-bar" role="group" aria-label="Stamp"><span>Ink</span>
+      <button data-t="APPROVED" data-c="#1f7a3a" aria-pressed="true">Approved</button><button data-t="PAID" data-c="#1d4ed8" aria-pressed="false">Paid</button><button data-t="VOID" data-c="#c2261b" aria-pressed="false">Void</button><button class="stp-undo">Undo</button></div>
+    <div class="stp-doc" tabindex="0" role="button" aria-label="Invoice. Click or press Enter to stamp it.">
+      <h3>Invoice 2291</h3><small>Harbour &amp; Pine Studio · due 14 Nov 2026</small>
+      <table><tr><td>Brand workshop, 2 days</td><td>3,200.00</td></tr><tr><td>Logo refinement</td><td>1,150.00</td></tr><tr><td>Type licensing</td><td>480.00</td></tr><tr><td>Print proofs</td><td>220.00</td></tr><tr><td>Total due</td><td>€5,050.00</td></tr></table>
+      <div class="stp-tool" aria-hidden="true"><i class="stp-knob"></i><i class="stp-neck"></i><i class="stp-base"></i><i class="stp-rub"></i></div>
+    </div>
+    <div class="stp-st" aria-live="polite">Pick an ink, then stamp anywhere on the invoice.</div>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".stp"),doc=R.querySelector(".stp-doc"),tool=R.querySelector(".stp-tool"),st=R.querySelector(".stp-st"),inks=[...R.querySelectorAll("[data-t]")];
+let ink=inks[0],marks=[];
+const pick=b=>{ink=b;inks.forEach(x=>x.setAttribute("aria-pressed",x===b));R.style.setProperty("--ink",b.dataset.c)};
+inks.forEach(b=>b.onclick=()=>pick(b));pick(ink);
+const at=(x,y)=>{tool.classList.add("down");setTimeout(()=>{
+    const m=document.createElement("div");m.className="stp-mark";m.textContent=ink.dataset.t;m.style.setProperty("--c",ink.dataset.c);
+    m.style.left=x+"px";m.style.top=y+"px";m.style.rotate=(Math.random()*16-8).toFixed(1)+"deg";
+    m.style.webkitMaskPosition=m.style.maskPosition=`${Math.random()*200|0}px ${Math.random()*100|0}px`; // every impression inks differently
+    doc.append(m);marks.push(m);doc.classList.remove("shake");void doc.offsetWidth;doc.classList.add("shake");
+    st.textContent=`Stamped ${ink.dataset.t}. ${marks.length} impression${marks.length>1?"s":""}.`},90);
+  setTimeout(()=>tool.classList.remove("down"),190)};
+doc.addEventListener("pointermove",e=>{const r=doc.getBoundingClientRect();tool.style.transform=`translate(${e.clientX-r.left}px,${e.clientY-r.top}px)`});
+doc.addEventListener("click",e=>{const r=doc.getBoundingClientRect();at(e.clientX-r.left,e.clientY-r.top)});
+doc.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();at(doc.clientWidth*(.55+Math.random()*.2),doc.clientHeight*(.62+Math.random()*.15))}});
+R.querySelector(".stp-undo").onclick=()=>{const m=marks.pop();if(m){m.remove();st.textContent=marks.length?`Removed. ${marks.length} left.`:"Clean invoice again."}};
+})();
+</script>

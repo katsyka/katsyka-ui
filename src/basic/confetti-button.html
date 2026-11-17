@@ -1,0 +1,14 @@
+<!--Confetti Button|Buttons|A celebratory button that bursts multicolour paper confetti from the button itself on click (canvas, gravity and flutter), with a satisfying press, a done state, and no confetti at all under reduced motion.|button,confetti,celebrate,success,colourful-->
+<div class="k cfb"><button class="cfb-b" id="b"><span id="l">Publish project</span></button><canvas id="cv" aria-hidden="true"></canvas></div>
+<style>
+.k.cfb{min-height:100dvh;background:var(--bg)}#cv{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.cfb-b{height:56px;padding:0 28px;border-radius:16px;border:0;font:650 17px Geist,sans-serif;color:#fff;background:linear-gradient(90deg,#ff3d7f,#ff8a00,#ffd23f,#3dd6c6,#5b6cff);background-size:200% 100%;cursor:pointer;transition:transform .12s var(--ease),background-position .6s var(--ease);box-shadow:0 4px 0 color-mix(in srgb,#5b6cff 60%,#000)}
+.cfb-b:hover{background-position:100% 0}.cfb-b:active{transform:translateY(3px);box-shadow:0 1px 0 color-mix(in srgb,#5b6cff 60%,#000)}.cfb-b span{text-shadow:0 1px 1px rgb(0 0 0/.35)}.cfb-b:disabled{cursor:default}
+</style>
+<script>
+const b=document.getElementById('b'),l=document.getElementById('l'),cv=document.getElementById('cv'),x=cv.getContext('2d'),C=['#ff3d7f','#ff8a00','#ffd23f','#3dd6c6','#5b6cff','#a855f7'];let ps=[],raf=0;
+function size(){const d=devicePixelRatio||1;cv.width=innerWidth*d;cv.height=innerHeight*d;x.setTransform(d,0,0,d,0,0)}size();addEventListener('resize',size);
+function burst(){const r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;for(let i=0;i<140;i++){const a=-Math.PI/2+(Math.random()-.5)*2.2,v=6+Math.random()*9;ps.push({x:cx+(Math.random()-.5)*r.width*.6,y:cy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,w:6+Math.random()*6,h:8+Math.random()*8,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:C[i%C.length],t:Math.random()*6,life:0})}if(!raf)raf=requestAnimationFrame(step)}
+function step(){x.clearRect(0,0,innerWidth,innerHeight);ps=ps.filter(p=>p.y<innerHeight+40&&p.life<260);for(const p of ps){p.life++;p.vy+=.28;p.vx*=.985;p.vy*=.985;p.t+=.15;p.x+=p.vx+Math.sin(p.t)*.8;p.y+=p.vy;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.scale(1,Math.cos(p.t));x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore()}raf=ps.length?requestAnimationFrame(step):0}
+b.onclick=()=>{b.disabled=true;l.textContent='Publishing…';setTimeout(()=>{l.textContent='Published!';if(!matchMedia('(prefers-reduced-motion: reduce)').matches)burst();setTimeout(()=>{l.textContent='Publish project';b.disabled=false},2200)},600)};
+</script>

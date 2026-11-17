@@ -1,0 +1,70 @@
+<style>
+.sg2{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sg2 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sg2 ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sg2 *,.sg2 *::before,.sg2 *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sg2{min-height:100vh;display:grid;place-items:center;padding:32px 16px}
+.sg2-card{width:min(560px,100%);padding:22px;border-radius:24px;background:var(--sf);box-shadow:var(--shadow)}
+.sg2-card h2{margin:0 0 4px;font-size:18px;font-weight:600}.sg2-card>p{margin:0 0 14px;color:var(--mu);font-size:14px}
+.sg2-tabs{display:inline-flex;padding:4px;border-radius:12px;background:var(--sf2);margin-bottom:12px}
+.sg2-tabs button{height:36px;padding:0 14px;border:0;border-radius:9px;background:none;color:var(--mu);font:550 14px Geist,sans-serif;cursor:pointer}
+.sg2-tabs button[aria-selected=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 3px light-dark(#0000001f,#0008)}
+.sg2-pad{position:relative;height:220px;border-radius:16px;background:var(--bg);border:1px solid var(--ctl);overflow:hidden}
+.sg2-pad canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.sg2-line{position:absolute;left:24px;right:24px;bottom:56px;border-bottom:1.5px dashed var(--ctl);pointer-events:none}
+.sg2-x{position:absolute;left:24px;bottom:62px;font:500 18px Geist,sans-serif;color:var(--mu);pointer-events:none}
+.sg2-hint{position:absolute;left:0;right:0;top:40%;text-align:center;color:var(--mu);font-size:14px;pointer-events:none;transition:opacity .3s}
+.sg2-pad.has .sg2-hint{opacity:0}
+.sg2-type{display:none;position:absolute;inset:0;padding:0 24px}
+.sg2-type input{position:absolute;left:24px;right:24px;bottom:60px;height:64px;border:0;background:none;outline:0;color:var(--ink);font:italic 400 46px "Instrument Serif",serif}
+.sg2-type input:focus-visible{outline:2px solid var(--focus);outline-offset:4px;border-radius:6px}
+.sg2-card.typed canvas,.sg2-card.typed .sg2-hint{display:none}.sg2-card.typed .sg2-type{display:block}
+.sg2-tools{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.sg2-ink{display:flex;gap:6px;margin-right:auto}
+.sg2-ink button{width:32px;height:32px;border-radius:50%;border:2px solid transparent;background:var(--c);cursor:pointer;box-shadow:inset 0 0 0 2px var(--bg)}
+.sg2-ink button[aria-pressed=true]{border-color:var(--fg)}
+.sg2-tools>button{height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:550 14px Geist,sans-serif;cursor:pointer}
+.sg2-tools>button:disabled{opacity:.4;cursor:not-allowed}
+.sg2-tools>button.pri{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.sg2-st{min-height:20px;margin-top:10px;font-size:13px;color:var(--ok)}
+</style>
+<section class="sg2" style="--ink:light-dark(#18181b,#f4f4f5)"><div class="sg2-card">
+  <h2>Sign the agreement</h2><p>Draw with a mouse, finger or stylus — or type your name.</p>
+  <div class="sg2-tabs" role="tablist"><button role="tab" aria-selected="true" data-m="draw">Draw</button><button role="tab" aria-selected="false" data-m="type">Type</button></div>
+  <div class="sg2-pad"><canvas aria-label="Signature drawing area"></canvas><div class="sg2-hint">Sign above the line</div><span class="sg2-x">×</span><div class="sg2-line"></div>
+    <div class="sg2-type"><input aria-label="Type your full name" placeholder="Your full name" autocomplete="name"></div></div>
+  <div class="sg2-tools"><div class="sg2-ink" role="group" aria-label="Ink colour"><button aria-label="Black ink" aria-pressed="true" style="--c:light-dark(#18181b,#f4f4f5)" data-c="fg"></button><button aria-label="Blue ink" aria-pressed="false" style="--c:#1d4ed8" data-c="#1d4ed8"></button></div>
+    <button data-a="undo" disabled>Undo</button><button data-a="clear" disabled>Clear</button><button class="pri" data-a="save" disabled>Save PNG</button></div>
+  <div class="sg2-st" role="status"></div>
+</div></section>
+<script>
+(()=>{
+const card=document.querySelector(".sg2-card"),pad=card.querySelector(".sg2-pad"),cv=pad.querySelector("canvas"),x=cv.getContext("2d"),typ=card.querySelector(".sg2-type input"),st=card.querySelector(".sg2-st");
+let strokes=[],cur=null,ink="fg",dpr=1;
+const color=c=>c==="fg"?getComputedStyle(card).color:c;
+function fit(){dpr=Math.min(devicePixelRatio,2);cv.width=cv.clientWidth*dpr;cv.height=cv.clientHeight*dpr;redraw()}
+// smooth stroke: quadratic curves through midpoints; width shrinks with speed like real ink
+function drawStroke(s){if(s.p.length<2){const p=s.p[0];x.fillStyle=color(s.c);x.beginPath();x.arc(p.x*dpr,p.y*dpr,1.6*dpr,0,7);x.fill();return}
+  x.strokeStyle=color(s.c);x.lineCap=x.lineJoin="round";
+  for(let i=1;i<s.p.length-1;i++){const a=s.p[i-1],b=s.p[i],c=s.p[i+1],m1={x:(a.x+b.x)/2,y:(a.y+b.y)/2},m2={x:(b.x+c.x)/2,y:(b.y+c.y)/2};
+    x.lineWidth=b.w*dpr;x.beginPath();x.moveTo(m1.x*dpr,m1.y*dpr);x.quadraticCurveTo(b.x*dpr,b.y*dpr,m2.x*dpr,m2.y*dpr);x.stroke()}}
+function redraw(){x.clearRect(0,0,cv.width,cv.height);strokes.forEach(drawStroke);if(cur)drawStroke(cur);sync()}
+function sync(){const has=card.classList.contains("typed")?!!typ.value.trim():strokes.length>0;pad.classList.toggle("has",has);
+  card.querySelector("[data-a=undo]").disabled=!strokes.length||card.classList.contains("typed");card.querySelector("[data-a=clear]").disabled=!has;card.querySelector("[data-a=save]").disabled=!has}
+const P=e=>{const r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,t:performance.now()}};
+cv.addEventListener("pointerdown",e=>{cv.setPointerCapture(e.pointerId);const p=P(e);p.w=3.2;cur={c:ink,p:[p]};st.textContent="";redraw()});
+cv.addEventListener("pointermove",e=>{if(!cur)return;const p=P(e),q=cur.p[cur.p.length-1],v=Math.hypot(p.x-q.x,p.y-q.y)/Math.max(1,p.t-q.t);
+  const pr=e.pressure&&e.pointerType==="pen"?e.pressure:.5;p.w=Math.max(1.4,Math.min(5,(4.2-v*1.6)*(.6+pr*.8)));p.w=q.w*.6+p.w*.4;cur.p.push(p);redraw()});
+const end=()=>{if(cur){strokes.push(cur);cur=null;redraw()}};cv.addEventListener("pointerup",end);cv.addEventListener("pointercancel",end);
+card.querySelectorAll(".sg2-ink button").forEach(b=>b.onclick=()=>{card.querySelectorAll(".sg2-ink button").forEach(x=>x.setAttribute("aria-pressed",x===b));ink=b.dataset.c;pad.style.setProperty("--ink",color(ink))});
+card.querySelector("[data-a=undo]").onclick=()=>{strokes.pop();redraw()};
+card.querySelector("[data-a=clear]").onclick=()=>{strokes=[];typ.value="";redraw();st.textContent=""};
+card.querySelectorAll(".sg2-tabs button").forEach((b,i,all)=>{b.onclick=()=>{all.forEach(x=>x.setAttribute("aria-selected",x===b));card.classList.toggle("typed",b.dataset.m==="type");if(b.dataset.m==="type")typ.focus();sync()};
+  b.onkeydown=e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();const n=all[(i+1)%2];n.focus();n.click()}}});
+typ.oninput=sync;
+card.querySelector("[data-a=save]").onclick=()=>{const out=document.createElement("canvas");out.width=cv.width;out.height=cv.height;const o=out.getContext("2d");
+  if(card.classList.contains("typed")){o.fillStyle=color(ink);o.font=`italic ${46*dpr}px "Instrument Serif",serif`;o.fillText(typ.value,24*dpr,out.height-66*dpr)}else o.drawImage(cv,0,0);
+  const a=document.createElement("a");a.href=out.toDataURL("image/png");a.download="signature.png";a.click();st.textContent="Signature saved as signature.png"};
+new ResizeObserver(fit).observe(cv);
+})();
+</script>

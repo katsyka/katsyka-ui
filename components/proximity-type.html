@@ -1,0 +1,25 @@
+<style>
+.pt2{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:40px clamp(20px,6vw,90px);background:#f1eee8;color:#191714;cursor:default;user-select:none}
+.pt2 small{font:500 12px "Geist Mono",monospace;letter-spacing:.14em;color:#8f897e}
+.pt2 h1{margin:18px 0 0;font-size:clamp(52px,10.5vw,170px);line-height:.92;letter-spacing:-.045em;font-weight:300}
+.pt2 h1 span span{display:inline-block;font-variation-settings:"wght" var(--w,300);transition:color .3s}
+.pt2 h1 .sp{width:.25em}
+.pt2 p{max-width:460px;margin:34px 0 0;color:#6f695f;font-size:16.5px;line-height:1.6}
+</style>
+<section class="pt2"><small>VARIABLE FONT · WEIGHT FOLLOWS YOU</small><h1 data-prox>Type that leans in when you come close.</h1>
+<p>Each letter reads its distance to the pointer and eases its weight between 300 and 800 on Geist's variable axis. Leave and it settles back down, letter by letter.</p></section>
+<script>
+(()=>{
+const h=document.querySelector("[data-prox]"),txt=h.textContent;h.textContent="";
+// letters are grouped per word (nowrap) so lines only break between words
+const L=[];txt.split(" ").forEach((word,wi)=>{if(wi)h.append(" ");const w=document.createElement("span");w.style.whiteSpace="nowrap";h.append(w);
+  [...word].forEach(ch=>{const s=document.createElement("span");s.textContent=ch;w.append(s);L.push({s,w:300,t:300,x:0,y:0})})});
+const measure=()=>L.forEach(o=>{const r=o.s.getBoundingClientRect();o.x=r.left+r.width/2+scrollX;o.y=r.top+r.height/2+scrollY});
+let px=-9999,py=-9999,R=260;
+addEventListener("pointermove",e=>{px=e.pageX;py=e.pageY});document.addEventListener("pointerleave",()=>{px=py=-9999});
+addEventListener("resize",measure);(document.fonts?document.fonts.ready:Promise.resolve()).then(measure);measure();
+let frame=0;
+(function f(){requestAnimationFrame(f);if(++frame%30===0)measure();R=Math.max(160,innerWidth*.2);
+  for(const o of L){const d=Math.hypot(px-o.x,py-o.y),k=Math.max(0,1-d/R);o.t=300+500*k*k*(3-2*k);o.w+=(o.t-o.w)*.14;o.s.style.setProperty("--w",o.w.toFixed(0));o.s.style.color=k>.6?"#c2410c":""}})();
+})();
+</script>

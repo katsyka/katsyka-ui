@@ -1,0 +1,34 @@
+<style>
+.bl{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 20px 6vh;background:#000;color:#f3f1ee;overflow:hidden;text-align:center}
+.bl video{position:absolute;left:0;top:0;width:100%;height:64vh;object-fit:contain;-webkit-mask:linear-gradient(#000 70%,transparent);mask:linear-gradient(#000 70%,transparent)}
+.bl-in{position:relative}
+.bl small{font:500 12px "Geist Mono",monospace;letter-spacing:.2em;color:#a39e96}
+.bl h2{font-size:clamp(34px,4.6vw,68px);line-height:.92;letter-spacing:-.05em;font-weight:600;margin:12px 0 22px}
+.bl h2 em{font-family:"Instrument Serif",serif;font-weight:400;letter-spacing:-.025em;color:#e8c9a8}
+.bl-cd{display:flex;justify-content:center;gap:10px;margin-bottom:28px}
+.bl-cd div{min-width:78px;padding:12px 10px;border-radius:14px;background:#ffffff0a;border:1px solid #ffffff14;backdrop-filter:blur(10px)}
+.bl-cd b{display:block;font:600 30px "Geist Mono",monospace;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.bl-cd span{font-size:11.5px;color:#8f8a82;letter-spacing:.06em}
+.bl-f{display:flex;gap:6px;width:min(420px,100%);margin:0 auto;padding:5px;border-radius:99px;background:#ffffff0d;border:1px solid #ffffff1a;backdrop-filter:blur(10px)}
+.bl-f input{flex:1;min-width:0;border:0;outline:0;background:none;color:#f3f1ee;padding:0 16px;font:15px Geist,sans-serif}
+.bl-f button{height:44px;padding:0 20px;border-radius:99px;border:0;background:#f3f1ee;color:#000;font:600 14px Geist,sans-serif;cursor:pointer;transition:background .3s}
+.bl-f.ok button{background:#e8c9a8}
+</style>
+<section class="bl">
+  <video src="media/bloom.mp4" poster="media/bloom.jpg" autoplay muted loop playsinline></video>
+  <div class="bl-in">
+    <small>LAUNCHING · 21 NOV 2026</small>
+    <h2>Opens on<br><em>launch day.</em></h2>
+    <div class="bl-cd"><div><b data-u="d">00</b><span>DAYS</span></div><div><b data-u="h">00</b><span>HOURS</span></div><div><b data-u="m">00</b><span>MIN</span></div><div><b data-u="s">00</b><span>SEC</span></div></div>
+    <form class="bl-f"><input type="email" required placeholder="you@studio.com" aria-label="Email"><button>Notify me</button></form>
+  </div>
+</section>
+<script>
+(()=>{
+const T=new Date("2026-11-21T17:00:00Z").getTime(),u={};document.querySelectorAll(".bl-cd b").forEach(b=>u[b.dataset.u]=b);
+const tick=()=>{let s=Math.max(0,(T-Date.now())/1000|0);const v={d:s/86400|0,h:(s%86400)/3600|0,m:(s%3600)/60|0,s:s%60};
+  for(const k in v){const t=String(v[k]).padStart(2,"0");if(u[k].textContent!==t){u[k].textContent=t;u[k].animate([{transform:"translateY(-30%)",opacity:0},{transform:"none",opacity:1}],{duration:300,easing:"cubic-bezier(.2,1,.3,1)"})}}};
+tick();setInterval(tick,1000);
+const f=document.querySelector(".bl-f");f.onsubmit=e=>{e.preventDefault();f.classList.add("ok");f.querySelector("button").textContent="You're in ✓";f.querySelector("input").disabled=true};
+})();
+</script>

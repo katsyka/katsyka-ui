@@ -1,0 +1,83 @@
+<style>
+.tf{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.tf :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tf ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.tf *,.tf *::before,.tf *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.tf{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.tf-pn{width:min(720px,100%);display:grid;grid-template-columns:1fr 1fr;gap:22px 20px;padding:28px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.tf-f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.tf-f label{font-size:14px;font-weight:550;letter-spacing:-.005em;display:flex;align-items:baseline;gap:6px}
+.tf-f label em{font-style:normal;color:var(--err)}
+.tf-f label small{margin-left:auto;font-weight:400;font-size:12.5px;color:var(--mu)}
+.tf-w{position:relative;display:flex;align-items:center;height:40px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);box-shadow:0 1px 2px #0000000a;transition:border-color .15s,box-shadow .15s}
+.tf-w:hover{border-color:var(--ctl)}
+.tf-w:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.tf-w input{flex:1;min-width:0;height:100%;padding:0 12px;border:0;background:none;color:var(--fg);font:16px Geist,system-ui,sans-serif;outline:0}
+@media (min-width:640px){.tf-w input{font-size:14.5px}}
+.tf-w input::placeholder{color:color-mix(in oklab,var(--mu) 80%,var(--bg))}
+.tf-w>svg{flex:none;width:16px;height:16px;margin-left:12px;fill:none;stroke:var(--mu);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tf-w>svg+input{padding-left:8px}
+.tf-w .sfx{padding:0 12px;font-size:14px;color:var(--mu);white-space:nowrap}
+.tf-w .clr{display:grid;place-items:center;width:28px;height:28px;margin-right:6px;border:0;border-radius:7px;background:none;color:var(--mu);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .15s}
+.tf-w .clr.on{opacity:1;pointer-events:auto}
+.tf-w .clr:hover{background:var(--sf2);color:var(--fg)}
+.tf-w .clr svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.25;stroke-linecap:round}
+.tf-hint{font-size:13px;color:var(--mu);display:flex;align-items:center;gap:6px;min-height:19px}
+.tf-hint svg{flex:none;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+.tf-f.err .tf-w{border-color:var(--err)}
+.tf-f.err .tf-w:focus-within{box-shadow:0 0 0 3px color-mix(in oklab,var(--err) 22%,transparent)}
+.tf-f.err .tf-hint{color:var(--err)}
+.tf-f.ok .tf-w{border-color:var(--ok)}
+.tf-f.ok .tf-hint{color:var(--ok)}
+.tf-f.dis .tf-w{background:var(--sf);border-style:dashed;cursor:not-allowed}
+.tf-f.dis input{cursor:not-allowed;color:var(--mu)}
+.tf-f.ro .tf-w{background:var(--sf);box-shadow:none}
+.tf-f.ro input{font-family:"Geist Mono",monospace;font-size:13.5px}
+.tf-sm .tf-w{height:32px;border-radius:8px}.tf-sm input{font-size:13.5px!important;padding:0 10px}
+.tf-lg .tf-w{height:48px;border-radius:12px}.tf-lg input{font-size:16px!important;padding:0 14px}
+.tf-full{grid-column:1/-1}
+.tf-sizes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:end}
+@media (max-width:640px){.tf-pn{grid-template-columns:1fr;padding:20px}.tf-sizes{grid-template-columns:1fr}}
+.tf-w input:focus-visible{outline:0}.tf-w input::-webkit-search-cancel-button{display:none}
+</style>
+<div class="tf">
+  <form class="tf-pn" novalidate onsubmit="return false">
+    <div class="tf-f"><label for="tfN">Full name <em aria-hidden="true">*</em></label>
+      <div class="tf-w"><input id="tfN" required placeholder="Ada Lovelace" autocomplete="name" aria-describedby="tfNh"></div>
+      <div class="tf-hint" id="tfNh">As it appears on your ID.</div></div>
+    <div class="tf-f" id="tfEf"><label for="tfE">Email <em aria-hidden="true">*</em></label>
+      <div class="tf-w"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><input id="tfE" type="email" required value="ada@analytical" autocomplete="email" aria-describedby="tfEh" aria-invalid="true"></div>
+      <div class="tf-hint" id="tfEh"></div></div>
+    <div class="tf-f"><label for="tfS">Search <small>Clearable</small></label>
+      <div class="tf-w"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="tfS" type="search" value="Quarterly report" placeholder="Search files"><button type="button" class="clr on" aria-label="Clear search"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div></div>
+    <div class="tf-f"><label for="tfW">Weight</label>
+      <div class="tf-w"><input id="tfW" inputmode="decimal" value="72.5" aria-describedby="tfWh"><span class="sfx">kg</span></div>
+      <div class="tf-hint" id="tfWh">Used to calculate dosage.</div></div>
+    <div class="tf-f ok"><label for="tfU">Username</label>
+      <div class="tf-w"><span class="sfx" style="padding-right:0">@</span><input id="tfU" value="ada" style="padding-left:2px" aria-describedby="tfUh"></div>
+      <div class="tf-hint" id="tfUh"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>@ada is available</div></div>
+    <div class="tf-f ro"><label for="tfK">API key <small>Read-only</small></label>
+      <div class="tf-w"><input id="tfK" readonly value="sk_live_••••••••4f9a"></div></div>
+    <div class="tf-f dis"><label for="tfD">Organisation</label>
+      <div class="tf-w"><input id="tfD" disabled value="Managed by your admin"></div></div>
+    <div class="tf-f"><label for="tfO">Promo code <small>Optional</small></label>
+      <div class="tf-w"><input id="tfO" placeholder="e.g. SPRING24" style="text-transform:uppercase"></div></div>
+    <div class="tf-full tf-sizes">
+      <div class="tf-f tf-sm"><label for="tf1">Small</label><div class="tf-w"><input id="tf1" placeholder="32px"></div></div>
+      <div class="tf-f"><label for="tf2">Default</label><div class="tf-w"><input id="tf2" placeholder="40px"></div></div>
+      <div class="tf-f tf-lg"><label for="tf3">Large</label><div class="tf-w"><input id="tf3" placeholder="48px"></div></div>
+    </div>
+  </form>
+</div>
+<script>
+const ef=document.getElementById("tfEf"),ei=document.getElementById("tfE"),eh=document.getElementById("tfEh");
+const ic='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>';
+const vEmail=()=>{const v=ei.value.trim(),ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+  ef.classList.toggle("err",!ok);ef.classList.toggle("ok",ok);ei.setAttribute("aria-invalid",!ok);
+  eh.innerHTML=ok?'<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Looks good':ic+(v?"Add a domain ending, like .com":"Email is required")};
+vEmail();ei.addEventListener("input",()=>{if(ef.classList.contains("err")||ef.classList.contains("ok"))vEmail()});ei.addEventListener("blur",vEmail);
+const n=document.getElementById("tfN");n.addEventListener("blur",()=>{const f=n.closest(".tf-f"),h=document.getElementById("tfNh"),bad=!n.value.trim();f.classList.toggle("err",bad);n.setAttribute("aria-invalid",bad);h.innerHTML=bad?ic+"Enter your full name":"As it appears on your ID."});
+const s=document.getElementById("tfS"),c=document.querySelector(".clr");
+s.addEventListener("input",()=>c.classList.toggle("on",!!s.value));
+c.addEventListener("click",()=>{s.value="";c.classList.remove("on");s.focus()});
+</script>

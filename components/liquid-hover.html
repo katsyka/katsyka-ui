@@ -1,0 +1,62 @@
+<style>
+.lh{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.lh :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.lh ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.lh *,.lh *::before,.lh *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.lh{min-height:100vh;display:grid;align-content:center;gap:32px;padding:48px clamp(16px,4vw,56px);background:var(--bg);color:var(--fg);font-family:Geist,system-ui,sans-serif}
+.lh h2{margin:0 auto;max-width:1180px;width:100%;font-size:clamp(36px,4.6vw,64px);line-height:.95;letter-spacing:-.05em;font-weight:600}
+.lh h2 em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.02em}
+.lh-g{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,24px);max-width:1180px;width:100%;margin:0 auto;padding:0;list-style:none}
+.lh-g a{display:grid;gap:12px;color:inherit;text-decoration:none}
+.lh-g a:focus-visible{outline:none}.lh-g a:focus-visible .lh-m{outline:2px solid var(--focus);outline-offset:3px}
+.lh-m{position:relative;aspect-ratio:4/5;border-radius:var(--r2);overflow:hidden;background:var(--sf2)}
+.lh-m img,.lh-m canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.lh-m img+img{opacity:0;transition:opacity .5s}
+.lh-g a:hover .lh-m img+img,.lh-g a:focus-visible .lh-m img+img{opacity:1}
+.lh-m.gl img{visibility:hidden}
+.lh-g p{display:flex;justify-content:space-between;margin:0;font-size:15px;font-weight:550}
+.lh-g p span{font:500 12px "Geist Mono",monospace;letter-spacing:.08em;color:var(--mu);align-self:center}
+@media (max-width:760px){.lh-g{grid-template-columns:1fr 1fr}.lh-g li:last-child{display:none}}
+</style>
+<section class="lh" aria-label="Liquid hover cards">
+  <h2>Two moods, <em>one hover.</em></h2>
+  <ul class="lh-g">
+    <li><a href="#"><div class="lh-m"><img src="media/pics/c/1041.jpg" alt="A curling blue wave" crossorigin="anonymous"><img src="media/pics/c/1053.jpg" alt="" crossorigin="anonymous"></div><p>Swell <span>WAVE → FOAM</span></p></a></li>
+    <li><a href="#"><div class="lh-m"><img src="media/pics/c/1042.jpg" alt="Star trails over a dark ridge" crossorigin="anonymous"><img src="media/pics/c/1022.jpg" alt="" crossorigin="anonymous"></div><p>Night shift <span>STARS → AURORA</span></p></a></li>
+    <li><a href="#"><div class="lh-m"><img src="media/pics/c/1048.jpg" alt="Looking straight up between glass towers" crossorigin="anonymous"><img src="media/pics/c/1031.jpg" alt="" crossorigin="anonymous"></div><p>Downtown <span>STONE → GLASS</span></p></a></li>
+  </ul>
+</section>
+<script>
+(()=>{
+// One small WebGL canvas per card. Hover eases a progress value; the shader pushes both photos along a noise field and wipes between them on a noisy edge.
+const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const vs="attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;v.y=1.-v.y;gl_Position=vec4(p,0,1);}";
+const fs=`precision mediump float;uniform sampler2D A,B;uniform float t;uniform vec2 ca,cb;varying vec2 v;
+float h(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}
+float fb(vec2 p){return n(p)*.5+n(p*2.1)*.25+n(p*4.3)*.125;}
+void main(){float w=fb(v*3.)+v.y*.35;float e=smoothstep(t*1.6-.3,t*1.6-.1,w);vec2 d=vec2(fb(v*4.+7.),fb(v*4.-3.))-.45;float s=t*(1.-t)*.5;
+vec3 a=texture2D(A,(v-.5)*ca+.5+d*s).rgb,b=texture2D(B,(v-.5)*cb+.5-d*s*(1.-t)).rgb;gl_FragColor=vec4(mix(b,a,e),1);}`;
+document.querySelectorAll(".lh-m").forEach(m=>{const[ia,ib]=m.querySelectorAll("img"),a=m.closest("a"),c=document.createElement("canvas");
+  const gl=c.getContext("webgl",{antialias:false});if(!gl)return;
+  const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o},pr=gl.createProgram();
+  gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))return;gl.useProgram(pr);
+  gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+  const pl=gl.getAttribLocation(pr,"p");gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+  const U=k=>gl.getUniformLocation(pr,k);let p=0,goal=0,raf=0,loaded=0;
+  const cov=(im,n)=>{const ca=c.width/c.height,ia2=im.naturalWidth/im.naturalHeight;gl.uniform2f(U(n),ca>ia2?1:ca/ia2,ca>ia2?ia2/ca:1)};
+  function tex(im,u){const t=gl.createTexture();gl.activeTexture(gl.TEXTURE0+u);gl.bindTexture(gl.TEXTURE_2D,t);
+    for(const[k,v]of[[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE],[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR]])gl.texParameteri(gl.TEXTURE_2D,k,v);
+    try{gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im)}catch(e){return false}return true}
+  function draw(){gl.uniform1f(U("t"),p);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+  function size(){const d=Math.min(devicePixelRatio,2);c.width=m.clientWidth*d;c.height=m.clientHeight*d;gl.viewport(0,0,c.width,c.height);if(loaded===2){cov(ia,"ca");cov(ib,"cb");draw()}}
+  function ready(){if(++loaded<2)return;if(!tex(ia,0)||!tex(ib,1))return;gl.uniform1i(U("A"),0);gl.uniform1i(U("B"),1);m.append(c);m.classList.add("gl");size()}
+  [ia,ib].forEach(im=>im.complete&&im.naturalWidth?ready():im.addEventListener("load",ready));
+  const tick=()=>{p+=(goal-p)*(still?1:.07);if(Math.abs(goal-p)<.002)p=goal;draw();raf=p===goal?0:requestAnimationFrame(tick)};
+  const set=g=>{goal=g;if(loaded===2&&!raf)raf=requestAnimationFrame(tick)};
+  a.addEventListener("pointerenter",e=>{if(e.pointerType==="mouse")set(1)});a.addEventListener("pointerleave",e=>{if(e.pointerType==="mouse")set(0)});
+  a.addEventListener("focus",()=>set(1));a.addEventListener("blur",()=>set(0));
+  a.addEventListener("click",e=>{e.preventDefault();if(e.pointerType!=="mouse")set(goal?0:1)});
+  new ResizeObserver(size).observe(m)});
+})();
+</script>

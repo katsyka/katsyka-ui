@@ -1,0 +1,40 @@
+<!--Interval Timer|A workout interval timer: a big ring that drains per phase, a huge tabular countdown, work/rest colour that switches with the phase, round count, live heart rate and the next exercise up. Pause and skip sit low for thumbs.|workout,timer,interval,fitness,countdown-->
+<main class="wo" id="wo">
+  <div class="wo-top"><button class="ib" aria-label="End workout">@I(x)</button><span class="wo-r tn" id="rn">Round 1 of 8</span><span class="wo-hr tn">@I(heart,16)<span id="hr">128</span></span></div>
+  <div class="wo-ring"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="90" class="bg"/><circle cx="100" cy="100" r="90" class="fg" id="arc"/></svg>
+    <div class="wo-c"><span class="wo-ph" id="ph">Work</span><output class="wo-t tn" id="t" aria-live="off">0:40</output><span class="wo-ex" id="ex">Kettlebell swings</span></div></div>
+  <div class="wo-nx"><span class="mu">Next</span><b id="nx">Rest · 20 s</b></div>
+  <div class="wo-ctl"><button class="ib wo-s" aria-label="Previous">@I(prev,24)</button><button class="wo-pp" id="pp" aria-label="Pause">@I(pause,32)</button><button class="ib wo-s" id="sk" aria-label="Skip phase">@I(next,24)</button></div>
+</main>
+<style>
+.wo{flex:1;display:flex;flex-direction:column;padding:var(--st) var(--gut) max(24px,var(--sbt));--c:light-dark(#ea580c,#fb923c);transition:--c .4s}
+.wo.rest{--c:light-dark(#0891b2,#67e8f9)}
+.wo-top{display:flex;align-items:center;justify-content:space-between;margin:0 -8px}
+.wo-r{font-size:15px;font-weight:600}.wo-hr{display:flex;align-items:center;gap:4px;font-size:15px;font-weight:600;color:light-dark(#e11d48,#fb7185);padding-right:8px}.wo-hr .i{fill:currentColor;animation:hb .9s infinite}
+@keyframes hb{15%{transform:scale(1.2)}30%{transform:none}}
+.wo-ring{position:relative;flex:1;display:grid;place-items:center;min-height:0}
+.wo-ring svg{width:min(320px,100%);aspect-ratio:1;transform:rotate(-90deg)}
+.wo-ring circle{fill:none;stroke-width:12;stroke-linecap:round}.wo-ring .bg{stroke:color-mix(in srgb,var(--c) 16%,transparent)}.wo-ring .fg{stroke:var(--c);stroke-dasharray:565.5;transition:stroke .4s}
+.wo-c{position:absolute;display:flex;flex-direction:column;align-items:center}
+.wo-ph{font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c);transition:color .4s}
+.wo-t{font-size:88px;line-height:1;font-weight:600;letter-spacing:-.05em}
+.wo-ex{font-size:17px;color:var(--mu);margin-top:4px}
+.wo-nx{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-radius:16px;background:var(--sf);font-size:16px}.wo-nx b{font-weight:600}
+.wo-ctl{display:flex;align-items:center;justify-content:space-around;margin-top:20px}
+.wo-s{width:56px;height:56px;border-radius:28px;background:var(--sf)!important}
+.wo-pp{width:84px;height:84px;border-radius:42px;background:var(--c)!important;color:light-dark(#fff,#111)!important;display:grid;place-items:center;transition:transform .15s,background .4s}
+.wo-pp:active{transform:scale(.94)}
+</style>
+<script>
+const P=[];const EX=["Kettlebell swings","Push-ups","Goblet squats","Burpees"];for(let r=0;r<8;r++){P.push(["Work",40,EX[r%4],r]);P.push(["Rest",20,"Breathe",r])}
+let i=0,left=40,run=true,last=performance.now();const C=565.5,PA=pp.innerHTML,PL='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:32px;height:32px"><path d="M7 4v16l13-8z" fill="currentColor"/></svg>';
+const fmt=s=>Math.floor(s/60)+":"+String(Math.ceil(s%60)===60?0:Math.ceil(s)%60).padStart(2,"0");
+const set=()=>{const[p,d,e,r]=P[i];ph.textContent=p;ex.textContent=e;rn.textContent=`Round ${r+1} of 8`;wo.classList.toggle("rest",p==="Rest");const n=P[i+1];nx.textContent=n?(n[0]==="Rest"?"Rest · "+n[1]+" s":n[2]):"Cool down"};
+const draw=()=>{const d=P[i][1];t.textContent=fmt(Math.max(0,left));arc.style.strokeDashoffset=C*(1-left/d)};
+const next=()=>{i=Math.min(P.length-1,i+1);left=P[i][1];set();draw()};
+const loop=now=>{const dt=(now-last)/1000;last=now;if(run){left-=dt;if(left<=0)next();draw()}requestAnimationFrame(loop)};
+set();draw();requestAnimationFrame(loop);
+pp.onclick=()=>{run=!run;pp.innerHTML=run?PA:PL;pp.setAttribute("aria-label",run?"Pause":"Resume")};
+sk.onclick=next;document.querySelector('[aria-label=Previous]').onclick=()=>{i=Math.max(0,i-1);left=P[i][1];set();draw()};
+setInterval(()=>hr.textContent=(P[i][0]==="Work"?132:112)+Math.round(Math.random()*12),1500);
+</script>

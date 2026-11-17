@@ -1,0 +1,39 @@
+<!--Verification Code|A six-digit code screen built on one real input with autocomplete="one-time-code", so SMS autofill and paste work. Cells show the caret, it verifies on the last digit, shakes on a wrong code and counts down to Resend.|otp,verification,sms,code,autofill-->
+<main class="sc ot">
+  <button class="ib" aria-label="Back" style="margin-left:-12px">@I(left)</button>
+  <h1 class="si-h">Enter the code</h1>
+  <p class="si-p">We texted a 6-digit code to <b class="tn">+1 ••• ••• 4821</b>. Try <span class="tn">246810</span>.</p>
+  <label class="ot-w" id="w"><span class="vh">Verification code</span><input id="in" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]*" maxlength="6" enterkeyhint="done"><span class="ot-c" id="cells" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span></label>
+  <p class="ot-m" id="msg" role="status"></p>
+  <button class="ot-r" id="rs" disabled>Resend code in <span class="tn" id="cd">0:30</span></button>
+</main>
+<style>
+.ot{padding:calc(var(--st) + 4px) 24px 24px}
+.si-h{margin:16px 0 0;font-size:32px;line-height:38px;font-weight:700;letter-spacing:-.025em}
+.si-p{margin:8px 0 32px;color:var(--mu);font-size:17px;line-height:24px}.si-p b{color:var(--fg);font-weight:600}
+.ot-w{position:relative;display:block}
+.ot-w input{position:absolute;inset:0;opacity:0;font-size:16px;caret-color:transparent;width:100%;z-index:2}
+.ot-c{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.ot-c i{position:relative;height:60px;border-radius:14px;border:1px solid var(--ctl);display:grid;place-items:center;font:600 26px/1 "Geist Mono",monospace;font-style:normal;transition:border-color .15s,box-shadow .15s,transform .2s var(--ease)}
+.ot-c{grid-template-columns:repeat(3,1fr) 0 repeat(3,1fr)}.ot-c i:nth-child(4){grid-column:5}
+.ot-c i.cur{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
+.ot-c i.cur:empty::after{content:"";width:2px;height:28px;background:var(--fg);animation:bl 1s steps(1) infinite}
+.ot-c i.f{animation:in .2s var(--ease)}
+@keyframes in{from{transform:scale(.88)}}
+@keyframes bl{50%{opacity:0}}
+.ot-w.bad .ot-c{animation:sh .4s}.ot-w.bad i{border-color:var(--err)}
+@keyframes sh{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.ot-w.good i{border-color:var(--ok);background:var(--ok-sf)}
+.ot-m{min-height:22px;margin:12px 0 0;font-size:15px}.ot-m.e{color:var(--err)}.ot-m.o{color:var(--ok)}
+.ot-r{margin-top:16px;min-height:44px;font-size:16px;font-weight:500;color:var(--ac)}.ot-r:disabled{color:var(--mu)}
+</style>
+<script>
+const I=[...cells.children],inp=document.getElementById("in");let t=30,tm;
+const paint=()=>{const v=inp.value,f=document.activeElement===inp;I.forEach((c,i)=>{const was=c.textContent;c.textContent=v[i]||"";if(v[i]&&!was){c.classList.remove("f");void c.offsetWidth;c.classList.add("f")}c.classList.toggle("cur",f&&i===Math.min(v.length,5))})};
+inp.addEventListener("input",()=>{inp.value=inp.value.replace(/\D/g,"").slice(0,6);w.classList.remove("bad","good");msg.textContent="";msg.className="ot-m";paint();
+ if(inp.value.length===6){if(inp.value==="246810"){w.classList.add("good");msg.textContent="Verified. Taking you in…";msg.className="ot-m o";inp.blur()}else{w.classList.add("bad");msg.textContent="That code didn't match. Check the latest text.";msg.className="ot-m e";setTimeout(()=>{inp.value="";paint()},500)}}});
+["focus","blur","keyup","click"].forEach(e=>inp.addEventListener(e,paint));
+const tick=()=>{t--;cd.textContent="0:"+String(t).padStart(2,"0");if(t<=0){clearInterval(tm);rs.disabled=false;rs.textContent="Resend code"}};
+tm=setInterval(tick,1000);rs.onclick=()=>{t=30;rs.disabled=true;rs.innerHTML='Resend code in <span class="tn" id="cd">0:30</span>';tm=setInterval(tick,1000)};
+paint();
+</script>

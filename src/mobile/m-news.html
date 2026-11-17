@@ -1,0 +1,31 @@
+<!--News Today|A news front page: date-led header, a lead story with a big photo, section chips, and a story list with thumbs on the right, source, read time and a bookmark per story.|news,feed,articles,editorial,bookmark-->
+<header class="bar"><div class="nb"><span></span><h2 class="nw-t">Today</h2><span><button class="ib" aria-label="Account"><span class="av" style="--c:#0f766e;width:32px;height:32px;font-size:13px">M</span></button></span></div></header>
+<main class="sc">
+  <p class="nw-d">Wednesday 11 November</p><h1 class="lt" style="margin-top:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:44px;line-height:46px;letter-spacing:-.01em">Today</h1>
+  <div class="chips" style="margin:12px 0 4px" id="ch"><button class="chip on">Top stories</button><button class="chip">Local</button><button class="chip">Science</button><button class="chip">Culture</button><button class="chip">Sport</button></div>
+  <a class="nw-lead" href="#"><img src="media/pics/c/1022.jpg" alt=""><span class="nw-src">Polar Times · 4 min</span><b>Northern lights forecast to peak this weekend after strongest solar storm in a decade</b></a>
+  <div id="l"></div>
+</main>
+@PILL(home:Today|globe:World|bookmark:Saved|search:Search;0)
+<style>
+.nw-t{opacity:0;transition:opacity .2s}.bar.sd .nw-t{opacity:1}
+.nw-d{margin:0;padding:4px var(--gut) 0;font-size:13px;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em}
+.nw-lead{display:block;margin:12px var(--gut) 0;text-decoration:none;color:inherit}
+.nw-lead img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:16px;display:block}
+.nw-src{display:block;margin-top:10px;font-size:13px;font-weight:600;color:var(--mu)}
+.nw-lead b{display:block;margin-top:4px;font-size:22px;line-height:28px;font-weight:700;letter-spacing:-.015em;text-wrap:balance}
+.nw-r{display:flex;gap:12px;padding:16px 0;margin:0 var(--gut);border-top:.5px solid var(--line)}
+.nw-r:first-child{margin-top:16px}
+.nw-r .tx{flex:1;min-width:0;display:flex;flex-direction:column}
+.nw-r b{font-size:17px;line-height:22px;font-weight:600;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-wrap:pretty}
+.nw-r .ft{margin-top:auto;padding-top:6px;display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--mu)}
+.nw-r .ft .ib{width:36px;height:36px;margin:-8px -8px -8px 0}.nw-r .ft .i{width:18px;height:18px}.nw-r .ft [aria-pressed=true]{color:var(--ac)}.nw-r .ft [aria-pressed=true] .i{fill:currentColor}
+.nw-r img{width:96px;height:96px;border-radius:12px;object-fit:cover;flex:none}
+</style>
+<script>
+const S=[["Bergen Tidende","3 min","City approves car-free harbour front from next summer","1067"],["Science Now","6 min","The quiet comeback of the Atlantic cod, explained in four charts","1041"],["Fjord Weekly","7 min","The ferry that runs on time, every time","1051"],["Culture Desk","4 min","A bakery, a piano and the 80-year-old who plays every Sunday","1082"],["Outdoors","5 min","Why the waterfall trail is closing for two weeks in December","1035"]];
+const BM='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>';
+const draw=k=>{l.innerHTML=(k?S.slice().reverse():S).map(([s,t,h,p])=>`<article class="nw-r"><span class="tx"><b>${h}</b><span class="ft"><span>${s} · ${t}</span><button class="ib" aria-label="Save story" aria-pressed="false">${BM}</button></span></span><img src="media/pics/c/${p}.jpg" alt=""></article>`).join("");l.querySelectorAll(".ib").forEach(b=>b.onclick=()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true"))};draw(0);
+ch.querySelectorAll(".chip").forEach((c,i,a)=>c.onclick=()=>{a.forEach(x=>x.classList.toggle("on",x===c));draw(i%2)});
+document.querySelector(".nw-lead").onclick=e=>e.preventDefault();
+</script>

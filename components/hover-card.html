@@ -1,0 +1,52 @@
+<style>
+.hc{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.hc :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.hc ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.hc *,.hc *::before,.hc *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.hc{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.hc-post{width:min(580px,100%);padding:24px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.hc-meta{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--mu);margin-bottom:12px}
+.hc-meta .av{width:32px;height:32px;border-radius:50%;background:#0e7490;color:#fff;display:grid;place-items:center;font-size:12px;font-weight:650}
+.hc-post p{margin:0;font-size:16px;line-height:1.65}
+.hc-w{position:relative;display:inline}
+.hc-m{color:var(--ac);font-weight:550;text-decoration:none;border-radius:4px}
+.hc-m:hover{text-decoration:underline;text-underline-offset:3px}
+.hc-card{position:absolute;top:calc(100% + 8px);left:50%;z-index:10;width:300px;padding:16px;border-radius:16px;background:var(--bg);border:1px solid var(--line);box-shadow:0 22px 48px -14px #00000045,0 2px 6px #00000014;font-size:14px;line-height:1.5;opacity:0;visibility:hidden;transform:translate(-50%,6px);transition:opacity .16s,transform .2s var(--ease),visibility 0s .2s}
+.hc-card.on{opacity:1;visibility:visible;transform:translate(-50%,0);transition:opacity .16s,transform .2s var(--ease)}
+.hc-top{display:flex;align-items:flex-start;justify-content:space-between}
+.hc-card .big{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:18px;font-weight:650;position:relative}
+.hc-card .big::after{content:"";position:absolute;right:1px;bottom:1px;width:12px;height:12px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px var(--bg)}
+.hc-fl{height:32px;padding:0 14px;border-radius:99px;border:0;background:var(--fg);color:var(--bg);font:550 13px Geist,system-ui,sans-serif;cursor:pointer}
+.hc-fl[aria-pressed=true]{background:var(--bg);color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
+.hc-card h3{margin:10px 0 0;font-size:16px;font-weight:620;letter-spacing:-.01em}
+.hc-card .hd{color:var(--mu);font-size:13px}
+.hc-card .bio{margin:8px 0 0;color:color-mix(in oklab,var(--fg) 85%,var(--bg))}
+.hc-st{display:flex;gap:16px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;color:var(--mu)}
+.hc-st b{color:var(--fg);font-weight:600}
+.hc-loc{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12.5px;color:var(--mu)}
+.hc-loc svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hc-act{display:flex;gap:20px;margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--mu)}
+</style>
+<div class="hc">
+  <article class="hc-post">
+    <div class="hc-meta"><span class="av">JL</span><span><b style="color:var(--fg)">Jun Li</b> · 2h</span></div>
+    <p>Huge thanks to <span class="hc-w"><a class="hc-m" href="#" data-u="0">@mira</a></span> for the new token system and to <span class="hc-w"><a class="hc-m" href="#" data-u="1">@sofia</a></span> for wiring it into every component. Dark mode finally just works.</p>
+    <div class="hc-act"><span>♥ 128</span><span>↻ 14</span><span>💬 9</span></div>
+  </article>
+</div>
+<script>
+const U=[{n:"Mira Okafor",h:"@mira",c:"#c2410c",i:"MO",b:"Design systems at Northwind. Writes about colour, type and tiny tools.",l:"Lisbon",f:"2,481",g:"312"},{n:"Sofia Ruiz",h:"@sofia",c:"#7c3aed",i:"SR",b:"Frontend engineer. Making forms less painful, one field at a time.",l:"Madrid",f:"964",g:"188"}];
+document.querySelectorAll(".hc-m").forEach((a,k)=>{
+  const u=U[a.dataset.u],c=document.createElement("div");c.className="hc-card";c.id="hcC"+k;c.setAttribute("role","dialog");c.setAttribute("aria-label",u.n);
+  c.innerHTML=`<div class="hc-top"><span class="big" style="background:${u.c}">${u.i}</span><button class="hc-fl" aria-pressed="false">Follow</button></div><h3>${u.n}</h3><div class="hd">${u.h}</div><p class="bio">${u.b}</p><div class="hc-loc"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>${u.l} · Active now</div><div class="hc-st"><span><b>${u.f}</b> followers</span><span><b>${u.g}</b> following</span></div>`;
+  a.after(c);a.setAttribute("aria-describedby",c.id);a.setAttribute("aria-expanded","false");
+  let t;const show=()=>{clearTimeout(t);t=setTimeout(()=>{c.classList.add("on");a.setAttribute("aria-expanded","true")},350)},hide=()=>{clearTimeout(t);t=setTimeout(()=>{c.classList.remove("on");a.setAttribute("aria-expanded","false")},200)};
+  [a,c].forEach(el=>{el.addEventListener("pointerenter",show);el.addEventListener("pointerleave",hide)});
+  a.addEventListener("focus",()=>{clearTimeout(t);c.classList.add("on");a.setAttribute("aria-expanded","true")});
+  c.addEventListener("focusout",e=>{if(!c.contains(e.relatedTarget)&&e.relatedTarget!==a)hide()});
+  a.addEventListener("blur",e=>{if(!c.contains(e.relatedTarget))hide()});
+  a.addEventListener("click",e=>e.preventDefault());
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&c.classList.contains("on")){c.classList.remove("on");a.focus()}});
+  const fb=c.querySelector(".hc-fl");fb.addEventListener("click",()=>{const on=fb.getAttribute("aria-pressed")!=="true";fb.setAttribute("aria-pressed",on);fb.textContent=on?"Following":"Follow"});
+});
+</script>

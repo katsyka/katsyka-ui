@@ -1,0 +1,37 @@
+<style>
+.dk-stage{min-height:100vh;display:grid;place-items:end center;padding-bottom:64px;background:radial-gradient(circle at 30% 20%,#2b1d4f,transparent 50%),radial-gradient(circle at 80% 70%,#4f1d2e,transparent 50%),#0c0b10}
+.dk{display:flex;align-items:flex-end;gap:10px;height:72px;padding:10px 12px;border-radius:22px;background:#ffffff14;border:1px solid #ffffff1f;backdrop-filter:blur(20px) saturate(1.6);box-shadow:0 20px 50px -20px #000}
+.dk a{--s:48px;position:relative;width:var(--s);height:var(--s);flex:none;border-radius:calc(var(--s)*.26);display:grid;place-items:center;color:#fff;background:var(--c);box-shadow:inset 0 1px 0 #ffffff40,0 4px 12px -4px #0008;text-decoration:none}
+.dk a svg{width:46%;height:46%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dk a::before{content:attr(data-label);position:absolute;bottom:calc(100% + 12px);left:50%;transform:translate(-50%,6px);padding:5px 10px;border-radius:8px;font-size:12px;white-space:nowrap;background:#1c1c20ee;border:1px solid #ffffff1a;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.dk a:hover::before{opacity:1;transform:translate(-50%,0)}
+.dk a.on::after{content:"";position:absolute;bottom:-7px;width:4px;height:4px;border-radius:50%;background:#fff}
+.dk hr{width:1px;height:44px;border:0;background:#ffffff26;margin:0 4px;align-self:center}
+</style>
+<div class="dk-stage">
+  <nav class="dk">
+    <a href="#" data-label="Home" class="on" style="--c:linear-gradient(#5b8cff,#3a5bd9)"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></a>
+    <a href="#" data-label="Messages" class="on" style="--c:linear-gradient(#4be08a,#20a957)"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></a>
+    <a href="#" data-label="Calendar" style="--c:linear-gradient(#ff7a59,#e2442c)"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></a>
+    <a href="#" data-label="Music" style="--c:linear-gradient(#ff5f8f,#d61f5b)"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></a>
+    <a href="#" data-label="Photos" style="--c:linear-gradient(#ffd25a,#f29b14)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></a>
+    <a href="#" data-label="Notes" style="--c:linear-gradient(#b78bff,#7b4fe0)"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></svg></a>
+    <hr>
+    <a href="#" data-label="Settings" style="--c:linear-gradient(#8e8e98,#55555e)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-2.9-1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.7 1.7 0 0 0 3 14H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.2-2.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.7 1.7 0 0 0 10 3V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 2.9 1.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.7 1.7 0 0 0 21 10h.1a2 2 0 1 1 0 4z"/></svg></a>
+  </nav>
+</div>
+<script>
+(()=>{
+const dock=document.querySelector(".dk"),items=[...dock.querySelectorAll("a")],BASE=48,MAX=84,RANGE=150;
+const cur=items.map(()=>BASE),tgt=items.map(()=>BASE);
+let raf;
+const tick=()=>{let moving=false;
+  items.forEach((el,i)=>{cur[i]+=(tgt[i]-cur[i])*.22;if(Math.abs(tgt[i]-cur[i])>.1)moving=true;el.style.setProperty("--s",cur[i].toFixed(2)+"px")});
+  raf=moving?requestAnimationFrame(tick):null};
+const kick=()=>{if(!raf)raf=requestAnimationFrame(tick)};
+dock.addEventListener("pointermove",e=>{items.forEach((el,i)=>{const r=el.getBoundingClientRect(),d=Math.abs(e.clientX-(r.left+r.width/2));
+  tgt[i]=BASE+(MAX-BASE)*Math.max(0,Math.cos(Math.min(d/RANGE,1)*Math.PI/2))});kick()});
+dock.addEventListener("pointerleave",()=>{tgt.fill(BASE);kick()});
+items.forEach(a=>a.addEventListener("click",e=>{e.preventDefault();a.animate([{transform:"translateY(0)"},{transform:"translateY(-22px)"},{transform:"translateY(0)"},{transform:"translateY(-8px)"},{transform:"translateY(0)"}],{duration:700,easing:"ease-out"});a.classList.add("on")}));
+})();
+</script>

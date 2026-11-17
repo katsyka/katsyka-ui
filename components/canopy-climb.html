@@ -1,0 +1,67 @@
+<style>
+.cc{position:relative;height:460vh;background:#0d1410;--fg:#fff;--mu:#ffffffe0;--inv:#0d1410}
+.cc .dk{--fg:#0f1a14;--mu:#0f1a14c4;--inv:#fff}
+.cc-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.cc canvas{position:absolute;inset:0;width:100%;height:100%}
+.cc-b,.cc-r{position:absolute;color:var(--fg);transition:color .5s}
+.cc-b{left:clamp(20px,5vw,72px);bottom:clamp(32px,9vh,84px);max-width:560px}
+.cc-b.top{bottom:auto;top:clamp(48px,10vh,96px)}
+.cc small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:var(--mu)}
+.cc h2{margin:14px 0 0;font-size:clamp(50px,7vw,112px);line-height:.88;letter-spacing:-.06em;font-weight:600}
+.cc h3{margin:12px 0 14px;font-size:clamp(34px,4.4vw,64px);line-height:.95;letter-spacing:-.055em;font-weight:600}
+.cc em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.025em}
+.cc-b p{margin:0;max-width:420px;font-size:16.5px;line-height:1.6;color:var(--mu)}
+.cc-b.top p{margin:22px 0 24px}
+.cc-cta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.cc-cta a{display:inline-flex;align-items:center;height:46px;padding:0 22px;border-radius:99px;font-size:15px;font-weight:550;text-decoration:none;color:var(--inv);background:var(--fg);transition:transform .2s,background .5s,color .5s}
+.cc-cta a:hover{transform:translateY(-2px)}
+.cc-cta span{font-size:15px;font-weight:550}
+.cc-r{right:clamp(20px,4vw,56px);top:50%;translate:0 -50%;display:flex;gap:14px;font:500 12px "Geist Mono",monospace;letter-spacing:.12em}
+.cc-r ol{list-style:none;margin:0;padding:0;height:min(50vh,380px);display:flex;flex-direction:column-reverse;justify-content:space-between;text-align:right}
+.cc-r li{opacity:.75;transition:opacity .4s}.cc-r li.on{opacity:1}
+.cc-tr{position:relative;width:1px;background:currentColor}
+.cc-tr i{position:absolute;left:50%;bottom:calc(var(--h,0)*100%);width:11px;height:11px;margin:0 0 -5.5px -5.5px;border-radius:50%;background:currentColor}
+.cc-r b{position:absolute;right:0;top:calc(100% + 14px);font:500 clamp(20px,2vw,26px)/1 "Geist Mono",monospace;letter-spacing:-.04em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cc .bt{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .9s cubic-bezier(.2,.8,.2,1),color .5s;pointer-events:none}
+.cc .bt.on{opacity:1;transform:none;pointer-events:auto}
+.cc-after{height:40vh;display:grid;place-items:center;background:#0d1410;color:#6b7a70;font-size:15px}
+@media (max-width:700px){.cc-r ol li{font-size:0}.cc-b{right:64px}}
+@media (prefers-reduced-motion:reduce){.cc .bt{transform:none;transition:opacity .3s}}
+</style>
+<section class="cc" aria-label="Redfern Grove canopy walk">
+  <div class="cc-pin">
+    <canvas role="img" aria-label="Camera rises from ferns on a misty redwood forest floor, up a giant trunk and out above the fog"></canvas>
+    <div class="cc-b bt on"><small>REDFERN GROVE · CANOPY WALK</small><h2>Start at<br><em>the ferns.</em></h2></div>
+    <div class="cc-b bt"><small>12 BRIDGES · ONE TREE</small><h3>Climb with <em>the light.</em></h3></div>
+    <div class="cc-b top bt"><small>THE CROWN · 94 M</small><h2>Finish <em>above<br>the weather.</em></h2><p>Sunrise climbs leave at 06:10 with a guide, a flask of coffee and room for eight.</p>
+      <div class="cc-cta"><a href="#">Book a sunrise climb</a><span>from €38</span></div></div>
+    <div class="cc-r" aria-hidden="true"><ol><li>FLOOR</li><li>TRUNK</li><li>CROWN</li></ol><div class="cc-tr"><i></i></div><b>0 m</b></div>
+  </div>
+</section>
+<div class="cc-after">The page continues.</div>
+<script>
+(()=>{
+// 120 frames scrubbed by scroll; the camera clears the canopy around frame 104. L1–L3: precomputed brightness behind each text block (base-36 per frame).
+const N=120,DIR="media/canopy/",TOP=104,
+L1="bbcccdddeeeffffffffffffffffffffffffffeeeeeeeeedddddcccccccccbbbbccdeefggggggfffeddcccccdffhhgghggebfijllmllkkkkkkkkkkkkk",
+L2="hhhhhhhhhhhggggggggggggggghhhhiiiiihhhgffeddddddeefffghhhhhggffeeeeeeeffffggggghhhhhggghhfggdcccdfmwyyyyyyxxxwwvvuuttsss",
+L3="9999aaabbbbbbccccbbbbbbbbbbbbbbbaabbbbbbbbccccddeeeeffffffffffeeeeddcccbbbaaa99abbbbbccdededdcccbcfnppnmlkjihgffeedddddd";
+const root=document.querySelector(".cc"),c=root.querySelector("canvas"),x=c.getContext("2d"),$=s=>root.querySelector(s);
+const [b1,b2,b3]=root.querySelectorAll(".cc-b"),r=$(".cc-r"),rv=r.querySelector("b"),zones=r.querySelectorAll("li");
+const imgs=[],load=i=>{if(imgs[i])return;const im=imgs[i]=new Image();im.onload=()=>{if(Math.abs(i-cur)<9)draw(true)};im.src=DIR+String(i+1).padStart(3,"0")+".jpg"};
+load(0);new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){o.disconnect();[8,4,2,1].forEach(s=>{for(let i=0;i<N;i+=s)load(i)})}},{rootMargin:"100%"}).observe(root);
+let cur=0,tgt=0,shown=-1,raf=0;
+const pick=f=>{for(let d=0;d<N;d++)for(const j of[f-d,f+d]){const im=imgs[j];if(im&&im.complete&&im.naturalWidth)return im}};
+function draw(force){const f=Math.round(cur);if(f===shown&&!force)return;const im=pick(f);if(!im)return;shown=f;
+  const s=Math.max(c.width/im.naturalWidth,c.height/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;x.drawImage(im,(c.width-w)/2,(c.height-h)/2,w,h)}
+new ResizeObserver(()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;draw(true)}).observe(c);
+const dark=(el,s,f)=>el.classList.toggle("dk",parseInt(s[f],36)>=20);
+function update(){draw();const f=Math.round(cur),p=cur/(N-1),h=Math.min(1,cur/TOP);
+  dark(b1,L1,f);dark(b2,L1,f);dark(b3,L2,f);dark(r,L3,f);
+  b1.classList.toggle("on",p<.2);b2.classList.toggle("on",p>.3&&p<.62);b3.classList.toggle("on",p>.88);
+  r.style.setProperty("--h",h);rv.textContent=Math.round(h*94)+" m";zones.forEach((z,i)=>z.classList.toggle("on",i===Math.min(2,Math.floor(h*2.999))))}
+const tick=()=>{cur+=(tgt-cur)*.2;if(Math.abs(tgt-cur)<.05)cur=tgt;update();raf=cur===tgt?0:requestAnimationFrame(tick)};
+const onScroll=()=>{const b=root.getBoundingClientRect();tgt=Math.max(0,Math.min(1,-b.top/(root.offsetHeight-innerHeight)))*(N-1);if(!raf)raf=requestAnimationFrame(tick)};
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+})();
+</script>

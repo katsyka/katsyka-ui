@@ -1,0 +1,29 @@
+<!--Rating Summary|Display|A reviews block: average score with stars that show partial fill, a breakdown bar per star you can click to filter, and review cards with verified badges and Helpful counts.|reviews,rating,stars,filter,ecommerce-->
+<div class="k"><section class="card rs"><div class="rs-top"><div class="rs-avg"><b class="tn">4.6</b><span class="rs-st" style="--v:4.6" role="img" aria-label="4.6 out of 5 stars"></span><small class="mu tn">212 reviews</small></div>
+  <ul class="rs-br" id="br"></ul></div>
+  <div class="rs-fh"><h3 id="fh">All reviews</h3><button class="b gh sm" id="clr" hidden>Clear filter</button></div>
+  <div id="rv"></div></section></div>
+<style>
+.rs{width:min(620px,100%);padding:24px}
+.rs-top{display:flex;gap:32px;align-items:center;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.rs-avg{display:flex;flex-direction:column;align-items:flex-start;gap:4px}.rs-avg b{font-size:44px;line-height:1;font-weight:700;letter-spacing:-.03em}
+.rs-st{--s:18px;display:inline-block;width:calc(var(--s)*5);height:var(--s);background:linear-gradient(90deg,var(--warn) calc(var(--v)/5*100%),var(--sf2) 0);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z'/%3E%3C/svg%3E") 0 0/var(--s) var(--s) repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m12 2 3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z'/%3E%3C/svg%3E") 0 0/var(--s) var(--s) repeat-x}
+.rs-br{flex:1;min-width:220px;list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.rs-br button{display:grid;grid-template-columns:28px 1fr 36px;align-items:center;gap:10px;width:100%;padding:3px 6px;border-radius:6px;font-size:13px}.rs-br button:hover{background:var(--sf)}
+.rs-br button[aria-pressed=true]{background:var(--ac-sf)}
+.rs-br i{height:8px;border-radius:4px;background:var(--sf2);overflow:hidden}.rs-br i::after{content:"";display:block;height:100%;width:var(--w);background:var(--warn);border-radius:4px}
+.rs-br span:last-child{text-align:right;color:var(--mu)}
+.rs-fh{display:flex;justify-content:space-between;align-items:center;margin:16px 0 4px}.rs-fh h3{margin:0;font-size:15px;font-weight:650}
+.rs-r{padding:14px 0;border-bottom:1px solid var(--line)}.rs-r:last-child{border:0}
+.rs-r header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rs-r .rs-st{--s:14px}.rs-r b{font-weight:600}.rs-r time{color:var(--mu);font-size:13px;margin-left:auto}
+.rs-r p{margin:6px 0 8px;line-height:21px}
+.rs-h{font-size:13px;color:var(--mu);display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:8px;border:1px solid var(--line)!important}.rs-h[aria-pressed=true]{color:var(--fg);background:var(--sf)!important}
+</style>
+<script>
+const B={5:148,4:38,3:14,2:5,1:7},T=212;
+const R=[[5,"Ines D.","Beautiful print, colours match the screen exactly. Packaging was excellent.","2 days ago",12],[4,"Theo W.","Frame is lovely. Took a week longer than quoted, but they kept me updated.","1 week ago",4],[5,"Jun K.","Bought two, hanging side by side in the hallway. Paper has a nice texture.","3 weeks ago",7],[3,"Olek N.","Print is great, but the glass had a small scratch. Replacement on the way.","1 month ago",2],[1,"Sam R.","Arrived damaged. Support replied fast though.","2 months ago",1]];
+br.innerHTML=[5,4,3,2,1].map(s=>`<li><button aria-pressed="false" data-s="${s}" aria-label="${s} stars: ${B[s]} reviews"><span>${s} ★</span><i style="--w:${B[s]/T*100}%"></i><span class="tn">${B[s]}</span></button></li>`).join("");
+let f=0;const draw=()=>{rv.innerHTML=R.filter(r=>!f||r[0]===f).map(([s,n,t,d,h])=>`<article class="rs-r"><header><span class="rs-st" style="--v:${s}" role="img" aria-label="${s} out of 5"></span><b>${n}</b><span class="pill ok">Verified</span><time>${d}</time></header><p>${t}</p><button class="rs-h" aria-pressed="false" data-h="${h}">Helpful · <span class="tn">${h}</span></button></article>`).join("")||'<p class="mu">No reviews with this rating.</p>';
+ rv.querySelectorAll(".rs-h").forEach(b=>b.onclick=()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);b.querySelector("span").textContent=+b.dataset.h+(on?1:0)});fh.textContent=f?`${f}-star reviews`:"All reviews";clr.hidden=!f;br.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",+b.dataset.s===f))};
+br.onclick=e=>{const b=e.target.closest("button");if(b){f=f===+b.dataset.s?0:+b.dataset.s;draw()}};clr.onclick=()=>{f=0;draw()};draw();
+</script>

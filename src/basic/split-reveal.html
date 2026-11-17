@@ -1,0 +1,19 @@
+<!--Split Reveal|Text|Words rise out of a mask one after another when the block scrolls into view, with a 30 ms stagger and an ease-out that settles instead of bouncing. The text stays real, selectable text; reduced motion shows it at once.|text effect,reveal,stagger,scroll,intersection observer-->
+<div class="k"><section class="sr"><p class="sr-k">Manifesto</p><h2 class="sr-t" data-split>Interfaces should feel like they were made by someone who cares.</h2><p class="sr-p" data-split>Every margin chosen, every state designed, every motion earning its place. Not more decoration. More attention.</p><button class="b sec" id="rp">Replay</button></section></div>
+<style>
+.sr{width:min(760px,100%)}
+.sr-k{margin:0 0 12px;font-size:13px;font-weight:600;color:var(--ac);letter-spacing:.06em;text-transform:uppercase}
+.sr-t{margin:0;font:400 clamp(36px,6vw,64px)/1.05 "Instrument Serif",serif;letter-spacing:-.01em;text-wrap:balance}
+.sr-p{margin:20px 0 28px;font-size:18px;line-height:1.6;color:var(--mu);max-width:52ch}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.w>span{display:inline-block;transform:translateY(105%);transition:transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i)*30ms)}
+.on .w>span{transform:none}
+@media (prefers-reduced-motion:reduce){.w>span{transform:none;transition:none}}
+</style>
+<script>
+const els=[...document.querySelectorAll("[data-split]")];
+els.forEach(el=>{const words=el.textContent.trim().split(/\s+/);el.setAttribute("aria-label",el.textContent.trim());el.innerHTML=words.map((w,i)=>'<span class="w" aria-hidden="true"><span style="--i:'+i+'">'+w.replace(/[&<]/g,"")+'</span></span>').join(" ")});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}}),{threshold:.3});
+els.forEach(e=>io.observe(e));
+document.getElementById("rp").onclick=()=>{els.forEach(e=>e.classList.remove("on"));requestAnimationFrame(()=>requestAnimationFrame(()=>els.forEach(e=>e.classList.add("on"))))};
+</script>

@@ -1,0 +1,38 @@
+<!--Ride Options|Pick a ride over a live map: pickup and drop-off pills, ride types as big radio cards with ETA and price, a payment row and a confirm button that names your choice.|ride,booking,map,radio cards,transport-->
+<div class="rd-map mapv">@MAP<svg class="mp" viewBox="0 0 400 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M90 160 L150 254 L210 248 L210 400 L300 386" fill="none" stroke="var(--fg)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="90" cy="160" r="8" fill="var(--ok)" stroke="var(--bg)" stroke-width="3"/><rect x="292" y="378" width="16" height="16" rx="3" fill="var(--fg)" stroke="var(--bg)" stroke-width="3"/></svg>
+<button class="ib gl rd-bk" aria-label="Back">@I(left)</button>
+<div class="rd-to gl"><span><i class="g"></i>Strandgaten 12</span><span><i class="s"></i>Bergen Airport, Flesland</span></div></div>
+<section class="rd-sh">
+  <i class="rd-gr"></i><h2>Choose a ride</h2>
+  <div class="rd-o" id="opts" role="radiogroup" aria-label="Ride type"></div>
+  <button class="rd-pay">@I(card,20)<span>Visa ·· 4242</span>@I(right,18)</button>
+  <button class="btn ink" id="go">Confirm Comfort</button>
+</section>
+<style>
+.rd-map{flex:1;min-height:0}
+.rd-bk{position:absolute;top:calc(var(--st) + 4px);left:12px;z-index:2}
+.rd-to{position:absolute;left:64px;right:12px;top:calc(var(--st) + 4px);border-radius:18px;padding:6px 14px;font-size:15px;font-weight:500}
+.rd-to span{display:flex;align-items:center;gap:10px;min-height:32px}.rd-to span+span{border-top:.5px solid var(--line)}
+.rd-to i{width:9px;height:9px;flex:none}.rd-to .g{border-radius:50%;background:var(--ok)}.rd-to .s{border-radius:2px;background:var(--fg)}
+.rd-sh{position:relative;margin-top:-24px;background:var(--bg);border-radius:28px 28px 0 0;padding:8px var(--gut) max(16px,var(--sbt));box-shadow:0 -8px 24px -12px light-dark(#0003,#000a)}
+.rd-gr{display:block;width:36px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 10px}
+.rd-sh h2{margin:0 0 12px;font-size:20px;font-weight:650;letter-spacing:-.015em;text-align:center}
+.rd-o{display:grid;gap:8px}
+.rd-c{display:flex;align-items:center;gap:12px;padding:10px 14px 10px 8px;border-radius:16px;border:2px solid transparent;background:var(--sf);cursor:pointer;transition:border-color .2s,background .2s}
+.rd-c input{position:absolute;opacity:0}
+.rd-c:has(input:checked){border-color:var(--fg);background:var(--bg)}
+.rd-c:has(input:focus-visible){outline:2px solid var(--focus);outline-offset:2px}
+.rd-car{width:64px;height:40px;flex:none}
+.rd-c .tx{flex:1;min-width:0}.rd-c b{display:flex;align-items:center;gap:6px;font-size:17px;font-weight:600}.rd-c b small{font-size:13px;color:var(--mu);font-weight:500;display:inline-flex;gap:2px;align-items:center}
+.rd-c .tx>small{font-size:14px;color:var(--mu)}
+.rd-c .pr{font-size:17px;font-weight:650;font-variant-numeric:tabular-nums;text-align:right}.rd-c .pr s{display:block;font-size:13px;font-weight:400;color:var(--mu)}
+.rd-pay{display:flex;align-items:center;gap:10px;width:100%;min-height:48px;margin:8px 0;font-size:16px;font-weight:500}.rd-pay span{flex:1;text-align:left}.rd-pay .i:last-child{color:var(--ctl)}
+</style>
+<script>
+const CAR=(c)=>`<svg class="rd-car" viewBox="0 0 64 40" aria-hidden="true"><path d="M8 26c0-3 1-5 4-6l6-7c1.5-1.5 3-2 5-2h16c2 0 3.5.6 5 2l6 7c3 .6 6 2.5 6 6v4H8z" fill="${c}"/><path d="M20 14h9v6h-14zM33 14h7l6 6H33z" fill="var(--bg)" opacity=".75"/><circle cx="19" cy="30" r="5" fill="var(--fg)"/><circle cx="47" cy="30" r="5" fill="var(--fg)"/><circle cx="19" cy="30" r="2" fill="var(--sf2)"/><circle cx="47" cy="30" r="2" fill="var(--sf2)"/></svg>`;
+const O=[["Economy","4","3 min away · 13:42 drop-off",312,0,"#9ca3af"],["Comfort","4","2 min away · 13:40 drop-off",389,0,"#3f3f46"],["XL","6","6 min away · 13:46 drop-off",468,520,"#78716c"]];
+const U='<svg class="i" viewBox="0 0 24 24" style="width:13px;height:13px"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>';
+opts.innerHTML=O.map(([n,s,e,p,was,c],i)=>`<label class="rd-c"><input type="radio" name="r" value="${n}"${i===1?" checked":""}>${CAR(c)}<span class="tx"><b>${n} <small>${U}${s}</small></b><small>${e}</small></span><span class="pr">kr ${p}${was?`<s>kr ${was}</s>`:""}</span></label>`).join("");
+opts.addEventListener("change",e=>go.textContent="Confirm "+e.target.value);
+go.onclick=()=>{go.textContent="Finding your driver…";go.disabled=true;setTimeout(()=>{go.disabled=false;go.textContent="Confirm "+document.querySelector("[name=r]:checked").value},1800)};
+</script>

@@ -1,0 +1,151 @@
+=== auth-recovery-codes
+<!--Recovery Codes|Auth|Backup codes screen: a grid of 10 one-time codes with used ones struck through, copy all, download as .txt, print, regenerate with a confirm, and a required “I saved them” checkbox.|auth,recovery,backup codes,security,download-->
+<div class="k">
+<div class="card rc"><span class="rc-ic">@I(shield,20)</span><h1>Save your recovery codes</h1><p class="mu">If you lose your phone, each code signs you in once. Keep them somewhere safe, like a password manager.</p>
+<ol class="rc-g tn" id="g"></ol><div class="rc-a"><button class="b sec sm" id="cp">@I(copy,14)<span>Copy</span></button><button class="b sec sm" id="dl">@I(download,14)Download</button><button class="b sec sm" onclick="print()">@I(file,14)Print</button><button class="b gh sm" id="rg">@I(refresh,14)Regenerate</button></div>
+<div class="rc-cf" id="cf" hidden><p><b>Regenerate codes?</b> Your current codes will stop working immediately.</p><div><button class="b sec sm" id="no">Cancel</button><button class="b sm rc-d" id="yes">Regenerate</button></div></div>
+<label class="rc-ck"><input type="checkbox" id="ok"> I've saved these codes somewhere safe</label><button class="b ac rc-go" id="go" disabled>Continue</button></div>
+</div>
+<style>
+.rc{width:min(440px,100%);padding:28px}.rc-ic{width:40px;height:40px;border-radius:10px;background:var(--warn-sf);color:var(--warn);display:grid;place-items:center}.rc h1{font-size:20px;margin:14px 0 6px;letter-spacing:-.02em}.rc>p{margin:0 0 18px}
+.rc-g{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;padding:16px 16px 16px 40px;margin:0;background:var(--sf);border-radius:12px;font:14px/1.8 'Geist Mono',monospace}.rc-g li::marker{color:var(--mu);font-size:11px}.rc-g .u{color:var(--mu);text-decoration:line-through}.rc-g.new li{animation:rcn .4s var(--ease) both}@keyframes rcn{from{opacity:0;filter:blur(4px)}}
+.rc-a{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.rc-a .b{height:36px}
+.rc-cf{margin-top:12px;padding:12px;border-radius:10px;background:var(--err-sf);font-size:13px;display:grid;gap:10px}.rc-cf p{margin:0}.rc-cf div{display:flex;gap:6px;justify-content:flex-end}.k .rc-d{background:var(--err);color:#fff}
+.rc-ck{display:flex;gap:10px;align-items:center;margin-top:20px;font-size:14px;min-height:44px}.rc-ck input{width:18px;height:18px;accent-color:var(--ac)}.rc-go{width:100%;height:44px}
+</style>
+<script>
+const $=i=>document.getElementById(i);let C=[];const gen=()=>Array.from({length:10},()=>Math.random().toString(36).slice(2,6)+'-'+Math.random().toString(36).slice(2,6));
+function draw(n){$('g').className='rc-g tn'+(n?' new':'');$('g').innerHTML=C.map((c,i)=>`<li class="${!n&&(i==2||i==7)?'u':''}" style="animation-delay:${i*30}ms">${c}</li>`).join('')}C=gen();draw();
+$('cp').onclick=()=>{const t=C.join('\n'),d=()=>{$('cp').querySelector('span').textContent='Copied';setTimeout(()=>$('cp').querySelector('span').textContent='Copy',1500)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(d).catch(d)};
+$('dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['Recovery codes\n\n'+C.join('\n')],{type:'text/plain'}));a.download='recovery-codes.txt';a.click()};
+$('rg').onclick=()=>{$('cf').hidden=false;$('no').focus()};$('no').onclick=()=>$('cf').hidden=true;$('yes').onclick=()=>{C=gen();draw(1);$('cf').hidden=true;$('ok').checked=false;$('go').disabled=true};
+$('ok').onchange=e=>$('go').disabled=!e.target.checked;
+</script>
+=== auth-invite-accept
+<!--Accept Invitation|Auth|A team invite landing: who invited you, the workspace with member avatars, your role, a name + password form prefilled with the invited email, and a decline link with confirmation.|auth,invite,team,onboarding,workspace-->
+<div class="k">
+<div class="card ia"><div class="ia-ws"><span class="ia-lg">N</span><div><b>Northwind Design</b><span class="mu">14 members</span></div><div class="ia-av" aria-hidden="true"><span class="av" style="--c:#0f766e">AK</span><span class="av" style="--c:#7c3aed">JL</span><span class="av" style="--c:#b45309">MS</span><span class="av ia-more">+11</span></div></div>
+<h1><b>Jonas Lind</b> invited you to join Northwind Design as an <span class="pill info">Editor</span></h1>
+<form id="f" novalidate><label><span class="lbl">Email</span><input class="in" value="sam@northwind.example" readonly aria-readonly="true"></label><label><span class="lbl">Your name</span><input class="in" id="nm" autocomplete="name"></label><label><span class="lbl">Create a password</span><input class="in" id="pw" type="password" autocomplete="new-password" minlength="8"></label><p class="ia-er" id="er" role="alert"></p><button class="b ac ia-go" id="go">Accept and join</button></form>
+<p class="ia-dc mu" id="dc">Not expecting this? <button id="dl">Decline invitation</button></p><p class="mu ia-ex">@I(clock,14) Invite expires in 6 days</p></div>
+</div>
+<style>
+.ia{width:min(420px,100%);padding:28px}.ia-ws{display:flex;gap:12px;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line)}.ia-ws>div:nth-child(2){display:grid;flex:1}.ia-lg{width:44px;height:44px;border-radius:12px;background:#1e293b;color:#fff;display:grid;place-items:center;font-weight:700;font-size:18px}
+.ia-av{display:flex}.ia-av .av{width:28px;height:28px;font-size:10px;border:2px solid var(--bg);margin-left:-8px}.ia-more{background:var(--sf2)!important;color:var(--mu)!important}
+.ia h1{font-size:17px;font-weight:450;line-height:1.5;margin:20px 0}.ia h1 b{font-weight:650}
+.ia form{display:grid;gap:12px}.ia .in{height:44px;font-size:16px}.ia .in[readonly]{background:var(--sf);color:var(--mu)}.ia-go{height:44px;margin-top:4px}.ia-er{color:var(--err);font-size:13px;margin:0}.ia-er:empty{display:none}
+.ia-dc{text-align:center;font-size:13px;margin:16px 0 4px}.ia-dc button{color:var(--fg);text-decoration:underline;font-size:13px;min-height:32px}.ia-ex{display:flex;gap:6px;align-items:center;justify-content:center;font-size:12px;margin:0}
+</style>
+<script>
+const $=i=>document.getElementById(i);
+$('f').onsubmit=e=>{e.preventDefault();const nm=$('nm'),pw=$('pw');[nm,pw].forEach(i=>i.removeAttribute('aria-invalid'));let m='';if(!nm.value.trim()){m='Add your name so teammates know who you are.';nm.setAttribute('aria-invalid',true);nm.focus()}else if(pw.value.length<8){m='Password needs at least 8 characters.';pw.setAttribute('aria-invalid',true);pw.focus()}$('er').textContent=m;if(m)return;const g=$('go');g.disabled=true;g.textContent='Joining…';setTimeout(()=>{g.textContent='Joined. Opening Northwind Design'},900)};
+function dec(){const d=$('dc');d.innerHTML='Decline the invite from Jonas? <button id="y">Yes, decline</button> · <button id="n">Keep it</button>';$('y').onclick=()=>{d.textContent='Invitation declined. Jonas will be notified.';$('f').querySelectorAll('input,button').forEach(i=>i.disabled=true)};$('n').onclick=()=>{d.innerHTML='Not expecting this? <button id="dl">Decline invitation</button>';$('dl').onclick=dec}}$('dl').onclick=dec;
+</script>
+=== auth-workspace-pick
+<!--Workspace Picker|Auth|Post-login account chooser: workspaces you belong to with role, plan and last-active time, keyboard navigation with arrow keys, search when there are many, and a create-new row.|auth,workspace,picker,account,keyboard-->
+<div class="k">
+<div class="card wp"><h1>Choose a workspace</h1><p class="mu">Signed in as lena@studio.example · <a href="#">Not you?</a></p><label class="wp-s">@I(search,16)<input id="q" placeholder="Search workspaces" aria-label="Search workspaces"></label>
+<ul class="wp-l" id="l" role="listbox" aria-label="Workspaces" tabindex="0"></ul><button class="wp-new">@I(plus,18)<span><b>Create a new workspace</b><small class="mu">Free for up to 3 people</small></span></button></div>
+</div>
+<style>
+.wp{width:min(440px,100%);padding:24px}.wp h1{margin:0;font-size:20px;letter-spacing:-.02em}.wp>p{margin:4px 0 16px;font-size:13px}.wp>p a{color:var(--ac)}
+.wp-s{display:flex;gap:8px;align-items:center;height:40px;padding:0 12px;border:1px solid var(--ctl);border-radius:10px;color:var(--mu)}.wp-s:focus-within{border-color:var(--ac)}.wp-s input{border:0;outline:0;background:none;flex:1;font-size:16px;color:var(--fg);min-width:0}
+.wp-l{list-style:none;padding:0;margin:12px 0;display:grid;gap:4px;max-height:300px;overflow:auto;outline:0}.wp-l li{display:flex;gap:12px;align-items:center;padding:10px;border-radius:12px;cursor:pointer;border:1px solid transparent}.wp-l li:hover{background:var(--sf)}.wp-l li[aria-selected=true]{background:var(--sf);border-color:var(--line)}.wp-l:focus-visible li[aria-selected=true]{border-color:var(--focus)}
+.wp-l .lg{width:40px;height:40px;border-radius:10px;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}.wp-l div{display:grid;flex:1;min-width:0}.wp-l small{color:var(--mu);font-size:12px}.wp-l .i{color:var(--mu)}.wp-l .em{padding:16px;text-align:center;color:var(--mu);cursor:default}
+.wp-new{display:flex;gap:12px;align-items:center;width:100%;padding:10px;border-radius:12px;border:1px dashed var(--ctl);text-align:left}.wp-new:hover{background:var(--sf)}.wp-new>.i{width:40px;height:40px;padding:10px;border-radius:10px;background:var(--sf2)}.wp-new span{display:grid}
+</style>
+<script>
+const W=[["Studio Halvard","Owner","Pro","2 min ago","#0f766e"],["Kestrel Labs","Editor","Business","yesterday","#7c3aed"],["Night Owl Press","Viewer","Free","3 days ago","#b45309"],["Field Ops (archived)","Member","Pro","2 months ago","#64748b"],["Oak & Ash Freelance","Owner","Free","last week","#be123c"]];
+const l=document.getElementById('l'),q=document.getElementById('q');let sel=0,cur=W;
+function draw(){cur=W.filter(w=>w[0].toLowerCase().includes(q.value.toLowerCase()));sel=Math.min(sel,Math.max(0,cur.length-1));l.innerHTML=cur.length?cur.map(([n,r,p,t,c],i)=>`<li role="option" aria-selected="${i===sel}" data-i="${i}"><span class="lg" style="--c:${c}">${n[0]}</span><div><b>${n}</b><small>${r} · ${p} · active ${t}</small></div>@I(right,18)</li>`).join(''):'<li class="em">No workspace matches “'+q.value.replace(/</g,'&lt;')+'”</li>'}
+function open(i){const li=l.children[i];if(!li||!cur[i])return;li.querySelector('small').textContent='Opening…'}
+l.onclick=e=>{const li=e.target.closest('[data-i]');if(!li)return;sel=+li.dataset.i;draw();open(sel)};
+const key=e=>{if(e.key==='ArrowDown'){sel=Math.min(cur.length-1,sel+1);draw();e.preventDefault()}if(e.key==='ArrowUp'){sel=Math.max(0,sel-1);draw();e.preventDefault()}if(e.key==='Enter')open(sel)};l.onkeydown=key;q.onkeydown=key;q.oninput=()=>{sel=0;draw()};draw();
+</script>
+=== auth-verify-email
+<!--Verify Email Banner|Auth|An “almost there” verification screen: animated envelope, the address with a change option, open-mail-app shortcuts (Gmail, Outlook), resend with cooldown, and an auto-check that flips to verified.|auth,verify,email,confirmation,onboarding-->
+<div class="k">
+<div class="card ve"><div class="ve-env" id="ev" aria-hidden="true"><svg viewBox="0 0 96 72"><rect x="4" y="10" width="88" height="58" rx="8" fill="var(--sf)" stroke="var(--ctl)" stroke-width="2"/><rect class="ve-let" x="16" y="2" width="64" height="44" rx="4" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><path class="ve-ln" d="M26 14h44M26 22h30M26 30h38" stroke="var(--ac)" stroke-width="3" stroke-linecap="round"/><path d="M4 18l44 30 44-30v42a8 8 0 0 1-8 8H12a8 8 0 0 1-8-8z" fill="var(--sf)" stroke="var(--ctl)" stroke-width="2" stroke-linejoin="round"/></svg></div>
+<h1 id="h">Verify your email</h1><p class="mu" id="p">We sent a confirmation link to <b>maya@hey.example</b>. Click it to activate your account.</p>
+<div class="ve-apps" id="ap"><a class="b sec" href="https://mail.google.com" target="_blank" rel="noopener">@I(mail,16)Open Gmail</a><a class="b sec" href="https://outlook.live.com" target="_blank" rel="noopener">@I(mail,16)Open Outlook</a></div>
+<p class="ve-st mu" id="st" aria-live="polite"><span class="ve-dot"></span>Waiting for you to click the link…</p><div class="ve-ft" id="ft"><button id="rs">Resend email</button><span>·</span><button>Change email</button></div><button class="b ac ve-sim" id="sim">Simulate clicking the link</button></div>
+</div>
+<style>
+.ve{width:min(420px,100%);padding:32px;text-align:center;display:grid;justify-items:center}.ve h1{margin:16px 0 6px;font-size:22px;letter-spacing:-.02em}.ve p{margin:0}
+.ve-env svg{width:96px;height:72px;overflow:visible}.ve-let{animation:vel 2.4s var(--ease) infinite}.ve-ln{animation:vel 2.4s var(--ease) infinite}@keyframes vel{0%,20%{transform:translateY(16px)}50%,80%{transform:translateY(-6px)}100%{transform:translateY(16px)}}
+.ve-env.ok .ve-let,.ve-env.ok .ve-ln{animation:none;transform:translateY(-10px)}
+.ve-apps{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;justify-content:center}.ve-apps .b{height:40px}
+.ve-st{display:flex;gap:8px;align-items:center;font-size:13px;margin-top:20px!important}.ve-dot{width:8px;height:8px;border-radius:50%;background:var(--warn);animation:ved 1.4s infinite}@keyframes ved{50%{opacity:.3}}
+.ve-ft{display:flex;gap:8px;margin-top:8px;font-size:13px;color:var(--mu)}.ve-ft button{color:var(--fg);text-decoration:underline;font-size:13px;min-height:32px}.ve-ft button:disabled{color:var(--mu);text-decoration:none}
+.ve-sim{margin-top:16px;height:36px;font-size:12px;opacity:.85}
+@media (prefers-reduced-motion:reduce){.ve-let,.ve-ln{animation:none}}
+</style>
+<script>
+const $=i=>document.getElementById(i);let t;
+$('rs').onclick=e=>{const b=e.currentTarget;let n=30;b.disabled=true;b.textContent='Sent · resend in 30s';clearInterval(t);t=setInterval(()=>{n--;b.textContent=n>0?`Sent · resend in ${n}s`:'Resend email';if(n<=0){clearInterval(t);b.disabled=false}},1000)};
+$('sim').onclick=()=>{$('ev').classList.add('ok');$('h').textContent='Email verified';$('p').innerHTML='Thanks, Maya. Your account is active.';$('st').innerHTML='<span class="ve-dot" style="background:var(--ok);animation:none"></span>Verified just now';$('ap').innerHTML='<a class="b ac" href="#">Continue to dashboard</a>';$('ft').hidden=true;$('sim').hidden=true};
+</script>
+=== auth-device-code
+<!--Device Code Sign In|Auth|TV / CLI style device authorisation: a big pairing code to type on another device, a URL, a QR, an expiry countdown bar, polling status and a regenerate button when it expires.|auth,device,tv,cli,pairing,code-->
+<div class="k">
+<div class="card dc"><p class="eb">Sign in on your TV</p><h1>On your phone or computer, go to</h1><a class="dc-url" href="#">reel.example/activate</a><p class="mu">and enter this code</p>
+<div class="dc-code tn" id="cd" aria-live="polite"></div><div class="dc-bar" aria-hidden="true"><i id="br"></i></div><p class="dc-st" id="st" role="status"><span class="dc-sp"></span>Waiting for confirmation…</p><button class="b sec" id="rg" hidden>@I(refresh,16)Get a new code</button></div>
+</div>
+<style>
+.dc{width:min(480px,100%);padding:36px 28px;text-align:center;display:grid;justify-items:center;gap:6px}.dc h1{margin:8px 0 0;font-size:18px;font-weight:500}.dc p{margin:0}
+.dc-url{font-size:22px;font-weight:650;color:var(--ac);text-decoration:none;letter-spacing:-.01em}
+.dc-code{display:flex;gap:6px;margin:14px 0 8px;width:100%;justify-content:center}.dc-code span{flex:1;max-width:44px;min-width:0;height:58px;border-radius:10px;background:var(--sf);border:1px solid var(--line);display:grid;place-items:center;font:600 28px 'Geist Mono',monospace}.dc-code .d{background:none;border:0;width:14px;color:var(--mu)}.dc-code.old span{color:var(--mu);text-decoration:line-through}
+.dc-bar{width:100%;max-width:340px;height:4px;border-radius:2px;background:var(--sf2);overflow:hidden}.dc-bar i{display:block;height:100%;background:var(--ac);width:100%;transition:width 1s linear}
+.dc-st{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mu);margin-top:10px!important}.dc-sp{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--ac);animation:dcs .8s linear infinite}@keyframes dcs{to{transform:rotate(1turn)}}
+@media (max-width:420px){.dc-code span{height:48px;font-size:20px}.dc{padding:28px 16px}}
+</style>
+<script>
+const $=i=>document.getElementById(i),A='BCDFGHJKLMNPQRSTVWXZ';let left,t;
+function make(){const c=Array.from({length:8},()=>A[Math.floor(Math.random()*A.length)]);$('cd').className='dc-code tn';$('cd').innerHTML=c.slice(0,4).map(x=>`<span>${x}</span>`).join('')+'<span class="d">–</span>'+c.slice(4).map(x=>`<span>${x}</span>`).join('');$('cd').setAttribute('aria-label','Code '+c.join(' '));left=40;$('rg').hidden=true;$('st').innerHTML='<span class="dc-sp"></span>Waiting for confirmation… expires in 40s';clearInterval(t);t=setInterval(tick,1000);$('br').style.width='100%'}
+function tick(){left--;$('br').style.width=left/40*100+'%';if(left>0){$('st').innerHTML=`<span class="dc-sp"></span>Waiting for confirmation… expires in ${left}s`;return}clearInterval(t);$('cd').classList.add('old');$('st').textContent='This code expired.';$('rg').hidden=false}
+$('rg').onclick=make;make();
+</script>
+=== auth-session-expired
+<!--Session Expired Modal|Auth|A re-authentication dialog that appears over a dimmed app when the session times out: keeps unsaved work, asks only for the password, offers “sign in as someone else”, and restores focus.|auth,session,modal,dialog,timeout,reauth-->
+<div class="k se">
+<div class="se-app" aria-hidden="true"><div class="se-sb"></div><div class="se-doc"><h2>Q4 planning notes</h2><p>Draft · 1,240 words</p><i></i><i></i><i style="width:70%"></i><i></i><i style="width:40%"></i></div></div>
+<button class="b sec se-tr" id="tr">Simulate timeout</button>
+<dialog class="se-d" id="d" aria-labelledby="dt"><span class="se-ic">@I(clock,20)</span><h1 id="dt">Your session timed out</h1><p class="mu">For your security we signed you out after 30 minutes. Your unsaved draft is kept on this device.</p>
+<form id="f" method="dialog" novalidate><div class="se-u"><span class="av" style="--c:#4338ca">RA</span><div><b>Rafael Alves</b><span class="mu">rafael@example.com</span></div></div><label class="lbl" for="pw">Password</label><input class="in" id="pw" type="password" autocomplete="current-password"><p class="se-er" id="er" role="alert"></p><button class="b ac se-go" id="go" value="ok">Continue where I left off</button></form><button class="se-alt" id="alt">Sign in as someone else</button></dialog>
+</div>
+<style>
+.k.se{position:relative;padding:0;place-items:stretch;overflow:hidden}.se-app{display:grid;grid-template-columns:220px 1fr;min-height:100%;background:var(--bg)}.se-sb{background:var(--sf);border-right:1px solid var(--line)}.se-doc{padding:48px;display:grid;gap:14px;align-content:start;max-width:640px}.se-doc h2{margin:0;font-size:28px}.se-doc p{margin:0;color:var(--mu)}.se-doc i{height:10px;border-radius:5px;background:var(--sf2)}
+.se-tr{position:absolute;right:16px;bottom:16px}
+.se-d{width:min(400px,calc(100% - 32px));border:1px solid var(--line);border-radius:18px;padding:28px;background:var(--bg);color:var(--fg);box-shadow:var(--shadow)}.se-d::backdrop{background:#0006;backdrop-filter:blur(3px)}.se-d[open]{animation:sed .25s var(--ease)}@keyframes sed{from{opacity:0;transform:scale(.96) translateY(8px)}}
+.se-ic{width:40px;height:40px;border-radius:10px;background:var(--warn-sf);color:var(--warn);display:grid;place-items:center}.se-d h1{margin:14px 0 6px;font-size:20px}.se-d>p{margin:0 0 16px;font-size:14px}
+.se-u{display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;background:var(--sf);margin-bottom:14px}.se-u div{display:grid;font-size:13px}.se-u .av{width:36px;height:36px;font-size:12px}
+.se-d .in{height:44px;font-size:16px}.se-er{color:var(--err);font-size:13px;margin:6px 0 0}.se-er:empty{display:none}.se-go{width:100%;height:44px;margin-top:14px}.se-alt{display:block;margin:12px auto 0;font-size:13px;color:var(--mu);text-decoration:underline;min-height:32px}
+@media (max-width:600px){.se-app{grid-template-columns:1fr}.se-sb{display:none}.se-doc{padding:24px}}
+</style>
+<script>
+const $=i=>document.getElementById(i),d=$('d');
+$('tr').onclick=()=>{d.showModal();$('pw').value='';$('er').textContent='';$('pw').focus()};setTimeout(()=>$('tr').click(),400);
+d.addEventListener('cancel',e=>e.preventDefault());
+$('f').onsubmit=e=>{e.preventDefault();const pw=$('pw');if(!pw.value){$('er').textContent='Enter your password to continue.';pw.setAttribute('aria-invalid',true);return pw.focus()}const g=$('go');g.disabled=true;g.textContent='Signing in…';setTimeout(()=>{g.disabled=false;g.textContent='Continue where I left off';d.close();$('tr').focus()},700)};
+$('alt').onclick=()=>{$('alt').textContent='Signing out…'};
+</script>
+=== auth-account-switch
+<!--Account Switcher|Auth|A popover for switching between signed-in accounts, like a mail app: current account with storage meter, other accounts with unread counts, add account and sign out of all, keyboard accessible.|auth,account,switcher,popover,multi-account-->
+<div class="k">
+<div class="ax"><button class="ax-t" id="t" aria-haspopup="true" aria-expanded="true" aria-controls="p"><span class="av" style="--c:#0f766e">EM</span><span>Elif Mert</span>@I(down,16)</button>
+<div class="card ax-p" id="p" role="menu" aria-label="Accounts"><div class="ax-cur"><span class="av lg" style="--c:#0f766e">EM</span><b>Elif Mert</b><span class="mu">elif@hey.example</span><div class="ax-sto"><i style="--w:62%"></i></div><small class="mu">9.3 GB of 15 GB used</small><button class="b sec sm" role="menuitem">Manage account</button></div>
+<div class="ax-ls" id="ls"></div><button class="ax-row" role="menuitem">@I(plus,18)<span>Add another account</span></button><button class="ax-row" role="menuitem">@I(off,18)<span>Sign out of all accounts</span></button></div></div>
+</div>
+<style>
+.ax{position:relative;width:min(340px,100%);display:grid;justify-items:end;align-self:start;margin-top:24px}.ax-t{display:flex;gap:8px;align-items:center;height:44px;padding:0 10px 0 4px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-weight:550}.ax-t .av{width:34px;height:34px;font-size:12px}
+.ax-p{width:100%;margin-top:8px;padding:8px;transform-origin:top right;animation:axp .18s var(--ease)}.ax-p[hidden]{display:none}@keyframes axp{from{opacity:0;transform:scale(.96)}}
+.ax-cur{display:grid;justify-items:center;text-align:center;gap:4px;padding:16px 12px;border-radius:12px;background:var(--sf)}.ax-cur .lg{width:56px;height:56px;font-size:18px;margin-bottom:6px}.ax-cur .b{margin-top:10px}.ax-sto{width:100%;height:4px;border-radius:2px;background:var(--sf2);margin-top:8px;overflow:hidden}.ax-sto i{display:block;height:100%;width:var(--w);background:var(--ac)}.ax-cur small{font-size:11px}
+.ax-ls{display:grid;margin:6px 0;border-bottom:1px solid var(--line);padding-bottom:6px}.ax-row{display:flex;gap:12px;align-items:center;width:100%;padding:10px;border-radius:10px;text-align:left;min-height:48px}.ax-row:hover,.ax-row:focus-visible{background:var(--sf)}.ax-row>.i{color:var(--mu);width:32px}.ax-row .av{width:32px;height:32px;font-size:11px}.ax-row div{display:grid;flex:1;min-width:0;font-size:13px}.ax-row div span{overflow:hidden;text-overflow:ellipsis}.ax-row em{font-style:normal;font-size:11px;font-weight:700;background:var(--ac);color:var(--ac-fg);border-radius:999px;padding:2px 7px}
+</style>
+<script>
+const A=[["Elif Mert","elif@studio.example","#7c3aed",12],["Elif (personal)","elif.m@mail.example","#b45309",0]],ls=document.getElementById('ls'),p=document.getElementById('p'),t=document.getElementById('t');
+ls.innerHTML=A.map(([n,e,c,u],i)=>`<button class="ax-row" role="menuitem" data-i="${i}"><span class="av" style="--c:${c}">${n.split(' ').map(w=>w[0]).join('').slice(0,2).replace('(','')}</span><div><b>${n}</b><span class="mu">${e}</span></div>${u?`<em aria-label="${u} unread">${u}</em>`:''}</button>`).join('');
+t.onclick=()=>{const o=p.hidden;p.hidden=!o;t.setAttribute('aria-expanded',o);if(o)p.querySelector('[role=menuitem]').focus()};
+p.addEventListener('keydown',e=>{const I=[...p.querySelectorAll('[role=menuitem]')],i=I.indexOf(document.activeElement);if(e.key==='ArrowDown'){I[(i+1)%I.length].focus();e.preventDefault()}if(e.key==='ArrowUp'){I[(i-1+I.length)%I.length].focus();e.preventDefault()}if(e.key==='Escape'){p.hidden=true;t.setAttribute('aria-expanded',false);t.focus()}});
+ls.onclick=e=>{const b=e.target.closest('[data-i]');if(b)b.querySelector('.mu').textContent='Switching…'};
+</script>

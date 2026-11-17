@@ -1,0 +1,44 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.dn2{width:min(520px,100%);padding:20px;margin:0}.dn2 figcaption{display:grid;margin-bottom:8px}.dn2 svg{width:100%;height:auto;display:block;overflow:visible}
+.dn2 .sl{transition:transform .2s cubic-bezier(.23,1,.32,1),opacity .2s;transform-origin:210px 140px;cursor:pointer;outline:0}.dn2 .sl:hover,.dn2 .sl:focus,.dn2 .sl.on{transform:scale(1.04)}.dn2 svg.f .sl:not(.on){opacity:.35}
+.dn2 .ln{stroke:var(--ctl);fill:none}.dn2 .lt{font-size:12px;fill:var(--fg)}.dn2 .lp{font-size:11px;fill:var(--mu)}.dn2 .c1{font-size:26px;font-weight:700;fill:var(--fg);letter-spacing:-.02em}.dn2 .c2{font-size:11px;fill:var(--mu)}
+</style>
+<div class="k"><figure class="dn2 card"><figcaption><b>Where the time went</b><span class="mu">Last 30 days, 142 hours</span></figcaption><svg id="s" viewBox="0 0 420 280" role="img" aria-label="Donut chart of time by project"></svg></figure></div>
+<script>
+const D=[["Client work",62,"#0f766e"],["Internal tools",31,"#14b8a6"],["Meetings",24,"#5eead4"],["Hiring",9,"#99f6e4"],["Admin",6,"#ccfbf1"],["Other",10,"#a1a1aa"]],tot=D.reduce((a,d)=>a+d[1],0),s=document.getElementById('s'),cx=210,cy=140,R=86,r=56;let on=-1;
+const pt=(a,rr)=>[cx+rr*Math.cos(a),cy+rr*Math.sin(a)];
+function draw(){let a0=-Math.PI/2,h='',LB=[];D.forEach(([n,v,c],i)=>{const a1=a0+v/tot*2*Math.PI,lg=a1-a0>Math.PI?1:0,[x0,y0]=pt(a0,R),[x1,y1]=pt(a1,R),[x2,y2]=pt(a1,r),[x3,y3]=pt(a0,r),m=(a0+a1)/2;
+h+=`<path class="sl${on===i?' on':''}" data-i="${i}" tabindex="0" aria-label="${n}: ${v} hours, ${Math.round(v/tot*100)}%" d="M${x0},${y0}A${R},${R} 0 ${lg} 1 ${x1},${y1}L${x2},${y2}A${r},${r} 0 ${lg} 0 ${x3},${y3}Z" fill="${c}" stroke="var(--bg)" stroke-width="2"/>`;const [lx,ly]=pt(m,R+8);LB.push({n,v,m,lx,ly,right:Math.cos(m)>=0,y:pt(m,R+26)[1]});a0=a1});
+[true,false].forEach(side=>{const G=LB.filter(l=>l.right===side).sort((p,q)=>p.y-q.y);for(let k=1;k<G.length;k++)if(G[k].y-G[k-1].y<30)G[k].y=G[k-1].y+30;const over=G.length?G[G.length-1].y-262:0;if(over>0)G.forEach(l=>l.y-=over);for(let k=G.length-2;k>=0;k--)if(G[k+1].y-G[k].y<30)G[k].y=G[k+1].y-30});
+LB.forEach(l=>{const tx=l.right?cx+R+34:cx-R-34;h+=`<path class="ln" d="M${l.lx},${l.ly}L${l.right?tx-8:tx+8},${l.y}L${tx},${l.y}"/><text class="lt" x="${tx+(l.right?4:-4)}" y="${l.y-2}" text-anchor="${l.right?'start':'end'}">${l.n}</text><text class="lp" x="${tx+(l.right?4:-4)}" y="${l.y+12}" text-anchor="${l.right?'start':'end'}">${l.v} h · ${Math.round(l.v/tot*100)}%</text>`});
+const sel=on>=0?D[on]:null;h+=`<text class="c1" x="${cx}" y="${cy+4}" text-anchor="middle">${sel?sel[1]+' h':tot+' h'}</text><text class="c2" x="${cx}" y="${cy+22}" text-anchor="middle">${sel?sel[0]:'total'}</text>`;s.innerHTML=h;s.classList.toggle('f',on>=0)}
+s.addEventListener('pointerover',e=>{const p=e.target.closest('.sl');if(p&&on!==+p.dataset.i){on=+p.dataset.i;draw()}});s.addEventListener('pointerleave',()=>{on=-1;draw()});s.addEventListener('focusin',e=>{const p=e.target.closest('.sl');if(p&&on!==+p.dataset.i){on=+p.dataset.i;draw();s.querySelector(`[data-i="${on}"]`).focus()}});draw();
+</script>

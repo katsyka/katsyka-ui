@@ -1,0 +1,60 @@
+<style>
+.bn{min-height:100vh;background:#09090b;padding:80px clamp(16px,5vw,64px)}
+.bn-head{max-width:640px;margin:0 0 40px}
+.bn-head h2{font-size:clamp(34px,4.6vw,56px);line-height:1;letter-spacing:-.05em;font-weight:600;margin:0 0 14px}
+.bn-head p{color:#8a8a94;margin:0;font-size:17px}
+.bn-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:220px;gap:14px}
+.bn-c{--x:-999px;--y:-999px;position:relative;border-radius:20px;padding:1px;background:radial-gradient(360px circle at var(--x) var(--y),#ffffff40,transparent 45%),#ffffff12}
+.bn-in{position:relative;height:100%;border-radius:19px;background:radial-gradient(500px circle at var(--x) var(--y),#ffffff09,transparent 45%),#0f0f12;padding:24px;overflow:hidden;display:flex;flex-direction:column}
+.bn-c h3{margin:auto 0 6px;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.bn-c p{margin:0;color:#85858f;font-size:14px;line-height:1.5}
+.bn-1{grid-column:span 4;grid-row:span 2}.bn-2{grid-column:span 2;grid-row:span 2}.bn-3,.bn-4,.bn-5{grid-column:span 2}
+.bn-bars{display:flex;align-items:flex-end;gap:8px;height:55%}
+.bn-bars i{flex:1;border-radius:6px 6px 2px 2px;background:linear-gradient(#ff7a45,#ff5a1f33);height:var(--h);transform-origin:bottom;animation:bn-grow 1.2s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d)*60ms)}
+@keyframes bn-grow{from{transform:scaleY(0)}}
+.bn-orbit{position:relative;height:60%;display:grid;place-items:center}
+.bn-orbit span{position:absolute;border:1px dashed #ffffff1c;border-radius:50%}
+.bn-orbit span:nth-child(1){width:90px;height:90px}.bn-orbit span:nth-child(2){width:170px;height:170px}.bn-orbit span:nth-child(3){width:250px;height:250px}
+.bn-orbit b{position:absolute;width:34px;height:34px;border-radius:10px;background:#1b1b20;border:1px solid #ffffff1a;display:grid;place-items:center;font-size:15px;offset-rotate:0deg;animation:bn-orb linear infinite}
+.bn-orbit b:nth-of-type(1){offset-path:circle(85px);animation-duration:12s}.bn-orbit b:nth-of-type(2){offset-path:circle(125px);animation-duration:18s;animation-delay:-6s}.bn-orbit b:nth-of-type(3){offset-path:circle(85px);animation-duration:12s;animation-delay:-6s}.bn-orbit b:nth-of-type(4){offset-path:circle(125px);animation-duration:18s;animation-delay:-14s}
+@keyframes bn-orb{to{offset-distance:100%}}
+.bn-core{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,#ff5a1f,#ffb36b);box-shadow:0 0 0 6px #ff5a1f1a}
+.bn-type{font:500 13px "Geist Mono",monospace;color:#b9b9c2;background:#ffffff06;border:1px solid #ffffff10;border-radius:10px;padding:12px;white-space:pre}
+.bn-type::after{content:"▍";color:#ff7a45;animation:bn-blink 1s steps(1) infinite}
+@keyframes bn-blink{50%{opacity:0}}
+.bn-sw{display:flex;align-items:center;gap:10px}
+.bn-sw button{width:46px;height:26px;border-radius:99px;border:0;background:#2a2a30;position:relative;cursor:pointer;transition:background .3s}
+.bn-sw button::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.bn-sw button.on{background:#ff5a1f}.bn-sw button.on::after{transform:translateX(20px)}
+.bn-sw span{font-size:13px;color:#9b9ba4}
+.bn-big{font-size:72px;font-weight:600;letter-spacing:-.06em;line-height:1}
+@media (max-width:900px){.bn-grid{grid-template-columns:1fr 1fr}.bn-1,.bn-2,.bn-3,.bn-4,.bn-5{grid-column:span 2;grid-row:span 1}.bn-1{grid-row:span 2}}
+</style>
+<section class="bn">
+  <div class="bn-head"><h2>Everything a small team needs.</h2><p>Move your pointer across the grid. The light rides the borders.</p></div>
+  <div class="bn-grid">
+    <div class="bn-c bn-1"><div class="bn-in">
+      <div class="bn-bars">
+        <i style="--h:30%;--d:0"></i><i style="--h:45%;--d:1"></i><i style="--h:38%;--d:2"></i><i style="--h:60%;--d:3"></i><i style="--h:52%;--d:4"></i><i style="--h:72%;--d:5"></i><i style="--h:66%;--d:6"></i><i style="--h:84%;--d:7"></i><i style="--h:78%;--d:8"></i><i style="--h:96%;--d:9"></i>
+      </div>
+      <h3>Growth you can see</h3><p>Weekly trends computed live from your events. No SQL, no waiting for the data team.</p></div></div>
+    <div class="bn-c bn-2"><div class="bn-in">
+      <div class="bn-orbit"><span></span><span></span><span></span><div class="bn-core"></div><b>✦</b><b>◐</b><b>❖</b><b>✺</b></div>
+      <h3>120+ integrations</h3><p>Plug in the tools you already pay for.</p></div></div>
+    <div class="bn-c bn-3"><div class="bn-in"><div class="bn-type" data-type>$ deploy --prod</div><h3>One-command deploys</h3><p>Preview on every push.</p></div></div>
+    <div class="bn-c bn-4"><div class="bn-in"><div class="bn-sw"><button class="on" aria-label="toggle"></button><span>Two-factor required</span></div><h3>Secure by default</h3><p>SSO, audit logs, SOC 2.</p></div></div>
+    <div class="bn-c bn-5"><div class="bn-in"><div class="bn-big">4.9<span style="font-size:24px;color:#6d6d76">/5</span></div><h3>Loved by 3,000 teams</h3><p>From two-person shops to public companies.</p></div></div>
+  </div>
+</section>
+<script>
+(()=>{
+const g=document.querySelector(".bn-grid"),cards=[...g.querySelectorAll(".bn-c")];
+g.addEventListener("pointermove",e=>cards.forEach(c=>{const r=c.getBoundingClientRect();c.style.setProperty("--x",e.clientX-r.left+"px");c.style.setProperty("--y",e.clientY-r.top+"px")}));
+g.addEventListener("pointerleave",()=>cards.forEach(c=>{c.style.setProperty("--x","-999px")}));
+document.querySelectorAll(".bn-sw button").forEach(b=>b.onclick=()=>b.classList.toggle("on"));
+const t=document.querySelector("[data-type]"),lines=["$ deploy --prod","✓ built in 4.2s","✓ live on 48 regions"];let li=0,ci=0;
+(function type(){t.textContent=lines.slice(0,li).join("\n")+(li?"\n":"")+lines[li].slice(0,ci);
+  if(ci++<lines[li].length)return setTimeout(type,45);ci=0;li++;
+  if(li<lines.length)return setTimeout(type,350);setTimeout(()=>{li=0;type()},2400)})();
+})();
+</script>

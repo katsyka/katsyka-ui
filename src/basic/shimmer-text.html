@@ -1,0 +1,22 @@
+<!--Shimmer Text|Text|A soft light sweep across status text while something works ("Thinking", "Searching 12 sources"), built with background-clip so it inherits your font and colour. Steps tick to done, then the shimmer stops.|text effect,shimmer,loading,status,ai-->
+<div class="k"><section class="card sh2"><div class="sh2-q"><span class="av" style="--c:#7c3aed">M</span><p>Which ferry gets me to Voss before noon on Saturday?</p></div>
+<ol class="sh2-l" id="l" aria-live="polite"></ol><button class="b sec" id="rp">Run again</button></section></div>
+<style>
+.sh2{width:min(520px,100%);padding:20px}
+.sh2-q{display:flex;gap:10px;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid var(--line)}.sh2-q .av{width:28px;height:28px;font-size:12px}.sh2-q p{margin:3px 0 0;font-weight:550}
+.sh2-l{list-style:none;margin:14px 0 18px;padding:0;display:grid;gap:10px;min-height:120px}
+.sh2-l li{display:flex;gap:10px;align-items:center;font-size:15px;animation:li .3s var(--ease)}@keyframes li{from{opacity:0;transform:translateY(4px)}}
+.sh2-l li i{width:16px;height:16px;flex:none;border-radius:50%;border:2px solid var(--line);border-top-color:var(--ac);animation:sp .8s linear infinite}
+.sh2-l li.done i{animation:none;border:0;background:var(--ok);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.5 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4z'/%3E%3C/svg%3E") center/contain}
+.sh2-l li.done span{color:var(--mu)}
+@keyframes sp{to{transform:rotate(1turn)}}
+.shim{color:transparent;background:linear-gradient(100deg,var(--mu) 0 40%,var(--fg) 50%,var(--mu) 60% 100%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;animation:sw 1.6s linear infinite}
+@keyframes sw{from{background-position:100% 0}to{background-position:-50% 0}}
+@media (prefers-reduced-motion:reduce){.shim{animation:none;color:var(--fg);background:none}}
+</style>
+<script>
+const S=["Thinking","Searching 12 timetables","Checking Saturday departures","Writing the answer"];let t=[];
+const run=()=>{t.forEach(clearTimeout);t=[];l.innerHTML="";S.forEach((s,i)=>{t.push(setTimeout(()=>{const p=l.lastElementChild;if(p){p.classList.add("done");p.querySelector("span").classList.remove("shim")}l.insertAdjacentHTML("beforeend",'<li><i aria-hidden="true"></i><span class="shim">'+s+'…</span></li>')},i*1500))});
+ t.push(setTimeout(()=>{const p=l.lastElementChild;p.classList.add("done");p.querySelector("span").classList.remove("shim");p.querySelector("span").textContent="Take the 08:12 from Bergen, arrives Voss 09:26."},S.length*1500))};
+run();rp.onclick=run;
+</script>

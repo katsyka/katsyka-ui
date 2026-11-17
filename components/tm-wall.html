@@ -1,0 +1,43 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.tw{width:min(1080px,100%)}.tw-h{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:20px}.tw-h h2{margin:0;font-size:clamp(24px,3vw,32px);letter-spacing:-.02em}
+.tw-f{display:flex;gap:4px;flex-wrap:wrap}.tw-f button{height:34px;padding:0 12px;border-radius:8px;font-size:13px;color:var(--mu)}.tw-f [aria-pressed=true]{background:var(--sf2);color:var(--fg)}
+.tw-g{columns:3 280px;column-gap:14px}.tw-q{break-inside:avoid;margin:0 0 14px;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--bg);display:grid;gap:12px;animation:twf .3s cubic-bezier(.23,1,.32,1) both}@keyframes twf{from{opacity:0;transform:translateY(6px)}}
+.tw-q p{margin:0;font-size:15px;line-height:1.55}.tw-q.cl p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}.tw-q .more{justify-self:start;font-size:13px;font-weight:600;color:var(--ac);min-height:28px}
+.tw-q footer{display:flex;gap:10px;align-items:center;font-size:13px}.tw-q .av{width:32px;height:32px;font-size:11px}.tw-q footer div{display:grid}.tw-q small{color:var(--mu);font-size:12px}.tw-q .src{margin-left:auto;font-size:11px;color:var(--mu);border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+</style>
+<div class="k"><section class="tw"><div class="tw-h"><h2>What people wrote to us</h2><div class="tw-f" role="group" aria-label="Source" id="f"><button aria-pressed="true" data-s="">All</button><button aria-pressed="false" data-s="Review">Reviews</button><button aria-pressed="false" data-s="Email">Emails</button><button aria-pressed="false" data-s="Interview">Interviews</button></div></div><div class="tw-g" id="g"></div></section></div>
+<script>
+const Q=[["Review","Exactly what it says. Set it up during lunch.","Dana K.","Bookkeeper","#0f766e"],["Email","I want to tell you about the night our server died during a product launch. Your status page said everything was fine, which was wrong, but your support person stayed on chat with me until 2 a.m., walked me through restoring from the snapshot, and then emailed the next morning to check. I've been a customer for six years and that night is why I'll stay another six.","Marcus Hale","CTO, ticketing startup","#7c3aed"],["Interview","The thing nobody tells you about switching tools is the retraining. With this, the team was using it properly by day three because it behaves like what they already knew.","Leila Farouk","Office manager","#b45309"],["Review","Fast. Doesn't nag. Exports are clean CSV, not some proprietary mess.","Jon P.","Data analyst","#be123c"],["Email","Small thing, but the keyboard shortcuts match the ones in my editor. Whoever decided that: thank you.","Ana Ruiz","Developer","#0369a1"],["Interview","We tried three competitors. Two were prettier. This one was the only one our accountant could use without calling us.","Kofi Mensah","Founder, coffee importer","#15803d"],["Review","Price went up last year and I grumbled, but they told us three months ahead and gave us the old rate until renewal. That's how you do it.","Sigrid L.","Agency owner","#9333ea"],["Email","Our board asked where the monthly report came from. I said I clicked a button. They didn't believe me.","Hannah Cole","COO, non-profit","#a16207"]];
+const g=document.getElementById('g');let s='';
+function draw(){g.innerHTML=Q.filter(q=>!s||q[0]===s).map(([src,t,n,r,c],i)=>`<figure class="tw-q${t.length>220?' cl':''}" style="animation-delay:${i*40}ms"><p>${t}</p>${t.length>220?'<button class="more" aria-expanded="false">Read more</button>':''}<footer><span class="av" style="--c:${c}">${n.split(' ').map(w=>w[0]).join('').slice(0,2)}</span><div><b>${n}</b><small>${r}</small></div><span class="src">${src}</span></footer></figure>`).join('')}
+g.onclick=e=>{const b=e.target.closest('.more');if(!b)return;const f=b.closest('.tw-q'),o=f.classList.toggle('cl');b.textContent=o?'Read more':'Show less';b.setAttribute('aria-expanded',!o)};
+document.getElementById('f').onclick=e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#f button').forEach(x=>x.setAttribute('aria-pressed',x===b));s=b.dataset.s;draw()};draw();
+</script>

@@ -1,0 +1,66 @@
+<style>
+.ps{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ps :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ps ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ps *,.ps *::before,.ps *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ps{background:var(--bg);padding:64px 20px 80px}
+.ps article{max-width:680px;margin:0 auto;font-size:17px;line-height:1.75;color:color-mix(in oklab,var(--fg) 86%,var(--bg))}
+.ps .kick{font:500 12.5px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--ac)}
+.ps h1{margin:10px 0 16px;color:var(--fg);font-size:clamp(32px,5vw,46px);line-height:1.06;letter-spacing:-.045em;font-weight:650;text-wrap:balance}
+.ps .lead{font-size:20px;line-height:1.6;color:var(--mu);margin:0 0 28px;text-wrap:pretty}
+.ps .by{display:flex;align-items:center;gap:12px;padding:16px 0;margin-bottom:32px;border-block:1px solid var(--line);font-size:14px;color:var(--mu)}
+.ps .by i{width:36px;height:36px;border-radius:50%;background:#c2410c;color:#fff;display:grid;place-items:center;font:650 13px Geist,system-ui,sans-serif;font-style:normal}
+.ps .by b{color:var(--fg);font-weight:600}
+.ps h2{margin:44px 0 12px;color:var(--fg);font-size:26px;line-height:1.25;letter-spacing:-.03em;font-weight:640}
+.ps h3{margin:32px 0 8px;color:var(--fg);font-size:19px;letter-spacing:-.015em;font-weight:620}
+.ps p{margin:0 0 20px;text-wrap:pretty}
+.ps a{color:var(--fg);text-decoration:underline;text-decoration-color:color-mix(in oklab,var(--ac) 60%,transparent);text-decoration-thickness:1.5px;text-underline-offset:3px;transition:text-decoration-color .15s}
+.ps a:hover{text-decoration-color:var(--ac)}
+.ps strong{color:var(--fg);font-weight:620}
+.ps ul,.ps ol{margin:0 0 20px;padding-left:24px}
+.ps li{margin:6px 0;padding-left:4px}
+.ps ul li::marker{color:var(--ac)}
+.ps ol li::marker{color:var(--mu);font:500 15px "Geist Mono",monospace}
+.ps blockquote{margin:28px 0;padding:4px 0 4px 22px;border-left:3px solid var(--ac);font-size:21px;line-height:1.5;color:var(--fg);font-style:italic;letter-spacing:-.01em}
+.ps blockquote cite{display:block;margin-top:8px;font-size:14px;font-style:normal;color:var(--mu)}
+.ps code{font:500 .86em "Geist Mono",monospace;padding:2px 6px;border-radius:6px;background:var(--sf2);color:var(--fg)}
+.ps pre{margin:0 0 24px;padding:16px 18px;border-radius:12px;background:light-dark(#18181b,#0a0a0b);color:#e4e4e7;overflow:auto;font:400 14px/1.65 "Geist Mono",monospace;border:1px solid light-dark(#18181b,#26262b)}
+.ps pre code{padding:0;background:none;color:inherit;font-size:inherit}
+.ps figure{margin:32px 0}
+.ps figure div{aspect-ratio:16/8;border-radius:14px;background:linear-gradient(135deg,#fed7aa,#ea580c 55%,#7c2d12)}
+.ps figcaption{margin-top:10px;font-size:14px;color:var(--mu);text-align:center}
+.ps table{width:100%;margin:0 0 24px;border-collapse:collapse;font-size:15px}
+.ps th{text-align:left;font-weight:600;color:var(--fg);padding:10px 12px;border-bottom:2px solid var(--line)}
+.ps td{padding:10px 12px;border-bottom:1px solid var(--line)}
+.ps td:last-child,.ps th:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.ps hr{border:0;height:1px;background:var(--line);margin:40px 0}
+.ps kbd{font:500 .82em "Geist Mono",monospace;padding:2px 6px;border-radius:5px;border:1px solid var(--line);border-bottom-width:2px;background:var(--sf)}
+.ps mark{background:color-mix(in oklab,#facc15 40%,transparent);color:inherit;padding:0 2px;border-radius:3px}
+.ps .note{margin:0 0 24px;padding:14px 16px;border-radius:12px;background:var(--info-sf);border:1px solid color-mix(in oklab,var(--info) 25%,transparent);font-size:15.5px;line-height:1.6}
+.ps .note b{color:var(--info)}
+</style>
+<div class="ps">
+  <article>
+    <div class="kick">Field notes</div>
+    <h1>The quiet craft of writing interface copy</h1>
+    <p class="lead">Good microcopy is invisible. People only notice it when it is missing, vague, or trying too hard to be clever.</p>
+    <div class="by"><i>MO</i><span><b>Mira Okafor</b> · Oct 30, 2026 · 6 min read</span></div>
+    <p>Every label, hint and error is a tiny promise about what will happen next. When the promise is clear, people move quickly. When it is not, they hesitate, and <strong>hesitation is where most drop-off begins</strong>.</p>
+    <h2>Say what the button does</h2>
+    <p>“Submit” describes the mechanism; “Create account” describes the outcome. Prefer verbs that name the result, and keep them consistent across the product. See our <a href="#">writing guidelines</a> for the full list.</p>
+    <ul><li>Lead with the verb: <em>Save</em>, <em>Send</em>, <em>Delete</em></li><li>Match the title of the dialog that opened it</li><li>Avoid “OK” when the action is destructive</li></ul>
+    <blockquote>The best error message is the one that never appears; the second best tells you exactly how to fix it.<cite>— A designer we agree with</cite></blockquote>
+    <h3>Errors are instructions</h3>
+    <p>Replace “Invalid input” with what is wrong and how to fix it. Press <kbd>⌘</kbd> <kbd>Enter</kbd> to submit is nicer than a bare shortcut, and <mark>placing the message next to the field</mark> beats a banner at the top.</p>
+    <div class="note"><b>Note:</b> link the hint to its input with <code>aria-describedby</code> so screen readers announce it.</div>
+    <pre><code>&lt;input id="email" aria-describedby="email-hint"&gt;
+&lt;p id="email-hint"&gt;We’ll only use this for receipts.&lt;/p&gt;</code></pre>
+    <figure><div role="img" aria-label="Warm abstract gradient"></div><figcaption>Fig. 1 — Placement matters more than wording.</figcaption></figure>
+    <h2>Measure it</h2>
+    <table><thead><tr><th>Change</th><th>Completion</th></tr></thead><tbody><tr><td>“Submit” → “Create account”</td><td>+4.1%</td></tr><tr><td>Inline errors instead of banner</td><td>+7.8%</td></tr><tr><td>Removed optional fields</td><td>+11.2%</td></tr></tbody></table>
+    <ol><li>Pick one flow with real traffic</li><li>Change one string at a time</li><li>Run it for two full weeks</li></ol>
+    <hr>
+    <p>Typography styles for long-form content: headings, lists, quotes, code, tables, figures and inline elements, all on shared tokens.</p>
+  </article>
+</div>
+<script>document.querySelectorAll('.ps a[href="#"]').forEach(a=>a.addEventListener("click",e=>e.preventDefault()));</script>

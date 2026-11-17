@@ -1,0 +1,140 @@
+=== land-nonprofit
+<!--Nonprofit Landing|Landings|An ocean charity page: a progress-to-goal hero, a donation picker where each amount explains what it buys, monthly/once toggle, and a transparent “where the money goes” bar.|landing,nonprofit,donation,charity,progress-->
+<div class="k pg lo">
+<header class="top"><div class="w"><a class="logo" href="#">@I(drop,18)Open Tide</a><nav class="links"><a href="#">Our work</a><a href="#">Reports</a><a href="#">Volunteer</a></nav><a class="b ac" href="#dn">Donate</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="lo-hero"><img class="ph" src="media/pics/c/1053.jpg" alt=""><div class="w"><h1 class="h1">We pull nets<br>out of the sea.</h1><div class="lo-goal"><div class="lo-gt"><b class="tn">€184,320</b><span>raised of €250,000 for the 2027 season</span></div><div class="lo-bar" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" aria-label="Fundraising progress"><i style="--w:74%"></i></div><span class="lo-s">2,931 donors · 46 days left</span></div></div></section>
+<section class="sec w lo-dn" id="dn"><div><h2 class="h2">Every euro has<br>a job.</h2><p class="lead">We publish what each donation pays for, down to diesel for the boat.</p><div class="lo-split"><div class="lo-sb"><i style="--w:71%;--c:var(--ac)"></i><i style="--w:18%;--c:#0ea5e9"></i><i style="--w:11%;--c:var(--ctl)"></i></div><ul><li><i style="--c:var(--ac)"></i>Clean-up dives & boat<b>71%</b></li><li><i style="--c:#0ea5e9"></i>Recycling nets into yarn<b>18%</b></li><li><i style="--c:var(--ctl)"></i>Admin & fundraising<b>11%</b></li></ul></div></div>
+<form class="card lo-f" onsubmit="return false"><div class="lo-fq" role="radiogroup" aria-label="Frequency"><button type="button" role="radio" aria-checked="true" data-m="1">Monthly</button><button type="button" role="radio" aria-checked="false" data-m="0">Once</button></div><div class="lo-am" id="am" role="radiogroup" aria-label="Amount"></div><label class="lo-ot"><span class="lbl">Other amount</span><span class="lo-eu"><span>€</span><input class="in tn" id="ot" inputmode="decimal" placeholder="0"></span></label><p class="lo-why" id="wy" aria-live="polite"></p><button class="b ac lg" id="go" style="width:100%"></button><p class="mu lo-tx">Tax-deductible in the EU. Cancel monthly gifts any time.</p></form></section>
+<footer class="foot"><div class="w"><span>Open Tide is demo content.</span><span>Annual report 2026 (PDF)</span></div></footer>
+</div>
+<style>
+.lo{--ac:light-dark(#0e7490,#67e8f9);--ac-h:light-dark(#155e75,#a5f3fc);--ac-fg:light-dark(#fff,#083344)}
+.lo-hero{position:relative;color:#fff;padding:120px 0 48px;min-height:620px;display:grid;align-items:end}.lo-hero>img{position:absolute;inset:0}.lo-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(#0006,#000d)}.lo-hero .w{position:relative;display:grid;gap:40px}
+.lo-goal{max-width:560px;display:grid;gap:12px}.lo-gt{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}.lo-gt b{font-size:36px;letter-spacing:-.02em}.lo-gt span{color:#ffffffcc}.lo-bar{height:10px;border-radius:5px;background:#ffffff33;overflow:hidden}.lo-bar i{display:block;height:100%;width:var(--w);background:#fff;border-radius:5px;animation:lob 1.2s var(--ease) both}@keyframes lob{from{width:0}}.lo-s{font-size:14px;color:#ffffffcc}
+.lo-dn{display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:start}.lo-dn .lead{margin-top:16px}
+.lo-split{margin-top:32px}.lo-sb{display:flex;height:14px;border-radius:7px;overflow:hidden;gap:3px}.lo-sb i{width:var(--w);background:var(--c)}.lo-split ul{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}.lo-split li{display:flex;align-items:center;gap:10px}.lo-split li i{width:10px;height:10px;border-radius:3px;background:var(--c)}.lo-split li b{margin-left:auto;font-variant-numeric:tabular-nums}
+.lo-f{padding:24px;display:grid;gap:16px}.lo-fq{display:grid;grid-template-columns:1fr 1fr;background:var(--sf);border-radius:12px;padding:4px}.lo-fq button{height:40px;border-radius:9px;font-weight:600;color:var(--mu)}.lo-fq [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:var(--shadow)}
+.lo-am{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.lo-am button{height:52px;border:1px solid var(--ctl);border-radius:12px;font-size:18px;font-weight:600}.lo-am [aria-checked=true]{border:2px solid var(--ac);background:var(--ac-sf);color:var(--ac)}
+.lo-eu{display:flex;align-items:center;border:1px solid var(--ctl);border-radius:10px;padding-left:12px}.lo-eu .in{border:0;height:44px;font-size:16px}.lo-eu .in:focus{box-shadow:none}.lo-eu:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.lo-why{background:var(--sf);border-radius:10px;padding:12px;font-size:14px;min-height:44px}.lo-tx{font-size:12px;text-align:center}
+@media (max-width:860px){.lo-dn{grid-template-columns:1fr}.lo-hero{min-height:520px}}
+</style>
+<script>
+const A=[[10,"buys diesel for one hour of boat time"],[25,"pays for a diver's tank refills for a day"],[50,"recycles 40 kg of ghost net into yarn"]],am=document.getElementById('am'),ot=document.getElementById('ot'),wy=document.getElementById('wy'),go=document.getElementById('go');let v=25,mo=1;
+am.innerHTML=A.map(([a])=>`<button type="button" role="radio" aria-checked="${a==25}" data-a="${a}">€${a}</button>`).join('');
+function up(){const w=A.slice().reverse().find(x=>v>=x[0]);wy.textContent=v?`€${v}${mo?' a month':''} ${w?w[1]:'helps fund the next clean-up'}${mo&&w?', every month':''}.`:'Pick or enter an amount.';go.textContent=v?`Give €${v}${mo?' monthly':''}`:'Give';go.disabled=!v}
+am.onclick=e=>{const b=e.target.closest('button');if(!b)return;am.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));v=+b.dataset.a;ot.value='';up()};
+ot.oninput=()=>{v=Math.max(0,Math.round(+ot.value.replace(',','.'))||0);am.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',false));up()};
+document.querySelectorAll('.lo-fq button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.lo-fq button').forEach(x=>x.setAttribute('aria-checked',x===b));mo=+b.dataset.m;up()});up();
+go.onclick=()=>{go.disabled=true;go.textContent='Opening secure checkout…';setTimeout(()=>{go.disabled=false;go.textContent='Thank you, checkout opened';},900)};
+</script>
+=== land-ev
+<!--Electric Car Landing|Landings|An EV model page: a dark spec hero with animated count-up numbers, a colour configurator that tints an SVG car silhouette, a range estimator with temperature and wheel options, and a reserve bar.|landing,car,ev,configurator,range,specs-->
+<div class="k pg lv">
+<header class="top"><div class="w"><a class="logo" href="#">VOLTA</a><nav class="links"><a href="#">Models</a><a href="#">Charging</a><a href="#">Test drive</a></nav><a class="b ac" href="#">Reserve</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="lv-hero"><div class="w"><p class="eb">Volta Kestrel · 2027</p><h1 class="h1">Quiet, fast,<br>and done charging<br>before your coffee.</h1>
+<svg class="lv-car" viewBox="0 0 800 260" aria-hidden="true"><path id="cb" d="M60 190c0-20 10-34 30-40l110-26c40-34 90-62 170-64 90-2 160 24 220 66l100 16c30 6 50 22 50 48v20H60z" fill="var(--car)"/><path d="M230 120c40-30 80-46 140-48 70-2 120 16 170 48z" fill="#0008"/><circle cx="210" cy="210" r="42" fill="#111" stroke="#555" stroke-width="10"/><circle cx="600" cy="210" r="42" fill="#111" stroke="#555" stroke-width="10"/><ellipse cx="400" cy="254" rx="330" ry="6" fill="#0006"/></svg>
+<ul class="lv-sp"><li><b class="tn" data-n="612">0</b><span>km range (WLTP)</span></li><li><b class="tn" data-n="3.9" data-d="1">0</b><span>s 0–100 km/h</span></li><li><b class="tn" data-n="18">0</b><span>min 10–80% charge</span></li></ul></div></section>
+<section class="sec w lv-cfg"><div><h2 class="h2">Make it yours.</h2><fieldset class="lv-cl"><legend class="lbl">Paint: <span id="cn">Glacier</span></legend><div id="cs" role="radiogroup" aria-label="Paint"></div></fieldset></div>
+<div class="card lv-rg"><h3 class="h3">Range estimate</h3><label><span class="lbl">Outside temperature <b id="tv" class="tn"></b></span><input type="range" id="tp" min="-20" max="35" value="15"></label><fieldset><legend class="lbl">Wheels</legend><div class="lv-wh" role="radiogroup"><button role="radio" aria-checked="true" data-w="0">19″ Aero</button><button role="radio" aria-checked="false" data-w="1">21″ Sport</button></div></fieldset><div class="lv-out"><b class="tn" id="rg"></b><span class="mu">km on a full charge, motorway at 110 km/h</span></div></div></section>
+<div class="lv-bar"><div class="w"><div><b>Kestrel Long Range</b><span class="mu tn" id="lp">from €52,900</span></div><a class="b ac lg" href="#">Reserve for €250</a></div></div>
+</div>
+<style>
+.lv{--ac:light-dark(#18181b,#fafafa);--ac-h:light-dark(#3f3f46,#e4e4e7);--ac-fg:light-dark(#fff,#18181b);--car:#cbd5e1}
+.lv-hero{background:#0c0d10;color:#f4f4f5;padding:64px 0 48px;overflow:hidden}.lv-hero .w{display:grid;gap:24px}.lv-hero .eb{color:#a1a1aa}
+.lv-car{width:min(900px,100%);margin:8px auto 0;display:block;transition:filter .3s}.lv-car path:first-child{transition:fill .5s var(--ease)}
+.lv-sp{list-style:none;padding:24px 0 0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #27272a}.lv-sp li{display:grid;gap:4px}.lv-sp b{font-size:clamp(32px,5vw,56px);font-weight:600;letter-spacing:-.03em}.lv-sp span{color:#a1a1aa;font-size:14px}
+.lv-cfg{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}.lv-cl{border:0;padding:0;margin:24px 0 0}#cs{display:flex;gap:12px;flex-wrap:wrap}#cs button{width:48px;height:48px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px #0002;outline-offset:3px}#cs [aria-checked=true]{outline:2px solid var(--fg)}
+.lv-rg{padding:24px;display:grid;gap:18px}.lv-rg .lbl{display:flex;justify-content:space-between}.lv-rg input{width:100%;accent-color:var(--fg)}.lv-rg fieldset{border:0;padding:0;margin:0}.lv-wh{display:grid;grid-template-columns:1fr 1fr;gap:8px}.lv-wh button{height:44px;border:1px solid var(--ctl);border-radius:10px;font-weight:550}.lv-wh [aria-checked=true]{border:2px solid var(--fg)}
+.lv-out{display:grid;border-top:1px solid var(--line);padding-top:16px}.lv-out b{font-size:44px;letter-spacing:-.03em}
+.lv-bar{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:12px 0 max(12px,env(safe-area-inset-bottom));z-index:5}.lv-bar .w{display:flex;justify-content:space-between;align-items:center;gap:16px}.lv-bar .w>div{display:grid}
+@media (max-width:760px){.lv-cfg{grid-template-columns:1fr}.lv-sp{grid-template-columns:1fr 1fr 1fr;gap:8px}.lv-sp span{font-size:12px}.lv-bar .b{height:44px;padding:0 14px;font-size:14px}}
+</style>
+<script>
+const C=[["Glacier","#cbd5e1"],["Basalt","#3f3f46"],["Kelp","#3f5f4a"],["Ember","#b4532a"],["Ink","#1e293b"]],cs=document.getElementById('cs'),root=document.querySelector('.lv');
+cs.innerHTML=C.map(([n,c],i)=>`<button role="radio" aria-checked="${!i}" aria-label="${n}" style="--c:${c}" data-i="${i}"></button>`).join('');
+cs.onclick=e=>{const b=e.target.closest('button');if(!b)return;cs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));const [n,c]=C[b.dataset.i];root.style.setProperty('--car',c);document.getElementById('cn').textContent=n};
+const tp=document.getElementById('tp');let wh=0;function rg(){const t=+tp.value,f=t<20?1-(20-t)*.011:1-(t-20)*.004;document.getElementById('tv').textContent=t+'°C';document.getElementById('rg').textContent=Math.round(480*f*(wh?.93:1))}
+tp.oninput=rg;document.querySelectorAll('.lv-wh button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.lv-wh button').forEach(x=>x.setAttribute('aria-checked',x===b));wh=+b.dataset.w;rg()});rg();
+const red=matchMedia('(prefers-reduced-motion:reduce)').matches;new IntersectionObserver((es,o)=>{if(!es[0].isIntersecting)return;o.disconnect();document.querySelectorAll('.lv-sp b').forEach(b=>{const n=+b.dataset.n,d=+(b.dataset.d||0),t0=performance.now();const f=t=>{const k=red?1:Math.min(1,(t-t0)/1200),e=1-Math.pow(1-k,3);b.textContent=(n*e).toFixed(d);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}).observe(document.querySelector('.lv-sp'));
+</script>
+=== land-newsletter
+<!--Newsletter Landing|Landings|A writer's newsletter page in a reading layout: serif hero, a subscribe field with validation and a confirmation state, three recent issues with reading times, and a subscriber count.|landing,newsletter,writing,subscribe,serif-->
+<div class="k pg lw">
+<section class="w lw-hero"><p class="eb">Every Sunday · free</p><h1 class="ser lw-t">Field Notes</h1><p class="lw-l">One essay a week about cities, maps and the infrastructure you walk past without noticing. Read by 41,000 people who like to know how things work.</p>
+<form class="lw-f" id="f" novalidate><label class="vh" for="em">Email address</label><input class="in" id="em" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="er"><button class="b ac lg" id="sb">Subscribe</button></form><p class="lw-er" id="er" role="alert"></p>
+<div class="lw-ok" id="ok" hidden>@I(mail,28)<div><b>Check your inbox.</b><span class="mu">We sent a confirmation link to <span id="oe"></span>. Click it and you're in.</span></div></div></section>
+<section class="w lw-is"><p class="eb">Recent issues</p>
+<a href="#"><span class="tn mu">No. 214</span><b>Why every manhole cover in Tokyo is different</b><span class="mu">7 min read</span></a>
+<a href="#"><span class="tn mu">No. 213</span><b>The 400-year-old reason your street bends</b><span class="mu">11 min read</span></a>
+<a href="#"><span class="tn mu">No. 212</span><b>Reading a city from its power lines</b><span class="mu">9 min read</span></a>
+<a href="#" class="lw-all">Archive of all 214 issues @I(arrowr,16)</a></section>
+<footer class="foot"><div class="w"><span>Field Notes is demo content.</span><span>No ads, no tracking pixels</span></div></footer>
+</div>
+<style>
+.lw{--ac:light-dark(#9a3412,#fdba74);--ac-h:light-dark(#7c2d12,#fed7aa);--ac-fg:light-dark(#fff,#2b1105);background:light-dark(#fbf8f3,#141210)!important}
+.lw .w{width:min(680px,100% - 32px)}.lw-hero{padding:96px 0 64px;display:grid;gap:20px}.lw-t{font-size:clamp(64px,12vw,128px);line-height:.9;letter-spacing:-.03em}.lw-l{font:400 21px/1.5 'Instrument Serif',serif;color:var(--fg)}
+.lw-f{display:flex;gap:8px;margin-top:12px}.lw-f .in{height:48px;font-size:16px;flex:1;min-width:0;background:var(--bg)}.lw-er{color:var(--err);font-size:14px}.lw-er:empty{display:none}
+.lw-ok{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);animation:lwi .35s var(--ease)}.lw-ok .i{color:var(--ac);width:28px;height:28px}.lw-ok div{display:grid;gap:4px}@keyframes lwi{from{opacity:0;transform:translateY(6px)}}
+.lw-is{padding-bottom:96px;display:grid}.lw-is .eb{margin-bottom:12px}.lw-is a{display:grid;grid-template-columns:72px 1fr auto;gap:16px;padding:20px 0;border-top:1px solid var(--line);color:inherit;text-decoration:none;align-items:baseline}.lw-is a b{font:400 22px/1.25 'Instrument Serif',serif}.lw-is a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.lw-is .lw-all{display:flex;gap:8px;align-items:center;color:var(--ac);font-weight:550;border-top:1px solid var(--line)}
+@media (max-width:600px){.lw-f{flex-direction:column}.lw-is a{grid-template-columns:1fr}.lw-is a span:last-child{display:none}}
+</style>
+<script>
+const f=document.getElementById('f'),em=document.getElementById('em'),er=document.getElementById('er'),sb=document.getElementById('sb');
+f.onsubmit=e=>{e.preventDefault();const ok=/^\S+@\S+\.\S{2,}$/.test(em.value.trim());em.setAttribute('aria-invalid',!ok);er.textContent=ok?'':em.value?'That email looks incomplete.':'Enter your email to subscribe.';if(!ok){em.focus();return}sb.disabled=true;sb.textContent='Subscribing…';setTimeout(()=>{f.hidden=true;document.getElementById('oe').textContent=em.value.trim();document.getElementById('ok').hidden=false},800)};
+em.oninput=()=>{if(er.textContent){er.textContent='';em.removeAttribute('aria-invalid')}};
+</script>
+=== land-gym
+<!--Gym Landing|Landings|A boutique gym page: bold condensed hero over a photo, a weekly class timetable with day pills and spaces-left badges you can book, a membership comparison and a first-class-free CTA.|landing,fitness,gym,timetable,booking-->
+<div class="k pg lx">
+<header class="top"><div class="w"><a class="logo" href="#">FORGE/27</a><nav class="links"><a href="#tt">Timetable</a><a href="#ms">Membership</a><a href="#">Coaches</a></nav><a class="b ac" href="#">First class free</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="lx-hero"><img class="ph" src="media/pics/c/1072.jpg" alt=""><div class="w"><h1>STRONG<br>IS A<br>SKILL.</h1><p>Small-group strength classes, max 10 people, coached every rep.</p></div></section>
+<section class="sec w" id="tt"><h2 class="h2">This week</h2><div class="lx-days" role="tablist" aria-label="Day" id="dy"></div><ul class="lx-cl" id="cl" aria-live="polite"></ul></section>
+<section class="sec lx-ms" id="ms"><div class="w"><h2 class="h2">Membership</h2><div class="lx-mg"><div class="lx-m"><span class="eb">8 classes</span><b class="tn">€89<small>/mo</small></b><ul><li>@I(check,16)Any class type</li><li>@I(check,16)Book 7 days ahead</li></ul><a class="b sec lg" href="#">Choose</a></div><div class="lx-m on"><span class="eb">Unlimited</span><b class="tn">€129<small>/mo</small></b><ul><li>@I(check,16)Any class type</li><li>@I(check,16)Book 14 days ahead</li><li>@I(check,16)Monthly 1:1 check-in</li></ul><a class="b ac lg" href="#">Choose</a></div><div class="lx-m"><span class="eb">Drop-in</span><b class="tn">€18<small>/class</small></b><ul><li>@I(check,16)No commitment</li></ul><a class="b sec lg" href="#">Choose</a></div></div></div></section>
+<footer class="foot"><div class="w"><span>Forge/27 is demo content.</span><span>Mon–Fri 6–21 · Sat–Sun 8–14</span></div></footer>
+</div>
+<style>
+.lx{--ac:light-dark(#dc2626,#f87171);--ac-h:light-dark(#b91c1c,#fca5a5);--ac-fg:light-dark(#fff,#2c0606)}
+.lx-hero{position:relative;color:#fff;min-height:640px;display:grid;align-items:end;padding:48px 0}.lx-hero>img{position:absolute;inset:0;filter:grayscale(1) contrast(1.1)}.lx-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000e 20%,#0007)}.lx-hero .w{position:relative;display:grid;gap:20px}
+.lx-hero h1{font:800 clamp(64px,13vw,168px)/.82 Geist,sans-serif;letter-spacing:-.05em;margin:0}.lx-hero p{font-size:18px;max-width:34ch;color:#e4e4e7}
+.lx-days{display:flex;gap:8px;margin:24px 0;overflow-x:auto}.lx-days button{flex:none;width:64px;height:64px;border-radius:14px;border:1px solid var(--line);display:grid;place-content:center;font-weight:600;line-height:1.1}.lx-days small{font-size:11px;color:var(--mu);font-weight:500}.lx-days [aria-selected=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}.lx-days [aria-selected=true] small{color:inherit;opacity:.7}
+.lx-cl{list-style:none;padding:0;margin:0;display:grid;gap:8px}.lx-cl li{display:grid;grid-template-columns:72px 1fr auto auto;gap:16px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:14px}.lx-cl time{font:600 15px 'Geist Mono',monospace}.lx-cl div{display:grid}.lx-cl .b{height:40px;min-width:92px}
+.lx-ms{background:var(--sf)}.lx-mg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}.lx-m{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:16px;align-content:start}.lx-m.on{border:2px solid var(--ac)}.lx-m b{font-size:40px;letter-spacing:-.03em}.lx-m small{font-size:15px;color:var(--mu);font-weight:500}.lx-m ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;min-height:84px}.lx-m li{display:flex;gap:8px;align-items:center}.lx-m li .i{color:var(--ok)}
+@media (max-width:760px){.lx-mg{grid-template-columns:1fr}.lx-cl li{grid-template-columns:56px 1fr auto}.lx-cl .pill{display:none}.lx-hero{min-height:520px}}
+</style>
+<script>
+const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],T=[["06:30","Barbell basics","Coach Ida",3],["07:30","Kettlebell flow","Coach Sami",0],["12:15","Lunch lift (45 min)","Coach Ida",6],["18:00","Strength & conditioning","Coach Leo",1],["19:15","Mobility","Coach Sami",8]],booked=new Set(),dy=document.getElementById('dy'),cl=document.getElementById('cl'),now=new Date();let d=(now.getDay()+6)%7;
+dy.innerHTML=days.map((n,i)=>{const dt=new Date(+now+(i-d)*864e5);return `<button role="tab" aria-selected="${i===d}" data-i="${i}">${n}<small>${dt.getDate()}</small></button>`}).join('');
+function draw(){cl.innerHTML=T.map(([t,n,c,s],i)=>{const sp=Math.max(0,(s+d*2+i)%9-(d%3)),k=d+'-'+i,b=booked.has(k);return `<li><time>${t}</time><div><b>${n}</b><span class="mu">${c}</span></div><span class="pill ${sp==0?'err':sp<3?'warn':''}">${sp==0?'Full':sp+' left'}</span><button class="b ${b?'sec':'ac'} sm" data-k="${k}" ${sp==0&&!b?'disabled':''}>${b?'Booked':sp==0?'Waitlist':'Book'}</button></li>`}).join('')}
+dy.onclick=e=>{const b=e.target.closest('button');if(!b)return;dy.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x===b));d=+b.dataset.i;draw()};
+cl.onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;booked.has(b.dataset.k)?booked.delete(b.dataset.k):booked.add(b.dataset.k);draw()};draw();
+</script>
+=== land-bookshop
+<!--Bookshop Landing|Landings|An independent bookshop: a staff-picks shelf of CSS book spines that pull out on hover to show the cover note, a reading-club card with next meeting, and an events list.|landing,books,shop,shelf,events-->
+<div class="k pg lq">
+<header class="top"><div class="w"><a class="logo ser" href="#" style="font-size:22px;font-weight:400">The Margin</a><nav class="links"><a href="#">Shop</a><a href="#">Events</a><a href="#">Book club</a></nav><a class="b sec" href="#">@I(bag,16)Basket</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lq-hero"><h1 class="h1 ser">Books chosen by<br>people who read them.</h1><p class="lead">Every title on our tables has been read by someone on staff. Ask us anything; we'll argue about it.</p></section>
+<section class="w"><p class="eb">Staff picks: hover or tap a spine</p><div class="lq-shelf" id="sh"></div><div class="lq-note card" id="nt" aria-live="polite"></div></section>
+<section class="sec w lq-two"><div class="card lq-club"><span class="eb">Book club · November</span><h2 class="h3 ser" style="font-size:30px">The Rings of Saturn</h2><p class="mu">W. G. Sebald</p><p>Thursday 27 Nov, 19:00 in the back room. Wine provided, opinions mandatory.</p><button class="b ac" id="jn">Save my seat</button></div>
+<div><h2 class="h2 ser">Events</h2><ul class="lq-ev"><li><time><b>02</b>Dec</time><div><b>Poetry night: open mic</b><span class="mu">19:30 · free</span></div></li><li><time><b>09</b>Dec</time><div><b>Translators in conversation</b><span class="mu">18:30 · €5</span></div></li><li><time><b>14</b>Dec</time><div><b>Children's story hour</b><span class="mu">11:00 · free</span></div></li></ul></div></section>
+<footer class="foot"><div class="w"><span>The Margin is demo content.</span><span>Open daily 10–19</span></div></footer>
+</div>
+<style>
+.lq{--ac:light-dark(#7f1d1d,#fca5a5);--ac-h:light-dark(#661616,#fecaca);--ac-fg:light-dark(#fff,#2c0606)}
+.lq-hero{padding:80px 0 56px;display:grid;gap:20px}
+.lq-shelf{display:flex;align-items:flex-end;gap:4px;height:300px;padding:0 12px;border-bottom:14px solid light-dark(#8b5e3c,#5a3b25);margin-top:16px;overflow-x:auto;overflow-y:hidden}
+.lq-shelf button{flex:none;width:var(--w);height:var(--h);background:var(--c);color:#fff;border-radius:3px 3px 0 0;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:space-between;padding:12px 0;font:600 13px/1 Geist,sans-serif;box-shadow:inset 3px 0 0 #ffffff22,inset -3px 0 0 #0002;transition:translate .3s var(--ease)}.lq-shelf button small{font-weight:400;opacity:.8}
+.lq-shelf button:hover,.lq-shelf button[aria-pressed=true]{translate:0 -18px}
+.lq-note{margin-top:20px;padding:20px;display:grid;gap:6px;max-width:640px}.lq-note b{font:400 24px 'Instrument Serif',serif}
+.lq-two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}.lq-club{padding:28px;display:grid;gap:10px;justify-items:start}
+.lq-ev{list-style:none;padding:0;margin:24px 0 0}.lq-ev li{display:flex;gap:20px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}.lq-ev time{width:56px;display:grid;text-align:center;font-size:12px;color:var(--mu);text-transform:uppercase}.lq-ev time b{font:400 32px/1 'Instrument Serif',serif;color:var(--fg)}.lq-ev div{display:grid}
+@media (max-width:760px){.lq-two{grid-template-columns:1fr}.lq-shelf{height:250px}}
+</style>
+<script>
+const B=[["Piranesi","S. Clarke","#3f5f4a",44,250,"A house of endless halls and tides. Read it in one sitting, then again slowly. (Ines)"],["Stoner","J. Williams","#7c5c2e",52,270,"The quietest heartbreak in American fiction. (Tom)"],["The Overstory","R. Powers","#1f4e3d",62,290,"You will never look at a tree the same way. (Ines)"],["Pond","C. Bennett","#5b6b8a",34,220,"Short, strange, funny about porridge. (Ash)"],["Bewilderment","R. Powers","#22324a",46,260,"A father, a son and the stars. (Mia)"],["Small Things Like These","C. Keegan","#8a3324",30,205,"Ninety pages, a whole life. (Tom)"],["The Peregrine","J. A. Baker","#4a4a3a",40,240,"Nature writing at a fever pitch. (Ash)"],["Klara and the Sun","K. Ishiguro","#c08a2a",48,262,"Gentle, devastating, very Ishiguro. (Mia)"]];
+const sh=document.getElementById('sh'),nt=document.getElementById('nt');sh.innerHTML=B.map(([t,a,c,w,h],i)=>`<button style="--c:${c};--w:${w}px;--h:${h}px" data-i="${i}" aria-pressed="${!i}" aria-label="${t} by ${a}">${t}<small>${a}</small></button>`).join('');
+function show(i){const b=B[i];nt.innerHTML=`<b>${b[0]}</b><span class="mu">${b[1]}</span><p>${b[5]}</p>`;sh.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j==i))}
+sh.addEventListener('pointerover',e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)});sh.addEventListener('focusin',e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)});sh.onclick=e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)};show(0);
+document.getElementById('jn').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Seat saved. See you Thursday'};
+</script>

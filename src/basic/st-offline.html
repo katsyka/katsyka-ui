@@ -1,0 +1,17 @@
+<!--Offline State|States|An offline banner and queue: detects connection loss for real (online/offline events), keeps actions in an outbox you can see, retries with backoff when back, and lets you simulate going offline.|offline,network,queue,sync,banner-->
+<div class="k of"><main class="of-w"><div class="of-bn" id="bn" role="status"><span class="of-dot"></span><span id="bt"></span><button class="b gh sm" id="sim"></button></div>
+<section class="of-c"><h1>Shopping list</h1><form id="f" class="of-f"><label class="vh" for="it">Add item</label><input class="in" id="it" placeholder="Add an item" autocomplete="off"><button class="b ac">Add</button></form><ul class="of-l" id="l"></ul></section>
+<p class="of-ft mu" id="ft"></p></main></div>
+<style>
+.of-w{width:min(460px,100%);display:grid;gap:12px}.of-bn{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;font-size:14px;background:var(--ok-sf);transition:background .3s}.of-bn.off{background:var(--warn-sf)}.of-bn span:nth-child(2){flex:1}.of-dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}.of-bn.off .of-dot{background:var(--warn);animation:ofp 1.4s infinite}@keyframes ofp{50%{opacity:.3}}
+.of-c{border:1px solid var(--line);border-radius:14px;background:var(--bg);padding:18px}.of-c h1{margin:0 0 12px;font-size:20px}.of-f{display:flex;gap:8px}.of-f .in{height:44px;font-size:16px}.of-f .b{height:44px}
+.of-l{list-style:none;padding:0;margin:12px 0 0}.of-l li{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:15px;animation:ofi .2s cubic-bezier(.23,1,.32,1)}.of-l li span{flex:1}.of-l small{font-size:12px;color:var(--mu);display:flex;gap:4px;align-items:center}.of-l .q small{color:var(--warn)}.of-l .s small{color:var(--ok)}@keyframes ofi{from{opacity:0;transform:translateY(-4px)}}
+.of-ft{font-size:12px;margin:0}
+</style>
+<script>
+const $=i=>document.getElementById(i);let sim=false,I=[{t:'Oat milk',s:'s'},{t:'Lemons',s:'s'}];const on=()=>navigator.onLine&&!sim;
+function draw(){$('l').innerHTML=I.map(x=>`<li class="${x.s}"><span>${x.t.replace(/</g,'&lt;')}</span><small>${x.s==='q'?'@I(clock,12) Waiting to sync':x.s==='y'?'Syncing…':'@I(check,12) Synced'}</small></li>`).join('');const q=I.filter(x=>x.s==='q').length;$('bn').classList.toggle('off',!on());$('bt').textContent=on()?(q?`Back online. Syncing ${q} change${q>1?'s':''}…`:'Online. Everything is synced.'):`You're offline. ${q?q+' change'+(q>1?'s':'')+' saved on this device.':'Changes will be saved on this device.'}`;$('sim').textContent=sim?'Reconnect':'Simulate offline';$('ft').textContent=`Real connection: ${navigator.onLine?'online':'offline'}.`}
+function flush(){if(!on())return;let d=0;I.filter(x=>x.s==='q').forEach(x=>{x.s='y';setTimeout(()=>{if(on()){x.s='s'}else x.s='q';draw()},500+(d+=350))});draw()}
+$('f').onsubmit=e=>{e.preventDefault();const v=$('it').value.trim();if(!v)return;I.unshift({t:v,s:on()?'y':'q'});$('it').value='';draw();if(on())setTimeout(()=>{I[0].s='s';draw()},500)};
+$('sim').onclick=()=>{sim=!sim;draw();if(!sim)flush()};addEventListener('online',()=>{draw();flush()});addEventListener('offline',draw);draw();
+</script>

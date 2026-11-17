@@ -1,0 +1,83 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+
+.k.pg{display:block;place-items:normal;padding:0;background:var(--bg);font-size:16px;min-height:0}
+.pg .w{width:min(1180px,100% - 32px);margin-inline:auto;min-width:0}
+.pg{overflow-x:clip}
+.pg img{display:block;max-width:100%}
+.pg h1,.pg h2,.pg h3,.pg p{margin:0}
+.pg .ser{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.pg .h1{font-size:clamp(40px,7vw,84px);line-height:1;letter-spacing:-.035em;font-weight:650;text-wrap:balance}
+.pg .h2{font-size:clamp(30px,4.4vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:620;text-wrap:balance}
+.pg .h3{font-size:19px;line-height:1.3;font-weight:620;letter-spacing:-.01em}
+.pg .lead{font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--mu);text-wrap:pretty;max-width:60ch}
+.pg .eb{font:500 12px/1 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pg .sec{padding:clamp(64px,10vw,128px) 0}
+.pg .b.lg{height:48px;padding:0 22px;font-size:15px;border-radius:12px}
+.pg .ph{width:100%;height:100%;object-fit:cover}
+.pg .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.pg .top .w{display:flex;align-items:center;gap:24px;height:64px}
+.pg .logo{white-space:nowrap;font-weight:700;letter-spacing:-.02em;font-size:17px;display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}
+.pg .links{display:flex;gap:24px;margin-left:auto;font-size:14px}.pg .links a{color:var(--mu);text-decoration:none}.pg .links a:hover{color:var(--fg)}
+.pg .menu{display:none;margin-left:auto;width:44px;height:44px;place-items:center;border-radius:10px}
+.pg .foot{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--mu)}.pg .foot .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:760px){.pg .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px}.pg .links a{padding:12px 0;font-size:16px}.pg .top.open .links{display:flex}.pg .menu{display:grid}.pg .top .b{display:none}}
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.le{--ac:light-dark(#0f766e,#5eead4);--ac-h:light-dark(#115e59,#99f6e4);--ac-fg:light-dark(#fff,#042f2e)}
+.le-top{display:flex;justify-content:space-between;align-items:end;gap:16px;padding:40px 0 24px;flex-wrap:wrap}.le-top>div{display:grid;gap:10px}.le-pr{font-size:28px;letter-spacing:-.02em}
+.le-main{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/8}.le-main img{width:100%;height:100%;object-fit:cover}.le-ct{position:absolute;left:12px;bottom:12px;background:#000a;color:#fff;font-size:12px;padding:4px 10px;border-radius:999px}
+.le-nav{position:absolute;top:50%;translate:0 -50%;width:44px;height:44px;border-radius:50%;background:#fffe;color:#18181b;display:grid;place-items:center;box-shadow:var(--shadow)}.le-nav.l{left:12px}.le-nav.r{right:12px}
+.le-th{display:flex;gap:8px;margin-top:8px;overflow-x:auto}.le-th button{flex:none;width:96px;aspect-ratio:3/2;border-radius:8px;overflow:hidden;opacity:.55;outline-offset:2px;transition:opacity .2s}.le-th img{width:100%;height:100%;object-fit:cover}.le-th [aria-current=true]{opacity:1;outline:2px solid var(--ac)}
+.le-body{display:grid;grid-template-columns:1fr 340px;gap:48px;padding:40px 0 80px;align-items:start}
+.le-facts{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}.le-facts li{display:grid;gap:2px;padding:16px 0;border-bottom:1px solid var(--line)}.le-facts b{font-size:18px}
+.le-calc{padding:20px;display:grid;gap:16px;margin-top:16px}.le-calc .lbl{display:flex;justify-content:space-between}.le-calc input{width:100%;accent-color:var(--ac)}.le-out{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:16px}.le-out b{font-size:28px;letter-spacing:-.02em}
+.le-ag{padding:20px;display:grid;gap:12px;position:sticky;top:80px}.le-agh{display:flex;gap:12px;align-items:center}.le-agh div{display:grid}.le-vs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.le-vs button{border:1px solid var(--line);border-radius:10px;padding:10px;display:grid;font-size:13px;text-align:left;min-height:44px}.le-vs button b{font-size:14px}.le-vs [aria-checked=true]{border-color:var(--ac);background:var(--ac-sf)}.le-ok{color:var(--ok);font-size:13px}.le-ok:empty{display:none}
+@media (max-width:860px){.le-body{grid-template-columns:1fr}.le-ag{position:static}.le-main{aspect-ratio:4/3}.le-facts{grid-template-columns:1fr 1fr}}
+</style>
+<div class="k pg le">
+<header class="top"><div class="w"><a class="logo" href="#">Holm &amp; Lind</a><nav class="links"><a href="#">Buy</a><a href="#">Sell</a><a href="#">Valuation</a></nav><button class="menu ibt" aria-label="Menu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></button></div></header>
+<section class="w le-top"><div><p class="eb">For sale · Södermalm, Stockholm</p><h1 class="h2">Top-floor 3-room with lake view</h1></div><b class="le-pr tn">5,950,000 kr</b></section>
+<section class="w le-gal"><div class="le-main"><img id="gm" src="media/pics/w/1044.jpg" alt="View from the balcony"><span class="le-ct tn" id="gc">1 / 5</span><button class="le-nav l" id="gp" aria-label="Previous photo"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button><button class="le-nav r" id="gn" aria-label="Next photo"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></div><div class="le-th" id="gt"></div></section>
+<section class="w le-body"><div><ul class="le-facts"><li><span class="mu">Living area</span><b>78 m²</b></li><li><span class="mu">Rooms</span><b>3</b></li><li><span class="mu">Floor</span><b>6 of 6, lift</b></li><li><span class="mu">Built</span><b>1931</b></li><li><span class="mu">Fee</span><b class="tn">4,120 kr/mo</b></li><li><span class="mu">Energy</span><b>C</b></li></ul>
+<h2 class="h3" style="margin-top:40px">Monthly cost estimate</h2><div class="le-calc card"><label><span class="lbl">Down payment <b class="tn" id="dpv"></b></span><input type="range" id="dp" min="15" max="50" value="15"></label><label><span class="lbl">Interest <b class="tn" id="irv"></b></span><input type="range" id="ir" min="20" max="60" value="38"></label><div class="le-out"><span class="mu">Loan + interest + fee</span><b class="tn" id="mo"></b></div></div></div>
+<aside class="card le-ag"><div class="le-agh"><span class="av" style="--c:#0f766e">AL</span><div><b>Anna Lind</b><span class="mu">Listing agent</span></div></div><p class="lbl">Book a viewing</p><div class="le-vs" id="vs" role="radiogroup" aria-label="Viewing time"></div><button class="b ac" id="bv" style="width:100%;height:44px">Book viewing</button><p class="le-ok" id="vk" role="status"></p><a class="b sec" href="#" style="width:100%;height:44px"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call 08-555 012 34</a></aside></section>
+<footer class="foot"><div class="w"><span>Example listing.</span><span>Holm &amp; Lind Fastighetsbyrå</span></div></footer>
+</div>
+<script>
+document.querySelectorAll('.pg .menu').forEach(m=>m.addEventListener('click',()=>{const t=m.closest('.top');const o=t.classList.toggle('open');m.setAttribute('aria-expanded',o)}));
+const G=['media/pics/w/1044.jpg','media/pics/w/1018.jpg','media/pics/w/1076.jpg','media/pics/w/1019.jpg','media/pics/w/1011.jpg'];let gi=0;const gm=document.getElementById('gm'),gt=document.getElementById('gt');
+gt.innerHTML=G.map((s,i)=>`<button aria-label="Photo ${i+1}" data-i="${i}"><img src="${s}" alt=""></button>`).join('');
+function go(i){gi=(i+G.length)%G.length;gm.src=G[gi];document.getElementById('gc').textContent=`${gi+1} / ${G.length}`;gt.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-current',j===gi))}
+gt.onclick=e=>{const b=e.target.closest('button');if(b)go(+b.dataset.i)};document.getElementById('gp').onclick=()=>go(gi-1);document.getElementById('gn').onclick=()=>go(gi+1);
+document.querySelector('.le-gal').addEventListener('keydown',e=>{if(e.key==='ArrowLeft')go(gi-1);if(e.key==='ArrowRight')go(gi+1)});go(0);
+const P=5950000,dp=document.getElementById('dp'),ir=document.getElementById('ir'),k=n=>Math.round(n).toLocaleString('en').replace(/,/g,' ')+' kr';
+function calc(){const d=+dp.value,r=ir.value/1000,L=P*(1-d/100),amort=d<30?L*.02/12:L*.01/12,m=L*r/12+amort+4120;document.getElementById('dpv').textContent=d+'% · '+k(P*d/100);document.getElementById('irv').textContent=(r*100).toFixed(1)+'%';document.getElementById('mo').textContent=k(m)}dp.oninput=ir.oninput=calc;calc();
+const vs=document.getElementById('vs');[['Sat 14','11:00'],['Sat 14','13:00'],['Sun 15','12:00'],['Mon 16','17:30']].forEach(([d,t],i)=>{const b=document.createElement('button');b.setAttribute('role','radio');b.setAttribute('aria-checked',i==0);b.innerHTML=`<span class="mu">${d}</span><b class="tn">${t}</b>`;b.onclick=()=>vs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));vs.append(b)});
+document.getElementById('bv').onclick=e=>{const b=e.currentTarget,s=vs.querySelector('[aria-checked=true]');b.disabled=true;b.textContent='Booking…';setTimeout(()=>{b.disabled=false;b.textContent='Book viewing';document.getElementById('vk').textContent='Booked: '+s.textContent.replace(/(\D)(\d\d:)/,'$1 at $2')+'. Anna will text you the door code.'},700)};
+</script>

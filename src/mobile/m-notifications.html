@@ -1,0 +1,35 @@
+<!--Activity Feed|Notifications grouped by Today / This week with unread dots, bold names, photo thumbs or a Follow button, an All / Mentions switch and Mark all read.|notifications,activity,feed,unread,segmented-->
+<header class="bar"><div class="nb"><span></span><h2 class="nt-t">Activity</h2><span><button class="ib nt-mr" id="mr" style="width:auto;padding:0 8px;font-size:15px;color:var(--ac)">Mark all read</button></span></div></header>
+<main class="sc">
+  <h1 class="lt">Activity</h1>
+  <div class="nt-seg" role="tablist"><i id="ind"></i><button role="tab" aria-selected="true" class="on">All</button><button role="tab" aria-selected="false">Mentions</button></div>
+  <div id="l"></div>
+</main>
+@PILL(home:Home|search:Search|bell:Activity|user:You;2)
+<style>
+.nt-t{opacity:0;transition:opacity .2s}.bar.sd .nt-t{opacity:1}
+.nt-seg{position:relative;display:grid;grid-template-columns:1fr 1fr;margin:16px var(--gut) 8px;padding:2px;border-radius:10px;background:var(--sf)}
+.nt-seg button{position:relative;z-index:1;height:32px;font-size:14px;font-weight:600;color:var(--mu);transition:color .2s}.nt-seg button.on{color:var(--fg)}
+.nt-seg i{position:absolute;top:2px;bottom:2px;left:2px;width:calc(50% - 2px);border-radius:8px;background:var(--bg);box-shadow:0 1px 3px #0002,0 0 0 .5px #0000000a;transition:transform .3s var(--ease)}
+.nt-g{margin:0;padding:20px var(--gut) 4px;font-size:15px;font-weight:650}
+.nt-r{position:relative;display:flex;gap:12px;align-items:center;padding:10px var(--gut);min-height:64px}
+.nt-r.u::before{content:"";position:absolute;left:5px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--ac)}
+.nt-r .tx{flex:1;font-size:15px;line-height:20px}.nt-r .tx b{font-weight:600}.nt-r time{color:var(--mu);margin-left:4px}
+.nt-r .av{width:44px;height:44px}
+.nt-av2{position:relative;width:44px;height:44px;flex:none}.nt-av2 .av{position:absolute;width:32px;height:32px;font-size:13px;border:2px solid var(--bg)}.nt-av2 .av:first-child{top:0;left:0}.nt-av2 .av:last-child{right:0;bottom:0}
+.nt-th{width:44px;height:44px;border-radius:8px;object-fit:cover;flex:none}
+.nt-fb{flex:none;min-height:34px;padding:0 14px;border-radius:10px;background:var(--ac)!important;color:var(--ac-fg)!important;font-size:14px!important;font-weight:600!important}
+.nt-fb[aria-pressed=true]{background:var(--sf2)!important;color:var(--fg)!important}
+.nt-e{padding:48px var(--gut);text-align:center;color:var(--mu)}
+</style>
+<script>
+const R=(g,u,who,t,tm,p,m,f)=>({g,u,who,t,tm,p,m,f});
+const N=[R("Today",1,[["Mara Lind","#b45309"]],"liked your photo","2m","1043"),R("Today",1,[["Theo","#0369a1"]],"mentioned you: “@you this is the spot”","14m","1050",1),R("Today",1,[["Jun Kato","#7c3aed"]],"started following you","1h",null,0,1),R("Today",0,[["Ines","#15803d"],["Olek","#0f766e"]],"and 18 others liked your post","3h","1035"),
+R("This week",0,[["Sana","#9333ea"]],"commented: “the light here!”","Tue","1022",1),R("This week",0,[["Ana Vidal","#be185d"]],"started following you","Mon",null,0,1),R("This week",0,[["Leo","#a16207"]],"replied to your story","Sun","1060",1)];
+const av=w=>`<span class="av" style="--c:${w[1]}">${w[0][0]}</span>`;
+const draw=m=>{const h=["Today","This week"].map(g=>{const L=N.filter(r=>r.g===g&&(!m||r.m));return L.length?`<h2 class="nt-g">${g}</h2>`+L.map(r=>`<div class="nt-r${r.u?" u":""}">${r.who.length>1?`<span class="nt-av2">${r.who.map(av).join("")}</span>`:av(r.who[0])}<span class="tx"><b>${r.who.map(w=>w[0]).join(", ")}</b> ${r.t}<time>${r.tm}</time></span>${r.f?`<button class="nt-fb" aria-pressed="false">Follow</button>`:r.p?`<img class="nt-th" src="media/pics/c/${r.p}.jpg" alt="">`:""}</div>`).join(""):""}).join("");l.innerHTML=h||'<p class="nt-e">No mentions yet.</p>';
+ l.querySelectorAll(".nt-fb").forEach(b=>b.onclick=()=>{const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);b.textContent=on?"Following":"Follow"})};
+draw(0);
+document.querySelectorAll(".nt-seg button").forEach((b,i,a)=>b.onclick=()=>{a.forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-selected",x===b)});ind.style.transform=`translateX(${i*100}%)`;draw(i)});
+mr.onclick=()=>{N.forEach(r=>r.u=0);l.querySelectorAll(".nt-r.u").forEach(r=>r.classList.remove("u"));mr.disabled=true;mr.style.color="var(--mu)"};
+</script>

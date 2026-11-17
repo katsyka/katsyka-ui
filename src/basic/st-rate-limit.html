@@ -1,0 +1,14 @@
+<!--Rate Limit State|States|A 429 “slow down” panel that visualises the request bucket refilling token by token, counts down to the next allowed request, enables the retry button exactly when allowed, and explains the limit.|429,rate limit,api,countdown,error-->
+<div class="k rl"><main class="rl-w"><span class="pill warn">429 · Too many requests</span><h1>You've hit the limit for exports</h1><p class="mu">Free plans can run 6 exports an hour. Tokens refill one every 10 seconds in this demo.</p>
+<div class="rl-bk" aria-hidden="true" id="bk"></div><p class="rl-st tn" id="st" aria-live="polite"></p><div class="rl-ac"><button class="b ac" id="go" disabled>Export again</button><a class="b gh" href="#">Raise the limit</a></div></main></div>
+<style>
+.rl-w{width:min(460px,100%);display:grid;gap:14px;justify-items:start}.rl-w h1{margin:0;font-size:24px;letter-spacing:-.02em;line-height:1.2}.rl-w>p{margin:-6px 0 0;font-size:14px}
+.rl-bk{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%}.rl-bk i{height:36px;border-radius:8px;background:var(--sf2);position:relative;overflow:hidden}.rl-bk i::after{content:"";position:absolute;inset:0;background:var(--ac);transform:scaleY(var(--f,0));transform-origin:bottom;transition:transform .9s linear}.rl-bk i.full::after{transition:transform .25s cubic-bezier(.23,1,.32,1)}
+.rl-st{margin:0;font-size:14px}.rl-ac{display:flex;gap:8px}.rl-ac .b{height:44px}
+</style>
+<script>
+const bk=document.getElementById('bk'),go=document.getElementById('go'),st=document.getElementById('st'),N=6,REF=10;bk.innerHTML='<i></i>'.repeat(N);let tok=0,t0=Date.now();
+function draw(){const el=(Date.now()-t0)/1000,part=Math.min(1,el/REF);[...bk.children].forEach((b,i)=>{b.classList.toggle('full',i<tok);b.style.setProperty('--f',i<tok?1:i===tok?part:0)});go.disabled=tok<1;st.textContent=tok>=N?`Bucket full: ${N} of ${N} exports available.`:tok?`${tok} export${tok>1?'s':''} available. Next in ${Math.ceil(REF-el)} s.`:`Next export available in ${Math.ceil(REF-el)} s.`}
+setInterval(()=>{if(tok<N&&(Date.now()-t0)/1000>=REF){tok++;t0=Date.now()}if(tok>=N)t0=Date.now();draw()},250);draw();
+go.onclick=()=>{if(tok<1)return;if(tok===N)t0=Date.now();tok--;go.textContent='Exported ✓';setTimeout(()=>go.textContent='Export again',900);draw()};
+</script>

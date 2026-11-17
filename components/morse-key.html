@@ -1,0 +1,64 @@
+<style>
+.mrs{min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:#1a1f1c;font-family:Geist,system-ui,sans-serif;color:#e8e3d6;user-select:none;-webkit-user-select:none}
+.mrs-in{width:min(680px,100%);display:flex;flex-direction:column;gap:22px}
+.mrs-out{min-height:64px;font:400 clamp(30px,5vw,46px)/1.15 "Instrument Serif",serif;word-break:break-word}
+.mrs-out i{font-style:normal;color:#e0a458}
+.mrs-out:empty::before{content:"Tap a message…";color:#6c736d}
+.mrs-tape{position:relative;height:44px;border-radius:4px;background:#f1e9d6;overflow:hidden;box-shadow:inset 0 2px 4px #0003}
+.mrs-strip{position:absolute;right:16px;top:0;bottom:0;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:transform .2s}
+.mrs-strip u{display:block;height:7px;border-radius:4px;background:#2a2620;text-decoration:none}
+.mrs-strip u.dot{width:7px}.mrs-strip u.dash{width:24px}
+.mrs-strip s{display:block;width:14px}.mrs-strip em{display:block;width:30px;border-right:1px dashed #2a262040;height:20px;margin-right:12px}
+.mrs-key{position:relative;align-self:center;width:300px;height:150px;border:0;padding:0;background:none;cursor:pointer;touch-action:none}
+.mrs-key:focus-visible{outline:2px solid #93c5fd;outline-offset:6px;border-radius:12px}
+.mrs-base{position:absolute;left:0;right:0;bottom:0;height:40px;border-radius:8px;background:linear-gradient(#6b4a2e,#4a3220);box-shadow:inset 0 2px 0 #ffffff26,0 18px 30px -16px #000}
+.mrs-post{position:absolute;bottom:36px;width:22px;height:44px;border-radius:4px;background:linear-gradient(90deg,#9c7a38,#e6c674,#9c7a38)}
+.mrs-arm{position:absolute;left:30px;right:24px;bottom:72px;height:12px;border-radius:6px;background:linear-gradient(#f0d488,#a8843c);transform-origin:20px 50%;transition:transform .05s}
+.mrs-knob{position:absolute;right:-6px;top:-22px;width:58px;height:30px;border-radius:50%/60%;background:radial-gradient(ellipse at 40% 30%,#3a3a3a,#0c0c0c 70%)}
+.mrs.down .mrs-arm{transform:rotate(4.5deg)}
+.mrs-lamp{position:absolute;left:8px;bottom:50px;width:14px;height:14px;border-radius:50%;background:#3a2a1a;box-shadow:inset 0 1px 2px #000}
+.mrs.down .mrs-lamp{background:#ffb347}
+.mrs-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.mrs-row button{height:36px;padding:0 14px;border-radius:999px;border:1px solid #e8e3d633;background:none;color:#e8e3d6;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.mrs-row button[aria-pressed="true"]{background:#e8e3d6;color:#1a1f1c}
+.mrs-row button:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+.mrs-ref{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:4px 10px;font:12px/1.6 "Geist Mono",monospace;color:#8c938c}
+.mrs-ref b{color:#e8e3d6;font-weight:500;margin-right:6px}
+.mrs-ref span.hit b{color:#e0a458}
+</style>
+<section class="mrs">
+  <div class="mrs-in">
+    <div class="mrs-out" aria-live="polite"></div>
+    <div class="mrs-tape" aria-hidden="true"><div class="mrs-strip"></div></div>
+    <button class="mrs-key" aria-label="Telegraph key. Hold Space: short press is a dot, long press is a dash."><span class="mrs-base"></span><span class="mrs-post" style="left:40px"></span><span class="mrs-post" style="left:200px"></span><span class="mrs-lamp"></span><span class="mrs-arm"><span class="mrs-knob"></span></span></button>
+    <div class="mrs-row"><button class="mrs-snd" aria-pressed="true">Sound on</button><button class="mrs-demo">Play “SOS”</button><button class="mrs-clr">Clear</button></div>
+    <div class="mrs-ref" aria-label="Morse alphabet"></div>
+  </div>
+</section>
+<script>
+(()=>{
+const M={A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",I:"..",J:".---",K:"-.-",L:".-..",M:"--",N:"-.",O:"---",P:".--.",Q:"--.-",R:".-.",S:"...",T:"-",U:"..-",V:"...-",W:".--",X:"-..-",Y:"-.--",Z:"--..",1:".----",2:"..---",3:"...--",4:"....-",5:".....",6:"-....",7:"--...",8:"---..",9:"----.",0:"-----"};
+const REV=Object.fromEntries(Object.entries(M).map(([k,v])=>[v,k]));
+const R=document.querySelector(".mrs"),key=R.querySelector(".mrs-key"),out=R.querySelector(".mrs-out"),strip=R.querySelector(".mrs-strip"),ref=R.querySelector(".mrs-ref"),snd=R.querySelector(".mrs-snd");
+ref.innerHTML=Object.entries(M).map(([k,v])=>`<span data-k="${k}"><b>${k}</b>${v.replace(/\./g,"·").replace(/-/g,"–")}</span>`).join("");
+const U=110;let cur="",text="",downAt=0,isDown=false,tL=0,tW=0,ac=null,osc=null,gainN=null,sound=true;
+const tone=on=>{if(!sound)return;if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)();osc=ac.createOscillator();gainN=ac.createGain();osc.frequency.value=640;gainN.gain.value=0;osc.connect(gainN).connect(ac.destination);osc.start()}
+  gainN.gain.setTargetAtTime(on?.12:0,ac.currentTime,.006)};
+const paint=()=>{out.innerHTML=text.replace(/&/g,"&amp;").replace(/</g,"&lt;")+(cur?`<i>${cur.replace(/\./g,"·").replace(/-/g,"–")}</i>`:"");strip.style.transform=`translateX(0)`};
+const mark=html=>{strip.insertAdjacentHTML("beforeend",html);while(strip.children.length>140)strip.firstChild.remove()};
+const commit=()=>{if(!cur)return;const ch=REV[cur]||"?";text+=ch;R.querySelectorAll(".mrs-ref .hit").forEach(s=>s.classList.remove("hit"));const r=ref.querySelector(`[data-k="${ch}"]`);r&&r.classList.add("hit");cur="";mark("<s></s>");paint()};
+const press=()=>{if(isDown)return;isDown=true;clearTimeout(tL);clearTimeout(tW);downAt=performance.now();R.classList.add("down");tone(true)};
+const release=()=>{if(!isDown)return;isDown=false;R.classList.remove("down");tone(false);const dur=performance.now()-downAt,s=dur<U*2.4?".":"-";
+  cur+=s;mark(`<u class="${s==="."?"dot":"dash"}"></u>`);paint();
+  tL=setTimeout(commit,U*3.5);tW=setTimeout(()=>{if(text&&!text.endsWith(" ")){text+=" ";mark("<em></em>");paint()}},U*9)};
+key.addEventListener("pointerdown",e=>{key.setPointerCapture(e.pointerId);press()});key.addEventListener("pointerup",release);key.addEventListener("pointercancel",release);
+key.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();if(!e.repeat)press()}});
+key.addEventListener("keyup",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();release()}});
+key.addEventListener("click",e=>e.preventDefault());
+snd.onclick=()=>{sound=!sound;snd.setAttribute("aria-pressed",sound);snd.textContent=sound?"Sound on":"Sound off";if(!sound&&gainN)gainN.gain.value=0};
+R.querySelector(".mrs-clr").onclick=()=>{text="";cur="";strip.innerHTML="";paint()};
+R.querySelector(".mrs-demo").onclick=async e=>{const b=e.currentTarget;b.disabled=true;const w=ms=>new Promise(r=>setTimeout(r,ms));
+  for(const ch of "SOS"){for(const s of M[ch]){press();await w(s==="."?U:U*3);release();await w(U)}await w(U*3)}b.disabled=false};
+paint();
+})();
+</script>

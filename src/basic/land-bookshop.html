@@ -1,0 +1,27 @@
+<!--Bookshop Landing|Landings|An independent bookshop: a staff-picks shelf of CSS book spines that pull out on hover to show the cover note, a reading-club card with next meeting, and an events list.|landing,books,shop,shelf,events-->
+<div class="k pg lq">
+<header class="top"><div class="w"><a class="logo ser" href="#" style="font-size:22px;font-weight:400">The Margin</a><nav class="links"><a href="#">Shop</a><a href="#">Events</a><a href="#">Book club</a></nav><a class="b sec" href="#">@I(bag,16)Basket</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lq-hero"><h1 class="h1 ser">Books chosen by<br>people who read them.</h1><p class="lead">Every title on our tables has been read by someone on staff. Ask us anything; we'll argue about it.</p></section>
+<section class="w"><p class="eb">Staff picks: hover or tap a spine</p><div class="lq-shelf" id="sh"></div><div class="lq-note card" id="nt" aria-live="polite"></div></section>
+<section class="sec w lq-two"><div class="card lq-club"><span class="eb">Book club · November</span><h2 class="h3 ser" style="font-size:30px">The Rings of Saturn</h2><p class="mu">W. G. Sebald</p><p>Thursday 27 Nov, 19:00 in the back room. Wine provided, opinions mandatory.</p><button class="b ac" id="jn">Save my seat</button></div>
+<div><h2 class="h2 ser">Events</h2><ul class="lq-ev"><li><time><b>02</b>Dec</time><div><b>Poetry night: open mic</b><span class="mu">19:30 · free</span></div></li><li><time><b>09</b>Dec</time><div><b>Translators in conversation</b><span class="mu">18:30 · €5</span></div></li><li><time><b>14</b>Dec</time><div><b>Children's story hour</b><span class="mu">11:00 · free</span></div></li></ul></div></section>
+<footer class="foot"><div class="w"><span>The Margin is demo content.</span><span>Open daily 10–19</span></div></footer>
+</div>
+<style>
+.lq{--ac:light-dark(#7f1d1d,#fca5a5);--ac-h:light-dark(#661616,#fecaca);--ac-fg:light-dark(#fff,#2c0606)}
+.lq-hero{padding:80px 0 56px;display:grid;gap:20px}
+.lq-shelf{display:flex;align-items:flex-end;gap:4px;height:300px;padding:0 12px;border-bottom:14px solid light-dark(#8b5e3c,#5a3b25);margin-top:16px;overflow-x:auto;overflow-y:hidden}
+.lq-shelf button{flex:none;width:var(--w);height:var(--h);background:var(--c);color:#fff;border-radius:3px 3px 0 0;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:space-between;padding:12px 0;font:600 13px/1 Geist,sans-serif;box-shadow:inset 3px 0 0 #ffffff22,inset -3px 0 0 #0002;transition:translate .3s var(--ease)}.lq-shelf button small{font-weight:400;opacity:.8}
+.lq-shelf button:hover,.lq-shelf button[aria-pressed=true]{translate:0 -18px}
+.lq-note{margin-top:20px;padding:20px;display:grid;gap:6px;max-width:640px}.lq-note b{font:400 24px 'Instrument Serif',serif}
+.lq-two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}.lq-club{padding:28px;display:grid;gap:10px;justify-items:start}
+.lq-ev{list-style:none;padding:0;margin:24px 0 0}.lq-ev li{display:flex;gap:20px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}.lq-ev time{width:56px;display:grid;text-align:center;font-size:12px;color:var(--mu);text-transform:uppercase}.lq-ev time b{font:400 32px/1 'Instrument Serif',serif;color:var(--fg)}.lq-ev div{display:grid}
+@media (max-width:760px){.lq-two{grid-template-columns:1fr}.lq-shelf{height:250px}}
+</style>
+<script>
+const B=[["Piranesi","S. Clarke","#3f5f4a",44,250,"A house of endless halls and tides. Read it in one sitting, then again slowly. (Ines)"],["Stoner","J. Williams","#7c5c2e",52,270,"The quietest heartbreak in American fiction. (Tom)"],["The Overstory","R. Powers","#1f4e3d",62,290,"You will never look at a tree the same way. (Ines)"],["Pond","C. Bennett","#5b6b8a",34,220,"Short, strange, funny about porridge. (Ash)"],["Bewilderment","R. Powers","#22324a",46,260,"A father, a son and the stars. (Mia)"],["Small Things Like These","C. Keegan","#8a3324",30,205,"Ninety pages, a whole life. (Tom)"],["The Peregrine","J. A. Baker","#4a4a3a",40,240,"Nature writing at a fever pitch. (Ash)"],["Klara and the Sun","K. Ishiguro","#c08a2a",48,262,"Gentle, devastating, very Ishiguro. (Mia)"]];
+const sh=document.getElementById('sh'),nt=document.getElementById('nt');sh.innerHTML=B.map(([t,a,c,w,h],i)=>`<button style="--c:${c};--w:${w}px;--h:${h}px" data-i="${i}" aria-pressed="${!i}" aria-label="${t} by ${a}">${t}<small>${a}</small></button>`).join('');
+function show(i){const b=B[i];nt.innerHTML=`<b>${b[0]}</b><span class="mu">${b[1]}</span><p>${b[5]}</p>`;sh.querySelectorAll('button').forEach((x,j)=>x.setAttribute('aria-pressed',j==i))}
+sh.addEventListener('pointerover',e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)});sh.addEventListener('focusin',e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)});sh.onclick=e=>{const b=e.target.closest('button');if(b)show(+b.dataset.i)};show(0);
+document.getElementById('jn').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Seat saved. See you Thursday'};
+</script>

@@ -1,0 +1,75 @@
+<style>
+.cr{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.cr :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.cr ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.cr *,.cr *::before,.cr *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.cr{min-height:100vh;display:grid;grid-template-columns:1fr 300px}
+.cr-st{position:relative;display:grid;place-items:center;padding:28px;background:light-dark(#e7e6e2,#09090b);overflow:hidden;user-select:none}
+.cr-wrap{position:relative;touch-action:none;width:fit-content;line-height:0}
+.cr-wrap img{display:block;max-width:min(calc(100vw - 360px),760px);max-height:72vh;transform-origin:center;transition:transform .25s var(--ease)}
+.cr-shade{position:absolute;inset:0;pointer-events:none}
+.cr-box{position:absolute;box-shadow:0 0 0 9999px #000a;outline:1.5px solid #fff;cursor:move;touch-action:none}
+.cr-box:focus-visible{outline:2px solid var(--focus);outline-offset:0}
+.cr-g{position:absolute;inset:0;opacity:0;transition:opacity .2s;background:linear-gradient(#ffffff80,#ffffff80) 33.33% 0/1px 100% no-repeat,linear-gradient(#ffffff80,#ffffff80) 66.66% 0/1px 100% no-repeat,linear-gradient(#ffffff80,#ffffff80) 0 33.33%/100% 1px no-repeat,linear-gradient(#ffffff80,#ffffff80) 0 66.66%/100% 1px no-repeat}
+.cr-box.act .cr-g{opacity:1}
+.cr-h{position:absolute;width:24px;height:24px;margin:-12px;touch-action:none}
+.cr-h::after{content:"";position:absolute;inset:6px;border-radius:3px;background:#fff;box-shadow:0 1px 3px #0008}
+.cr-h[data-h=nw]{left:0;top:0;cursor:nwse-resize}.cr-h[data-h=ne]{left:100%;top:0;cursor:nesw-resize}.cr-h[data-h=sw]{left:0;top:100%;cursor:nesw-resize}.cr-h[data-h=se]{left:100%;top:100%;cursor:nwse-resize}
+.cr-h[data-h=n]{left:50%;top:0;cursor:ns-resize}.cr-h[data-h=s]{left:50%;top:100%;cursor:ns-resize}.cr-h[data-h=w]{left:0;top:50%;cursor:ew-resize}.cr-h[data-h=e]{left:100%;top:50%;cursor:ew-resize}
+.cr-dim{position:absolute;left:50%;top:-30px;transform:translateX(-50%);padding:3px 8px;border-radius:6px;background:#000c;color:#fff;font:500 11.5px "Geist Mono",monospace;white-space:nowrap}
+.cr-p{padding:22px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
+.cr-p h3{margin:0;font-size:16px;font-weight:600}
+.cr-lbl{display:block;font-size:13px;font-weight:550;margin-bottom:8px}
+.cr-asp{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.cr-asp button{height:40px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:500 13px "Geist Mono",monospace;cursor:pointer}
+.cr-asp button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.cr-zoom{display:flex;align-items:center;gap:10px}.cr-zoom input{flex:1;accent-color:var(--ac);height:24px}.cr-zoom output{width:44px;text-align:right;font:500 13px "Geist Mono",monospace}
+.cr-prev{border-radius:12px;background:var(--sf);display:grid;place-items:center;padding:10px;min-height:150px}
+.cr-prev canvas{max-width:100%;max-height:180px;border-radius:8px;box-shadow:var(--shadow)}
+.cr-act{display:flex;gap:8px;margin-top:auto}.cr-act button{flex:1;height:44px;border-radius:12px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:600 14px Geist,sans-serif;cursor:pointer}
+.cr-act .pri{background:var(--ac);color:var(--ac-fg);border-color:var(--ac)}
+.cr-hint{font-size:12.5px;color:var(--mu);margin:-6px 0 0}
+@media (max-width:860px){.cr-wrap img{max-width:calc(100vw - 56px)}.cr{grid-template-columns:1fr}.cr-p{border-left:0}}
+</style>
+<section class="cr">
+  <div class="cr-st"><div class="cr-wrap"><img crossorigin="anonymous" alt="Photo to crop" src="https://picsum.photos/id/1043/1200/800"><div class="cr-box" tabindex="0" role="group" aria-label="Crop area. Arrow keys move, Shift + arrow keys resize"><div class="cr-g"></div><span class="cr-dim"></span>
+    <i class="cr-h" data-h="nw"></i><i class="cr-h" data-h="n"></i><i class="cr-h" data-h="ne"></i><i class="cr-h" data-h="e"></i><i class="cr-h" data-h="se"></i><i class="cr-h" data-h="s"></i><i class="cr-h" data-h="sw"></i><i class="cr-h" data-h="w"></i></div></div></div>
+  <aside class="cr-p"><h3>Crop photo</h3>
+    <div><span class="cr-lbl">Aspect ratio</span><div class="cr-asp"><button aria-pressed="true" data-a="0">Free</button><button aria-pressed="false" data-a="1">1:1</button><button aria-pressed="false" data-a="0.8">4:5</button><button aria-pressed="false" data-a="1.7778">16:9</button></div></div>
+    <div><label class="cr-lbl" for="crZ">Zoom</label><div class="cr-zoom"><input id="crZ" type="range" min="1" max="3" step=".01" value="1"><output>100%</output></div></div>
+    <p class="cr-hint">Drag the box or its handles. Keyboard: arrows move, Shift + arrows resize.</p>
+    <div><span class="cr-lbl">Preview</span><div class="cr-prev"><canvas></canvas></div></div>
+    <div class="cr-act"><button data-a="reset">Reset</button><button class="pri" data-a="save">Save crop</button></div>
+  </aside>
+</section>
+<script>
+(()=>{
+const wrap=document.querySelector(".cr-wrap"),img=wrap.querySelector("img"),box=wrap.querySelector(".cr-box"),dim=box.querySelector(".cr-dim"),pc=document.querySelector(".cr-prev canvas"),zin=document.querySelector("#crZ");
+let W=0,H=0,b={x:.1,y:.1,w:.8,h:.8},asp=0,zoom=1;const MIN=.08;
+// crop box lives in normalised (0..1) coordinates of the visible image so resizing the window never breaks it
+function layout(){W=img.clientWidth;H=img.clientHeight;draw()}
+function clampBox(){b.w=Math.max(MIN,Math.min(1,b.w));b.h=Math.max(MIN,Math.min(1,b.h));b.x=Math.max(0,Math.min(1-b.w,b.x));b.y=Math.max(0,Math.min(1-b.h,b.y))}
+function applyAsp(anchor){if(!asp)return;const ratio=asp*H/W;if(b.w/b.h>ratio)b.w=b.h*ratio;else b.h=b.w/ratio;if(b.w>1){b.w=1;b.h=b.w/ratio}if(b.h>1){b.h=1;b.w=b.h*ratio}}
+function draw(){clampBox();Object.assign(box.style,{left:b.x*W+"px",top:b.y*H+"px",width:b.w*W+"px",height:b.h*H+"px"});
+  const nw=img.naturalWidth/zoom,nh=img.naturalHeight/zoom,px=Math.round(b.w*nw),py=Math.round(b.h*nh);dim.textContent=`${px} × ${py}`;
+  if(!img.naturalWidth)return;const s=Math.min(240/px,180/py,1);pc.width=Math.max(1,px*s);pc.height=Math.max(1,py*s);const x=pc.getContext("2d");
+  // the visible image is the natural image scaled about its centre by zoom
+  const ox=img.naturalWidth*(1-1/zoom)/2,oy=img.naturalHeight*(1-1/zoom)/2;x.drawImage(img,ox+b.x*nw,oy+b.y*nh,b.w*nw,b.h*nh,0,0,pc.width,pc.height)}
+let d=null;
+box.addEventListener("pointerdown",e=>{e.preventDefault();d={h:e.target.dataset.h||"move",x:e.clientX,y:e.clientY,b:{...b}};box.setPointerCapture(e.pointerId);box.classList.add("act")});
+box.addEventListener("pointermove",e=>{if(!d)return;const dx=(e.clientX-d.x)/W,dy=(e.clientY-d.y)/H,o=d.b,h=d.h;
+  if(h==="move"){b.x=o.x+dx;b.y=o.y+dy}else{let x0=o.x,y0=o.y,x1=o.x+o.w,y1=o.y+o.h;if(h.includes("w"))x0=Math.min(x1-MIN,o.x+dx);if(h.includes("e"))x1=Math.max(x0+MIN,x1+dx);if(h.includes("n"))y0=Math.min(y1-MIN,o.y+dy);if(h.includes("s"))y1=Math.max(y0+MIN,y1+dy);
+    x0=Math.max(0,x0);y0=Math.max(0,y0);x1=Math.min(1,x1);y1=Math.min(1,y1);b={x:x0,y:y0,w:x1-x0,h:y1-y0};
+    if(asp){const r=asp*H/W;if(h==="n"||h==="s")b.w=b.h*r;else b.h=b.w/r;if(h.includes("n"))b.y=y1-b.h;if(h.includes("w"))b.x=x1-b.w}}draw()});
+box.addEventListener("pointerup",()=>{d=null;box.classList.remove("act")});
+box.addEventListener("keydown",e=>{const k={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(!k)return;e.preventDefault();const s=.01;
+  if(e.shiftKey){b.w+=k[0]*s;b.h+=k[1]*s;if(asp)applyAsp()}else{b.x+=k[0]*s;b.y+=k[1]*s}draw()});
+document.querySelectorAll(".cr-asp button").forEach(btn=>btn.onclick=()=>{document.querySelectorAll(".cr-asp button").forEach(x=>x.setAttribute("aria-pressed",x===btn));asp=+btn.dataset.a;
+  const cx=b.x+b.w/2,cy=b.y+b.h/2;b.w=.8;b.h=.8;applyAsp();b.x=cx-b.w/2;b.y=cy-b.h/2;draw()});
+zin.oninput=()=>{zoom=+zin.value;img.style.transform=`scale(${zoom})`;zin.nextElementSibling.textContent=Math.round(zoom*100)+"%";draw()};
+wrap.style.overflow="hidden";
+document.querySelector("[data-a=reset]").onclick=()=>{b={x:.1,y:.1,w:.8,h:.8};zin.value=1;zin.oninput();asp=0;document.querySelectorAll(".cr-asp button").forEach((x,i)=>x.setAttribute("aria-pressed",i===0));draw()};
+document.querySelector("[data-a=save]").onclick=e=>{try{const a=document.createElement("a");a.href=pc.toDataURL("image/jpeg",.9);a.download="crop.jpg";a.click();e.target.textContent="Saved ✓"}catch{e.target.textContent="Image is not CORS-enabled"}setTimeout(()=>e.target.textContent="Save crop",1600)};
+img.complete?layout():img.onload=layout;new ResizeObserver(layout).observe(img);
+})();
+</script>

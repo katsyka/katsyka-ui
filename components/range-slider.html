@@ -1,0 +1,91 @@
+<style>
+.rs{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.rs :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.rs ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.rs *,.rs *::before,.rs *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.rs{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.rs-pn{width:min(520px,100%);display:grid;gap:30px;padding:26px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.rs-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px}
+.rs-hd b{font-size:15px;font-weight:600}
+.rs-hd output{font:500 13.5px "Geist Mono",monospace;color:var(--mu)}
+.rs-hist{display:flex;align-items:flex-end;gap:2px;height:56px;padding:0 9px}
+.rs-hist i{flex:1;border-radius:2px 2px 0 0;background:var(--sf2);transition:background-color .15s}
+.rs-hist i.in{background:color-mix(in oklab,var(--ac) 55%,var(--sf2))}
+.rs-sl{position:relative;height:28px;margin:0 9px;touch-action:none;cursor:pointer}
+.rs-tr{position:absolute;left:-9px;right:-9px;top:12px;height:4px;border-radius:2px;background:var(--sf2)}
+.rs-fi{position:absolute;top:12px;height:4px;border-radius:2px;background:var(--ac)}
+.rs-th{position:absolute;top:4px;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:#fff;border:1.5px solid var(--ac);box-shadow:0 1px 4px #0003;cursor:grab;transition:box-shadow .15s,transform .15s}
+.rs-th:hover{box-shadow:0 0 0 6px color-mix(in oklab,var(--ac) 16%,transparent),0 1px 4px #0003}
+.rs-th.drag{cursor:grabbing;transform:scale(1.1);box-shadow:0 0 0 8px color-mix(in oklab,var(--ac) 18%,transparent),0 1px 4px #0003}
+.rs-th:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.rs-in{display:flex;align-items:center;gap:10px;margin-top:14px}
+.rs-in label{flex:1;display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mu)}
+.rs-in .w{display:flex;align-items:center;height:38px;padding:0 10px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg))}
+.rs-in .w:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.rs-in .w span{color:var(--mu);font-size:14px}
+.rs-in input{flex:1;min-width:0;border:0;background:none;color:var(--fg);font:500 16px "Geist Mono",monospace;outline:0;padding-left:4px}
+@media (min-width:640px){.rs-in input{font-size:14px}}
+.rs-in .dash{margin-top:18px;color:var(--mu)}
+/* single native range, styled */
+.rs-nat{display:flex;align-items:center;gap:14px}
+.rs-nat svg{flex:none;width:18px;height:18px;fill:none;stroke:var(--mu);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rs-nat input{--p:60%;flex:1;appearance:none;height:20px;background:none;cursor:pointer}
+.rs-nat input::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--fg) var(--p),var(--sf2) var(--p))}
+.rs-nat input::-moz-range-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--fg) var(--p),var(--sf2) var(--p))}
+.rs-nat input::-webkit-slider-thumb{appearance:none;width:18px;height:18px;margin-top:-7px;border-radius:50%;background:#fff;border:1.5px solid var(--fg);box-shadow:0 1px 4px #0003}
+.rs-nat input::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:1.5px solid var(--fg);box-shadow:0 1px 4px #0003}
+.rs-nat input:focus-visible{outline:0}
+.rs-nat input:focus-visible::-webkit-slider-thumb{outline:2px solid var(--focus);outline-offset:2px}
+.rs-nat output{width:42px;text-align:right;font:500 13.5px "Geist Mono",monospace}
+.rs-steps{position:relative;margin:2px 9px 0;height:18px;font:500 11.5px "Geist Mono",monospace;color:var(--mu)}
+.rs-steps span{position:absolute;transform:translateX(-50%)}
+.rs-in input:focus-visible{outline:0}
+</style>
+<div class="rs">
+  <div class="rs-pn">
+    <div>
+      <div class="rs-hd"><b id="rsL">Price range</b><output id="rsO"></output></div>
+      <div class="rs-hist" aria-hidden="true"></div>
+      <div class="rs-sl" id="rsS">
+        <div class="rs-tr"></div><div class="rs-fi"></div>
+        <div class="rs-th" role="slider" tabindex="0" aria-label="Minimum price" aria-valuemin="0" aria-valuemax="1000"></div>
+        <div class="rs-th" role="slider" tabindex="0" aria-label="Maximum price" aria-valuemin="0" aria-valuemax="1000"></div>
+      </div>
+      <div class="rs-in"><label>Minimum<span class="w"><span>$</span><input inputmode="numeric" id="rsA" aria-label="Minimum price"></span></label><span class="dash">–</span><label>Maximum<span class="w"><span>$</span><input inputmode="numeric" id="rsB" aria-label="Maximum price"></span></label></div>
+    </div>
+    <div>
+      <div class="rs-hd"><b><label for="rsV">Volume</label></b></div>
+      <div class="rs-nat"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4z"/></svg><input type="range" id="rsV" min="0" max="100" value="60"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg><output for="rsV" id="rsVo">60</output></div>
+    </div>
+    <div>
+      <div class="rs-hd"><b><label for="rsQ">Quality</label></b><output id="rsQo">High</output></div>
+      <div class="rs-nat"><input type="range" id="rsQ" min="0" max="3" step="1" value="2" aria-valuetext="High"></div>
+      <div class="rs-steps" aria-hidden="true"><span style="left:0">Low</span><span style="left:33.33%">Med</span><span style="left:66.66%">High</span><span style="left:100%">Max</span></div>
+    </div>
+  </div>
+</div>
+<script>
+const MAX=1000,STEP=10,S=document.getElementById("rsS"),[t1,t2]=S.querySelectorAll(".rs-th"),fi=S.querySelector(".rs-fi"),o=document.getElementById("rsO"),A=document.getElementById("rsA"),B=document.getElementById("rsB"),H=document.querySelector(".rs-hist");
+const data=[2,4,7,12,18,26,31,36,40,38,33,30,26,22,24,20,15,12,10,8,9,6,5,4,3,3,2,2,1,1];
+H.innerHTML=data.map(d=>`<i style="height:${d/40*100}%"></i>`).join("");const bars=[...H.children];
+let v=[120,640];
+const fmt=n=>"$"+n.toLocaleString("en-US");
+const draw=()=>{const p=v.map(x=>x/MAX*100);t1.style.left=p[0]+"%";t2.style.left=p[1]+"%";fi.style.left=p[0]+"%";fi.style.width=p[1]-p[0]+"%";
+  t1.setAttribute("aria-valuenow",v[0]);t2.setAttribute("aria-valuenow",v[1]);t1.setAttribute("aria-valuetext",fmt(v[0]));t2.setAttribute("aria-valuetext",fmt(v[1]));
+  o.textContent=`${fmt(v[0])} – ${fmt(v[1])}${v[1]===MAX?"+":""}`;if(document.activeElement!==A)A.value=v[0];if(document.activeElement!==B)B.value=v[1];
+  bars.forEach((b,i)=>{const x=(i+.5)/bars.length*MAX;b.classList.toggle("in",x>=v[0]&&x<=v[1])})};
+const set=(i,x)=>{x=Math.round(Math.max(0,Math.min(MAX,x))/STEP)*STEP;if(i===0)x=Math.min(x,v[1]-STEP);else x=Math.max(x,v[0]+STEP);v[i]=x;draw()};
+let drag=-1;
+S.addEventListener("pointerdown",e=>{const r=S.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*MAX;drag=e.target===t1?0:e.target===t2?1:(Math.abs(x-v[0])<Math.abs(x-v[1])?0:1);
+  S.setPointerCapture(e.pointerId);[t1,t2][drag].classList.add("drag");[t1,t2][drag].focus();set(drag,x);e.preventDefault()});
+S.addEventListener("pointermove",e=>{if(drag<0)return;const r=S.getBoundingClientRect();set(drag,(e.clientX-r.left)/r.width*MAX)});
+S.addEventListener("pointerup",()=>{if(drag>-1)[t1,t2][drag].classList.remove("drag");drag=-1});
+[t1,t2].forEach((t,i)=>t.addEventListener("keydown",e=>{const d={ArrowRight:STEP,ArrowUp:STEP,ArrowLeft:-STEP,ArrowDown:-STEP,PageUp:100,PageDown:-100}[e.key];
+  if(d){e.preventDefault();set(i,v[i]+d)}else if(e.key==="Home"){e.preventDefault();set(i,0)}else if(e.key==="End"){e.preventDefault();set(i,MAX)}}));
+[A,B].forEach((inp,i)=>{inp.addEventListener("change",()=>{const n=parseInt(inp.value.replace(/\D/g,""),10);set(i,isNaN(n)?v[i]:n);inp.value=v[i]});inp.addEventListener("keydown",e=>{if(e.key==="Enter")inp.blur()})});
+draw();
+const V=document.getElementById("rsV"),Vo=document.getElementById("rsVo");
+const vv=()=>{V.style.setProperty("--p",V.value+"%");Vo.textContent=V.value};V.addEventListener("input",vv);vv();
+const Q=document.getElementById("rsQ"),Qo=document.getElementById("rsQo"),QL=["Low","Medium","High","Max"];
+const qq=()=>{Q.style.setProperty("--p",Q.value/3*100+"%");Qo.textContent=QL[Q.value];Q.setAttribute("aria-valuetext",QL[Q.value])};Q.addEventListener("input",qq);qq();
+</script>

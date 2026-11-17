@@ -1,0 +1,51 @@
+<!--Share & Action Sheets|Two native-feeling sheets on one post: Share slides up with people, apps and actions and can be dragged down to dismiss; More opens a grouped action sheet with a separate Cancel and a destructive Report.|share sheet,action sheet,bottom sheet,drag,overlay-->
+<main class="sc">
+  <article class="ss-p"><div class="ss-h"><span class="av" style="--c:#b45309">M</span><span class="tx"><b>Mara Lind</b><small>Bergen · 2h</small></span><button class="ib" id="mo" aria-label="More options" aria-haspopup="dialog">@I(more)</button></div>
+  <img src="media/pics/c/1049.jpg" alt=""><div class="ss-a"><button class="ib" aria-label="Like">@I(heart)</button><button class="ib" aria-label="Comment">@I(msg)</button><button class="ib" id="sh" aria-label="Share" aria-haspopup="dialog">@I(share)</button></div><p class="ss-c"><b>Mara Lind</b> Found the island from the old postcard. Took four tries to get the reflection this flat.</p></article>
+</main>
+<div class="ss-ov" id="ov" hidden></div>
+<section class="ss-sheet" id="s1" role="dialog" aria-modal="true" aria-label="Share" hidden>
+  <i class="ss-gr" aria-hidden="true"></i>
+  <div class="ss-top"><img src="media/pics/c/1049.jpg" alt=""><span><b>Island at dawn</b><small>driftwood.app/p/8h2k</small></span><button class="ib ss-x" aria-label="Close">@I(x,18)</button></div>
+  <div class="hs ss-ppl"><button><span class="av" style="--c:#0369a1">T</span>Theo</button><button><span class="av" style="--c:#15803d">I</span>Ines</button><button><span class="av" style="--c:#7c3aed">J</span>Jun</button><button><span class="av" style="--c:#be185d">A</span>Ana</button><button><span class="av" style="--c:#0f766e">O</span>Olek</button></div>
+  <div class="grp ss-acts" style="--inset:16px"><button class="row" id="cl"><span class="tx"><b>Copy link</b></span>@I(copy,22)</button><button class="row"><span class="tx"><b>Add to story</b></span>@I(plus,22)</button><button class="row"><span class="tx"><b>Save image</b></span>@I(download,22)</button></div>
+</section>
+<section class="ss-as" id="s2" role="dialog" aria-modal="true" aria-label="Post options" hidden>
+  <div class="ss-g"><p>Options for this post</p><button>Add to favourites</button><button>Go to post</button><button>About this account</button><button class="d">Report</button></div>
+  <div class="ss-g"><button class="cx">Cancel</button></div>
+</section>
+<style>
+.ss-p{padding-top:8px}.ss-h{display:flex;align-items:center;gap:10px;padding:0 4px 8px var(--gut)}.ss-h .av{width:36px;height:36px;font-size:14px}.ss-h .tx{flex:1}.ss-h b{display:block;font-size:15px;font-weight:600}.ss-h small{font-size:13px;color:var(--mu)}
+.ss-p>img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.ss-a{display:flex;padding:4px}.ss-c{margin:0;padding:0 var(--gut);font-size:15px;line-height:21px}
+.ss-ov{position:absolute;inset:0;z-index:90;background:#0007;animation:fd .3s}
+@keyframes fd{from{opacity:0}}
+.ss-sheet{position:absolute;left:0;right:0;bottom:0;z-index:91;background:var(--sf);border-radius:28px 28px 0 0;padding:6px 0 max(16px,var(--sbt));touch-action:none;animation:su .4s var(--ease)}
+.ss-sheet.snap{transition:transform .3s var(--ease)}
+@keyframes su{from{transform:translateY(100%)}}
+.ss-gr{display:block;width:36px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 10px}
+.ss-top{display:flex;align-items:center;gap:12px;padding:0 12px 12px var(--gut);border-bottom:.5px solid var(--line)}
+.ss-top img{width:44px;height:44px;border-radius:8px;object-fit:cover}.ss-top span{flex:1;min-width:0}.ss-top b{display:block;font-size:15px;font-weight:600}.ss-top small{font-size:13px;color:var(--mu)}
+.ss-x{width:30px;height:30px;background:var(--sf2)!important;color:var(--mu)}
+.ss-x::after{content:"";position:absolute;inset:-7px}.ss-x{position:relative}
+.ss-ppl{padding-top:16px;padding-bottom:16px;gap:16px}.ss-ppl button{display:flex;flex-direction:column;align-items:center;gap:6px;width:60px;font-size:12px}.ss-ppl .av{width:60px;height:60px;font-size:22px}
+.ss-acts{background:var(--bg)!important}.ss-acts .row{justify-content:space-between}
+.ss-as{position:absolute;left:8px;right:8px;bottom:max(8px,var(--sbt));z-index:91;display:grid;gap:8px;animation:su .35s var(--ease)}
+.ss-g{border-radius:14px;overflow:hidden;background:light-dark(#f9f9f9f0,#2c2c2ef0);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px)}
+.ss-g p{margin:0;padding:14px 16px;text-align:center;font-size:13px;color:var(--mu);border-bottom:.5px solid var(--line)}
+.ss-g button{display:block;width:100%;min-height:56px;font-size:19px!important;color:light-dark(#007aff,#0a84ff)!important}
+.ss-g button+button{border-top:.5px solid var(--line)}.ss-g button:active{background:light-dark(#0000000d,#ffffff14)!important}
+.ss-g .d{color:var(--err)!important}.ss-g .cx{font-weight:600!important}
+</style>
+<script>
+let opener;
+const open=(s,b)=>{opener=b;ov.hidden=false;s.hidden=false;s.style.transform="";(s.querySelector("button")).focus()};
+const close=()=>{[s1,s2].forEach(s=>s.hidden=true);ov.hidden=true;opener&&opener.focus()};
+sh.onclick=()=>open(s1,sh);mo.onclick=()=>open(s2,mo);ov.onclick=close;s2.querySelectorAll("button").forEach(b=>b.onclick=close);
+s1.querySelector(".ss-x").onclick=close;
+addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+cl.onclick=()=>{cl.querySelector("b").textContent="Link copied";setTimeout(()=>cl.querySelector("b").textContent="Copy link",1400)};
+let y0=null,dy=0;s1.addEventListener("pointerdown",e=>{if(e.target.closest("button"))return;y0=e.clientY;dy=0;s1.classList.remove("snap");s1.setPointerCapture(e.pointerId)});
+s1.addEventListener("pointermove",e=>{if(y0===null)return;dy=Math.max(0,e.clientY-y0);s1.style.transform=`translateY(${dy}px)`;ov.style.opacity=1-dy/400});
+s1.addEventListener("pointerup",()=>{if(y0===null)return;y0=null;s1.classList.add("snap");ov.style.opacity="";if(dy>120){s1.style.transform="translateY(100%)";setTimeout(close,250)}else s1.style.transform=""});
+</script>

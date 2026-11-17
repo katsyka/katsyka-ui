@@ -1,0 +1,131 @@
+=== set-profile
+<!--Profile Settings|Settings|A profile form with avatar upload and crop preview, username availability check, bio with character count, and a sticky unsaved-changes bar that appears only when something changed.|settings,profile,form,avatar,save bar-->
+<div class="k sp2"><form class="sp2-f" id="f" novalidate><h1>Profile</h1><p class="mu">This is how others see you across the workspace.</p>
+<div class="sp2-row"><span class="lbl">Photo</span><div class="sp2-av"><span class="sp2-img" id="im">LK</span><div><label class="b sec sm" for="up">@I(image,14)Upload</label><input type="file" id="up" accept="image/*" class="vh"><button type="button" class="b gh sm" id="rm">Remove</button><small class="mu">JPG or PNG, at least 256 × 256.</small></div></div></div>
+<div class="sp2-row"><label class="lbl" for="nm">Display name</label><input class="in" id="nm" value="Lena Kraus" autocomplete="name"></div>
+<div class="sp2-row"><label class="lbl" for="un">Username</label><div><div class="sp2-pre"><span>quill.so/</span><input class="in" id="un" value="lena" autocomplete="username" aria-describedby="uh" spellcheck="false"></div><small id="uh" class="sp2-h mu">Letters, numbers and dashes.</small></div></div>
+<div class="sp2-row"><label class="lbl" for="bio">Bio</label><div><textarea class="in" id="bio" rows="3" maxlength="160">Type designer in Hamburg. Mostly grotesques.</textarea><small class="mu tn" id="bc"></small></div></div>
+<div class="sp2-row"><label class="lbl" for="tz">Time zone</label><select class="in" id="tz"><option>Europe/Berlin (UTC+1)</option><option>Europe/London (UTC+0)</option><option>America/New_York (UTC−5)</option><option>Asia/Tokyo (UTC+9)</option></select></div>
+<div class="sp2-bar" id="bar" hidden><span>You have unsaved changes</span><button type="button" class="b gh sm" id="rs">Discard</button><button class="b ac sm" id="sv">Save changes</button></div></form></div>
+<style>
+.k.sp2{align-items:start}.sp2-f{width:min(680px,100%);display:grid;gap:0;padding-bottom:80px}.sp2-f h1{margin:0;font-size:24px;letter-spacing:-.02em}.sp2-f>p{margin:4px 0 20px}
+.sp2-row{display:grid;grid-template-columns:180px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--line);align-items:start}.sp2-row .lbl{padding-top:10px;margin:0}.sp2-row .in{font-size:15px}.sp2-row textarea.in{height:auto;padding:10px 12px;resize:vertical}
+.sp2-av{display:flex;gap:16px;align-items:center}.sp2-av>div{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sp2-av small{width:100%}.sp2-img{width:64px;height:64px;border-radius:50%;background:#4338ca center/cover;color:#fff;display:grid;place-items:center;font-weight:650;font-size:20px;flex:none}
+.sp2-pre{display:flex;align-items:center;border:1px solid var(--ctl);border-radius:10px;overflow:hidden}.sp2-pre:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}.sp2-pre span{padding:0 0 0 12px;color:var(--mu)}.sp2-pre .in{border:0;padding-left:2px}.sp2-pre .in:focus{box-shadow:none}
+.sp2-h{display:flex;gap:6px;align-items:center;margin-top:6px}.sp2-h.ok{color:var(--ok)}.sp2-h.no{color:var(--err)}
+.sp2-bar{position:sticky;bottom:16px;margin-top:16px;display:flex;gap:8px;align-items:center;padding:10px 10px 10px 16px;border-radius:12px;background:var(--fg);color:var(--bg);animation:spb .2s cubic-bezier(.23,1,.32,1)}.sp2-bar span{flex:1;font-size:14px}.k .sp2-bar .b.gh{color:var(--bg)}.k .sp2-bar .b.gh:hover{background:color-mix(in srgb,var(--bg) 12%,transparent)}@keyframes spb{from{opacity:0;transform:translateY(8px)}}
+@media (max-width:640px){.sp2-row{grid-template-columns:1fr;gap:6px}.sp2-row .lbl{padding:0}}
+</style>
+<script>
+const $=i=>document.getElementById(i),f=$('f'),bar=$('bar'),fields=['nm','un','bio','tz'],init={};fields.forEach(k=>init[k]=$(k).value);let photo=0,t;
+const dirty=()=>photo||fields.some(k=>$(k).value!==init[k]);const chk=()=>{bar.hidden=!dirty()};
+const bc=()=>$('bc').textContent=`${$('bio').value.length} / 160`;bc();
+f.addEventListener('input',e=>{if(e.target.id==='bio')bc();chk()});f.addEventListener('change',chk);
+$('un').addEventListener('input',e=>{const v=e.target.value=e.target.value.toLowerCase().replace(/[^a-z0-9-]/g,''),h=$('uh');clearTimeout(t);if(v===init.un){h.className='sp2-h mu';h.textContent='This is your current username.';return}if(v.length<3){h.className='sp2-h no';h.textContent='At least 3 characters.';return}h.className='sp2-h mu';h.textContent='Checking…';t=setTimeout(()=>{const taken=['admin','support','lena-k','max'].includes(v);h.className='sp2-h '+(taken?'no':'ok');h.textContent=taken?`quill.so/${v} is taken.`:`quill.so/${v} is available.`;$('un').setAttribute('aria-invalid',taken)},450)});
+$('up').onchange=e=>{const fl=e.target.files[0];if(!fl)return;const im=$('im');im.style.backgroundImage=`url(${URL.createObjectURL(fl)})`;im.textContent='';photo=1;chk()};$('rm').onclick=()=>{const im=$('im');im.style.backgroundImage='';im.textContent='LK';photo=1;chk()};
+$('rs').onclick=()=>{fields.forEach(k=>$(k).value=init[k]);photo=0;$('im').style.backgroundImage='';$('im').textContent='LK';bc();$('uh').className='sp2-h mu';$('uh').textContent='Letters, numbers and dashes.';chk()};
+f.onsubmit=e=>{e.preventDefault();if($('un').getAttribute('aria-invalid')==='true')return $('un').focus();const b=$('sv');b.disabled=true;b.textContent='Saving…';setTimeout(()=>{fields.forEach(k=>init[k]=$(k).value);photo=0;b.disabled=false;b.textContent='Save changes';bar.querySelector('span').textContent='Saved';setTimeout(()=>{bar.querySelector('span').textContent='You have unsaved changes';chk()},900)},700)};
+</script>
+=== set-billing
+<!--Billing Settings|Settings|Billing page: current plan with renewal date and seat usage, payment method with update, an invoices table with PDF download and status, and a change-plan dialog showing the prorated amount.|settings,billing,invoices,plan,payment-->
+<div class="k sb"><div class="sb-w"><h1>Billing</h1>
+<section class="sb-plan"><div><span class="mu">Current plan</span><b>Team · yearly</b><span class="mu">Renews 14 March 2027 · €1,188 / year</span></div><div class="sb-seat"><span class="tn"><b>11</b> of 15 seats used</span><div class="sb-tr"><i style="--w:73%"></i></div></div><button class="b sec" id="cp">Change plan</button></section>
+<section class="sb-sec"><h2>Payment method</h2><div class="sb-pm"><span class="sb-cc">VISA</span><div><b class="tn">Visa ending 4242</b><span class="mu">Expires 08 / 2028 · billing@northwind.example</span></div><button class="b gh sm">Update</button></div></section>
+<section class="sb-sec"><h2>Invoices</h2><div class="sb-tw"><table class="sb-t"><thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th><span class="vh">Download</span></th></tr></thead><tbody>
+<tr><td>14 Mar 2026</td><td>Team, yearly, 15 seats</td><td class="tn">€1,188.00</td><td><span class="pill ok">Paid</span></td><td><a class="ibt" href="#" aria-label="Download invoice from 14 March 2026">@I(download,16)</a></td></tr>
+<tr><td>02 Feb 2026</td><td>3 extra seats, prorated</td><td class="tn">€61.20</td><td><span class="pill ok">Paid</span></td><td><a class="ibt" href="#" aria-label="Download invoice from 2 February 2026">@I(download,16)</a></td></tr>
+<tr><td>14 Mar 2025</td><td>Team, yearly, 12 seats</td><td class="tn">€950.40</td><td><span class="pill err">Refunded</span></td><td><a class="ibt" href="#" aria-label="Download invoice from 14 March 2025">@I(download,16)</a></td></tr></tbody></table></div></section></div>
+<dialog class="sb-d" id="dl" aria-labelledby="dt"><h2 id="dt">Change plan</h2><div class="sb-op" role="radiogroup" id="op"><button role="radio" aria-checked="false" data-p="0">Starter<span class="tn">€6 / seat / mo</span></button><button role="radio" aria-checked="true" data-p="1">Team<span class="tn">€6.60 / seat / mo</span></button><button role="radio" aria-checked="false" data-p="2">Business<span class="tn">€14 / seat / mo</span></button></div><p class="sb-pr" id="pr" aria-live="polite"></p><div class="sb-ac"><button class="b gh" id="cx">Cancel</button><button class="b ac" id="ok">Confirm change</button></div></dialog></div>
+<style>
+.k.sb{align-items:start}.sb-w{width:min(760px,100%);display:grid;grid-template-columns:minmax(0,1fr);gap:28px}.sb-w h1{margin:0;font-size:24px;letter-spacing:-.02em}.sb-sec h2{font-size:15px;margin:0 0 12px}
+.sb-plan{display:grid;grid-template-columns:1fr 1fr auto;gap:20px;align-items:center;padding:20px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.sb-plan>div:first-child{display:grid;gap:2px}.sb-plan b{font-size:20px}.sb-plan span.mu{font-size:13px}.sb-seat{display:grid;gap:6px;font-size:13px}.sb-tr{height:6px;border-radius:3px;background:var(--sf2);overflow:hidden}.sb-tr i{display:block;height:100%;width:var(--w);background:var(--ac)}
+.sb-pm{display:flex;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.sb-pm div{display:grid;flex:1}.sb-pm span.mu{font-size:13px}.sb-cc{width:48px;height:32px;border-radius:6px;background:#1a1f71;color:#fff;font:italic 800 12px/32px Geist;text-align:center;flex:none}
+.sb-tw{border:1px solid var(--line);border-radius:14px;overflow-x:auto;background:var(--bg);position:relative}.sb-t{width:100%;border-collapse:collapse;font-size:14px}.sb-t th{text-align:left;font-weight:550;color:var(--mu);font-size:12px;padding:10px 14px;border-bottom:1px solid var(--line)}.sb-t td{padding:10px 14px;border-bottom:1px solid var(--line);white-space:nowrap}.sb-t tr:last-child td{border:0}
+.sb-d{width:min(440px,calc(100% - 32px));border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--bg);color:var(--fg)}.sb-d::backdrop{background:#0006}.sb-d[open]{animation:sbd .2s cubic-bezier(.23,1,.32,1)}@keyframes sbd{from{opacity:0;transform:scale(.97)}}.sb-d h2{margin:0 0 16px;font-size:19px}
+.sb-op{display:grid;gap:8px}.sb-op button{display:flex;justify-content:space-between;padding:14px;border:1px solid var(--line);border-radius:12px;font-weight:600}.sb-op span{font-weight:400;color:var(--mu)}.sb-op [aria-checked=true]{border:2px solid var(--ac);padding:13px}.sb-pr{font-size:14px;margin:16px 0;padding:12px;border-radius:10px;background:var(--sf)}.sb-ac{display:flex;gap:8px;justify-content:flex-end}
+@media (max-width:700px){.sb-plan{grid-template-columns:1fr}}
+</style>
+<script>
+const $=i=>document.getElementById(i),dl=$('dl'),P=[6,6.6,14];let s=1;
+function pr(){const d=(P[s]-6.6)*15*4;$('pr').textContent=s===1?'This is your current plan.':d>0?`You'll be charged €${d.toFixed(2)} today for the remaining 4 months, then €${(P[s]*15*12).toFixed(0)} a year.`:`You'll get €${(-d).toFixed(2)} credit, applied to your next invoices.`;$('ok').disabled=s===1}
+$('cp').onclick=()=>{dl.showModal();pr()};$('cx').onclick=()=>dl.close();
+$('op').onclick=e=>{const b=e.target.closest('button');if(!b)return;$('op').querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));s=+b.dataset.p;pr()};
+$('ok').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Updating…';setTimeout(()=>{dl.close();b.textContent='Confirm change';document.querySelector('.sb-plan b').textContent=['Starter','Team','Business'][s]+' · yearly'},800)};
+</script>
+=== set-security
+<!--Security Settings|Settings|Account security: password change row, two-factor status with methods, active sessions list with device, location and “sign out” per session, and a sign-out-everywhere action with undo.|settings,security,sessions,2fa,devices-->
+<div class="k ss"><div class="ss-w"><h1>Security</h1>
+<section class="ss-r"><div><b>Password</b><span class="mu">Last changed 4 months ago</span></div><button class="b sec sm">Change password</button></section>
+<section class="ss-r"><div><b>Two-factor authentication</b><span class="mu">Authenticator app and 2 security keys</span></div><span class="pill ok">@I(check,12)On</span></section>
+<section class="ss-r"><div><b>Passkeys</b><span class="mu">Sign in with Face ID or Touch ID on this device</span></div><button class="b sec sm" id="pk">Add passkey</button></section>
+<h2>Where you're signed in</h2><ul class="ss-l" id="l"></ul><button class="b sec" id="all">@I(off,16)Sign out of all other sessions</button><p class="ss-m" id="m" role="status"></p></div></div>
+<style>
+.k.ss{align-items:start}.ss-w{width:min(680px,100%);display:grid;gap:0}.ss-w h1{margin:0 0 16px;font-size:24px;letter-spacing:-.02em}.ss-w h2{font-size:15px;margin:32px 0 10px}
+.ss-r{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 0;border-top:1px solid var(--line)}.ss-r div{display:grid}.ss-r span.mu{font-size:13px}
+.ss-l{list-style:none;padding:0;margin:0 0 14px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.ss-l li{display:grid;grid-template-columns:40px 1fr auto;gap:14px;align-items:center;padding:14px 16px;border-top:1px solid var(--line);transition:opacity .25s}.ss-l li:first-child{border:0}.ss-l .ic{width:40px;height:40px;border-radius:10px;background:var(--sf2);display:grid;place-items:center;color:var(--mu)}.ss-l div{display:grid}.ss-l small{color:var(--mu);font-size:13px}.ss-l .cur{color:var(--ok);font-weight:600;font-size:12px}.ss-l .out{opacity:.45}
+.ss-w>.b{justify-self:start}.ss-m{font-size:14px;margin:10px 0 0;display:flex;gap:10px;align-items:center}.ss-m:empty{display:none}.ss-m button{text-decoration:underline;font-weight:600;min-height:32px}
+</style>
+<script>
+let S=[["phone","iPhone 16 · Safari","Hamburg, Germany","Active now",1],["file","MacBook Pro · Chrome 131","Hamburg, Germany","2 hours ago"],["grid","Windows · Edge","Vienna, Austria","3 days ago"],["phone","Pixel 8 · Quill app","Lisbon, Portugal","12 days ago"]].map((s,i)=>({i,ic:s[0],d:s[1],l:s[2],t:s[3],cur:!!s[4],out:false}));
+const l=document.getElementById('l'),m=document.getElementById('m'),IC={phone:'@I(phone,18)',file:'@I(file,18)',grid:'@I(grid,18)'};
+function draw(){l.innerHTML=S.map(s=>`<li class="${s.out?'out':''}"><span class="ic">${IC[s.ic]}</span><div><b>${s.d}</b><small>${s.l} · ${s.out?'Signed out':s.t}</small></div>${s.cur?'<span class="cur">This device</span>':s.out?'':`<button class="b gh sm" data-i="${s.i}">Sign out</button>`}</li>`).join('')}
+function undoable(ids,msg){ids.forEach(i=>S[i].out=true);draw();m.innerHTML=`${msg} <button id="u">Undo</button>`;document.getElementById('u').onclick=()=>{ids.forEach(i=>S[i].out=false);draw();m.textContent='Restored.'}}
+l.onclick=e=>{const b=e.target.closest('[data-i]');if(b)undoable([+b.dataset.i],`Signed out ${S[b.dataset.i].d.split(' ·')[0]}.`)};
+document.getElementById('all').onclick=()=>{const ids=S.filter(s=>!s.cur&&!s.out).map(s=>s.i);if(!ids.length){m.textContent='No other sessions.';return}undoable(ids,`Signed out of ${ids.length} other session${ids.length>1?'s':''}.`)};
+document.getElementById('pk').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Waiting for device…';setTimeout(()=>{b.textContent='Passkey added';},1200)};draw();
+</script>
+=== set-notify-matrix
+<!--Notification Matrix|Settings|Notification preferences as a matrix: events down the side, email/push/in-app across the top, with column toggles, a “mute all for 1 hour / until tomorrow” snooze, and quiet hours.|settings,notifications,matrix,checkbox,snooze-->
+<div class="k nm"><div class="nm-w"><div class="nm-h"><h1>Notifications</h1><div class="nm-sn"><label for="sn" class="mu">Pause all</label><select class="in" id="sn"><option value="">Off</option><option value="1h">For 1 hour</option><option value="tm">Until tomorrow 09:00</option><option value="wk">For a week</option></select></div></div><p class="nm-ps" id="ps" role="status" hidden></p>
+<div class="nm-tw"><table class="nm-t" id="t"></table></div>
+<section class="nm-q"><div><b>Quiet hours</b><span class="mu">Push notifications wait until the morning.</span></div><div class="nm-qt"><label><span class="vh">From</span><input class="in" type="time" value="22:00"></label><span class="mu">to</span><label><span class="vh">To</span><input class="in" type="time" value="08:00"></label></div></section></div></div>
+<style>
+.k.nm{align-items:start}.nm-w{width:min(720px,100%);display:grid;gap:16px}.nm-h{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.nm-h h1{margin:0;font-size:24px;letter-spacing:-.02em}.nm-sn{display:flex;gap:10px;align-items:center;font-size:14px}.nm-sn .in{width:auto;height:36px}
+.nm-ps{margin:0;padding:10px 14px;border-radius:10px;background:var(--warn-sf);font-size:14px}
+.nm-tw{border:1px solid var(--line);border-radius:14px;background:var(--bg);overflow-x:auto;position:relative}.nm-t{width:100%;border-collapse:collapse;font-size:14px}.nm-t th,.nm-t td{padding:12px 16px;border-bottom:1px solid var(--line);text-align:center}.nm-t th:first-child,.nm-t td:first-child{text-align:left}.nm-t tr:last-child td{border:0}
+.nm-t thead th{font-weight:550;font-size:13px}.nm-t thead button{display:grid;justify-items:center;gap:2px;margin:0 auto;font:inherit;min-height:44px;padding:0 6px;border-radius:8px}.nm-t thead button:hover{background:var(--sf)}.nm-t thead small{font-size:11px;color:var(--mu);font-weight:400}
+.nm-t td small{display:block;color:var(--mu);font-size:12px}.nm-t .grp td{background:var(--sf);font-size:12px;font-weight:650;color:var(--mu);padding:8px 16px}
+.nm-t input{width:20px;height:20px;accent-color:var(--ac);cursor:pointer}.nm-w.paused .nm-t tbody{opacity:.5}
+.nm-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);flex-wrap:wrap}.nm-q>div:first-child{display:grid}.nm-q span.mu{font-size:13px}.nm-qt{display:flex;gap:8px;align-items:center}.nm-qt .in{width:auto;height:38px}
+</style>
+<script>
+const CH=['Email','Push','In-app'],G=[["Your work",[["Mentions","Someone @mentions you",[1,1,1]],["Replies","Replies to your comments",[1,0,1]],["Assigned to you","Tasks and reviews",[1,1,1]]]],["Team",[["New members","Someone joins the workspace",[0,0,1]],["Weekly digest","Monday summary",[1,0,0]]]],["Account",[["Security alerts","New sign-ins, password changes",[1,1,1],1]]]];
+const t=document.getElementById('t');
+function draw(){t.innerHTML=`<thead><tr><th>Event</th>${CH.map((c,j)=>`<th><button data-col="${j}" aria-label="Toggle all ${c}">${c}<small>toggle all</small></button></th>`).join('')}</tr></thead><tbody>${G.map(([g,R],gi)=>`<tr class="grp"><td colspan="4">${g}</td></tr>${R.map(([n,d,v,lock],ri)=>`<tr><td>${n}<small>${d}${lock?' · always on':''}</small></td>${v.map((x,j)=>`<td><input type="checkbox" ${x?'checked':''} ${lock?'disabled':''} data-g="${gi}" data-r="${ri}" data-c="${j}" aria-label="${n} by ${CH[j]}"></td>`).join('')}</tr>`).join('')}`).join('')}</tbody>`}
+t.onchange=e=>{const i=e.target;G[i.dataset.g][1][i.dataset.r][2][i.dataset.c]=i.checked?1:0};
+t.onclick=e=>{const b=e.target.closest('[data-col]');if(!b)return;const j=+b.dataset.col,rows=G.flatMap(g=>g[1]).filter(r=>!r[3]),on=rows.some(r=>!r[2][j]);rows.forEach(r=>r[2][j]=on?1:0);draw();t.querySelector(`[data-col="${j}"]`).focus()};
+document.getElementById('sn').onchange=e=>{const v=e.target.value,ps=document.getElementById('ps');document.querySelector('.nm-w').classList.toggle('paused',!!v);ps.hidden=!v;const u={'1h':new Date(Date.now()+36e5).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),tm:'tomorrow 09:00',wk:new Date(Date.now()+6048e5).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'})}[v];ps.textContent=v?`All notifications paused until ${u}. Security alerts still come through.`:''};draw();
+</script>
+=== set-appearance
+<!--Appearance Settings|Settings|Theme and display preferences with live preview: System/Light/Dark as mini-window cards, accent colour swatches, interface density, font size slider and reduced motion, all applied to a preview pane.|settings,appearance,theme,dark mode,preview,accent-->
+<div class="k ap"><div class="ap-w"><div class="ap-c"><h1>Appearance</h1>
+<fieldset><legend class="lbl">Theme</legend><div class="ap-th" role="radiogroup"><button role="radio" aria-checked="true" data-t="system"><span class="ap-mini sys"></span>System</button><button role="radio" aria-checked="false" data-t="light"><span class="ap-mini lt"></span>Light</button><button role="radio" aria-checked="false" data-t="dark"><span class="ap-mini dk"></span>Dark</button></div></fieldset>
+<fieldset><legend class="lbl">Accent</legend><div class="ap-ac" role="radiogroup" id="ac"></div></fieldset>
+<fieldset><legend class="lbl">Density</legend><div class="ap-seg" role="radiogroup" id="dn"><button role="radio" aria-checked="false" data-d="12">Compact</button><button role="radio" aria-checked="true" data-d="16">Default</button><button role="radio" aria-checked="false" data-d="22">Roomy</button></div></fieldset>
+<label class="ap-fs"><span class="lbl">Text size <b class="tn" id="fv">15px</b></span><input type="range" id="fs" min="13" max="19" value="15"></label>
+<label class="ap-rm"><input type="checkbox" id="rm"> Reduce motion <small class="mu">Overrides the system setting</small></label></div>
+<div class="ap-pv" id="pv" aria-label="Preview"><div class="ap-pt"><i></i><i></i><i></i></div><div class="ap-pb"><aside><span class="on">Inbox</span><span>Drafts</span><span>Sent</span></aside><div><b>Quarterly report draft</b><p>Hi team, the numbers for Q3 are in and they look better than expected.</p><button>Reply</button></div></div></div></div></div>
+<style>
+.k.ap{align-items:start}.ap-w{width:min(900px,100%);display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}.ap-c{display:grid;gap:22px}.ap-c h1{margin:0;font-size:24px;letter-spacing:-.02em}.ap-c fieldset{border:0;margin:0;padding:0}
+.ap-th{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.ap-th button{display:grid;gap:8px;font-size:13px;font-weight:550;justify-items:start}.ap-mini{width:100%;aspect-ratio:4/3;border-radius:10px;border:2px solid var(--line);display:block;transition:border-color .15s}.ap-th [aria-checked=true] .ap-mini{border-color:var(--ac)}
+.ap-mini.lt{background:linear-gradient(#fff 22%,#f4f4f5 22%)}.ap-mini.dk{background:linear-gradient(#27272a 22%,#18181b 22%)}.ap-mini.sys{background:linear-gradient(90deg,transparent 50%,#18181b 50%),linear-gradient(#fff 22%,#f4f4f5 22%)}
+.ap-ac{display:flex;gap:10px}.ap-ac button{width:36px;height:36px;border-radius:50%;background:var(--c);outline-offset:3px}.ap-ac [aria-checked=true]{outline:2px solid var(--fg)}
+.ap-seg{display:inline-flex;background:var(--sf2);border-radius:10px;padding:3px}.ap-seg button{height:34px;padding:0 14px;border-radius:8px;font-weight:550;color:var(--mu)}.ap-seg [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 2px #0000001a}
+.ap-fs{display:grid;gap:4px}.ap-fs .lbl{display:flex;justify-content:space-between}.ap-fs input{accent-color:var(--ac)}.ap-rm{display:flex;gap:8px;align-items:center;font-size:14px;flex-wrap:wrap}.ap-rm input{width:18px;height:18px;accent-color:var(--ac)}.ap-rm small{width:100%;padding-left:26px;margin-top:-6px}
+.ap-pv{--pa:#c2410c;--pd:16px;--pf:15px;color-scheme:light;--pbg:#fff;--psf:#f4f4f5;--pfg:#18181b;--pmu:#71717a;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--pbg);color:var(--pfg);position:sticky;top:16px;transition:background .3s,color .3s}
+.ap-pv.dark{--pbg:#18181b;--psf:#232327;--pfg:#f4f4f5;--pmu:#a1a1aa}.ap-pt{display:flex;gap:6px;padding:10px 12px;background:var(--psf)}.ap-pt i{width:10px;height:10px;border-radius:50%;background:var(--pmu);opacity:.4}
+.ap-pb{display:grid;grid-template-columns:110px 1fr;font-size:var(--pf);min-height:260px}.ap-pb aside{background:var(--psf);padding:var(--pd) 10px;display:grid;gap:calc(var(--pd)/3);align-content:start}.ap-pb aside span{padding:calc(var(--pd)/3) 8px;border-radius:6px;color:var(--pmu)}.ap-pb aside .on{background:color-mix(in srgb,var(--pa) 14%,transparent);color:var(--pa);font-weight:600}
+.ap-pb>div{padding:var(--pd);display:grid;gap:calc(var(--pd)/2);align-content:start}.ap-pb p{margin:0;color:var(--pmu);line-height:1.5}.ap-pb button{justify-self:start;background:var(--pa);color:#fff;border-radius:8px;padding:calc(var(--pd)/3) calc(var(--pd)*.9);font-weight:600;font-size:.9em;transition:background .3s}
+@media (max-width:760px){.ap-w{grid-template-columns:1fr}.ap-pv{position:static}}
+</style>
+<script>
+const pv=document.getElementById('pv'),A=[['Ember','#c2410c'],['Ocean','#0369a1'],['Moss','#4d7c0f'],['Plum','#7e22ce'],['Graphite','#3f3f46']],ac=document.getElementById('ac');
+ac.innerHTML=A.map(([n,c],i)=>`<button role="radio" aria-checked="${!i}" aria-label="${n}" style="--c:${c}" data-c="${c}"></button>`).join('');
+const radio=(g,b)=>g.querySelectorAll('[role=radio]').forEach(x=>x.setAttribute('aria-checked',x===b));
+const mq=matchMedia('(prefers-color-scheme:dark)');let th='system';const apply=()=>pv.classList.toggle('dark',th==='dark'||(th==='system'&&mq.matches));mq.addEventListener('change',apply);
+document.querySelector('.ap-th').onclick=e=>{const b=e.target.closest('button');if(!b)return;radio(b.parentElement,b);th=b.dataset.t;apply()};
+ac.onclick=e=>{const b=e.target.closest('button');if(!b)return;radio(ac,b);pv.style.setProperty('--pa',b.dataset.c)};
+document.getElementById('dn').onclick=e=>{const b=e.target.closest('button');if(!b)return;radio(b.parentElement,b);pv.style.setProperty('--pd',b.dataset.d+'px')};
+document.getElementById('fs').oninput=e=>{pv.style.setProperty('--pf',e.target.value+'px');document.getElementById('fv').textContent=e.target.value+'px'};
+document.getElementById('rm').onchange=e=>pv.style.transition=e.target.checked?'none':'';apply();
+</script>

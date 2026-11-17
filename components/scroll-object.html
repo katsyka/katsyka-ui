@@ -1,0 +1,45 @@
+<style>
+.so{position:relative;height:400vh;background:#000;color:#f4ede4}
+.so-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.so canvas{position:absolute;inset:0;width:100%;height:100%}
+.so-step{position:absolute;max-width:340px;opacity:0;transform:translateY(24px);transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.so-step.on{opacity:1;transform:none}
+.so-step small{font:500 12px "Geist Mono",monospace;letter-spacing:.14em;color:#ff9a5c}
+.so-step h3{font-size:clamp(26px,3vw,40px);line-height:1.02;letter-spacing:-.04em;font-weight:600;margin:10px 0}
+.so-step p{margin:0;font-size:15.5px;line-height:1.6;color:#b5aca1}
+.so-s1{left:clamp(20px,6vw,90px);top:22%}.so-s2{right:clamp(20px,6vw,90px);top:40%;text-align:right}.so-s3{left:clamp(20px,6vw,90px);bottom:16%}
+.so-title{position:absolute;left:0;right:0;top:4vh;text-align:center;transition:opacity .5s}
+.so-title h2{font-size:clamp(40px,5.6vw,84px);letter-spacing:-.06em;line-height:.9;margin:0;font-weight:600}
+.so-title h2 em{font-family:"Instrument Serif",serif;font-weight:400;letter-spacing:-.025em;color:#ffb37a}
+.so-bar{position:absolute;right:24px;top:50%;width:2px;height:120px;margin-top:-60px;background:#ffffff1a;border-radius:2px}
+.so-bar i{position:absolute;left:0;top:0;width:100%;background:#ff9a5c;border-radius:2px;height:calc(var(--p,0)*100%)}
+.so-after{height:50vh;display:grid;place-items:center;background:#000;color:#6b655d;font-size:15px}
+@media (max-width:760px){.so-s2{right:auto;left:20px;text-align:left}}
+</style>
+<section class="so">
+  <div class="so-pin">
+    <canvas></canvas>
+    <div class="so-title"><h2>Light, <em>held still.</em></h2></div>
+    <div class="so-step so-s1"><small>01 · MATERIAL</small><h3>Forty layers of optical glass.</h3><p>Each bonded by hand so the core sits perfectly suspended, with no seams to catch the light.</p></div>
+    <div class="so-step so-s2"><small>02 · CORE</small><h3>A heart that never sets.</h3><p>The amber core is a slow-moving resin that shifts with the temperature of your room.</p></div>
+    <div class="so-step so-s3"><small>03 · EDITION</small><h3>Made 200 at a time.</h3><p>Numbered, signed and shipped in a felt-lined oak case.</p></div>
+    <div class="so-bar"><i></i></div>
+  </div>
+</section>
+<div class="so-after">Scroll drove the rotation. The page continues.</div>
+<script>
+(()=>{
+// 80 frames scrubbed by scroll. Images are drawn "cover" so any aspect ratio works.
+const FRAMES=80,SRC=i=>`media/monolith/${String(i+1).padStart(2,"0")}.jpg`;
+const sec=document.querySelector(".so"),c=sec.querySelector("canvas"),x=c.getContext("2d"),steps=[...sec.querySelectorAll(".so-step")],title=sec.querySelector(".so-title"),bar=sec.querySelector(".so-bar");
+const imgs=[...Array(FRAMES)].map((_,i)=>{const im=new Image();im.src=SRC(i);if(i===0)im.onload=()=>render(true);return im});
+let cur=0,tgt=0;
+const fit=()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;render(true)};new ResizeObserver(fit).observe(c);
+function render(force){const f=Math.max(0,Math.min(FRAMES-1,Math.round(cur))),im=imgs[f];if(!im.complete||!im.naturalWidth)return;
+  const s=Math.max(c.width/im.naturalWidth,c.height/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;x.drawImage(im,(c.width-w)/2,(c.height-h)/2,w,h)}
+const onScroll=()=>{const r=sec.getBoundingClientRect(),p=Math.max(0,Math.min(1,-r.top/(sec.offsetHeight-innerHeight)));tgt=p*(FRAMES-1);
+  bar.style.setProperty("--p",p);title.style.opacity=p<.08?1:0;steps.forEach((s,i)=>s.classList.toggle("on",p>.12+i*.27&&p<.37+i*.27+(i===2?.4:0)))};
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+(function f(){requestAnimationFrame(f);const n=cur+(tgt-cur)*.18;if(Math.round(n)!==Math.round(cur)){cur=n;render()}else cur=n})();
+})();
+</script>

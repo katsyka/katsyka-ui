@@ -1,0 +1,51 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.sc2{width:min(720px,100%);padding:20px;margin:0}.sc2 figcaption{display:flex;gap:10px;align-items:baseline;margin-bottom:10px}.sc2 figcaption .b{margin-left:auto}
+.sc2-c{position:relative;height:300px;touch-action:none;user-select:none}.sc2-c svg{width:100%;height:100%;display:block}.sc2 .g{stroke:var(--line)}.sc2 .ax{fill:var(--mu);font-size:11px}.sc2 .q{fill:var(--mu);font-size:11px;opacity:.7}.sc2 .tr{stroke:var(--fg);stroke-opacity:.35;stroke-dasharray:4 4}
+.sc2 .pt{fill:color-mix(in srgb,#7c3aed 55%,transparent);stroke:#6d28d9;stroke-width:1;transition:r .25s cubic-bezier(.23,1,.32,1);outline:0}.sc2 .pt:hover,.sc2 .pt:focus{fill:#7c3aed}
+.sc2-tip{position:absolute;background:var(--fg);color:var(--bg);font-size:12px;padding:6px 9px;border-radius:7px;pointer-events:none;white-space:nowrap;translate:-50% calc(-100% - 10px)}.sc2-br{position:absolute;border:1px solid var(--ac);background:color-mix(in srgb,var(--ac) 10%,transparent);pointer-events:none}.sc2-h{font-size:12px;margin:6px 0 0}
+</style>
+<div class="k"><figure class="sc2 card"><figcaption><b>Price vs rating</b><span class="mu">Size = units sold</span><button class="b gh sm" id="rs" hidden>Reset zoom</button></figcaption><div class="sc2-c" id="c"><svg id="s" role="img" aria-label="Scatter plot of 40 products by price and rating"></svg><div class="sc2-tip" id="tp" hidden></div><div class="sc2-br" id="br" hidden></div></div><p class="mu sc2-h">Drag to zoom into an area.</p></figure></div>
+<script>
+let sd=5;const rnd=()=>(sd=sd*16807%2147483647)/2147483647,N=['Aero','Pulse','Field','Nimbus','Echo','Drift','Fjord','Halo','Kite','Lumen'];
+const P=Array.from({length:40},(_,i)=>{const p=20+rnd()*280;return{n:N[i%10]+' '+(i+1),p,r:Math.min(5,Math.max(2.2,2.6+p/300*1.4+(rnd()-.5)*1.2)),u:Math.round(50+rnd()*950)}});
+const c=document.getElementById('c'),s=document.getElementById('s'),tp=document.getElementById('tp'),br=document.getElementById('br');let V={x0:0,x1:320,y0:2,y1:5};const L=40,B=24,T=8;
+function draw(){const W=c.clientWidth,H=300,X=v=>L+(v-V.x0)/(V.x1-V.x0)*(W-L-8),Y=v=>T+(1-(v-V.y0)/(V.y1-V.y0))*(H-T-B);s.setAttribute('viewBox',`0 0 ${W} ${H}`);
+const xs=[0,.25,.5,.75,1].map(f=>V.x0+f*(V.x1-V.x0)),ys=[0,.5,1].map(f=>V.y0+f*(V.y1-V.y0));
+let h=xs.map(v=>`<line class="g" x1="${X(v)}" x2="${X(v)}" y1="${T}" y2="${H-B}"/><text class="ax" x="${X(v)}" y="${H-6}" text-anchor="middle">€${Math.round(v)}</text>`).join('')+ys.map(v=>`<line class="g" x1="${L}" x2="${W-8}" y1="${Y(v)}" y2="${Y(v)}"/><text class="ax" x="${L-6}" y="${Y(v)+4}" text-anchor="end">${v.toFixed(1)}★</text>`).join('');
+h+=`<line class="tr" x1="${X(V.x0)}" y1="${Y(2.6+V.x0/300*1.4)}" x2="${X(V.x1)}" y2="${Y(2.6+V.x1/300*1.4)}"/><text class="q" x="${L+6}" y="${T+14}">Cheap and loved</text><text class="q" x="${W-14}" y="${H-B-8}" text-anchor="end">Pricey, meh</text>`;
+h+=P.filter(p=>p.p>=V.x0&&p.p<=V.x1&&p.r>=V.y0&&p.r<=V.y1).map((p,i)=>`<circle class="pt" tabindex="0" cx="${X(p.p)}" cy="${Y(p.r)}" r="${3+Math.sqrt(p.u)/4}" data-i="${P.indexOf(p)}" aria-label="${p.n}: €${Math.round(p.p)}, ${p.r.toFixed(1)} stars, ${p.u} sold"/>`).join('');s.innerHTML=h}
+const tip=t=>{const p=P[+t.dataset.i];tp.hidden=false;tp.style.left=t.getAttribute('cx')+'px';tp.style.top=t.getAttribute('cy')+'px';tp.textContent=`${p.n} · €${Math.round(p.p)} · ${p.r.toFixed(1)}★ · ${p.u} sold`};
+s.addEventListener('pointerover',e=>{if(e.target.matches('.pt'))tip(e.target)});s.addEventListener('pointerout',e=>{if(e.target.matches('.pt'))tp.hidden=true});s.addEventListener('focusin',e=>{if(e.target.matches('.pt'))tip(e.target)});s.addEventListener('focusout',()=>tp.hidden=true);
+let st=null;c.onpointerdown=e=>{if(e.target.matches('.pt'))return;const r=c.getBoundingClientRect();st=[e.clientX-r.left,e.clientY-r.top];c.setPointerCapture(e.pointerId)};
+c.onpointermove=e=>{if(!st)return;const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;br.hidden=false;Object.assign(br.style,{left:Math.min(x,st[0])+'px',top:Math.min(y,st[1])+'px',width:Math.abs(x-st[0])+'px',height:Math.abs(y-st[1])+'px'})};
+c.onpointerup=e=>{if(!st)return;const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,W=r.width,H=300;br.hidden=true;if(Math.abs(x-st[0])>20&&Math.abs(y-st[1])>20){const ix=v=>V.x0+(v-L)/(W-L-8)*(V.x1-V.x0),iy=v=>V.y0+(1-(v-T)/(H-T-B))*(V.y1-V.y0);V={x0:ix(Math.min(x,st[0])),x1:ix(Math.max(x,st[0])),y0:iy(Math.max(y,st[1])),y1:iy(Math.min(y,st[1]))};document.getElementById('rs').hidden=false;draw()}st=null};
+document.getElementById('rs').onclick=e=>{V={x0:0,x1:320,y0:2,y1:5};e.currentTarget.hidden=true;draw()};draw();addEventListener('resize',draw);
+</script>

@@ -1,0 +1,47 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.rt{width:min(560px,100%);display:grid;gap:16px}.rt h1{margin:0;font-size:22px;letter-spacing:-.02em}.rt-st{list-style:none;padding:0;margin:0;display:flex;gap:6px;font-size:12px;color:var(--mu)}.rt-st li{flex:1;display:grid;gap:6px}.rt-st li::before{content:"";height:3px;border-radius:2px;background:var(--line)}.rt-st .on,.rt-st .dn{color:var(--fg);font-weight:600}.rt-st .on::before,.rt-st .dn::before{background:var(--fg)}
+.rt-l{list-style:none;padding:0;margin:0;display:grid;gap:8px}.rt-l li{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:12px;display:grid;gap:10px}.rt-l label.it{display:grid;grid-template-columns:20px 56px 1fr;gap:12px;align-items:center;cursor:pointer}.rt-l input[type=checkbox]{width:18px;height:18px;accent-color:var(--fg)}.rt-l img{width:56px;height:56px;border-radius:8px;object-fit:cover}.rt-l span{display:grid;font-size:14px}.rt-l small{color:var(--mu);font-size:12px}.rt-l .no{opacity:.5}.rt-l select{height:38px;font-size:14px}
+.rt-op{display:grid;gap:8px}.rt-op button{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:14px;border:1px solid var(--line);border-radius:12px;text-align:left;background:var(--bg)}.rt-op button small{grid-column:1;color:var(--mu);font-size:12px}.rt-op [aria-checked=true]{border:2px solid var(--fg);padding:13px}
+.rt-done{display:grid;gap:12px;justify-items:center;text-align:center;padding:20px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.rt-done svg{width:150px;height:150px;background:#fff;padding:8px;border-radius:8px}.rt-done code{font:14px 'Geist Mono',monospace}
+.rt-nv{display:flex;justify-content:space-between}.rt-nv #nx{margin-left:auto;height:44px;min-width:140px}.rt-er{color:var(--err);font-size:13px;margin:0}
+</style>
+<div class="k"><div class="rt"><h1>Return items from #A-20419</h1><ol class="rt-st" id="st"><li class="on">Items</li><li>Refund</li><li>Send back</li></ol><div id="pn"></div><div class="rt-nv"><button class="b gh" id="bk" hidden>Back</button><button class="b ac" id="nx">Continue</button></div></div></div>
+<script>
+const I=[["Stoneware mug, Moss","c/1063",24,26],["Linen apron, Rust · M","c/1072",62,26],["Beeswax wrap set","c/1080",14,0]],$=i=>document.getElementById(i),S={sel:new Set(),why:{},ref:0,ship:0};let step=0;
+function draw(){[...$('st').children].forEach((l,i)=>l.className=i<step?'dn':i===step?'on':'');$('bk').hidden=step===0||step===3;$('nx').hidden=step===3;$('nx').textContent=step===2?'Create return label':'Continue';
+if(step===0)$('pn').innerHTML=`<ul class="rt-l">${I.map(([n,img,p,d],i)=>`<li class="${d?'':'no'}"><label class="it"><input type="checkbox" data-i="${i}" ${S.sel.has(i)?'checked':''} ${d?'':'disabled'}><img src="media/pics/${img}.jpg" alt=""><span><b>${n}</b><small>${d?`€${p} · return by ${new Date(Date.now()+d*864e5).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}`:'Hygiene item, not returnable'}</small></span></label>${S.sel.has(i)?`<select class="in" data-w="${i}" aria-label="Reason for ${n}"><option value="">Why are you returning it?</option>${['Too small','Too big','Not as pictured','Arrived damaged','Changed my mind'].map(r=>`<option ${S.why[i]===r?'selected':''}>${r}</option>`).join('')}</select>`:''}</li>`).join('')}</ul><p class="rt-er" id="er"></p>`;
+if(step===1){const t=[...S.sel].reduce((a,i)=>a+I[i][2],0);$('pn').innerHTML=`<div class="rt-op" role="radiogroup">${[['Refund to Visa ending 4242',`€${t.toFixed(2)} in 3–5 days after we receive it`],['Store credit',`€${(t*1.1).toFixed(2)}, 10% extra, instantly`],['Exchange',"Same item, different size or colour"]].map(([a,b],i)=>`<button role="radio" aria-checked="${S.ref===i}" data-r="${i}"><b>${a}</b><small>${b}</small></button>`).join('')}</div>`}
+if(step===2)$('pn').innerHTML=`<div class="rt-op" role="radiogroup">${[['Drop off at a PostNL point','Free · nearest: Breestraat 12'],['Courier pickup','€4.95 · choose a 2-hour window']].map(([a,b],i)=>`<button role="radio" aria-checked="${S.ship===i}" data-s="${i}"><b>${a}</b><small>${b}</small></button>`).join('')}</div>`;
+if(step===3){let s=3,q='';const r=()=>(s=s*16807%2147483647)/2147483647;for(let y=0;y<21;y++)for(let x=0;x<21;x++){const f=(x<7&&y<7)||(x>13&&y<7)||(x<7&&y>13);const lx=x>13?x-14:x,ly=y>13?y-14:y;if(f?(lx%6===0||ly%6===0||(lx>1&&lx<5&&ly>1&&ly<5)):r()>.5)q+=`M${x} ${y}h1v1h-1z`}$('pn').innerHTML=`<div class="rt-done"><b>Your return label is ready</b><svg viewBox="0 0 21 21" role="img" aria-label="Return QR code"><path d="${q}"/></svg><code>RTN-20419-K4Q</code><p class="mu" style="margin:0">${S.ship?'The courier will scan this at your door.':'Show this at any PostNL point. No printer needed.'}</p></div>`}}
+$('pn').onchange=e=>{const t=e.target;if(t.dataset.i){const i=+t.dataset.i;t.checked?S.sel.add(i):S.sel.delete(i);draw()}if(t.dataset.w)S.why[t.dataset.w]=t.value};
+$('pn').onclick=e=>{const b=e.target.closest('[data-r],[data-s]');if(!b)return;if(b.dataset.r)S.ref=+b.dataset.r;if(b.dataset.s)S.ship=+b.dataset.s;draw()};
+$('nx').onclick=()=>{if(step===0){const er=$('er');if(!S.sel.size){er.textContent='Choose at least one item.';return}const miss=[...S.sel].find(i=>!S.why[i]);if(miss!==undefined){er.textContent='Tell us why for each item, it helps us improve.';$('pn').querySelector(`[data-w="${miss}"]`).focus();return}}step++;draw()};$('bk').onclick=()=>{step--;draw()};draw();
+</script>

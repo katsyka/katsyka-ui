@@ -1,0 +1,67 @@
+<style>
+.dyi{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.dyi :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.dyi ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.dyi *,.dyi *::before,.dyi *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.dyi{min-height:100vh;display:grid;place-items:center;padding:48px 16px}
+.dyi-phone{position:relative;width:min(340px,100%);aspect-ratio:9/17;border-radius:48px;background:var(--sf);box-shadow:inset 0 0 0 1px var(--line),var(--shadow);overflow:hidden}
+.dyi-time{position:absolute;top:22px;left:30px;font:600 15px Geist,system-ui,sans-serif;font-variant-numeric:tabular-nums}
+.dyi-pill{position:absolute;top:12px;left:50%;width:var(--w,120px);height:var(--h,36px);border-radius:var(--rr,18px);background:#000;color:#fff;transform:translateX(-50%);transition:width .32s cubic-bezier(.2,.8,.2,1),height .32s cubic-bezier(.2,.8,.2,1),border-radius .32s cubic-bezier(.2,.8,.2,1);overflow:hidden;cursor:pointer;border:0;padding:0;font:inherit;text-align:left}
+.dyi-pill:active{transform:translateX(-50%) scale(.97)}
+.dyi-v{position:absolute;inset:0;display:flex;align-items:center;gap:10px;padding:0 14px;opacity:0;filter:blur(6px);transform:scale(.92);transition:opacity .22s ease-out,filter .22s ease-out,transform .22s ease-out;pointer-events:none}
+.dyi-v.on{opacity:1;filter:none;transform:none;transition-delay:.08s}
+.dyi-v b{font-weight:600;font-size:14px}.dyi-v span{font-size:13px;color:#ffffffa6;font-variant-numeric:tabular-nums}
+.dyi-dot{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center}
+.dyi-wave{display:flex;gap:2px;align-items:center;margin-left:auto;height:16px}.dyi-wave i{width:3px;border-radius:2px;background:#3ccf7e;animation:dyiw .9s ease-in-out infinite alternate}
+.dyi-wave i:nth-child(2){animation-delay:-.3s}.dyi-wave i:nth-child(3){animation-delay:-.6s}.dyi-wave i:nth-child(4){animation-delay:-.15s}
+@keyframes dyiw{from{height:4px}to{height:16px}}
+.dyi-big{flex-direction:column;align-items:stretch;justify-content:center;gap:14px;padding:18px 20px}
+.dyi-row{display:flex;align-items:center;gap:12px}.dyi-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#ff8a5c,#c2410c);display:grid;place-items:center;font-weight:600;font-size:15px;flex:none}
+.dyi-acts{display:flex;justify-content:flex-end;gap:10px}.dyi-acts i{width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+.dyi-ring{transform:rotate(-90deg)}.dyi-ring circle{transition:stroke-dashoffset .2s linear}
+.dyi-ctl{position:absolute;left:16px;right:16px;bottom:20px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.dyi-ctl button{min-height:44px;border:1px solid var(--line);border-radius:var(--r2);background:var(--bg);color:var(--fg);font:500 14px Geist,system-ui,sans-serif;cursor:pointer;transition:background .15s ease-out}
+.dyi-ctl button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.dyi-ctl button:active{transform:scale(.97)}
+.dyi-hint{position:absolute;top:50%;left:0;right:0;text-align:center;color:var(--mu);font-size:14px;padding:0 24px;transform:translateY(-50%)}
+</style>
+<section class="dyi">
+  <div class="dyi-phone">
+    <span class="dyi-time">9:41</span>
+    <button class="dyi-pill" type="button" aria-label="Live activity, tap to expand" aria-expanded="false">
+      <div class="dyi-v on" data-v="idle"></div>
+      <div class="dyi-v" data-v="timer"><span class="dyi-dot" style="background:#ff9f0a33"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="none" stroke="#ff9f0a" stroke-width="2.4"/><path d="M12 9v4l2 2M10 2h4" stroke="#ff9f0a" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></span><b>Pasta</b><span style="margin-left:auto;color:#ff9f0a" data-t>08:00</span></div>
+      <div class="dyi-v" data-v="call"><span class="dyi-dot" style="background:#3ccf7e33"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="#3ccf7e"/></svg></span><span data-c>0:00</span><div class="dyi-wave" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div>
+      <div class="dyi-v dyi-big" data-v="callx"><div class="dyi-row"><span class="dyi-av">MK</span><div><span>Mobile</span><br><b>Mira Kova</b></div><div class="dyi-wave" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div><div class="dyi-acts"><i style="background:#ffffff26"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></i><i style="background:#ff453a"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14c5-5 13-5 18 0l-2.5 2.5-3-1.5v-2.5a10 10 0 0 0-7 0V15l-3 1.5z" fill="#fff"/></svg></i></div></div>
+      <div class="dyi-v" data-v="upload"><svg class="dyi-ring" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="8" fill="none" stroke="#ffffff33" stroke-width="3"/><circle cx="11" cy="11" r="8" fill="none" stroke="#0a84ff" stroke-width="3" stroke-linecap="round" stroke-dasharray="50.3" stroke-dashoffset="50.3" data-r/></svg><b>Uploading</b><span style="margin-left:auto" data-p>0%</span></div>
+      <div class="dyi-v" data-v="done"><span class="dyi-dot" style="background:#0a84ff33"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#0a84ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><b>Uploaded</b><span style="margin-left:auto">4 photos</span></div>
+    </button>
+    <p class="dyi-hint">Start an activity below, then tap the island.</p>
+    <div class="dyi-ctl" role="group" aria-label="Live activity">
+      <button type="button" data-a="idle" aria-pressed="true">Idle</button>
+      <button type="button" data-a="timer" aria-pressed="false">Timer</button>
+      <button type="button" data-a="call" aria-pressed="false">Call</button>
+      <button type="button" data-a="upload" aria-pressed="false">Upload</button>
+    </div>
+    <p class="dyi-live" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></p>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".dyi"),pill=R.querySelector(".dyi-pill"),live=R.querySelector(".dyi-live");
+const SZ={idle:[120,36,18],timer:[230,36,18],call:[200,36,18],callx:[310,150,40],upload:[240,36,18],done:[220,36,18]};
+let act="idle",big=false,tick=0,tmr=0,secs=480,callS=0,prog=0;
+function view(v){const [w,h,r]=SZ[v];pill.style.setProperty("--w",w+"px");pill.style.setProperty("--h",h+"px");pill.style.setProperty("--rr",r+"px");
+  R.querySelectorAll(".dyi-v").forEach(x=>x.classList.toggle("on",x.dataset.v===v));pill.setAttribute("aria-expanded",v==="callx")}
+const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+function start(a){clearInterval(tmr);act=a;big=false;R.querySelectorAll("[data-a]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.a===a));
+  if(a==="timer"){secs=480;R.querySelector("[data-t]").textContent="08:00";tmr=setInterval(()=>{secs=Math.max(0,secs-1);R.querySelector("[data-t]").textContent=fmt(secs).padStart(5,"0")},1000)}
+  if(a==="call"){callS=0;tmr=setInterval(()=>{callS++;R.querySelector("[data-c]").textContent=fmt(callS)},1000)}
+  if(a==="upload"){prog=0;tmr=setInterval(()=>{prog=Math.min(100,prog+3+Math.random()*6|0);R.querySelector("[data-p]").textContent=prog+"%";R.querySelector("[data-r]").style.strokeDashoffset=50.3*(1-prog/100);
+    if(prog>=100){clearInterval(tmr);setTimeout(()=>{if(act==="upload"){view("done");live.textContent="Upload complete";setTimeout(()=>act==="upload"&&start("idle"),2400)}},300)}},180)}
+  view(a);live.textContent=a==="idle"?"No activity":a+" started"}
+pill.addEventListener("click",()=>{if(act==="call"){big=!big;view(big?"callx":"call")}});
+R.querySelectorAll("[data-a]").forEach(b=>b.addEventListener("click",()=>start(b.dataset.a)));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&big){big=false;view("call")}});
+})();
+</script>

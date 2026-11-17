@@ -1,0 +1,43 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.na-w{width:min(460px,100%);display:grid;gap:14px}.na-ic{width:44px;height:44px;border-radius:12px;background:var(--sf2);display:grid;place-items:center;color:var(--mu)}.na-w h1{margin:0;font-size:24px;letter-spacing:-.02em;line-height:1.2;text-wrap:balance}.na-w>p{margin:-6px 0 0;font-size:14px}.na-sw{text-decoration:underline;color:var(--fg);font-size:14px;min-height:28px}
+.na-f{display:grid;gap:12px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.na-ow{display:flex;gap:10px;align-items:center}.na-ow div{display:grid;font-size:14px}.na-ow span.mu{font-size:12px}.na-f fieldset{border:0;margin:0;padding:0}
+.na-lv{display:flex;background:var(--sf2);border-radius:10px;padding:3px}.na-lv button{flex:1;height:34px;border-radius:8px;font-size:13px;font-weight:550;color:var(--mu)}.na-lv [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 2px #0000001a}
+.na-f textarea{height:auto;padding:10px 12px;resize:vertical;font-size:15px}.na-f .b{height:44px}
+.na-pd{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:14px;background:var(--info-sf);animation:nap .25s cubic-bezier(.23,1,.32,1)}.na-pd>.i{color:var(--info)}.na-pd div{display:grid;flex:1;font-size:14px}.na-pd span{font-size:12px}@keyframes nap{from{opacity:0;transform:translateY(4px)}}
+</style>
+<div class="k na"><main class="na-w"><div class="na-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><h1>You need access to “Q4 roadmap”</h1><p class="mu">You're signed in as <b>sam@contractor.example</b>. <button class="na-sw">Switch account</button></p>
+<form id="f" class="na-f"><div class="na-ow"><span class="av" style="--c:#0f766e">MV</span><div><b>Mira Vos</b><span class="mu">Owner · usually replies within a day</span></div></div><fieldset><legend class="lbl">Access level</legend><div class="na-lv" role="radiogroup"><button type="button" role="radio" aria-checked="true">Can view</button><button type="button" role="radio" aria-checked="false">Can comment</button><button type="button" role="radio" aria-checked="false">Can edit</button></div></fieldset><label class="lbl" for="nt">Message (optional)</label><textarea class="in" id="nt" rows="2" placeholder="I'm working on the pricing section with Lea."></textarea><button class="b ac" id="sb">Request access</button></form>
+<div class="na-pd" id="pd" hidden><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Request sent to Mira</b><span class="mu" id="pt"></span></div><button class="b gh sm" id="cx">Cancel request</button></div></main></div>
+<script>
+const $=i=>document.getElementById(i);document.querySelector('.na-lv').onclick=e=>{const b=e.target.closest('button');if(b)b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b))};
+$('f').onsubmit=e=>{e.preventDefault();const b=$('sb');b.disabled=true;b.textContent='Sending…';setTimeout(()=>{$('f').hidden=true;$('pd').hidden=false;const lv=document.querySelector('.na-lv [aria-checked=true]').textContent.toLowerCase();$('pt').textContent=`Asked for “${lv}” at ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}. We'll email you when she answers.`;b.disabled=false;b.textContent='Request access'},700)};
+$('cx').onclick=()=>{$('pd').hidden=true;$('f').hidden=false};
+</script>

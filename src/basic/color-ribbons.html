@@ -1,0 +1,17 @@
+<!--Colour Ribbon Marquee|Text|Two crossing multicolour ribbons scrolling in opposite directions with a slogan, like event tape; speeds up with scroll velocity and pauses on hover or under reduced motion.|marquee,ribbon,text,colourful,scroll-->
+<div class="k cr"><div class="cr-band cr-1"><div class="cr-tr" data-d="1"></div></div><div class="cr-band cr-2"><div class="cr-tr" data-d="-1"></div></div><p class="cr-note mu">Scroll or hover the ribbons</p><div class="cr-sp" aria-hidden="true"></div></div>
+<style>
+.k.cr{display:block;padding:0;min-height:100dvh;background:var(--bg);overflow-x:clip}.cr-sp{height:120vh}
+.cr-band{position:sticky;top:calc(50dvh - 40px);height:72px;display:flex;align-items:center;overflow:hidden;width:120vw;margin-left:-10vw}.cr-1{transform:rotate(-5deg);background:#ff3d7f;z-index:2}.cr-2{transform:rotate(4deg);background:#ffd23f;margin-top:-72px;z-index:1}
+.cr-tr{display:flex;white-space:nowrap;will-change:transform}.cr-tr span{font:850 34px/1 Geist,sans-serif;letter-spacing:-.02em;text-transform:uppercase;padding:0 18px;display:flex;align-items:center;gap:36px}
+.cr-1 span{color:#fff}.cr-2 span{color:#2a1a00}.cr-tr i{width:16px;height:16px;border-radius:50%;display:inline-block}
+.cr-note{position:sticky;top:calc(50dvh + 80px);text-align:center;font-size:13px}
+</style>
+<script>
+const W=['Open late','Free entry','Bring a friend','Live tonight','All ages'],DOT=['#3dd6c6','#5b6cff','#ff8a00','#a855f7'];
+const tr=[...document.querySelectorAll('.cr-tr')],st=tr.map(()=>0);
+tr.forEach(t=>{const one=W.map((w,i)=>`<span>${w}<i style="background:${DOT[i%4]}"></i></span>`).join('');t.innerHTML=one+one+one+one;t.setAttribute('aria-label',W.join(', '));t.parentElement.onmouseenter=()=>t.dataset.p=1;t.parentElement.onmouseleave=()=>t.dataset.p=''});
+let lastY=scrollY,v=0;const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function f(){const y=scrollY;v=v*.9+Math.abs(y-lastY)*.1;lastY=y;tr.forEach((t,i)=>{if(t.dataset.p)return;const d=+t.dataset.d,half=t.scrollWidth/2;st[i]-=d*(0.8+v*.6);if(st[i]<-half)st[i]+=half;if(st[i]>0)st[i]-=half;t.style.transform=`translateX(${st[i]}px)`});requestAnimationFrame(f)}
+if(!rm)requestAnimationFrame(f);
+</script>

@@ -1,0 +1,20 @@
+<!--Magic Link Sign In|Auth|Passwordless sign in: one email field, then a “check your inbox” state with the address, a resend button with a 30-second cooldown ring and a way back to edit the email.|auth,magic link,passwordless,email,cooldown-->
+<div class="k">
+<div class="card am"><div id="s1"><span class="am-ic">@I(mail,22)</span><h1>Sign in with email</h1><p class="mu">We'll email you a link that signs you in. No password needed.</p><form id="f" novalidate><label class="lbl" for="em">Work email</label><input class="in" id="em" type="email" autocomplete="email" placeholder="name@company.com" aria-describedby="er"><small id="er" class="am-er"></small><button class="b ac am-go" id="go">Send sign-in link</button></form></div>
+<div id="s2" hidden><span class="am-ic ok">@I(send,22)</span><h1>Check your inbox</h1><p class="mu">We sent a link to <b id="to"></b>. It expires in 15 minutes.</p><button class="b sec am-go" id="rs"><svg class="am-ring" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8"/><circle id="rc" cx="10" cy="10" r="8"/></svg><span id="rl">Resend</span></button><button class="am-bk" id="bk">@I(left,16)Use a different email</button><p class="am-tip mu">Can't find it? Check spam, or search for “Sign in to Lumen”.</p></div></div>
+</div>
+<style>
+.am{width:min(400px,100%);padding:32px}.am h1{margin:16px 0 6px;font-size:22px;letter-spacing:-.02em}.am p{margin:0 0 20px}.am .in{height:44px;font-size:16px}
+.am-ic{width:44px;height:44px;border-radius:12px;background:var(--ac-sf);color:var(--ac);display:grid;place-items:center}.am-ic.ok{background:var(--ok-sf);color:var(--ok)}
+.am-go{width:100%;height:44px;margin-top:12px}.am-er{color:var(--err);font-size:13px;display:block;margin-top:6px}.am-er:empty{display:none}
+.am-ring{width:18px;height:18px;transform:rotate(-90deg)}.am-ring circle{fill:none;stroke-width:2.5}.am-ring circle:first-child{stroke:var(--line)}#rc{stroke:var(--ac);stroke-dasharray:50.3;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
+.am-bk{display:flex;gap:6px;align-items:center;margin:16px auto 0;color:var(--mu);font-size:14px;min-height:44px}.am-bk:hover{color:var(--fg)}.am-tip{font-size:13px;text-align:center;margin:8px 0 0!important}
+#s2{animation:amf .3s var(--ease)}@keyframes amf{from{opacity:0;transform:translateY(6px)}}
+</style>
+<script>
+const $=i=>document.getElementById(i);let cd=0,t;
+function send(){clearInterval(t);cd=30;const rs=$('rs');rs.disabled=true;tick();t=setInterval(tick,1000)}
+function tick(){$('rl').textContent=cd>0?`Resend in ${cd}s`:'Resend';$('rc').style.strokeDashoffset=50.3*(1-cd/30);if(cd<=0){clearInterval(t);$('rs').disabled=false}cd--}
+$('f').onsubmit=e=>{e.preventDefault();const em=$('em'),ok=/^\S+@\S+\.\S+$/.test(em.value);em.setAttribute('aria-invalid',!ok);$('er').textContent=ok?'':'Enter the email you signed up with.';if(!ok)return em.focus();const g=$('go');g.disabled=true;g.textContent='Sending…';setTimeout(()=>{g.disabled=false;g.textContent='Send sign-in link';$('to').textContent=em.value;$('s1').hidden=true;$('s2').hidden=false;send();$('rs').focus()},700)};
+$('rs').onclick=()=>{$('rl').textContent='Sending…';setTimeout(send,500)};$('bk').onclick=()=>{clearInterval(t);$('s2').hidden=true;$('s1').hidden=false;$('em').focus()};
+</script>

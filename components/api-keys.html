@@ -1,0 +1,58 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.ak{width:min(860px,100%);padding:24px}.ak-h{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}.ak h2{margin:0;font-size:17px;font-weight:650}.ak-h p{margin:4px 0 0}
+.ak-new{margin-top:16px;padding:12px;border-radius:12px;background:var(--ok-sf);border:1px solid color-mix(in srgb,var(--ok) 30%,transparent)}.ak-new b{display:flex;align-items:center;gap:6px;color:var(--ok);font-weight:600}
+.ak-sec{display:flex;gap:8px;align-items:center;margin-top:8px}.ak-sec code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;padding:8px 10px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font:500 13px "Geist Mono",monospace}
+.ak-tw{overflow-x:auto;margin-top:16px}
+.ak-t{width:100%;border-collapse:collapse;min-width:640px}
+.ak-t th{text-align:left;font-size:12px;font-weight:600;color:var(--mu);padding:8px 12px 8px 0;border-bottom:1px solid var(--line)}
+.ak-t td{padding:12px 12px 12px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+.ak-t td:first-child b{font-weight:550}.ak-t td:first-child small{display:block;color:var(--mu);font-size:12px}
+.ak-k{display:flex;align-items:center;gap:2px}.ak-k code{font:500 13px "Geist Mono",monospace;margin-right:4px;white-space:nowrap}
+.ak-t .pill{margin:2px 4px 2px 0}
+.ak-t tr.rev td{opacity:.5}.ak-t tr.rev td:last-child{opacity:1}
+.ak-cf{display:flex;gap:6px;justify-content:flex-end}
+</style>
+<div class="k"><section class="card ak"><header class="ak-h"><div><h2>API keys</h2><p class="mu">Keys can read and write your workspace. Keep them secret.</p></div><button class="b" id="nk"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M12 5v14M5 12h14"/></svg>Create key</button></header>
+<div class="ak-new" id="nw" hidden><b><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M20 6 9 17l-5-5"/></svg> Key created. Copy it now, you won't see it again.</b><div class="ak-sec"><code id="ns" class="tn"></code><button class="b sec sm" id="nc"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>Copy</button></div></div>
+<div class="ak-tw"><table class="ak-t"><thead><tr><th>Name</th><th>Key</th><th>Scopes</th><th>Last used</th><th><span class="vh">Actions</span></th></tr></thead><tbody id="tb"></tbody></table></div></section></div>
+<script>
+const K=[["Production","sk_live_8fK2mQ9xR4tV7nY1pL3w","Created 4 Mar",["read","write"],"2 min ago"],["Zapier","sk_live_3nB6cH8jS1dF5gK9tM2q","Created 12 Aug",["read"],"Yesterday"],["Old CI","sk_test_7yU4iO2pA9sD6fG1hJ5k","Created 2025",["read","write","admin"],"94 days ago"]];
+const I=p=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px">${p}</svg>`,EY=I('<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),CP=I('<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/>'),CK=I('<path d="M20 6 9 17l-5-5"/>');
+const mask=k=>k.slice(0,8)+"••••••••"+k.slice(-4);
+const copy=(t,b)=>{const done=()=>{const o=b.innerHTML;b.innerHTML=CK+(b.textContent.trim()?"Copied":"");setTimeout(()=>b.innerHTML=o,1200)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(done).catch(()=>{const a=document.createElement("textarea");a.value=t;document.body.append(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();done()})};
+const row=([n,k,c,s,u])=>{const tr=document.createElement("tr");tr.innerHTML=`<td><b>${n}</b><small>${c}</small></td><td><span class="ak-k"><code>${mask(k)}</code><button class="ibt rv" aria-label="Reveal ${n} key" aria-pressed="false">${EY}</button><button class="ibt cp" aria-label="Copy ${n} key">${CP}</button></span></td><td>${s.map(x=>`<span class="pill${x==="admin"?" warn":""}">${x}</span>`).join("")}</td><td class="mu">${u}</td><td style="text-align:right"><button class="b gh sm rk">Revoke</button></td>`;tb.append(tr);
+ const rv=tr.querySelector(".rv"),code=tr.querySelector("code");rv.onclick=()=>{const on=rv.getAttribute("aria-pressed")!=="true";rv.setAttribute("aria-pressed",on);code.textContent=on?k:mask(k)};
+ tr.querySelector(".cp").onclick=e=>copy(k,e.currentTarget);
+ const revoke=()=>{const td=tr.lastElementChild,o=td.innerHTML;td.innerHTML=`<span class="ak-cf"><button class="b sm" style="background:var(--err);color:#fff">Revoke</button><button class="b sec sm">Cancel</button></span>`;const [y,c]=td.querySelectorAll("button");y.focus();
+  y.onclick=()=>{tr.classList.add("rev");td.innerHTML='<span class="pill err">Revoked</span>'};c.onclick=()=>{td.innerHTML=o;td.querySelector(".rk").onclick=revoke;td.querySelector(".rk").focus()}};
+ tr.querySelector(".rk").onclick=revoke};
+K.forEach(row);
+nk.onclick=()=>{const k="sk_live_"+Array.from({length:20},()=>"abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789"[Math.random()*55|0]).join("");K.unshift(["New key",k,"Created just now",["read"],"Never"]);tb.innerHTML="";K.forEach(row);ns.textContent=k;nw.hidden=false;nc.onclick=()=>copy(k,nc)};
+</script>

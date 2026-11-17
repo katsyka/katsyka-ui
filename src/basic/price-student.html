@@ -1,0 +1,15 @@
+<!--Student Discount Pricing|Pricing|A discount verification flow: regular vs student price, verify with a school email (domain check for .edu/.ac.*), a pending state, then the unlocked price with a renewal note.|pricing,student,discount,verification,education-->
+<div class="k">
+<section class="card pd"><div class="pd-pr"><div><span class="mu">Regular</span><b class="tn" id="rp">€12<small>/mo</small></b></div>@I(arrowr,20)<div class="pd-st"><span class="mu">Students</span><b class="tn">€3<small>/mo</small></b></div></div>
+<div id="a"><h2>Verify you're a student</h2><p class="mu">Use your school email. We check it once a year.</p><form id="f" novalidate><label class="lbl" for="em">School email</label><input class="in" id="em" type="email" autocomplete="email" placeholder="you@university.edu"><p class="pd-er" id="er" role="alert"></p><button class="b ac pd-go" id="go">Send verification link</button></form><p class="pd-alt mu">No school email? <a href="#">Upload a student ID</a></p></div>
+<div id="b" hidden class="pd-ok">@I(check,22)<h2>Student price unlocked</h2><p class="mu">€3/month until <b id="un"></b>. We'll ask you to re-verify then.</p><a class="b ac pd-go" href="#">Continue to checkout</a></div></section>
+</div>
+<style>
+.pd{width:min(420px,100%);padding:28px}.pd-pr{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border-radius:14px;background:var(--sf);margin-bottom:20px}.pd-pr>div{display:grid}.pd-pr .i{color:var(--mu)}.pd-pr b{font-size:28px;letter-spacing:-.02em}.pd-pr small{font-size:13px;color:var(--mu);font-weight:500}#rp{text-decoration:line-through;text-decoration-thickness:2px;color:var(--mu)}.pd-st b{color:var(--ac)}
+.pd h2{margin:0 0 4px;font-size:19px}.pd p{margin:0 0 16px}.pd .in{height:44px;font-size:16px}.pd-er{color:var(--err);font-size:13px;margin:6px 0 0!important}.pd-er:empty{display:none}.pd-go{width:100%;height:44px;margin-top:12px}.pd-alt{font-size:13px;text-align:center;margin-top:12px!important}.pd-alt a{color:var(--ac)}
+.pd-ok{display:grid;justify-items:center;text-align:center}.pd-ok>.i{width:48px;height:48px;padding:12px;border-radius:50%;background:var(--ok-sf);color:var(--ok);margin-bottom:10px}
+</style>
+<script>
+const $=i=>document.getElementById(i);
+$('f').onsubmit=e=>{e.preventDefault();const v=$('em').value.trim().toLowerCase(),ok=/^\S+@\S+\.\S+$/.test(v),sch=/\.(edu|ac\.[a-z]{2}|edu\.[a-z]{2})$|@(student|stud|uni)\./.test(v);$('em').setAttribute('aria-invalid',!(ok&&sch));$('er').textContent=!ok?'Enter an email address.':!sch?'That doesn\'t look like a school address. Try your .edu or .ac.* email, or upload an ID.':'';if(!(ok&&sch))return $('em').focus();const g=$('go');g.disabled=true;g.textContent='Waiting for you to click the link…';setTimeout(()=>{const d=new Date();d.setFullYear(d.getFullYear()+1);$('un').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});$('a').hidden=true;$('b').hidden=false},1400)};
+</script>

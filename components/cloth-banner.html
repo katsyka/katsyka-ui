@@ -1,0 +1,71 @@
+<style>
+.clo{position:relative;min-height:100vh;overflow:hidden;background:#1c1a17;color:#e9e1d1;font-family:Geist,system-ui,sans-serif;user-select:none;-webkit-user-select:none}
+.clo canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.clo.near canvas{cursor:grab}.clo.grab canvas{cursor:grabbing}
+.clo-bar{position:absolute;left:0;right:0;bottom:clamp(20px,6vh,48px);display:flex;justify-content:center;align-items:center;gap:14px;padding:0 16px;font:12px/1 "Geist Mono",monospace;letter-spacing:.06em;color:#8f877a;text-transform:uppercase}
+.clo-bar button{height:36px;padding:0 16px;border-radius:999px;border:1px solid #e9e1d140;background:none;color:#e9e1d1;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.clo-bar button:hover{background:#e9e1d114}.clo-bar button:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+</style>
+<section class="clo">
+  <canvas role="img" aria-label="A cloth banner reading Katsyka UI, hanging from a rod and moving in the wind"></canvas>
+  <div class="clo-bar"><span>Grab a corner and throw it</span><button class="clo-gust">Gust of wind</button></div>
+</section>
+<script>
+(()=>{
+// Verlet cloth; each grid triangle is drawn with an affine-mapped slice of an offscreen texture.
+const R=document.querySelector(".clo"),cv=R.querySelector("canvas"),x=cv.getContext("2d"),red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const CX=24,CY=16,tex=document.createElement("canvas"),tx=tex.getContext("2d");
+let W,H,dpr,P=[],K=[],s,ox,oy,bw,bh,grab=null,pm={x:-1e4,y:-1e4,vx:0,vy:0},wind=0,tm=0,vis=1;
+const paint=()=>{const w=tex.width=1200,h=tex.height=760;
+  tx.fillStyle="#ece3d1";tx.fillRect(0,0,w,h);
+  tx.globalAlpha=.06;tx.fillStyle="#5a4a33";for(let y=0;y<h;y+=4)tx.fillRect(0,y,w,1);for(let X=0;X<w;X+=5)tx.fillRect(X,0,1,h);tx.globalAlpha=1;
+  tx.fillStyle="#c2410c";tx.fillRect(0,h-110,w,36);tx.fillStyle="#211d18";tx.fillRect(0,h-62,w,12);
+  tx.beginPath();tx.arc(w*.84,h*.22,54,0,7);tx.fillStyle="#c2410c";tx.fill();
+  tx.fillStyle="#211d18";tx.textAlign="center";tx.font="italic 250px 'Instrument Serif',Georgia,serif";tx.fillText("Katsyka UI",w/2,h*.56);
+  tx.font="500 24px 'Geist Mono',monospace";if("letterSpacing"in tx)tx.letterSpacing="6px";tx.fillText("COMPONENTS · MIT · EST. 2026",w/2,h*.56+70);if("letterSpacing"in tx)tx.letterSpacing="0px"};
+paint();if(document.fonts)Promise.all([document.fonts.load("italic 250px 'Instrument Serif'"),document.fonts.load("500 24px 'Geist Mono'")]).then(paint,()=>{});
+const layout=()=>{dpr=Math.min(devicePixelRatio||1,2);W=R.clientWidth;H=R.clientHeight;cv.width=W*dpr;cv.height=H*dpr;
+  bw=Math.min(600,W*.82);bh=bw*.633;ox=(W-bw)/2;oy=Math.max(110,H*.2);s=bw/(CX-1);P=[];K=[];
+  for(let j=0;j<CY;j++)for(let i=0;i<CX;i++){const px=ox+i*s,py=oy+j*(bh/(CY-1));P.push({x:px,y:py,px,py,pin:j===0,u:i/(CX-1)*tex.width,v:j/(CY-1)*tex.height,ny:j/(CY-1)})}
+  const sy=bh/(CY-1);for(let j=0;j<CY;j++)for(let i=0;i<CX;i++){const o=j*CX+i;if(i<CX-1)K.push([o,o+1,s]);if(j<CY-1)K.push([o,o+CX,sy])}};
+new ResizeObserver(layout).observe(R);layout();
+const step=()=>{tm+=1/60;const amb=red?0:(Math.sin(tm*.8)*.6+Math.sin(tm*2.1+1)*.3)*.05;wind*=.975;
+  for(const p of P){if(p.pin||p===grab)continue;const vx=(p.x-p.px)*.99,vy=(p.y-p.py)*.99;p.px=p.x;p.py=p.y;
+    p.x+=vx+(amb+wind*(.6+Math.sin(tm*3+p.ny*4)*.4))*(.3+p.ny);p.y+=vy+.32;
+    const dx=p.x-pm.x,dy=p.y-pm.y,d2=dx*dx+dy*dy;if(d2<4900){const k=(1-d2/4900)*.3;p.x+=pm.vx*k;p.y+=pm.vy*k}}
+  pm.vx*=.6;pm.vy*=.6;
+  for(let it=0;it<8;it++)for(const[a,b,r]of K){const A=P[a],B=P[b],dx=B.x-A.x,dy=B.y-A.y,d=Math.hypot(dx,dy)||1,df=(d-r)/d,la=A.pin||A===grab,lb=B.pin||B===grab;
+    if(la&&lb)continue;const wa=la?0:lb?1:.5,wb=lb?0:la?1:.5;A.x+=dx*df*wa;A.y+=dy*df*wa;B.x-=dx*df*wb;B.y-=dy*df*wb}};
+const tri=(a,b,c)=>{const cx=(a.x+b.x+c.x)/3,cy=(a.y+b.y+c.y)/3,g=1+1.4/s;
+  x.save();x.beginPath();x.moveTo(cx+(a.x-cx)*g,cy+(a.y-cy)*g);x.lineTo(cx+(b.x-cx)*g,cy+(b.y-cy)*g);x.lineTo(cx+(c.x-cx)*g,cy+(c.y-cy)*g);x.closePath();x.clip();
+  const d=a.u*(b.v-c.v)+b.u*(c.v-a.v)+c.u*(a.v-b.v);
+  x.transform((a.x*(b.v-c.v)+b.x*(c.v-a.v)+c.x*(a.v-b.v))/d,(a.y*(b.v-c.v)+b.y*(c.v-a.v)+c.y*(a.v-b.v))/d,
+    (a.x*(c.u-b.u)+b.x*(a.u-c.u)+c.x*(b.u-a.u))/d,(a.y*(c.u-b.u)+b.y*(a.u-c.u)+c.y*(b.u-a.u))/d,
+    (a.x*(b.u*c.v-c.u*b.v)+b.x*(c.u*a.v-a.u*c.v)+c.x*(a.u*b.v-b.u*a.v))/d,(a.y*(b.u*c.v-c.u*b.v)+b.y*(c.u*a.v-a.u*c.v)+c.y*(a.u*b.v-b.u*a.v))/d);
+  x.drawImage(tex,0,0);x.restore()};
+const draw=()=>{x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,W,H);
+  // cords + nail + rod
+  const L=P[0],Rr=P[CX-1],nx=W/2,ny=oy-80;x.strokeStyle="#6b6152";x.lineWidth=1.2;x.beginPath();x.moveTo(L.x-14,oy-3);x.lineTo(nx,ny);x.lineTo(Rr.x+14,oy-3);x.stroke();
+  x.fillStyle="#8a7f6e";x.beginPath();x.arc(nx,ny,3,0,7);x.fill();
+  // soft shadow of the cloth outline on the wall
+  x.fillStyle="rgba(0,0,0,.28)";x.beginPath();for(let i=0;i<CX;i++)x.lineTo(P[i].x+10,P[i].y+16);for(let j=1;j<CY;j++)x.lineTo(P[j*CX+CX-1].x+10,P[j*CX+CX-1].y+16);
+  for(let i=CX-2;i>=0;i--)x.lineTo(P[(CY-1)*CX+i].x+10,P[(CY-1)*CX+i].y+16);for(let j=CY-2;j>0;j--)x.lineTo(P[j*CX].x+10,P[j*CX].y+16);x.fill();
+  for(let j=0;j<CY-1;j++)for(let i=0;i<CX-1;i++){const o=j*CX+i,a=P[o],b=P[o+1],c=P[o+CX+1],d=P[o+CX];tri(a,b,c);tri(a,c,d);
+    // fold shading: compressed width darkens, lean of the column lightens one side
+    const wr=(Math.hypot(b.x-a.x,b.y-a.y)+Math.hypot(c.x-d.x,c.y-d.y))/(2*s),lean=((d.x-a.x)+(c.x-b.x))/(2*s);
+    const dark=Math.max(0,Math.min(.5,(1-wr)*1.4-lean*.5)),lite=Math.max(0,Math.min(.22,lean*.5-(1-wr)*.3));
+    if(dark>.01||lite>.01){x.fillStyle=dark>lite?`rgba(20,14,8,${dark})`:`rgba(255,250,240,${lite})`;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.lineTo(c.x,c.y);x.lineTo(d.x,d.y);x.closePath();x.fill()}}
+  x.strokeStyle="#2b251e";x.lineWidth=7;x.lineCap="round";x.beginPath();x.moveTo(L.x-16,oy-3);x.lineTo(Rr.x+16,oy-3);x.stroke();
+  x.fillStyle="#3a3229";for(const X of[L.x-20,Rr.x+20]){x.beginPath();x.arc(X,oy-3,6,0,7);x.fill()}};
+const pos=e=>{const r=R.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
+const nearest=q=>{let best=null,bd=1600;for(const p of P){if(p.pin)continue;const d=(p.x-q.x)**2+(p.y-q.y)**2;if(d<bd){bd=d;best=p}}return best};
+cv.addEventListener("pointerdown",e=>{const q=pos(e);grab=nearest(q);if(grab){cv.setPointerCapture(e.pointerId);R.classList.add("grab")}});
+cv.addEventListener("pointermove",e=>{const q=pos(e);pm.vx=q.x-(pm.x<-1e3?q.x:pm.x);pm.vy=q.y-(pm.y<-1e3?q.y:pm.y);pm.x=q.x;pm.y=q.y;
+  if(grab){grab.px=grab.x;grab.py=grab.y;grab.x=q.x;grab.y=q.y}else R.classList.toggle("near",!!nearest(q))});
+const drop=()=>{if(!grab)return;grab=null;R.classList.remove("grab")};
+cv.addEventListener("pointerup",drop);cv.addEventListener("pointercancel",drop);cv.addEventListener("pointerleave",()=>{pm.x=pm.y=-1e4;pm.vx=pm.vy=0});
+let dir=1;R.querySelector(".clo-gust").onclick=()=>{wind=(red?.6:1.6)*dir;dir=-dir};
+new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(R);
+(function loop(){requestAnimationFrame(loop);if(!vis)return;step();draw()})();
+})();
+</script>

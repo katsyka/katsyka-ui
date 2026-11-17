@@ -1,0 +1,60 @@
+<!--Map with Bottom Sheet|A full-screen map with a draggable bottom sheet that snaps to three detents by position and flick speed, a glass search bar on top, pins that select places in the list, and locate/layers buttons.|map,bottom sheet,detents,drag,places-->
+<div class="ms-map" id="map"><svg class="mp" viewBox="0 0 400 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="400" height="900" fill="var(--land)"/><path fill="var(--park)" d="M36 110h120a10 10 0 0 1 10 10v84a10 10 0 0 1-10 10H36a10 10 0 0 1-10-10v-84a10 10 0 0 1 10-10zM246 300l92-12 12 96-98 10zM20 740h140v120H20z"/><path fill="var(--water)" d="M0 560c80-24 140 40 220 30s140-70 180-50v140c-70-20-140 40-220 20S60 640 0 660z"/><g fill="none" stroke="var(--road2)" stroke-width="6" stroke-linecap="round"><path d="M0 70h400M0 160h400M0 400l400-30M0 470h400M0 800h400M60 0v900M210 0v540M260 700v200M350 0v540M340 690v210"/></g><g fill="none" stroke="var(--road)" stroke-width="12" stroke-linecap="round"><path d="M-10 262 410 222M128 -10l34 920M300 -10c-20 310 20 510-20 920"/></g><g fill="var(--label)" font-family="Geist,system-ui" font-size="11" font-weight="600" letter-spacing=".04em"><text x="48" y="168">FLORA PARK</text><text x="220" y="640">HARBOUR</text><text x="176" y="248" transform="rotate(-5.5 176 248)">STRANDGATEN</text></g></svg>
+  <button class="ms-pin" style="left:30%;top:28%" data-i="0" aria-label="Kafe Blå">@I(cup,16)</button>
+  <button class="ms-pin" style="left:72%;top:38%" data-i="1" aria-label="Fjord Books">@I(library,16)</button>
+  <button class="ms-pin" style="left:46%;top:52%" data-i="2" aria-label="Harbour Sauna">@I(drop,16)</button>
+  <button class="ms-pin" style="left:20%;top:44%" data-i="3" aria-label="Bakeriet">@I(cup,16)</button>
+  <span class="ms-me" style="left:52%;top:36%"></span>
+</div>
+<div class="ms-top"><label class="ms-s gl">@I(search,20)<span class="vh">Search maps</span><input placeholder="Search Maps" enterkeyhint="search"></label><span class="av ms-av" style="--c:#b45309">M</span></div>
+<div class="ms-side"><button class="ib gl" aria-label="Map layers">@I(layers,20)</button><button class="ib gl" aria-label="Show my location" style="color:var(--info)">@I(nav,20)</button></div>
+<section class="ms-sh" id="sh" aria-label="Places nearby">
+  <div class="ms-hd" id="hd"><i class="ot-gr"></i><h2>Nearby</h2><p class="mu">4 places open now</p></div>
+  <div class="ms-bd" id="bd"><div class="chips" style="padding:0 0 12px"><button class="chip on">All</button><button class="chip">Cafés</button><button class="chip">Books</button><button class="chip">Wellness</button></div><div class="lst" id="pl" style="--inset:68px"></div></div>
+</section>
+<style>
+.ms-map{position:absolute;inset:0;--land:light-dark(#f1eee8,#1a1b1f);--water:light-dark(#c2dcf0,#14273a);--park:light-dark(#d6ebcf,#18291d);--road:light-dark(#ffffff,#33343b);--road2:light-dark(#ffffffcc,#27282e);--label:light-dark(#8a8780,#6f7078)}
+.mp{position:absolute;inset:0;width:100%;height:100%}
+.ms-pin{position:absolute;width:36px;height:36px;margin:-36px 0 0 -18px;border-radius:50% 50% 50% 4px;transform:rotate(-45deg);background:var(--ac)!important;color:var(--ac-fg)!important;display:grid;place-items:center;box-shadow:0 4px 10px #0004;transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+.ms-pin .i{transform:rotate(45deg)}
+.ms-pin::after{content:"";position:absolute;inset:-6px}
+.ms-pin.on{transform:rotate(-45deg) scale(1.3);background:var(--fg)!important;color:var(--bg)!important;z-index:2}
+.ms-me{position:absolute;width:18px;height:18px;margin:-9px;border-radius:50%;background:var(--info);border:3px solid #fff;box-shadow:0 0 0 8px color-mix(in srgb,var(--info) 25%,transparent),0 2px 6px #0004}
+.ms-top{position:absolute;inset:calc(var(--st) + 4px) 12px auto;z-index:20;display:flex;gap:8px}
+.ms-s{flex:1;height:48px;border-radius:24px;display:flex;align-items:center;gap:8px;padding:0 16px;color:var(--mu)}
+.ms-s input{flex:1;min-width:0;border:0;background:none;outline:0;font-size:17px!important;color:var(--fg)}.ms-s input::placeholder{color:var(--mu)}
+.ms-av{width:48px;height:48px}
+.ms-side{position:absolute;right:12px;top:calc(var(--st) + 68px);z-index:20;display:flex;flex-direction:column;gap:8px}
+.ms-sh{position:absolute;left:0;right:0;bottom:0;height:calc(100% - var(--st) - 8px);z-index:30;background:var(--bg);border-radius:28px 28px 0 0;box-shadow:0 -6px 30px -10px light-dark(#0004,#000c);display:flex;flex-direction:column;will-change:transform;touch-action:none}
+.ms-sh.snap{transition:transform .45s cubic-bezier(.2,.9,.25,1)}
+.ot-gr{display:block;width:36px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 10px}
+.ms-hd{padding:8px var(--gut) 12px;cursor:grab}
+.ms-hd h2{margin:0;font-size:22px;line-height:28px;font-weight:700;letter-spacing:-.02em}.ms-hd p{margin:0;font-size:15px}
+.ms-bd{flex:1;min-height:0;overflow:auto;padding:0 var(--gut) var(--sbt);overscroll-behavior:contain}
+.ms-bd .chips{margin:0 calc(var(--gut) * -1);padding-left:var(--gut)!important}
+.lst .row{padding-left:0;padding-right:0}.lst{--inset:52px}
+.ms-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--ac-sf);color:var(--ac);flex:none}
+.row.on{background:var(--sf)}
+.ms-m{font-size:14px!important}.ms-m .o{color:var(--ok)}
+.ms-d{font-size:15px;color:var(--mu);font-variant-numeric:tabular-nums}
+</style>
+<script>
+const PLC=[["Kafe Blå","Café","4.7","Open until 18:00","350 m"],["Fjord Books","Bookshop","4.9","Open until 20:00","600 m"],["Harbour Sauna","Sauna","4.8","Open until 22:00","850 m"],["Bakeriet","Bakery","4.6","Closes at 15:00","1.1 km"]];
+const ICS={Café:'<path d="M17 8h1a4 4 0 0 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/>',Bookshop:'<path d="M4 4v16M9 4v16M14 4l6 16"/>',Sauna:'<path d="M12 2.7s7 7.3 7 12.3a7 7 0 0 1-14 0c0-5 7-12.3 7-12.3z"/>',Bakery:'<path d="M17 8h1a4 4 0 0 1 0 8h-1M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/>'};
+pl.innerHTML=PLC.map(([n,k,r,o,d],i)=>`<button class="row" data-i="${i}"><span class="ms-ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px">${ICS[k]}</svg></span><span class="tx"><b>${n}</b><small class="ms-m">${k} · ★ ${r} · <span class="o">${o}</span></small></span><span class="ms-d">${d}</span></button>`).join("");
+const ph=document.querySelector(".ph");let H=0,D=[],y=0,cur=1;
+const det=()=>{H=sh.offsetHeight;D=[H-150,H*.5,0]};
+const set=(v,anim)=>{y=Math.max(0,Math.min(H-110,v));sh.classList.toggle("snap",!!anim);sh.style.transform=`translateY(${y}px)`;bd.style.overflow=y<4?"auto":"hidden"};
+const snap=i=>{cur=i;set(D[i],true)};
+det();snap(0);new ResizeObserver(()=>{det();snap(cur)}).observe(sh);
+let sy=0,st=0,lt=0,ly=0,v=0,drag=false;
+const start=e=>{if(e.target.closest("button")&&!e.target.closest(".ms-hd"))return;if(e.currentTarget===bd&&bd.scrollTop>0)return;drag=true;sy=e.clientY;st=y;ly=e.clientY;lt=performance.now();v=0;sh.setPointerCapture(e.pointerId)};
+hd.addEventListener("pointerdown",start);
+sh.addEventListener("pointermove",e=>{if(!drag)return;const n=performance.now();v=(e.clientY-ly)/Math.max(1,n-lt);ly=e.clientY;lt=n;set(st+e.clientY-sy)});
+sh.addEventListener("pointerup",()=>{if(!drag)return;drag=false;const proj=y+v*180;let b=0;D.forEach((d,i)=>{if(Math.abs(d-proj)<Math.abs(D[b]-proj))b=i});snap(b)});
+hd.addEventListener("click",()=>{if(Math.abs(y-st)<4)snap(cur===0?1:cur===1?2:0)});
+const pick=i=>{document.querySelectorAll(".ms-pin").forEach(p=>p.classList.toggle("on",+p.dataset.i===i));pl.querySelectorAll(".row").forEach(r=>r.classList.toggle("on",+r.dataset.i===i));if(cur===0)snap(1)};
+document.querySelectorAll(".ms-pin").forEach(p=>p.onclick=()=>pick(+p.dataset.i));
+pl.querySelectorAll(".row").forEach(r=>r.onclick=()=>pick(+r.dataset.i));
+document.querySelectorAll(".ms-bd .chip").forEach((c,i,a)=>c.onclick=()=>a.forEach(x=>x.classList.toggle("on",x===c)));
+</script>

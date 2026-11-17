@@ -1,0 +1,75 @@
+<style>
+.vr{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.vr :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.vr ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.vr *,.vr *::before,.vr *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.vr{min-height:100vh;display:grid;place-items:center;padding:24px 16px}
+.vr-chat{width:min(420px,100%);height:min(640px,90vh);display:flex;flex-direction:column;border-radius:28px;background:var(--sf);box-shadow:var(--shadow);overflow:hidden}
+.vr-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--bg)}
+.vr-head i{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#fdba74,#f472b6)}.vr-head b{font-size:15px}.vr-head small{display:block;font-size:12.5px;color:var(--ok)}
+.vr-log{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:8px}
+.vr-msg{max-width:78%;padding:10px 14px;border-radius:18px;font-size:15px;line-height:1.45;background:var(--bg);align-self:flex-start;border-bottom-left-radius:6px}
+.vr-msg.me{align-self:flex-end;background:var(--ac);color:var(--ac-fg);border-radius:18px 18px 6px 18px}
+.vr-vm{display:flex;align-items:center;gap:10px;min-width:220px;animation:vr-in .35s var(--ease)}
+@keyframes vr-in{from{opacity:0;transform:translateY(8px) scale(.96)}}
+.vr-vm button{flex:none;width:36px;height:36px;border-radius:50%;border:0;background:var(--ac-fg);color:var(--ac);cursor:pointer;display:grid;place-items:center}
+.vr-vm button svg{width:14px;height:14px;fill:currentColor}
+.vr-wv{flex:1;display:flex;align-items:center;gap:2px;height:28px}.vr-wv i{flex:1;border-radius:2px;background:currentColor;opacity:.4;height:var(--h)}.vr-wv i.p{opacity:1}
+.vr-vm small{font:500 12px "Geist Mono",monospace;opacity:.85}
+.vr-bar{position:relative;display:flex;align-items:center;gap:8px;padding:10px;border-top:1px solid var(--line);background:var(--bg);min-height:68px}
+.vr-in{flex:1;height:44px;padding:0 14px;border-radius:22px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:16px Geist,sans-serif;transition:opacity .2s}
+.vr-rec{position:absolute;left:10px;right:70px;top:10px;bottom:10px;display:flex;align-items:center;gap:10px;padding:0 12px;border-radius:22px;background:var(--sf);opacity:0;pointer-events:none;transition:opacity .2s}
+.vr.on .vr-rec{opacity:1}.vr.on .vr-in{opacity:0}
+.vr-dot{width:10px;height:10px;border-radius:50%;background:var(--err);animation:vr-bl 1s infinite}@keyframes vr-bl{50%{opacity:.25}}
+.vr-time{font:500 14px "Geist Mono",monospace;font-variant-numeric:tabular-nums}
+.vr-live{flex:1;display:flex;align-items:center;justify-content:flex-end;gap:2px;height:28px;overflow:hidden}
+.vr-live i{flex:none;width:3px;border-radius:2px;background:var(--ac);height:var(--h)}
+.vr-cancel{position:absolute;left:50%;transform:translateX(calc(-50% + var(--dx,0px)));font-size:13.5px;color:var(--mu);white-space:nowrap;pointer-events:none;opacity:calc(1 + var(--dx,0px) / 160px)}
+.vr.cancel .vr-cancel{color:var(--err)}
+.vr-mic{position:relative;flex:none;width:52px;height:52px;border-radius:50%;border:0;background:var(--ac);color:var(--ac-fg);cursor:pointer;display:grid;place-items:center;touch-action:none;transition:transform .25s cubic-bezier(.3,1.5,.5,1);transform:translateX(var(--dx,0px)) scale(var(--s,1))}
+.vr.on .vr-mic{--s:1.25}
+.vr-mic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.vr-mic::before{content:"";position:absolute;inset:-10px;border-radius:50%;background:var(--ac);opacity:0;transform:scale(calc(.8 + var(--lvl,0) * .6));transition:opacity .2s}
+.vr.on .vr-mic::before{opacity:.18}
+.vr-hint{font-size:12.5px;color:var(--mu);text-align:center;padding:0 10px 10px;background:var(--bg)}
+.vr-srl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+<section class="vr"><div class="vr-chat">
+  <div class="vr-head"><i></i><div><b>Maya Ross</b><small>online</small></div></div>
+  <div class="vr-log"><div class="vr-msg">Can you send me the directions as a voice note? 🙏</div></div>
+  <div class="vr-bar"><input class="vr-in" placeholder="Message" aria-label="Message">
+    <div class="vr-rec" aria-hidden="true"><span class="vr-dot"></span><span class="vr-time">0:00</span><div class="vr-live"></div><span class="vr-cancel">‹ Slide to cancel</span></div>
+    <button class="vr-mic" aria-label="Record voice message. Hold to record, or press Space to start and stop"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div>
+  <div class="vr-hint">Hold to record · slide left to cancel · Space toggles (demo, no microphone used)</div>
+  <div class="vr-srl" aria-live="assertive"></div>
+</div></section>
+<script>
+(()=>{
+// Simulated recorder: the waveform comes from noise, not the microphone, so the demo works anywhere.
+const root=document.querySelector(".vr"),mic=root.querySelector(".vr-mic"),live=root.querySelector(".vr-live"),time=root.querySelector(".vr-time"),log=root.querySelector(".vr-log"),sr=root.querySelector(".vr-srl");
+let rec=null,levels=[],sx=0,raf;
+const fmt=s=>`${s/60|0}:${String(s%60|0).padStart(2,"0")}`;
+function start(){if(rec)return;rec={t0:performance.now(),mode:"hold"};levels=[];root.classList.add("on");sr.textContent="Recording";live.innerHTML="";tick()}
+function tick(){if(!rec)return;const s=(performance.now()-rec.t0)/1000;time.textContent=fmt(s);
+  const l=Math.max(.08,Math.min(1,.35+Math.sin(s*7)*.25+Math.sin(s*17.3)*.2+(Math.random()-.5)*.35));levels.push(l);root.style.setProperty("--lvl",l);
+  if(levels.length%2===0){const b=document.createElement("i");b.style.setProperty("--h",Math.round(4+l*24)+"px");live.append(b);if(live.children.length>60)live.firstChild.remove()}
+  raf=setTimeout(tick,60)}
+function stop(send){if(!rec)return;clearTimeout(raf);const dur=(performance.now()-rec.t0)/1000;rec=null;root.classList.remove("on","cancel");root.style.setProperty("--dx","0px");
+  if(!send||dur<.6){sr.textContent=dur<.6&&send?"Too short. Hold to record.":"Recording cancelled";if(dur<.6&&send){mic.animate([{transform:"translateX(-4px)"},{transform:"translateX(4px)"},{transform:"none"}],{duration:250})}return}
+  const N=32,bars=[...Array(N)].map((_,i)=>levels[Math.floor(i/N*levels.length)]||.2);
+  const m=document.createElement("div");m.className="vr-msg me vr-vm";m.innerHTML=`<button aria-label="Play voice message, ${fmt(dur)}"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><div class="vr-wv">${bars.map(l=>`<i style="--h:${Math.round(4+l*22)}px"></i>`).join("")}</div><small>${fmt(dur)}</small>`;
+  log.append(m);log.scrollTop=log.scrollHeight;sr.textContent=`Voice message sent, ${fmt(dur)}`;
+  const pb=m.querySelector("button"),is=m.querySelectorAll(".vr-wv i");let p=null;
+  pb.onclick=()=>{if(p){cancelAnimationFrame(p.r);p=null;pb.innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';return}
+    pb.innerHTML='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';const t0=performance.now();p={};
+    (function f(t){const k=Math.min(1,(t-t0)/1000/dur);is.forEach((b,i)=>b.classList.toggle("p",i/is.length<k));m.querySelector("small").textContent=fmt(k*dur);
+      if(k<1&&p)p.r=requestAnimationFrame(f);else{p=null;pb.innerHTML='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';m.querySelector("small").textContent=fmt(dur)}})(t0)}}
+mic.addEventListener("pointerdown",e=>{mic.setPointerCapture(e.pointerId);sx=e.clientX;start()});
+mic.addEventListener("pointermove",e=>{if(!rec||rec.mode!=="hold")return;const dx=Math.min(0,e.clientX-sx);root.style.setProperty("--dx",dx+"px");root.classList.toggle("cancel",dx<-110)});
+mic.addEventListener("pointerup",e=>{if(!rec||rec.mode!=="hold")return;stop(e.clientX-sx>-110)});
+mic.addEventListener("pointercancel",()=>stop(false));
+// keyboard: tap-to-toggle, Escape cancels
+mic.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();if(e.repeat)return;if(rec)stop(true);else{start();rec.mode="tap"}}if(e.key==="Escape"&&rec)stop(false)});
+mic.addEventListener("click",e=>e.preventDefault());
+})();
+</script>

@@ -1,0 +1,99 @@
+<style>
+.as{display:flex;height:100vh;background:#09090b;color:#e4e4e7;font-size:14px;overflow:hidden}
+.as-side{position:relative;flex:none;width:264px;display:flex;flex-direction:column;padding:12px 10px;border-right:1px solid #ffffff0f;background:#0c0c0e;transition:width .45s cubic-bezier(.7,0,.2,1)}
+.as.mini .as-side{width:68px}
+.as-ws{position:relative;display:flex;align-items:center;gap:10px;width:100%;height:44px;padding:0 8px;border:0;border-radius:10px;background:none;color:inherit;font:inherit;cursor:pointer;text-align:left}
+.as-ws:hover{background:#ffffff08}
+.as-ws i{flex:none;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font:700 13px Geist,sans-serif;font-style:normal;color:#0c0c0e;background:linear-gradient(135deg,#ffb36b,#ff5a1f)}
+.as-ws b{font-weight:600}.as-ws small{display:block;font-size:11.5px;color:#71717a}
+.as-ws svg{margin-left:auto}
+.as-hide{white-space:nowrap;overflow:hidden;transition:opacity .25s}
+.as.mini .as-hide{opacity:0;pointer-events:none}
+.as-menu{position:absolute;top:58px;left:10px;right:10px;z-index:5;padding:6px;border-radius:12px;background:#18181b;border:1px solid #ffffff14;box-shadow:0 20px 40px -12px #000;opacity:0;transform:translateY(-6px);pointer-events:none;transition:all .2s cubic-bezier(.2,1,.3,1)}
+.as-menu.open{opacity:1;transform:none;pointer-events:auto}
+.as-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:8px;border:0;border-radius:8px;background:none;color:#e4e4e7;font:inherit;cursor:pointer}
+.as-menu button:hover{background:#ffffff0a}
+.as-menu button i{width:22px;height:22px;border-radius:6px;font:700 11px Geist,sans-serif;font-style:normal;display:grid;place-items:center;color:#0c0c0e}
+.as-search{display:flex;align-items:center;gap:10px;height:36px;margin:10px 0 6px;padding:0 10px;border-radius:9px;background:#ffffff06;border:1px solid #ffffff0d;color:#71717a;font-size:13.5px}
+.as-search kbd{margin-left:auto;font:11px "Geist Mono",monospace;color:#52525b}
+.as svg{flex:none;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.as-nav{position:relative;flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;margin-top:4px}
+.as-hl{position:absolute;left:0;right:0;height:36px;border-radius:9px;background:#ffffff0d;box-shadow:inset 0 0 0 1px #ffffff0a;transition:top .35s cubic-bezier(.3,1.2,.4,1);pointer-events:none}
+.as-hl::before{content:"";position:absolute;left:-10px;top:9px;width:3px;height:18px;border-radius:0 3px 3px 0;background:#ff7a3d}
+.as-it{position:relative;display:flex;align-items:center;gap:12px;width:100%;height:36px;padding:0 13px;border:0;border-radius:9px;background:none;color:#a1a1aa;font:inherit;cursor:pointer;text-align:left;transition:color .2s}
+.as-it:hover{color:#f4f4f5}.as-it.on{color:#fff}
+.as-it em{margin-left:auto;font-style:normal;font:500 11px "Geist Mono",monospace;padding:1px 7px;border-radius:99px;background:#ffffff0d;color:#a1a1aa}
+.as-it em.hot{background:#ff5a1f;color:#160a04}
+.as-it .dot{width:8px;height:8px;border-radius:3px;margin:0 4.5px;flex:none}
+.as.mini .as-it em{position:absolute;right:6px;top:4px;margin:0;padding:0;width:7px;height:7px;font-size:0}
+.as-it[data-tip]::after{content:attr(data-tip);position:absolute;left:58px;top:50%;transform:translate(-4px,-50%);padding:5px 10px;border-radius:7px;background:#27272a;color:#fff;font-size:12.5px;white-space:nowrap;opacity:0;pointer-events:none;transition:all .15s;z-index:9}
+.as.mini .as-it:hover::after{opacity:1;transform:translate(0,-50%)}
+.as-grp{display:flex;align-items:center;justify-content:space-between;width:100%;margin:16px 0 4px;padding:0 13px;border:0;background:none;color:#52525b;font:500 11px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;height:24px}
+.as-grp svg{width:13px;height:13px;transition:transform .3s}.as-grp.shut svg{transform:rotate(-90deg)}
+.as.mini .as-grp{justify-content:center;padding:0}.as.mini .as-grp span,.as.mini .as-grp svg{display:none}.as.mini .as-grp::after{content:"";width:18px;height:1px;background:#ffffff14}
+.as-sub{display:grid;grid-template-rows:1fr;transition:grid-template-rows .35s cubic-bezier(.6,0,.2,1)}
+.as-sub.shut{grid-template-rows:0fr}.as-sub>div{overflow:hidden}
+.as-user{display:flex;align-items:center;gap:10px;padding:10px 8px 4px;border-top:1px solid #ffffff0d;margin-top:8px}
+.as-user i{flex:none;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#38bdf8)}
+.as-user b{font-weight:550;font-size:13.5px}.as-user small{display:block;font-size:11.5px;color:#71717a}
+.as-toggle{position:absolute;top:22px;right:-13px;z-index:6;width:26px;height:26px;border-radius:50%;border:1px solid #ffffff1a;background:#18181b;color:#a1a1aa;cursor:pointer;display:grid;place-items:center;transition:transform .45s cubic-bezier(.7,0,.2,1),color .2s}
+.as-toggle:hover{color:#fff}.as.mini .as-toggle{transform:rotate(180deg)}
+.as-toggle svg{width:13px;height:13px}
+.as-main{flex:1;min-width:0;padding:28px clamp(20px,4vw,48px);overflow:auto}
+.as-main header{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
+.as-main h1{margin:0;font-size:26px;letter-spacing:-.035em;font-weight:600}
+.as-main header span{font:12px "Geist Mono",monospace;color:#52525b}
+.as-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
+.as-sk{border-radius:14px;background:#111114;border:1px solid #ffffff0b;padding:18px}
+.as-sk i{display:block;height:10px;border-radius:5px;background:#ffffff0c;margin-bottom:10px}
+.as-sk.big{height:260px}
+.as-main .fade{animation:as-in .45s cubic-bezier(.2,1,.3,1)}
+@keyframes as-in{from{opacity:0;transform:translateY(8px)}}
+</style>
+<div class="as">
+  <aside class="as-side">
+    <button class="as-toggle" aria-label="Collapse sidebar"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+    <button class="as-ws"><i>A</i><span class="as-hide"><b>Acme Inc</b><small>Pro plan · 14 members</small></span><svg class="as-hide" viewBox="0 0 24 24" style="width:15px;height:15px"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg></button>
+    <div class="as-menu"><button><i style="background:linear-gradient(135deg,#ffb36b,#ff5a1f)">A</i>Acme Inc</button><button><i style="background:linear-gradient(135deg,#86efac,#16a34a)">G</i>Globex</button><button><i style="background:#3f3f46;color:#fff">+</i>New workspace</button></div>
+    <div class="as-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="as-hide">Search</span><kbd class="as-hide">⌘K</kbd></div>
+    <nav class="as-nav"><span class="as-hl"></span>
+      <button class="as-it on" data-tip="Home"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span class="as-hide">Home</span></button>
+      <button class="as-it" data-tip="Inbox"><svg viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5h13L22 12v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/></svg><span class="as-hide">Inbox</span><em class="hot">4</em></button>
+      <button class="as-it" data-tip="Projects"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="as-hide">Projects</span><em>12</em></button>
+      <button class="as-it" data-tip="Reports"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg><span class="as-hide">Reports</span></button>
+      <button class="as-grp"><span>Favorites</span><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="as-sub"><div>
+        <button class="as-it" data-tip="Website redesign"><i class="dot" style="background:#ff7a3d"></i><span class="as-hide">Website redesign</span></button>
+        <button class="as-it" data-tip="Mobile app v3"><i class="dot" style="background:#38bdf8"></i><span class="as-hide">Mobile app v3</span></button>
+        <button class="as-it" data-tip="Q4 launch"><i class="dot" style="background:#a78bfa"></i><span class="as-hide">Q4 launch</span></button>
+      </div></div>
+      <button class="as-grp"><span>Workspace</span><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+      <div class="as-sub"><div>
+        <button class="as-it" data-tip="Members"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><span class="as-hide">Members</span></button>
+        <button class="as-it" data-tip="Billing"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span class="as-hide">Billing</span></button>
+        <button class="as-it" data-tip="Settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1 12h3M20 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span class="as-hide">Settings</span></button>
+      </div></div>
+    </nav>
+    <div class="as-user"><i></i><span class="as-hide"><b>Mira Okafor</b><small>mira@acme.com</small></span></div>
+  </aside>
+  <main class="as-main"><div class="fade"><header><h1>Home</h1><span>Updated just now</span></header>
+    <div class="as-cards"><div class="as-sk"><i style="width:40%"></i><i style="width:70%;height:22px"></i></div><div class="as-sk"><i style="width:50%"></i><i style="width:60%;height:22px"></i></div><div class="as-sk"><i style="width:35%"></i><i style="width:75%;height:22px"></i></div></div>
+    <div class="as-sk big"><i style="width:25%"></i></div></div></main>
+</div>
+<script>
+(()=>{
+const root=document.querySelector(".as"),nav=root.querySelector(".as-nav"),hl=nav.querySelector(".as-hl"),main=root.querySelector(".as-main"),tpl=main.innerHTML;
+const place=()=>{const on=nav.querySelector(".as-it.on");if(!on||!on.offsetParent||on.closest(".as-sub.shut")){hl.style.opacity=0;return}hl.style.opacity=1;hl.style.top=on.offsetTop+"px"};
+nav.querySelectorAll(".as-it").forEach(b=>b.onclick=()=>{nav.querySelector(".as-it.on")?.classList.remove("on");b.classList.add("on");place();
+  main.innerHTML=tpl.replace(">Home<",">"+b.dataset.tip+"<")});
+nav.querySelectorAll(".as-grp").forEach(g=>g.onclick=()=>{g.classList.toggle("shut");g.nextElementSibling.classList.toggle("shut");
+  const t0=performance.now();(function f(){place();if(performance.now()-t0<400)requestAnimationFrame(f)})()});
+root.querySelector(".as-toggle").onclick=()=>root.classList.toggle("mini");
+const ws=root.querySelector(".as-ws"),menu=root.querySelector(".as-menu");
+ws.onclick=e=>{e.stopPropagation();menu.classList.toggle("open")};
+menu.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(!b.textContent.includes("New")){ws.querySelector("b").textContent=b.textContent.slice(1);ws.querySelector("i").textContent=b.textContent[0];ws.querySelector("i").style.background=b.querySelector("i").style.background}menu.classList.remove("open")});
+document.addEventListener("click",()=>menu.classList.remove("open"));
+addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key==="b"){e.preventDefault();root.classList.toggle("mini")}});
+place();
+})();
+</script>

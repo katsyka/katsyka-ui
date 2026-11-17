@@ -1,0 +1,22 @@
+<!--Recovery Codes|Auth|Backup codes screen: a grid of 10 one-time codes with used ones struck through, copy all, download as .txt, print, regenerate with a confirm, and a required “I saved them” checkbox.|auth,recovery,backup codes,security,download-->
+<div class="k">
+<div class="card rc"><span class="rc-ic">@I(shield,20)</span><h1>Save your recovery codes</h1><p class="mu">If you lose your phone, each code signs you in once. Keep them somewhere safe, like a password manager.</p>
+<ol class="rc-g tn" id="g"></ol><div class="rc-a"><button class="b sec sm" id="cp">@I(copy,14)<span>Copy</span></button><button class="b sec sm" id="dl">@I(download,14)Download</button><button class="b sec sm" onclick="print()">@I(file,14)Print</button><button class="b gh sm" id="rg">@I(refresh,14)Regenerate</button></div>
+<div class="rc-cf" id="cf" hidden><p><b>Regenerate codes?</b> Your current codes will stop working immediately.</p><div><button class="b sec sm" id="no">Cancel</button><button class="b sm rc-d" id="yes">Regenerate</button></div></div>
+<label class="rc-ck"><input type="checkbox" id="ok"> I've saved these codes somewhere safe</label><button class="b ac rc-go" id="go" disabled>Continue</button></div>
+</div>
+<style>
+.rc{width:min(440px,100%);padding:28px}.rc-ic{width:40px;height:40px;border-radius:10px;background:var(--warn-sf);color:var(--warn);display:grid;place-items:center}.rc h1{font-size:20px;margin:14px 0 6px;letter-spacing:-.02em}.rc>p{margin:0 0 18px}
+.rc-g{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;padding:16px 16px 16px 40px;margin:0;background:var(--sf);border-radius:12px;font:14px/1.8 'Geist Mono',monospace}.rc-g li::marker{color:var(--mu);font-size:11px}.rc-g .u{color:var(--mu);text-decoration:line-through}.rc-g.new li{animation:rcn .4s var(--ease) both}@keyframes rcn{from{opacity:0;filter:blur(4px)}}
+.rc-a{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.rc-a .b{height:36px}
+.rc-cf{margin-top:12px;padding:12px;border-radius:10px;background:var(--err-sf);font-size:13px;display:grid;gap:10px}.rc-cf p{margin:0}.rc-cf div{display:flex;gap:6px;justify-content:flex-end}.k .rc-d{background:var(--err);color:#fff}
+.rc-ck{display:flex;gap:10px;align-items:center;margin-top:20px;font-size:14px;min-height:44px}.rc-ck input{width:18px;height:18px;accent-color:var(--ac)}.rc-go{width:100%;height:44px}
+</style>
+<script>
+const $=i=>document.getElementById(i);let C=[];const gen=()=>Array.from({length:10},()=>Math.random().toString(36).slice(2,6)+'-'+Math.random().toString(36).slice(2,6));
+function draw(n){$('g').className='rc-g tn'+(n?' new':'');$('g').innerHTML=C.map((c,i)=>`<li class="${!n&&(i==2||i==7)?'u':''}" style="animation-delay:${i*30}ms">${c}</li>`).join('')}C=gen();draw();
+$('cp').onclick=()=>{const t=C.join('\n'),d=()=>{$('cp').querySelector('span').textContent='Copied';setTimeout(()=>$('cp').querySelector('span').textContent='Copy',1500)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(d).catch(d)};
+$('dl').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['Recovery codes\n\n'+C.join('\n')],{type:'text/plain'}));a.download='recovery-codes.txt';a.click()};
+$('rg').onclick=()=>{$('cf').hidden=false;$('no').focus()};$('no').onclick=()=>$('cf').hidden=true;$('yes').onclick=()=>{C=gen();draw(1);$('cf').hidden=true;$('ok').checked=false;$('go').disabled=true};
+$('ok').onchange=e=>$('go').disabled=!e.target.checked;
+</script>

@@ -1,0 +1,52 @@
+<style>
+.led{min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:#121212;font-family:Geist,system-ui,sans-serif;color:#e6e6e6}
+.led-in{width:min(980px,100%)}
+.led-box{padding:14px;border-radius:12px;background:linear-gradient(#262626,#171717);box-shadow:inset 0 1px 0 #ffffff14,inset 0 0 0 1px #000,0 30px 60px -30px #000}
+.led-box canvas{display:block;width:100%;height:clamp(90px,14vw,150px);border-radius:4px;background:#070707}
+.led-ctl{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;align-items:center}
+.led-ctl input[type=text]{flex:1 1 240px;height:42px;padding:0 14px;border-radius:10px;border:1px solid #ffffff24;background:#1c1c1c;color:#fafafa;font:15px "Geist Mono",monospace;text-transform:uppercase}
+.led-seg{display:flex;gap:4px;padding:4px;border-radius:999px;background:#1f1f1f}
+.led-seg button{height:32px;padding:0 12px;border:0;border-radius:999px;background:none;color:#a3a3a3;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.led-seg button[aria-pressed="true"]{background:#e6e6e6;color:#121212}
+.led-col{display:flex;gap:6px}
+.led-col button{width:24px;height:24px;border-radius:50%;border:0;background:var(--c);cursor:pointer;box-shadow:0 0 0 2px #121212,0 0 0 3px #ffffff30}
+.led-col button[aria-pressed="true"]{box-shadow:0 0 0 2px #121212,0 0 0 4px #fafafa}
+.led button:focus-visible,.led input:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+</style>
+<section class="led">
+  <div class="led-in">
+    <div class="led-box"><canvas role="img" aria-label="LED sign"></canvas></div>
+    <div class="led-ctl">
+      <input type="text" maxlength="60" value="PLATFORM 4 · NEXT TRAIN 21:47 TO HARBOUR  +++" aria-label="Sign text">
+      <div class="led-seg" role="group" aria-label="Mode"><button data-m="scroll" aria-pressed="true">Scroll</button><button data-m="still" aria-pressed="false">Still</button><button data-m="blink" aria-pressed="false">Blink</button></div>
+      <div class="led-col" role="group" aria-label="Colour"><button style="--c:#ffab2e" aria-label="Amber" aria-pressed="true"></button><button style="--c:#4dff7a" aria-label="Green" aria-pressed="false"></button><button style="--c:#ff4b3a" aria-label="Red" aria-pressed="false"></button><button style="--c:#e9f1ff" aria-label="White" aria-pressed="false"></button></div>
+    </div>
+  </div>
+</section>
+<script>
+(()=>{
+// 5×7 column font (bit 0 = top row).
+const F={" ":"0000000000","!":"00005F0000",".":"0060600000",",":"0050300000","-":"0808080808","?":"0201510906",":":"0036360000","0":"3E5149453E","1":"00427F4000","2":"4261514946","3":"2141454B31","4":"1814127F10","5":"2745454539","6":"3C4A494930","7":"0171090503","8":"3649494936","9":"064949291E",
+A:"7E1111117E",B:"7F49494936",C:"3E41414122",D:"7F4141221C",E:"7F49494941",F:"7F09090101",G:"3E41415132",H:"7F0808087F",I:"00417F4100",J:"2040413F01",K:"7F08142241",L:"7F40404040",M:"7F0204027F",N:"7F0408107F",O:"3E4141413E",P:"7F09090906",Q:"3E4151215E",R:"7F09192946",S:"4649494931",T:"01017F0101",U:"3F4040403F",V:"1F2040201F",W:"7F2018207F",X:"6314081463",Y:"0304780403",Z:"6151494543",
+"&":"3649552250","/":"2010080402","+":"08083E0808","#":"147F147F14","@":"324979413E","'":"0005030000","%":"2313086462","$":"242A7F2A12","(":"001C224100",")":"0041221C00","·":"0000180000","€":"143E555541"};
+const R=document.querySelector(".led"),cv=R.querySelector("canvas"),x=cv.getContext("2d"),inp=R.querySelector("input"),modes=[...R.querySelectorAll("[data-m]")],cols=[...R.querySelectorAll(".led-col button")];
+let mode="scroll",col="#ffab2e",bits=[],off=0,W,H,dpr,pitch,nc,t=0,vis=true;
+const compile=()=>{bits=[];for(const ch of inp.value.toUpperCase()){const g=F[ch]||F["?"];for(let i=0;i<5;i++)bits.push(parseInt(g.substr(i*2,2),16));bits.push(0)}cv.setAttribute("aria-label","LED sign: "+inp.value)};
+const size=()=>{dpr=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;pitch=H/9;nc=Math.floor(W/pitch)};
+new ResizeObserver(size).observe(cv);
+const draw=()=>{x.setTransform(dpr,0,0,dpr,0,0);x.fillStyle="#070707";x.fillRect(0,0,W,H);
+  const rr=pitch*.36,ox=(W-nc*pitch)/2+pitch/2,on=mode!=="blink"||Math.floor(t*2.2)%2===0,L=bits.length;
+  const start=mode==="scroll"?Math.floor(off):-Math.floor((nc-L)/2);
+  for(let c=0;c<nc;c++){let b=0;const i=start+c;
+    if(mode==="scroll"){const k=((i%(L+nc))+(L+nc))%(L+nc)-nc;b=k>=0&&k<L?bits[k]:0}else b=i>=0&&i<L?bits[i]:0;
+    for(let r=0;r<7;r++){const lit=on&&(b>>r&1);x.beginPath();x.arc(ox+c*pitch,pitch*(r+1.5),rr,0,7);x.fillStyle=lit?col:"#1d1a16";x.fill();
+      if(lit){x.beginPath();x.arc(ox+c*pitch-rr*.3,pitch*(r+1.5)-rr*.3,rr*.35,0,7);x.fillStyle="rgba(255,255,255,.45)";x.fill()}}}};
+inp.addEventListener("input",()=>{compile();off=0});
+modes.forEach(b=>b.onclick=()=>{mode=b.dataset.m;modes.forEach(o=>o.setAttribute("aria-pressed",o===b))});
+cols.forEach(b=>b.onclick=()=>{col=getComputedStyle(b).getPropertyValue("--c").trim();cols.forEach(o=>o.setAttribute("aria-pressed",o===b))});
+new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(R);
+compile();size();let last=performance.now();
+(function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis)return;t+=dt;
+  if(mode==="scroll"&&!matchMedia("(prefers-reduced-motion:reduce)").matches)off+=dt*14;draw()})(last);
+})();
+</script>

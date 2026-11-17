@@ -1,0 +1,51 @@
+<style>
+.sl{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sl :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sl ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sl *,.sl *::before,.sl *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sl{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.sl-pn{width:min(460px,100%);display:grid;gap:22px}
+.sl-g h2{margin:0 0 8px 16px;font:500 12px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.sl-l{list-style:none;margin:0;padding:0;background:var(--bg);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sl-l li+li{border-top:1px solid var(--line)}
+.sl-i{display:flex;align-items:center;gap:14px;width:100%;min-height:58px;padding:10px 14px 10px 14px;border:0;background:none;color:var(--fg);font:15px Geist,system-ui,sans-serif;text-align:left;text-decoration:none;cursor:pointer;transition:background-color .12s}
+a.sl-i:hover,button.sl-i:hover{background:var(--sf)}
+.sl-i:focus-visible{outline-offset:-2px}
+.sl-ic{flex:none;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:#fff}
+.sl-ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sl-tx{flex:1;min-width:0}
+.sl-tx b{display:block;font-weight:500}
+.sl-tx small{display:block;font-size:13px;color:var(--mu);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sl-v{color:var(--mu);font-size:14px;white-space:nowrap}
+.sl-ch{flex:none;width:16px;height:16px;fill:none;stroke:var(--ctl);stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round}
+.sl-bd{min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--err);color:light-dark(#fff,#2a0606);font-size:12px;font-weight:650;display:grid;place-items:center}
+.sl-sw{position:relative;flex:none;width:44px;height:26px;border-radius:99px;border:0;background:color-mix(in oklab,var(--ctl) 55%,var(--sf2));cursor:pointer;transition:background-color .2s}
+.sl-sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0000004d;transition:transform .25s var(--ease)}
+.sl-sw[aria-checked=true]{background:var(--ok)}
+.sl-sw[aria-checked=true]::after{transform:translateX(18px)}
+.sl-dn .sl-tx b{color:var(--err)}
+.sl-ft{margin:8px 16px 0;font-size:12.5px;color:var(--mu);line-height:1.5}
+</style>
+<div class="sl">
+  <div class="sl-pn">
+    <section class="sl-g"><h2 id="slA">Account</h2>
+      <ul class="sl-l" aria-labelledby="slA">
+        <li><a class="sl-i" href="#"><span class="sl-ic" style="background:#0e7490"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span><span class="sl-tx"><b>Profile</b><small>Mira Okafor · mira@studio.io</small></span><svg class="sl-ch" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+        <li><a class="sl-i" href="#"><span class="sl-ic" style="background:#15803d"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span><span class="sl-tx"><b>Password &amp; security</b></span><span class="sl-v">2FA on</span><svg class="sl-ch" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+        <li><a class="sl-i" href="#"><span class="sl-ic" style="background:#dc2626"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><span class="sl-tx"><b>Notifications</b></span><span class="sl-bd" aria-label="2 new">2</span><svg class="sl-ch" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+      </ul></section>
+    <section class="sl-g"><h2 id="slB">Preferences</h2>
+      <ul class="sl-l" aria-labelledby="slB">
+        <li><div class="sl-i" style="cursor:default"><span class="sl-ic" style="background:#7c3aed"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span><span class="sl-tx"><b id="slD">Dark mode</b></span><button class="sl-sw" role="switch" aria-checked="false" aria-labelledby="slD"></button></div></li>
+        <li><div class="sl-i" style="cursor:default"><span class="sl-ic" style="background:#c2410c"><svg viewBox="0 0 24 24"><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/><circle cx="12" cy="12" r="10"/></svg></span><span class="sl-tx"><b id="slO">Offline sync</b><small>Keep 2 GB of recent files</small></span><button class="sl-sw" role="switch" aria-checked="true" aria-labelledby="slO"></button></div></li>
+        <li><a class="sl-i" href="#"><span class="sl-ic" style="background:#2563eb"><svg viewBox="0 0 24 24"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg></span><span class="sl-tx"><b>Language</b></span><span class="sl-v">English (UK)</span><svg class="sl-ch" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></a></li>
+      </ul>
+      <p class="sl-ft">Offline sync uses mobile data only when “Low data mode” is off.</p></section>
+    <section class="sl-g"><ul class="sl-l"><li><button class="sl-i sl-dn"><span class="sl-tx"><b>Sign out of all devices</b></span></button></li></ul></section>
+  </div>
+</div>
+<script>
+document.querySelectorAll(".sl-sw").forEach(s=>s.addEventListener("click",()=>s.setAttribute("aria-checked",s.getAttribute("aria-checked")!=="true")));
+document.querySelectorAll('.sl a[href="#"]').forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
+const so=document.querySelector(".sl-dn");so.addEventListener("click",()=>{so.querySelector("b").textContent="Signed out of 3 devices";so.disabled=true});
+</script>

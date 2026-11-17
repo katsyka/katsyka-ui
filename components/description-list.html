@@ -1,0 +1,59 @@
+<style>
+.dl{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.dl :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.dl ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.dl *,.dl *::before,.dl *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.dl{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.dl-pn{width:min(640px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.dl-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 24px}
+.dl-hd h2{margin:0;font-size:18px;font-weight:620;letter-spacing:-.02em}
+.dl-hd p{margin:3px 0 0;font-size:13.5px;color:var(--mu)}
+.dl-hd .act{display:flex;gap:8px}
+.dl-hd button{height:34px;padding:0 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:550 13px Geist,system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.dl-hd button:hover{background:var(--sf2)}
+.dl-hd button svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dl dl{margin:0;border-top:1px solid var(--line)}
+.dl dl>div{display:grid;grid-template-columns:180px 1fr auto;gap:16px;align-items:center;padding:14px 24px;border-bottom:1px solid var(--line);min-height:52px}
+.dl dl>div:nth-child(even){background:color-mix(in oklab,var(--sf) 55%,var(--bg))}
+.dl dl>div:last-child{border-bottom:0}
+.dl dt{font-size:13.5px;color:var(--mu)}
+.dl dd{margin:0;font-size:14px;font-weight:500;min-width:0;overflow-wrap:anywhere}
+.dl dd.mono{font:500 13px "Geist Mono",monospace}
+.dl-cp{width:28px;height:28px;border:0;border-radius:7px;background:none;color:var(--mu);display:grid;place-items:center;cursor:pointer}
+.dl-cp:hover{background:var(--sf2);color:var(--fg)}
+.dl-cp svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dl-cp.ok{color:var(--ok)}
+.dl-st{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:99px;background:var(--ok-sf);color:var(--ok);font-size:12.5px;font-weight:600}
+.dl-st i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.dl-pm{display:flex;align-items:center;gap:8px}
+.dl-pm span{width:34px;height:22px;border-radius:4px;background:linear-gradient(135deg,#1a1f71,#2563eb);color:#fff;font:700 8px/22px Geist,system-ui,sans-serif;text-align:center;letter-spacing:.04em}
+.dl-files{display:grid;gap:6px}
+.dl-files a{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;border:1px solid var(--line);color:var(--fg);text-decoration:none;font-size:13.5px;background:var(--bg)}
+.dl-files a:hover{background:var(--sf)}
+.dl-files a small{margin-left:auto;color:var(--mu);font-size:12px}
+.dl-files svg{width:15px;height:15px;fill:none;stroke:var(--mu);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dl-sum{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.dl-sum div{padding:16px 24px}
+.dl-sum div+div{border-left:1px solid var(--line)}
+.dl-sum small{display:block;font-size:12.5px;color:var(--mu)}
+.dl-sum b{font-size:20px;font-weight:650;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+@media (max-width:600px){.dl dl>div{grid-template-columns:1fr auto;gap:4px 12px}.dl dt{grid-column:1/-1}.dl-hd{flex-direction:column}.dl-sum{grid-template-columns:1fr}.dl-sum div+div{border-left:0;border-top:1px solid var(--line)}}
+</style>
+<div class="dl">
+  <section class="dl-pn" aria-labelledby="dlH">
+    <div class="dl-hd"><div><h2 id="dlH">Order #A-20931</h2><p>Placed Oct 30, 2026 at 14:22</p></div><div class="act"><button><svg viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>Print</button><button><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>Refund</button></div></div>
+    <div class="dl-sum"><div><small>Subtotal</small><b>$186.00</b></div><div><small>Tax (8.5%)</small><b>$15.81</b></div><div><small>Total paid</small><b>$201.81</b></div></div>
+    <dl>
+      <div><dt>Status</dt><dd><span class="dl-st"><i></i>Paid</span></dd><span></span></div>
+      <div><dt>Customer</dt><dd>Mira Okafor · mira@studio.io</dd><span></span></div>
+      <div><dt>Transaction ID</dt><dd class="mono">txn_3P9xQ2bR7mVc9TqK</dd><button class="dl-cp" aria-label="Copy transaction ID" data-v="txn_3P9xQ2bR7mVc9TqK"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      <div><dt>Payment method</dt><dd class="dl-pm"><span>VISA</span>•••• 4242 · exp 12/29</dd><span></span></div>
+      <div><dt>Shipping address</dt><dd>Rua do Alecrim 42, 1200-018 Lisbon, Portugal</dd><button class="dl-cp" aria-label="Copy address" data-v="Rua do Alecrim 42, 1200-018 Lisbon, Portugal"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+      <div><dt>Documents</dt><dd class="dl-files"><a href="#"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6"/></svg>Invoice A-20931.pdf<small>84 KB</small></a><a href="#"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6"/></svg>Packing slip.pdf<small>22 KB</small></a></dd><span></span></div>
+    </dl>
+  </section>
+</div>
+<script>
+document.querySelectorAll(".dl-cp").forEach(b=>b.addEventListener("click",()=>{navigator.clipboard?.writeText(b.dataset.v).catch(()=>{});const h=b.innerHTML;b.classList.add("ok");b.innerHTML='<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';b.setAttribute("aria-label","Copied");setTimeout(()=>{b.classList.remove("ok");b.innerHTML=h},1500)}));
+document.querySelectorAll('.dl a[href="#"]').forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
+</script>

@@ -1,0 +1,40 @@
+<style>
+.sp{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sp :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sp ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sp *,.sp *::before,.sp *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sp{background:var(--bg);color:var(--fg);font-family:Geist,system-ui,sans-serif;padding:clamp(56px,12vh,120px) clamp(16px,4vw,56px)}
+.sp-in{max-width:1180px;margin:0 auto;display:grid;gap:clamp(48px,10vh,120px)}
+.sp-h{max-width:720px}
+.sp small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:var(--mu)}
+.sp h2{margin:14px 0 0;font-size:clamp(40px,5.6vw,84px);line-height:.92;letter-spacing:-.06em;font-weight:600}
+.sp em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.025em}
+.sp-f{margin:0;display:grid;gap:14px}
+.sp-im{--n:7;position:relative;aspect-ratio:16/9;display:grid;grid-template-columns:repeat(var(--n),1fr)}
+.sp-im i{background-size:calc(var(--n)*100%) 100%;will-change:transform}
+.sp-im i:first-child{border-radius:var(--r3) 0 0 var(--r3)}.sp-im i:last-child{border-radius:0 var(--r3) var(--r3) 0}
+.sp-f figcaption{display:flex;justify-content:space-between;gap:12px;font-size:15px;font-weight:550}
+.sp-f figcaption span{font:500 12px "Geist Mono",monospace;letter-spacing:.1em;color:var(--mu);align-self:center}
+@media (max-width:640px){.sp-im{--n:5}}
+</style>
+<section class="sp" aria-label="Strip parallax gallery">
+  <div class="sp-in">
+    <div class="sp-h"><small>ARCHITECTURE · VOL. 3</small><h2>Buildings that <em>fall into line.</em></h2></div>
+    <figure class="sp-f"><div class="sp-im" role="img" aria-label="Looking down a symmetrical metro escalator hall" data-src="media/pics/w/1033.jpg"></div><figcaption>Escalator hall <span>UNDERGROUND</span></figcaption></figure>
+    <figure class="sp-f"><div class="sp-im" role="img" aria-label="Looking up at the sharp corner of a tower with a striped facade" data-src="media/pics/w/1076.jpg"></div><figcaption>Corner study <span>LOOKING UP</span></figcaption></figure>
+    <div class="sp-h"><h2>Scroll on. <em>They settle.</em></h2></div>
+  </div>
+</section>
+<script>
+(()=>{
+// Each photo is cut into vertical strips; strips drift apart by alternating amounts and line up exactly as the photo reaches the middle of the viewport.
+const root=document.querySelector(".sp"),still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const ims=[...root.querySelectorAll(".sp-im")];let raf=0;
+function build(){ims.forEach(el=>{const n=+getComputedStyle(el).getPropertyValue("--n");el.innerHTML="";
+  for(let i=0;i<n;i++){const s=document.createElement("i");s.style.backgroundImage=`url(${el.dataset.src})`;s.style.backgroundPosition=`${i/(n-1)*100}% 50%`;s.dataset.k=(i%2?-1:1)*(.55+((i*37)%5)/9);el.append(s)}});update()}
+function update(){raf=0;const vh=innerHeight;ims.forEach(el=>{const r=el.getBoundingClientRect(),d=Math.max(-1,Math.min(1,(r.top+r.height/2-vh/2)/(vh*.75)));
+  const e=Math.sign(d)*Math.pow(Math.abs(d),1.4),amp=r.height*.13;for(const s of el.children)s.style.transform=`translateY(${(still?0:e*amp*s.dataset.k).toFixed(1)}px)`})}
+addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(update)},{passive:true});
+let w=innerWidth;addEventListener("resize",()=>{if((innerWidth<=640)!==(w<=640))build();else update();w=innerWidth});build();
+})();
+</script>

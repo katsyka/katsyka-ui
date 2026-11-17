@@ -1,0 +1,17 @@
+<!--Typewriter|Text|A hero line that types and deletes a rotating phrase with a blinking caret, human-ish timing (slower on spaces, quick deletes), a pause on each word, and a stable line height. Screen readers hear the full sentence once.|text effect,typewriter,caret,hero,rotating-->
+<div class="k"><section class="tw"><h1><span class="vh">Design that works for phones, for the dark, and for real people.</span><span aria-hidden="true">Design that works<br>for <span class="tw-w" id="w"></span><i class="tw-c"></i></span></h1><p class="mu">Katsyka UI · mobile, dark mode and everyday components.</p></section></div>
+<style>
+.tw{width:min(820px,100%)}
+.tw h1{margin:0;font-size:clamp(36px,7vw,72px);line-height:1.05;font-weight:650;letter-spacing:-.04em;min-height:2.1em}
+.tw-w{color:var(--ac)}
+.tw-c{display:inline-block;width:.06em;height:.9em;margin-left:.04em;vertical-align:-.08em;background:var(--ac);animation:bl 1s steps(1) infinite}
+.tw.typing .tw-c{animation:none}
+@keyframes bl{50%{opacity:0}}
+.tw p{margin:20px 0 0;font-size:17px}
+</style>
+<script>
+const P=["phones.","the dark.","real people.","thumbs.","slow networks."];let i=0,s="",del=false;const tw=document.querySelector(".tw");
+if(matchMedia("(prefers-reduced-motion: reduce)").matches){w.textContent=P[2]}else{
+const tick=()=>{const full=P[i];tw.classList.add("typing");if(!del){s=full.slice(0,s.length+1);w.textContent=s;if(s===full){del=true;tw.classList.remove("typing");return setTimeout(tick,1600)}const c=full[s.length-1];setTimeout(tick,c===" "?140:55+Math.random()*70)}
+ else{s=s.slice(0,-1);w.textContent=s;if(!s){del=false;i=(i+1)%P.length;tw.classList.remove("typing");return setTimeout(tick,350)}setTimeout(tick,28)}};tick()}
+</script>

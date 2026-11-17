@@ -1,0 +1,57 @@
+<style>
+.pc{min-height:100vh;background:#09090b;padding:80px clamp(16px,4vw,48px);text-align:center}
+.pc h2{font-size:clamp(36px,5vw,60px);letter-spacing:-.05em;line-height:1;font-weight:600;margin:0 0 14px}
+.pc>p{color:#85858f;margin:0 0 32px;font-size:17px}
+.pc-tg{position:relative;display:inline-flex;padding:4px;border-radius:99px;background:#141417;border:1px solid #ffffff12;margin-bottom:48px}
+.pc-tg button{position:relative;z-index:1;height:38px;padding:0 20px;border:0;background:none;color:#8a8a94;font:500 14px Geist,sans-serif;cursor:pointer;transition:color .3s;display:flex;gap:8px;align-items:center}
+.pc-tg button.on{color:#0a0a0a}
+.pc-tg button em{font-style:normal;font-size:11px;font-weight:600;padding:2px 7px;border-radius:99px;background:#3ddc8422;color:#3ddc84;transition:all .3s}
+.pc-tg button.on em{background:#0a0a0a;color:#3ddc84}
+.pc-tg i{position:absolute;top:4px;bottom:4px;border-radius:99px;background:#f4f3ef;transition:left .45s cubic-bezier(.4,1.3,.5,1),width .45s cubic-bezier(.4,1.3,.5,1)}
+.pc-g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1080px;margin:0 auto;text-align:left}
+.pc-c{position:relative;padding:28px;border-radius:22px;background:#101013;border:1px solid #ffffff12;display:flex;flex-direction:column}
+.pc-c.hot{background:linear-gradient(#18120f,#101013 60%);border-color:#ff5a1f55}
+.pc-c.hot::before{content:"Most popular";position:absolute;top:-11px;left:28px;font:600 11px Geist,sans-serif;padding:4px 10px;border-radius:99px;background:#ff5a1f;color:#140a05}
+.pc-c h3{margin:0 0 6px;font-size:17px;font-weight:600}
+.pc-c>p{margin:0 0 24px;color:#7f7f89;font-size:14px;min-height:42px}
+.pc-price{display:flex;align-items:flex-end;gap:2px;font-size:54px;font-weight:600;letter-spacing:-.05em;line-height:1;height:54px}
+.pc-price .cur{font-size:26px;align-self:flex-start;margin-top:4px}
+.pc-dg{display:inline-block;height:54px;overflow:hidden;font-variant-numeric:tabular-nums;margin-right:-.05em}
+.pc-dg span{display:flex;flex-direction:column;transition:transform .7s cubic-bezier(.6,0,.2,1)}
+.pc-dg span b{height:54px;font-weight:inherit}
+.pc-per{font-size:14px;color:#7f7f89;letter-spacing:0;font-weight:400;margin:0 0 6px 8px}
+.pc-bill{font-size:12.5px;color:#5d5d66;margin:10px 0 24px;height:16px}
+.pc-c ul{list-style:none;margin:0 0 28px;padding:20px 0 0;border-top:1px solid #ffffff10;display:grid;gap:11px;font-size:14px;color:#c4c4cc}
+.pc-c li{display:flex;gap:10px}.pc-c li::before{content:"✓";color:#ff7a45;font-weight:700}
+.pc-c a{margin-top:auto;height:46px;border-radius:12px;display:grid;place-items:center;text-decoration:none;font-weight:600;font-size:14.5px;color:#f4f3ef;border:1px solid #ffffff1f;transition:background .2s}
+.pc-c a:hover{background:#ffffff0a}
+.pc-c.hot a{background:#ff5a1f;color:#140a05;border-color:#ff5a1f}.pc-c.hot a:hover{background:#ff6d38}
+@media (max-width:860px){.pc-g{grid-template-columns:1fr;max-width:420px}}
+</style>
+<section class="pc">
+  <h2>Simple, honest pricing</h2><p>Start free. Upgrade when it pays for itself.</p>
+  <div class="pc-tg"><i></i><button class="on" data-p="m">Monthly</button><button data-p="y">Yearly <em>−20%</em></button></div>
+  <div class="pc-g">
+    <div class="pc-c"><h3>Starter</h3><p>For side projects and solo builders.</p><div class="pc-price" data-m="19" data-y="15"></div><div class="pc-bill"></div>
+      <ul><li>3 projects</li><li>10k events / month</li><li>Community support</li></ul><a href="#">Start free</a></div>
+    <div class="pc-c hot"><h3>Team</h3><p>Everything a growing team needs to ship.</p><div class="pc-price" data-m="49" data-y="39"></div><div class="pc-bill"></div>
+      <ul><li>Unlimited projects</li><li>1M events / month</li><li>Roles & permissions</li><li>Priority support</li></ul><a href="#">Start 14-day trial</a></div>
+    <div class="pc-c"><h3>Scale</h3><p>Advanced security and dedicated help.</p><div class="pc-price" data-m="129" data-y="99"></div><div class="pc-bill"></div>
+      <ul><li>SSO & SCIM</li><li>Unlimited events</li><li>Audit log</li><li>Dedicated manager</li></ul><a href="#">Talk to sales</a></div>
+  </div>
+</section>
+<script>
+(()=>{
+const tg=document.querySelector(".pc-tg"),pill=tg.querySelector("i"),prices=[...document.querySelectorAll(".pc-price")];
+const col=()=>`<span class="pc-dg"><span>${[...Array(10)].map((_,i)=>`<b>${i}</b>`).join("")}</span></span>`;
+prices.forEach(p=>p.innerHTML=`<span class="cur">$</span>${col()}${col()}${col()}<span class="pc-per">/mo</span>`);
+const set=k=>{
+  tg.querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.p===k));
+  const b=tg.querySelector(".on");pill.style.left=b.offsetLeft+"px";pill.style.width=b.offsetWidth+"px";
+  prices.forEach(p=>{const v=p.dataset[k].padStart(3," "),cols=p.querySelectorAll(".pc-dg");
+    cols.forEach((c,i)=>{c.style.display=v[i]===" "?"none":"";c.firstElementChild.style.transform=`translateY(${-(+v[i]||0)*54}px)`;c.firstElementChild.style.transitionDelay=i*60+"ms"});
+    p.nextElementSibling.textContent=k==="y"?`$${p.dataset.y*12} billed yearly`:"billed monthly"})};
+tg.addEventListener("click",e=>{const b=e.target.closest("button");if(b)set(b.dataset.p)});
+requestAnimationFrame(()=>set("m"));
+})();
+</script>

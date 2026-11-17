@@ -1,0 +1,24 @@
+<!--Order Summary|Cards|A checkout summary card: line items with thumbnails, a promo code that validates, shipping choice, and totals that recalculate, ending in one clear Pay button.|checkout,order,cart,totals,ecommerce-->
+<div class="k"><aside class="card os"><h2>Order summary</h2>
+  <ul class="os-l"><li><img src="media/pics/c/1043.jpg" alt=""><span><b>Valley floor</b><small>50×70 · Natural oak</small></span><span class="tn">$106.00</span></li><li><img src="media/pics/c/1080.jpg" alt=""><span><b>Strawberries</b><small>30×40 · No frame · ×2</small></span><span class="tn">$76.00</span></li></ul>
+  <form class="os-pc" id="pc"><label class="vh" for="code">Promo code</label><input class="in" id="code" placeholder="Promo code" autocomplete="off"><button class="b sec">Apply</button></form><p class="os-m" id="pm" role="status"></p>
+  <fieldset class="os-sh"><legend class="lbl">Shipping</legend><label><input type="radio" name="s" value="0" checked><span>Standard <small class="mu">3–5 days</small></span><b>Free</b></label><label><input type="radio" name="s" value="14"><span>Express <small class="mu">Next day</small></span><b class="tn">$14.00</b></label></fieldset>
+  <dl class="os-t"><div><dt>Subtotal</dt><dd class="tn">$182.00</dd></div><div id="dr" hidden><dt>Discount (FIELD10)</dt><dd class="tn" id="dv"></dd></div><div><dt>Shipping</dt><dd class="tn" id="sv">Free</dd></div><div><dt>Tax</dt><dd class="tn">Included</dd></div><div class="tot"><dt>Total</dt><dd class="tn" id="tv">$182.00</dd></div></dl>
+  <button class="b ac os-pay">@I(lock,16)Pay <span class="tn" id="pv">$182.00</span></button></aside></div>
+<style>
+.os{width:min(380px,100%);padding:20px}.os h2{margin:0 0 12px;font-size:17px;font-weight:650}
+.os-l{list-style:none;margin:0;padding:0}.os-l li{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.os-l img{width:48px;height:56px;border-radius:8px;object-fit:cover}.os-l span:nth-child(2){flex:1}.os-l b{display:block;font-weight:550}.os-l small{color:var(--mu);font-size:13px}
+.os-pc{display:flex;gap:8px;margin-top:16px}.os-m{min-height:18px;margin:6px 0 0;font-size:13px}.os-m.ok{color:var(--ok)}.os-m.bad{color:var(--err)}
+.os-sh{border:0;padding:0;margin:12px 0 0}.os-sh label{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-top:6px;cursor:pointer}
+.os-sh label:has(:checked){border-color:var(--ac);background:var(--ac-sf)}.os-sh input{accent-color:var(--ac);margin:0}.os-sh span{flex:1}.os-sh b{font-weight:600}
+.os-t{margin:16px 0 0}.os-t div{display:flex;justify-content:space-between;padding:4px 0}.os-t dt{color:var(--mu)}.os-t dd{margin:0}
+.os-t .tot{border-top:1px solid var(--line);margin-top:8px;padding-top:12px;font-size:16px;font-weight:650}.os-t .tot dt{color:var(--fg)}
+.os-pay{width:100%;height:44px;margin-top:16px;font-size:15px}
+</style>
+<script>
+let d=0,s=0;const f=n=>"$"+n.toFixed(2);
+const tot=()=>{const t=182-d+s;dr.hidden=!d;dv.textContent="−"+f(d);sv.textContent=s?f(s):"Free";tv.textContent=pv.textContent=f(t)};
+pc.onsubmit=e=>{e.preventDefault();const ok=code.value.trim().toUpperCase()==="FIELD10";d=ok?18.2:0;code.setAttribute("aria-invalid",!ok&&!!code.value);pm.textContent=ok?"Code applied: 10% off.":code.value?"That code isn't valid. Try FIELD10.":"";pm.className="os-m "+(ok?"ok":"bad");tot()};
+document.querySelectorAll("[name=s]").forEach(r=>r.onchange=()=>{s=+r.value;tot()});
+</script>

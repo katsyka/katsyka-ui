@@ -1,0 +1,79 @@
+<style>
+.dt{min-height:100vh;padding:48px clamp(12px,3vw,40px);background:#09090b;color:#e4e4e7;font-size:14px}
+.dt-card{max-width:1080px;margin:0 auto;border-radius:20px;background:#0f0f11;border:1px solid #ffffff0d;overflow:hidden;position:relative}
+.dt-bar{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:16px 18px;flex-wrap:wrap}
+.dt-bar h3{margin:0;font-size:17px;font-weight:600;letter-spacing:-.02em}.dt-bar h3 span{font:500 12px "Geist Mono",monospace;color:#71717a;margin-left:8px}
+.dt-tools{display:flex;gap:8px;flex-wrap:wrap}
+.dt-search{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;border-radius:10px;border:1px solid #ffffff14;background:#09090b;width:220px}
+.dt-search input{flex:1;min-width:0;border:0;outline:0;background:none;color:#fafafa;font:13.5px Geist,sans-serif}
+.dt svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.dt-fil{display:flex;padding:3px;border-radius:10px;border:1px solid #ffffff14;background:#09090b}
+.dt-fil button{height:28px;padding:0 10px;border:0;border-radius:7px;background:none;color:#71717a;font:500 12.5px Geist,sans-serif;cursor:pointer}
+.dt-fil button em{font-style:normal;font:11px "Geist Mono",monospace;margin-left:5px;opacity:.7}.dt-fil button.on{background:#27272a;color:#fafafa}
+table{width:100%;border-collapse:collapse}
+th{height:40px;padding:0 14px;text-align:left;font:500 12px Geist,sans-serif;color:#71717a;border-top:1px solid #ffffff0b;border-bottom:1px solid #ffffff0b;background:#0c0c0e;white-space:nowrap;user-select:none}
+th.s{cursor:pointer}th.s:hover{color:#e4e4e7}th .ar{display:inline-block;margin-left:4px;opacity:0;transition:transform .25s,opacity .2s}th.on .ar{opacity:1}th.on.desc .ar{transform:rotate(180deg)}
+td{height:54px;padding:0 14px;border-bottom:1px solid #ffffff08;white-space:nowrap}
+tr.r{transition:background .15s}tr.r:hover{background:#ffffff05}tr.r.sel{background:#ff5a1f0d}
+tr.r.gone{animation:dt-out .35s forwards}@keyframes dt-out{to{opacity:0;transform:translateX(24px)}}
+.num{text-align:right;font-variant-numeric:tabular-nums}th.num{text-align:right}
+.dt-ck{width:18px;height:18px;border-radius:5px;border:1.5px solid #3f3f46;background:none;cursor:pointer;display:grid;place-items:center;padding:0;transition:all .15s}
+.dt-ck.on,.dt-ck.mid{background:#ff5a1f;border-color:#ff5a1f}.dt-ck.on::after{content:"";width:9px;height:5px;border:2px solid #160a04;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}.dt-ck.mid::after{content:"";width:8px;height:2px;background:#160a04;border-radius:1px}
+.dt-who{display:flex;align-items:center;gap:10px}.dt-who i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:600 11px Geist,sans-serif;font-style:normal;color:#09090b;background:var(--c)}
+.dt-who b{font-weight:550;display:block}.dt-who small{color:#71717a;font-size:12.5px}
+.dt-st{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:99px;font:500 12px Geist,sans-serif}
+.dt-st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.dt-st.paid{color:#4ade80;background:#4ade8014}.dt-st.pending{color:#fbbf24;background:#fbbf2414}.dt-st.overdue{color:#f87171;background:#f8717114}
+.dt-mono{font:13px "Geist Mono",monospace;color:#a1a1aa}
+.dt-empty td{height:160px;text-align:center;color:#71717a}
+.dt-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;font-size:13px;color:#71717a}
+.dt-pg{display:flex;gap:4px}.dt-pg button{min-width:32px;height:32px;border-radius:8px;border:1px solid #ffffff14;background:none;color:#a1a1aa;font:500 13px "Geist Mono",monospace;cursor:pointer}
+.dt-pg button.on{background:#fafafa;color:#09090b;border-color:#fafafa}.dt-pg button:disabled{opacity:.3;cursor:default}
+.dt-bulk{position:absolute;left:50%;bottom:16px;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 16px;border-radius:14px;background:#fafafa;color:#09090b;box-shadow:0 20px 40px -10px #000;transform:translate(-50%,140%);opacity:0;transition:transform .45s cubic-bezier(.3,1.3,.5,1),opacity .3s;font-weight:550;font-size:13.5px}
+.dt-bulk.on{transform:translate(-50%,0);opacity:1}
+.dt-bulk span{margin-right:10px}.dt-bulk button{height:34px;padding:0 12px;border-radius:9px;border:0;background:#e4e4e7;color:#09090b;font:550 13px Geist,sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px}
+.dt-bulk button.del{background:#dc2626;color:#fff}
+.dt-wrap{overflow-x:auto}
+</style>
+<section class="dt"><div class="dt-card">
+  <div class="dt-bar"><h3>Invoices<span data-count></span></h3>
+    <div class="dt-tools"><label class="dt-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input placeholder="Search customer or ID" aria-label="Search"></label>
+      <div class="dt-fil"></div></div></div>
+  <div class="dt-wrap"><table><thead><tr><th style="width:44px"><button class="dt-ck" data-all aria-label="Select all"></button></th>
+    <th class="s" data-k="name">Customer<span class="ar">↑</span></th><th class="s" data-k="id">Invoice<span class="ar">↑</span></th><th class="s" data-k="status">Status<span class="ar">↑</span></th><th class="s" data-k="date">Issued<span class="ar">↑</span></th><th class="s num" data-k="amt">Amount<span class="ar">↑</span></th></tr></thead><tbody></tbody></table></div>
+  <div class="dt-foot"><span data-range></span><div class="dt-pg"></div></div>
+  <div class="dt-bulk"><span data-sel></span><button data-act="export"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg>Export</button><button data-act="paid">Mark paid</button><button class="del" data-act="del">Delete</button></div>
+</div></section>
+<script>
+(()=>{
+const N=["Ava Chen","Liam Patel","Noah Kim","Maya Ross","Ezra Cole","Iris Novak","Leo Hart","Zoe Lund","Omar Haddad","Nina Berg","Kai Moreno","Ruth Alder","Theo Grant","Lena Voss","Sami Okoro","Ines Duarte","Hugo Laine","Mila Sato","Jonah Reed","Ada Quinn","Felix Ward","Yara Nasser"];
+const C=["#ff9a6b","#7dd3fc","#c4b5fd","#86efac","#fcd34d","#f9a8d4"],S=["paid","paid","pending","overdue"];
+let seed=9;const r=()=>(seed=(seed*16807)%2147483647)/2147483647;
+let rows=N.map((n,i)=>({name:n,mail:n.split(" ")[0].toLowerCase()+"@"+["acme","globex","initech","hooli"][i%4]+".com",id:"INV-"+(2041+i*7),status:S[r()*4|0],date:new Date(2026,9,28-i*3-(r()*3|0)),amt:Math.round(200+r()*9800),c:C[i%6]}));
+const st={q:"",f:"all",k:"date",dir:-1,page:0,sel:new Set()},PER=7,$=s=>document.querySelector(s),tb=$(".dt tbody");
+const view=()=>rows.filter(x=>(st.f==="all"||x.status===st.f)&&(!st.q||(x.name+x.id+x.mail).toLowerCase().includes(st.q))).sort((a,b)=>(a[st.k]>b[st.k]?1:a[st.k]<b[st.k]?-1:0)*st.dir);
+function render(){const v=view(),pages=Math.max(1,Math.ceil(v.length/PER));st.page=Math.min(st.page,pages-1);const pg=v.slice(st.page*PER,st.page*PER+PER);
+  tb.innerHTML=pg.length?pg.map(x=>`<tr class="r${st.sel.has(x.id)?" sel":""}" data-id="${x.id}"><td><button class="dt-ck${st.sel.has(x.id)?" on":""}" aria-label="Select ${x.id}"></button></td>
+    <td><div class="dt-who"><i style="--c:${x.c}">${x.name.split(" ").map(w=>w[0]).join("")}</i><div><b>${x.name}</b><small>${x.mail}</small></div></div></td><td class="dt-mono">${x.id}</td>
+    <td><span class="dt-st ${x.status}">${x.status[0].toUpperCase()+x.status.slice(1)}</span></td><td>${x.date.toLocaleDateString("en",{month:"short",day:"numeric",year:"numeric"})}</td><td class="num">$${x.amt.toLocaleString("en")}.00</td></tr>`).join("")
+    :`<tr class="dt-empty"><td colspan="6">No invoices match “${st.q.replace(/</g,"")}”.</td></tr>`;
+  $(".dt [data-count]").textContent=rows.length;$("[data-range]").textContent=v.length?`${st.page*PER+1}–${st.page*PER+pg.length} of ${v.length}`:"0 results";
+  $(".dt-pg").innerHTML=`<button data-p="${st.page-1}" ${st.page?"":"disabled"}>‹</button>`+[...Array(pages)].map((_,i)=>`<button data-p="${i}" class="${i===st.page?"on":""}">${i+1}</button>`).join("")+`<button data-p="${st.page+1}" ${st.page<pages-1?"":"disabled"}>›</button>`;
+  const cnt=k=>k==="all"?rows.length:rows.filter(x=>x.status===k).length;
+  $(".dt-fil").innerHTML=["all","paid","pending","overdue"].map(k=>`<button data-f="${k}" class="${st.f===k?"on":""}">${k[0].toUpperCase()+k.slice(1)}<em>${cnt(k)}</em></button>`).join("");
+  const ids=pg.map(x=>x.id),n=ids.filter(i=>st.sel.has(i)).length,all=$("[data-all]");all.className="dt-ck"+(n&&n===ids.length?" on":n?" mid":"");
+  document.querySelectorAll("th.s").forEach(th=>{th.classList.toggle("on",th.dataset.k===st.k);th.classList.toggle("desc",st.dir<0)});
+  $("[data-sel]").textContent=`${st.sel.size} selected`;$(".dt-bulk").classList.toggle("on",st.sel.size>0)}
+$(".dt input").oninput=e=>{st.q=e.target.value.toLowerCase().trim();st.page=0;render()};
+$(".dt-fil").onclick=e=>{const b=e.target.closest("button");if(b){st.f=b.dataset.f;st.page=0;render()}};
+$(".dt-pg").onclick=e=>{const b=e.target.closest("button");if(b&&!b.disabled){st.page=+b.dataset.p;render()}};
+document.querySelectorAll("th.s").forEach(th=>th.onclick=()=>{st.dir=st.k===th.dataset.k?-st.dir:1;st.k=th.dataset.k;render()});
+tb.onclick=e=>{const tr=e.target.closest("tr.r");if(!tr)return;const id=tr.dataset.id;st.sel.has(id)?st.sel.delete(id):st.sel.add(id);render()};
+$("[data-all]").onclick=()=>{const v=view().slice(st.page*PER,st.page*PER+PER).map(x=>x.id),all=v.every(i=>st.sel.has(i));v.forEach(i=>all?st.sel.delete(i):st.sel.add(i));render()};
+$(".dt-bulk").onclick=e=>{const b=e.target.closest("button");if(!b)return;const a=b.dataset.act;
+  if(a==="paid"){rows.forEach(x=>{if(st.sel.has(x.id))x.status="paid"});st.sel.clear();render()}
+  else if(a==="export"){const csv="id,customer,status,amount\n"+rows.filter(x=>st.sel.has(x.id)).map(x=>`${x.id},${x.name},${x.status},${x.amt}`).join("\n"),l=document.createElement("a");l.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));l.download="invoices.csv";l.click()}
+  else{tb.querySelectorAll("tr.sel").forEach(t=>t.classList.add("gone"));setTimeout(()=>{rows=rows.filter(x=>!st.sel.has(x.id));st.sel.clear();render()},350)}};
+render();
+})();
+</script>

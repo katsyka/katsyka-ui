@@ -1,0 +1,46 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.mp{width:min(420px,100%);position:relative;align-self:start;margin-top:40px}.mp-t{display:flex;gap:8px;align-items:center;height:40px;padding:0 10px 0 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-weight:600;font-size:14px}.mp-t:hover{border-color:var(--ctl)}.mp-d{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.mp-l{position:absolute;top:46px;left:0;width:100%;list-style:none;margin:0;padding:6px;background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px #0000000d,0 12px 28px -12px #0004;z-index:5;transform-origin:top left;animation:mpo .16s cubic-bezier(.23,1,.32,1);outline:0}@keyframes mpo{from{opacity:0;transform:scale(.97)}}
+.mp-l li{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:10px 12px;border-radius:10px;cursor:pointer}.mp-l li.cur{background:var(--sf2)}.mp-l li[aria-selected=true] b::after{content:" ✓";color:var(--ac)}.mp-l b{font-size:14px}.mp-l small{grid-column:1/-1;font-size:12px;color:var(--mu)}
+.mp-m{display:flex;gap:10px;font-size:11px;color:var(--mu);grid-column:1/-1}.mp-m span{display:flex;gap:4px;align-items:center}.mp-m i{display:flex;gap:2px}.mp-m i::before,.mp-m i::after,.mp-m em{content:"";width:5px;height:8px;border-radius:1px;background:var(--line)}.mp-m em{display:inline-block}
+.mp-bar{display:inline-flex;gap:2px}.mp-bar s{width:5px;height:9px;border-radius:1px;background:var(--line);text-decoration:none}.mp-bar s.f{background:var(--fg)}
+.mp-tg{display:flex;gap:4px;flex-wrap:wrap}.mp-tg span{font-size:11px;padding:1px 7px;border-radius:999px;background:var(--sf2);color:var(--mu)}.mp-x{font-size:13px;margin:10px 0 0}
+</style>
+<div class="k"><div class="mp"><button class="mp-t" id="t" aria-haspopup="listbox" aria-expanded="false" aria-controls="lb"><span class="mp-d"></span><span id="tn"></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="m6 9 6 6 6-6"/></svg></button><ul class="mp-l" id="lb" role="listbox" aria-label="Model" tabindex="-1" hidden></ul><p class="mp-x mu" id="x"></p></div></div>
+<script>
+const M=[["Swift","Quick answers, autocomplete and simple edits",5,2,1,"128k",["Chat","Autocomplete"]],["Balanced","Most everyday writing and coding",3,4,2,"200k",["Writing","Code review"]],["Deep","Long documents, analysis and tricky reasoning",1,5,4,"1M",["Research","Analysis"]],["Vision","Reading screenshots, charts and PDFs",3,4,3,"200k",["Images","Documents"]]];
+const $=i=>document.getElementById(i),lb=$('lb'),t=$('t');let sel=1,cur=1;const bar=(n,c=5)=>`<span class="mp-bar">${Array.from({length:c},(_,i)=>`<s class="${i<n?'f':''}"></s>`).join('')}</span>`;
+function draw(){lb.innerHTML=M.map(([n,d,sp,q,c,ctx,tg],i)=>`<li role="option" id="o${i}" aria-selected="${i===sel}" class="${i===cur?'cur':''}" data-i="${i}"><b>${n}</b><span class="mp-tg">${tg.map(x=>`<span>${x}</span>`).join('')}</span><small>${d} · ${ctx} context</small><span class="mp-m"><span>Speed ${bar(sp)}</span><span>Quality ${bar(q)}</span><span>Cost ${bar(c,4)}</span></span></li>`).join('');lb.setAttribute('aria-activedescendant','o'+cur);$('tn').textContent=M[sel][0];$('x').textContent=sel===0?'Fastest and cheapest. May miss nuance on long tasks.':sel===2?'Slowest and most expensive. Worth it for long, careful work.':sel===3?'Use it when your question includes images or PDFs.':'A good default for most work.'}
+const open=o=>{lb.hidden=!o;t.setAttribute('aria-expanded',o);if(o){cur=sel;draw();lb.focus()}else t.focus()};
+t.onclick=()=>open(lb.hidden);lb.onclick=e=>{const li=e.target.closest('li');if(!li)return;sel=+li.dataset.i;open(false);draw()};lb.onpointermove=e=>{const li=e.target.closest('li');if(li&&+li.dataset.i!==cur){cur=+li.dataset.i;draw()}};
+lb.onkeydown=e=>{if(e.key==='ArrowDown'){cur=(cur+1)%M.length;draw();e.preventDefault()}if(e.key==='ArrowUp'){cur=(cur+M.length-1)%M.length;draw();e.preventDefault()}if(e.key==='Enter'||e.key===' '){sel=cur;open(false);draw();e.preventDefault()}if(e.key==='Escape')open(false)};
+document.addEventListener('pointerdown',e=>{if(!lb.hidden&&!e.target.closest('.mp'))open(false)});draw();
+</script>

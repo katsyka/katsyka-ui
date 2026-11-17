@@ -1,0 +1,44 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.dr2{width:min(680px,100%);display:grid;gap:12px}.dr2-h{display:flex;gap:12px;align-items:center}.dr2-h .b{margin-left:auto}
+.dr2-t{padding:20px 22px;border:1px solid var(--line);border-radius:14px;background:var(--bg);font-size:17px;line-height:1.85}.dr2-t p{margin:0 0 1em}.dr2-t p:last-child{margin:0}
+.dr2-s{position:relative;border-radius:4px;outline-offset:2px}.dr2-s del{color:var(--err);background:var(--err-sf);text-decoration-thickness:1.5px}.dr2-s ins{color:var(--ok);background:var(--ok-sf);text-decoration:none;border-bottom:1.5px solid var(--ok)}.dr2-s:focus{outline:2px solid var(--focus)}
+.dr2-s .ac{position:absolute;left:0;top:calc(100% + 4px);display:none;gap:4px;z-index:3;background:var(--fg);padding:3px;border-radius:8px;white-space:nowrap}.dr2-s:hover .ac,.dr2-s:focus .ac,.dr2-s:focus-within .ac{display:flex}.dr2-s .ac button{height:28px;padding:0 9px;border-radius:6px;color:var(--bg);font-size:12px;font-weight:600}.dr2-s .ac button:hover{background:color-mix(in srgb,var(--bg) 15%,transparent)}.dr2-s .ac small{color:color-mix(in srgb,var(--bg) 70%,transparent);font-size:11px;padding:0 6px;align-self:center}
+.dr2-k{font-size:12px;margin:0}.dr2-k kbd{font:11px 'Geist Mono',monospace;border:1px solid var(--line);border-radius:4px;padding:0 4px}
+</style>
+<div class="k"><div class="dr2"><div class="dr2-h"><b>Suggested edits</b><span class="mu tn" id="c"></span><button class="b sec sm" id="aa">Accept all</button></div><div class="dr2-t" id="t"></div><p class="mu dr2-k">Tip: <kbd>Tab</kbd> next suggestion · <kbd>A</kbd> accept · <kbd>R</kbd> reject</p></div></div>
+<script>
+const T=[["We are ",["very excited to announce","pleased to share"]," that the new dashboard ",["is now available to be used by","is now available to"]," all customers."],["It loads ",["a lot faster","three times faster"]," and works offline. ",["Please do not hesitate to","Feel free to"]," send us feedback ",["at any point in time","any time"],"."]],W=["Simpler","Specific","Shorter","Plainer","Shorter"];const st={};
+function draw(){let k=0;document.getElementById('t').innerHTML=T.map(p=>'<p>'+p.map(x=>{if(typeof x==='string')return x;const i=k++;return st[i]==='a'?x[1]:st[i]==='r'?x[0]:`<span class="dr2-s" tabindex="0" data-i="${i}" aria-label="Suggestion: replace “${x[0]}” with “${x[1]}”"><del>${x[0]}</del> <ins>${x[1]}</ins><span class="ac"><small>${W[i]}</small><button data-a="a">Accept</button><button data-a="r">Reject</button></span></span>`}).join('')+'</p>').join('');const left=k-Object.keys(st).length;document.getElementById('c').textContent=left?`${left} left`:'All reviewed';document.getElementById('aa').hidden=!left}
+function act(i,a){st[i]=a;draw();const n=document.querySelector('.dr2-s');n&&n.focus()}
+document.getElementById('t').onclick=e=>{const b=e.target.closest('[data-a]');if(b)act(+b.closest('.dr2-s').dataset.i,b.dataset.a)};
+document.getElementById('t').onkeydown=e=>{const s=e.target.closest('.dr2-s');if(!s)return;if(e.key==='a'){act(+s.dataset.i,'a')}if(e.key==='r'){act(+s.dataset.i,'r')}};
+document.getElementById('aa').onclick=()=>{document.querySelectorAll('.dr2-s').forEach(s=>st[s.dataset.i]='a');draw()};draw();
+</script>

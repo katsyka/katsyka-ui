@@ -1,0 +1,28 @@
+<!--Analytics SaaS Landing|Landings|A privacy-first analytics product: hero with a live-updating mini dashboard (visitors ticking, sparkline drawing), a cookie-banner-free pitch, a pageviews pricing slider and a script snippet.|landing,saas,analytics,dashboard,pricing,slider-->
+<div class="k pg ln">
+<header class="top"><div class="w"><a class="logo" href="#"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 16 7 9l4 4 7-10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Tally</a><nav class="links"><a href="#">Features</a><a href="#pr">Pricing</a><a href="#">Docs</a></nav><a class="b ac" href="#">Start free trial</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w ln-hero"><div class="ln-t"><h1 class="h1">Analytics without<br>the cookie banner.</h1><p class="lead">Tally counts visits without cookies or personal data, so you can delete the consent popup and still know what's working.</p><div class="ln-cta"><a class="b ac lg" href="#">Start 30-day trial</a><span class="mu">No card needed</span></div></div>
+<div class="card ln-db" aria-label="Example dashboard"><div class="ln-dh"><b>example.com</b><span class="pill ok"><i class="ln-dot"></i><span id="live">12</span>&nbsp;now</span></div><div class="ln-k"><div><span class="mu">Visitors</span><b class="tn" id="vis">8,214</b><small class="ln-up">+12%</small></div><div><span class="mu">Bounce</span><b class="tn">41%</b><small class="ln-up">−3%</small></div><div><span class="mu">Visit</span><b class="tn">2m 08s</b><small class="mu">±0</small></div></div><svg class="ln-sp" viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true"><path id="ar" class="ln-area"/><path id="ln" class="ln-line"/></svg><ul class="ln-pg"><li><span>/pricing</span><i style="--w:82%"></i><b class="tn">2,140</b></li><li><span>/blog/cookieless</span><i style="--w:61%"></i><b class="tn">1,590</b></li><li><span>/</span><i style="--w:48%"></i><b class="tn">1,262</b></li></ul></div></section>
+<section class="sec ln-pr" id="pr"><div class="w ln-pg2"><div><h2 class="h2">Pay for pageviews,<br>not seats.</h2><p class="lead">Unlimited sites and team members on every plan.</p></div><div class="card ln-pc"><label class="lbl" for="pv">Monthly pageviews: <b class="tn" id="pvv"></b></label><input type="range" id="pv" min="0" max="6" value="2"><div class="ln-pp"><b class="tn" id="pp"></b><span class="mu">/ month, billed monthly</span></div><pre class="ln-code"><code>&lt;script defer src="https://tally.example/t.js"
+  data-site="example.com"&gt;&lt;/script&gt;</code></pre></div></div></section>
+<footer class="foot"><div class="w"><span>Tally is demo content. Hosted in the EU.</span><span>GDPR · PECR · CCPA</span></div></footer>
+</div>
+<style>
+.ln{--ac:light-dark(#2563eb,#93c5fd);--ac-h:light-dark(#1d4ed8,#bfdbfe);--ac-fg:light-dark(#fff,#0b1a33)}
+.ln-hero{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:72px 0;align-items:center}.ln-t{display:grid;gap:24px}.ln-cta{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.ln-db{padding:20px;display:grid;gap:16px}.ln-dh{display:flex;justify-content:space-between;align-items:center}.ln-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:lnp 1.6s infinite}@keyframes lnp{50%{opacity:.3}}
+.ln-k{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.ln-k div{display:grid;gap:2px}.ln-k span{font-size:12px}.ln-k b{font-size:22px;letter-spacing:-.02em}.ln-k small{font-size:12px;font-weight:600}.ln-up{color:var(--ok)}
+.ln-sp{width:100%;height:80px}.ln-area{fill:color-mix(in srgb,var(--ac) 14%,transparent)}.ln-line{fill:none;stroke:var(--ac);stroke-width:2;vector-effect:non-scaling-stroke}
+.ln-pg{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:13px}.ln-pg li{display:grid;grid-template-columns:1fr auto;position:relative;padding:6px 8px;border-radius:6px;overflow:hidden}.ln-pg i{position:absolute;inset:0;width:var(--w);background:var(--sf);z-index:0}.ln-pg span,.ln-pg b{position:relative}
+.ln-pr{background:var(--sf)}.ln-pg2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}.ln-pg2 .lead{margin-top:16px}.ln-pc{padding:24px;display:grid;gap:16px}.ln-pc input{width:100%;accent-color:var(--ac);height:28px}.ln-pp b{font-size:44px;letter-spacing:-.03em;margin-right:8px}
+.ln-code{margin:0;background:var(--sf);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:12.5px/1.6 'Geist Mono',monospace;overflow-x:auto}
+@media (max-width:760px){.ln-hero,.ln-pg2{grid-template-columns:1fr}.ln-hero{padding-top:32px}}
+</style>
+<script>
+let D=Array.from({length:30},(_,i)=>40+Math.sin(i/3)*12+i*.8+Math.random()*8);const ln=document.getElementById('ln'),ar=document.getElementById('ar');
+function draw(){const mx=Math.max(...D)*1.1,p=D.map((v,i)=>`${(i/(D.length-1)*300).toFixed(1)},${(80-v/mx*76).toFixed(1)}`);ln.setAttribute('d','M'+p.join('L'));ar.setAttribute('d','M'+p.join('L')+'L300,80L0,80Z')}draw();
+const vis=document.getElementById('vis'),live=document.getElementById('live');let v=8214;
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches)setInterval(()=>{v+=Math.floor(Math.random()*3);vis.textContent=v.toLocaleString('en');live.textContent=8+Math.floor(Math.random()*9);D.shift();D.push(D[D.length-1]+(Math.random()-.45)*8);draw()},1500);
+const PV=[[1e4,9],[5e4,19],[1e5,29],[5e5,69],[1e6,99],[5e6,249],[1e7,399]],pv=document.getElementById('pv'),f=n=>n>=1e6?n/1e6+'M':n/1e3+'k';
+pv.oninput=()=>{const [n,p]=PV[pv.value];document.getElementById('pvv').textContent=f(n);document.getElementById('pp').textContent='€'+p};pv.oninput();
+</script>

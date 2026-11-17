@@ -1,0 +1,65 @@
+<style>
+.tcl{min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:#e9e3d8;font-family:Geist,system-ui,sans-serif;color:#221f1a;overflow:hidden;user-select:none;-webkit-user-select:none}
+.tcl-in{display:flex;flex-direction:column;align-items:center;gap:22px}
+.tcl-pad{position:relative;width:260px;height:320px;filter:drop-shadow(0 22px 26px #0003)}
+.tcl-head{position:absolute;left:0;right:0;top:0;height:54px;z-index:3;border-radius:10px 10px 0 0;background:#c8361f;color:#fff3ea;display:grid;place-items:center;font:600 13px/1 "Geist Mono",monospace;letter-spacing:.2em}
+.tcl-head::before,.tcl-head::after{content:"";position:absolute;top:-8px;width:12px;height:22px;border-radius:6px;background:#3a3631;box-shadow:inset 0 2px 2px #fff4}
+.tcl-head::before{left:60px}.tcl-head::after{right:60px}
+.tcl-pg{position:absolute;left:0;right:0;top:54px;bottom:0;background:#fffdf8;border-radius:0 0 8px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;transform-origin:0 0;touch-action:none;
+  background-image:linear-gradient(#0000 97%,#00000010 97%);background-size:100% 10px}
+.tcl-pg.top{z-index:2;cursor:grab;box-shadow:0 1px 0 #0000001a}
+.tcl-pg.top:active{cursor:grabbing}
+.tcl-pg.top::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:radial-gradient(circle at 4px 0,#0000 3px,#fffdf8 3.5px) 0 0/10px 8px repeat-x}
+.tcl-pg b{font:400 150px/.85 "Instrument Serif",serif;letter-spacing:-.02em}
+.tcl-pg span{margin-top:10px;font:600 13px/1 "Geist Mono",monospace;letter-spacing:.2em;text-transform:uppercase}
+.tcl-pg small{margin-top:14px;font-size:12px;color:#8a8275}
+.tcl-pg.sun b,.tcl-pg.sun span{color:#c8361f}
+.tcl-pg.fly{transition:transform .8s cubic-bezier(.5,0,.8,.4),opacity .8s;opacity:0}
+.tcl-pg.back{animation:tcl-back .45s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes tcl-back{from{transform:translateY(-40px) rotate(-6deg);opacity:0}}
+.tcl-pad:focus-visible{outline:2px solid #1d4ed8;outline-offset:6px;border-radius:12px}
+.tcl-row{display:flex;align-items:center;gap:8px}
+.tcl-row button{height:40px;padding:0 16px;border-radius:999px;border:1px solid #221f1a30;background:#fffdf8;color:#221f1a;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.tcl-row .tcl-ok{background:#221f1a;color:#fffdf8;border-color:#221f1a}
+.tcl-row button:disabled{opacity:.4;cursor:default}
+.tcl-row button:focus-visible{outline:2px solid #1d4ed8;outline-offset:2px}
+.tcl-st{min-height:20px;font-size:13px;color:#6f685c;text-align:center}
+@media (prefers-reduced-motion:reduce){.tcl-pg.fly{transition:opacity .2s}.tcl-pg.back{animation:none}}
+</style>
+<section class="tcl">
+  <div class="tcl-in">
+    <div class="tcl-pad" tabindex="0" role="spinbutton" aria-label="Delivery day. Arrow keys change the day.">
+      <div class="tcl-head">NOVEMBER 2026</div>
+      <div class="tcl-pg under"></div><div class="tcl-pg top"></div>
+    </div>
+    <div class="tcl-row"><button class="tcl-prev" aria-label="Previous day">←</button><button class="tcl-ok">Deliver this day</button><button class="tcl-next" aria-label="Next day">→</button></div>
+    <div class="tcl-st" aria-live="polite">Pull the page down to tear off a day.</div>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".tcl"),pad=R.querySelector(".tcl-pad"),head=R.querySelector(".tcl-head"),under=R.querySelector(".under"),ok=R.querySelector(".tcl-ok"),st=R.querySelector(".tcl-st"),prev=R.querySelector(".tcl-prev");
+let top=R.querySelector(".top");
+const START=new Date(2026,10,2),MAXD=40,red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let d=0,busy=false,drag=null;
+const day=n=>{const t=new Date(START);t.setDate(t.getDate()+n);return t};
+const fill=(el,n)=>{const t=day(n),sun=t.getDay()===0;el.classList.toggle("sun",sun);
+  el.innerHTML=`<b>${t.getDate()}</b><span>${t.toLocaleDateString("en-GB",{weekday:"long"})}</span><small>${sun?"No deliveries on Sundays":n===0?"Earliest available":t.getDay()===6?"Saturday, +€4":"Standard delivery"}</small>`};
+const render=()=>{const t=day(d);head.textContent=t.toLocaleDateString("en-GB",{month:"long",year:"numeric"}).toUpperCase();fill(top,d);fill(under,d+1);
+  const sun=t.getDay()===0;ok.disabled=sun;prev.disabled=d===0;pad.setAttribute("aria-valuetext",t.toDateString()+(sun?", unavailable":""))};
+const tear=dx=>{if(busy||d>=MAXD)return;busy=true;drag=null;top.style.transition="";top.classList.add("fly");
+  if(!red)top.style.transform=`translate(${dx*1.5}px,${innerHeight}px) rotate(${dx>=0?28:-28}deg)`;
+  const old=top;setTimeout(()=>{const n=old.cloneNode();n.className="tcl-pg top";n.style.cssText="";old.replaceWith(n);top=n;bind();d++;render();busy=false;st.textContent="Torn off. "+day(d).toDateString()},red?200:500)};
+const back=()=>{if(busy||d===0)return;d--;render();top.classList.remove("back");void top.offsetWidth;top.classList.add("back");st.textContent="Back to "+day(d).toDateString()};
+function bind(){top.addEventListener("pointerdown",e=>{if(busy)return;drag={x:e.clientX,y:e.clientY};top.style.transition="none";top.setPointerCapture(e.pointerId)});
+  top.addEventListener("pointermove",e=>{if(!drag)return;const dy=Math.max(0,e.clientY-drag.y),dx=e.clientX-drag.x;if(dy>110)return tear(dx);
+    top.style.transform=`translateY(${dy*.25}px) rotate(${Math.max(-8,Math.min(8,dx*.05+dy*.03))}deg)`});
+  const up=()=>{if(!drag)return;drag=null;top.style.transition="transform .4s cubic-bezier(.3,1.6,.5,1)";top.style.transform=""};
+  top.addEventListener("pointerup",up);top.addEventListener("pointercancel",up)}
+bind();
+R.querySelector(".tcl-next").onclick=()=>tear(40);prev.onclick=back;
+pad.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowDown"){e.preventDefault();tear(40)}else if(e.key==="ArrowLeft"||e.key==="ArrowUp"){e.preventDefault();back()}});
+ok.onclick=()=>{st.textContent=`Booked for ${day(d).toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})}.`};
+render();
+})();
+</script>

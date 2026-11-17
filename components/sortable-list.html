@@ -1,0 +1,51 @@
+<style>
+.srt{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.srt :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.srt ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.srt *,.srt *::before,.srt *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.srt{min-height:100vh;display:grid;place-items:center;padding:48px 16px}
+.srt-card{width:min(440px,100%);padding:20px;border-radius:var(--r3);background:var(--bg);box-shadow:0 0 0 1px var(--line),var(--shadow)}
+.srt-head{display:flex;justify-content:space-between;align-items:baseline;margin:0 4px 12px}.srt-head h2{font:600 17px Geist,system-ui,sans-serif;margin:0}.srt-head span{color:var(--mu);font-size:13px;font-variant-numeric:tabular-nums}
+.srt-list{position:relative;list-style:none;margin:0;padding:0}
+.srt-it{position:absolute;left:0;right:0;height:60px;display:flex;align-items:center;gap:12px;padding:0 8px 0 4px;border-radius:var(--r2);background:var(--bg);transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .2s ease-out,background .2s ease-out;user-select:none}
+.srt-it.drag{transition:box-shadow .2s ease-out,background .2s ease-out;z-index:2;background:var(--sf);box-shadow:0 12px 28px -10px rgb(0 0 0/.35),0 0 0 1px var(--line)}
+.srt-it.kb{background:var(--ac-sf);box-shadow:0 0 0 2px var(--ac)}
+.srt-h{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:8px;background:none;color:var(--mu);cursor:grab;touch-action:none;flex:none}
+.srt-h:active{cursor:grabbing}
+.srt-art{width:40px;height:40px;border-radius:6px;flex:none;background:var(--g)}
+.srt-it b{display:block;font-weight:500;font-size:15px}.srt-it small{color:var(--mu);font-size:13px}
+.srt-it time{margin-left:auto;color:var(--mu);font:13px "Geist Mono",monospace;font-variant-numeric:tabular-nums}
+.srt-n{width:18px;text-align:right;color:var(--mu);font:12px "Geist Mono",monospace;font-variant-numeric:tabular-nums;flex:none}
+.srt-tip{margin:14px 4px 0;color:var(--mu);font-size:13px}
+</style>
+<section class="srt">
+  <div class="srt-card">
+    <div class="srt-head"><h2 id="srt-t">Up next</h2><span data-total></span></div>
+    <ul class="srt-list" aria-labelledby="srt-t" aria-describedby="srt-d"></ul>
+    <p class="srt-tip" id="srt-d">Drag the handle to reorder. With a keyboard: Space to pick up, arrows to move, Space to drop, Escape to cancel.</p>
+    <p class="srt-live" aria-live="assertive" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></p>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".srt"),list=R.querySelector(".srt-list"),live=R.querySelector(".srt-live"),H=64;
+const D=[["Harbour lights","Low Tide Choir",252,"#f97316,#7c2d12"],["Glasshouse","Mara Lune",201,"#22d3ee,#0e7490"],["Northbound","The Ferns",318,"#a3e635,#3f6212"],["Paper planes","Ivo & June",187,"#f472b6,#9d174d"],["Slow orbit","Kestrel",274,"#a78bfa,#4c1d95"],["Last tram home","Odd Weather",229,"#facc15,#854d0e"]];
+let order=D.map((_,i)=>i),els=[],drag=null,kb=null;
+const fmt=s=>Math.floor(s/60)+":"+String(s%60).padStart(2,"0");
+D.forEach((d,i)=>{const li=document.createElement("li");li.className="srt-it";li.innerHTML=`<button type="button" class="srt-h" aria-label="Reorder ${d[0]}"><svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h.01M15 6h.01M9 12h.01M15 12h.01M9 18h.01M15 18h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button><span class="srt-n"></span><span class="srt-art" style="--g:linear-gradient(135deg,${d[3]})"></span><span><b>${d[0]}</b><small>${d[1]}</small></span><time>${fmt(d[2])}</time>`;list.appendChild(li);els.push(li)});
+list.style.height=D.length*H+"px";R.querySelector("[data-total]").textContent=D.length+" songs · "+fmt(D.reduce((a,d)=>a+d[2],0));
+function lay(skip){order.forEach((id,pos)=>{const el=els[id];el.querySelector(".srt-n").textContent=pos+1;if(id!==skip)el.style.transform=`translateY(${pos*H}px)`})}
+els.forEach((el,id)=>{const h=el.querySelector(".srt-h");
+  h.addEventListener("pointerdown",e=>{if(kb)return;h.setPointerCapture(e.pointerId);const pos=order.indexOf(id);drag={id,y0:e.clientY,base:pos*H};el.classList.add("drag");el.style.transform=`translateY(${pos*H}px) scale(1.02)`});
+  h.addEventListener("pointermove",e=>{if(!drag||drag.id!==id)return;let y=drag.base+e.clientY-drag.y0;const max=(D.length-1)*H;
+    if(y<0)y=-Math.pow(-y,.7);if(y>max)y=max+Math.pow(y-max,.7);el.style.transform=`translateY(${y}px) scale(1.02)`;
+    const to=Math.max(0,Math.min(D.length-1,Math.round(y/H)));const from=order.indexOf(id);if(to!==from){order.splice(from,1);order.splice(to,0,id);lay(id)}});
+  const end=()=>{if(!drag||drag.id!==id)return;drag=null;el.classList.remove("drag");lay();live.textContent=`${D[id][0]} moved to position ${order.indexOf(id)+1}`};
+  h.addEventListener("pointerup",end);h.addEventListener("pointercancel",end);
+  h.addEventListener("keydown",e=>{const pos=order.indexOf(id);
+    if(e.key===" "||e.key==="Enter"){e.preventDefault();if(kb===null){kb={id,from:pos};el.classList.add("kb");live.textContent=`${D[id][0]} picked up, position ${pos+1} of ${D.length}`}else{kb=null;el.classList.remove("kb");live.textContent=`${D[id][0]} dropped at position ${pos+1}`}return}
+    if(kb&&kb.id===id&&(e.key==="ArrowUp"||e.key==="ArrowDown")){e.preventDefault();const to=Math.max(0,Math.min(D.length-1,pos+(e.key==="ArrowUp"?-1:1)));if(to!==pos){order.splice(pos,1);order.splice(to,0,id);lay();live.textContent=`Position ${to+1} of ${D.length}`}h.focus()}
+    if(kb&&e.key==="Escape"){order.splice(pos,1);order.splice(kb.from,0,id);kb=null;el.classList.remove("kb");lay();live.textContent="Reorder cancelled"}})});
+lay();
+})();
+</script>

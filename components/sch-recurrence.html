@@ -1,0 +1,47 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.rr{width:min(440px,100%);padding:22px;display:grid;gap:14px}.rr h2{margin:0;font-size:18px}.rr-r{display:flex;gap:8px;align-items:center;font-size:15px}.rr-r .in{height:40px;width:auto}.rr-r input{width:64px}
+.rr-wd{display:flex;gap:6px}.rr-wd button{width:40px;height:40px;border-radius:50%;border:1px solid var(--ctl);font-weight:600;font-size:13px}.rr-wd [aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.rr-md,.rr-e{display:grid;gap:8px;font-size:14px}.rr-e{border:0;margin:0;padding:0}.rr-md label,.rr-e label{display:flex;gap:8px;align-items:center;min-height:36px}.rr input[type=radio]{width:18px;height:18px;accent-color:var(--fg)}.rr-e .in{height:36px;width:auto}.rr-e input[type=number]{width:70px}
+.rr-s{margin:0;padding:12px;border-radius:10px;background:var(--sf2);font-size:15px;font-weight:550}.rr-l{margin:0;padding-left:20px;font-size:13px;color:var(--mu);display:grid;gap:3px}
+</style>
+<div class="k"><div class="rr card"><h2>Repeat</h2><div class="rr-r"><span>Every</span><input class="in tn" id="n" type="number" min="1" max="30" value="1" aria-label="Interval"><select class="in" id="u" aria-label="Unit"><option value="d">day</option><option value="w" selected>week</option><option value="m">month</option></select></div>
+<div id="wd" class="rr-wd" role="group" aria-label="On days"></div><div id="md" class="rr-md" hidden><label><input type="radio" name="mm" value="date" checked> On day <b id="dn"></b></label><label><input type="radio" name="mm" value="nth"> On the <b id="nth"></b></label></div>
+<fieldset class="rr-e"><legend class="lbl">Ends</legend><label><input type="radio" name="e" value="never" checked> Never</label><label><input type="radio" name="e" value="cnt"> After <input class="in tn" id="cnt" type="number" min="1" value="10" aria-label="Occurrences"> times</label><label><input type="radio" name="e" value="on"> On <input class="in" id="ed" type="date" aria-label="End date"></label></fieldset>
+<p class="rr-s" id="s" aria-live="polite"></p><ol class="rr-l tn" id="l"></ol></div></div>
+<script>
+const $=i=>document.getElementById(i),st=new Date();st.setHours(10,0,0,0);const W=['Mo','Tu','We','Th','Fr','Sa','Su'],WN=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],ON=['first','second','third','fourth','last'];let days=new Set([(st.getDay()+6)%7]);
+$('wd').innerHTML=W.map((w,i)=>`<button aria-pressed="${days.has(i)}" data-i="${i}" aria-label="${WN[i]}">${w}</button>`).join('');const nthI=Math.min(4,Math.floor((st.getDate()-1)/7));$('dn').textContent=st.getDate();$('nth').textContent=`${ON[nthI]} ${WN[(st.getDay()+6)%7]}`;$('ed').valueAsDate=new Date(+st+90*864e5);
+function gen(){const n=Math.max(1,+$('n').value||1),u=$('u').value,end=document.querySelector('[name=e]:checked').value,cnt=+$('cnt').value||1,ed=new Date($('ed').value+'T23:59'),mm=document.querySelector('[name=mm]:checked').value,out=[];let d=new Date(st),guard=0;
+while(out.length<(end==='cnt'?Math.min(cnt,5):5)&&guard++<800){let ok=true;if(u==='w'){const wk=Math.floor((d-st)/6048e5);ok=days.has((d.getDay()+6)%7)&&wk%n===0}if(u==='d')ok=Math.round((d-st)/864e5)%n===0;if(u==='m'){const mo=(d.getFullYear()-st.getFullYear())*12+d.getMonth()-st.getMonth();ok=mo%n===0&&(mm==='date'?d.getDate()===st.getDate():(d.getDay()===st.getDay()&&Math.floor((d.getDate()-1)/7)===nthI))}if(end==='on'&&d>ed)break;if(ok&&d>=st)out.push(new Date(d));d=new Date(+d+864e5)}
+const unit={d:'day',w:'week',m:'month'}[u],every=n===1?`Every ${unit}`:`Every ${n} ${unit}s`,on=u==='w'?' on '+[...days].sort().map(i=>WN[i]).join(', ').replace(/, ([^,]*)$/,' and $1'):u==='m'?(mm==='date'?` on day ${st.getDate()}`:` on the ${ON[nthI]} ${WN[(st.getDay()+6)%7]}`):'',fin=end==='cnt'?`, ${cnt} times`:end==='on'?`, until ${ed.toLocaleDateString('en-GB',{day:'numeric',month:'long'})}`:'';
+$('s').textContent=(u==='w'&&!days.size)?'Pick at least one day.':every+on+fin+' at 10:00.';$('l').innerHTML=out.map(x=>`<li>${x.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}</li>`).join('');$('wd').hidden=u!=='w';$('md').hidden=u!=='m'}
+$('wd').onclick=e=>{const b=e.target.closest('button');if(!b)return;const i=+b.dataset.i;days.has(i)?days.delete(i):days.add(i);b.setAttribute('aria-pressed',days.has(i));gen()};document.querySelector('.rr').addEventListener('input',gen);document.querySelector('.rr').addEventListener('change',gen);gen();
+</script>

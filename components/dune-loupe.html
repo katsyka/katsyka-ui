@@ -1,0 +1,52 @@
+<style>
+.dnl{position:relative;min-height:100vh;overflow:hidden;background:#2a1a0e;color:#fff8ee;font-family:Geist,system-ui,sans-serif;cursor:none}
+.dnl video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dnl-shade{position:absolute;inset:0;background:linear-gradient(180deg,#1a0f0699,#1a0f0600 38%,#1a0f0600 62%,#1a0f06b3)}
+.dnl-top{position:absolute;left:clamp(16px,5vw,64px);right:clamp(16px,5vw,64px);top:28px;display:flex;justify-content:space-between;font:12px/1 "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.dnl-copy{position:absolute;left:clamp(16px,5vw,64px);bottom:clamp(28px,8vh,72px);max-width:620px;cursor:auto}
+.dnl-copy h1{margin:0 0 14px;font:400 clamp(52px,8.5vw,120px)/.9 "Instrument Serif",serif;letter-spacing:-.01em}
+.dnl-copy h1 em{font-style:italic}
+.dnl-copy p{margin:0 0 22px;max-width:420px;font-size:15px;line-height:1.55;color:#f3e5d2}
+.dnl-copy a{display:inline-flex;align-items:center;height:44px;padding:0 20px;border-radius:999px;background:#fff8ee;color:#2a1a0e;font-weight:550;font-size:14px;text-decoration:none}
+.dnl-copy a+a{background:none;color:#fff8ee;border:1px solid #fff8ee66;margin-left:8px}
+.dnl-copy a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.dnl-lp{position:absolute;left:0;top:0;width:200px;height:200px;margin:-100px 0 0 -100px;pointer-events:none;opacity:0;transition:opacity .3s}
+.dnl.in .dnl-lp{opacity:1}
+.dnl-lp canvas{width:100%;height:100%;border-radius:50%;box-shadow:0 0 0 1.5px #fff8eecc,0 18px 40px -12px #000a}
+.dnl-lp::before,.dnl-lp::after{content:"";position:absolute;left:50%;top:50%;background:#fff8eeb3}
+.dnl-lp::before{width:18px;height:1px;translate:-50% 0}.dnl-lp::after{width:1px;height:18px;translate:0 -50%}
+.dnl-lp span{position:absolute;left:50%;top:calc(100% + 10px);translate:-50% 0;white-space:nowrap;font:11px/1 "Geist Mono",monospace;letter-spacing:.06em;padding:5px 8px;border-radius:999px;background:#1a0f06cc}
+@media (hover:none){.dnl{cursor:auto}}
+@media (prefers-reduced-motion:reduce){.dnl video,.dnl-lp{display:none}.dnl{background:#7a4b22 url(media/dunes.jpg) center/cover}}
+</style>
+<section class="dnl">
+  <video src="media/dunes.mp4" poster="media/dunes.jpg" autoplay muted loop playsinline aria-hidden="true"></video>
+  <div class="dnl-shade"></div>
+  <div class="dnl-top"><span>Erg Chebbi · 31°08′N 4°01′W</span><span>Sheet 7 of 12</span></div>
+  <div class="dnl-copy"><h1>Every grain,<br><em>accounted for.</em></h1><p>Survey-grade terrain from a single drone pass. Move across the dunes to inspect them at 3× — nothing is resampled.</p><a href="#">Start a survey</a><a href="#">Sample data</a></div>
+  <div class="dnl-lp" aria-hidden="true"><canvas></canvas><span></span></div>
+</section>
+<script>
+(()=>{
+// Loupe redraws the live video frame at 3× around the pointer (cover-mapped to source pixels).
+const R=document.querySelector(".dnl"),v=R.querySelector("video"),lp=R.querySelector(".dnl-lp"),cv=lp.querySelector("canvas"),x=cv.getContext("2d"),lab=lp.querySelector("span");
+const Z=3,red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let tx=0,ty=0,cx=0,cy=0,vis=true;
+const size=()=>{const d=Math.min(devicePixelRatio||1,2);cv.width=cv.clientWidth*d;cv.height=cv.clientHeight*d};size();
+const place=(px,py)=>{tx=px;ty=py};
+const home=()=>{const r=R.getBoundingClientRect();place(r.width*.68,r.height*.42)};home();cx=tx;cy=ty;
+R.addEventListener("pointermove",e=>{if(e.target.closest(".dnl-copy")){R.classList.remove("in");return}const r=R.getBoundingClientRect();place(e.clientX-r.left,e.clientY-r.top);R.classList.add("in")});
+R.addEventListener("pointerleave",()=>{R.classList.remove("in")});
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;vis&&!red?v.play().catch(()=>{}):v.pause()}).observe(R);
+new ResizeObserver(size).observe(lp);
+(function loop(){requestAnimationFrame(loop);if(!vis)return;cx+=(tx-cx)*.2;cy+=(ty-cy)*.2;
+  lp.style.transform=`translate(${cx}px,${cy}px)`;
+  const src=v.readyState>=2&&!red?v:null;if(!src)return;
+  const W=R.clientWidth,H=R.clientHeight,vw=v.videoWidth,vh=v.videoHeight,s=Math.max(W/vw,H/vh),ox=(W-vw*s)/2,oy=(H-vh*s)/2;
+  const sx=(cx-ox)/s,sy=(cy-oy)/s,sw=cv.clientWidth/s/Z,sh=cv.clientHeight/s/Z;
+  x.drawImage(v,sx-sw/2,sy-sh/2,sw,sh,0,0,cv.width,cv.height);
+  // fake but stable survey readout derived from position
+  const lat=31.13+(1-cy/H)*.04,lon=4.02-(cx/W)*.06,el=Math.round(712+Math.sin(cx*.013)*38+Math.cos(cy*.017)*26);
+  lab.textContent=`${lat.toFixed(4)}°N ${lon.toFixed(4)}°W · ${el} m`})();
+})();
+</script>

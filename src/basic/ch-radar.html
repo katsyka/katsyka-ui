@@ -1,0 +1,17 @@
+<!--Radar Comparison Chart|Charts|A radar chart comparing two products across six attributes, with labelled axes, filled shapes in two contrasting hues, a hover readout per axis and a toggle to overlay or show one at a time.|chart,radar,spider,comparison,svg-->
+<div class="k"><figure class="rd card"><figcaption><b>Laptop comparison</b><div class="rd-t" role="radiogroup" aria-label="Show"><button role="radio" aria-checked="true" data-m="both">Both</button><button role="radio" aria-checked="false" data-m="a">Kestrel 14</button><button role="radio" aria-checked="false" data-m="b">Finch 13</button></div></figcaption><svg viewBox="0 0 360 320" id="s" role="img" aria-label="Radar chart comparing two laptops"></svg><p class="rd-o mu" id="o" aria-live="polite">Hover an attribute</p></figure></div>
+<style>
+.rd{width:min(480px,100%);padding:20px;margin:0}.rd figcaption{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.rd-t{display:flex;background:var(--sf2);border-radius:8px;padding:2px}.rd-t button{height:28px;padding:0 10px;border-radius:6px;font-size:12px;color:var(--mu)}.rd-t [aria-checked=true]{background:var(--bg);color:var(--fg)}
+.rd svg{width:100%;height:auto;overflow:visible}.rd .gr{fill:none;stroke:var(--line)}.rd .ax{stroke:var(--line)}.rd .lb{font-size:12px;fill:var(--fg);cursor:default}.rd .lb.on{font-weight:700}.rd .pa{fill:color-mix(in srgb,#0d9488 25%,transparent);stroke:#0d9488;stroke-width:2;transition:opacity .25s}.rd .pb{fill:color-mix(in srgb,#ea580c 22%,transparent);stroke:#ea580c;stroke-width:2;transition:opacity .25s}.rd .off{opacity:0}.rd .hz{fill:transparent;cursor:pointer}
+.rd-o{margin:4px 0 0;font-size:13px;min-height:20px;text-align:center}.rd-o b{font-weight:650}
+</style>
+<script>
+const AX=['Battery','Screen','Weight','Speed','Ports','Price'],A=[9,7,6,8,8,5],B=[6,8,9,7,4,8],s=document.getElementById('s'),cx=180,cy=160,R=110;let m='both',hi=-1;
+const P=(i,v)=>{const a=-Math.PI/2+i/6*2*Math.PI;return[cx+R*v/10*Math.cos(a),cy+R*v/10*Math.sin(a)]};
+function draw(){let h=[2,4,6,8,10].map(l=>`<polygon class="gr" points="${AX.map((_,i)=>P(i,l).join(',')).join(' ')}"/>`).join('')+AX.map((a,i)=>{const[x,y]=P(i,10),[lx,ly]=P(i,12.2);return`<line class="ax" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/><text class="lb${hi===i?' on':''}" x="${lx}" y="${ly+4}" text-anchor="middle">${a}</text>`}).join('');
+h+=`<polygon class="pa${m==='b'?' off':''}" points="${A.map((v,i)=>P(i,v).join(',')).join(' ')}"/><polygon class="pb${m==='a'?' off':''}" points="${B.map((v,i)=>P(i,v).join(',')).join(' ')}"/>`;
+h+=AX.map((a,i)=>{const[x,y]=P(i,12);return`<circle class="hz" cx="${x}" cy="${y}" r="26" data-i="${i}"/>`}).join('');s.innerHTML=h}
+s.addEventListener('pointerover',e=>{const c=e.target.closest('.hz');if(!c)return;hi=+c.dataset.i;draw();document.getElementById('o').innerHTML=`<b>${AX[hi]}</b>: <span style="color:#0d9488">Kestrel 14 ${A[hi]}/10</span> · <span style="color:#ea580c">Finch 13 ${B[hi]}/10</span>`});
+s.addEventListener('pointerleave',()=>{hi=-1;draw();document.getElementById('o').textContent='Hover an attribute'});
+document.querySelector('.rd-t').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));m=b.dataset.m;draw()};draw();
+</script>

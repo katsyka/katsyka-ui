@@ -1,0 +1,84 @@
+<style>
+.pg{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.pg :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.pg ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.pg *,.pg *::before,.pg *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.pg{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.pg-pn{width:min(720px,100%);display:grid;gap:14px}
+.pg-c{padding:20px 22px;background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.pg-lb{font:500 11px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:14px}
+.pg-n{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.pg-n button,.pg-n span{min-width:36px;height:36px;padding:0 8px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:9px;border:1px solid transparent;background:none;color:var(--fg);font:500 14px Geist,system-ui,sans-serif;font-variant-numeric:tabular-nums;cursor:pointer;transition:background-color .15s,border-color .15s}
+.pg-n button:hover:not(:disabled){background:var(--sf2)}
+.pg-n button[aria-current=page]{background:var(--fg);color:var(--bg)}
+.pg-n button:disabled{color:var(--mu);opacity:.5;cursor:not-allowed}
+.pg-n span{color:var(--mu);cursor:default;min-width:24px}
+.pg-n .ed{padding:0 12px;border-color:var(--line)}
+.pg-n .ed:hover:not(:disabled){background:var(--sf)}
+.pg-n .sp{flex:1;min-width:8px;border:0}
+.pg-n svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pg-tbl{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13.5px;color:var(--mu)}
+.pg-tbl b{color:var(--fg);font-weight:550;font-variant-numeric:tabular-nums}
+.pg-tbl label{display:flex;align-items:center;gap:8px}
+.pg-tbl select{height:32px;padding:0 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 13px Geist,system-ui,sans-serif}
+.pg-tbl .gr{display:flex;gap:6px}
+.pg-tbl .gr button{width:32px;height:32px;display:grid;place-items:center;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.pg-tbl .gr button:hover:not(:disabled){background:var(--sf)}
+.pg-tbl .gr button:disabled{opacity:.4;cursor:not-allowed}
+.pg-tbl svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pg-tbl .jump{display:flex;align-items:center;gap:6px}
+.pg-tbl .jump input{width:48px;height:32px;padding:0 6px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 16px "Geist Mono",monospace;text-align:center}
+@media (min-width:640px){.pg-tbl .jump input{font-size:13px}}
+.pg-dots{display:flex;justify-content:center;align-items:center;gap:8px}
+.pg-dots button{width:8px;height:8px;padding:0;border:0;border-radius:99px;background:var(--sf2);cursor:pointer;transition:width .3s var(--ease),background-color .3s}
+.pg-dots button[aria-current=true]{width:24px;background:var(--fg)}
+.pg-dots button:hover{background:var(--ctl)}
+.pg-dots button[aria-current=true]:hover{background:var(--fg)}
+.pg-more{display:flex;flex-direction:column;align-items:center;gap:10px}
+.pg-more .bar{width:200px;height:4px;border-radius:2px;background:var(--sf2);overflow:hidden}
+.pg-more .bar i{display:block;height:100%;background:var(--fg);transition:width .4s var(--ease)}
+.pg-more p{margin:0;font-size:13px;color:var(--mu)}
+.pg-more button{height:38px;padding:0 18px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer}
+.pg-more button:hover{background:var(--sf)}
+.pg-more button:disabled{opacity:.45;cursor:default}
+@media (max-width:560px){.pg-n .pg-num:not([aria-current]){display:none}.pg-n span{display:none}}
+</style>
+<div class="pg">
+  <div class="pg-pn">
+    <div class="pg-c"><div class="pg-lb">Numbered</div><nav class="pg-n" id="pgA" aria-label="Pagination"></nav></div>
+    <div class="pg-c"><div class="pg-lb">Table footer</div>
+      <div class="pg-tbl">
+        <label>Rows per page <select id="pgSz"><option>10</option><option selected>25</option><option>50</option></select></label>
+        <span aria-live="polite" id="pgRng"></span>
+        <span class="jump"><label for="pgJ">Page</label><input id="pgJ" inputmode="numeric"><span id="pgOf"></span></span>
+        <span class="gr"><button aria-label="First page" data-g="first"><svg viewBox="0 0 24 24"><path d="m11 17-5-5 5-5M18 17l-5-5 5-5"/></svg></button><button aria-label="Previous page" data-g="prev"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><button aria-label="Next page" data-g="next"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button><button aria-label="Last page" data-g="last"><svg viewBox="0 0 24 24"><path d="m13 17 5-5-5-5M6 17l5-5-5-5"/></svg></button></span>
+      </div></div>
+    <div class="pg-c"><div class="pg-lb">Dots &amp; load more</div>
+      <div style="display:grid;gap:26px">
+        <div class="pg-dots" role="group" aria-label="Slides"></div>
+        <div class="pg-more"><div class="bar"><i></i></div><p aria-live="polite"></p><button>Load more</button></div>
+      </div></div>
+  </div>
+</div>
+<script>
+// numbered
+const A=document.getElementById("pgA");let cur=6;const TOT=20;
+const ic={p:'<svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>',n:'<svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>'};
+const pages=(c,t)=>{if(t<=7)return[...Array(t)].map((_,i)=>i+1);if(c<=4)return[1,2,3,4,5,"…",t];if(c>=t-3)return[1,"…",t-4,t-3,t-2,t-1,t];return[1,"…",c-1,c,c+1,"…",t]};
+const drawA=f=>{A.innerHTML=`<button class="ed" data-p="${cur-1}" ${cur===1?"disabled":""} aria-label="Previous page">${ic.p}Prev</button><i class="sp"></i>`+pages(cur,TOT).map(p=>p==="…"?`<span aria-hidden="true">…</span>`:`<button class="pg-num" data-p="${p}" aria-label="Page ${p}"${p===cur?' aria-current="page"':""}>${p}</button>`).join("")+`<i class="sp"></i><button class="ed" data-p="${cur+1}" ${cur===TOT?"disabled":""} aria-label="Next page">Next${ic.n}</button>`;if(f)A.querySelector(`[data-p="${cur}"][aria-current]`)?.focus()};
+A.addEventListener("click",e=>{const b=e.target.closest("button");if(b&&!b.disabled){cur=+b.dataset.p;drawA(!b.classList.contains("ed"))}});drawA();
+// table
+const ROWS=248;let pg=1,sz=25;const R=document.getElementById("pgRng"),J=document.getElementById("pgJ"),Of=document.getElementById("pgOf"),G=document.querySelectorAll(".gr button");
+const last=()=>Math.ceil(ROWS/sz);
+const drawT=()=>{const a=(pg-1)*sz+1,b=Math.min(ROWS,pg*sz);R.innerHTML=`<b>${a}–${b}</b> of <b>${ROWS}</b>`;J.value=pg;Of.textContent=`of ${last()}`;G[0].disabled=G[1].disabled=pg===1;G[2].disabled=G[3].disabled=pg===last()};
+G.forEach(b=>b.addEventListener("click",()=>{pg={first:1,prev:pg-1,next:pg+1,last:last()}[b.dataset.g];drawT()}));
+document.getElementById("pgSz").addEventListener("change",e=>{sz=+e.target.value;pg=1;drawT()});
+J.addEventListener("change",()=>{const n=parseInt(J.value,10);pg=isNaN(n)?pg:Math.max(1,Math.min(last(),n));drawT()});J.addEventListener("keydown",e=>{if(e.key==="Enter")J.blur()});drawT();
+// dots
+const D=document.querySelector(".pg-dots");let d=1;D.innerHTML=[...Array(6)].map((_,i)=>`<button aria-label="Slide ${i+1}"></button>`).join("");
+const ds=[...D.children];const drawD=()=>ds.forEach((b,i)=>b.setAttribute("aria-current",i===d));ds.forEach((b,i)=>b.onclick=()=>{d=i;drawD()});drawD();
+// load more
+const M=document.querySelector(".pg-more"),MB=M.querySelector("button"),MT=M.querySelector("p"),MI=M.querySelector("i");let shown=24;const ALL=96;
+const drawM=()=>{MT.textContent=`Showing ${shown} of ${ALL} products`;MI.style.width=shown/ALL*100+"%";MB.disabled=shown>=ALL;MB.textContent=shown>=ALL?"You’ve seen everything":"Load more"};
+MB.onclick=()=>{MB.textContent="Loading…";MB.disabled=true;setTimeout(()=>{shown=Math.min(ALL,shown+24);drawM()},600)};drawM();
+</script>

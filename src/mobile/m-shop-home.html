@@ -1,0 +1,42 @@
+<!--Shop Home|A store front for a print shop: bag with a live count, search, a featured banner, category chips that filter, and a two-column product grid with save toggles and tabular prices.|ecommerce,shop,store,grid,products-->
+<header class="bar"><div class="sp-top"><span><small>Deliver to</small><b>Bergen 5003 @I(down,14)</b></span><button class="ib sp-bag" aria-label="Bag, 2 items">@I(bag)<i id="bc">2</i></button></div></header>
+<main class="sc">
+  <label class="st-sr"><span class="vh">Search prints</span>@I(search,18)<input type="search" placeholder="Search prints" enterkeyhint="search"></label>
+  <a class="sp-hero" href="#"><img src="media/pics/c/1022.jpg" alt=""><span><small>New collection</small><b>Northern nights</b><em>Shop 12 prints @I(arrowr,16)</em></span></a>
+  <div class="chips" style="margin-top:20px" id="ch"><button class="chip on">All</button><button class="chip">Coast</button><button class="chip">Mountains</button><button class="chip">City</button><button class="chip">Still life</button></div>
+  <div class="sp-g" id="g"></div>
+</main>
+@PILL(home:Shop|search:Search|heart:Saved|bag:Bag|user:Account;0)
+<style>
+.sp-top{display:flex;align-items:center;justify-content:space-between;min-height:52px;padding:0 4px 0 var(--gut)}
+.sp-top small{display:block;font-size:12px;color:var(--mu);line-height:14px}.sp-top b{display:flex;align-items:center;gap:2px;font-size:16px;font-weight:600}
+.sp-bag{position:relative}.sp-bag i{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ac);color:var(--ac-fg);font:600 11px/18px Geist;font-style:normal;text-align:center;border:2px solid var(--bg);box-sizing:content-box}
+.bar~.sc{padding-top:calc(var(--st) + 56px)}
+.st-sr{display:flex;align-items:center;gap:8px;margin:4px var(--gut) 0;height:44px;padding:0 12px;border-radius:14px;background:var(--sf);color:var(--mu)}
+.st-sr input{flex:1;min-width:0;border:0;background:none;outline:0;font-size:17px!important;color:var(--fg)}.st-sr input::placeholder{color:var(--mu)}
+.sp-hero{position:relative;display:block;margin:16px var(--gut) 0;height:200px;border-radius:24px;overflow:hidden;color:#fff;text-decoration:none}
+.sp-hero img{width:100%;height:100%;object-fit:cover;object-position:center 70%}
+.sp-hero span{position:absolute;inset:auto 0 0;padding:48px 20px 18px;background:linear-gradient(transparent,#000a)}
+.sp-hero small{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
+.sp-hero b{display:block;font:400 34px/1.05 "Instrument Serif",serif;margin:2px 0 6px}
+.sp-hero em{font-style:normal;font-size:15px;font-weight:600;display:inline-flex;align-items:center;gap:4px}
+.sp-g{display:grid;grid-template-columns:1fr 1fr;gap:20px 12px;padding:16px var(--gut) 0;transition:opacity .2s}
+.sp-c{position:relative}
+.sp-c img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:16px;display:block;background:var(--sf)}
+.sp-c .ib{position:absolute;top:6px;right:6px;width:36px;height:36px;color:#fff}
+.sp-c .ib::before{content:"";position:absolute;inset:-4px}
+.sp-c .ib .i{width:20px;height:20px;filter:drop-shadow(0 1px 3px #0008)}
+.sp-c .ib[aria-pressed=true] .i{fill:#fff}
+.sp-c b{display:block;margin-top:8px;font-size:15px;line-height:20px;font-weight:500}
+.sp-c small{display:block;font-size:13px;color:var(--mu)}
+.sp-c p{margin:4px 0 0;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.sp-c s{color:var(--mu);font-weight:400;margin-left:6px}
+</style>
+<script>
+const PR=[["1043","Valley floor","Mountains",64],["1050","Low tide","Coast",48,58],["1067","Harbour dusk","City",56],["1080","Strawberries","Still life",38],["1035","Falls","Mountains",72],["1052","Sea stack","Coast",52],["1031","Glass towers","City",44],["1060","Morning pour","Still life",40]];
+const H='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg>';
+const r=c=>{g.style.opacity=0;setTimeout(()=>{g.innerHTML=PR.filter(p=>c==="All"||p[2]===c).map(([p,n,k,pr,was])=>`<div class="sp-c"><img src="media/pics/c/${p}.jpg" alt="" loading="lazy"><button class="ib" aria-label="Save ${n}" aria-pressed="false">${H}</button><b>${n}</b><small>${k} · 50×70 cm</small><p>$${pr}${was?`<s>$${was}</s>`:""}</p></div>`).join("");
+ g.querySelectorAll(".ib").forEach(b=>b.onclick=()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true"));g.style.opacity=1},120)};r("All");
+ch.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{ch.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===c));r(c.textContent)});
+document.querySelector(".sp-hero").onclick=e=>e.preventDefault();
+</script>

@@ -1,0 +1,42 @@
+<style>
+.dm{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:#0c0a09;color:#f4ece4;overflow:hidden;cursor:pointer;user-select:none}
+.dm canvas{width:100%;height:58vh;display:block}
+.dm-top,.dm-bot{display:flex;justify-content:space-between;align-items:center;padding:0 clamp(20px,4vw,56px)}
+.dm-top{position:absolute;top:28px;left:0;right:0;font-size:14px;font-weight:500}.dm-top span:last-child{font:500 12px "Geist Mono",monospace;color:#8c8178}
+.dm-bot{margin-top:28px;gap:30px;align-items:flex-end}
+.dm-bot p{margin:0;max-width:420px;color:#a39890;font-size:16px;line-height:1.55}
+.dm-bot a{flex:none;height:48px;padding:0 22px;border-radius:12px;background:#ff6a2b;color:#160a04;display:inline-flex;align-items:center;font-weight:600;text-decoration:none;transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.dm-bot a:hover{transform:translateY(-2px)}
+.dm-idx{display:flex;gap:6px}.dm-idx i{width:22px;height:3px;border-radius:2px;background:#ffffff1f;transition:background .4s}.dm-idx i.on{background:#ff6a2b}
+@media (max-width:700px){.dm-bot{flex-direction:column;align-items:flex-start}.dm canvas{height:40vh}}
+</style>
+<section class="dm">
+  <div class="dm-top"><span>Signal Board</span><span>CLICK ANYWHERE · NEXT MESSAGE</span></div>
+  <canvas></canvas>
+  <div class="dm-bot"><p>A dot-matrix display rendered from live text. Each dot eases to its new brightness on its own delay, so messages ripple out from where you click.</p><div class="dm-idx"></div><a href="#" onclick="event.stopPropagation()">Get the board</a></div>
+</section>
+<script>
+(()=>{
+const root=document.querySelector(".dm"),c=root.querySelector("canvas"),x=c.getContext("2d"),idx=root.querySelector(".dm-idx");
+const MSG=["BUILD","SHIP","LEARN","REPEAT"];let mi=0,W,H,cols,rows,step,dots=[],dpr=Math.min(devicePixelRatio,2),origin=[.5,.5],t0=performance.now();
+idx.innerHTML=MSG.map(()=>"<i></i>").join("");
+const off=document.createElement("canvas"),ox=off.getContext("2d",{willReadFrequently:true});
+function sample(word){off.width=cols;off.height=rows;ox.clearRect(0,0,cols,rows);ox.fillStyle="#fff";ox.textAlign="center";ox.textBaseline="middle";
+  let fs=rows*1.05;ox.font=`800 ${fs}px Geist,sans-serif`;const w=ox.measureText(word).width;if(w>cols*.92){fs*=cols*.92/w;ox.font=`800 ${fs}px Geist,sans-serif`}
+  ox.fillText(word,cols/2,rows/2+fs*.04);const d=ox.getImageData(0,0,cols,rows).data;return dots.map((_,i)=>d[i*4+3]/255)}
+function layout(){W=c.width=c.clientWidth*dpr;H=c.height=c.clientHeight*dpr;step=Math.max(9,Math.round(Math.min(W,H*2.2)/96));cols=Math.floor(W/step);rows=Math.floor(H/step);
+  dots=[...Array(cols*rows)].map(()=>({v:0,from:0,to:0,delay:0}));show(false)}
+function show(ripple){idx.querySelectorAll("i").forEach((e,i)=>e.classList.toggle("on",i===mi));const tgt=sample(MSG[mi]),now=performance.now();
+  dots.forEach((d,i)=>{const cx=i%cols,cy=i/cols|0,dist=Math.hypot(cx/cols-origin[0],(cy/rows-origin[1])*rows/cols);d.from=d.v;d.to=tgt[i];d.start=now+(ripple?dist*900:Math.random()*600)})}
+root.addEventListener("click",e=>{const b=c.getBoundingClientRect();origin=[(e.clientX-b.left)/b.width,(e.clientY-b.top)/b.height];mi=(mi+1)%MSG.length;show(true)});
+setInterval(()=>{if(performance.now()-t0>5000){origin=[Math.random(),.5];mi=(mi+1)%MSG.length;show(true)}},5200);
+root.addEventListener("click",()=>t0=performance.now());
+new ResizeObserver(layout).observe(c);
+(document.fonts?document.fonts.ready:Promise.resolve()).then(layout);
+(function f(now){requestAnimationFrame(f);if(!cols)return;x.clearRect(0,0,W,H);const r=step*.36,offX=(W-cols*step)/2+step/2,offY=(H-rows*step)/2+step/2;
+  for(let i=0;i<dots.length;i++){const d=dots[i],k=Math.min(1,Math.max(0,(now-d.start)/420)),e=k<.5?2*k*k:1-(-2*k+2)**2/2;d.v=d.from+(d.to-d.from)*e;
+    const cx=i%cols,cy=i/cols|0,shimmer=.05+.04*Math.sin(now/600+cx*.35+cy*.2);
+    x.fillStyle=d.v>.02?`rgba(255,${106+d.v*60|0},${43+d.v*40|0},${Math.max(shimmer,d.v)})`:`rgba(255,240,230,${shimmer})`;
+    x.beginPath();x.arc(offX+cx*step,offY+cy*step,r*(d.v>.02?.8+.2*d.v:.55),0,6.283);x.fill()}})(performance.now());
+})();
+</script>

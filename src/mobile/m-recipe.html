@@ -1,0 +1,48 @@
+<!--Recipe|A recipe page: hero photo, time / servings / difficulty, a servings stepper that rescales every ingredient, tick-off ingredients and numbered steps, with Start cooking in thumb reach.|recipe,cooking,stepper,checklist,steps-->
+<div class="pd-fl"><button class="ib gl" aria-label="Back">@I(left)</button><span><button class="ib gl" aria-label="Save" id="sv" aria-pressed="false">@I(bookmark,20)</button></span></div>
+<main class="sc rc">
+  <img class="rc-h" src="media/pics/c/1080.jpg" alt="Strawberries">
+  <section class="rc-b">
+    <p class="rc-k">Dessert · 6 ingredients</p>
+    <h1>Strawberry galette</h1>
+    <div class="rc-m"><span>@I(clock,18)<b>55 min</b><small>Total</small></span><span>@I(flame,18)<b>Easy</b><small>Level</small></span><span>@I(star,18)<b>4.8</b><small>312 cooks</small></span></div>
+    <div class="rc-sv"><b>Ingredients</b><span class="rc-st"><button id="dn" aria-label="Fewer servings">@I(minus,18)</button><output id="n" class="tn" aria-live="polite">4 servings</output><button id="up" aria-label="More servings">@I(plus,18)</button></span></div>
+    <ul class="rc-in" id="ing"></ul>
+    <h2 class="rc-h2">Method</h2>
+    <ol class="rc-step"><li>Whisk flour, sugar and salt. Rub in the cold butter until pea-sized, then add ice water a spoon at a time until it just holds.</li><li>Rest the dough in the fridge for 30 minutes. Meanwhile halve the strawberries and toss with sugar and lemon zest.</li><li>Roll to a rough 30 cm round, pile fruit in the middle and fold the edges over in pleats.</li><li>Brush with egg, sprinkle sugar and bake at 200°C for 35 minutes until deep golden.</li></ol>
+  </section>
+</main>
+<div class="cta"><button class="btn">@I(play,18) Start cooking</button></div>
+<style>
+.pd-fl{position:absolute;inset:calc(var(--st) + 4px) 12px auto;z-index:60;display:flex;justify-content:space-between}
+#sv[aria-pressed=true] .i{fill:currentColor}
+.rc{padding-top:0!important;padding-bottom:calc(var(--sbt) + 96px)}
+.rc-h{display:block;width:100%;height:300px;object-fit:cover}
+.rc-b{position:relative;margin-top:-24px;background:var(--bg);border-radius:24px 24px 0 0;padding:24px var(--gut) 0}
+.rc-k{margin:0;font-size:13px;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em}
+.rc-b h1{margin:4px 0 0;font:400 36px/1.05 "Instrument Serif",serif;letter-spacing:-.01em}
+.rc-m{display:grid;grid-template-columns:repeat(3,1fr);margin:20px 0 0;padding:14px 0;border-block:.5px solid var(--line)}
+.rc-m span{display:flex;flex-direction:column;align-items:center;gap:2px}.rc-m span+span{border-left:.5px solid var(--line)}
+.rc-m .i{color:var(--mu)}.rc-m b{font-size:16px;font-weight:600}.rc-m small{font-size:12px;color:var(--mu)}
+.rc-sv{display:flex;justify-content:space-between;align-items:center;margin:24px 0 8px}.rc-sv>b{font-size:20px;font-weight:650}
+.rc-st{display:flex;align-items:center;border-radius:22px;background:var(--sf)}.rc-st button{width:44px;height:44px;display:grid;place-items:center;border-radius:22px}.rc-st button:disabled{opacity:.35}
+.rc-st output{min-width:92px;text-align:center;font-size:15px;font-weight:600}
+.rc-in{list-style:none;margin:0;padding:0}
+.rc-in label{display:flex;align-items:center;gap:12px;min-height:48px;border-bottom:.5px solid var(--line);cursor:pointer;font-size:16px}
+.rc-in input{appearance:none;-webkit-appearance:none;width:24px;height:24px;margin:0;flex:none;border-radius:7px;border:2px solid var(--ctl);display:grid;place-items:center;transition:.15s}
+.rc-in input:checked{background:var(--ok);border-color:var(--ok)}
+.rc-in input:checked::after{content:"";width:6px;height:11px;border:solid var(--bg);border-width:0 2.5px 2.5px 0;transform:translateY(-1px) rotate(45deg)}
+.rc-in input:checked~span{color:var(--mu);text-decoration:line-through}
+.rc-in b{margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums}
+.rc-h2{margin:28px 0 8px;font-size:20px;font-weight:650}
+.rc-step{list-style:none;counter-reset:s;margin:0;padding:0}
+.rc-step li{counter-increment:s;position:relative;padding:0 0 20px 44px;font-size:16px;line-height:24px}
+.rc-step li::before{content:counter(s);position:absolute;left:0;top:-2px;width:28px;height:28px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:14px;font-weight:700}
+</style>
+<script>
+const G=[["Plain flour",190,"g"],["Cold butter",120,"g"],["Sugar",60,"g"],["Strawberries",500,"g"],["Lemon",1,""],["Egg",1,""]];let S=4;
+const fmt=(v,u)=>{v=v*S/4;const r=u?Math.round(v/5)*5||Math.round(v):Math.round(v*2)/2;return(u?r+" "+u:(r%1?(r|0?(r|0)+"½":"½"):r))};
+const draw=()=>{const old=[...ing.querySelectorAll("input")].map(i=>i.checked);ing.innerHTML=G.map(([n,v,u],i)=>`<li><label><input type="checkbox"${old[i]?" checked":""}><span>${n}</span><b>${fmt(v,u)}</b></label></li>`).join("");n.textContent=S+" serving"+(S>1?"s":"");dn.disabled=S<=1;up.disabled=S>=12};
+dn.onclick=()=>{S--;draw()};up.onclick=()=>{S++;draw()};draw();
+sv.onclick=()=>sv.setAttribute("aria-pressed",sv.getAttribute("aria-pressed")!=="true");
+</script>

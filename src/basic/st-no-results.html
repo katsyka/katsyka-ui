@@ -1,0 +1,17 @@
+<!--No Search Results|States|An empty search state that helps: echoes the query and active filters as removable chips, suggests a spelling fix, shows how many results each filter removal would bring back, and a request link.|empty state,search,no results,filters,did you mean-->
+<div class="k nr"><main class="nr-w"><label class="nr-s">@I(search,18)<input id="q" value="wirless headphnes" aria-label="Search"></label><div class="nr-ch" id="ch"></div>
+<div class="nr-e" id="e"></div></main></div>
+<style>
+.nr-w{width:min(560px,100%);display:grid;gap:14px}.nr-s{display:flex;gap:10px;align-items:center;height:48px;padding:0 14px;border:1px solid var(--ctl);border-radius:12px;background:var(--bg);color:var(--mu)}.nr-s:focus-within{border-color:var(--ac)}.nr-s input{border:0;outline:0;background:none;flex:1;font-size:16px;color:var(--fg);min-width:0}
+.nr-ch{display:flex;gap:6px;flex-wrap:wrap}.nr-ch button{display:inline-flex;gap:6px;align-items:center;height:32px;padding:0 6px 0 12px;border-radius:999px;background:var(--sf2);font-size:13px}.nr-ch button .i{width:14px;height:14px;color:var(--mu)}.nr-ch button:hover{background:var(--line)}
+.nr-e{padding:28px 20px;border:1px dashed var(--ctl);border-radius:14px;display:grid;gap:12px;text-align:center;justify-items:center}.nr-e h2{margin:0;font-size:18px}.nr-e p{margin:0;font-size:14px;color:var(--mu)}.nr-e .fix{color:var(--fg)}.nr-e .fix button{color:var(--ac);font-weight:600;text-decoration:underline;text-underline-offset:3px;min-height:32px}
+.nr-try{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:6px;width:100%;max-width:340px}.nr-try button{width:100%;display:flex;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:14px}.nr-try button:hover{border-color:var(--ctl)}.nr-try span{color:var(--mu);font-variant-numeric:tabular-nums}
+.nr-r{width:100%;display:grid;gap:8px;text-align:left}.nr-r div{padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);display:flex;justify-content:space-between;font-size:14px}
+</style>
+<script>
+let F=[["Under €50",12],["In stock",31],["Colour: Sage",19]];const ch=document.getElementById('ch'),e=document.getElementById('e'),q=document.getElementById('q');
+function draw(){ch.innerHTML=F.map(([f],i)=>`<button data-i="${i}" aria-label="Remove filter ${f}">${f}@I(x)</button>`).join('');const typo=/wirless|headphnes/.test(q.value);
+if(!typo&&F.length<2){e.innerHTML=`<div class="nr-r">${['Aero Wireless ANC','Pulse Buds 2','Field Over-ear'].map((n,i)=>`<div><b>${n}</b><span class="tn">€${[49,39,45][i]}</span></div>`).join('')}</div>`;return}
+e.innerHTML=`<h2>No results for “${q.value.replace(/</g,'&lt;')}”${F.length?' with these filters':''}</h2>${typo?`<p class="fix">Did you mean <button id="fx">wireless headphones</button>?</p>`:''}${F.length?`<p>Removing a filter would show:</p><ul class="nr-try">${F.map(([f,n],i)=>`<li><button data-i="${i}">Without “${f}”<span>${n} results</span></button></li>`).join('')}</ul>`:''}<p>Still nothing? <a href="#">Tell us what you were looking for</a></p>`;const fx=document.getElementById('fx');if(fx)fx.onclick=()=>{q.value='wireless headphones';draw()}}
+document.querySelector('.nr-w').addEventListener('click',ev=>{const b=ev.target.closest('[data-i]');if(!b)return;F.splice(+b.dataset.i,1);draw()});q.oninput=draw;draw();
+</script>

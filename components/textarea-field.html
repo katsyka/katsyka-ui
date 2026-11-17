@@ -1,0 +1,64 @@
+<style>
+.ta{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ta :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ta ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ta *,.ta *::before,.ta *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ta{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.ta-pn{width:min(560px,100%);display:grid;gap:22px;padding:26px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.ta-f{display:flex;flex-direction:column;gap:6px}
+.ta-f label{font-size:14px;font-weight:550;display:flex;align-items:baseline}
+.ta-f label small{margin-left:auto;font-weight:400;font-size:12.5px;color:var(--mu)}
+.ta-box{border-radius:12px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);box-shadow:0 1px 2px #0000000a;transition:border-color .15s,box-shadow .15s}
+.ta-box:hover{border-color:var(--ctl)}
+.ta-box:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.ta-box textarea{display:block;width:100%;min-height:96px;max-height:260px;padding:11px 13px;border:0;background:none;color:var(--fg);font:16px/1.55 Geist,system-ui,sans-serif;resize:none;outline:0;field-sizing:content}
+@media (min-width:640px){.ta-box textarea{font-size:14.5px}}
+.ta-box textarea::placeholder{color:color-mix(in oklab,var(--mu) 80%,var(--bg))}
+.ta-bar{display:flex;align-items:center;gap:8px;padding:6px 8px 8px 12px}
+.ta-cnt{margin-left:auto;font:500 12px "Geist Mono",monospace;color:var(--mu);display:flex;align-items:center;gap:8px}
+.ta-ring{width:18px;height:18px;transform:rotate(-90deg)}
+.ta-ring circle{fill:none;stroke-width:2.5}
+.ta-ring .bg{stroke:var(--sf2)}
+.ta-ring .fg{stroke:var(--ac);stroke-dasharray:50.27;transition:stroke-dashoffset .2s,stroke .2s}
+.ta-f.warn .ta-ring .fg{stroke:var(--warn)}.ta-f.warn .ta-cnt{color:var(--warn)}
+.ta-f.over .ta-ring .fg{stroke:var(--err)}.ta-f.over .ta-cnt{color:var(--err)}
+.ta-f.over .ta-box{border-color:var(--err)}
+.ta-tool{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:8px;background:none;color:var(--mu);cursor:pointer}
+.ta-tool:hover{background:var(--sf2);color:var(--fg)}
+.ta-tool svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ta-send{height:32px;padding:0 12px;border:0;border-radius:8px;background:var(--fg);color:var(--bg);font:550 13px Geist,system-ui,sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px}
+.ta-send:disabled{opacity:.35;cursor:not-allowed}
+.ta-send kbd{font:500 11px "Geist Mono",monospace;opacity:.7}
+.ta-hint{font-size:13px;color:var(--mu)}
+.ta-plain textarea{min-height:110px;padding:11px 13px;border-radius:12px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--sf);color:var(--fg);font:16px/1.55 Geist,system-ui,sans-serif;resize:vertical;width:100%;transition:border-color .15s,box-shadow .15s,background-color .15s}
+@media (min-width:640px){.ta-plain textarea{font-size:14.5px}}
+.ta-plain textarea:focus{outline:0;background:var(--bg);border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.ta-sent{font-size:13px;color:var(--ok);min-height:19px}
+.ta-box textarea:focus-visible{outline:0}
+</style>
+<div class="ta">
+  <div class="ta-pn">
+    <div class="ta-f" id="taF"><label for="taC">Leave a comment <small>Grows as you type</small></label>
+      <div class="ta-box"><textarea id="taC" rows="3" placeholder="Share your thoughts…" aria-describedby="taN">The new onboarding flow feels much faster. One thing: the "skip" link on step two is easy to miss on mobile.</textarea>
+        <div class="ta-bar">
+          <button class="ta-tool" type="button" aria-label="Attach file"><svg viewBox="0 0 24 24"><path d="m21 11-8.6 8.6a5 5 0 0 1-7-7l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7L10 17.4a1.7 1.7 0 0 1-2.3-2.3l8-8"/></svg></button>
+          <button class="ta-tool" type="button" aria-label="Mention someone"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg></button>
+          <span class="ta-cnt" id="taN" aria-live="polite"><svg class="ta-ring" viewBox="0 0 20 20" aria-hidden="true"><circle class="bg" cx="10" cy="10" r="8"/><circle class="fg" cx="10" cy="10" r="8"/></svg><span></span></span>
+          <button class="ta-send" type="button">Comment <kbd>⌘↵</kbd></button>
+        </div></div>
+      <div class="ta-sent" role="status"></div></div>
+    <div class="ta-f ta-plain"><label for="taB">Bio <small>Markdown supported</small></label>
+      <textarea id="taB" placeholder="Designer in Lisbon. Into type, trains and tiny tools." aria-describedby="taBh"></textarea>
+      <div class="ta-hint" id="taBh">Shown on your public profile. Keep it under a few sentences.</div></div>
+  </div>
+</div>
+<script>
+const MAX=200,t=document.getElementById("taC"),f=document.getElementById("taF"),cnt=document.querySelector(".ta-cnt span"),ring=document.querySelector(".ta-ring .fg"),send=document.querySelector(".ta-send"),sent=document.querySelector(".ta-sent");
+const grow=()=>{if(CSS.supports("field-sizing","content"))return;t.style.height="auto";t.style.height=Math.min(260,t.scrollHeight)+"px"};
+const upd=()=>{const n=t.value.length,left=MAX-n;cnt.textContent=left;ring.style.strokeDashoffset=50.27*(1-Math.min(1,n/MAX));
+  f.classList.toggle("warn",left<=30&&left>=0);f.classList.toggle("over",left<0);t.setAttribute("aria-invalid",left<0);send.disabled=!t.value.trim()||left<0;grow()};
+t.addEventListener("input",upd);upd();
+const post=()=>{if(send.disabled)return;sent.textContent="Comment posted.";t.value="";upd();setTimeout(()=>sent.textContent="",2000)};
+send.addEventListener("click",post);
+t.addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.metaKey||e.ctrlKey)){e.preventDefault();post()}});
+</script>

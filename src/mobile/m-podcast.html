@@ -1,0 +1,37 @@
+<!--Podcast Episode|An episode page: show artwork and title, a play button that shows time left and fills as it plays, a speed chip that cycles 1× to 2×, and chapters you can tap to jump with the current one highlighted.|podcast,audio,chapters,episode,speed-->
+<header class="bar"><div class="nb"><span><button class="ib" aria-label="Back">@I(left)</button></span><h2></h2><span><button class="ib" aria-label="More">@I(more)</button></span></div></header>
+<main class="sc pc">
+  <div class="pc-top"><img src="media/pics/c/1006.jpg" alt=""><span><small>FIELD NOTES · EP 48</small><b>Mapping the last unmapped valleys</b><span class="mu">Tue 10 Nov · 52 min</span></span></div>
+  <div class="pc-act"><button class="pc-play" id="pp"><span class="pc-f" id="pf"></span>@I(play,18)<span id="pl" class="tn">38 min left</span></button><button class="chip" id="sp" aria-label="Playback speed">1×</button><button class="ib" aria-label="Download">@I(download,22)</button><button class="ib" aria-label="Share">@I(share,22)</button></div>
+  <p class="pc-d">Cartographer Siri Aasen spent three summers walking valleys that still show as blank on official maps. We talk about GPS drift, reading old farm records, and why the best map is sometimes a conversation.</p>
+  <h2 class="sh">Chapters</h2>
+  <ol class="pc-ch" id="ch"></ol>
+</main>
+<style>
+.pc{padding-left:var(--gut)!important;padding-right:var(--gut)!important}
+.pc-top{display:flex;gap:16px;align-items:flex-start;padding-top:8px}
+.pc-top img{width:112px;height:112px;border-radius:16px;object-fit:cover;flex:none;box-shadow:0 0 0 .5px var(--line)}
+.pc-top small{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--ac)}.pc-top b{display:block;margin:4px 0;font-size:20px;line-height:25px;font-weight:650;letter-spacing:-.015em}.pc-top .mu{font-size:14px}
+.pc-act{display:flex;align-items:center;gap:8px;margin:20px 0 0}
+.pc-play{position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:22px;background:var(--ac)!important;color:var(--ac-fg)!important;font-size:15px;font-weight:600;flex:none;isolation:isolate}
+.pc-f{position:absolute;inset:0;background:#0003;transform-origin:left;transform:scaleX(var(--p,.27));z-index:-1}
+.pc-act .chip{margin-right:auto;font-variant-numeric:tabular-nums;min-width:52px;justify-content:center;min-height:44px;border-radius:22px}
+.pc-d{margin:20px 0 0;font-size:16px;line-height:24px}
+.pc-ch{list-style:none;margin:0;padding:0}
+.pc-ch button{display:flex;gap:12px;align-items:center;width:100%;min-height:52px;text-align:left;border-bottom:.5px solid var(--line)}
+.pc-ch time{width:48px;font-size:14px;color:var(--mu);font-variant-numeric:tabular-nums}.pc-ch span{flex:1;font-size:16px}
+.pc-ch .on span{color:var(--ac);font-weight:600}.pc-ch .on time{color:var(--ac)}
+.pc-ch .on::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ac);animation:pu 1.2s infinite}
+@keyframes pu{50%{opacity:.3}}
+</style>
+<script>
+const C=[[0,"Cold open"],[150,"Who is Siri Aasen"],[620,"Blank spots on the map"],[1220,"Reading farm records"],[1980,"When GPS lies"],[2700,"The valley with two names"],[3000,"Listener questions"]],D=3120;let t=840,on=false,spd=1;const spB=document.getElementById("sp");
+ch.innerHTML=C.map(([s,n],i)=>`<li><button data-s="${s}"><time>${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}</time><span>${n}</span></button></li>`).join("");
+const PA='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path d="M7 4h3v16H7zM14 4h3v16h-3z" fill="currentColor"/></svg>',PL=pp.querySelector(".i").outerHTML;
+const draw=()=>{pf.parentElement.style.setProperty("--p",t/D);pl.textContent=Math.ceil((D-t)/60)+" min left";let k=0;C.forEach((c,i)=>{if(t>=c[0])k=i});ch.querySelectorAll("button").forEach((b,i)=>b.classList.toggle("on",i===k))};
+pp.onclick=()=>{on=!on;pp.querySelector(".i").outerHTML=on?PA:PL;pp.setAttribute("aria-label",on?"Pause":"Play")};
+setInterval(()=>{if(on){t=Math.min(D,t+spd*4);draw()}},250);
+spB.onclick=()=>{spd={1:1.25,1.25:1.5,1.5:2,2:1}[spd];spB.textContent=spd+"×"};
+ch.onclick=e=>{const b=e.target.closest("button");if(b){t=+b.dataset.s;draw();if(!on)pp.click()}};
+draw();
+</script>

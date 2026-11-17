@@ -1,0 +1,20 @@
+<!--Seats Slider Pricing|Pricing|Per-seat pricing with a slider that snaps to volume tiers, a live total that rolls, tier markers on the track showing the discount at each break, and an annual toggle.|pricing,slider,seats,volume,calculator-->
+<div class="k">
+<div class="card ps"><h2>How many people?</h2><div class="ps-n"><output id="o" class="tn">25</output><span class="mu">seats</span></div>
+<div class="ps-tr"><input type="range" id="r" min="1" max="200" value="25" aria-label="Seats" aria-valuetext="25 seats"><div class="ps-tk" id="tk" aria-hidden="true"></div></div>
+<label class="ps-yr"><input type="checkbox" id="y" role="switch" checked><span class="ps-sw" aria-hidden="true"></span>Pay yearly (2 months free)</label>
+<dl class="ps-sum"><div><dt class="mu">Per seat</dt><dd class="tn" id="ps"></dd></div><div><dt class="mu">Volume discount</dt><dd class="tn" id="vd"></dd></div><div class="tot"><dt>Total</dt><dd class="tn" id="tt"></dd></div></dl><a class="b ac ps-go" href="#" id="go">Start with 25 seats</a></div>
+</div>
+<style>
+.ps{width:min(460px,100%);padding:28px}.ps h2{margin:0;font-size:16px;font-weight:550;color:var(--mu)}.ps-n{display:flex;align-items:baseline;gap:8px;margin:4px 0 12px}.ps-n output{font-size:56px;font-weight:650;letter-spacing:-.04em}
+.ps-tr{position:relative;padding-bottom:28px}.ps-tr input{width:100%;accent-color:var(--ac);height:28px;position:relative;z-index:1}.ps-tk{position:absolute;left:0;right:0;top:30px;height:24px}.ps-tk span{position:absolute;translate:-50% 0;font-size:11px;color:var(--mu);white-space:nowrap;display:grid;justify-items:center}.ps-tk span::before{content:"";width:1px;height:6px;background:var(--ctl)}.ps-tk span.on{color:var(--ac);font-weight:650}
+.ps-yr{display:flex;gap:10px;align-items:center;font-size:14px;cursor:pointer;min-height:44px;margin-top:4px}.ps-yr input{position:absolute;opacity:0}.ps-sw{width:40px;height:24px;border-radius:12px;background:var(--ctl);position:relative;transition:background .2s;flex:none}.ps-sw::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .2s var(--ease)}.ps-yr input:checked+.ps-sw{background:var(--ac)}.ps-yr input:checked+.ps-sw::after{transform:translateX(16px)}.ps-yr input:focus-visible+.ps-sw{outline:2px solid var(--focus);outline-offset:2px}
+.ps-sum{margin:16px 0;display:grid;gap:8px}.ps-sum div{display:flex;justify-content:space-between}.ps-sum dt,.ps-sum dd{margin:0}.ps-sum .tot{border-top:1px solid var(--line);padding-top:12px;margin-top:4px;font-weight:650}.ps-sum .tot dd{font-size:24px;letter-spacing:-.02em}.ps-go{width:100%;height:44px}
+</style>
+<script>
+const $=i=>document.getElementById(i),T=[[1,0],[10,10],[50,20],[100,30]],B=12,r=$('r');
+$('tk').innerHTML=T.slice(1).map(([n,d])=>`<span data-n="${n}" style="left:${(n-1)/199*100}%">${n}+ · −${d}%</span>`).join('');
+const f=n=>'€'+n.toLocaleString('en',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
+function up(){const n=+r.value,d=T.filter(t=>n>=t[0]).pop()[1],y=$('y').checked,per=B*(1-d/100)*(y?10/12:1);$('o').textContent=n;r.setAttribute('aria-valuetext',n+' seats');$('ps').textContent=f(+per.toFixed(2))+' / mo';$('vd').textContent=d?'−'+d+'%':'–';$('tt').textContent=y?f(Math.round(per*n*12))+' / yr':f(Math.round(per*n))+' / mo';$('go').textContent=`Start with ${n} seat${n>1?'s':''}`;$('tk').querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.n===T.filter(t=>n>=t[0]).pop()[0]))}
+r.oninput=$('y').onchange=up;up();
+</script>

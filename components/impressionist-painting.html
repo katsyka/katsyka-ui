@@ -1,0 +1,82 @@
+<style>
+.bg-ipx{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;--ink:#ffffff;--fb:#3d5a2b;--ink2:var(--ink);background:var(--fb);color:var(--ink);isolation:isolate;font:16px/1.5 Geist,system-ui,sans-serif}
+.bg-ipx canvas,.bg-ipx>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.bg-ipx>img{display:none;filter:saturate(1.3) contrast(1.05)}
+.bg-ipx.nogl canvas{display:none}.bg-ipx.nogl>img{display:block}
+.bg-ipx-nav{display:flex;align-items:center;gap:28px;padding:20px clamp(16px,4vw,48px)}
+.bg-ipx-nav nav{display:flex;gap:22px}
+.bg-ipx-nav b{font-weight:600;font-size:16px;letter-spacing:-.01em}
+.bg-ipx-nav a{color:inherit;text-decoration:none;font-size:14px;opacity:.72;transition:opacity .15s ease-out}.bg-ipx-nav a:hover{opacity:1}
+.bg-ipx-main{flex:1;display:grid;padding:clamp(24px,5vw,64px) clamp(16px,4vw,48px) clamp(32px,6vw,72px)}
+.bg-ipx-eye{margin:0;font:500 11px/1.4 "Geist Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+.bg-ipx-sub{font-size:17px;line-height:1.55;max-width:44ch;margin:0;opacity:.8;text-wrap:pretty}
+.bg-ipx-mono{font:13px "Geist Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.bg-ipx-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:0;border-radius:10px;background:var(--ink);color:var(--fb);font:600 15px Geist,system-ui,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s ease-out,opacity .15s ease-out}
+.bg-ipx-btn:active{transform:scale(.97)}.bg-ipx-ghost{background:none;color:inherit;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--ink) 35%,transparent)}
+.bg-ipx-card{background:color-mix(in oklab,var(--fb) 84%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid color-mix(in oklab,var(--ink) 12%,transparent);border-radius:16px;padding:20px}
+.bg-ipx-card>.bg-ipx-eye:first-child{margin-bottom:10px}
+.bg-ipx-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.bg-ipx-pal{margin-left:auto;display:flex;gap:2px}
+.bg-ipx-pal button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
+.bg-ipx-pal button i{width:18px;height:18px;border-radius:50%;background:var(--g);box-shadow:0 0 0 1px color-mix(in oklab,var(--ink) 30%,transparent);transition:transform .15s ease-out}
+.bg-ipx-pal button[aria-pressed=true] i{box-shadow:0 0 0 2px var(--fb),0 0 0 3.5px var(--ink)}
+.bg-ipx :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media (max-width:760px){.bg-ipx-main{grid-template-columns:1fr!important;gap:28px!important}.bg-ipx-nav nav{display:none}}
+
+.bg-ipx-main{grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:48px;align-items:end}
+.bg-ipx h1{font:400 clamp(48px,7vw,100px)/.92 "Instrument Serif",serif;letter-spacing:-.02em;margin:10px 0 0;max-width:9ch;text-shadow:0 2px 30px rgb(0 0 0/.35)}
+.bg-ipx-ev{list-style:none;margin:0;padding:0}.bg-ipx-ev li{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-top:1px solid color-mix(in oklab,var(--ink) 14%,transparent)}
+.bg-ipx-ev li:first-child{border-top:0}.bg-ipx-ev time{font:500 13px/1.2 "Geist Mono",monospace;text-transform:uppercase;font-variant-numeric:tabular-nums}.bg-ipx-ev time b{display:block;font:500 24px Geist,system-ui,sans-serif}
+.bg-ipx-ev small{display:block;opacity:.6;font-size:13px}.bg-ipx-ev a{font-size:14px;font-weight:600;color:inherit;min-height:44px;display:inline-flex;align-items:center}
+.bg-ipx-card{color:var(--ink2);--ink:var(--ink2)}
+
+</style>
+<section class="bg-ipx">
+  <canvas aria-hidden="true"></canvas>
+  <img src="media/pics/w/1039.jpg" alt="" crossorigin="anonymous">
+  <header class="bg-ipx-nav"><b>The Garden Museum</b><nav aria-label="The Garden Museum"><a href="#">Visit</a><a href="#">What's on</a><a href="#">Members</a></nav></header>
+  <main class="bg-ipx-main">
+<div><p class="bg-ipx-eye">Late openings · Thursdays until 21:00</p><h1>Paint by the pond after dark.</h1></div>
+<div class="bg-ipx-card"><p class="bg-ipx-eye">This month</p><ul class="bg-ipx-ev">
+<li><time>Thu<b>6</b></time><span>Sketching the lily pond<small>18:30 · Free with entry</small></span><a href="#">Book</a></li>
+<li><time>Thu<b>13</b></time><span>Colour mixing for beginners<small>19:00 · €12</small></span><a href="#">Book</a></li>
+<li><time>Thu<b>20</b></time><span>Curator's walk: water gardens<small>19:30 · €8</small></span><a href="#">Book</a></li></ul></div>
+</main>
+</section>
+<script>
+(()=>{
+const S=document.currentScript?document.currentScript.previousElementSibling:document.querySelector(".bg-ipx");
+const root=S&&S.classList.contains("bg-ipx")?S:document.querySelector(".bg-ipx");
+const cv=root.querySelector("canvas"),gl=cv.getContext("webgl",{antialias:false});
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,IMG=true;
+const off=()=>root.classList.add("nogl");
+if(!gl)return off();
+const FS="precision highp float;uniform vec2 r,m,us;uniform float t,ld;uniform sampler2D u;uniform vec3 k0,k1,k2;\nfloat h(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}\nvec2 h2(vec2 p){vec3 q=fract(vec3(p.xyx)*vec3(.1031,.103,.0973));q+=dot(q,q.yzx+33.33);return fract((q.xx+q.yz)*q.zy);}\nfloat n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}\nfloat fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=mat2(.8,.6,-.6,.8)*p*2.03+1.7;a*=.5;}return v;}\nvec2 cover(vec2 q){float ra=r.x/r.y,ia=us.x/us.y;vec2 s=ra>ia?vec2(1.,ia/ra):vec2(ra/ia,1.);return (q-.5)*s+.5;}\nvec3 img(vec2 q){return texture2D(u,clamp(q,.001,.999)).rgb;}\nfloat lum(vec3 c){return dot(c,vec3(.299,.587,.114));}\n\nvoid main(){vec2 px=gl_FragCoord.xy,uv=px/r;vec2 p=px/r.y;\nfloat a=fbm(p*2.2+t*.015)*6.2831;vec2 dir=vec2(cos(a),sin(a));vec2 cell=floor(p*38.+dir*2.);float jit=h(cell);\nvec3 acc=vec3(0);for(int i=-3;i<=3;i++){float f=float(i)/3.;acc+=img(cover(uv+dir*f*.018*vec2(r.y/r.x,1.)+(jit-.5)*.004));}acc/=7.;\nacc=mix(vec3(lum(acc)),acc,1.35);acc=floor(acc*7.+jit*.6)/7.;\nvec2 rd=mat2(dir.x,-dir.y,dir.y,dir.x)*p;float bristle=n(vec2(rd.x*8.,rd.y*160.));float dab=n(p*38.+jit*9.);\nvec3 col=acc*(.86+.22*bristle)*(.95+.1*dab);col+=(n(px*.9)-.5)*.04;\ncol=mix(vec3(.85,.82,.75),col,ld);gl_FragColor=vec4(col,1);}";
+const sh=(ty,s)=>{const o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o};
+const P=gl.createProgram();gl.attachShader(P,sh(gl.VERTEX_SHADER,"attribute vec2 a;void main(){gl_Position=vec4(a,0,1);}"));gl.attachShader(P,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(P);
+if(!gl.getProgramParameter(P,gl.LINK_STATUS))return off();
+gl.useProgram(P);gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+const U={};["r","m","us","t","ld","k0","k1","k2"].forEach(k=>U[k]=gl.getUniformLocation(P,k));
+const hex=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)/255);
+let fr=0,ready=!IMG,vis=true,raf=0,t0=performance.now(),mx=.5,my=.5,sx=.5,sy=.5,ld=0,ldT=0;
+const pal=k=>{k.split(",").forEach((c,i)=>gl.uniform3fv(U["k"+i],hex(c)));if(RM)draw()};
+if(IMG){const im=root.querySelector("img"),tx=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tx);
+  [[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE],[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR]].forEach(p=>gl.texParameteri(gl.TEXTURE_2D,...p));
+  const go=()=>{try{gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im)}catch(e){return off()}gl.uniform2f(U.us,im.naturalWidth,im.naturalHeight);ready=true;ldT=performance.now();loop()};
+  im.complete&&im.naturalWidth?go():(im.onload=go,im.onerror=off)}
+function size(){const d=Math.min(devicePixelRatio||1,1.5)*0.75,w=Math.round(cv.clientWidth*d),h=Math.round(cv.clientHeight*d);if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)}gl.uniform2f(U.r,w,h)}
+function draw(){if(!ready)return;size();const now=performance.now();sx+=(mx-sx)*.06;sy+=(my-sy)*.06;
+  gl.uniform1f(U.t,RM?8:(now-t0)/1000);gl.uniform2f(U.m,sx,sy);gl.uniform1f(U.ld,IMG?Math.min(1,(now-ldT)/900):1);gl.drawArrays(gl.TRIANGLES,0,3)}
+function loop(){cancelAnimationFrame(raf);if(RM){draw();if(IMG&&performance.now()-ldT<1000)raf=requestAnimationFrame(loop);return}if(!vis||document.hidden)return;if(fr++%2===0)draw();raf=requestAnimationFrame(loop)}
+root.addEventListener("pointermove",e=>{const b=root.getBoundingClientRect();mx=(e.clientX-b.left)/b.width;my=1-(e.clientY-b.top)/b.height});
+root.addEventListener("pointerleave",()=>{mx=.5;my=.5});
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;loop()}).observe(root);
+document.addEventListener("visibilitychange",loop);
+new ResizeObserver(()=>{if(RM)draw()}).observe(root);
+root.querySelectorAll("[data-tg]").forEach(b=>b.addEventListener("click",()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")));
+root.querySelectorAll("[data-one]").forEach(b=>b.addEventListener("click",()=>b.parentNode.querySelectorAll("[data-one]").forEach(x=>x.setAttribute("aria-pressed",x===b))));
+const btns=[...root.querySelectorAll("[data-k]")];
+btns.forEach(b=>b.onclick=()=>{btns.forEach(x=>x.setAttribute("aria-pressed",x===b));pal(b.dataset.k);const s=root.style;["ink","fb"].forEach(k=>b.dataset[k]?s.setProperty("--"+k,b.dataset[k]):s.removeProperty("--"+k))});
+pal("#000000,#000000,#000000");loop();
+})();
+</script>

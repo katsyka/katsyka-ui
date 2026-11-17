@@ -1,0 +1,64 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k{color-scheme:dark;--e0:#0f0f11;--e1:#17171a;--e2:#1e1e22;--tx:#ececee;--tx2:#a1a1aa;--hl:#ffffff12;--s1:#8ab4ff;--s2:#5b5b66;--up:#6ee7a0;--dn:#fca5a5;background:var(--e0);color:var(--tx);place-items:start center}
+.dd{width:min(920px,100%);display:grid;gap:12px}
+.dd-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}.dd h1{margin:0;font-size:22px;font-weight:600;letter-spacing:-.01em}.dd-h p{margin:2px 0 0;color:var(--tx2);font-size:13px}
+.dd-seg{display:flex;padding:3px;border-radius:9px;background:var(--e1);border:1px solid var(--hl)}.dd-seg button{height:28px;padding:0 12px;border-radius:6px;font-size:13px;color:var(--tx2)}.dd-seg [aria-pressed=true]{background:var(--e2);color:var(--tx);box-shadow:inset 0 1px 0 #ffffff0d}
+.dd-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.dd-k div,.dd-c{background:var(--e1);border:1px solid var(--hl);border-radius:14px;padding:16px}
+.dd-k span{font-size:13px;color:var(--tx2)}.dd-k b{display:block;margin:4px 0;font-size:26px;font-weight:600;letter-spacing:-.02em}
+.dd-k em{font-style:normal;font-size:12px;font-weight:600;color:var(--tx2)}.dd-k .up{color:var(--up)}.dd-k .dn{color:var(--dn)}
+.dd-c header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.dd-c b{font-weight:550}
+.dd-lg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--tx2)}.dd-lg i{width:10px;height:3px;border-radius:2px;background:var(--c);margin-left:8px}
+.dd-ch{position:relative;height:220px}.dd-ch svg{width:100%;height:100%;overflow:visible}
+.dd-x{position:absolute;top:0;bottom:0;pointer-events:none}.dd-x i{position:absolute;top:0;bottom:0;width:1px;background:#ffffff26}
+.dd-x span{position:absolute;top:4px;left:8px;white-space:nowrap;padding:6px 8px;border-radius:8px;background:var(--e2);border:1px solid var(--hl);font-size:12px;font-variant-numeric:tabular-nums}
+.dd-t{width:100%;border-collapse:collapse}.dd-t td{padding:10px 0;border-top:1px solid var(--hl);font-size:14px}.dd-t td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.dd-t .bar{width:40%;padding:0 16px}.dd-t .bar i{display:block;height:6px;border-radius:3px;background:var(--s1);opacity:.85}
+.dd img{filter:brightness(.9)}
+</style>
+<div class="k"><div class="dd">
+  <header class="dd-h"><div><h1>Overview</h1><p>Last 30 days · updated 2 min ago</p></div><div class="dd-seg"><button aria-pressed="false">7d</button><button aria-pressed="true">30d</button><button aria-pressed="false">90d</button></div></header>
+  <div class="dd-k"><div><span>Revenue</span><b class="tn">$48,210</b><em class="up">↑ 12.4%</em></div><div><span>Orders</span><b class="tn">1,204</b><em class="up">↑ 6.1%</em></div><div><span>Refunds</span><b class="tn">18</b><em class="dn">↑ 2</em></div><div><span>Avg. order</span><b class="tn">$40.04</b><em>— 0.0%</em></div></div>
+  <section class="dd-c"><header><b>Revenue</b><span class="dd-lg"><i style="--c:var(--s1)"></i>This period<i style="--c:var(--s2)"></i>Previous</span></header>
+    <div class="dd-ch" id="ch"><svg id="sv" viewBox="0 0 600 200" preserveAspectRatio="none"></svg><div class="dd-x" id="x" hidden><i></i><span id="tt"></span></div></div></section>
+  <section class="dd-c"><header><b>Top products</b></header><table class="dd-t"><tbody id="tb"></tbody></table></section>
+</div></div>
+<script>
+const N=30,a=[],b=[];let s1=7,s2=3;const R=()=>(s1=(s1*16807)%2147483647)/2147483647,R2=()=>(s2=(s2*48271)%2147483647)/2147483647;
+for(let i=0;i<N;i++){a.push(1200+i*28+R()*500);b.push(1150+i*14+R2()*420)}
+const mx=Math.max(...a,...b)*1.1,X=i=>i/(N-1)*600,Y=v=>200-v/mx*200;
+const line=d=>d.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ");
+sv.innerHTML=[.25,.5,.75].map(f=>`<line x1="0" x2="600" y1="${200*f}" y2="${200*f}" stroke="#ffffff0f" vector-effect="non-scaling-stroke"/>`).join("")+`<defs><linearGradient id="gf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#8ab4ff" stop-opacity=".22"/><stop offset="1" stop-color="#8ab4ff" stop-opacity="0"/></linearGradient></defs><path d="${line(a)} L600 200 L0 200Z" fill="url(#gf)"/><path d="${line(b)}" fill="none" stroke="var(--s2)" stroke-width="1.5" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/><path d="${line(a)}" fill="none" stroke="var(--s1)" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
+ch.addEventListener("pointermove",e=>{const r=ch.getBoundingClientRect(),i=Math.round((e.clientX-r.left)/r.width*(N-1));if(i<0||i>=N)return;x.hidden=false;x.style.left=i/(N-1)*r.width+"px";tt.innerHTML=`Nov ${i+1} · <b style="color:var(--s1)">$${Math.round(a[i]).toLocaleString("en")}</b> <span style="color:var(--tx2)">vs $${Math.round(b[i]).toLocaleString("en")}</span>`;const sp=x.querySelector("span");sp.style.left=i>N*.6?"auto":"8px";sp.style.right=i>N*.6?"8px":"auto"});
+ch.addEventListener("pointerleave",()=>x.hidden=true);
+const P=[["Valley floor print",12840],["Low tide print",9120],["Oak frame 50×70",7410],["Gift card",3980]];
+tb.innerHTML=P.map(([n,v])=>`<tr><td>${n}</td><td class="bar"><i style="width:${v/P[0][1]*100}%"></i></td><td>$${v.toLocaleString("en")}</td></tr>`).join("");
+document.querySelectorAll(".dd-seg button").forEach((b,i,A)=>b.onclick=()=>A.forEach(x=>x.setAttribute("aria-pressed",x===b)));
+</script>

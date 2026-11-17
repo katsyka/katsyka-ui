@@ -1,0 +1,29 @@
+<!--Color Swatches|Forms|A brand colour picker: swatches as a real radio group with arrow-key navigation, a check that flips to dark or light for contrast, a hex field that validates, and a live preview button.|color,swatch,picker,radio,theme-->
+<div class="k"><section class="card cs"><h2>Accent colour</h2><p class="mu">Used for buttons, links and highlights.</p>
+  <div class="cs-g" role="radiogroup" aria-label="Accent colour" id="g"></div>
+  <label class="lbl" for="hx" style="margin-top:16px">Custom hex</label><div class="cs-hx"><span class="cs-dot" id="dot"></span><input class="in tn" id="hx" maxlength="7" spellcheck="false" autocomplete="off"></div><p class="cs-e" id="er" role="alert"></p>
+  <div class="cs-pv"><span class="mu">Preview</span><button class="b" id="pv">Save changes</button><a href="#" id="pl">View settings</a></div></section></div>
+<style>
+.cs{width:min(380px,100%);padding:24px}.cs h2{margin:0;font-size:17px;font-weight:650}.cs>p{margin:4px 0 16px}
+.cs-g{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.cs-g button{position:relative;aspect-ratio:1;border-radius:50%;background:var(--c)!important;box-shadow:inset 0 0 0 1px #0000001a;transition:transform .15s,box-shadow .15s}
+.cs-g button:hover{transform:scale(1.08)}
+.cs-g [aria-checked=true]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--c)}
+.cs-g [aria-checked=true]::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:13px;margin:-8px 0 0 -4px;border:solid var(--ck);border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.cs-hx{display:flex;align-items:center;gap:8px}.cs-dot{width:40px;height:40px;border-radius:10px;flex:none;background:var(--pick);box-shadow:inset 0 0 0 1px #0000001a}
+.cs-hx input{font-family:"Geist Mono",monospace;text-transform:uppercase}
+.cs-e{min-height:18px;margin:6px 0 0;font-size:13px;color:var(--err)}
+.cs-pv{display:flex;align-items:center;gap:16px;margin-top:12px;padding-top:16px;border-top:1px solid var(--line)}
+.cs-pv .b{background:var(--pick);color:var(--pfg)}.cs-pv a{color:var(--pick);font-weight:600;text-underline-offset:3px}
+</style>
+<script>
+const S=["#c2410c","#dc2626","#db2777","#9333ea","#4f46e5","#2563eb","#0891b2","#0d9488","#16a34a","#65a30d","#ca8a04","#18181b"];
+const lum=h=>{const c=[1,3,5].map(i=>{let v=parseInt(h.substr(i,2),16)/255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4});return .2126*c[0]+.7152*c[1]+.0722*c[2]};
+const k=document.querySelector(".k");
+g.innerHTML=S.map((c,i)=>`<button role="radio" aria-checked="false" tabindex="-1" aria-label="${c}" style="--c:${c};--ck:${lum(c)>.4?"#111":"#fff"}"></button>`).join("");
+const B=[...g.children];
+const set=(h,from)=>{k.style.setProperty("--pick",h);k.style.setProperty("--pfg",lum(h)>.4?"#111":"#fff");B.forEach(b=>{const on=b.getAttribute("aria-label").toLowerCase()===h.toLowerCase();b.setAttribute("aria-checked",on);b.tabIndex=on?0:-1});if(!B.some(b=>b.tabIndex===0))B[0].tabIndex=0;if(from!=="hex")hx.value=h.toUpperCase();er.textContent=""};
+B.forEach((b,i)=>{b.onclick=()=>set(S[i]);b.onkeydown=e=>{const d={ArrowRight:1,ArrowDown:6,ArrowLeft:-1,ArrowUp:-6}[e.key];if(d){e.preventDefault();const n=B[(i+d+B.length)%B.length];n.focus();n.click()}}});
+hx.oninput=()=>{let v=hx.value.trim();if(v&&v[0]!=="#")v="#"+v;if(/^#[0-9a-f]{6}$/i.test(v)){set(v,"hex");hx.removeAttribute("aria-invalid")}else{er.textContent=v.length>=7?"Use six hex digits, like #2563EB.":"";hx.setAttribute("aria-invalid",v.length>=7)}};
+set(S[0]);pl.onclick=e=>e.preventDefault();
+</script>

@@ -1,0 +1,14 @@
+<!--Update Required|States|A soft-forced app update prompt: current vs new version, what changed in three plain bullets, download size and time estimate, update now or remind me tonight, and a progress state while installing.|update,version,app,modal,changelog-->
+<div class="k ur"><main class="ur-w" role="dialog" aria-labelledby="ut"><div class="ur-v tn"><span>4.2.1</span>@I(arrowr,16)<b>4.3.0</b></div><h1 id="ut">An update is ready</h1><ul><li><b>Offline drafts.</b> Write on the train, it syncs later.</li><li><b>Faster search.</b> Results show as you type.</li><li><b>Fixes</b> the crash when attaching HEIC photos.</li></ul><p class="mu ur-sz">38 MB · about 20 seconds on this connection. You'll stay signed in.</p>
+<div class="ur-pr" id="pr" hidden><div><i id="pi"></i></div><span class="tn" id="pt">0%</span></div><div class="ur-ac" id="ac"><button class="b ac" id="up">Update now</button><button class="b gh" id="lt">Tonight at 02:00</button></div><p class="ur-m mu" id="m" role="status"></p></main></div>
+<style>
+.ur-w{width:min(420px,100%);padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--bg);display:grid;gap:12px}.ur-v{display:flex;gap:8px;align-items:center;font:13px 'Geist Mono',monospace;color:var(--mu)}.ur-v b{color:var(--ac)}.ur-w h1{margin:0;font-size:22px;letter-spacing:-.02em}
+.ur-w ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}.ur-sz{font-size:13px;margin:0}
+.ur-pr{display:flex;gap:10px;align-items:center}.ur-pr div{flex:1;height:8px;border-radius:4px;background:var(--sf2);overflow:hidden}.ur-pr i{display:block;height:100%;width:0;background:var(--ac);transition:width .2s linear}.ur-pr span{font-size:13px;width:36px;text-align:right}
+.ur-ac{display:flex;gap:8px}.ur-ac .b{height:44px;flex:1}.ur-m{font-size:13px;margin:0}.ur-m:empty{display:none}
+</style>
+<script>
+const $=i=>document.getElementById(i);
+$('up').onclick=()=>{$('ac').hidden=true;$('pr').hidden=false;let p=0;const t=setInterval(()=>{p=Math.min(100,p+Math.random()*9+3);$('pi').style.width=p+'%';$('pt').textContent=Math.round(p)+'%';if(p>=100){clearInterval(t);$('m').textContent='Installed. Restarting…';setTimeout(()=>{document.querySelector('.ur-w h1').textContent='You\'re on 4.3.0';$('pr').hidden=true;$('m').textContent='Your drafts and settings are where you left them.'},1000)}},180)};
+$('lt').onclick=()=>{$('ac').hidden=true;$('m').innerHTML='We\'ll update tonight at 02:00 if your device is charging. <button id="u" style="text-decoration:underline;font-weight:600">Update now instead</button>';$('u').onclick=()=>{$('m').textContent='';$('up').click()}};
+</script>

@@ -1,0 +1,40 @@
+<!--Search Field|Forms|A search input that does the details: ⌘K / Ctrl K to focus, a debounced spinner while results load, a listbox of suggestions with arrow keys and Enter, matched text in bold, recent searches, and a clear button.|search,combobox,autocomplete,keyboard,input-->
+<div class="k"><div class="sf" id="w">
+  <div class="sf-f">@I(search,18)<input id="q" role="combobox" aria-expanded="false" aria-controls="lb" aria-autocomplete="list" placeholder="Search docs" autocomplete="off" spellcheck="false"><span class="sf-sp" id="sp" hidden></span><button class="ibt" id="cl" aria-label="Clear" hidden>@I(x,14)</button><kbd id="kb">⌘K</kbd></div>
+  <ul class="card sf-l" id="lb" role="listbox" hidden></ul></div></div>
+<style>
+.k{place-items:start center;padding-top:96px}
+.sf{position:relative;width:min(480px,100%)}
+.sf-f{display:flex;align-items:center;gap:8px;height:44px;padding:0 6px 0 12px;border-radius:12px;border:1px solid var(--ctl);background:var(--bg);color:var(--mu);transition:border-color .15s,box-shadow .15s}
+.sf-f:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.sf-f input{flex:1;min-width:0;border:0;background:none;outline:0;font-size:15px;color:var(--fg)}.sf-f input::placeholder{color:var(--mu)}
+.sf-f kbd{font:500 12px Geist;padding:2px 6px;border-radius:6px;border:1px solid var(--line);color:var(--mu)}
+.sf-sp{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);border-top-color:var(--ac);animation:sp .7s linear infinite}@keyframes sp{to{transform:rotate(1turn)}}
+.sf-l{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:5;list-style:none;margin:0;padding:6px;max-height:320px;overflow:auto;animation:dd .15s var(--ease);transform-origin:top}
+@keyframes dd{from{opacity:0;transform:translateY(-4px)}}
+.sf-g{padding:8px 10px 4px;font-size:12px;font-weight:600;color:var(--mu)}
+.sf-o{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer}.sf-o .i{color:var(--mu);width:16px;height:16px}
+.sf-o small{margin-left:auto;color:var(--mu);font-size:12px}.sf-o b{font-weight:650}
+.sf-o[aria-selected=true]{background:var(--sf2)}
+.sf-e{padding:16px 10px;color:var(--mu);text-align:center}
+</style>
+<script>
+const D=[["Getting started","Guide"],["Install with npm","Guide"],["Theming and tokens","Guide"],["Dark mode","Guide"],["Button","Component"],["Bottom sheet","Component"],["Tab bar","Component"],["Search field","Component"],["Tokens reference","API"],["useTheme()","API"]];
+const RC=["Dark mode","Tab bar"];
+const I=p=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`,CLK=I('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),DOC=I('<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/>');
+kb.textContent=/Mac|iPhone/.test(navigator.platform)?"⌘K":"Ctrl K";
+let opts=[],act=-1,tm;const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const hl=(s,w)=>{const i=s.toLowerCase().indexOf(w);return i<0?esc(s):esc(s.slice(0,i))+"<b>"+esc(s.slice(i,i+w.length))+"</b>"+esc(s.slice(i+w.length))};
+const open=o=>{lb.hidden=!o;q.setAttribute("aria-expanded",o)};
+const render=w=>{let h="";opts=[];if(!w){h='<li class="sf-g" role="presentation">Recent</li>'+RC.map(r=>{opts.push(r);return`<li class="sf-o" role="option" id="o${opts.length-1}">${CLK}${esc(r)}</li>`}).join("")}else{const M=D.filter(d=>d[0].toLowerCase().includes(w));if(!M.length)h=`<li class="sf-e" role="presentation">No results for “${esc(w)}”</li>`;["Guide","Component","API"].forEach(g=>{const L=M.filter(m=>m[1]===g);if(L.length)h+=`<li class="sf-g" role="presentation">${g}s</li>`+L.map(m=>{opts.push(m[0]);return`<li class="sf-o" role="option" id="o${opts.length-1}">${DOC}${hl(m[0],w)}</li>`}).join("")})}lb.innerHTML=h;act=-1;q.removeAttribute("aria-activedescendant");open(true)};
+const mark=i=>{act=i;lb.querySelectorAll(".sf-o").forEach((o,j)=>o.setAttribute("aria-selected",j===i));const el=document.getElementById("o"+i);if(el){q.setAttribute("aria-activedescendant",el.id);el.scrollIntoView({block:"nearest"})}};
+const pick=i=>{if(i<0)return;q.value=opts[i];cl.hidden=false;open(false);if(!RC.includes(opts[i]))RC.unshift(opts[i]),RC.length=Math.min(RC.length,4)};
+q.addEventListener("input",()=>{cl.hidden=!q.value;sp.hidden=false;clearTimeout(tm);tm=setTimeout(()=>{sp.hidden=true;render(q.value.trim().toLowerCase())},250)});
+q.addEventListener("focus",()=>render(q.value.trim().toLowerCase()));
+q.addEventListener("keydown",e=>{if(e.key==="ArrowDown"){e.preventDefault();if(lb.hidden)render(q.value.trim().toLowerCase());mark(Math.min(opts.length-1,act+1))}else if(e.key==="ArrowUp"){e.preventDefault();mark(Math.max(0,act-1))}else if(e.key==="Enter"){e.preventDefault();pick(act)}else if(e.key==="Escape"){if(!lb.hidden)open(false);else{q.value="";cl.hidden=true}}});
+lb.addEventListener("mousedown",e=>e.preventDefault());lb.addEventListener("click",e=>{const o=e.target.closest(".sf-o");if(o)pick(+o.id.slice(1))});
+lb.addEventListener("mousemove",e=>{const o=e.target.closest(".sf-o");if(o&&+o.id.slice(1)!==act)mark(+o.id.slice(1))});
+q.addEventListener("blur",()=>open(false));
+cl.onclick=()=>{q.value="";cl.hidden=true;q.focus()};
+addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();q.focus();q.select()}});
+</script>

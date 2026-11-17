@@ -1,0 +1,44 @@
+<style>
+.pr{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.pr :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.pr ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.pr *,.pr *::before,.pr *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.pr{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.pr-pn{width:min(640px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pr-c{display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 16px;background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);text-align:center}
+.pr-c b{font-size:14px;font-weight:600}.pr-c small{display:block;font-size:12.5px;color:var(--mu);margin-top:1px}
+.pr-r{position:relative;width:var(--s,96px);height:var(--s,96px)}
+.pr-r svg{width:100%;height:100%;transform:rotate(-90deg)}
+.pr-r circle{fill:none;stroke-width:var(--w,8);stroke-linecap:round}
+.pr-r .bg{stroke:var(--sf2)}
+.pr-r .fg{stroke:var(--c,var(--ac));stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--v));transition:stroke-dashoffset .8s var(--ease)}
+.pr-r span{position:absolute;inset:0;display:grid;place-items:center;font:650 22px Geist,system-ui,sans-serif;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.pr-r span small{font-size:12px;font-weight:500;color:var(--mu);letter-spacing:0;display:inline;margin:0}
+.pr-g{position:relative;width:140px;height:80px}
+.pr-g svg{width:100%;height:100%;overflow:visible}
+.pr-g path{fill:none;stroke-width:12;stroke-linecap:round}
+.pr-g .bg{stroke:var(--sf2)}
+.pr-g .fg{stroke:url(#prGr);stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--v));transition:stroke-dashoffset .8s var(--ease)}
+.pr-g span{position:absolute;left:0;right:0;bottom:-2px;text-align:center;font:650 24px Geist,system-ui,sans-serif;letter-spacing:-.03em}
+.pr-mini{display:flex;gap:14px;justify-content:center}
+.pr-mini .pr-r{--s:44px;--w:5}
+.pr-mini .pr-r span{font-size:11.5px;font-weight:600}
+.pr-btn{height:32px;padding:0 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:550 12.5px Geist,system-ui,sans-serif;cursor:pointer}
+.pr-btn:hover{background:var(--sf2)}
+@media (max-width:620px){.pr-pn{grid-template-columns:1fr}}
+</style>
+<div class="pr">
+  <div class="pr-pn">
+    <div class="pr-c"><div class="pr-r" id="prA" style="--v:68" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="Profile completeness"><svg viewBox="0 0 36 36"><circle class="bg" cx="18" cy="18" r="15.9155" style="--w:3.2"/><circle class="fg" cx="18" cy="18" r="15.9155" pathLength="100" style="--w:3.2"/></svg><span>68<small>%</small></span></div><div><b>Profile</b><small>4 of 6 steps done</small></div><button class="pr-btn" id="prB">Complete a step</button></div>
+    <div class="pr-c"><div class="pr-g" style="--v:74" role="meter" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" aria-label="Performance score"><svg viewBox="0 0 140 80"><defs><linearGradient id="prGr"><stop offset="0" stop-color="#ef4444"/><stop offset=".5" stop-color="#f59e0b"/><stop offset="1" stop-color="#22c55e"/></linearGradient></defs><path class="bg" d="M10 74a60 60 0 0 1 120 0"/><path class="fg" d="M10 74a60 60 0 0 1 120 0" pathLength="100"/></svg><span id="prGv">74</span></div><div><b>Performance</b><small>Lighthouse, mobile</small></div></div>
+    <div class="pr-c"><div class="pr-mini">
+        <div class="pr-r" style="--v:92;--c:var(--ok)" role="progressbar" aria-valuenow="92" aria-label="Tests passing"><svg viewBox="0 0 36 36"><circle class="bg" cx="18" cy="18" r="15.9155" style="--w:4"/><circle class="fg" cx="18" cy="18" r="15.9155" pathLength="100" style="--w:4"/></svg><span>92</span></div>
+        <div class="pr-r" style="--v:47;--c:var(--warn)" role="progressbar" aria-valuenow="47" aria-label="Coverage"><svg viewBox="0 0 36 36"><circle class="bg" cx="18" cy="18" r="15.9155" style="--w:4"/><circle class="fg" cx="18" cy="18" r="15.9155" pathLength="100" style="--w:4"/></svg><span>47</span></div>
+        <div class="pr-r" style="--v:18;--c:var(--err)" role="progressbar" aria-valuenow="18" aria-label="Budget left"><svg viewBox="0 0 36 36"><circle class="bg" cx="18" cy="18" r="15.9155" style="--w:4"/><circle class="fg" cx="18" cy="18" r="15.9155" pathLength="100" style="--w:4"/></svg><span>18</span></div>
+      </div><div><b>Small, coloured by status</b><small>Tests · coverage · budget</small></div></div>
+  </div>
+</div>
+<script>
+const A=document.getElementById("prA");let v=68;
+document.getElementById("prB").onclick=()=>{v=v>=100?17:Math.min(100,Math.round(v+100/6));A.style.setProperty("--v",v);A.setAttribute("aria-valuenow",v);A.querySelector("span").innerHTML=v+"<small>%</small>";A.nextElementSibling.querySelector("small").textContent=v>=100?"All set 🎉":`${Math.round(v/100*6)} of 6 steps done`};
+</script>

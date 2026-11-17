@@ -1,0 +1,57 @@
+<style>
+.ig{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ig :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ig ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ig *,.ig *::before,.ig *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ig{position:relative;height:100vh;min-height:520px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:Geist,system-ui,sans-serif;touch-action:none;cursor:grab;user-select:none}
+.ig.drag{cursor:grabbing}
+.ig-w{position:absolute;inset:0}
+.ig-t{position:absolute;left:0;top:0;width:var(--w);aspect-ratio:4/5;border-radius:var(--r2);overflow:hidden;background:var(--sf2);padding:0;border:0;cursor:inherit}
+.ig-t img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;transition:scale .5s cubic-bezier(.2,.8,.2,1)}
+.ig-t:hover img{scale:1.05}
+.ig-h{position:absolute;left:50%;bottom:clamp(16px,4vh,32px);translate:-50% 0;display:flex;align-items:center;gap:10px;height:42px;padding:0 18px;border-radius:99px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:550;pointer-events:none;transition:opacity .5s}
+.ig-h.off{opacity:0}
+.ig-x{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:color-mix(in srgb,var(--bg) 92%,transparent);opacity:0;pointer-events:none;transition:opacity .35s;cursor:zoom-out}
+.ig-x.on{opacity:1;pointer-events:auto}
+.ig-x img{position:absolute;left:0;top:0;border-radius:var(--r2);object-fit:cover;transform-origin:0 0;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+.ig-x button{position:absolute;right:20px;top:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font-size:22px;line-height:1;cursor:pointer}
+</style>
+<section class="ig" aria-label="Infinite photo canvas" tabindex="0">
+  <div class="ig-w"></div>
+  <p class="ig-h" aria-hidden="true">Drag, scroll or use arrow keys</p>
+  <div class="ig-x" role="dialog" aria-modal="true" aria-label="Photo"><img alt=""><button type="button" aria-label="Close">×</button></div>
+</section>
+<script>
+(()=>{
+// Endless grid: only tiles inside the viewport exist; each cell picks its photo from a hash of (col,row). Drag/wheel/keys pan with inertia; click opens a FLIP zoom.
+const root=document.querySelector(".ig"),wrap=root.querySelector(".ig-w"),hint=root.querySelector(".ig-h"),box=root.querySelector(".ig-x"),big=box.querySelector("img"),close=box.querySelector("button");
+const IDS=[1035,1039,1050,1051,1052,1056,1057,1060,1063,1067,1072,1073,1078,1080,1082,1083,1047,1049,1006,1008,1010,1012,1014,1026],still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let W=0,G=0,cx=0,cy=0,vx=0,vy=0,raf=0,pool=new Map(),drag=null,moved=0,open=null;
+const hash=(c,r)=>{let h=(c*374761393+r*668265263)|0;h=(h^(h>>>13))*1274126177|0;return((h^(h>>>16))>>>0)%IDS.length};
+function size(){W=root.clientWidth<700?150:250;G=root.clientWidth<700?12:20;root.style.setProperty("--w",W+"px");render()}
+function render(){const cw=W+G,ch=W*1.25+G,vw=root.clientWidth,vh=root.clientHeight,seen=new Set();
+  const c0=Math.floor(-cx/cw)-1,c1=Math.ceil((vw-cx)/cw)+1;
+  for(let c=c0;c<=c1;c++){const off=(c&1)*ch/2,r0=Math.floor((-cy-off)/ch)-1,r1=Math.ceil((vh-cy-off)/ch)+1;
+    for(let r=r0;r<=r1;r++){const k=c+","+r;seen.add(k);let t=pool.get(k);
+      if(!t){t=document.createElement("button");t.type="button";t.className="ig-t";t.tabIndex=-1;const id=IDS[hash(c,r)];t.dataset.id=id;t.innerHTML=`<img src="media/pics/t/${id}.jpg" alt="" draggable="false">`;wrap.append(t);pool.set(k,t)}
+      t.style.transform=`translate(${cx+c*cw}px,${cy+r*ch+off}px)`}}
+  for(const[k,t]of pool)if(!seen.has(k)){t.remove();pool.delete(k)}}
+function glide(){raf=0;if(drag)return;cx+=vx;cy+=vy;vx*=.93;vy*=.93;render();if(Math.abs(vx)+Math.abs(vy)>.05)raf=requestAnimationFrame(glide)}
+const kick=()=>{if(still){cx+=vx*12;cy+=vy*12;vx=vy=0;render()}else if(!raf)raf=requestAnimationFrame(glide)};
+root.addEventListener("pointerdown",e=>{if(open||e.target.closest(".ig-x"))return;drag={x:e.clientX,y:e.clientY,t:e.timeStamp};moved=0;vx=vy=0;root.setPointerCapture(e.pointerId);root.classList.add("drag")});
+root.addEventListener("pointermove",e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y,dt=Math.max(8,e.timeStamp-drag.t);cx+=dx;cy+=dy;moved+=Math.abs(dx)+Math.abs(dy);
+  vx=dx/dt*16;vy=dy/dt*16;drag={x:e.clientX,y:e.clientY,t:e.timeStamp};render();if(moved>20)hint.classList.add("off")});
+root.addEventListener("pointerup",e=>{if(!drag)return;root.classList.remove("drag");const t=moved<6&&document.elementsFromPoint(e.clientX,e.clientY).find(n=>n.classList&&n.classList.contains("ig-t"));drag=null;
+  if(t)zoom(t);else kick()});
+root.addEventListener("wheel",e=>{if(open)return;e.preventDefault();vx=-e.deltaX*.35;vy=-e.deltaY*.35;hint.classList.add("off");kick()},{passive:false});
+root.addEventListener("keydown",e=>{if(open){if(e.key==="Escape")unzoom();return}const d={ArrowLeft:[1,0],ArrowRight:[-1,0],ArrowUp:[0,1],ArrowDown:[0,-1]}[e.key];if(!d)return;e.preventDefault();vx=d[0]*14;vy=d[1]*14;kick()});
+function fit(){const vw=root.clientWidth,vh=root.clientHeight,h=Math.min(vh*.84,vw*.84*1.25),w=h/1.25;return[(vw-w)/2,(vh-h)/2,w,h]}
+function zoom(t){open=t;const r=t.getBoundingClientRect(),o=root.getBoundingClientRect(),[x,y,w,h]=fit();big.src=`media/pics/c/${t.dataset.id}.jpg`;
+  Object.assign(big.style,{width:w+"px",height:h+"px",transition:"none",transform:`translate(${r.left-o.left}px,${r.top-o.top}px) scale(${r.width/w})`});
+  t.style.visibility="hidden";box.classList.add("on");big.offsetWidth;big.style.transition="";big.style.transform=`translate(${x}px,${y}px)`;close.focus()}
+function unzoom(){if(!open)return;const t=open,r=t.getBoundingClientRect(),o=root.getBoundingClientRect(),[,,w]=fit();big.style.transform=`translate(${r.left-o.left}px,${r.top-o.top}px) scale(${r.width/w})`;box.classList.remove("on");
+  setTimeout(()=>{t.style.visibility=""},450);open=null;root.focus()}
+box.addEventListener("click",unzoom);
+new ResizeObserver(size).observe(root);
+})();
+</script>

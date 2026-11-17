@@ -1,0 +1,14 @@
+<!--Testimonial Marquee|Testimonials|Two rows of short quotes drifting in opposite directions at different speeds, pausing on hover or keyboard focus, with a pause button and a static wrapped layout for reduced motion.|testimonials,marquee,scroll,infinite,quotes-->
+<div class="k tq"><section class="tq-w"><div class="tq-h"><h2>Said in passing</h2><button class="b gh sm" id="pp" aria-pressed="false">@I(pause,14)<span>Pause</span></button></div><div class="tq-r" id="r1"></div><div class="tq-r rev" id="r2"></div></section></div>
+<style>
+.k.tq{padding-inline:0;overflow:hidden}.tq-w{width:100%;display:grid;gap:12px}.tq-h{display:flex;justify-content:space-between;align-items:center;width:min(1080px,100% - 32px);margin:0 auto 8px}.tq-h h2{margin:0;font-size:clamp(24px,3vw,32px);letter-spacing:-.02em}
+.tq-r{display:flex;width:max-content;gap:12px;animation:tqm var(--d,60s) linear infinite}.tq-r.rev{animation-direction:reverse;--d:75s}.tq-w:hover .tq-r,.tq-w:focus-within .tq-r,.tq-w.paused .tq-r{animation-play-state:paused}@keyframes tqm{to{transform:translateX(-50%)}}
+.tq-c{flex:none;width:320px;padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--bg);display:grid;gap:10px;font-size:14px;line-height:1.5}.tq-c p{margin:0}.tq-c span{color:var(--mu);font-size:12px}
+@media (prefers-reduced-motion:reduce){.tq-r{animation:none;flex-wrap:wrap;width:min(1080px,100% - 32px);margin:0 auto}.tq-r [aria-hidden=true]{display:none}#pp{display:none}}
+</style>
+<script>
+const A=[["Replaced two tools and a spreadsheet.","Office manager, Leeds"],["I opened it on my phone once and never needed the laptop again.","Field engineer"],["Support answered in eleven minutes. On a Sunday.","Shop owner, Porto"],["Finally an invoice my accountant didn't email me about.","Freelance illustrator"],["The search is faster than my memory.","Researcher"],["We stopped having the 'where is that file' meeting.","Design lead"]],B=[["Setup took one coffee.","Café owner"],["Our interns figured it out without a doc.","Agency COO"],["Dark mode that isn't just inverted colours. Thank you.","Developer"],["Cancelled the old tool the same week.","Studio founder"],["It does less, and that's the point.","Product manager"],["Exports are boring CSV. I love boring CSV.","Analyst"]];
+const card=([q,w],h)=>`<figure class="tq-c"${h?' aria-hidden="true"':''}><p>“${q}”</p><span>${w}</span></figure>`;
+[[A,'r1'],[B,'r2']].forEach(([L,id])=>document.getElementById(id).innerHTML=L.map(x=>card(x)).join('')+L.map(x=>card(x,1)).join(''));
+document.getElementById('pp').onclick=e=>{const b=e.currentTarget,p=document.querySelector('.tq-w').classList.toggle('paused');b.setAttribute('aria-pressed',p);b.innerHTML=p?'@I(play,14)<span>Play</span>':'@I(pause,14)<span>Pause</span>'};
+</script>

@@ -1,0 +1,81 @@
+<style>
+.cc{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.cc :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.cc ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.cc *,.cc *::before,.cc *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.cc{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.cc-g{width:min(980px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start}
+.cc-c{position:relative;background:var(--bg);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:box-shadow .25s,transform .25s var(--ease),border-color .25s}
+.cc-c:hover{box-shadow:0 16px 36px -16px #00000038;transform:translateY(-2px);border-color:color-mix(in oklab,var(--line),var(--fg) 10%)}
+.cc-c:has(a.cover:focus-visible){outline:2px solid var(--focus);outline-offset:2px}
+.cc-c a.cover{color:inherit;text-decoration:none;outline:0}
+.cc-c a.cover::after{content:"";position:absolute;inset:0}
+.cc-im{aspect-ratio:16/10;background:var(--g);position:relative}
+.cc-im .tag{position:absolute;top:12px;left:12px;padding:4px 9px;border-radius:99px;background:color-mix(in oklab,var(--bg) 88%,transparent);backdrop-filter:blur(6px);font-size:11.5px;font-weight:600}
+.cc-bd{padding:16px 18px 18px}
+.cc-meta{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--mu)}
+.cc-bd h3{margin:8px 0 6px;font-size:17px;line-height:1.3;letter-spacing:-.02em;font-weight:620}
+.cc-bd p{margin:0;font-size:14px;line-height:1.55;color:var(--mu)}
+.cc-au{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:13px}
+.cc-au i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:#fff;font:650 10.5px Geist,system-ui,sans-serif;font-style:normal}
+.cc-au span{color:var(--mu);margin-left:auto}
+/* profile */
+.cc-pf{text-align:center;padding:0 20px 20px}
+.cc-pf .cv{height:84px;margin:0 -20px;background:linear-gradient(120deg,#fed7aa,#fb923c 50%,#c2410c)}
+.cc-pf .big{width:76px;height:76px;margin:-38px auto 0;border-radius:50%;display:grid;place-items:center;background:#0e7490;color:#fff;font-size:24px;font-weight:650;box-shadow:0 0 0 4px var(--bg);position:relative}
+.cc-pf h3{margin:12px 0 0;font-size:17px;font-weight:620}
+.cc-pf .rl{font-size:13.5px;color:var(--mu)}
+.cc-pf .st{display:grid;grid-template-columns:repeat(3,1fr);margin:16px 0;padding:12px 0;border-block:1px solid var(--line)}
+.cc-pf .st b{display:block;font-size:16px;font-weight:650;letter-spacing:-.02em}
+.cc-pf .st small{font-size:12px;color:var(--mu)}
+.cc-pf .bt{display:flex;gap:8px;position:relative;z-index:1}
+.cc-pf .bt button{flex:1;height:38px;border-radius:10px;font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer}
+.cc-pf .bt .p{border:0;background:var(--fg);color:var(--bg)}
+.cc-pf .bt .p[aria-pressed=true]{background:var(--sf2);color:var(--fg)}
+.cc-pf .bt .s{border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.cc-pf .bt .s:hover{background:var(--sf)}
+/* product */
+.cc-pr .cc-im{aspect-ratio:1;display:grid;place-items:center}
+.cc-pr .cc-im svg{width:56%;filter:drop-shadow(0 18px 20px #0000002e)}
+.cc-fav{position:absolute;top:12px;right:12px;z-index:1;width:36px;height:36px;border:0;border-radius:50%;background:var(--bg);color:var(--fg);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px #0000001f}
+.cc-fav svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cc-fav[aria-pressed=true]{color:var(--err)}.cc-fav[aria-pressed=true] svg{fill:currentColor}
+.cc-pr .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.cc-pr h3{margin:0;font-size:15px}
+.cc-pr .pr{font-size:15px;font-weight:650}
+.cc-pr .sw{display:flex;gap:6px;margin-top:10px}
+.cc-pr .sw i{width:14px;height:14px;border-radius:50%;box-shadow:inset 0 0 0 1px #0000001f}
+.cc-pr .rt{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12.5px;color:var(--mu)}
+.cc-pr .rt b{color:#f59e0b;letter-spacing:1px;font-weight:400}
+@media (max-width:860px){.cc-g{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.cc-g{grid-template-columns:1fr}}
+</style>
+<div class="cc">
+  <div class="cc-g">
+    <article class="cc-c">
+      <div class="cc-im" style="--g:linear-gradient(135deg,#bae6fd,#0e7490 70%,#164e63)"><span class="tag">Engineering</span></div>
+      <div class="cc-bd"><div class="cc-meta"><time>Oct 28, 2026</time>·<span>7 min read</span></div>
+        <h3><a class="cover" href="#">How we cut build times by 60% with remote caching</a></h3>
+        <p>A look at the cache keys, the edge cases and the one config flag that made the difference.</p>
+        <div class="cc-au"><i style="background:#7c3aed">SR</i>Sofia Ruiz<span>Staff engineer</span></div></div>
+    </article>
+    <article class="cc-c cc-pf">
+      <div class="cv" aria-hidden="true"></div><div class="big" aria-hidden="true">JL</div>
+      <h3>Jun Li</h3><div class="rl">Product designer · Taipei</div>
+      <div class="st"><div><b>148</b><small>Shots</small></div><div><b>12.4k</b><small>Followers</small></div><div><b>312</b><small>Following</small></div></div>
+      <div class="bt"><button class="p" aria-pressed="false">Follow</button><button class="s">Message</button></div>
+    </article>
+    <article class="cc-c cc-pr">
+      <div class="cc-im" style="--g:#fde68a"><svg viewBox="0 0 200 200" aria-hidden="true"><ellipse cx="100" cy="150" rx="62" ry="14" fill="#0000001a"/><path d="M50 70h100l-8 70a14 14 0 0 1-14 12H72a14 14 0 0 1-14-12z" fill="#c2410c"/><path d="M150 84h12a18 18 0 0 1 0 36h-16" fill="none" stroke="#c2410c" stroke-width="10"/><ellipse cx="100" cy="70" rx="50" ry="10" fill="#9a3412"/></svg></div>
+      <button class="cc-fav" aria-pressed="false" aria-label="Save Stoneware mug"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></button>
+      <div class="cc-bd"><div class="row"><h3><a class="cover" href="#">Stoneware mug</a></h3><span class="pr">$28</span></div>
+        <div class="rt"><b aria-hidden="true">★★★★★</b><span>4.9 · 312 reviews</span></div>
+        <div class="sw" aria-label="3 colours"><i style="background:#c2410c"></i><i style="background:#e7e5e4"></i><i style="background:#1f2937"></i></div></div>
+    </article>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.cc a[href="#"]').forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
+const f=document.querySelector(".cc-pf .p");f.addEventListener("click",()=>{const on=f.getAttribute("aria-pressed")!=="true";f.setAttribute("aria-pressed",on);f.textContent=on?"Following":"Follow"});
+document.querySelectorAll(".cc-fav").forEach(b=>b.addEventListener("click",()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")));
+</script>

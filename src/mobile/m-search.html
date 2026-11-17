@@ -1,0 +1,52 @@
+<!--Search|A search screen that opens with the keyboard up: recent searches you can clear, trending topics, then live results grouped by type with the matched letters highlighted, and a clear empty state.|search,results,recent,highlight,keyboard-->
+<div class="se-top"><label class="se-f">@I(search,18)<span class="vh">Search</span><input id="q" type="search" placeholder="Artists, songs, podcasts" enterkeyhint="search" autocomplete="off" autocorrect="off"><button type="button" class="se-x" id="x" aria-label="Clear" hidden>@I(x,14)</button></label><button class="se-c">Cancel</button></div>
+<main class="sc se">
+  <section id="idle">
+    <div class="se-h"><h2>Recent</h2><button id="clr">Clear</button></div>
+    <div class="lst" id="rec" style="--inset:52px"></div>
+    <div class="se-h"><h2>Trending</h2></div>
+    <ol class="se-tr" id="tr"></ol>
+  </section>
+  <section id="res" hidden></section>
+</main>
+<style>
+.se-top{position:absolute;inset:0 0 auto;z-index:50;display:flex;align-items:center;gap:12px;padding:calc(var(--st) + 6px) var(--gut) 10px;background:var(--bg)}
+.se-f{flex:1;display:flex;align-items:center;gap:8px;height:40px;padding:0 10px;border-radius:12px;background:var(--sf);color:var(--mu)}
+.se-f input{flex:1;min-width:0;border:0;background:none;outline:0;font-size:17px!important;color:var(--fg)}.se-f input::placeholder{color:var(--mu)}.se-f input::-webkit-search-cancel-button{display:none}
+.se-x{width:22px;height:22px;border-radius:50%;background:var(--ctl)!important;color:var(--bg)!important;display:grid;place-items:center;position:relative}.se-x::after{content:"";position:absolute;inset:-11px}
+.se-c{min-height:44px;color:var(--ac);font-size:17px}
+.se{padding-top:calc(var(--st) + 56px)!important}
+.se-h{display:flex;justify-content:space-between;align-items:baseline;padding:16px var(--gut) 4px}
+.se-h h2{margin:0;font-size:20px;font-weight:650;letter-spacing:-.015em}.se-h button{color:var(--ac);font-size:15px;min-height:44px;margin:-12px 0}
+.lst .row>.i:first-child{color:var(--mu);width:20px;height:20px}
+.se-rm{color:var(--mu);width:44px;height:44px;margin:-10px -12px -10px 0;display:grid;place-items:center}
+.se-tr{list-style:none;margin:0;padding:0 var(--gut);counter-reset:t}
+.se-tr li{counter-increment:t;display:flex;align-items:center;gap:14px;min-height:48px;font-size:17px}
+.se-tr li::before{content:counter(t);width:20px;color:var(--mu);font-variant-numeric:tabular-nums;font-weight:600}
+.se-tr small{margin-left:auto;font-size:13px;color:var(--ok);font-variant-numeric:tabular-nums}
+.se-g{margin:0;padding:20px var(--gut) 4px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.se-th{width:48px;height:48px;border-radius:8px;object-fit:cover;flex:none}.se-th.r{border-radius:50%}
+mark{background:none;color:var(--fg);font-weight:700}
+.row b{font-weight:400!important}.row b mark{font-weight:650}
+.se-e{padding:64px 32px;text-align:center}.se-e b{display:block;font-size:20px;font-weight:650}.se-e p{color:var(--mu);margin:6px 0 0}
+</style>
+<script>
+const R=["ferns & rowan","lo-fi for studying","jun kato"],T=[["Saltwater Clock","+12%"],["Northern Static","+9%"],["Valley Hours","+6%"],["Low Tide Hours","+4%"]];
+const DB=[["Artists","Ferns & Rowan","Artist","1050",1],["Artists","Mire","Artist","1043",1],["Artists","Jun Kato","Artist","1060",1],["Songs","Saltwater Clock","Ferns & Rowan","1050"],["Songs","Salt Flats","Mire","1043"],["Songs","Slow Pour","Jun Kato","1060"],["Songs","Night Ferry","Aske","1022"],["Podcasts","Field Notes","Weekly · 48 episodes","1006"],["Podcasts","Slow Mornings","Daily · 312 episodes","1080"]];
+const I=p=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`,CL=I('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),X=I('<path d="M18 6 6 18M6 6l12 12"/>');
+const esc=s=>s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const rec=()=>{rec_.innerHTML=R.map((r,i)=>`<div class="row">${CL}<span class="tx"><b>${esc(r)}</b></span><button class="se-rm" data-i="${i}" aria-label="Remove ${esc(r)}">${X}</button></div>`).join("")||'<p class="mu" style="padding:8px 16px;margin:0">No recent searches.</p>'};
+const rec_=document.getElementById("rec");rec();
+rec_.onclick=e=>{const b=e.target.closest(".se-rm");if(b){R.splice(+b.dataset.i,1);rec()}else{const r=e.target.closest(".row");if(r){q.value=r.querySelector("b").textContent;run()}}};
+clr.onclick=()=>{R.length=0;rec()};
+tr.innerHTML=T.map(([t,c])=>`<li>${t}<small>${c}</small></li>`).join("");
+const hl=(s,w)=>{const i=s.toLowerCase().indexOf(w);return i<0?esc(s):esc(s.slice(0,i))+"<mark>"+esc(s.slice(i,i+w.length))+"</mark>"+esc(s.slice(i+w.length))};
+const run=()=>{const w=q.value.trim().toLowerCase();x.hidden=!q.value;idle.hidden=!!w;res.hidden=!w;if(!w)return;
+ const M=DB.filter(d=>d[1].toLowerCase().includes(w)||d[2].toLowerCase().includes(w));
+ if(!M.length){res.innerHTML=`<div class="se-e"><b>No results for “${esc(q.value.trim())}”</b><p>Check the spelling or try fewer words.</p></div>`;return}
+ res.innerHTML=["Artists","Songs","Podcasts"].map(g=>{const L=M.filter(m=>m[0]===g);return L.length?`<h3 class="se-g">${g}</h3><div class="lst" style="--inset:76px">${L.map(m=>`<a class="row" href="#"><img class="se-th${m[4]?" r":""}" src="media/pics/c/${m[3]}.jpg" alt=""><span class="tx"><b>${hl(m[1],w)}</b><small>${hl(m[2],w)}</small></span></a>`).join("")}</div>`:""}).join("")};
+q.addEventListener("input",run);x.onclick=()=>{q.value="";run();q.focus()};
+res.onclick=e=>{if(e.target.closest("a"))e.preventDefault()};
+document.querySelector(".se-c").onclick=()=>{q.value="";run();q.blur()};
+q.focus({preventScroll:true});
+</script>

@@ -1,0 +1,28 @@
+<!--Offline State|What a screen should do with no connection: a calm banner, cached content still readable with its age shown, actions that need the network disabled with a reason, and Retry that checks and recovers.|offline,error,empty state,retry,network-->
+<header class="bar"><div class="nb"><span></span><h2>Orders</h2><span></span></div><div class="of-b" id="bn" role="status">@I(off,16)<span>You're offline · showing saved orders</span></div></header>
+<main class="sc of" id="sc">
+  <p class="cap" id="cp">Saved 14 minutes ago</p>
+  <div class="grp" id="l" style="--inset:72px"></div>
+  <div class="of-e" id="em"><span class="of-ic">@I(off,32)</span><h2>Can't load new orders</h2><p>Check your Wi-Fi or mobile data. Everything you've already opened is still here.</p><button class="btn sec" id="rt">@I(refresh,20)<span>Try again</span></button></div>
+</main>
+<style>
+.of-b{display:flex;align-items:center;justify-content:center;gap:6px;height:32px;font-size:13px;font-weight:600;background:var(--warn-sf);color:var(--warn);transition:height .3s,background .3s,color .3s;overflow:hidden}
+.of-b.ok{background:var(--ok-sf);color:var(--ok)}.of-b.gone{height:0}
+.bar~.sc{padding-top:calc(var(--st) + 76px)}
+.of .row{min-height:68px}.of .row img{width:48px;height:48px;border-radius:10px;object-fit:cover}
+.of .row .st{font-size:13px;font-weight:600;padding:3px 8px;border-radius:8px;background:var(--sf2)}
+.of .row .st.go{background:var(--info-sf);color:var(--info)}
+.of .row.new{animation:ni .4s var(--ease)}@keyframes ni{from{opacity:0;transform:translateY(-8px)}}
+.of-e{text-align:center;padding:32px 32px 0}.of-ic{width:64px;height:64px;margin:0 auto;border-radius:20px;display:grid;place-items:center;background:var(--sf);color:var(--mu)}
+.of-e h2{margin:16px 0 0;font-size:20px;font-weight:650}.of-e p{margin:6px 0 20px;color:var(--mu);font-size:15px;line-height:21px}
+.of-e .btn{width:auto;display:inline-flex;min-height:48px}
+.of-e .btn.load .i{animation:sp .8s linear infinite}@keyframes sp{to{transform:rotate(1turn)}}
+</style>
+<script>
+const O=[["1060","Kafe Blå","2 items · kr 90","Delivered"],["1080","Rema 1000","14 items · kr 412","Delivered"],["1043","Field Prints","1 item · $106","Shipped"]];
+const row=([p,n,d,s],nw)=>`<div class="row${nw?" new":""}"><img src="media/pics/c/${p}.jpg" alt=""><span class="tx"><b>${n}</b><small>${d}</small></span><span class="st${s!=="Delivered"?" go":""}">${s}</span></div>`;
+l.innerHTML=O.map(o=>row(o)).join("");let tries=0;
+rt.onclick=()=>{rt.classList.add("load");rt.disabled=true;rt.querySelector("span").textContent="Checking…";setTimeout(()=>{rt.classList.remove("load");rt.disabled=false;tries++;
+ if(tries<2){rt.querySelector("span").textContent="Still offline · try again";return}
+ bn.classList.add("ok");bn.querySelector("span").textContent="Back online";l.insertAdjacentHTML("afterbegin",row(["1050","Kafe Blå","1 item · kr 48","On the way"],1));cp.textContent="Updated just now";em.hidden=true;setTimeout(()=>bn.classList.add("gone"),1800)},1200)};
+</script>

@@ -1,0 +1,80 @@
+<style>
+.bg-sgx{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;--ink:#eef0f2;--fb:#17181a;--ink2:var(--ink);background:var(--fb);color:var(--ink);isolation:isolate;font:16px/1.5 Geist,system-ui,sans-serif}
+.bg-sgx canvas,.bg-sgx>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.bg-sgx>img{display:none;filter:none}
+.bg-sgx.nogl canvas{display:none}.bg-sgx.nogl>img{display:block}
+.bg-sgx-nav{display:flex;align-items:center;gap:28px;padding:20px clamp(16px,4vw,48px)}
+.bg-sgx-nav nav{display:flex;gap:22px}
+.bg-sgx-nav b{font-weight:600;font-size:16px;letter-spacing:-.01em}
+.bg-sgx-nav a{color:inherit;text-decoration:none;font-size:14px;opacity:.72;transition:opacity .15s ease-out}.bg-sgx-nav a:hover{opacity:1}
+.bg-sgx-main{flex:1;display:grid;padding:clamp(24px,5vw,64px) clamp(16px,4vw,48px) clamp(32px,6vw,72px)}
+.bg-sgx-eye{margin:0;font:500 11px/1.4 "Geist Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+.bg-sgx-sub{font-size:17px;line-height:1.55;max-width:44ch;margin:0;opacity:.8;text-wrap:pretty}
+.bg-sgx-mono{font:13px "Geist Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.bg-sgx-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:0;border-radius:10px;background:var(--ink);color:var(--fb);font:600 15px Geist,system-ui,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s ease-out,opacity .15s ease-out}
+.bg-sgx-btn:active{transform:scale(.97)}.bg-sgx-ghost{background:none;color:inherit;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--ink) 35%,transparent)}
+.bg-sgx-card{background:color-mix(in oklab,var(--fb) 84%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid color-mix(in oklab,var(--ink) 12%,transparent);border-radius:16px;padding:20px}
+.bg-sgx-card>.bg-sgx-eye:first-child{margin-bottom:10px}
+.bg-sgx-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.bg-sgx-pal{margin-left:auto;display:flex;gap:2px}
+.bg-sgx-pal button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
+.bg-sgx-pal button i{width:18px;height:18px;border-radius:50%;background:var(--g);box-shadow:0 0 0 1px color-mix(in oklab,var(--ink) 30%,transparent);transition:transform .15s ease-out}
+.bg-sgx-pal button[aria-pressed=true] i{box-shadow:0 0 0 2px var(--fb),0 0 0 3.5px var(--ink)}
+.bg-sgx :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media (max-width:760px){.bg-sgx-main{grid-template-columns:1fr!important;gap:28px!important}.bg-sgx-nav nav{display:none}}
+
+.bg-sgx-main{grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:48px;align-items:center}
+.bg-sgx h1{font:600 clamp(40px,6vw,76px)/.98 Geist,system-ui,sans-serif;letter-spacing:-.045em;margin:14px 0 18px;max-width:13ch}
+.bg-sgx-price{font:500 22px Geist,system-ui,sans-serif;font-variant-numeric:tabular-nums;margin:0 0 24px}
+.bg-sgx-acts{display:flex;gap:10px;flex-wrap:wrap}
+.bg-sgx-spec{display:grid;grid-template-columns:auto 1fr;margin:0}.bg-sgx-spec dt,.bg-sgx-spec dd{padding:13px 0;border-top:1px solid color-mix(in oklab,var(--ink) 14%,transparent);font-size:14.5px}
+.bg-sgx-spec dt{opacity:.6;padding-right:24px}.bg-sgx-spec dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}.bg-sgx-spec dt:first-of-type,.bg-sgx-spec dd:first-of-type{border-top:0}
+
+</style>
+<section class="bg-sgx">
+  <canvas aria-hidden="true"></canvas>
+  <header class="bg-sgx-nav"><b>Halden</b><nav aria-label="Halden"><a href="#">Recorders</a><a href="#">Microphones</a><a href="#">Support</a></nav><div class="bg-sgx-pal" role="group" aria-label="Colour"><button type="button" aria-pressed="true" data-k="#121314,#2a2c2f,#c9ccd1" style="--g:linear-gradient(135deg,#121314,#2a2c2f)" aria-label="Graphite"><i></i></button><button type="button" aria-pressed="false" data-k="#0f1112,#1d2a2a,#9fd3c6" style="--g:linear-gradient(135deg,#0f1112,#1d2a2a)" aria-label="Basalt"><i></i></button><button type="button" aria-pressed="false" data-k="#0c0d16,#1e2140,#b9c2ff" style="--g:linear-gradient(135deg,#0c0d16,#1e2140)" aria-label="Ink"><i></i></button></div></header>
+  <main class="bg-sgx-main">
+<div><p class="bg-sgx-eye">H4 field recorder</p><h1>Machined from one block of aluminium.</h1>
+<p class="bg-sgx-sub">Four preamps quiet enough for birdsong at dawn, in a body you can drop on a riverbank.</p>
+<p class="bg-sgx-price">€1,290</p><div class="bg-sgx-acts"><a class="bg-sgx-btn" href="#">Pre-order</a><a class="bg-sgx-btn bg-sgx-ghost" href="#">Compare models</a></div></div>
+<div class="bg-sgx-card"><p class="bg-sgx-eye">Specifications</p><dl class="bg-sgx-spec"><dt>Inputs</dt><dd>4 × XLR / TRS</dd><dt>Recording</dt><dd>32-bit float, 192 kHz</dd><dt>Battery</dt><dd>9 h, USB-C</dd><dt>Weight</dt><dd>410 g</dd><dt>Ships</dt><dd>March</dd></dl></div>
+</main>
+</section>
+<script>
+(()=>{
+const S=document.currentScript?document.currentScript.previousElementSibling:document.querySelector(".bg-sgx");
+const root=S&&S.classList.contains("bg-sgx")?S:document.querySelector(".bg-sgx");
+const cv=root.querySelector("canvas"),gl=cv.getContext("webgl",{antialias:false});
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,IMG=false;
+const off=()=>root.classList.add("nogl");
+if(!gl)return off();
+const FS="precision highp float;uniform vec2 r,m,us;uniform float t,ld;uniform sampler2D u;uniform vec3 k0,k1,k2;\nfloat h(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}\nvec2 h2(vec2 p){vec3 q=fract(vec3(p.xyx)*vec3(.1031,.103,.0973));q+=dot(q,q.yzx+33.33);return fract((q.xx+q.yz)*q.zy);}\nfloat n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}\nfloat fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=mat2(.8,.6,-.6,.8)*p*2.03+1.7;a*=.5;}return v;}\nvec2 cover(vec2 q){float ra=r.x/r.y,ia=us.x/us.y;vec2 s=ra>ia?vec2(1.,ia/ra):vec2(ra/ia,1.);return (q-.5)*s+.5;}\nvec3 img(vec2 q){return texture2D(u,clamp(q,.001,.999)).rgb;}\nfloat lum(vec3 c){return dot(c,vec3(.299,.587,.114));}\n\nfloat sp(vec2 p,float sc,float th){vec2 c=floor(p*sc),f=fract(p*sc);vec2 o=h2(c);float k=h(c+3.1);float d=length(f-o);return step(th,k)*smoothstep(.22,.05,d)*(.4+.6*h(c+7.));}\nvoid main(){vec2 uv=gl_FragCoord.xy/r,p=gl_FragCoord.xy/r.y;\nfloat b=fbm(p*1.6)*.6+fbm(p*9.)*.25;vec3 col=mix(k0,k1,b);\nfloat s=sp(p,180.,.86)*.55+sp(p,70.,.93)*.8+sp(p+.3,26.,.975);\nfloat sheen=pow(max(0.,1.-abs(dot(uv-m,normalize(vec2(1,.6))))*1.8),6.);\ncol+=k2*s*(.25+.9*sheen+.1*sin(t*.8+h(floor(p*180.))*6.28));col+=k2*sheen*.06;\ncol+=(h(gl_FragCoord.xy+fract(t*7.))-.5)*.025;gl_FragColor=vec4(col,1);}";
+const sh=(ty,s)=>{const o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o};
+const P=gl.createProgram();gl.attachShader(P,sh(gl.VERTEX_SHADER,"attribute vec2 a;void main(){gl_Position=vec4(a,0,1);}"));gl.attachShader(P,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(P);
+if(!gl.getProgramParameter(P,gl.LINK_STATUS))return off();
+gl.useProgram(P);gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+const U={};["r","m","us","t","ld","k0","k1","k2"].forEach(k=>U[k]=gl.getUniformLocation(P,k));
+const hex=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)/255);
+let fr=0,ready=!IMG,vis=true,raf=0,t0=performance.now(),mx=.5,my=.5,sx=.5,sy=.5,ld=0,ldT=0;
+const pal=k=>{k.split(",").forEach((c,i)=>gl.uniform3fv(U["k"+i],hex(c)));if(RM)draw()};
+if(IMG){const im=root.querySelector("img"),tx=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tx);
+  [[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE],[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR]].forEach(p=>gl.texParameteri(gl.TEXTURE_2D,...p));
+  const go=()=>{try{gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im)}catch(e){return off()}gl.uniform2f(U.us,im.naturalWidth,im.naturalHeight);ready=true;ldT=performance.now();loop()};
+  im.complete&&im.naturalWidth?go():(im.onload=go,im.onerror=off)}
+function size(){const d=Math.min(devicePixelRatio||1,1.5)*1,w=Math.round(cv.clientWidth*d),h=Math.round(cv.clientHeight*d);if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)}gl.uniform2f(U.r,w,h)}
+function draw(){if(!ready)return;size();const now=performance.now();sx+=(mx-sx)*.06;sy+=(my-sy)*.06;
+  gl.uniform1f(U.t,RM?8:(now-t0)/1000);gl.uniform2f(U.m,sx,sy);gl.uniform1f(U.ld,IMG?Math.min(1,(now-ldT)/900):1);gl.drawArrays(gl.TRIANGLES,0,3)}
+function loop(){cancelAnimationFrame(raf);if(RM){draw();if(IMG&&performance.now()-ldT<1000)raf=requestAnimationFrame(loop);return}if(!vis||document.hidden)return;if(fr++%1===0)draw();raf=requestAnimationFrame(loop)}
+root.addEventListener("pointermove",e=>{const b=root.getBoundingClientRect();mx=(e.clientX-b.left)/b.width;my=1-(e.clientY-b.top)/b.height});
+root.addEventListener("pointerleave",()=>{mx=.5;my=.5});
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;loop()}).observe(root);
+document.addEventListener("visibilitychange",loop);
+new ResizeObserver(()=>{if(RM)draw()}).observe(root);
+root.querySelectorAll("[data-tg]").forEach(b=>b.addEventListener("click",()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")));
+root.querySelectorAll("[data-one]").forEach(b=>b.addEventListener("click",()=>b.parentNode.querySelectorAll("[data-one]").forEach(x=>x.setAttribute("aria-pressed",x===b))));
+const btns=[...root.querySelectorAll("[data-k]")];
+btns.forEach(b=>b.onclick=()=>{btns.forEach(x=>x.setAttribute("aria-pressed",x===b));pal(b.dataset.k);const s=root.style;["ink","fb"].forEach(k=>b.dataset[k]?s.setProperty("--"+k,b.dataset[k]):s.removeProperty("--"+k))});
+pal("#121314,#2a2c2f,#c9ccd1");loop();
+})();
+</script>

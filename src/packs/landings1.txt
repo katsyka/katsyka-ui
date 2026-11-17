@@ -1,0 +1,150 @@
+=== land-roastery
+<!--Roastery Landing|Landings|A small-batch coffee roaster: serif hero beside a tall photo, a roast-level slider that changes the tasting notes, a subscription stepper and an origin list.|landing,coffee,shop,serif,slider-->
+<div class="k pg lr">
+<header class="top"><div class="w"><a class="logo" href="#">Ember &amp; Oak</a><nav class="links"><a href="#">Coffee</a><a href="#">Subscriptions</a><a href="#">Wholesale</a><a href="#">Journal</a></nav><a class="b ac" href="#">Shop beans</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lr-hero"><div class="lr-txt"><p class="eb">Roasted Tuesdays · shipped Wednesdays</p><h1 class="h1 ser">Coffee that tastes like <i>where it grew.</i></h1><p class="lead">Single origins from eleven farms we visit every harvest. Roasted in 12 kg batches, never sitting on a shelf.</p><div class="lr-cta"><a class="b ac lg" href="#">Find your roast</a><a class="b sec lg" href="#">How we source</a></div></div><figure class="lr-ph"><img class="ph" src="media/pics/c/1060.jpg" alt="Pour-over coffee being brewed on a counter"></figure></section>
+<section class="sec lr-roast"><div class="w lr-rg"><div><p class="eb">Roast finder</p><h2 class="h2 ser">Slide to your cup.</h2><label class="lbl" for="rs" style="margin-top:32px">Roast level</label><input id="rs" type="range" min="0" max="4" value="1" class="lr-r"><div class="lr-scale mu"><span>Light</span><span>Medium</span><span>Dark</span></div></div><div class="lr-card card" aria-live="polite"><p class="eb" id="ro">Ethiopia · Guji</p><h3 class="h3" id="rn">Bergamot, peach, black tea</h3><p class="mu" id="rd">Washed, bright and floral. Best as pour-over.</p><div class="lr-bars" id="rb"></div></div></div></section>
+<section class="sec lr-sub"><div class="w"><div class="lr-sh"><h2 class="h2 ser">A bag every</h2><div class="lr-step" role="group" aria-label="Delivery interval"><button class="ibt" id="sm" aria-label="Fewer weeks">@I(minus)</button><output id="sw" class="tn">2</output><button class="ibt" id="sp" aria-label="More weeks">@I(plus)</button></div><h2 class="h2 ser">weeks.</h2></div><p class="lead">Skip, swap or pause from your account. Free shipping on every subscription order.</p><p class="lr-price tn"><b id="spr">€14.50</b> <span class="mu">per 250 g bag</span></p></div></section>
+<section class="sec w"><p class="eb">This season's farms</p><ol class="lr-ol"><li><b>Guji, Ethiopia</b><span class="mu">Washed · 2,100 m</span><span class="tn">Arrived Oct</span></li><li><b>Huila, Colombia</b><span class="mu">Honey · 1,750 m</span><span class="tn">Arrived Sep</span></li><li><b>Kirinyaga, Kenya</b><span class="mu">Washed · 1,800 m</span><span class="tn">Arrives Dec</span></li><li><b>Cerrado, Brazil</b><span class="mu">Natural · 1,100 m</span><span class="tn">Arrived Aug</span></li></ol></section>
+<footer class="foot"><div class="w"><span>© Ember &amp; Oak Roasters</span><span>Roastery open Sat 9–14</span></div></footer>
+</div>
+<style>
+.lr{--ac:light-dark(#8a3b12,#e8a06c);--ac-h:light-dark(#6e2e0d,#f0b88e)}
+.lr-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end;padding:64px 0 32px}.lr-txt{display:grid;gap:24px;padding-bottom:24px}.lr-cta{display:flex;gap:12px;flex-wrap:wrap}
+.lr-ph{margin:0;aspect-ratio:4/5;border-radius:20px;overflow:hidden}
+.lr-roast{background:var(--sf)}.lr-rg{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.lr-r{width:100%;accent-color:var(--ac);height:32px}.lr-scale{display:flex;justify-content:space-between;font-size:13px}
+.lr-card{padding:32px;display:grid;gap:12px}.lr-bars{display:grid;gap:8px;margin-top:12px}.lr-bars div{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:center;font-size:13px}.lr-bars i{height:6px;border-radius:3px;background:var(--sf2);position:relative;overflow:hidden}.lr-bars i::after{content:"";position:absolute;inset:0;width:var(--v);background:var(--ac);border-radius:3px;transition:width .4s var(--ease)}
+.lr-sh{display:flex;align-items:center;gap:20px;flex-wrap:wrap}.lr-step{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px}.lr-step .ibt{width:44px;height:44px;border-radius:50%}.lr-step output{font:400 clamp(30px,4.4vw,52px)/1 'Instrument Serif',serif;min-width:1.2em;text-align:center}
+.lr-sub .lead{margin-top:20px}.lr-price{margin-top:16px;font-size:18px}
+.lr-ol{list-style:none;padding:0;margin:24px 0 0;border-top:1px solid var(--line)}.lr-ol li{display:grid;grid-template-columns:2fr 2fr 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);font-size:17px}.lr-ol li span:last-child{text-align:right}
+@media (max-width:760px){.lr-hero,.lr-rg{grid-template-columns:1fr}.lr-hero{padding-top:32px}.lr-ph{aspect-ratio:4/3}.lr-ol li{grid-template-columns:1fr 1fr}.lr-ol li span:nth-child(2){display:none}}
+</style>
+<script>
+const R=[["Ethiopia · Guji","Bergamot, peach, black tea","Washed, bright and floral. Best as pour-over.",[90,30,20]],["Colombia · Huila","Red apple, panela, cocoa","Honey process, round and sweet. Great any way.",[70,50,40]],["Kenya · Kirinyaga","Blackcurrant, grapefruit","Juicy and structured. Stunning as filter.",[85,40,35]],["Brazil · Cerrado","Hazelnut, milk chocolate","Natural, low acidity. Built for espresso.",[30,70,65]],["House · Espresso","Dark chocolate, molasses","Our darkest roast. Thick crema, cuts through milk.",[15,90,85]]];
+const $=s=>document.querySelector(s),rs=$('#rs');
+function roast(){const r=R[rs.value];$('#ro').textContent=r[0];$('#rn').textContent=r[1];$('#rd').textContent=r[2];$('#rb').innerHTML=['Acidity','Sweetness','Body'].map((n,i)=>`<div><span>${n}</span><i style="--v:${r[3][i]}%"></i></div>`).join('')}
+rs.oninput=roast;roast();
+let w=2;const sw=$('#sw'),spr=$('#spr');function sub(d){w=Math.min(6,Math.max(1,w+d));sw.textContent=w;spr.textContent='€'+(13.5+w*.5).toFixed(2);$('#sm').disabled=w==1;$('#sp').disabled=w==6}
+$('#sm').onclick=()=>sub(-1);$('#sp').onclick=()=>sub(1);sub(0);
+</script>
+=== land-cli
+<!--CLI Tool Landing|Landings|A developer tool page: monospace hero with a copyable install command, an auto-typing terminal demo, a flags table and a dark-first look.|landing,developer,cli,terminal,copy-->
+<div class="k pg lc">
+<header class="top"><div class="w"><a class="logo" href="#"><span class="lc-mk">›_</span>shipit</a><nav class="links"><a href="#">Docs</a><a href="#">Changelog</a><a href="#">GitHub</a></nav><a class="b sec" href="#">@I(download,16)v2.4.0</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lc-hero"><p class="eb">Open source · MIT · 4 MB binary</p><h1 class="h1">Deploy from the terminal<br>in <span class="lc-ac">one command.</span></h1><p class="lead">shipit builds, uploads and rolls out your app with zero config. Previews per branch, instant rollbacks, logs that stream back to your shell.</p>
+<div class="lc-inst"><code><span class="mu">$</span> curl -fsSL shipit.sh/install | sh</code><button class="b sec sm" id="cp" aria-live="polite">@I(copy,14)<span>Copy</span></button></div></section>
+<section class="w"><div class="lc-term" role="img" aria-label="Terminal running shipit deploy"><div class="lc-tb"><i></i><i></i><i></i><span>~/harbor-web</span></div><pre id="tt"></pre></div></section>
+<section class="sec w lc-feat"><div><h2 class="h2">Boring on purpose.</h2><p class="lead">No dashboard to learn. Everything is a flag, every flag has a sane default.</p></div><table class="lc-tbl"><thead><tr><th>Flag</th><th>Default</th><th>What it does</th></tr></thead><tbody><tr><td><code>--prod</code></td><td class="mu">off</td><td>Promote straight to production</td></tr><tr><td><code>--env</code></td><td class="mu">.env</td><td>Read secrets from a file</td></tr><tr><td><code>--region</code></td><td class="mu">auto</td><td>Pin to a region, e.g. fra1</td></tr><tr><td><code>--rollback</code></td><td class="mu">none</td><td>Restore the previous release in ~2 s</td></tr><tr><td><code>--watch</code></td><td class="mu">off</td><td>Redeploy on every save</td></tr></tbody></table></section>
+<footer class="foot"><div class="w"><span>shipit is maintained by 9 people and 214 contributors.</span><span class="tn">MIT License</span></div></footer>
+</div>
+<style>
+.lc{--ac:light-dark(#0f766e,#5eead4);--ac-h:light-dark(#115e59,#99f6e4);--ac-fg:light-dark(#fff,#042f2e)}
+.lc-mk{font:600 14px 'Geist Mono',monospace;background:var(--fg);color:var(--bg);border-radius:6px;padding:2px 6px}
+.lc-hero{padding:96px 0 48px;display:grid;gap:24px;justify-items:start}.lc-hero .h1{font-size:clamp(38px,6.4vw,76px)}.lc-ac{color:var(--ac)}
+.lc-inst{min-width:0;width:fit-content;display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--sf);border-radius:12px;padding:8px 8px 8px 16px;max-width:100%}.lc-inst code{min-width:0;flex:1;font:14px 'Geist Mono',monospace;white-space:nowrap;overflow:auto}
+.lc-term{border-radius:14px;background:#0c0c0e;color:#e4e4e7;border:1px solid #27272a;overflow:hidden;box-shadow:var(--shadow)}.lc-tb{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid #27272a;font:12px 'Geist Mono',monospace;color:#a1a1aa}.lc-tb i{width:10px;height:10px;border-radius:50%;background:#3f3f46}.lc-tb span{margin-left:8px}
+.lc-term pre{margin:0;padding:20px;font:13.5px/1.7 'Geist Mono',monospace;min-height:260px;white-space:pre-wrap}.lc-term .g{color:#5eead4}.lc-term .d{color:#71717a}.lc-term .y{color:#fde68a}
+.lc-feat{display:grid;grid-template-columns:1fr 1.3fr;gap:48px}.lc-feat .lead{margin-top:16px}
+.lc-tbl{width:100%;border-collapse:collapse;font-size:14px}.lc-tbl th{text-align:left;font-weight:550;color:var(--mu);padding:0 12px 12px 0;border-bottom:1px solid var(--line)}.lc-tbl td{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}.lc-tbl code{font:13px 'Geist Mono',monospace;color:var(--ac)}
+@media (max-width:760px){.lc-feat{grid-template-columns:1fr}.lc-hero{padding-top:48px}.lc-tbl th:nth-child(2),.lc-tbl td:nth-child(2){display:none}}
+</style>
+<script>
+const L=[['$ ','shipit deploy',1],['d','› Detected Next.js 15 · pnpm'],['d','› Building… 41 files changed'],['','  ✓ Compiled in 8.2s'],['','  ✓ Uploaded 3.1 MB to fra1'],['y','› Preview  https://harbor-web-git-feat-cart.shipit.app'],['g','✓ Live in 14s · rollback with shipit --rollback']];
+const pre=document.getElementById('tt');const red=matchMedia('(prefers-reduced-motion:reduce)').matches;
+async function run(){pre.innerHTML='';for(const [c,t,typed] of L){const s=document.createElement('span');s.className=c==='$ '?'g':c;pre.append(s);if(typed&&!red){s.textContent='$ ';for(const ch of t){s.textContent+=ch;await new Promise(r=>setTimeout(r,45))}}else s.textContent=(c==='$ '?'$ ':'')+t;pre.append('\n');await new Promise(r=>setTimeout(r,red?0:420))}}
+new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){run();o.disconnect()}}).observe(pre);
+const cp=document.getElementById('cp');cp.onclick=()=>{const t='curl -fsSL shipit.sh/install | sh',done=()=>{cp.querySelector('span').textContent='Copied';setTimeout(()=>cp.querySelector('span').textContent='Copy',1600)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(done).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove();done()})};
+</script>
+=== land-lodge
+<!--Mountain Lodge Landing|Landings|A hotel page: full-bleed landscape hero with a date + guests booking bar, rooms as a horizontal snap row, and a seasons switcher that swaps the activities.|landing,hotel,travel,booking,photo-->
+<div class="k pg ll">
+<section class="ll-hero"><img class="ph" src="media/pics/w/1036.jpg" alt="Snowy mountain valley"><header class="ll-nav w"><a class="logo" href="#">Hütte Alpenglüh</a><nav class="ll-l"><a href="#">Rooms</a><a href="#">Dining</a><a href="#">Spa</a></nav></header>
+<div class="w ll-ht"><h1 class="h1 ser">Twelve rooms,<br>one mountain.</h1></div>
+<form class="ll-book w" onsubmit="return false"><label><span>Arrive</span><input type="date" class="in" id="d1"></label><label><span>Leave</span><input type="date" class="in" id="d2"></label><label><span>Guests</span><select class="in"><option>2 adults</option><option>1 adult</option><option>2 adults, 1 child</option><option>4 adults</option></select></label><button class="b ac lg" id="ck">Check availability</button><p class="ll-msg" id="cm" role="status"></p></form></section>
+<section class="sec"><div class="w ll-rh"><h2 class="h2 ser">Rooms</h2><p class="mu">All with balcony and wood-burning stove.</p></div><div class="ll-rooms w" tabindex="0" aria-label="Rooms">
+<article><img src="media/pics/c/1051.jpg" alt="Wooden jetty on a lake"><h3 class="h3">Lake View Double</h3><p class="mu">28 m² · sleeps 2</p><b class="tn">from €240</b></article>
+<article><img src="media/pics/c/1043.jpg" alt="Valley with granite cliffs"><h3 class="h3">Valley Suite</h3><p class="mu">46 m² · sleeps 3</p><b class="tn">from €390</b></article>
+<article><img src="media/pics/c/1039.jpg" alt="Waterfall in green moss"><h3 class="h3">Falls Loft</h3><p class="mu">38 m² · sleeps 2</p><b class="tn">from €310</b></article>
+<article><img src="media/pics/c/1040.jpg" alt="Castle above a forest"><h3 class="h3">Tower Family Room</h3><p class="mu">55 m² · sleeps 5</p><b class="tn">from €460</b></article></div></section>
+<section class="sec ll-ss"><div class="w"><div class="ll-st" role="tablist" aria-label="Season"><button role="tab" aria-selected="true" data-s="0">Winter</button><button role="tab" aria-selected="false" data-s="1">Summer</button></div><ul class="ll-act" id="la"></ul></div></section>
+<footer class="foot"><div class="w"><span>Hütte Alpenglüh · 1,840 m</span><span>Open Dec–Apr and Jun–Sep</span></div></footer>
+</div>
+<style>
+.ll{--ac:light-dark(#1e3a5f,#9cc3ef);--ac-h:light-dark(#152a45,#bcd7f5);--ac-fg:light-dark(#fff,#0b1a2b)}
+.ll-hero{position:relative;min-height:min(92dvh,820px);display:grid;grid-template-rows:auto 1fr auto;color:#fff;padding-bottom:24px}.ll-hero>img{position:absolute;inset:0}.ll-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(#0006,#0000 40%,#0007)}
+.ll-hero>*:not(img){position:relative;z-index:1}.ll-nav{display:flex;justify-content:space-between;align-items:center;height:72px}.ll-nav .logo{color:#fff}.ll-l{display:flex;gap:24px}.ll-l a{color:#fffc;text-decoration:none;font-size:14px}
+.ll-ht{align-self:center}.ll-ht .h1{font-size:clamp(48px,9vw,120px)}
+.ll-book{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:12px;align-items:end;background:var(--bg);color:var(--fg);padding:16px;border-radius:18px;box-shadow:var(--shadow)}.ll-book label{min-width:0}.ll-book .in{min-width:0}.ll-book label span{display:block;font-size:12px;font-weight:600;color:var(--mu);margin-bottom:6px}.ll-book .in{height:48px;font-size:16px}
+.ll-msg{grid-column:1/-1;font-size:14px;min-height:0}.ll-msg:empty{display:none}
+.ll-rh{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.ll-rooms{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,1fr);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:32px 0 8px;overscroll-behavior-x:contain}.ll-rooms article{scroll-snap-align:start;display:grid;gap:6px}.ll-rooms img{aspect-ratio:4/5;object-fit:cover;border-radius:14px;margin-bottom:8px;width:100%}
+.ll-ss{background:var(--sf)}.ll-st{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px;background:var(--bg)}.ll-st button{height:40px;padding:0 20px;border-radius:999px;font-weight:550;color:var(--mu)}.ll-st [aria-selected=true]{background:var(--fg);color:var(--bg)}
+.ll-act{list-style:none;padding:0;margin:32px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}.ll-act li{border-top:2px solid var(--fg);padding-top:16px;display:grid;gap:8px;animation:llf .35s var(--ease) both}.ll-act b{font-size:19px}
+@keyframes llf{from{opacity:0;transform:translateY(8px)}}
+@media (max-width:760px){.ll-l{display:none}.ll-book{grid-template-columns:1fr 1fr}.ll-book label:nth-child(3),.ll-book .b{grid-column:1/-1}.ll-act{grid-template-columns:1fr}}
+</style>
+<script>
+const S=[[["Ski-in, ski-out","The Nordhang lift is 90 m from the boot room."],["Sauna at dusk","Cedar sauna with a snow plunge, open until 22:00."],["Torchlit sledging","4 km run every Thursday, sledges included."]],[["Hut-to-hut hiking","Maps, packed lunch and luggage transfer arranged."],["Lake swimming","Our jetty on the Grünsee, a 12-minute walk."],["Alpine cheese dairy","Watch the morning make, taste at 11."]]];
+const la=document.getElementById('la');function show(i){la.innerHTML=S[i].map(([t,d])=>`<li><b>${t}</b><span class="mu">${d}</span></li>`).join('')}
+document.querySelectorAll('.ll-st button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.ll-st button').forEach(x=>x.setAttribute('aria-selected',x===b));show(+b.dataset.s)});show(0);
+const t=new Date(),iso=d=>d.toISOString().slice(0,10),d1=document.getElementById('d1'),d2=document.getElementById('d2');d1.min=iso(t);d1.value=iso(new Date(+t+864e5*14));d2.value=iso(new Date(+t+864e5*17));
+document.getElementById('ck').onclick=e=>{const b=e.currentTarget,m=document.getElementById('cm');if(d2.value<=d1.value){m.textContent='Leave date must be after arrival.';m.style.color='var(--err)';return}b.disabled=true;b.textContent='Checking…';setTimeout(()=>{b.disabled=false;b.textContent='Check availability';const n=(new Date(d2.value)-new Date(d1.value))/864e5;m.style.color='var(--ok)';m.textContent=`3 rooms free for ${n} night${n>1?'s':''}. Lake View Double from €${240*n}.`},900)};
+</script>
+=== land-bank
+<!--Fintech Landing|Landings|A neobank page: hero with an interactive card that flips and a live "spend split" demo, a fee comparison against a high-street bank, and a short security list.|landing,fintech,bank,card,comparison-->
+<div class="k pg lb">
+<header class="top"><div class="w"><a class="logo" href="#"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="1" y="5" width="20" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M1 9h20" stroke="currentColor" stroke-width="2"/></svg>Ledgerly</a><nav class="links"><a href="#">Personal</a><a href="#">Business</a><a href="#">Pricing</a><a href="#">Help</a></nav><a class="b" href="#">Open account</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lb-hero"><div class="lb-t"><h1 class="h1">Money that splits<br>itself.</h1><p class="lead">Every payday Ledgerly moves money into pots for rent, bills and savings before you can spend it. You see what's actually yours.</p><a class="b ac lg" href="#">Get the app, free</a></div>
+<div class="lb-demo"><button class="lb-card" id="cd" aria-label="Flip card"><span class="lb-f"><b>Ledgerly</b><span class="tn">•••• 4821</span><i>DEBIT</i></span><span class="lb-bk"><span class="lb-mag"></span><span class="tn">CVC 318</span></span></button>
+<div class="lb-split card"><label class="lbl" for="pay">Payday amount</label><input class="in tn" id="pay" type="number" inputmode="decimal" value="2400" min="0"><div class="lb-pots" id="pots"></div></div></div></section>
+<section class="sec lb-cmp"><div class="w"><h2 class="h2">What a €1,000 trip abroad costs you</h2><div class="lb-rows"><div class="lb-row"><span>High-street bank</span><div class="lb-bar"><i style="--w:100%"></i></div><b class="tn">€38.40</b></div><div class="lb-row me"><span>Ledgerly</span><div class="lb-bar"><i style="--w:4%"></i></div><b class="tn">€1.50</b></div></div><p class="mu lb-fn">Card fees plus FX markup at typical rates. Example, not a quote.</p></div></section>
+<section class="sec w lb-sec"><h2 class="h2">Locked down by default.</h2><ul><li>@I(lock)<div><b>Freeze in one tap</b><span class="mu">Card frozen in under a second, unfreeze just as fast.</span></div></li><li>@I(shield)<div><b>Licensed bank</b><span class="mu">Deposits protected up to €100,000.</span></div></li><li>@I(eye)<div><b>Disposable numbers</b><span class="mu">A new card number for every online shop.</span></div></li></ul></section>
+<footer class="foot"><div class="w"><span>© Ledgerly</span><span>Example company for demonstration</span></div></footer>
+</div>
+<style>
+.lb{--ac:light-dark(#166534,#86efac);--ac-h:light-dark(#14532d,#bbf7d0);--ac-fg:light-dark(#fff,#052e16)}
+.lb-hero{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:72px 0;align-items:center}.lb-t{display:grid;gap:24px;justify-items:start}
+.lb-demo{display:grid;gap:16px;justify-items:center}.lb-card{width:min(340px,100%);aspect-ratio:1.586;perspective:1000px;position:relative;border-radius:18px}.lb-card>span{position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;transition:transform .6s var(--ease);padding:22px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;color:#f0fdf4;background:linear-gradient(135deg,#14532d,#052e16);box-shadow:var(--shadow)}
+.lb-f i{font-style:normal;font-size:11px;letter-spacing:.12em;opacity:.7;align-self:flex-end}.lb-f .tn{font:15px 'Geist Mono',monospace;letter-spacing:.1em}.lb-bk{transform:rotateY(180deg);justify-content:center!important;gap:16px}.lb-mag{height:40px;background:#0009;margin:0 -22px}.lb-card.fl .lb-f{transform:rotateY(-180deg)}.lb-card.fl .lb-bk{transform:rotateY(0)}
+.lb-split{width:min(340px,100%);padding:20px}.lb-pots{display:grid;gap:10px;margin-top:16px}.lb-pots div{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:14px}.lb-pots i{width:10px;height:10px;border-radius:3px;background:var(--c)}.lb-pots b{font-variant-numeric:tabular-nums}
+.lb-cmp{background:var(--sf)}.lb-rows{display:grid;gap:20px;margin-top:40px}.lb-row{display:grid;grid-template-columns:160px 1fr 80px;gap:16px;align-items:center}.lb-row b{text-align:right;font-size:18px}.lb-bar{height:14px;background:var(--sf2);border-radius:7px;overflow:hidden}.lb-bar i{display:block;height:100%;width:var(--w);background:var(--mu);border-radius:7px}.lb-row.me .lb-bar i{background:var(--ac);min-width:14px}.lb-row.me{font-weight:600}.lb-fn{margin-top:20px;font-size:13px}
+.lb-sec ul{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}.lb-sec li{display:flex;gap:14px}.lb-sec li .i{width:24px;height:24px;color:var(--ac)}.lb-sec li div{display:grid;gap:6px}
+@media (max-width:760px){.lb-hero{grid-template-columns:1fr;padding-top:40px}.lb-row{grid-template-columns:1fr 64px}.lb-row .lb-bar{grid-column:1/-1;grid-row:2}.lb-sec ul{grid-template-columns:1fr}}
+</style>
+<script>
+const cd=document.getElementById('cd');cd.onclick=()=>cd.classList.toggle('fl');
+const P=[['Rent',.4,'#16a34a'],['Bills',.15,'#0ea5e9'],['Savings',.2,'#a16207'],['Yours to spend',.25,'var(--fg)']],pay=document.getElementById('pay'),pots=document.getElementById('pots'),f=new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+function split(){const v=Math.max(0,+pay.value||0);pots.innerHTML=P.map(([n,p,c])=>`<div><i style="--c:${c}"></i><span>${n}</span><b>${f.format(v*p)}</b></div>`).join('')}pay.oninput=split;split();
+</script>
+=== land-festival
+<!--Festival Landing|Landings|A music festival poster page: giant stacked lineup type that sizes by billing, a day filter, a ticket tier picker with quantity and a running total.|landing,festival,music,lineup,tickets,poster-->
+<div class="k pg lf">
+<header class="top"><div class="w"><a class="logo" href="#">TIDEWATER ’27</a><nav class="links"><a href="#">Lineup</a><a href="#">Tickets</a><a href="#">Getting there</a></nav><a class="b ac" href="#tk">Tickets</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lf-hero"><p class="lf-meta"><span>17–19 July 2027</span><span>Harbour Fields, Brest</span></p>
+<div class="lf-days" role="tablist" aria-label="Day"><button role="tab" aria-selected="true" data-d="all">All days</button><button role="tab" aria-selected="false" data-d="fri">Fri</button><button role="tab" aria-selected="false" data-d="sat">Sat</button><button role="tab" aria-selected="false" data-d="sun">Sun</button></div>
+<ul class="lf-line" id="ln" aria-live="polite"></ul></section>
+<section class="sec lf-tix" id="tk"><div class="w"><h2 class="h2">Tickets</h2><div class="lf-tg" id="tg"></div><div class="lf-sum"><span>Total</span><b class="tn" id="tot">€0</b><button class="b ac lg" id="buy" disabled>Checkout</button></div></div></section>
+<footer class="foot"><div class="w"><span>Tidewater is a fictional festival used as demo content.</span><span>No re-entry after 23:00</span></div></footer>
+</div>
+<style>
+.lf{--ac:light-dark(#be123c,#fb7185);--ac-h:light-dark(#9f1239,#fda4af);--ac-fg:light-dark(#fff,#2a0410)}
+.lf-hero{padding:48px 0 80px}.lf-meta{display:flex;justify-content:space-between;font:500 13px 'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--fg);padding-bottom:12px;flex-wrap:wrap;gap:8px}
+.lf-days{display:flex;gap:8px;margin:24px 0 32px;flex-wrap:wrap}.lf-days button{height:40px;padding:0 18px;border:1px solid var(--line);border-radius:999px;font-weight:550}.lf-days [aria-selected=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.lf-line{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:4px 18px;text-align:center;text-transform:uppercase;font-weight:750;letter-spacing:-.03em;line-height:.95}
+.lf-line li{transition:opacity .3s,color .3s}.lf-line .t1{font-size:clamp(44px,9vw,120px);width:100%}.lf-line .t2{font-size:clamp(26px,4.4vw,56px)}.lf-line .t3{font-size:clamp(17px,2.2vw,26px);font-weight:600;color:var(--mu)}.lf-line .off{opacity:.12}
+.lf-line .sep{color:var(--ac)}
+.lf-tix{background:var(--sf)}.lf-tg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.lf-t{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:10px}.lf-t.so{opacity:.55}.lf-t b{font-size:22px}.lf-q{display:flex;align-items:center;gap:8px;margin-top:8px}.lf-q output{min-width:2ch;text-align:center;font-weight:600}.lf-q .ibt{border:1px solid var(--line);width:40px;height:40px}
+.lf-sum{display:flex;align-items:center;gap:16px;justify-content:flex-end;margin-top:24px;flex-wrap:wrap}.lf-sum b{font-size:28px}
+@media (max-width:760px){.lf-tg{grid-template-columns:1fr}.lf-sum{justify-content:space-between}.lf-sum .b{width:100%}}
+</style>
+<script>
+const A=[["Marlowe Static",1,"fri"],["The Low Tides",1,"sat"],["Juno Varga",1,"sun"],["Pale Harbour",2,"fri"],["Okra Vex",2,"sat"],["Silt",2,"sun"],["Ninefold",2,"sat"],["Bianca Ruel",3,"fri"],["Moss Choir",3,"fri"],["Teo & the Kites",3,"sat"],["Dry County",3,"sun"],["Halcyon Dub",3,"sun"],["Rue Mercer",3,"sat"],["Vantablue",3,"fri"]];
+const ln=document.getElementById('ln');function draw(d){ln.innerHTML=A.map(([n,t,dd],i)=>`<li class="t${t}${d!=='all'&&dd!==d?' off':''}">${n}</li>`).join('')}draw('all');
+document.querySelectorAll('.lf-days button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.lf-days button').forEach(x=>x.setAttribute('aria-selected',x===b));draw(b.dataset.d)});
+const T=[["Day ticket",65,"Any single day"],["Weekend",149,"Fri–Sun, all stages"],["Weekend + camping",189,"Includes a pitch for 1 tent",1]],q=[0,0,0];
+const tg=document.getElementById('tg'),tot=document.getElementById('tot'),buy=document.getElementById('buy');
+tg.innerHTML=T.map(([n,p,d,so],i)=>`<div class="lf-t${so?' so':''}"><span class="eb">${n}</span><b class="tn">€${p}</b><span class="mu">${so?'Sold out. Join the waitlist':d}</span><div class="lf-q" role="group" aria-label="${n} quantity"><button class="ibt" data-i="${i}" data-d="-1" aria-label="Remove one" ${so?'disabled':''}>@I(minus,16)</button><output id="q${i}">0</output><button class="ibt" data-i="${i}" data-d="1" aria-label="Add one" ${so?'disabled':''}>@I(plus,16)</button></div></div>`).join('');
+tg.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;const i=+b.dataset.i;q[i]=Math.max(0,Math.min(8,q[i]+ +b.dataset.d));document.getElementById('q'+i).textContent=q[i];const s=q.reduce((a,v,i)=>a+v*T[i][1],0);tot.textContent='€'+s;buy.disabled=!s};
+</script>

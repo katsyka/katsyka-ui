@@ -1,0 +1,46 @@
+<!--Restaurant Menu|A restaurant page with sticky category tabs that follow your scroll and jump on tap, menu rows whose + turns into a stepper, and a basket bar that slides up with the count and total.|food,delivery,menu,scrollspy,stepper-->
+<div class="fd-bg" id="fbg"><b>Kafe Blå</b></div><div class="fd-fl"><button class="ib gl" aria-label="Back">@I(left)</button><span><button class="ib gl" aria-label="Search menu">@I(search,20)</button><button class="ib gl" aria-label="Save">@I(heart,20)</button></span></div>
+<main class="sc fd" id="sc">
+  <img class="fd-hero" src="media/pics/c/1060.jpg" alt="">
+  <section class="fd-in"><h1>Kafe Blå</h1><p class="mu">Coffee · Bakery · Brunch</p><div class="fd-m"><span>@I(star,15)<b>4.7</b> (1.2k)</span><span>@I(clock,15)15–25 min</span><span>@I(bike,15)kr 29</span></div></section>
+  <nav class="fd-tabs" id="tabs" aria-label="Menu sections"></nav>
+  <div id="menu"></div>
+</main>
+<div class="fd-bk" id="bk"><button class="btn"><span class="fd-n tn" id="bn">1</span><span>View basket</span><span class="tn" id="bt">kr 0</span></button></div>
+<style>
+.fd-fl{position:absolute;inset:calc(var(--st) + 4px) 12px auto;z-index:60;display:flex;justify-content:space-between}.fd-fl span{display:flex;gap:8px}
+.fd-bg{position:absolute;inset:0 0 auto;height:calc(var(--st) + 52px);z-index:55;background:var(--bg);display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px;opacity:0;transition:opacity .2s;pointer-events:none}.fd-bg b{font-size:17px;font-weight:600}.fd-bg.on{opacity:1}
+.fd-bg.on~.fd-fl .gl{background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}.fd-bg.on~.fd-fl .gl::before{display:none}
+.fd{padding-top:0!important;padding-bottom:calc(var(--sbt) + 100px)}
+.fd-hero{display:block;width:100%;height:240px;object-fit:cover}
+.fd-in{position:relative;margin-top:-24px;padding:20px var(--gut) 8px;background:var(--bg);border-radius:24px 24px 0 0}
+.fd-in h1{margin:0;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-.025em}.fd-in p{margin:2px 0 0;font-size:15px}
+.fd-m{display:flex;gap:16px;margin-top:12px;font-size:14px;color:var(--mu)}.fd-m span{display:flex;align-items:center;gap:4px}.fd-m b{color:var(--fg)}
+.fd-m .i:first-child{color:var(--warn)}
+.fd-tabs{position:sticky;top:calc(var(--st) + 52px);z-index:30;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px var(--gut);background:var(--bg);border-bottom:.5px solid var(--line)}.fd-tabs::-webkit-scrollbar{display:none}
+.fd-tabs a{flex:none;min-height:36px;padding:0 14px;border-radius:18px;display:flex;align-items:center;font-size:15px;font-weight:500;color:var(--mu);text-decoration:none;transition:background .2s,color .2s}
+.fd-tabs a.on{background:var(--fg);color:var(--bg)}
+.fd-s h2{margin:0;padding:24px var(--gut) 4px;font-size:20px;font-weight:650;letter-spacing:-.015em;scroll-margin-top:60px}
+.fd-i{display:flex;gap:12px;padding:12px var(--gut);border-bottom:.5px solid var(--line)}
+.fd-i .tx{flex:1;min-width:0}.fd-i b{display:block;font-size:16px;font-weight:600}.fd-i p{margin:2px 0 6px;font-size:14px;line-height:19px;color:var(--mu);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.fd-i .pr{font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.fd-im{position:relative;flex:none}.fd-im img{width:96px;height:96px;border-radius:14px;object-fit:cover;display:block}
+.fd-add{position:absolute;right:-6px;bottom:-6px;display:flex;align-items:center;height:36px;border-radius:18px;background:var(--bg);box-shadow:0 2px 8px #0003,0 0 0 .5px var(--line);overflow:hidden}
+.fd-add button{width:36px;height:36px;display:grid;place-items:center}.fd-add .i{width:18px;height:18px}
+.fd-add output{display:none;min-width:20px;text-align:center;font-weight:650;font-variant-numeric:tabular-nums}.fd-add .m{display:none}
+.fd-add.has output,.fd-add.has .m{display:grid}.fd-add.has{background:var(--fg);color:var(--bg)}
+.fd-bk{position:absolute;left:var(--gut);right:var(--gut);bottom:max(16px,var(--sbt));z-index:70;transform:translateY(150%);transition:transform .45s cubic-bezier(.3,1.3,.5,1)}
+.fd-bk.on{transform:none}
+.fd-bk .btn{justify-content:space-between;box-shadow:0 10px 24px -8px #0006}
+.fd-n{min-width:28px;height:28px;border-radius:14px;background:color-mix(in srgb,var(--ac-fg) 20%,transparent);display:grid;place-items:center;font-size:15px}
+</style>
+<script>
+const M=[["Popular",[["Cardamom bun","Swedish-style knot, baked every hour until they run out.",42,"1080"],["Flat white","Double ristretto, whole or oat milk.",48,"1060"]]],["Breakfast",[["Skillet eggs","Two eggs, tomato, chilli butter, sourdough.",129,"1035"],["Porridge","Oats, brown butter, lingonberries, toasted seeds.",89,"1043"],["Granola bowl","House granola, skyr, poached rhubarb.",95,"1050"]]],["Bakery",[["Sourdough loaf","Long-fermented, 800 g.",79,"1073"],["Cinnamon roll","Kanelbolle with pearl sugar.",39,"1080"]]],["Drinks",[["Filter coffee","Single origin, changes weekly.",39,"1060"],["Hot chocolate","Dark chocolate, steamed milk.",52,"1082"],["Fresh orange","Pressed to order.",59,"1083"]]]];
+const I=p=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`,PL=I('<path d="M12 5v14M5 12h14"/>'),MI=I('<path d="M5 12h14"/>');
+tabs.innerHTML=M.map(([s],i)=>`<a href="#fd${i}" class="${i?"":"on"}">${s}</a>`).join("");
+menu.innerHTML=M.map(([s,L],i)=>`<section class="fd-s" id="fd${i}"><h2>${s}</h2>${L.map(([n,d,p,img])=>`<div class="fd-i"><span class="tx"><b>${n}</b><p>${d}</p><span class="pr">kr ${p}</span></span><span class="fd-im"><img src="media/pics/c/${img}.jpg" alt="" loading="lazy"><span class="fd-add" data-p="${p}"><button class="m" aria-label="Remove one ${n}">${MI}</button><output>0</output><button class="p" aria-label="Add ${n}">${PL}</button></span></span></div>`).join("")}</section>`).join("");
+const tot=()=>{let n=0,t=0;menu.querySelectorAll(".fd-add").forEach(a=>{const q=+a.querySelector("output").value;n+=q;t+=q*a.dataset.p});bn.textContent=n;bt.textContent="kr "+t;bk.classList.toggle("on",n>0)};
+menu.addEventListener("click",e=>{const b=e.target.closest(".fd-add button");if(!b)return;const a=b.parentElement,o=a.querySelector("output");o.value=Math.max(0,+o.value+(b.classList.contains("p")?1:-1));a.classList.toggle("has",+o.value>0);tot()});
+tabs.addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();const s=document.querySelector(a.getAttribute("href"));sc.scrollTo({top:s.offsetTop-fbg.offsetHeight-tabs.offsetHeight+8,behavior:"smooth"})});
+const secs=[...menu.children];sc.addEventListener("scroll",()=>{fbg.classList.toggle("on",sc.scrollTop>190);let k=0;secs.forEach((s,i)=>{if(s.getBoundingClientRect().top-sc.getBoundingClientRect().top<fbg.offsetHeight+tabs.offsetHeight+20)k=i});tabs.querySelectorAll("a").forEach((a,i)=>{const on=i===k;if(on&&!a.classList.contains("on"))tabs.scrollTo({left:a.offsetLeft-16,behavior:"smooth"});a.classList.toggle("on",on)})},{passive:true});
+</script>

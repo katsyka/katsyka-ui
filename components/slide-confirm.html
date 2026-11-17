@@ -1,0 +1,51 @@
+<style>
+.sc2{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sc2 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sc2 ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sc2 *,.sc2 *::before,.sc2 *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sc2{min-height:100vh;display:grid;place-items:center;padding:32px 16px}
+.sc2-col{display:flex;flex-direction:column;gap:28px;width:min(420px,100%)}
+.sc2-col h3{margin:0 0 4px;font-size:16px;font-weight:600}.sc2-col p{margin:0 0 12px;font-size:14px;color:var(--mu)}
+.sc2-t{--c:var(--err);--cs:var(--err-sf);--p:0;position:relative;height:60px;border-radius:999px;background:var(--sf2);overflow:hidden;user-select:none;touch-action:pan-y}
+.sc2-t.pay{--c:var(--ac);--cs:var(--ac-sf)}
+.sc2-fill{position:absolute;inset:0;background:var(--cs);clip-path:inset(0 calc(100% - (var(--p) * (100% - 60px) + 60px)) 0 0 round 999px)}
+.sc2-lbl{position:absolute;inset:0;display:grid;place-items:center;padding-left:48px;font-size:15px;font-weight:550;color:var(--mu);opacity:calc(1 - var(--p) * 1.6);pointer-events:none}
+.sc2-lbl span{background:linear-gradient(90deg,var(--mu) 40%,var(--fg) 50%,var(--mu) 60%) 0 0/300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sc2-sh 2.4s linear infinite}
+@keyframes sc2-sh{from{background-position:100% 0}to{background-position:0 0}}
+.sc2-th{position:absolute;top:6px;left:6px;width:48px;height:48px;border-radius:50%;border:0;background:var(--c);color:var(--ac-fg);display:grid;place-items:center;cursor:grab;transform:translateX(calc(var(--p) * (var(--w) - 60px)));box-shadow:0 2px 6px light-dark(#0003,#0009)}
+.sc2-t.err .sc2-th{color:light-dark(#fff,#1a0505)}
+.sc2-th:active{cursor:grabbing}
+.sc2-th svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sc2-t.back .sc2-th,.sc2-t.back .sc2-fill{transition:transform .45s cubic-bezier(.3,1.5,.5,1),clip-path .45s cubic-bezier(.3,1.5,.5,1)}
+.sc2-t.done .sc2-lbl{opacity:1;padding:0;color:var(--c);font-weight:600}
+.sc2-t.done .sc2-lbl span{animation:none;background:none;color:var(--c)}
+.sc2-t.arm .sc2-lbl span{animation:none;background:none;color:var(--c)}
+.sc2-st{min-height:20px;margin-top:8px;font-size:13px;color:var(--mu)}
+.sc2-reset{margin-top:6px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--ctl);background:none;color:var(--fg);font:500 13px Geist,sans-serif;cursor:pointer}
+</style>
+<section class="sc2"><div class="sc2-col">
+  <div><h3>Delete workspace</h3><p>This removes 14 projects for everyone. It can't be undone.</p>
+    <div class="sc2-t err" data-done="Workspace deleted"><div class="sc2-fill"></div><div class="sc2-lbl"><span>Slide to delete</span></div>
+      <button class="sc2-th" aria-label="Slide to delete. Keyboard: press Enter twice to confirm"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button></div>
+    <div class="sc2-st" aria-live="polite"></div></div>
+  <div><h3>Pay $249.00</h3><p>Visa ending 4242 · Ships in December</p>
+    <div class="sc2-t pay" data-done="Payment sent ✓"><div class="sc2-fill"></div><div class="sc2-lbl"><span>Slide to pay</span></div>
+      <button class="sc2-th" aria-label="Slide to pay. Keyboard: press Enter twice to confirm"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    <div class="sc2-st" aria-live="polite"></div></div>
+</div></section>
+<script>
+(()=>{
+document.querySelectorAll(".sc2-t").forEach(t=>{const th=t.querySelector(".sc2-th"),lbl=t.querySelector(".sc2-lbl span"),st=t.nextElementSibling,orig=lbl.textContent;let d=null,armed=0;
+  const W=()=>t.style.setProperty("--w",t.clientWidth+"px");new ResizeObserver(W).observe(t);W();
+  const P=p=>t.style.setProperty("--p",p);
+  const done=()=>{P(1);t.classList.add("done");th.disabled=true;lbl.textContent=t.dataset.done;st.innerHTML="";const r=document.createElement("button");r.className="sc2-reset";r.textContent="Reset demo";r.onclick=reset;st.append(r)};
+  const reset=()=>{t.classList.remove("done","arm");th.disabled=false;lbl.textContent=orig;st.textContent="";t.classList.add("back");P(0);armed=0};
+  th.addEventListener("pointerdown",e=>{if(th.disabled)return;d={x:e.clientX};t.classList.remove("back");th.setPointerCapture(e.pointerId)});
+  th.addEventListener("pointermove",e=>{if(!d)return;P(Math.max(0,Math.min(1,(e.clientX-d.x)/(t.clientWidth-60))))});
+  th.addEventListener("pointerup",()=>{if(!d)return;d=null;const p=+getComputedStyle(t).getPropertyValue("--p");if(p>.92)done();else{t.classList.add("back");P(0)}});
+  // keyboard alternative: two deliberate presses within 3 s
+  th.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;e.preventDefault();
+    if(armed){clearTimeout(armed);done()}else{t.classList.add("arm");lbl.textContent="Press Enter again to confirm";st.textContent="Press Enter again within 3 seconds to confirm.";
+      armed=setTimeout(()=>{armed=0;t.classList.remove("arm");lbl.textContent=orig;st.textContent=""},3000)}})});
+})();
+</script>

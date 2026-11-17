@@ -1,0 +1,67 @@
+<style>
+.wd{position:relative;height:460vh;background:#04121f;--fg:#fff;--mu:#ffffffe0;--inv:#04121f}
+.wd .dk{--fg:#0c1a26;--mu:#0c1a26c0;--inv:#fff}
+.wd-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.wd canvas{position:absolute;inset:0;width:100%;height:100%}
+.wd-t,.wd-ch,.wd-g{position:absolute;color:var(--fg);transition:color .5s}
+.wd-t{left:0;right:0;top:clamp(56px,11vh,110px);text-align:center;padding:0 20px}
+.wd-t small,.wd-ch small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:var(--mu)}
+.wd-t h2{margin:16px 0 0;font-size:clamp(48px,7.6vw,124px);line-height:.88;letter-spacing:-.06em;font-weight:600}
+.wd em{font:italic 400 1.04em "Instrument Serif",serif;letter-spacing:-.025em}
+.wd-ch{left:clamp(20px,5vw,72px);bottom:clamp(32px,9vh,84px);max-width:520px}
+.wd-ch h3{margin:12px 0 14px;font-size:clamp(30px,3.8vw,54px);line-height:1;letter-spacing:-.05em;font-weight:600}
+.wd-ch p{margin:0;font-size:16.5px;line-height:1.6;color:var(--mu)}
+.wd-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.wd-cta a{display:inline-flex;align-items:center;height:46px;padding:0 22px;border-radius:99px;font-size:15px;font-weight:550;text-decoration:none;color:var(--inv);background:var(--fg);transition:transform .2s}
+.wd-cta a+a{background:none;color:var(--fg);box-shadow:inset 0 0 0 1px currentColor}
+.wd-cta a:hover{transform:translateY(-2px)}
+.wd-g{right:clamp(20px,4vw,56px);top:50%;translate:0 -50%;display:grid;grid-template-columns:auto auto;gap:0 14px;align-items:stretch;font:500 11px "Geist Mono",monospace;letter-spacing:.1em}
+.wd-g ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:space-between;height:min(46vh,360px);text-align:right}
+.wd-tr{position:relative;width:1px;background:currentColor;opacity:.9}
+.wd-tr i{position:absolute;left:50%;top:calc(var(--d,0)*100%);width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:currentColor}
+.wd-g b{grid-column:1/-1;margin-top:18px;text-align:right;font:500 clamp(20px,2vw,26px)/1 "Geist Mono",monospace;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.wd-g span{grid-column:1/-1;margin-top:6px;text-align:right}
+.wd .bt{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .9s cubic-bezier(.2,.8,.2,1),color .5s;pointer-events:none}
+.wd .bt.on{opacity:1;transform:none;pointer-events:auto}
+.wd-ch.bt{position:absolute}
+.wd-after{height:40vh;display:grid;place-items:center;background:#04121f;color:#5b7083;font-size:15px}
+@media (max-width:700px){.wd-g ol,.wd-tr{display:none}.wd-g{top:auto;bottom:auto;top:24px;translate:none}.wd-ch{right:20px}}
+@media (prefers-reduced-motion:reduce){.wd .bt{transform:none;transition:opacity .3s}}
+</style>
+<section class="wd" aria-label="Follow one humpback dive">
+  <div class="wd-pin">
+    <canvas role="img" aria-label="Camera sinks from a sunrise sea surface to a humpback whale in deep blue water"></canvas>
+    <div class="wd-t bt on"><small>TIDEWATER TRUST · FIELD NOTE 1187</small><h2>Meet her<br><em>below the surface.</em></h2></div>
+    <div class="wd-ch bt"><small>01 · SHALLOWS</small><h3>She took one breath before you started scrolling.</h3><p>A typical dive lasts five to fifteen minutes. This one is only getting started.</p></div>
+    <div class="wd-ch bt"><small>02 · MIDWATER</small><h3>No two tails are the same.</h3><p>Researchers tell humpbacks apart by the pattern under the fluke, as unique as a fingerprint.</p></div>
+    <div class="wd-ch bt"><small>03 · THE BLUE</small><h3>Name the <em>next one.</em></h3><div class="wd-cta"><a href="#">Adopt a fluke · €8/mo</a><a href="#">Read the field notes</a></div></div>
+    <div class="wd-g" aria-hidden="true"><ol><li>0</li><li>10</li><li>20</li><li>30</li><li>40 m</li></ol><div class="wd-tr"><i></i></div><b>0.0 m</b><span>LIGHT 100%</span></div>
+  </div>
+</section>
+<div class="wd-after">The page continues.</div>
+<script>
+(()=>{
+// 120 frames scrubbed by scroll; the camera breaks the surface at frame 22. L1–L3: precomputed brightness behind each text block (base-36 per frame).
+const N=120,DIR="media/whale/",DIVE=22,
+L1="uuuuuuuuuuuuuuuuuuuuuridcaabcefhhhhhgfeeffffghijkjlkjjiiiiiiiiiklkjiiiiiiiiiiiihgffeedcbba998888888888888899988888888888",
+L2="efffffeedddccccbbbbd744444566779a99988999999999aaacaaa99999999aabba99999999999998877766554443333333333333333333333333333",
+L3="llllllkkkkkkkkkjjkkjga66556789abccdcbbbbbcccccdeeefeeeeeeeeeeeefghgfffffffgggggffeddcbaa99877666666666666777776666666667";
+const root=document.querySelector(".wd"),c=root.querySelector("canvas"),x=c.getContext("2d"),$=s=>root.querySelector(s);
+const t=$(".wd-t"),chs=[...root.querySelectorAll(".wd-ch")],g=$(".wd-g"),gv=g.querySelector("b"),gl=g.querySelector("span");
+const imgs=[],load=i=>{if(imgs[i])return;const im=imgs[i]=new Image();im.onload=()=>{if(Math.abs(i-cur)<9)draw(true)};im.src=DIR+String(i+1).padStart(3,"0")+".jpg"};
+load(0);new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){o.disconnect();[8,4,2,1].forEach(s=>{for(let i=0;i<N;i+=s)load(i)})}},{rootMargin:"100%"}).observe(root);
+let cur=0,tgt=0,shown=-1,raf=0;
+const pick=f=>{for(let d=0;d<N;d++)for(const j of[f-d,f+d]){const im=imgs[j];if(im&&im.complete&&im.naturalWidth)return im}};
+function draw(force){const f=Math.round(cur);if(f===shown&&!force)return;const im=pick(f);if(!im)return;shown=f;
+  const s=Math.max(c.width/im.naturalWidth,c.height/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;x.drawImage(im,(c.width-w)/2,(c.height-h)/2,w,h)}
+new ResizeObserver(()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;draw(true)}).observe(c);
+const lum=(s,f)=>parseInt(s[f],36),dark=(el,s,f)=>el.classList.toggle("dk",lum(s,f)>=20);
+function update(){draw();const f=Math.round(cur),p=cur/(N-1),d=Math.max(0,(cur-DIVE)/(N-1-DIVE))*40;
+  dark(t,L1,f);dark(g,L3,f);chs.forEach((el,i)=>{dark(el,L2,f);el.classList.toggle("on",i===0?p>.22&&p<.45:i===1?p>.49&&p<.7:p>.75)});
+  t.classList.toggle("on",p<.15);g.style.setProperty("--d",d/40);gv.textContent=d.toFixed(1)+" m";
+  gl.textContent="LIGHT "+Math.min(100,Math.round(lum(L1,f)/30*100))+"%"}
+const tick=()=>{cur+=(tgt-cur)*.2;if(Math.abs(tgt-cur)<.05)cur=tgt;update();raf=cur===tgt?0:requestAnimationFrame(tick)};
+const onScroll=()=>{const r=root.getBoundingClientRect();tgt=Math.max(0,Math.min(1,-r.top/(root.offsetHeight-innerHeight)))*(N-1);if(!raf)raf=requestAnimationFrame(tick)};
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+})();
+</script>

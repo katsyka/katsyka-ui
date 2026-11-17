@@ -1,0 +1,62 @@
+<style>
+.pq{min-height:100vh;display:grid;place-items:center;padding:40px 16px;background:#f4f2ee;color:#1c1a17}
+.pq-card{width:min(860px,100%);display:grid;grid-template-columns:1.25fr 1fr;border-radius:26px;background:#fff;box-shadow:0 1px 0 #1c1a170a,0 40px 80px -40px #1c1a1755;overflow:hidden}
+.pq-l{padding:30px}.pq-l h2{margin:0 0 6px;font-size:26px;letter-spacing:-.04em;font-weight:600}.pq-l>p{margin:0 0 26px;color:#857f75;font-size:14.5px}
+.pq-f{margin-bottom:26px}.pq-f header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.pq-f header b{font-size:14.5px;font-weight:600}.pq-f header output{font:600 15px "Geist Mono",monospace}
+.pq-rng{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:linear-gradient(#1c1a17,#1c1a17) 0/var(--p,50%) 100% no-repeat,#ebe7df;outline:0;cursor:pointer}
+.pq-rng::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:2px solid #1c1a17;box-shadow:0 4px 10px -2px #1c1a1740;transition:transform .2s}
+.pq-rng:active::-webkit-slider-thumb{transform:scale(1.15)}
+.pq-rng::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid #1c1a17}
+.pq-ticks{display:flex;justify-content:space-between;margin-top:8px;font:11px "Geist Mono",monospace;color:#a59f94}
+.pq-adds{display:flex;flex-direction:column;gap:8px}
+.pq-add{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;border:1.5px solid #ebe7df;cursor:pointer;transition:border-color .2s,background .2s;user-select:none}
+.pq-add input{position:absolute;opacity:0}.pq-add i{width:20px;height:20px;border-radius:6px;border:1.5px solid #cfc9be;display:grid;place-items:center;transition:all .2s;flex:none}
+.pq-add:has(input:checked){border-color:#1c1a17;background:#faf9f6}.pq-add:has(input:checked) i{background:#1c1a17;border-color:#1c1a17}.pq-add:has(input:checked) i::after{content:"✓";color:#fff;font-size:12px;font-style:normal}
+.pq-add b{font-size:14px;font-weight:550}.pq-add small{display:block;font-size:12.5px;color:#857f75}.pq-add em{margin-left:auto;font-style:normal;font:500 13px "Geist Mono",monospace;color:#57524a}
+.pq-r{padding:30px;background:#1c1a17;color:#f4f2ee;display:flex;flex-direction:column}
+.pq-plan{display:inline-flex;align-self:flex-start;padding:5px 10px;border-radius:99px;background:#ff7a3d;color:#1c0a03;font:600 11.5px "Geist Mono",monospace;letter-spacing:.06em;transition:background .3s}
+.pq-big{display:flex;align-items:flex-end;gap:6px;margin:18px 0 4px;height:64px}
+.pq-big b{font-size:60px;letter-spacing:-.05em;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}.pq-big span{color:#a8a296;margin-bottom:8px}
+.pq-yr{font-size:13px;color:#a8a296;margin-bottom:22px}
+.pq-tg{display:flex;align-items:center;gap:10px;font-size:13.5px;margin-bottom:22px;cursor:pointer;user-select:none}
+.pq-tg button{position:relative;width:40px;height:24px;border-radius:99px;border:0;background:#3d3a35;cursor:pointer;transition:background .3s}.pq-tg button::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#f4f2ee;transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.pq-tg button[aria-checked=true]{background:#ff7a3d}.pq-tg button[aria-checked=true]::after{transform:translateX(16px)}.pq-tg em{font-style:normal;color:#ff9a6b;font-size:12px}
+.pq-lines{list-style:none;margin:0 0 22px;padding:16px 0 0;border-top:1px solid #ffffff17;display:flex;flex-direction:column;gap:9px;font-size:13.5px;color:#d6d1c7}
+.pq-lines li{display:flex;justify-content:space-between}.pq-lines li span:last-child{font-family:"Geist Mono",monospace}
+.pq-r a{margin-top:auto;height:48px;border-radius:12px;background:#f4f2ee;color:#1c1a17;display:grid;place-items:center;font-weight:600;text-decoration:none}
+@media (max-width:760px){.pq-card{grid-template-columns:1fr}}
+</style>
+<section class="pq"><div class="pq-card">
+  <div class="pq-l"><h2>Price it yourself</h2><p>Drag the sliders. The plan adjusts to fit.</p>
+    <div class="pq-f"><header><b>Team members</b><output data-o="seats"></output></header><input class="pq-rng" type="range" min="1" max="200" value="12" data-k="seats" aria-label="Team members"><div class="pq-ticks"><span>1</span><span>50</span><span>100</span><span>150</span><span>200</span></div></div>
+    <div class="pq-f"><header><b>Monthly events</b><output data-o="events"></output></header><input class="pq-rng" type="range" min="0" max="100" value="35" data-k="events" aria-label="Monthly events"><div class="pq-ticks"><span>10k</span><span>100k</span><span>1M</span><span>10M</span><span>50M</span></div></div>
+    <div class="pq-adds"><label class="pq-add"><input type="checkbox" data-a="sso"><i></i><div><b>SSO & SCIM</b><small>Okta, Google, Azure AD</small></div><em>+$4/seat</em></label>
+      <label class="pq-add"><input type="checkbox" data-a="ret" checked><i></i><div><b>Extended retention</b><small>Keep 5 years instead of 1</small></div><em>+$99</em></label></div></div>
+  <div class="pq-r"><span class="pq-plan">TEAM</span><div class="pq-big"><b data-o="total">$0</b><span>/month</span></div><div class="pq-yr" data-o="yr"></div>
+    <div class="pq-tg"><button role="switch" aria-checked="true" aria-label="Billed yearly"></button>Billed yearly <em>save 20%</em></div>
+    <ul class="pq-lines"></ul><a href="#">Start 14-day trial</a></div>
+</div></section>
+<script>
+(()=>{
+const $=s=>document.querySelector(s),seats=$("[data-k=seats]"),ev=$("[data-k=events]"),yr=$(".pq-tg button");
+const events=v=>Math.round(10000*Math.pow(5000,v/100)/1000)*1000;
+const fmtN=n=>n>=1e6?(n/1e6).toFixed(n>=1e7?0:1)+"M":Math.round(n/1000)+"k";
+let shown=0;
+function calc(){const s=+seats.value,e=events(+ev.value),y=yr.getAttribute("aria-checked")==="true";
+  [seats,ev].forEach(r=>r.style.setProperty("--p",(r.value-r.min)/(r.max-r.min)*100+"%"));
+  const plan=s>50||e>5e6?"SCALE":s>5||e>2e5?"TEAM":"STARTER",per={STARTER:0,TEAM:12,SCALE:24}[plan];
+  const L=[[`${s} seats × $${per}`,s*per],[`${fmtN(e)} events`,Math.max(0,Math.round((e-1e5)/1e5)*4)]];
+  if($("[data-a=sso]").checked)L.push(["SSO & SCIM",s*4]);if($("[data-a=ret]").checked)L.push(["Extended retention",99]);
+  let sub=L.reduce((a,l)=>a+l[1],0);if(y)L.push(["Yearly discount",-Math.round(sub*.2)]);const tot=L.reduce((a,l)=>a+l[1],0);
+  $("[data-o=seats]").textContent=s+(s===1?" person":" people");$("[data-o=events]").textContent=fmtN(e)+" / mo";
+  const pl=$(".pq-plan");pl.textContent=plan;pl.style.background={STARTER:"#86efac",TEAM:"#ff7a3d",SCALE:"#c4b5fd"}[plan];
+  $(".pq-lines").innerHTML=L.map(([k,v])=>`<li><span>${k}</span><span>${v<0?"−":""}$${Math.abs(v).toLocaleString("en")}</span></li>`).join("");
+  $("[data-o=yr]").textContent=y?`$${(tot*12).toLocaleString("en")} billed yearly`:"Billed monthly, cancel anytime";
+  const from=shown,t0=performance.now(),el=$("[data-o=total]");cancelAnimationFrame(calc.r);
+  (function f(t){const k=Math.min(1,(t-t0)/350),v=Math.round(from+(tot-from)*(1-(1-k)**3));el.textContent="$"+v.toLocaleString("en");shown=v;if(k<1)calc.r=requestAnimationFrame(f)})(t0)}
+[seats,ev].forEach(r=>r.oninput=calc);document.querySelectorAll(".pq-add input").forEach(c=>c.onchange=calc);
+$(".pq-tg").onclick=()=>{yr.setAttribute("aria-checked",yr.getAttribute("aria-checked")!=="true");calc()};
+calc();
+})();
+</script>

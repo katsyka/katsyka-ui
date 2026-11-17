@@ -1,0 +1,29 @@
+<!--Photographer Portfolio Landing|Landings|A photographer's site: a justified masonry of portrait and landscape shots with category filters, a full-screen lightbox with swipe and arrow keys, and a booking line.|landing,portfolio,photography,lightbox,gallery,filter-->
+<div class="k pg lh">
+<header class="top"><div class="w"><a class="logo" href="#">Mika Sato</a><nav class="links"><a href="#">Work</a><a href="#">Prints</a><a href="#">Contact</a></nav><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lh-hero"><h1 class="h1 ser">Landscapes for people<br>who stay until dark.</h1><div class="lh-f" role="group" aria-label="Filter"><button aria-pressed="true" data-f="">All</button><button aria-pressed="false" data-f="m">Mountains</button><button aria-pressed="false" data-f="s">Sea</button><button aria-pressed="false" data-f="c">Cities</button></div></section>
+<section class="w lh-grid" id="gr"></section>
+<section class="sec w lh-cta"><p class="ser">Commissions open for spring 2027.</p><a class="b ac lg" href="#">Enquire</a></section>
+<dialog class="lh-lb" id="lb" aria-label="Photo viewer"><img id="li" alt=""><p id="lc"></p><button class="lh-x" id="lx" aria-label="Close">@I(x)</button><button class="lh-n l" id="lp" aria-label="Previous">@I(left)</button><button class="lh-n r" id="lnx" aria-label="Next">@I(right)</button></dialog>
+</div>
+<style>
+.lh{--ac:light-dark(#18181b,#fafafa);--ac-h:light-dark(#3f3f46,#e4e4e7);--ac-fg:light-dark(#fff,#18181b)}
+.lh-hero{padding:72px 0 32px;display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}.lh-f{display:flex;gap:4px}.lh-f button{height:36px;padding:0 12px;border-radius:8px;color:var(--mu);font-weight:550}.lh-f [aria-pressed=true]{color:var(--fg);background:var(--sf2)}
+.lh-grid{columns:3 280px;column-gap:12px}.lh-grid button{display:block;width:100%;margin:0 0 12px;break-inside:avoid;border-radius:6px;overflow:hidden;position:relative}.lh-grid img{width:100%;transition:transform .5s var(--ease)}.lh-grid button:hover img{transform:scale(1.03)}.lh-grid button span{position:absolute;left:10px;bottom:10px;color:#fff;font-size:13px;opacity:0;transition:opacity .2s;text-shadow:0 1px 6px #000a}.lh-grid button:hover span,.lh-grid button:focus-visible span{opacity:1}
+.lh-cta{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}.lh-cta p{font-size:clamp(28px,4vw,48px)}
+.lh-lb{border:0;padding:0;max-width:none;max-height:none;width:100vw;height:100dvh;background:#0b0b0c;color:#fff;place-items:center}.lh-lb[open]{display:grid}.lh-lb::backdrop{background:#000}.lh-lb img{max-width:min(92vw,1400px);max-height:80dvh;object-fit:contain;animation:lhz .3s var(--ease)}.lh-lb p{position:absolute;bottom:max(20px,env(safe-area-inset-bottom));font-size:14px;color:#ccc}
+@keyframes lhz{from{opacity:0;transform:scale(.97)}}
+.lh-x,.lh-n{position:absolute;width:48px;height:48px;border-radius:50%;background:#ffffff1a;color:#fff;display:grid;place-items:center}.lh-x{top:16px;right:16px}.lh-n{top:50%;translate:0 -50%}.lh-n.l{left:16px}.lh-n.r{right:16px}
+@media (max-width:760px){.lh-grid{columns:2}.lh-n{display:none}}
+</style>
+<script>
+const P=[["w/1036","m","Dolomites, February"],["c/1052","s","Reynisfjara"],["c/1031","c","Frankfurt, 06:12"],["w/1018","m","Quiraing"],["c/1049","s","Low tide"],["c/1022","m","Aurora, Abisko"],["w/1019","s","North Sea squall"],["c/1067","c","Chicago from 94F"],["c/1042","m","Star trails"],["w/1076","c","Facade study"],["c/1050","s","Algarve coast"],["c/1057","m","Amalfi switchbacks"]];
+const gr=document.getElementById('gr');let cur=[],ci=0;
+function draw(f){cur=P.filter(p=>!f||p[1]===f);gr.innerHTML=cur.map(([s,,c],i)=>`<button data-i="${i}" aria-label="Open ${c}"><img src="media/pics/${s}.jpg" alt="" loading="lazy"><span>${c}</span></button>`).join('')}draw('');
+document.querySelectorAll('.lh-f button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.lh-f button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw(b.dataset.f)});
+const lb=document.getElementById('lb'),li=document.getElementById('li');function show(i){ci=(i+cur.length)%cur.length;li.src=`media/pics/${cur[ci][0]}.jpg`;li.alt=cur[ci][2];document.getElementById('lc').textContent=`${cur[ci][2]} · ${ci+1}/${cur.length}`;li.style.animation='none';li.offsetWidth;li.style.animation=''}
+gr.onclick=e=>{const b=e.target.closest('button');if(!b)return;show(+b.dataset.i);lb.showModal()};
+document.getElementById('lx').onclick=()=>lb.close();document.getElementById('lp').onclick=()=>show(ci-1);document.getElementById('lnx').onclick=()=>show(ci+1);
+lb.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(ci-1);if(e.key==='ArrowRight')show(ci+1)});
+let sx=0;lb.addEventListener('pointerdown',e=>sx=e.clientX);lb.addEventListener('pointerup',e=>{const d=e.clientX-sx;if(Math.abs(d)>50)show(ci+(d<0?1:-1))});
+</script>

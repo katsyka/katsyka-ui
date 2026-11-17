@@ -1,0 +1,64 @@
+<style>
+.lc{position:relative;min-height:100vh;overflow:hidden;background:#07070a;color:#f1f1f3}
+.lc canvas{position:absolute;inset:0;width:100%;height:100%}
+.lc-in{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:32px clamp(20px,4vw,56px) 40px;pointer-events:none}
+.lc-top{display:flex;justify-content:space-between;font-size:14px;font-weight:500}.lc-top span:last-child{color:#8d8d96}
+.lc-bot{display:grid;grid-template-columns:1fr auto;align-items:end;gap:40px}
+.lc h1{font-size:clamp(48px,9vw,148px);line-height:.86;letter-spacing:-.065em;font-weight:600;margin:0}
+.lc h1 em{font-family:"Instrument Serif",serif;font-weight:400;letter-spacing:-.03em;color:#c9c9d1}
+.lc-side{max-width:280px;font-size:15px;line-height:1.55;color:#9a9aa3;pointer-events:auto}
+.lc-side a{display:inline-flex;margin-top:18px;height:44px;align-items:center;padding:0 20px;border-radius:99px;background:#f1f1f3;color:#07070a;text-decoration:none;font-weight:600;font-size:14px}
+@media (max-width:760px){.lc-bot{grid-template-columns:1fr}}
+.lc.nogl{background:radial-gradient(circle at 70% 40%,#3a3a40,#07070a 60%)}
+</style>
+<section class="lc">
+  <canvas></canvas>
+  <div class="lc-in">
+    <div class="lc-top"><span>Mercury Labs</span><span>Move the pointer · the small drop follows</span></div>
+    <div class="lc-bot"><h1>Form follows<br><em>feeling.</em></h1>
+      <div class="lc-side">Three ray-marched metaballs melt into each other under a studio light rig. No models, no textures, one fragment shader.<br><a href="#">See the material</a></div></div>
+  </div>
+</section>
+<script>
+(()=>{
+const FS=`precision highp float;uniform vec2 r,m;uniform float t;
+float sm(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}
+float map(vec3 p){vec3 a=vec3(sin(t*.6)*.55+.35,cos(t*.45)*.25,0.),b=vec3(cos(t*.5)*-.45+.5,sin(t*.7)*.35-.1,sin(t*.4)*.3),c=vec3(m.x*1.6,m.y*.9,.35);
+ float d=sm(length(p-a)-.5,length(p-b)-.34,.45);return sm(d,length(p-c)-.22,.42);}
+vec3 nor(vec3 p){vec2 e=vec2(.0015,0);return normalize(vec3(map(p+e.xyy)-map(p-e.xyy),map(p+e.yxy)-map(p-e.yxy),map(p+e.yyx)-map(p-e.yyx)));}
+vec3 env(vec3 d){vec3 c=mix(vec3(.015),vec3(.09,.09,.1),smoothstep(-.4,.9,d.y));
+ c+=vec3(1.)*smoothstep(.12,.05,abs(d.y-.62))*smoothstep(.95,.4,abs(d.x+.1))*1.8;
+ c+=vec3(.95,.97,1.)*smoothstep(.07,.0,abs(d.x-.78+.15*d.y))*smoothstep(-.2,.3,d.y)*1.3;
+ c+=vec3(.9)*smoothstep(.05,.0,abs(d.x+.85))*.6;
+ c+=vec3(1.,.45,.2)*smoothstep(.1,.0,abs(d.y+.12))*1.1;
+ c+=vec3(.07)*smoothstep(-.2,-.9,d.y);
+ c+=vec3(.6,.7,1.)*smoothstep(.04,.0,abs(d.y-.25-.2*d.x))*smoothstep(.2,-.6,d.x)*.7;return c;}
+void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;vec3 ro=vec3(0,0,3.2),rd=normalize(vec3(uv,-1.7));
+ float d,T=0.;bool hit=false;for(int i=0;i<72;i++){d=map(ro+rd*T);if(d<.001){hit=true;break;}T+=d;if(T>7.)break;}
+ vec3 col=vec3(.03,.03,.04)+vec3(.05)*smoothstep(1.2,0.,length(uv-vec2(.3,.1)));
+ if(hit){vec3 p=ro+rd*T,n=nor(p),rf=reflect(rd,n);float fr=pow(1.-max(dot(-rd,n),0.),3.);
+  col=env(rf)*mix(vec3(.75,.76,.8),vec3(1.),fr);col+=fr*.12;}
+ col=pow(col/(1.+col),vec3(.85));vec3 q=fract(vec3(gl_FragCoord.xyx)*.1031);q+=dot(q,q.yzx+33.33);col+=(fract((q.x+q.y)*q.z)-.5)*.02;
+ gl_FragColor=vec4(col,1);}`;
+const root=document.querySelector(".lc"),c=root.querySelector("canvas"),gl=c.getContext("webgl");
+if(!gl){root.classList.add("nogl");return}
+const sh=(k,s)=>{const o=gl.createShader(k);gl.shaderSource(o,s);gl.compileShader(o);return o};
+const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,"attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}"));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));
+gl.bindAttribLocation(pr,0,"p");gl.linkProgram(pr);
+// fall back to a CSS gradient if the GPU refuses the shader instead of leaving a blank canvas
+if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){console.error(gl.getProgramInfoLog(pr));root.classList.add("nogl");return}
+gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+const U=k=>gl.getUniformLocation(pr,k);
+// ray marching is heavy: render below native resolution and let CSS upscale
+const fit=()=>{const s=Math.min(devicePixelRatio,1.5)*.6;c.width=c.clientWidth*s;c.height=c.clientHeight*s;gl.viewport(0,0,c.width,c.height)};
+new ResizeObserver(fit).observe(c);fit();
+let m=[.6,-.2],mt=[.6,-.2],vis=true;
+root.addEventListener("pointermove",e=>{const b=root.getBoundingClientRect(),a=b.width/b.height;mt=[((e.clientX-b.left)/b.width-.5)*a,.5-(e.clientY-b.top)/b.height]});
+new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(root);
+const t0=performance.now();
+(function f(now){requestAnimationFrame(f);if(!vis)return;m=m.map((v,i)=>v+(mt[i]-v)*.06);
+  gl.uniform2f(U("r"),c.width,c.height);gl.uniform2f(U("m"),m[0],m[1]);gl.uniform1f(U("t"),(now-t0)/1000);gl.drawArrays(gl.TRIANGLES,0,3)})(t0);
+})();
+</script>

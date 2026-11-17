@@ -1,0 +1,46 @@
+<!--Chat Thread|A conversation screen: glass header and composer floating over the messages, grouped bubbles with tails only on the last of a run, read ticks, a date chip and a mic button that turns into send as you type.|chat,messages,bubbles,composer,keyboard-->
+<header class="ct-h"><button class="ib gl" aria-label="Back">@I(left)</button><div class="ct-who gl"><span class="av" style="--c:#b45309">M</span><span><b>Mara Lind</b><small id="stt">online</small></span></div><button class="ib gl" aria-label="Video call">@I(video)</button></header>
+<main class="sc ct-sc" id="sc"><div class="ct-l" id="l" role="log" aria-live="polite"></div></main>
+<form class="ct-c" id="f"><button type="button" class="ib gl" aria-label="Attach">@I(plus)</button><label class="ct-in gl"><span class="vh">Message</span><input id="in" placeholder="Message" autocomplete="off" enterkeyhint="send"></label><button class="ib gl ct-go" id="go" aria-label="Record voice message">@I(mic)</button></form>
+<style>
+.ct-h{position:absolute;inset:calc(var(--st) + 4px) 12px auto;z-index:60;display:flex;gap:8px;align-items:center}
+.ct-who{flex:1;min-width:0;height:44px;border-radius:22px;display:flex;align-items:center;gap:10px;padding:0 12px 0 4px}
+.ct-who .av{width:36px;height:36px;font-size:14px}
+.ct-who b{display:block;font-size:15px;line-height:18px;font-weight:600}.ct-who small{display:block;font-size:12px;line-height:15px;color:var(--ok)}
+.ct-who small.ty{color:var(--ac)}
+.ct-sc{padding:calc(var(--st) + 60px) 0 calc(var(--sbt) + 76px)}
+.ct-l{display:flex;flex-direction:column;gap:2px;padding:0 12px}
+.ct-d{align-self:center;margin:12px 0 8px;padding:4px 10px;border-radius:12px;background:var(--sf);font-size:12px;font-weight:600;color:var(--mu)}
+.ct-b{position:relative;max-width:78%;padding:8px 12px 8px;border-radius:20px;font-size:16px;line-height:22px;background:var(--sf);align-self:flex-start;word-wrap:break-word}
+.ct-b.me{align-self:flex-end;background:var(--ac);color:var(--ac-fg)}
+.ct-b.tail{margin-bottom:8px;border-bottom-left-radius:6px}.ct-b.me.tail{border-bottom-left-radius:20px;border-bottom-right-radius:6px}
+.ct-b time{float:right;margin:8px -2px -4px 10px;font-size:11px;line-height:12px;opacity:.7;font-variant-numeric:tabular-nums;display:inline-flex;gap:2px;align-items:center}
+.ct-b time svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.ct-b.new{animation:ctin .35s var(--ease)}
+@keyframes ctin{from{opacity:0;transform:translateY(12px) scale(.96)}}
+.ct-ty{display:flex;gap:4px;padding:14px 14px}.ct-ty i{width:7px;height:7px;border-radius:50%;background:var(--mu);animation:dot 1.2s infinite}.ct-ty i:nth-child(2){animation-delay:.15s}.ct-ty i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.ct-c{position:absolute;left:12px;right:12px;bottom:calc(var(--sbt) - 4px);z-index:60;display:flex;gap:8px;align-items:flex-end;margin:0}
+@media (max-width:500px){.ct-c{bottom:max(8px,var(--sbt))}}
+.ct-in{flex:1;min-width:0;min-height:44px;border-radius:22px;display:flex;align-items:center;padding:0 16px}
+.ct-in input{width:100%;border:0;background:none;outline:0;font-size:17px!important}
+.ct-in input::placeholder{color:var(--mu)}
+.ct-go.send{background:var(--ac)!important;color:var(--ac-fg)!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+.ct-go .i{transition:transform .25s var(--ease)}.ct-go.send .i{transform:rotate(0)}
+</style>
+<script>
+const T='<svg viewBox="0 0 24 24"><path d="m2 13 4 4 8-10M10 15l2 2 8-10"/></svg>';
+const M=[["d","Today"],[0,"Are you still up for the hike on Saturday?","09:02"],[0,"Weather looks clear after 10","09:02"],[1,"Yes! Trailhead at 8?","09:05"],[1,"I'll bring the thermos","09:05"],[0,"8 is perfect. I'll grab the bread on the way","09:08"],[1,"Deal. Send me the pin when you leave","09:10"],[0,"Will do 👍","09:12"]];
+const add=(me,t,time,anim)=>{const prev=l.lastElementChild;if(prev&&prev.classList.contains("ct-b")&&prev.classList.contains("me")==!!me)prev.classList.remove("tail");
+ const b=document.createElement("div");b.className="ct-b tail"+(me?" me":"")+(anim?" new":"");b.textContent=t;const tm=document.createElement("time");tm.innerHTML=time+(me?T:"");b.append(tm);l.append(b)};
+M.forEach(m=>m[0]==="d"?l.insertAdjacentHTML("beforeend",`<div class="ct-d">${m[1]}</div>`):add(m[0],m[1],m[2]));
+const end=()=>sc.scrollTo({top:sc.scrollHeight,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});
+sc.scrollTop=sc.scrollHeight;
+const MIC=go.innerHTML,SEND='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+const in_=document.getElementById("in");
+in_.addEventListener("input",()=>{const s=in_.value.trim().length>0;if(s!==go.classList.contains("send")){go.classList.toggle("send",s);go.innerHTML=s?SEND:MIC;go.setAttribute("aria-label",s?"Send":"Record voice message")}});
+f.onsubmit=e=>{e.preventDefault();const t=in_.value.trim();if(!t)return;const d=new Date(),tm=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");add(1,t,tm,1);in_.value="";in_.dispatchEvent(new Event("input"));end();
+ setTimeout(()=>{stt.textContent="typing…";stt.className="ty";const ty=document.createElement("div");ty.className="ct-b tail ct-ty";ty.innerHTML="<i></i><i></i><i></i>";l.append(ty);end();
+  setTimeout(()=>{ty.remove();stt.textContent="online";stt.className="";add(0,"Sounds good",tm,1);end()},1600)},700)};
+go.onclick=e=>{if(go.classList.contains("send")){e.preventDefault();f.requestSubmit()}};
+</script>

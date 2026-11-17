@@ -1,0 +1,94 @@
+<style>
+.ob2{min-height:100vh;display:grid;place-items:center;padding:40px 16px;background:#f4f2ee;color:#1c1917}
+.ob2-card{position:relative;width:min(560px,100%);border-radius:24px;background:#fff;box-shadow:0 1px 0 #1c19170a,0 30px 70px -30px #1c191740;overflow:hidden}
+.ob2-top{display:flex;align-items:center;gap:14px;padding:22px 26px 0}
+.ob2-steps{display:flex;gap:6px;flex:1}
+.ob2-steps i{position:relative;flex:1;height:4px;border-radius:2px;background:#ece9e3;overflow:hidden}
+.ob2-steps i::after{content:"";position:absolute;inset:0;background:#1c1917;transform:scaleX(var(--p,0));transform-origin:left;transition:transform .5s cubic-bezier(.6,0,.2,1)}
+.ob2-top span{font:500 12px "Geist Mono",monospace;color:#a8a29e;white-space:nowrap}
+.ob2-view{position:relative;transition:height .45s cubic-bezier(.6,0,.2,1)}
+.ob2-pane{position:absolute;top:0;left:0;width:100%;padding:24px 26px 8px;opacity:0;pointer-events:none;transition:opacity .35s,transform .45s cubic-bezier(.6,0,.2,1)}
+.ob2-pane.on{opacity:1;pointer-events:auto;transform:none!important}
+.ob2 h2{margin:0 0 6px;font-size:24px;letter-spacing:-.035em;font-weight:600}.ob2 p.s{margin:0 0 22px;color:#78716c;font-size:14.5px}
+.ob2-roles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ob2-role{position:relative;display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:16px;border:1.5px solid #ece9e3;background:#fff;cursor:pointer;text-align:left;font:inherit;color:inherit;transition:border-color .2s,background .2s,transform .2s}
+.ob2-role:hover{border-color:#d6d3cd}.ob2-role:active{transform:scale(.98)}
+.ob2-role.on{border-color:#1c1917;background:#faf9f7}
+.ob2-role svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ob2-role b{font-size:14.5px;font-weight:600}.ob2-role small{font-size:12.5px;color:#78716c;line-height:1.4}
+.ob2-role::after{content:"";position:absolute;top:14px;right:14px;width:18px;height:18px;border-radius:50%;border:1.5px solid #d6d3cd;transition:all .2s}
+.ob2-role.on::after{border:5.5px solid #1c1917}
+.ob2-f{margin-bottom:18px}.ob2-f label{display:block;font-size:13px;font-weight:550;margin-bottom:8px}
+.ob2-in{display:flex;align-items:center;height:48px;border-radius:12px;border:1.5px solid #ece9e3;padding:0 14px;transition:border-color .2s,box-shadow .2s}
+.ob2-in:focus-within{border-color:#1c1917;box-shadow:0 0 0 4px #1c19170d}
+.ob2-in input{flex:1;min-width:0;border:0;outline:0;font:15px Geist,sans-serif;color:inherit;background:none}
+.ob2-url{margin-top:8px;font:12.5px "Geist Mono",monospace;color:#a8a29e}.ob2-url b{color:#1c1917;font-weight:500}
+.ob2-seg{display:flex;gap:6px;flex-wrap:wrap}
+.ob2-seg button{height:38px;padding:0 14px;border-radius:10px;border:1.5px solid #ece9e3;background:#fff;font:500 13.5px Geist,sans-serif;color:#57534e;cursor:pointer;transition:all .2s}
+.ob2-seg button.on{background:#1c1917;color:#fff;border-color:#1c1917}
+.ob2-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ob2-chip{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px 0 10px;border-radius:99px;border:1.5px solid #ece9e3;background:#fff;font:500 14px Geist,sans-serif;color:#44403c;cursor:pointer;transition:all .25s cubic-bezier(.3,1.4,.5,1)}
+.ob2-chip i{width:20px;height:20px;border-radius:6px;background:var(--c);display:grid;place-items:center;font-style:normal;font-size:11px;color:#fff;font-weight:700}
+.ob2-chip.on{border-color:#1c1917;background:#1c1917;color:#fff;transform:scale(1.03)}
+.ob2-chip.on::after{content:"✓";font-size:12px}
+.ob2-done{text-align:center;padding-top:20px!important}
+.ob2-done .badge{width:64px;height:64px;margin:4px auto 18px;border-radius:50%;background:#1c1917;display:grid;place-items:center}
+.ob2-done svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30}
+.ob2-done.on svg{transition:stroke-dashoffset .5s .3s;stroke-dashoffset:0}
+.ob2-sum{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:10px}.ob2-sum span{font-size:12.5px;padding:4px 10px;border-radius:99px;background:#f4f2ee;color:#57534e}
+.ob2-foot{display:flex;justify-content:space-between;align-items:center;padding:16px 26px 22px}
+.ob2-foot button{height:44px;padding:0 20px;border-radius:12px;font:600 14.5px Geist,sans-serif;cursor:pointer;transition:all .2s}
+.ob2-back{border:0;background:none;color:#78716c}.ob2-back:hover{color:#1c1917}.ob2-back[hidden]{display:block;visibility:hidden}
+.ob2-next{border:0;background:#1c1917;color:#fff;display:flex;align-items:center;gap:8px}
+.ob2-next:disabled{background:#e7e5e4;color:#a8a29e;cursor:not-allowed}
+.ob2-next:not(:disabled):hover{gap:12px}
+.ob2 canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+</style>
+<div class="ob2"><div class="ob2-card">
+  <div class="ob2-top"><div class="ob2-steps"><i></i><i></i><i></i></div><span>1 / 3</span></div>
+  <div class="ob2-view">
+    <section class="ob2-pane"><h2>What brings you here?</h2><p class="s">We'll tailor your workspace to how you work.</p>
+      <div class="ob2-roles">
+        <button class="ob2-role" data-v="Design"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7zM18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><circle cx="11" cy="11" r="2"/></svg><b>Design</b><small>Files, feedback, handoff</small></button>
+        <button class="ob2-role" data-v="Engineering"><svg viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg><b>Engineering</b><small>Issues, sprints, releases</small></button>
+        <button class="ob2-role" data-v="Product"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg><b>Product</b><small>Roadmaps and research</small></button>
+        <button class="ob2-role" data-v="Marketing"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></svg><b>Marketing</b><small>Campaigns and content</small></button>
+      </div></section>
+    <section class="ob2-pane"><h2>Set up your workspace</h2><p class="s">You can rename it any time.</p>
+      <div class="ob2-f"><label for="ob2n">Workspace name</label><div class="ob2-in"><input id="ob2n" placeholder="Acme Inc" autocomplete="off"></div><div class="ob2-url">example.app/<b>your-team</b></div></div>
+      <div class="ob2-f"><label>Team size</label><div class="ob2-seg"><button>Just me</button><button>2–10</button><button>11–50</button><button>50+</button></div></div></section>
+    <section class="ob2-pane"><h2>Bring your tools</h2><p class="s">Pick at least one. We'll connect them next.</p>
+      <div class="ob2-chips">
+        <button class="ob2-chip" style="--c:#0f172a"><i>G</i>GitHub</button><button class="ob2-chip" style="--c:#7c3aed"><i>F</i>Figma</button><button class="ob2-chip" style="--c:#16a34a"><i>S</i>Sheets</button>
+        <button class="ob2-chip" style="--c:#e11d48"><i>A</i>Asana</button><button class="ob2-chip" style="--c:#2563eb"><i>J</i>Jira</button><button class="ob2-chip" style="--c:#ea580c"><i>Z</i>Zapier</button><button class="ob2-chip" style="--c:#0891b2"><i>N</i>Notion</button><button class="ob2-chip" style="--c:#4f46e5"><i>L</i>Linear</button>
+      </div></section>
+    <section class="ob2-pane ob2-done"><div class="badge"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg></div><h2>You're all set</h2><p class="s">Your workspace is ready. Here's what we set up:</p><div class="ob2-sum"></div></section>
+  </div>
+  <div class="ob2-foot"><button class="ob2-back" hidden>← Back</button><button class="ob2-next" disabled>Continue <span>→</span></button></div>
+  <canvas></canvas>
+</div></div>
+<script>
+(()=>{
+const card=document.querySelector(".ob2-card"),view=card.querySelector(".ob2-view"),panes=[...card.querySelectorAll(".ob2-pane")],bars=[...card.querySelectorAll(".ob2-steps i")],cnt=card.querySelector(".ob2-top span"),back=card.querySelector(".ob2-back"),next=card.querySelector(".ob2-next");
+const st={role:null,name:"",size:null,tools:new Set()};let i=0;
+const valid=()=>[!!st.role,st.name.trim().length>1&&!!st.size,st.tools.size>0,true][i];
+function go(n){const dir=n>i?1:-1;panes.forEach((p,k)=>{p.classList.toggle("on",k===n);if(k!==n)p.style.transform=`translateX(${k<n?-40:40}px)`});i=n;
+  view.style.height=panes[n].offsetHeight+"px";bars.forEach((b,k)=>b.style.setProperty("--p",k<n?1:k===n&&n<3?.35:n===3?1:0));
+  cnt.textContent=n<3?`${n+1} / 3`:"Done";back.hidden=n===0||n===3;next.innerHTML=n===2?"Finish setup <span>→</span>":n===3?"Open workspace <span>→</span>":"Continue <span>→</span>";next.disabled=!valid();
+  if(n===3){card.querySelector(".ob2-sum").innerHTML=[st.role,st.name,st.size+" people",...st.tools].map(x=>`<span>${x}</span>`).join("");confetti()}
+  const f=panes[n].querySelector("input");if(f)setTimeout(()=>f.focus(),300)}
+card.querySelectorAll(".ob2-role").forEach(b=>b.onclick=()=>{card.querySelectorAll(".ob2-role").forEach(x=>x.classList.toggle("on",x===b));st.role=b.dataset.v;next.disabled=!valid()});
+const name=card.querySelector("#ob2n"),url=card.querySelector(".ob2-url b");
+name.oninput=()=>{st.name=name.value;url.textContent=name.value.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"your-team";next.disabled=!valid()};
+name.onkeydown=e=>{if(e.key==="Enter"&&valid())go(i+1)};
+card.querySelectorAll(".ob2-seg button").forEach(b=>b.onclick=()=>{card.querySelectorAll(".ob2-seg button").forEach(x=>x.classList.toggle("on",x===b));st.size=b.textContent;next.disabled=!valid()});
+card.querySelectorAll(".ob2-chip").forEach(b=>b.onclick=()=>{b.classList.toggle("on");const t=b.textContent.slice(1);st.tools.has(t)?st.tools.delete(t):st.tools.add(t);next.disabled=!valid()});
+next.onclick=()=>{if(i<3)go(i+1);else{next.textContent="Opening…";setTimeout(()=>next.innerHTML="Open workspace <span>→</span>",1200)}};back.onclick=()=>go(i-1);
+function confetti(){const c=card.querySelector("canvas"),x=c.getContext("2d"),d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;
+  const C=["#1c1917","#ff5a1f","#ffb36b","#a8a29e","#16a34a"],P=[...Array(90)].map(()=>({x:c.width/2,y:c.height*.32,vx:(Math.random()-.5)*16*d,vy:(-Math.random()*12-4)*d,r:Math.random()*6.3,vr:(Math.random()-.5)*.3,w:(4+Math.random()*5)*d,h:(7+Math.random()*7)*d,c:C[Math.random()*5|0]}));
+  const t0=performance.now();(function f(now){x.clearRect(0,0,c.width,c.height);const a=Math.max(0,1-(now-t0)/2600);
+    for(const p of P){p.vy+=.45*d;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.globalAlpha=a;x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,Math.abs(Math.cos(p.r*2))*p.h+1);x.restore()}
+    if(a>0)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})(t0)}
+go(0);
+})();
+</script>

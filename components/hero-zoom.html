@@ -1,0 +1,44 @@
+<style>
+.zm{position:relative;height:320vh;background:#0b0b0c}
+.zm-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.zm-img{position:absolute;inset:0;background:#333 url(https://picsum.photos/id/1018/1800/1200) center/cover;will-change:transform}
+.zm svg{position:absolute;inset:0;width:100%;height:100%}
+.zm-cap{position:absolute;left:clamp(20px,5vw,72px);bottom:8vh;max-width:460px;color:#fff;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.zm-cap.on{opacity:1;transform:none}
+.zm-cap small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em}
+.zm-cap h2{font-size:clamp(34px,4.4vw,60px);line-height:1;letter-spacing:-.045em;margin:12px 0;font-weight:600}
+.zm-cap p{margin:0;font-size:16px;line-height:1.55;color:#ffffffd0}
+.zm-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);font:500 11px "Geist Mono",monospace;letter-spacing:.2em;color:#ffffff80;transition:opacity .4s}
+.zm-after{height:60vh;display:grid;place-items:center;color:#8b8b93;background:#0b0b0c;font-size:15px}
+</style>
+<section class="zm">
+  <div class="zm-pin">
+    <div class="zm-img"></div>
+    <svg><defs><mask id="zmMask"><rect width="100%" height="100%" fill="#fff"/><text x="50%" y="50%" text-anchor="middle" font-family="Geist,sans-serif" font-weight="800" letter-spacing="-12" fill="#000">OPEN</text></mask></defs>
+      <rect width="100%" height="100%" fill="#0b0b0c" mask="url(#zmMask)"/></svg>
+    <div class="zm-cap"><small>CHAPTER ONE</small><h2>The view was always there.</h2><p>Scroll drives a mask: the word scales around the counter of its O until the landscape behind it fills the screen.</p></div>
+    <div class="zm-hint">SCROLL TO ENTER</div>
+  </div>
+</section>
+<div class="zm-after">The section continues normally after the pin.</div>
+<script>
+(()=>{
+const sec=document.querySelector(".zm"),cover=sec.querySelector("svg > rect"),txt=sec.querySelector("text"),img=sec.querySelector(".zm-img"),cap=sec.querySelector(".zm-cap"),hint=sec.querySelector(".zm-hint");
+let ox=0,oy=0;
+const ctx=document.createElement("canvas").getContext("2d");
+const measure=()=>{const fs=Math.min(innerWidth*.3,innerHeight*.5);txt.setAttribute("font-size",fs);txt.removeAttribute("transform");
+  // zoom origin = centre of the O's ink box (= its counter), measured from the real glyph, so we fly through the hole
+  ctx.font=`800 ${fs}px Geist,sans-serif`;const m=ctx.measureText("O"),base=innerHeight/2+m.actualBoundingBoxAscent/2;
+  txt.setAttribute("y",base);ox=txt.getStartPositionOfChar(0).x+(m.actualBoundingBoxRight-m.actualBoundingBoxLeft)/2;
+  oy=base-(m.actualBoundingBoxAscent-m.actualBoundingBoxDescent)/2;up()};
+const up=()=>{const r=sec.getBoundingClientRect(),p=Math.min(1,Math.max(0,-r.top/(sec.offsetHeight-innerHeight)));
+  // past ~24x the counter already covers the viewport; larger glyphs stop rasterising in Chromium masks
+  const e=Math.min(1,Math.pow(p/.8,2.6)),s=1+e*23;
+  txt.setAttribute("transform",`translate(${ox} ${oy}) scale(${s}) translate(${-ox} ${-oy})`);
+  cover.style.opacity=p<.78?1:Math.max(0,1-(p-.78)/.07);
+  img.style.transform=`scale(${1.35-.35*Math.min(1,p*1.2)})`;
+  cap.classList.toggle("on",p>.8);hint.style.opacity=p>.05?0:1};
+addEventListener("scroll",up,{passive:true});addEventListener("resize",measure);
+(document.fonts?document.fonts.ready:Promise.resolve()).then(measure);measure();
+})();
+</script>

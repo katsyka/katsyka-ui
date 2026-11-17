@@ -1,0 +1,44 @@
+<!--Boarding Pass|A wallet-style boarding pass: airport codes large, times and gate in a tabular grid, a perforated tear line with notches, a scannable-looking code that brightens on tap, and a swipe to the return leg.|boarding pass,ticket,travel,qr,wallet-->
+<header class="bar" style="background:none;-webkit-backdrop-filter:none;backdrop-filter:none"><div class="nb"><span><button class="ib" aria-label="Back">@I(left)</button></span><h2>Trips</h2><span><button class="ib" aria-label="Share">@I(share,22)</button></span></div></header>
+<main class="bp-s" id="s">
+  <article class="bp" style="--c:#0f3d5e"><header><span class="bp-al">@I(plane,18) Norrfly</span><span class="tn">NF 612</span></header>
+    <div class="bp-rt"><div><b>BGO</b><small>Bergen</small></div><span class="bp-ln">@I(plane,18)</span><div style="text-align:right"><b>OSL</b><small>Oslo</small></div></div>
+    <dl class="bp-g"><div><dt>Boards</dt><dd class="tn">08:25</dd></div><div><dt>Departs</dt><dd class="tn">08:55</dd></div><div><dt>Arrives</dt><dd class="tn">09:50</dd></div><div><dt>Gate</dt><dd>C21</dd></div><div><dt>Seat</dt><dd>14A</dd></div><div><dt>Group</dt><dd>2</dd></div></dl>
+    <div class="bp-tear" aria-hidden="true"></div>
+    <div class="bp-q"><button class="bp-qr" aria-label="Show code at full brightness"></button><p><b>Mara Lind</b><small>Thu 12 Nov · Economy</small><small class="tn">Ref KX4P9M</small></p></div>
+  </article>
+  <article class="bp" style="--c:#7c2d12"><header><span class="bp-al">@I(plane,18) Norrfly</span><span class="tn">NF 619</span></header>
+    <div class="bp-rt"><div><b>OSL</b><small>Oslo</small></div><span class="bp-ln">@I(plane,18)</span><div style="text-align:right"><b>BGO</b><small>Bergen</small></div></div>
+    <dl class="bp-g"><div><dt>Boards</dt><dd class="tn">18:40</dd></div><div><dt>Departs</dt><dd class="tn">19:10</dd></div><div><dt>Arrives</dt><dd class="tn">20:00</dd></div><div><dt>Gate</dt><dd>—</dd></div><div><dt>Seat</dt><dd>9F</dd></div><div><dt>Group</dt><dd>1</dd></div></dl>
+    <div class="bp-tear" aria-hidden="true"></div>
+    <div class="bp-q"><button class="bp-qr" aria-label="Show code at full brightness"></button><p><b>Mara Lind</b><small>Sun 15 Nov · Economy</small><small class="tn">Ref KX4P9M</small></p></div>
+  </article>
+</main>
+<div class="bp-dots" aria-hidden="true"><i class="on"></i><i></i></div>
+<style>
+.bp-s{flex:1;display:flex;align-items:center;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:calc(var(--st) + 44px) 0 0}.bp-s::-webkit-scrollbar{display:none}
+.bp{flex:none;width:calc(100% - 40px);margin:0 20px;scroll-snap-align:center;border-radius:24px;background:var(--c);color:#fff;padding:20px 20px 0;box-shadow:0 20px 40px -20px #000a;font-family:Geist}
+.bp header{display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:600;opacity:.9}
+.bp-al{display:flex;gap:6px;align-items:center;font-weight:700;letter-spacing:.02em}
+.bp-rt{display:flex;align-items:center;justify-content:space-between;margin:20px 0}
+.bp-rt b{display:block;font-size:48px;line-height:1;font-weight:700;letter-spacing:-.02em}.bp-rt small{font-size:14px;opacity:.75}
+.bp-ln{flex:1;margin:0 12px;height:1px;background:repeating-linear-gradient(90deg,#fff8 0 4px,transparent 4px 8px);display:grid;place-items:center}.bp-ln .i{background:var(--c);padding:0 4px;box-sizing:content-box;transform:rotate(45deg)}
+.bp-g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0}
+.bp-g dt{font-size:12px;opacity:.7;text-transform:uppercase;letter-spacing:.06em;font-weight:600}.bp-g dd{margin:2px 0 0;font-size:20px;font-weight:650}
+.bp-tear{position:relative;height:24px;margin:16px -20px 0;background:radial-gradient(circle at 0 50%,var(--bg) 12px,transparent 12.5px),radial-gradient(circle at 100% 50%,var(--bg) 12px,transparent 12.5px)}
+.bp-tear::after{content:"";position:absolute;left:20px;right:20px;top:50%;border-top:2px dashed #ffffff40}
+.bp-q{display:flex;align-items:center;gap:16px;padding:12px 0 20px}
+.bp-qr{width:112px;height:112px;flex:none;border-radius:12px;background:#fff!important;padding:8px!important;transition:transform .4s cubic-bezier(.3,1.3,.5,1),box-shadow .3s}
+.bp-qr svg{width:100%;height:100%;display:block}
+.bp-qr.big{transform:scale(1.6) translateX(24%);box-shadow:0 0 0 100vmax #000c;position:relative;z-index:5}
+.bp-q p{margin:0;font-size:14px;line-height:20px}.bp-q b{display:block;font-size:17px}.bp-q small{display:block;opacity:.75}
+.bp-dots{display:flex;justify-content:center;gap:6px;padding:16px 0 max(24px,var(--sbt))}.bp-dots i{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .2s}.bp-dots i.on{background:var(--fg)}
+</style>
+<script>
+const qr=seed=>{let x=seed;const R=()=>(x=(x*1103515245+12345)%2147483648)/2147483648;const N=25;let p="";
+ const fin=(a,b)=>`<path d="M${a} ${b}h7v7h-7zM${a+1} ${b+1}v5h5v-5z" fill-rule="evenodd"/><rect x="${a+2}" y="${b+2}" width="3" height="3"/>`;
+ for(let y=0;y<N;y++)for(let c=0;c<N;c++){if((y<8&&c<8)||(y<8&&c>16)||(y>16&&c<8))continue;if(R()>.52)p+=`M${c} ${y}h1v1h-1z`}
+ return`<svg viewBox="0 0 25 25" shape-rendering="crispEdges" fill="#111">${fin(0,0)}${fin(18,0)}${fin(0,18)}<path d="${p}"/></svg>`};
+document.querySelectorAll(".bp-qr").forEach((b,i)=>{b.innerHTML=qr(7+i*31);b.onclick=()=>b.classList.toggle("big")});
+s.addEventListener("scroll",()=>{const k=Math.round(s.scrollLeft/s.clientWidth);document.querySelectorAll(".bp-dots i").forEach((d,j)=>d.classList.toggle("on",j===k))},{passive:true});
+</script>

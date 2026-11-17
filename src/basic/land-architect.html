@@ -1,0 +1,29 @@
+<!--Architecture Studio Landing|Landings|An architecture practice: an index of projects as a typographic list where hovering a row reveals its photo beside the cursor, plus a studio statement and contact strip.|landing,architecture,portfolio,hover,list,editorial-->
+<div class="k pg la">
+<header class="top"><div class="w"><a class="logo" href="#">Varga Holm Arkitekter</a><nav class="links"><a href="#">Projects</a><a href="#">Studio</a><a href="#">Contact</a></nav><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w la-hero"><h1 class="h1">We design buildings that age<br><span class="mu">better than they open.</span></h1></section>
+<section class="w la-idx"><div class="la-hd eb"><span>Project</span><span>Type</span><span>Place</span><span>Year</span></div><ul id="li">
+<li data-img="media/pics/w/1076.jpg"><a href="#"><b>Kantvej Housing</b><span>Residential</span><span>Aarhus</span><span class="tn">2026</span></a></li>
+<li data-img="media/pics/w/1033.jpg"><a href="#"><b>Nordport Station</b><span>Transit</span><span>Malmö</span><span class="tn">2025</span></a></li>
+<li data-img="media/pics/c/1048.jpg"><a href="#"><b>Fjeld Tower</b><span>Office</span><span>Oslo</span><span class="tn">2024</span></a></li>
+<li data-img="media/pics/c/1031.jpg"><a href="#"><b>Saltlager Library</b><span>Civic</span><span>Bergen</span><span class="tn">2023</span></a></li>
+<li data-img="media/pics/c/1078.jpg"><a href="#"><b>Ostra Courtyards</b><span>Residential</span><span>Göteborg</span><span class="tn">2022</span></a></li></ul><img class="la-fl" id="fl" alt="" aria-hidden="true"></section>
+<section class="sec w la-st"><p class="eb">Studio</p><p class="la-big">31 architects in a converted rope works. We take on six projects a year, stay on site until handover, and publish the energy figures of every building three years after it opens.</p></section>
+<section class="la-ct"><div class="w"><a href="#">studio@vargaholm.example</a><span class="mu">Rebslagervej 4, Aarhus</span></div></section>
+</div>
+<style>
+.la-hero{padding:96px 0 64px}.la-hero .h1{font-size:clamp(34px,5.6vw,72px);font-weight:560}
+.la-idx{position:relative}.la-hd,.la-idx a{display:grid;grid-template-columns:2.2fr 1fr 1fr 80px;gap:16px}.la-hd{padding-bottom:12px;border-bottom:1px solid var(--fg)}
+.la-idx ul{list-style:none;margin:0;padding:0}.la-idx a{padding:22px 0;border-bottom:1px solid var(--line);color:inherit;text-decoration:none;align-items:baseline;transition:padding .25s var(--ease),color .2s}.la-idx a b{font-size:clamp(20px,2.4vw,30px);font-weight:560;letter-spacing:-.02em}.la-idx a span{color:var(--mu)}.la-idx a span:last-child{text-align:right}
+.la-idx ul:hover a{color:var(--mu)}.la-idx ul:hover a:hover{color:var(--fg);padding-left:12px}
+.la-fl{position:absolute;left:0;top:0;width:280px;aspect-ratio:4/5;object-fit:cover;border-radius:6px;pointer-events:none;opacity:0;transform:translate(-50%,-50%) scale(.9);transition:opacity .2s,transform .25s var(--ease);z-index:3}.la-fl.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.la-big{font-size:clamp(24px,3.2vw,40px);line-height:1.2;letter-spacing:-.02em;max-width:28ch;margin-top:20px;text-wrap:pretty}
+.la-ct{background:var(--fg);color:var(--bg);padding:48px 0}.la-ct .w{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}.la-ct a{color:inherit;font-size:clamp(22px,4vw,48px);letter-spacing:-.02em;text-underline-offset:6px;text-decoration-thickness:1px}.la-ct .mu{color:color-mix(in srgb,var(--bg) 65%,var(--fg))}
+@media (max-width:760px){.la-hd{display:none}.la-idx a{grid-template-columns:1fr auto}.la-idx a span:nth-child(2),.la-idx a span:nth-child(3){display:none}.la-fl{display:none}}
+@media (hover:none){.la-fl{display:none}}
+</style>
+<script>
+const fl=document.getElementById('fl'),box=document.querySelector('.la-idx');
+document.querySelectorAll('#li li').forEach(li=>{li.addEventListener('pointerenter',()=>{fl.src=li.dataset.img;fl.classList.add('on')});li.addEventListener('pointerleave',()=>fl.classList.remove('on'))});
+box.addEventListener('pointermove',e=>{const r=box.getBoundingClientRect();fl.style.left=(e.clientX-r.left+170)+'px';fl.style.top=(e.clientY-r.top)+'px'});
+</script>

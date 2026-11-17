@@ -1,0 +1,51 @@
+<!--Long-press Menu|Press and hold a message: the screen blurs, the bubble lifts toward you, a reaction bar appears above and a context menu below. Picking a reaction pins it to the bubble; Delete is set apart in red.|context menu,long press,reactions,chat,haptic-->
+<header class="bar"><div class="nb"><span><button class="ib" aria-label="Back">@I(left)</button></span><h2>Design crit</h2><span></span></div></header>
+<main class="sc lp" id="sc"><p class="lp-tip">Press and hold any message</p><div id="l"></div></main>
+<div class="lp-ov" id="ov" hidden><div class="lp-m" id="mw"><div class="lp-r" id="rx" role="toolbar" aria-label="React"></div><div class="lp-clone" id="cl"></div><div class="lp-cm" role="menu" id="cm">
+<button role="menuitem">@I(reply,20)<span>Reply</span></button><button role="menuitem">@I(copy,20)<span>Copy</span></button><button role="menuitem">@I(arrowr,20)<span>Forward</span></button><button role="menuitem">@I(bookmark,20)<span>Pin</span></button><button role="menuitem" class="d">@I(trash,20)<span>Delete</span></button></div></div></div>
+<style>
+.lp{padding:calc(var(--st) + 52px) 12px 24px!important}
+.lp-tip{text-align:center;font-size:12px;font-weight:600;color:var(--mu);margin:8px 0 16px}
+.lp-b{position:relative;display:block;max-width:76%;margin:0 0 6px;padding:9px 13px;border-radius:20px;background:var(--sf);font-size:16px;line-height:22px;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:transform .2s var(--ease)}
+.lp-b.me{margin-left:auto;background:var(--ac);color:var(--ac-fg)}
+.lp-b.hold{transform:scale(.96)}
+.lp-b small{display:block;font-size:12px;font-weight:600;color:var(--ac);margin-bottom:2px}
+.lp-b .rc{position:absolute;bottom:-14px;right:10px;padding:2px 6px;border-radius:12px;background:var(--bg);box-shadow:0 0 0 2px var(--bg),0 2px 6px #0002;font-size:14px;animation:rp .35s cubic-bezier(.3,1.5,.5,1)}
+.lp-b.me .rc{right:auto;left:10px}.lp-b:has(.rc){margin-bottom:20px}
+@keyframes rp{from{transform:scale(0)}}
+.lp-ov{position:absolute;inset:0;z-index:100;background:light-dark(#ffffff40,#00000059);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);animation:fd .2s}
+@keyframes fd{from{opacity:0}}
+.lp-m{position:absolute;left:12px;right:12px;display:flex;flex-direction:column}
+.lp-m.me{align-items:flex-end}
+.lp-r{display:flex;gap:2px;padding:6px;border-radius:28px;background:var(--bg);box-shadow:0 10px 30px -8px #0005;margin-bottom:8px;animation:pop .35s cubic-bezier(.3,1.4,.5,1);transform-origin:bottom left}
+.lp-m.me .lp-r{transform-origin:bottom right}
+.lp-r button{width:44px;height:44px;border-radius:50%;font-size:26px;display:grid;place-items:center;transition:transform .15s}
+.lp-r button:active,.lp-r button:focus-visible{transform:scale(1.25)}.lp-r button.on{background:var(--sf2)!important}
+.lp-clone .lp-b{max-width:100%;margin:0;transform:scale(1.04);box-shadow:0 12px 32px -8px #0006;animation:lift .3s var(--ease)}
+@keyframes lift{from{transform:scale(.96)}}
+.lp-cm{margin-top:8px;width:230px;border-radius:16px;overflow:hidden;background:var(--bg);box-shadow:0 16px 40px -10px #0006;animation:pop .3s var(--ease);transform-origin:top left}
+.lp-m.me .lp-cm{transform-origin:top right}
+@keyframes pop{from{opacity:0;transform:scale(.6)}}
+.lp-cm button{display:flex;align-items:center;justify-content:space-between;flex-direction:row-reverse;width:100%;min-height:46px;padding:0 16px;font-size:17px!important;text-align:left}
+.lp-cm button+button{border-top:.5px solid var(--line)}.lp-cm button:active{background:var(--sf)!important}
+.lp-cm .d{border-top:6px solid var(--sf)!important;color:var(--err)!important}
+</style>
+<script>
+const M=[[0,"Ana","I pushed the new spacing tokens, can you check the tab bar?"],[0,"Ana","The lens felt a bit too bouncy on Android"],[1,"","Looking now. I'll drop the overshoot to 0.68"],[0,"Jun","Also the pill sits too close to the home indicator"],[1,"","Good catch, moving it up 8px"]];
+l.innerHTML=M.map(([me,n,t],i)=>`<div class="lp-b${me?" me":""}" tabindex="0" data-i="${i}" aria-haspopup="menu">${n?`<small>${n}</small>`:""}${t}</div>`).join("");
+const R=["❤️","👍","😂","😮","😢","🔥"];rx.innerHTML=R.map(e=>`<button aria-label="React ${e}">${e}</button>`).join("");
+let cur,ht;
+const open=b=>{cur=b;const pr=b.getBoundingClientRect(),ph=document.querySelector(".ph").getBoundingClientRect();cl.innerHTML="";const c=b.cloneNode(true);c.classList.remove("hold");c.removeAttribute("tabindex");cl.append(c);mw.classList.toggle("me",b.classList.contains("me"));
+ const cur_=b.querySelector(".rc");rx.querySelectorAll("button").forEach(x=>x.classList.toggle("on",cur_&&x.textContent===cur_.textContent));
+ ov.hidden=false;let top=pr.top-ph.top-60;const h=mw.offsetHeight;top=Math.max(60,Math.min(top,ph.height-h-24));mw.style.top=top+"px";rx.querySelector("button").focus();navigator.vibrate&&navigator.vibrate(10)};
+const close=()=>{ov.hidden=true;cur&&cur.focus()};
+l.addEventListener("pointerdown",e=>{const b=e.target.closest(".lp-b");if(!b)return;b.classList.add("hold");ht=setTimeout(()=>{b.classList.remove("hold");open(b)},450)});
+["pointerup","pointerleave","pointercancel"].forEach(t=>l.addEventListener(t,()=>{clearTimeout(ht);l.querySelectorAll(".hold").forEach(x=>x.classList.remove("hold"))}));
+sc.addEventListener("scroll",()=>clearTimeout(ht),{passive:true});
+l.addEventListener("contextmenu",e=>{const b=e.target.closest(".lp-b");if(b){e.preventDefault();open(b)}});
+l.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("lp-b")){e.preventDefault();open(e.target)}});
+ov.onclick=e=>{if(e.target===ov||e.target===mw)close()};
+rx.onclick=e=>{const b=e.target.closest("button");if(!b)return;let rc=cur.querySelector(".rc");if(rc&&rc.textContent===b.textContent)rc.remove();else{if(!rc){rc=document.createElement("span");rc.className="rc";cur.append(rc)}rc.textContent=b.textContent}close()};
+cm.onclick=e=>{const b=e.target.closest("button");if(!b)return;if(b.classList.contains("d")){cur.style.transition="opacity .25s,transform .25s";cur.style.opacity=0;cur.style.transform="scale(.9)";const c=cur;setTimeout(()=>c.remove(),250);ov.hidden=true}else close()};
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!ov.hidden)close()});
+</script>

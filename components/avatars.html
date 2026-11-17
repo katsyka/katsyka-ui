@@ -1,0 +1,62 @@
+<style>
+.av{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.av :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.av ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.av *,.av *::before,.av *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.av{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.av-pn{width:min(620px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.av-row{display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:center;padding:20px 24px;border-top:1px solid var(--line)}
+.av-row:first-child{border-top:0}
+.av-lb{font:500 11px/1.3 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.av-set{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.a{--s:40px;position:relative;flex:none;width:var(--s);height:var(--s);border-radius:50%;display:grid;place-items:center;background:var(--bg-a,var(--sf2));color:#fff;font:600 calc(var(--s) * .38) Geist,system-ui,sans-serif;letter-spacing:-.01em;user-select:none}
+.a img{width:100%;height:100%;border-radius:inherit;object-fit:cover}
+.a.sq{border-radius:calc(var(--s) * .28)}
+.a.xs{--s:24px}.a.sm{--s:32px}.a.lg{--s:52px}.a.xl{--s:68px}
+.a .st{position:absolute;right:0;bottom:0;width:calc(var(--s) * .28);height:calc(var(--s) * .28);min-width:8px;min-height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 2px var(--bg)}
+.a.sq .st{right:-2px;bottom:-2px}
+.a .vf{position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;background:var(--info);display:grid;place-items:center;box-shadow:0 0 0 2px var(--bg)}
+.a .vf svg{width:11px;height:11px;fill:none;stroke:#fff;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.a.ph{background:var(--sf2);color:var(--mu)}
+.a.ph svg{width:55%;height:55%;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.a.ring{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ac)}
+.stk{display:flex;align-items:center}
+.stk .a{margin-left:calc(var(--s) * -.28);box-shadow:0 0 0 2px var(--bg);transition:transform .2s var(--ease)}
+.stk .a:first-child{margin-left:0}
+.stk .a:hover{transform:translateY(-3px);z-index:1}
+.stk .more{background:var(--sf2);color:var(--fg);font-size:calc(var(--s) * .32);font-weight:600}
+.stk+span{font-size:13.5px;color:var(--mu)}
+.stk+span b{color:var(--fg);font-weight:550}
+.av-who{display:flex;align-items:center;gap:12px}
+.av-who b{display:block;font-size:14.5px;font-weight:600}
+.av-who small{font-size:13px;color:var(--mu)}
+.av-add{width:40px;height:40px;border-radius:50%;border:1.5px dashed var(--ctl);background:none;color:var(--mu);display:grid;place-items:center;cursor:pointer;margin-left:6px}
+.av-add:hover{color:var(--fg);border-color:var(--fg)}
+.av-add svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+@media (max-width:560px){.av-row{grid-template-columns:1fr;gap:10px}}
+</style>
+<div class="av">
+  <div class="av-pn">
+    <div class="av-row"><div class="av-lb">Sizes</div><div class="av-set" data-names="Mira Okafor|Mira Okafor|Mira Okafor|Mira Okafor|Mira Okafor"><span class="a xs"></span><span class="a sm"></span><span class="a"></span><span class="a lg"></span><span class="a xl"></span></div></div>
+    <div class="av-row"><div class="av-lb">Initials</div><div class="av-set" data-names="Jun Li|Sofia Ruiz|Tomás Brandt|Aiko Kato|Noor Haddad|Lena Fischer"><span class="a"></span><span class="a"></span><span class="a"></span><span class="a sq"></span><span class="a sq"></span><span class="a sq"></span></div></div>
+    <div class="av-row"><div class="av-lb">Status</div><div class="av-set" data-names="Mira Okafor|Jun Li|Sofia Ruiz|Aiko Kato">
+      <span class="a lg"><i class="st"></i></span><span class="a lg"><i class="st" style="background:var(--warn)"></i></span><span class="a lg sq"><i class="st" style="background:var(--ctl)"></i></span><span class="a lg ring"><i class="vf"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></i></span>
+      <span class="a lg ph" role="img" aria-label="No photo"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span></div></div>
+    <div class="av-row"><div class="av-lb">Group</div><div class="av-set">
+      <div class="stk" data-names="Mira Okafor|Jun Li|Sofia Ruiz|Tomás Brandt" id="avStk"><span class="a"></span><span class="a"></span><span class="a"></span><span class="a"></span><span class="a more" aria-label="9 more">+9</span></div><span><b>Mira, Jun</b> and 11 others</span>
+      <button class="av-add" aria-label="Add member"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+    <div class="av-row"><div class="av-lb">With text</div><div class="av-set"><div class="av-who" data-names="Mira Okafor"><span class="a lg"><i class="st"></i></span><div><b>Mira Okafor</b><small>Design lead · Lisbon</small></div></div></div></div>
+  </div>
+</div>
+<script>
+const P=["#c2410c","#0e7490","#7c3aed","#15803d","#be185d","#1d4ed8","#b45309","#0f766e"];
+const hash=s=>[...s].reduce((h,c)=>(h*31+c.charCodeAt(0))>>>0,7);
+const fill=(el,name)=>{el.style.setProperty("--bg-a",P[hash(name)%P.length]);el.prepend(document.createTextNode(name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase()));el.setAttribute("role","img");el.setAttribute("aria-label",name);el.title=name};
+document.querySelectorAll("[data-names]").forEach(g=>{const n=g.dataset.names.split("|");[...g.querySelectorAll(".a:not(.ph):not(.more)")].forEach((a,i)=>n[i]&&fill(a,n[i]))});
+const pool=["Noor Haddad","Lena Fischer","Ravi Patel"];let total=13;
+document.querySelector(".av-add").addEventListener("click",function(){const nm=pool.shift();if(!nm)return;total++;
+  const s=document.getElementById("avStk"),a=document.createElement("span");a.className="a";fill(a,nm);s.prepend(a);
+  const shown=[...s.querySelectorAll(".a:not(.more)")];shown[shown.length-1].remove();
+  const more=s.querySelector(".more");more.textContent="+"+(total-4);more.setAttribute("aria-label",(total-4)+" more");
+  s.nextElementSibling.innerHTML=`<b>${nm.split(" ")[0]}, Mira</b> and ${total-2} others`;if(!pool.length)this.disabled=true});
+</script>

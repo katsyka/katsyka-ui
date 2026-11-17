@@ -1,0 +1,172 @@
+=== auth-split-photo
+<!--Split Photo Sign In|Auth|Full-screen sign in: photo with a caption on one side, a form on the other with email/password validation, show-password, remember me and a loading state. Photo hides on mobile.|auth,signin,login,split,photo,form-->
+<div class="k as">
+<figure class="as-ph"><img src="media/pics/c/1035.jpg" alt=""><figcaption>“Skógafoss at 5 a.m., the only time it's empty.”<span>Photo of the week</span></figcaption></figure>
+<main class="as-m"><form class="as-f" id="f" novalidate><a class="as-lg" href="#">@I(compass,22)Waypoint</a><h1>Welcome back</h1><p class="mu">Sign in to your trips and saved routes.</p>
+<label><span class="lbl">Email</span><input class="in" id="em" type="email" autocomplete="email" aria-describedby="e1"><small class="as-e" id="e1"></small></label>
+<label><span class="lbl as-pl">Password<a href="#">Forgot?</a></span><span class="as-pw"><input class="in" id="pw" type="password" autocomplete="current-password" aria-describedby="e2"><button type="button" class="ibt" id="sh" aria-label="Show password" aria-pressed="false">@I(eye,18)</button></span><small class="as-e" id="e2"></small></label>
+<label class="as-rm"><input type="checkbox" checked> Keep me signed in for 30 days</label>
+<button class="b ac as-go" id="go">Sign in</button><p class="as-st" id="st" role="alert"></p><p class="mu as-alt">New here? <a href="#">Create an account</a></p></form></main>
+</div>
+<style>
+.k.as{display:grid;grid-template-columns:1fr 1fr;padding:0;place-items:stretch;background:var(--bg)}
+.as-ph{margin:0;position:relative;overflow:hidden}.as-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.as-ph figcaption{position:absolute;left:32px;right:32px;bottom:32px;color:#fff;font:400 26px/1.25 'Instrument Serif',serif;display:grid;gap:8px;text-shadow:0 1px 12px #0008}.as-ph figcaption span{font:500 12px Geist,sans-serif;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.as-m{display:grid;place-items:center;padding:48px 16px}.as-f{width:min(360px,100%);display:grid;gap:16px}.as-lg{display:flex;gap:8px;align-items:center;font-weight:700;color:inherit;text-decoration:none;margin-bottom:24px}.as-lg .i{color:var(--ac)}
+.as-f h1{margin:0;font-size:28px;letter-spacing:-.02em}.as-f .mu{margin:-8px 0 8px}.as-f .in{height:44px;font-size:16px}.as-pl{display:flex;justify-content:space-between}.as-pl a,.as-alt a{color:var(--ac);font-weight:550}
+.as-pw{position:relative;display:block}.as-pw .ibt{position:absolute;right:4px;top:4px;width:36px;height:36px}.as-pw .in{padding-right:44px}
+.as-e{color:var(--err);font-size:13px;display:block;margin-top:4px}.as-e:empty{display:none}.as-rm{display:flex;gap:8px;align-items:center;font-size:14px;min-height:24px}.as-rm input{width:18px;height:18px;accent-color:var(--ac)}
+.as-go{height:44px;font-size:15px}.as-st{margin:0;font-size:14px;color:var(--err)}.as-st:empty{display:none}.as-alt{text-align:center;margin:0!important;font-size:14px}
+.as-sp{width:16px;height:16px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:assp .7s linear infinite}@keyframes assp{to{transform:rotate(1turn)}}
+@media (max-width:820px){.k.as{grid-template-columns:1fr}.as-ph{display:none}}
+</style>
+<script>
+const $=i=>document.getElementById(i),f=$('f'),em=$('em'),pw=$('pw'),go=$('go');
+$('sh').onclick=e=>{const b=e.currentTarget,s=pw.type==='password';pw.type=s?'text':'password';b.setAttribute('aria-pressed',s);b.setAttribute('aria-label',s?'Hide password':'Show password')};
+function v(i,m,ok){i.setAttribute('aria-invalid',!ok);$(i.getAttribute('aria-describedby')).textContent=ok?'':m;return ok}
+f.onsubmit=e=>{e.preventDefault();$('st').textContent='';const a=v(em,'Enter a valid email address.',/^\S+@\S+\.\S+$/.test(em.value)),b=v(pw,'Enter your password.',pw.value.length>0);if(!a)return em.focus();if(!b)return pw.focus();
+go.disabled=true;go.innerHTML='<span class="as-sp"></span>Signing in…';setTimeout(()=>{go.disabled=false;go.textContent='Sign in';if(pw.value!=='demo'){$('st').textContent='Email or password is wrong. (Hint: the demo password is “demo”.)';pw.select()}else{go.textContent='Signed in ✓'}},900)};
+</script>
+=== auth-magic-link
+<!--Magic Link Sign In|Auth|Passwordless sign in: one email field, then a “check your inbox” state with the address, a resend button with a 30-second cooldown ring and a way back to edit the email.|auth,magic link,passwordless,email,cooldown-->
+<div class="k">
+<div class="card am"><div id="s1"><span class="am-ic">@I(mail,22)</span><h1>Sign in with email</h1><p class="mu">We'll email you a link that signs you in. No password needed.</p><form id="f" novalidate><label class="lbl" for="em">Work email</label><input class="in" id="em" type="email" autocomplete="email" placeholder="name@company.com" aria-describedby="er"><small id="er" class="am-er"></small><button class="b ac am-go" id="go">Send sign-in link</button></form></div>
+<div id="s2" hidden><span class="am-ic ok">@I(send,22)</span><h1>Check your inbox</h1><p class="mu">We sent a link to <b id="to"></b>. It expires in 15 minutes.</p><button class="b sec am-go" id="rs"><svg class="am-ring" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8"/><circle id="rc" cx="10" cy="10" r="8"/></svg><span id="rl">Resend</span></button><button class="am-bk" id="bk">@I(left,16)Use a different email</button><p class="am-tip mu">Can't find it? Check spam, or search for “Sign in to Lumen”.</p></div></div>
+</div>
+<style>
+.am{width:min(400px,100%);padding:32px}.am h1{margin:16px 0 6px;font-size:22px;letter-spacing:-.02em}.am p{margin:0 0 20px}.am .in{height:44px;font-size:16px}
+.am-ic{width:44px;height:44px;border-radius:12px;background:var(--ac-sf);color:var(--ac);display:grid;place-items:center}.am-ic.ok{background:var(--ok-sf);color:var(--ok)}
+.am-go{width:100%;height:44px;margin-top:12px}.am-er{color:var(--err);font-size:13px;display:block;margin-top:6px}.am-er:empty{display:none}
+.am-ring{width:18px;height:18px;transform:rotate(-90deg)}.am-ring circle{fill:none;stroke-width:2.5}.am-ring circle:first-child{stroke:var(--line)}#rc{stroke:var(--ac);stroke-dasharray:50.3;stroke-dashoffset:0;transition:stroke-dashoffset 1s linear}
+.am-bk{display:flex;gap:6px;align-items:center;margin:16px auto 0;color:var(--mu);font-size:14px;min-height:44px}.am-bk:hover{color:var(--fg)}.am-tip{font-size:13px;text-align:center;margin:8px 0 0!important}
+#s2{animation:amf .3s var(--ease)}@keyframes amf{from{opacity:0;transform:translateY(6px)}}
+</style>
+<script>
+const $=i=>document.getElementById(i);let cd=0,t;
+function send(){clearInterval(t);cd=30;const rs=$('rs');rs.disabled=true;tick();t=setInterval(tick,1000)}
+function tick(){$('rl').textContent=cd>0?`Resend in ${cd}s`:'Resend';$('rc').style.strokeDashoffset=50.3*(1-cd/30);if(cd<=0){clearInterval(t);$('rs').disabled=false}cd--}
+$('f').onsubmit=e=>{e.preventDefault();const em=$('em'),ok=/^\S+@\S+\.\S+$/.test(em.value);em.setAttribute('aria-invalid',!ok);$('er').textContent=ok?'':'Enter the email you signed up with.';if(!ok)return em.focus();const g=$('go');g.disabled=true;g.textContent='Sending…';setTimeout(()=>{g.disabled=false;g.textContent='Send sign-in link';$('to').textContent=em.value;$('s1').hidden=true;$('s2').hidden=false;send();$('rs').focus()},700)};
+$('rs').onclick=()=>{$('rl').textContent='Sending…';setTimeout(send,500)};$('bk').onclick=()=>{clearInterval(t);$('s2').hidden=true;$('s1').hidden=false;$('em').focus()};
+</script>
+=== auth-passkey
+<!--Passkey Sign In|Auth|A passkey-first login: a big “Sign in with passkey” action with an animated fingerprint scan, a fallback to email, and success/cancelled states. Uses WebAuthn feature detection.|auth,passkey,webauthn,biometric,fingerprint-->
+<div class="k">
+<div class="card pk"><div class="pk-fp" id="fp" aria-hidden="true"><svg viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 46c-2-5-3-9-3-14a17 17 0 0 1 34 0"/><path d="M24 52c-2-6-3-12-3-20a11 11 0 0 1 22 0c0 4 0 8-1 11"/><path d="M32 32c0 9-1 15-4 22"/><path d="M38 32c0 8-1 14-3 20"/><path d="M45 44c1-4 1-8 1-12"/><path d="M14 22a21 21 0 0 1 36 0"/></g></svg><i class="pk-scan"></i></div>
+<h1 id="ti">Sign in to Atlas</h1><p class="mu" id="sb">Use Face ID, Touch ID or your security key. Nothing to type, nothing to phish.</p>
+<button class="b ac pk-go" id="go">@I(lock,16)Sign in with passkey</button><div class="pk-or"><span>or</span></div><button class="b sec pk-go" id="em">@I(mail,16)Continue with email</button><p class="pk-n mu" id="nt"></p></div>
+</div>
+<style>
+.pk{width:min(380px,100%);padding:36px 28px;text-align:center;display:grid;justify-items:center;gap:6px}.pk h1{margin:16px 0 0;font-size:22px;letter-spacing:-.02em}.pk p{margin:0 0 16px}
+.pk-fp{width:88px;height:88px;border-radius:24px;background:var(--sf);color:var(--mu);display:grid;place-items:center;position:relative;overflow:hidden;transition:color .3s,background .3s}.pk-fp svg{width:56px}
+.pk-scan{position:absolute;left:0;right:0;height:2px;background:var(--ac);box-shadow:0 0 0 1px color-mix(in srgb,var(--ac) 20%,transparent);top:0;opacity:0}
+.pk-fp.on{color:var(--ac)}.pk-fp.on .pk-scan{opacity:1;animation:pks 1.2s ease-in-out infinite alternate}@keyframes pks{to{top:calc(100% - 2px)}}
+.pk-fp.ok{color:var(--ok);background:var(--ok-sf)}.pk-fp.no{color:var(--err);background:var(--err-sf);animation:pkx .35s}@keyframes pkx{25%{translate:-5px}75%{translate:5px}}
+.pk-go{width:100%;height:44px}.pk-or{width:100%;display:flex;align-items:center;gap:12px;color:var(--mu);font-size:12px;margin:6px 0}.pk-or::before,.pk-or::after{content:"";flex:1;height:1px;background:var(--line)}.pk-n{font-size:12px;margin:8px 0 0!important}
+</style>
+<script>
+const $=i=>document.getElementById(i),fp=$('fp'),go=$('go');
+$('nt').textContent=window.PublicKeyCredential?'This browser supports passkeys.':'This browser can\'t use passkeys. Use email instead.';if(!window.PublicKeyCredential)go.disabled=true;
+let n=0;go.onclick=()=>{fp.className='pk-fp on';go.disabled=true;go.textContent='Waiting for your device…';setTimeout(()=>{const ok=n++%2==0;fp.className='pk-fp '+(ok?'ok':'no');go.disabled=false;if(ok){$('ti').textContent='Welcome back, Lena';$('sb').textContent='Signed in with the passkey on this device.';go.innerHTML='Continue to Atlas'}else{$('sb').textContent='The request was cancelled. Try again or use email.';go.innerHTML='Try again'}},1600)};
+$('em').onclick=e=>{e.currentTarget.textContent='Opening email sign-in…'};
+</script>
+=== auth-sso-picker
+<!--SSO Provider Picker|Auth|An enterprise sign in that detects SSO from the email domain: typing a company address swaps the form to “Continue with Okta”, other domains show password; plus Google, GitHub and Microsoft buttons.|auth,sso,saml,oauth,enterprise-->
+<div class="k">
+<div class="card sp"><h1>Sign in to Beacon</h1>
+<div class="sp-oa"><button class="b sec">@I(globe,16)Google</button><button class="b sec"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>GitHub</button><button class="b sec">@I(grid,16)Microsoft</button></div>
+<div class="sp-or"><span>or with your work email</span></div>
+<form id="f" novalidate><label class="lbl" for="em">Email</label><input class="in" id="em" type="email" autocomplete="email" placeholder="you@company.com">
+<div class="sp-sso" id="sso" hidden><span class="sp-org" id="org"></span><p class="mu">Your organisation uses single sign-on. You'll be redirected to <b id="idp"></b>.</p></div>
+<div id="pwb"><label class="lbl" for="pw" style="margin-top:14px">Password</label><input class="in" id="pw" type="password" autocomplete="current-password"></div>
+<button class="b ac sp-go" id="go">Continue</button></form><p class="sp-h mu">Try <code>ana@northwind.com</code> or <code>ana@gmail.com</code></p></div>
+</div>
+<style>
+.sp{width:min(400px,100%);padding:32px}.sp h1{margin:0 0 20px;font-size:22px;letter-spacing:-.02em}
+.sp-oa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.sp-oa .b{height:44px;padding:0 8px}
+.sp-or{display:flex;align-items:center;gap:12px;color:var(--mu);font-size:12px;margin:20px 0}.sp-or::before,.sp-or::after{content:"";flex:1;height:1px;background:var(--line)}
+.sp .in{height:44px;font-size:16px}.sp-go{width:100%;height:44px;margin-top:16px}
+.sp-sso{margin-top:12px;padding:12px;border:1px solid var(--line);background:var(--sf);border-radius:12px;display:grid;gap:6px;animation:spf .25s var(--ease)}.sp-sso p{margin:0;font-size:13px}.sp-org{font-weight:650;display:flex;gap:8px;align-items:center}.sp-org i{width:22px;height:22px;border-radius:6px;background:var(--c);display:grid;place-items:center;color:#fff;font:700 11px/1 Geist,sans-serif;font-style:normal}
+#pwb{display:grid;grid-template-rows:1fr;transition:grid-template-rows .25s var(--ease)}#pwb.hid{grid-template-rows:0fr;overflow:hidden}#pwb>*{min-height:0}
+.sp-h{font-size:12px;text-align:center;margin:16px 0 0}.sp-h code{font-family:'Geist Mono',monospace;background:var(--sf);padding:1px 4px;border-radius:4px}
+@keyframes spf{from{opacity:0;transform:translateY(-4px)}}
+</style>
+<script>
+const $=i=>document.getElementById(i),D={'northwind.com':['Northwind Traders','Okta','#b45309'],'fjordline.io':['Fjordline','Azure AD','#2563eb']},em=$('em');
+em.oninput=()=>{const d=(em.value.split('@')[1]||'').toLowerCase(),o=D[d];$('sso').hidden=!o;$('pwb').className=o?'hid':'';$('pw').disabled=!!o;if(o){$('org').innerHTML=`<i style="--c:${o[2]}">${o[0][0]}</i>${o[0]}`;$('idp').textContent=o[1];$('go').textContent='Continue with '+o[1]}else $('go').textContent='Continue'};
+$('f').onsubmit=e=>{e.preventDefault();const g=$('go'),t=g.textContent;g.disabled=true;g.textContent=$('sso').hidden?'Signing in…':'Redirecting…';setTimeout(()=>{g.disabled=false;g.textContent=t},1200)};
+</script>
+=== auth-signup-steps
+<!--Multi-step Sign Up|Auth|A three-step sign up (account, profile, workspace) with a step indicator, per-step validation, a password strength meter, back/next with preserved values and a final summary.|auth,signup,register,stepper,password strength-->
+<div class="k">
+<div class="card su"><ol class="su-st" id="st"><li class="on">Account</li><li>About you</li><li>Workspace</li></ol>
+<form id="f" novalidate>
+<fieldset data-s="0"><legend>Create your account</legend><label><span class="lbl">Email</span><input class="in" name="em" type="email" autocomplete="email"></label><label><span class="lbl">Password</span><input class="in" name="pw" type="password" autocomplete="new-password" id="pw"></label><div class="su-m" aria-hidden="true"><i></i><i></i><i></i><i></i></div><small class="mu" id="pm">Use 10+ characters with a number and a symbol.</small></fieldset>
+<fieldset data-s="1" hidden><legend>About you</legend><label><span class="lbl">Full name</span><input class="in" name="nm" autocomplete="name"></label><label><span class="lbl">Role</span><select class="in" name="rl"><option value="">Choose…</option><option>Engineering</option><option>Design</option><option>Product</option><option>Marketing</option><option>Other</option></select></label></fieldset>
+<fieldset data-s="2" hidden><legend>Name your workspace</legend><label><span class="lbl">Workspace name</span><input class="in" name="ws" id="ws"></label><p class="su-url mu">plane.app/<b id="sl">your-team</b></p></fieldset>
+<div data-s="3" hidden class="su-done">@I(check,28)<h2>You're all set</h2><p class="mu" id="sum"></p></div>
+<p class="su-er" id="er" role="alert"></p><div class="su-nav"><button type="button" class="b gh" id="bk" hidden>@I(left,16)Back</button><button class="b ac" id="nx">Continue</button></div></form></div>
+</div>
+<style>
+.su{width:min(420px,100%);padding:28px}.su-st{display:flex;gap:6px;list-style:none;padding:0;margin:0 0 24px;counter-reset:s}.su-st li{flex:1;font-size:12px;color:var(--mu);display:grid;gap:8px;counter-increment:s}.su-st li::before{content:"";height:4px;border-radius:2px;background:var(--sf2);transition:background .3s}.su-st li.on,.su-st li.dn{color:var(--fg);font-weight:550}.su-st li.on::before,.su-st li.dn::before{background:var(--ac)}
+.su fieldset{border:0;padding:0;margin:0;display:grid;gap:14px;animation:suf .3s var(--ease)}.su legend{font-size:20px;font-weight:650;letter-spacing:-.02em;margin-bottom:14px;padding:0}.su .in{height:44px;font-size:16px}
+@keyframes suf{from{opacity:0;transform:translateX(10px)}}
+.su-m{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:-6px}.su-m i{height:4px;border-radius:2px;background:var(--sf2);transition:background .2s}.su-m[data-l="1"] i:nth-child(-n+1){background:var(--err)}.su-m[data-l="2"] i:nth-child(-n+2){background:var(--warn)}.su-m[data-l="3"] i:nth-child(-n+3){background:var(--ok)}.su-m[data-l="4"] i{background:var(--ok)}
+.su-url{margin:0;font:13px 'Geist Mono',monospace}.su-url b{color:var(--fg)}
+.su-er{color:var(--err);font-size:13px;margin:12px 0 0}.su-er:empty{display:none}.su-nav{display:flex;justify-content:space-between;margin-top:20px}.su-nav #nx{margin-left:auto;height:44px;min-width:120px}.su-nav .gh{height:44px}
+.su-done{text-align:center;display:grid;justify-items:center;gap:8px;padding:12px 0}.su-done>.i{width:52px;height:52px;padding:12px;border-radius:50%;background:var(--ok-sf);color:var(--ok)}.su-done h2{margin:6px 0 0;font-size:20px}.su-done p{margin:0}
+</style>
+<script>
+const f=document.getElementById('f'),$=i=>document.getElementById(i),S=[...f.querySelectorAll('[data-s]')],L=[...document.querySelectorAll('.su-st li')];let s=0;
+const pw=$('pw'),m=document.querySelector('.su-m');pw.oninput=()=>{const v=pw.value;let l=v?1:0;if(v.length>=10)l++;if(/\d/.test(v)&&/[^\w\s]/.test(v))l++;if(v.length>=14&&/[A-Z]/.test(v))l++;m.dataset.l=l;$('pm').textContent=['Use 10+ characters with a number and a symbol.','Weak: add length.','Okay: add a number and a symbol.','Strong.','Very strong.'][l]};
+$('ws').oninput=e=>$('sl').textContent=e.target.value.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'your-team';
+function check(){const E=f.elements,er=[];if(s==0){if(!/^\S+@\S+\.\S+$/.test(E.em.value))er.push([E.em,'Enter a valid email.']);else if(+m.dataset.l<2)er.push([E.pw,'Choose a stronger password.'])}if(s==1){if(!E.nm.value.trim())er.push([E.nm,'Tell us your name.']);else if(!E.rl.value)er.push([E.rl,'Pick a role.'])}if(s==2&&E.ws.value.trim().length<2)er.push([E.ws,'Workspace name needs 2+ characters.']);f.querySelectorAll('.in').forEach(i=>i.removeAttribute('aria-invalid'));$('er').textContent=er.length?er[0][1]:'';if(er.length){er[0][0].setAttribute('aria-invalid',true);er[0][0].focus()}return!er.length}
+function go(n){S[s].hidden=true;s=n;S[s].hidden=false;L.forEach((l,i)=>{l.className=i<s?'dn':i==s?'on':''});$('bk').hidden=s==0||s==3;$('nx').textContent=s==2?'Create workspace':s==3?'Open workspace':'Continue';const fi=S[s].querySelector('input,select');if(fi)fi.focus()}
+f.onsubmit=e=>{e.preventDefault();if(s==3)return;if(!check())return;if(s==2){const b=$('nx');b.disabled=true;b.textContent='Creating…';setTimeout(()=>{b.disabled=false;$('sum').textContent=`${f.elements.nm.value.split(' ')[0]}, your workspace “${f.elements.ws.value}” is ready at plane.app/${$('sl').textContent}.`;go(3)},900);return}go(s+1)};
+$('bk').onclick=()=>go(s-1);m.dataset.l=0;
+</script>
+=== auth-reset
+<!--Password Reset|Auth|The full reset flow in one card: request (email), code sent, and set new password with live requirement checks that tick off as you type and a matching confirmation field.|auth,password,reset,requirements,validation-->
+<div class="k">
+<div class="card pr"><div id="a"><h1>Reset your password</h1><p class="mu">Enter your email and we'll send a 6-digit code.</p><label class="lbl" for="em">Email</label><input class="in" id="em" type="email" autocomplete="email" value="lena@example.com"><button class="b ac pr-go" id="sa">Send code</button></div>
+<div id="b" hidden><h1>Choose a new password</h1><p class="mu">Code sent to lena@example.com. For this demo it's already filled in.</p><label class="lbl" for="cd">Code</label><input class="in tn pr-cd" id="cd" value="482 913" inputmode="numeric" autocomplete="one-time-code">
+<label class="lbl" for="p1" style="margin-top:14px">New password</label><input class="in" id="p1" type="password" autocomplete="new-password"><ul class="pr-rq" id="rq"><li data-r="len">At least 10 characters</li><li data-r="num">Contains a number</li><li data-r="case">Upper and lower case</li><li data-r="old">Not your previous password</li></ul>
+<label class="lbl" for="p2">Confirm password</label><input class="in" id="p2" type="password" autocomplete="new-password" aria-describedby="mm"><small id="mm" class="pr-mm"></small><button class="b ac pr-go" id="sb" disabled>Update password</button></div>
+<div id="c" hidden class="pr-ok">@I(check,26)<h1>Password updated</h1><p class="mu">You've been signed out on other devices.</p><button class="b sec pr-go">Back to sign in</button></div></div>
+</div>
+<style>
+.pr{width:min(400px,100%);padding:32px}.pr h1{margin:0 0 6px;font-size:22px;letter-spacing:-.02em}.pr p{margin:0 0 20px}.pr .in{height:44px;font-size:16px}.pr-cd{letter-spacing:.2em;font-family:'Geist Mono',monospace}.pr-go{width:100%;height:44px;margin-top:16px}
+.pr-rq{list-style:none;padding:0;margin:10px 0 14px;display:grid;gap:6px;font-size:13px;color:var(--mu)}.pr-rq li{display:flex;gap:8px;align-items:center;transition:color .2s}.pr-rq li::before{content:"";width:16px;height:16px;border-radius:50%;border:1.5px solid var(--ctl);flex:none;transition:all .2s}.pr-rq li.ok{color:var(--fg)}.pr-rq li.ok::before{background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain;border-color:var(--ok)}
+.pr-mm{display:block;font-size:13px;margin-top:6px}.pr-mm:empty{display:none}.pr-ok{text-align:center;display:grid;justify-items:center}.pr-ok>.i{width:52px;height:52px;padding:12px;border-radius:50%;background:var(--ok-sf);color:var(--ok);margin-bottom:14px}
+#b,#c{animation:prf .3s var(--ease)}@keyframes prf{from{opacity:0;transform:translateY(6px)}}
+</style>
+<script>
+const $=i=>document.getElementById(i),R={len:v=>v.length>=10,num:v=>/\d/.test(v),case:v=>/[a-z]/.test(v)&&/[A-Z]/.test(v),old:v=>v&&v!=='Summer2024!'};
+$('sa').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Sending…';setTimeout(()=>{$('a').hidden=true;$('b').hidden=false;$('p1').focus()},700)};
+function chk(){const v=$('p1').value,c=$('p2').value;let all=true;$('rq').querySelectorAll('li').forEach(l=>{const ok=R[l.dataset.r](v);l.classList.toggle('ok',ok);all=all&&ok});const mm=$('mm');mm.textContent=c?(c===v?'Passwords match':'Passwords don\'t match yet'):'';mm.style.color=c===v?'var(--ok)':'var(--err)';$('p2').setAttribute('aria-invalid',!!c&&c!==v);$('sb').disabled=!(all&&c===v)}
+$('p1').oninput=$('p2').oninput=chk;
+$('sb').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Updating…';setTimeout(()=>{$('b').hidden=true;$('c').hidden=false},800)};
+</script>
+=== auth-2fa-setup
+<!--Two-Factor Setup|Auth|Authenticator app enrolment: QR code with a copyable setup key fallback, a 6-box code input with paste support and auto-advance, verification with error shake, then success.|auth,2fa,totp,qr,security,otp-->
+<div class="k">
+<div class="card tf"><div id="s1"><span class="eb">Step 1 of 2</span><h1>Scan with your authenticator</h1><p class="mu">Use 1Password, Authy, Google Authenticator or any TOTP app.</p><div class="tf-qr"><canvas id="qr" width="168" height="168" aria-label="QR code for authenticator setup" role="img"></canvas><div><span class="lbl">Can't scan? Enter this key</span><code id="key" class="tf-k">JBSW Y3DP EHPK 3PXP</code><button class="b sec sm" id="cp">@I(copy,14)<span>Copy key</span></button></div></div>
+<span class="eb" style="display:block;margin-top:24px">Step 2 of 2</span><label class="tf-l" id="ll">Enter the 6-digit code from the app</label><div class="tf-c" id="cb" role="group" aria-labelledby="ll"></div><p class="tf-er" id="er" role="alert"></p><button class="b ac tf-go" id="vf" disabled>Verify and enable</button><p class="mu tf-h">Demo: any code except 000000 works.</p></div>
+<div id="s2" hidden class="tf-ok">@I(shield,28)<h1>Two-factor is on</h1><p class="mu">Next time you sign in we'll ask for a code from your app.</p><button class="b sec tf-go">Download recovery codes</button></div></div>
+</div>
+<style>
+.tf{width:min(460px,100%);padding:28px}.tf h1{margin:6px 0 6px;font-size:20px;letter-spacing:-.02em}.tf p{margin:0}
+.tf-qr{display:flex;gap:20px;align-items:center;margin-top:20px;padding:16px;border:1px solid var(--line);border-radius:14px;flex-wrap:wrap}.tf-qr canvas{background:#fff;border-radius:8px;width:136px;height:136px;padding:6px}.tf-qr>div{display:grid;gap:8px;justify-items:start;flex:1;min-width:160px}.tf-k{font:14px 'Geist Mono',monospace;letter-spacing:.06em;background:var(--sf);padding:6px 8px;border-radius:6px}
+.tf-l{display:block;font-weight:550;margin:6px 0 10px}.tf-c{display:flex;gap:8px}.tf-c input{width:100%;min-width:0;height:52px;text-align:center;font:600 22px 'Geist Mono',monospace;border:1px solid var(--ctl);border-radius:10px;background:var(--bg);outline:0}.tf-c input:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}.tf-c input:nth-child(3){margin-right:10px}
+.tf-c.bad{animation:tfx .4s}.tf-c.bad input{border-color:var(--err)}@keyframes tfx{20%,60%{translate:-6px}40%,80%{translate:6px}}
+.tf-er{color:var(--err);font-size:13px;margin-top:8px!important}.tf-er:empty{display:none}.tf-go{width:100%;height:44px;margin-top:16px}.tf-h{font-size:12px;text-align:center;margin-top:10px!important}
+.tf-ok{text-align:center;display:grid;justify-items:center;gap:6px}.tf-ok>.i{width:56px;height:56px;padding:14px;border-radius:50%;background:var(--ok-sf);color:var(--ok);margin-bottom:8px}
+</style>
+<script>
+const $=i=>document.getElementById(i),cv=$('qr'),x=cv.getContext('2d'),N=25,u=168/N;let s=11;const r=()=>(s=s*48271%2147483647)/2147483647;x.fillStyle='#111';
+const fin=(a,b)=>{x.fillRect(a*u,b*u,7*u,7*u);x.clearRect((a+1)*u,(b+1)*u,5*u,5*u);x.fillRect((a+2)*u,(b+2)*u,3*u,3*u)};
+for(let i=0;i<N;i++)for(let j=0;j<N;j++){const f=(i<8&&j<8)||(i>N-9&&j<8)||(i<8&&j>N-9);if(!f&&r()>.52)x.fillRect(i*u,j*u,u,u)}fin(0,0);fin(N-7,0);fin(0,N-7);
+$('cp').onclick=()=>{const t=$('key').textContent.replace(/ /g,''),d=()=>{$('cp').querySelector('span').textContent='Copied';setTimeout(()=>$('cp').querySelector('span').textContent='Copy key',1500)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(d).catch(d)};
+const cb=$('cb');for(let i=0;i<6;i++){const e=document.createElement('input');e.inputMode='numeric';e.maxLength=1;e.autocomplete=i?'off':'one-time-code';e.setAttribute('aria-label','Digit '+(i+1));cb.append(e)}const I=[...cb.children];
+const val=()=>I.map(i=>i.value).join('');function upd(){$('vf').disabled=val().length<6;cb.classList.remove('bad');$('er').textContent=''}
+I.forEach((e,i)=>{e.oninput=()=>{e.value=e.value.replace(/\D/g,'').slice(-1);if(e.value&&i<5)I[i+1].focus();upd()};e.onkeydown=k=>{if(k.key==='Backspace'&&!e.value&&i)I[i-1].focus();if(k.key==='Enter'&&val().length==6)$('vf').click()};e.onpaste=p=>{p.preventDefault();const d=(p.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,6);d.split('').forEach((c,j)=>I[j].value=c);I[Math.min(5,d.length)].focus();upd()}});
+$('vf').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Verifying…';setTimeout(()=>{b.textContent='Verify and enable';if(val()==='000000'){cb.classList.remove('bad');void cb.offsetWidth;cb.classList.add('bad');$('er').textContent='That code didn\'t match. Codes refresh every 30 seconds, try the newest one.';I.forEach(i=>i.value='');I[0].focus()}else{$('s1').hidden=true;$('s2').hidden=false}},700)};
+</script>

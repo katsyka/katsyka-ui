@@ -1,0 +1,11 @@
+<!--Author Bio Block|Content|An end-of-article author block: photo, name, a two-sentence bio, follow and RSS links, the author's three most recent pieces, and a compact “more from” expander, without cards inside cards.|author,bio,profile,article footer,blog-->
+<div class="k"><section class="ab"><div class="ab-p"><img src="media/pics/c/1006.jpg" alt=""><div><span class="mu">Written by</span><h2>Priya Nand</h2><p>Priya builds font tools and writes about the parts of typography nobody explains. Before that she spent eight years setting type for newspapers in Mumbai and Leeds.</p><div class="ab-l"><button class="b sec sm" id="fo" aria-pressed="false">@I(plus,14)<span>Follow</span></button><a class="b gh sm" href="#">@I(globe,14)Website</a><a class="b gh sm" href="#">RSS</a></div></div></div>
+<div class="ab-r"><b>Recently by Priya</b><ol><li><a href="#">Why our icons have 1.5px strokes<span class="mu">5 min · Oct</span></a></li><li><a href="#">A field guide to accessible colour<span class="mu">14 min · Nov</span></a></li><li><a href="#">Kerning is a conversation<span class="mu">8 min · Sep</span></a></li></ol></div></section></div>
+<style>
+.ab{width:min(760px,100%);display:grid;grid-template-columns:1.3fr 1fr;gap:32px;padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.ab-p{display:grid;grid-template-columns:72px 1fr;gap:16px}.ab-p img{width:72px;height:72px;border-radius:50%;object-fit:cover}.ab-p span.mu{font-size:12px}.ab-p h2{margin:2px 0 8px;font-size:20px;letter-spacing:-.01em}.ab-p p{margin:0 0 14px;font-size:15px;line-height:1.6;color:var(--mu)}.ab-l{display:flex;gap:6px;flex-wrap:wrap}.ab-l .b{height:34px}#fo[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ab-r b{font-size:13px}.ab-r ol{list-style:none;padding:0;margin:8px 0 0}.ab-r a{display:grid;gap:2px;padding:10px 0;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;font-weight:550;font-size:15px}.ab-r a:hover{color:var(--ac)}.ab-r a span{font-size:12px;font-weight:400}
+@media (max-width:640px){.ab{grid-template-columns:1fr}}
+</style>
+<script>
+document.getElementById('fo').onclick=e=>{const b=e.currentTarget,on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',on);b.innerHTML=on?'@I(check,14)<span>Following</span>':'@I(plus,14)<span>Follow</span>'};
+</script>

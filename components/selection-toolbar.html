@@ -1,0 +1,76 @@
+<style>
+.st{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.st :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.st ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.st *,.st *::before,.st *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.st{min-height:100vh;display:grid;grid-template-columns:minmax(0,680px) 260px;gap:48px;justify-content:center;padding:56px 24px}
+.st article{font:19px/1.75 "Instrument Serif",Georgia,serif;font-size:21px;color:var(--fg)}
+.st article h1{font:600 34px/1.1 Geist,sans-serif;letter-spacing:-.035em;margin:0 0 6px}
+.st article .by{font:14px Geist,sans-serif;color:var(--mu);margin:0 0 26px}
+.st article p{margin:0 0 20px;max-width:65ch}
+.st mark{border-radius:3px;padding:1px 0;color:inherit;cursor:pointer;background:var(--hl);box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:outline-color .2s;outline:2px solid transparent}
+.st mark.flash{outline-color:var(--fg)}
+.st mark[data-note]{text-decoration:underline dotted 2px;text-underline-offset:4px}
+.st-bar{position:fixed;z-index:10;display:flex;align-items:center;gap:2px;padding:4px;border-radius:12px;background:light-dark(#18181b,#f4f4f5);color:light-dark(#fafafa,#18181b);box-shadow:0 12px 30px -8px #0007;opacity:0;transform:translateY(4px) scale(.96);pointer-events:none;transition:opacity .15s,transform .2s var(--ease)}
+.st-bar.on{opacity:1;transform:none;pointer-events:auto}
+.st-bar button{height:36px;min-width:36px;padding:0 10px;border:0;border-radius:8px;background:none;color:inherit;font:550 13.5px Geist,sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px}
+.st-bar button:hover,.st-bar button:focus-visible{background:light-dark(#ffffff1f,#0000001a)}
+.st-bar .sw{width:24px;min-width:24px;height:24px;padding:0;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px light-dark(#18181b,#f4f4f5)}
+.st-bar i{width:1px;height:20px;background:light-dark(#ffffff2e,#00000026);margin:0 4px}
+.st-bar svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.st-note{position:fixed;z-index:11;width:280px;padding:12px;border-radius:14px;background:var(--bg);border:1px solid var(--line);box-shadow:var(--shadow);display:none}
+.st-note.on{display:block}
+.st-note textarea{width:100%;height:76px;padding:8px 10px;border-radius:9px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:16px/1.4 Geist,sans-serif;resize:none}
+.st-note div{display:flex;justify-content:flex-end;gap:6px;margin-top:8px}.st-note button{height:36px;padding:0 12px;border-radius:9px;border:1px solid var(--ctl);background:none;color:var(--fg);font:550 13px Geist,sans-serif;cursor:pointer}.st-note button.pri{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.st aside{position:sticky;top:40px;align-self:start;font-size:14px}
+.st aside h3{margin:0 0 4px;font-size:15px;font-weight:600}.st aside>p{margin:0 0 14px;color:var(--mu);font-size:13px}
+.st aside ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.st aside li button{width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;font:14px/1.45 Geist,sans-serif;border-left:4px solid var(--c)}
+.st aside li small{display:block;color:var(--mu);margin-top:4px;font-size:12.5px}
+.st aside .empty{color:var(--mu);font-size:13px;padding:12px;border-radius:12px;border:1px dashed var(--ctl)}
+.st-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (max-width:900px){.st{grid-template-columns:1fr}.st aside{position:static}}
+</style>
+<section class="st">
+  <article><h1>The case for slower software</h1><p class="by">7 min read · select any text</p>
+    <p>Most tools are built to be fast at the wrong thing. They shave milliseconds off a click and then ask you to make forty clicks a day that you didn't need to make at all.</p>
+    <p>The best software I use feels slower in the moment and faster over a week. It asks one good question instead of offering twelve options, and it remembers the answer.</p>
+    <p>Speed is not the absence of waiting. It is the absence of decisions you shouldn't have had to make. Design for that, and the milliseconds take care of themselves.</p></article>
+  <aside><h3>Highlights</h3><p>Select text, then use the toolbar. Keyboard: select with Shift + arrows, then press Alt + H.</p><ul></ul></aside>
+  <div class="st-bar" role="toolbar" aria-label="Selection actions">
+    <button class="sw" style="--c:light-dark(#fde68a,#854d0e)" data-hl="light-dark(#fde68a,#854d0e)" aria-label="Highlight yellow"></button><button class="sw" style="--c:light-dark(#bbf7d0,#14532d)" data-hl="light-dark(#bbf7d0,#14532d)" aria-label="Highlight green"></button><button class="sw" style="--c:light-dark(#fbcfe8,#831843)" data-hl="light-dark(#fbcfe8,#831843)" aria-label="Highlight pink"></button><i></i>
+    <button data-a="note"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Note</button>
+    <button data-a="copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy</button>
+  </div>
+  <div class="st-note" role="dialog" aria-label="Add a note"><textarea placeholder="Add a note…" aria-label="Note"></textarea><div><button data-n="cancel">Cancel</button><button class="pri" data-n="save">Save</button></div></div>
+  <div class="st-live" aria-live="polite"></div>
+</section>
+<script>
+(()=>{
+const art=document.querySelector(".st article"),bar=document.querySelector(".st-bar"),note=document.querySelector(".st-note"),list=document.querySelector(".st aside ul"),live=document.querySelector(".st-live");
+let range=null,id=0;
+const inArt=r=>r&&!r.collapsed&&art.contains(r.commonAncestorContainer)&&r.toString().trim().length>1;
+function place(el,r){const b=r.getBoundingClientRect(),w=el.offsetWidth,h=el.offsetHeight,above=b.top>h+16;
+  el.style.left=Math.max(8,Math.min(innerWidth-w-8,b.left+b.width/2-w/2))+"px";el.style.top=(above?b.top-h-10:b.bottom+10)+"px"}
+function show(){const s=getSelection();const r=s.rangeCount&&s.getRangeAt(0);if(!inArt(r)){hide();return}range=r.cloneRange();bar.classList.add("on");place(bar,range)}
+const hide=()=>{bar.classList.remove("on")};
+document.addEventListener("mouseup",e=>{if(bar.contains(e.target)||note.contains(e.target))return;setTimeout(show,0)});
+document.addEventListener("keyup",e=>{if(e.shiftKey&&e.key.startsWith("Arrow"))setTimeout(()=>{const s=getSelection();if(s.rangeCount&&inArt(s.getRangeAt(0))){range=s.getRangeAt(0).cloneRange();live.textContent="Text selected. Press Alt + H for actions."}},0)});
+document.addEventListener("keydown",e=>{if(e.altKey&&(e.key==="h"||e.key==="˙")){e.preventDefault();show();bar.querySelector("button")?.focus()}if(e.key==="Escape"){hide();note.classList.remove("on")}});
+bar.addEventListener("keydown",e=>{const bs=[...bar.querySelectorAll("button")],i=bs.indexOf(document.activeElement);if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();bs[(i+(e.key==="ArrowRight"?1:-1)+bs.length)%bs.length].focus()}});
+addEventListener("scroll",()=>bar.classList.contains("on")&&range&&place(bar,range),{passive:true});
+function wrap(color){if(!range)return null;const k=++id,frag=range.extractContents(),m=document.createElement("mark");m.style.setProperty("--hl",color);m.dataset.k=k;m.append(frag);range.insertNode(m);
+  getSelection().removeAllRanges();hide();return m}
+function addItem(m){const li=document.createElement("li");li.dataset.k=m.dataset.k;li.innerHTML=`<button style="--c:${m.style.getPropertyValue("--hl")}"></button>`;const b=li.firstChild;b.textContent="“"+m.textContent.slice(0,90)+(m.textContent.length>90?"…":"")+"”";
+  if(m.dataset.note){const s=document.createElement("small");s.textContent=m.dataset.note;b.append(s)}
+  b.onclick=()=>{m.scrollIntoView({block:"center",behavior:"smooth"});m.classList.add("flash");setTimeout(()=>m.classList.remove("flash"),900)};
+  list.querySelector(".empty")?.remove();const old=list.querySelector(`[data-k="${m.dataset.k}"]`);old?old.replaceWith(li):list.append(li)}
+bar.addEventListener("click",async e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.hl){const m=wrap(b.dataset.hl);if(m){addItem(m);live.textContent="Highlighted."}}
+  if(b.dataset.a==="copy"){const t=range?.toString()||"";try{await navigator.clipboard.writeText(t)}catch{}hide();live.textContent="Copied to clipboard."}
+  if(b.dataset.a==="note"){const r=range;note.classList.add("on");place(note,r);note.querySelector("textarea").value="";note.querySelector("textarea").focus();hide()}});
+note.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.n==="save"){const m=wrap("light-dark(#fde68a,#854d0e)");if(m){m.dataset.note=note.querySelector("textarea").value.trim()||"(empty note)";m.title=m.dataset.note;addItem(m);live.textContent="Note added."}}note.classList.remove("on")});
+list.innerHTML='<li class="empty">Nothing highlighted yet.</li>';
+})();
+</script>

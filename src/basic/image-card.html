@@ -1,0 +1,19 @@
+<!--Article Cards|Cards|A row of article cards: image with a slow zoom on hover, category, a two-line clamped title, excerpt, author and read time. The whole card is one link with a visible focus ring.|blog,article,card,grid,post-->
+<div class="k"><div class="ic-g">
+  <a class="card ic" href="#"><span class="ic-im"><img src="media/pics/c/1051.jpg" alt=""></span><span class="ic-b"><span class="ic-k">Essay</span><b>The ferry that runs on time, every time</b><p>Nine years, no delays. The crew's secret is three minutes nobody spends.</p><span class="ic-f"><span class="av" style="--c:#0f766e">KH</span>Kari Holm · <span class="tn">7 min</span></span></span></a>
+  <a class="card ic" href="#"><span class="ic-im"><img src="media/pics/c/1060.jpg" alt=""></span><span class="ic-b"><span class="ic-k">Food</span><b>Getting the bloom right on a pour-over</b><p>Water at 93°C, a 40-second wait and why your grinder matters more than the kettle.</p><span class="ic-f"><span class="av" style="--c:#7c3aed">JK</span>Jun Kato · <span class="tn">5 min</span></span></span></a>
+  <a class="card ic" href="#"><span class="ic-im"><img src="media/pics/c/1022.jpg" alt=""></span><span class="ic-b"><span class="ic-k">Science</span><b>What actually makes the northern lights green</b><p>Oxygen, altitude and a solar wind that's been travelling for two days.</p><span class="ic-f"><span class="av" style="--c:#b45309">ML</span>Mara Lind · <span class="tn">6 min</span></span></span></a>
+</div></div>
+<style>
+.ic-g{width:min(1000px,100%);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.ic{display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:inherit;transition:transform .25s var(--ease),box-shadow .25s}
+.ic:hover{transform:translateY(-2px)}.ic:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.ic-im{aspect-ratio:16/10;overflow:hidden;background:var(--sf2)}.ic-im img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.ic:hover img{transform:scale(1.04)}
+.ic-b{display:flex;flex-direction:column;padding:16px;flex:1}
+.ic-k{font-size:12px;font-weight:650;color:var(--ac);text-transform:uppercase;letter-spacing:.06em}
+.ic b{margin-top:6px;font-size:17px;line-height:23px;font-weight:650;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-wrap:balance}
+.ic p{margin:6px 0 16px;color:var(--mu);line-height:20px}
+.ic-f{margin-top:auto;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mu)}.ic-f .av{width:24px;height:24px;font-size:10px}
+</style>
+<script>document.querySelectorAll('a[href="#"]').forEach(a=>a.onclick=e=>e.preventDefault());</script>

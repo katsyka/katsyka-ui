@@ -1,0 +1,100 @@
+<style>
+.sm{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sm :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sm ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sm *,.sm *::before,.sm *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sm{min-height:100vh;display:grid;place-items:center;align-content:start;padding:90px 16px 48px;background:var(--sf)}
+.sm-pn{width:min(620px,100%);display:grid;grid-template-columns:1fr 1fr;gap:22px 18px;padding:26px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.sm-f{display:flex;flex-direction:column;gap:6px;position:relative;min-width:0}
+.sm-f>label,.sm-f>.lb{font-size:14px;font-weight:550}
+.sm-trg{display:flex;align-items:center;gap:10px;width:100%;height:40px;padding:0 10px 0 12px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);color:var(--fg);font:14.5px Geist,system-ui,sans-serif;text-align:left;cursor:pointer;box-shadow:0 1px 2px #0000000a;transition:border-color .15s,box-shadow .15s}
+.sm-trg:hover{border-color:var(--ctl)}
+.sm-trg:focus-visible,.sm-trg[aria-expanded=true]{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.sm-trg .v{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.sm-trg .ph{color:var(--mu)}
+.sm-trg>svg{flex:none;width:16px;height:16px;fill:none;stroke:var(--mu);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sm-dot{flex:none;width:8px;height:8px;border-radius:50%}
+.sm-av{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:600 10px Geist,system-ui,sans-serif;color:#fff}
+.sm-lst{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:10;max-height:264px;overflow:auto;margin:0;padding:5px;list-style:none;border-radius:12px;background:var(--bg);border:1px solid var(--line);box-shadow:0 14px 34px -10px #00000040,0 2px 6px #0000001a;opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity .14s,transform .14s var(--ease)}
+.sm-lst.on{opacity:1;transform:none;pointer-events:auto}
+.sm-lst li{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;font-size:14px;cursor:pointer;scroll-margin:5px}
+.sm-lst li small{color:var(--mu);font-size:12.5px;margin-left:auto}
+.sm-lst li.act{background:var(--sf2)}
+.sm-lst li .ck{width:16px;height:16px;flex:none;fill:none;stroke:var(--ac);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;visibility:hidden}
+.sm-lst li[aria-selected=true] .ck{visibility:visible}
+.sm-lst li[aria-disabled=true]{opacity:.45;cursor:not-allowed}
+.sm-lst .grp{padding:8px 10px 4px;font:500 11px "Geist Mono",monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--mu);cursor:default}
+.sm-nat{position:relative}
+.sm-nat select{appearance:none;width:100%;height:40px;padding:0 36px 0 12px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);color:var(--fg);font:14.5px Geist,system-ui,sans-serif;cursor:pointer;box-shadow:0 1px 2px #0000000a}
+.sm-nat select:hover{border-color:var(--ctl)}
+.sm-nat select:focus-visible{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.sm-nat svg{position:absolute;right:11px;top:12px;width:16px;height:16px;fill:none;stroke:var(--mu);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.sm-hint{font-size:13px;color:var(--mu)}
+@media (max-width:600px){.sm-pn{grid-template-columns:1fr}}
+.sm-lst:focus-visible{outline:0}
+</style>
+<div class="sm">
+  <div class="sm-pn">
+    <div class="sm-f" data-sel>
+      <span class="lb" id="smL1">Status</span>
+      <button class="sm-trg" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="smL1"><span class="v"></span><svg viewBox="0 0 24 24"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg></button>
+      <ul class="sm-lst" role="listbox" aria-labelledby="smL1" tabindex="-1">
+        <li role="option" data-v="backlog"><span class="sm-dot" style="background:#a1a1aa"></span>Backlog<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li role="option" data-v="todo"><span class="sm-dot" style="background:#60a5fa"></span>Todo<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li role="option" data-v="progress" aria-selected="true"><span class="sm-dot" style="background:#f59e0b"></span>In progress<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li role="option" data-v="review"><span class="sm-dot" style="background:#a78bfa"></span>In review<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li role="option" data-v="done"><span class="sm-dot" style="background:#22c55e"></span>Done<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li role="option" data-v="cancel" aria-disabled="true"><span class="sm-dot" style="background:#ef4444"></span>Cancelled<small>Admins only</small></li>
+      </ul>
+    </div>
+    <div class="sm-f" data-sel>
+      <span class="lb" id="smL2">Assignee</span>
+      <button class="sm-trg" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="smL2"><span class="v"><span class="ph">Unassigned</span></span><svg viewBox="0 0 24 24"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg></button>
+      <ul class="sm-lst" role="listbox" aria-labelledby="smL2" tabindex="-1">
+        <li class="grp" role="presentation">Design</li>
+        <li role="option"><span class="sm-av" style="background:#c2410c">MO</span>Mira Okafor<small>Lead</small><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li role="option"><span class="sm-av" style="background:#0e7490">JL</span>Jun Li<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li class="grp" role="presentation">Engineering</li>
+        <li role="option"><span class="sm-av" style="background:#7c3aed">SR</span>Sofia Ruiz<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li role="option"><span class="sm-av" style="background:#15803d">TB</span>Tomás Brandt<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+        <li role="option"><span class="sm-av" style="background:#be185d">AK</span>Aiko Kato<svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></li>
+      </ul>
+    </div>
+    <div class="sm-f">
+      <label for="smN">Country <span style="font-weight:400;color:var(--mu);font-size:12.5px">· native</span></label>
+      <div class="sm-nat"><select id="smN"><option>Germany</option><option selected>Portugal</option><option>Japan</option><option>Brazil</option><option>Canada</option></select><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="sm-hint">Native selects are best on mobile.</div>
+    </div>
+    <div class="sm-f">
+      <label for="smT">Time zone</label>
+      <div class="sm-nat"><select id="smT"><optgroup label="Europe"><option>Lisbon (GMT+0)</option><option selected>Berlin (GMT+1)</option></optgroup><optgroup label="Asia"><option>Tokyo (GMT+9)</option></optgroup></select><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll("[data-sel]").forEach((f,k)=>{
+  const btn=f.querySelector(".sm-trg"),val=btn.querySelector(".v"),lst=f.querySelector(".sm-lst"),opts=[...lst.querySelectorAll("[role=option]")];
+  let act=-1,buf="",bt;
+  opts.forEach((o,i)=>o.id=`sm${k}o${i}`);
+  const enabled=o=>o.getAttribute("aria-disabled")!=="true";
+  const show=()=>{const s=opts.find(o=>o.getAttribute("aria-selected")==="true");if(s){val.innerHTML=s.innerHTML;val.querySelectorAll(".ck,small").forEach(x=>x.remove())}};
+  const setAct=i=>{opts.forEach(o=>o.classList.remove("act"));act=i;if(i>-1){opts[i].classList.add("act");lst.setAttribute("aria-activedescendant",opts[i].id);opts[i].scrollIntoView({block:"nearest"})}};
+  const open=()=>{document.querySelectorAll(".sm-lst.on").forEach(l=>l!==lst&&l.dispatchEvent(new Event("close")));lst.classList.add("on");btn.setAttribute("aria-expanded","true");const s=opts.findIndex(o=>o.getAttribute("aria-selected")==="true");setAct(s>-1?s:opts.findIndex(enabled));lst.focus()};
+  const close=(f)=>{lst.classList.remove("on");btn.setAttribute("aria-expanded","false");if(f)btn.focus()};
+  lst.addEventListener("close",()=>close());
+  const pick=i=>{if(!enabled(opts[i]))return;opts.forEach(o=>o.setAttribute("aria-selected",o===opts[i]));show();close(true)};
+  const step=(d)=>{let i=act;for(let n=0;n<opts.length;n++){i=Math.max(0,Math.min(opts.length-1,i+d));if(enabled(opts[i]))return setAct(i)}};
+  btn.addEventListener("click",()=>lst.classList.contains("on")?close():open());
+  btn.addEventListener("keydown",e=>{if(["ArrowDown","ArrowUp","Enter"," "].includes(e.key)){e.preventDefault();open()}});
+  lst.addEventListener("keydown",e=>{
+    if(e.key==="ArrowDown"){e.preventDefault();step(1)}else if(e.key==="ArrowUp"){e.preventDefault();step(-1)}
+    else if(e.key==="Home"){e.preventDefault();setAct(opts.findIndex(enabled))}else if(e.key==="End"){e.preventDefault();setAct(opts.length-1-[...opts].reverse().findIndex(enabled))}
+    else if(e.key==="Enter"||e.key===" "){e.preventDefault();if(act>-1)pick(act)}
+    else if(e.key==="Escape"){e.preventDefault();close(true)}else if(e.key==="Tab"){close()}
+    else if(e.key.length===1){buf+=e.key.toLowerCase();clearTimeout(bt);bt=setTimeout(()=>buf="",600);const i=opts.findIndex(o=>enabled(o)&&o.textContent.trim().toLowerCase().startsWith(buf));if(i>-1)setAct(i)}
+  });
+  opts.forEach((o,i)=>{o.addEventListener("click",()=>pick(i));o.addEventListener("pointermove",()=>enabled(o)&&act!==i&&setAct(i))});
+  document.addEventListener("pointerdown",e=>{if(!f.contains(e.target))close()});
+  show();
+});
+</script>

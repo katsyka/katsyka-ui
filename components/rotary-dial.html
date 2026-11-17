@@ -1,0 +1,66 @@
+<style>
+.rd{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.rd :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.rd ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.rd *,.rd *::before,.rd *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.rd{--m:var(--ac);min-height:100vh;display:grid;place-items:center;padding:32px 16px}
+.rd-card{width:min(380px,100%);padding:24px;border-radius:28px;background:var(--sf);box-shadow:var(--shadow);text-align:center}
+.rd-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.rd-head b{font-size:16px;font-weight:600}.rd-head span{font-size:14px;color:var(--mu)}
+.rd-knob{position:relative;width:260px;height:260px;margin:8px auto 4px;touch-action:none;cursor:grab;border-radius:50%}
+.rd-knob:active{cursor:grabbing}
+.rd-knob svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rd-tick{stroke:var(--ctl);stroke-width:2;stroke-linecap:round;transition:stroke .15s}
+.rd-tick.on{stroke:var(--m)}
+.rd-cap{position:absolute;inset:44px;border-radius:50%;background:radial-gradient(circle at 50% 30%,light-dark(#ffffff,#2c2c31),light-dark(#e9e9e6,#18181b));box-shadow:inset 0 1px 0 light-dark(#fff,#ffffff1f),0 10px 24px -8px light-dark(#0003,#000c),0 0 0 1px var(--line);display:grid;place-items:center}
+.rd-ind{position:absolute;left:50%;top:10px;width:4px;height:18px;margin-left:-2px;border-radius:2px;background:var(--m)}
+.rd-rot{position:absolute;inset:0;border-radius:50%}
+.rd-val{font-size:56px;font-weight:600;letter-spacing:-.05em;font-variant-numeric:tabular-nums;line-height:1}
+.rd-val sup{font-size:20px;font-weight:500;color:var(--mu);margin-left:2px}
+.rd-sub{font-size:13px;color:var(--mu);margin-top:6px}
+.rd-knob:focus-visible{outline-offset:6px}
+.rd-ctl{display:flex;justify-content:center;gap:12px;margin:8px 0 18px}
+.rd-ctl button{width:44px;height:44px;border-radius:50%;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:500 22px/1 Geist,sans-serif;cursor:pointer;transition:background .15s}
+.rd-ctl button:hover{background:var(--sf2)}
+.rd-modes{display:flex;gap:4px;padding:4px;border-radius:14px;background:var(--sf2)}
+.rd-modes button{flex:1;height:40px;border:0;border-radius:10px;background:none;color:var(--mu);font:550 14px Geist,sans-serif;cursor:pointer;transition:background .2s,color .2s}
+.rd-modes button[aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 3px light-dark(#0000001f,#0008)}
+@media (pointer:coarse){.rd-modes button{height:44px}}
+</style>
+<section class="rd"><div class="rd-card">
+  <div class="rd-head"><b>Living room</b><span data-now>Now 19.0°</span></div>
+  <div class="rd-knob" role="slider" tabindex="0" aria-label="Target temperature" aria-valuemin="10" aria-valuemax="30">
+    <svg viewBox="0 0 260 260"></svg>
+    <div class="rd-cap"><div class="rd-rot"><i class="rd-ind"></i></div><div><div class="rd-val"><span data-v>21.5</span><sup>°C</sup></div><div class="rd-sub" data-s>Heating to 21.5°</div></div></div>
+  </div>
+  <div class="rd-ctl"><button aria-label="Decrease by 0.5 degrees">−</button><button aria-label="Increase by 0.5 degrees">+</button></div>
+  <div class="rd-modes" role="radiogroup" aria-label="Mode"><button role="radio" aria-checked="true" data-m="heat">Heat</button><button role="radio" aria-checked="false" data-m="cool">Cool</button><button role="radio" aria-checked="false" data-m="off">Off</button></div>
+</div></section>
+<script>
+(()=>{
+const MIN=10,MAX=30,STEP=.5,A0=-135,A1=135,NOW=19;
+const root=document.querySelector(".rd"),knob=root.querySelector(".rd-knob"),svg=knob.querySelector("svg"),rot=knob.querySelector(".rd-rot");
+const N=(MAX-MIN)/STEP;let ticks="";
+for(let i=0;i<=N;i++){const a=(A0+(A1-A0)*i/N-90)*Math.PI/180,big=i%4===0,r1=big?112:116,r2=126;ticks+=`<line class="rd-tick" x1="${130+Math.cos(a)*r1}" y1="${130+Math.sin(a)*r1}" x2="${130+Math.cos(a)*r2}" y2="${130+Math.sin(a)*r2}"/>`}
+svg.innerHTML=ticks;const T=[...svg.querySelectorAll("line")];
+let v=21.5,mode="heat";
+const MC={heat:"var(--ac)",cool:"light-dark(#1d4ed8,#93c5fd)",off:"var(--ctl)"};
+function set(nv,announce=true){v=Math.round(Math.min(MAX,Math.max(MIN,nv))/STEP)*STEP;const k=(v-MIN)/(MAX-MIN);
+  rot.style.transform=`rotate(${A0+(A1-A0)*k}deg)`;T.forEach((t,i)=>t.classList.toggle("on",mode!=="off"&&i<=k*N));
+  root.querySelector("[data-v]").textContent=v.toFixed(1);knob.setAttribute("aria-valuenow",v);knob.setAttribute("aria-valuetext",`${v.toFixed(1)} degrees Celsius`);
+  root.querySelector("[data-s]").textContent=mode==="off"?"System off":v>NOW&&mode==="heat"?`Heating to ${v.toFixed(1)}°`:v<NOW&&mode==="cool"?`Cooling to ${v.toFixed(1)}°`:"Holding temperature"}
+const fromPt=e=>{const r=knob.getBoundingClientRect();let a=Math.atan2(e.clientX-(r.left+r.width/2),-(e.clientY-(r.top+r.height/2)))*180/Math.PI;a=Math.max(A0,Math.min(A1,a));set(MIN+(a-A0)/(A1-A0)*(MAX-MIN))};
+let drag=false;
+knob.addEventListener("pointerdown",e=>{drag=true;knob.setPointerCapture(e.pointerId);fromPt(e)});knob.addEventListener("pointermove",e=>{if(drag)fromPt(e)});knob.addEventListener("pointerup",()=>drag=false);
+knob.addEventListener("wheel",e=>{e.preventDefault();set(v+(e.deltaY<0?STEP:-STEP))},{passive:false});
+knob.addEventListener("keydown",e=>{const d={ArrowUp:STEP,ArrowRight:STEP,ArrowDown:-STEP,ArrowLeft:-STEP,PageUp:2,PageDown:-2}[e.key];
+  if(d!==undefined){e.preventDefault();set(v+d)}if(e.key==="Home"){e.preventDefault();set(MIN)}if(e.key==="End"){e.preventDefault();set(MAX)}});
+const[dec,inc]=root.querySelectorAll(".rd-ctl button");
+// press-and-hold repeats, like a physical button
+const hold=(b,d)=>{let t;const go=()=>{set(v+d);t=setTimeout(go,t?90:400)};b.addEventListener("pointerdown",()=>{t=0;go()});["pointerup","pointerleave"].forEach(x=>b.addEventListener(x,()=>clearTimeout(t)));b.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();set(v+d)}})};
+hold(dec,-STEP);hold(inc,STEP);
+root.querySelectorAll(".rd-modes button").forEach((b,i,all)=>{b.onclick=()=>{all.forEach(x=>{x.setAttribute("aria-checked",x===b);x.tabIndex=x===b?0:-1});mode=b.dataset.m;root.style.setProperty("--m",MC[mode]);set(v)};b.tabIndex=i?-1:0;
+  b.onkeydown=e=>{const d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(d){e.preventDefault();const n=all[(i+d+all.length)%all.length];n.focus();n.click()}}});
+set(v);
+})();
+</script>

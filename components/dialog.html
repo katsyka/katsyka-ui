@@ -1,0 +1,80 @@
+<style>
+.dg{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.dg :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.dg ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.dg *,.dg *::before,.dg *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.dg{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.dg-trg{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.dg-trg button{height:40px;padding:0 16px;border-radius:10px;font:550 14px Geist,system-ui,sans-serif;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.dg-trg button:hover{background:var(--sf2)}
+.dg-trg button.pr{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.dg dialog{width:min(480px,calc(100% - 32px));max-height:calc(100% - 32px);padding:0;border:1px solid var(--line);border-radius:18px;background:var(--bg);color:var(--fg);box-shadow:0 30px 70px -20px #00000059,0 4px 12px #0000001a;opacity:0;transform:translateY(10px) scale(.97);transition:opacity .2s,transform .25s var(--ease),overlay .25s allow-discrete,display .25s allow-discrete}
+.dg dialog[open]{opacity:1;transform:none}
+@starting-style{.dg dialog[open]{opacity:0;transform:translateY(10px) scale(.97)}}
+.dg dialog::backdrop{background:#0a0a0b80;backdrop-filter:blur(2px);opacity:0;transition:opacity .2s,overlay .25s allow-discrete,display .25s allow-discrete}
+.dg dialog[open]::backdrop{opacity:1}
+@starting-style{.dg dialog[open]::backdrop{opacity:0}}
+.dg-hd{display:flex;align-items:flex-start;gap:14px;padding:22px 22px 0}
+.dg-hd h2{margin:0;font-size:18px;font-weight:620;letter-spacing:-.02em}
+.dg-hd p{margin:4px 0 0;font-size:14px;color:var(--mu);line-height:1.5}
+.dg-x{margin-left:auto;flex:none;width:32px;height:32px;margin-top:-4px;margin-right:-6px;border:0;border-radius:8px;background:none;color:var(--mu);cursor:pointer;display:grid;place-items:center}
+.dg-x:hover{background:var(--sf2);color:var(--fg)}
+.dg-x svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.dg-bd{padding:18px 22px;display:grid;gap:14px}
+.dg-f{display:flex;flex-direction:column;gap:6px}
+.dg-f label{font-size:13.5px;font-weight:550}
+.dg-f input,.dg-f select{height:40px;padding:0 12px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);color:var(--fg);font:16px Geist,system-ui,sans-serif}
+@media (min-width:640px){.dg-f input,.dg-f select{font-size:14.5px}}
+.dg-f :is(input,select):focus-visible{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.dg-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dg-ft{display:flex;justify-content:flex-end;gap:8px;padding:14px 22px;border-top:1px solid var(--line);background:var(--sf);border-radius:0 0 18px 18px}
+.dg-ft button{height:38px;padding:0 16px;border-radius:10px;font:550 14px Geist,system-ui,sans-serif;cursor:pointer;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.dg-ft button:hover{background:var(--sf2)}
+.dg-ft button.pr{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.dg-ft button.pr:hover{background:color-mix(in oklab,var(--fg) 85%,var(--bg))}
+.dg-ic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--ac-sf);color:var(--ac)}
+.dg-ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dg-out{margin-top:16px;text-align:center;font-size:13.5px;color:var(--mu);min-height:20px}
+.dg-wide{width:min(560px,calc(100% - 32px))!important}
+.dg-sc{max-height:240px;overflow:auto;padding:0 22px;font-size:14px;line-height:1.65;color:var(--mu)}
+.dg-sc h3{margin:16px 0 4px;font-size:14.5px;color:var(--fg)}
+.dg-sc p{margin:0 0 10px}
+@media (max-width:520px){.dg-row{grid-template-columns:1fr}.dg dialog{margin:auto auto 0;width:100%;max-width:100%;border-radius:20px 20px 0 0}.dg-ft{border-radius:0}}
+</style>
+<div class="dg">
+  <div>
+    <div class="dg-trg"><button class="pr" data-open="dgA">Invite member</button><button data-open="dgB">What’s new</button><button data-open="dgC">Terms (scrolling)</button></div>
+    <div class="dg-out" aria-live="polite"></div>
+  </div>
+  <dialog id="dgA" aria-labelledby="dgAt" aria-describedby="dgAd">
+    <form method="dialog">
+      <div class="dg-hd"><div><h2 id="dgAt">Invite a team member</h2><p id="dgAd">They’ll get an email with a link to join Northwind.</p></div><button class="dg-x" value="cancel" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+      <div class="dg-bd">
+        <div class="dg-f"><label for="dgE">Email</label><input id="dgE" type="email" required placeholder="name@company.com" autocomplete="off"></div>
+        <div class="dg-row"><div class="dg-f"><label for="dgR">Role</label><select id="dgR"><option>Member</option><option>Admin</option><option>Viewer</option></select></div><div class="dg-f"><label for="dgT">Team</label><select id="dgT"><option>Design</option><option>Engineering</option></select></div></div>
+      </div>
+      <div class="dg-ft"><button value="cancel" formnovalidate>Cancel</button><button class="pr" value="ok">Send invite</button></div>
+    </form>
+  </dialog>
+  <dialog id="dgB" aria-labelledby="dgBt">
+    <form method="dialog">
+      <div class="dg-hd"><span class="dg-ic"><svg viewBox="0 0 24 24"><path d="m12 3-1.9 5.8L4 10.6l5 3.9L7.4 21 12 17.3 16.6 21 15 14.5l5-3.9-6.1-1.8z"/></svg></span><div><h2 id="dgBt">Version 2.4 is here</h2><p>Faster builds, a new command palette and dark mode for every chart.</p></div><button class="dg-x" value="cancel" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+      <div class="dg-ft" style="margin-top:18px"><button value="later">Later</button><button class="pr" value="ok" autofocus>See what’s new</button></div>
+    </form>
+  </dialog>
+  <dialog id="dgC" class="dg-wide" aria-labelledby="dgCt">
+    <form method="dialog">
+      <div class="dg-hd" style="padding-bottom:14px;border-bottom:1px solid var(--line)"><div><h2 id="dgCt">Terms of service</h2><p>Last updated October 2026</p></div><button class="dg-x" value="cancel" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+      <div class="dg-sc" tabindex="0"><h3>1. Your account</h3><p>You are responsible for keeping your credentials secure and for all activity under your account.</p><h3>2. Acceptable use</h3><p>Don’t use the service to break the law, harm others, or interfere with the platform’s operation.</p><h3>3. Your content</h3><p>You own what you upload. You grant us a licence only to host and display it as needed to run the service.</p><h3>4. Payment</h3><p>Paid plans renew automatically until cancelled. Refunds are prorated for annual plans.</p><h3>5. Termination</h3><p>You can close your account at any time. We may suspend accounts that violate these terms.</p></div>
+      <div class="dg-ft"><button value="cancel">Decline</button><button class="pr" value="ok">Accept</button></div>
+    </form>
+  </dialog>
+</div>
+<script>
+const out=document.querySelector(".dg-out");
+document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>{const d=document.getElementById(b.dataset.open);d.returnValue="";d.showModal()}));
+document.querySelectorAll(".dg dialog").forEach(d=>{
+  d.addEventListener("click",e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close("dismiss")}});
+  d.addEventListener("close",()=>{const t=d.querySelector("h2").textContent;out.textContent=d.returnValue==="ok"?(d.id==="dgA"?`Invite sent to ${document.getElementById("dgE").value}`:`“${t}” confirmed`):`“${t}” closed`;d.querySelector("form").reset()});
+});
+</script>

@@ -1,0 +1,45 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.hs{width:min(64ch,100%);position:relative;font-size:18px;line-height:1.75}.hs h1{font-size:30px;letter-spacing:-.02em;line-height:1.2;margin:0 0 16px}.hs p{margin:0 0 1.1em}.hs-h{font-size:13px}
+.hs mark{background:color-mix(in srgb,#facc15 45%,transparent);color:inherit;border-radius:2px;cursor:pointer;padding:1px 0}.hs mark:hover{background:color-mix(in srgb,#facc15 70%,transparent)}
+.hs-tb{position:absolute;z-index:5;display:flex;gap:2px;background:var(--fg);padding:4px;border-radius:10px;translate:-50% calc(-100% - 8px);box-shadow:0 8px 24px -10px #0008;animation:hst .15s cubic-bezier(.23,1,.32,1);transform-origin:bottom center}@keyframes hst{from{opacity:0;transform:scale(.95)}}.hs-tb button{display:flex;gap:6px;align-items:center;height:34px;padding:0 10px;border-radius:7px;color:var(--bg);font-size:13px;font-weight:550}.hs-tb button:hover{background:color-mix(in srgb,var(--bg) 15%,transparent)}
+.hs-m{position:fixed;bottom:20px;left:50%;translate:-50% 0;background:var(--fg);color:var(--bg);font-size:13px;padding:8px 14px;border-radius:10px;margin:0}.hs-m:empty{display:none}
+</style>
+<div class="k"><article class="hs" id="a"><h1>Reading a city from its power lines</h1><p>Overhead cables are a map of a city's past arguments. Where they still hang, someone once decided burying them wasn't worth the money, and nobody has reopened that decision since.</p><p>In Tokyo, more than 90% of distribution lines are still above ground, a choice made in the 1950s for speed of reconstruction. In Paris, almost none are. The difference isn't wealth: it's which disaster each city prepared for.</p><p>Next time you look up, try reading the wires. The thick ones carry power, the thin bundles carry data, and the little cylinders are transformers stepping voltage down for a few dozen homes.</p><p class="mu hs-h">Select some text to try it.</p>
+<div class="hs-tb" id="tb" role="toolbar" aria-label="Selection actions" hidden><button id="hq"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>Quote</button><button id="hh"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Highlight</button><button id="hx"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>Share</button></div><p class="hs-m" id="m" role="status"></p></article></div>
+<script>
+const a=document.getElementById('a'),tb=document.getElementById('tb'),m=document.getElementById('m');let rng=null;
+const msg=t=>{m.textContent=t;setTimeout(()=>m.textContent='',1600)};
+document.addEventListener('selectionchange',()=>{const s=getSelection();if(!s.rangeCount||s.isCollapsed||!a.contains(s.anchorNode)||tb.contains(s.anchorNode)){if(!tb.matches(':focus-within'))tb.hidden=true;return}rng=s.getRangeAt(0).cloneRange();const r=rng.getBoundingClientRect(),ar=a.getBoundingClientRect();tb.hidden=false;tb.style.left=Math.max(130,Math.min(ar.width-130,r.left-ar.left+r.width/2))+'px';tb.style.top=(r.top-ar.top)+'px'});
+document.getElementById('hq').onclick=()=>{const t=`“${rng.toString().trim()}”\nFrom Field Notes, “Reading a city from its power lines”\nhttps://fieldnotes.example/214`;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).catch(()=>{});tb.hidden=true;msg('Quote copied with source')};
+document.getElementById('hh').onclick=()=>{try{const mk=document.createElement('mark');mk.title='Click to remove highlight';rng.surroundContents(mk)}catch(e){msg('Highlight within one paragraph');return}getSelection().removeAllRanges();tb.hidden=true;msg('Highlighted')};
+document.getElementById('hx').onclick=()=>{const t=rng.toString().trim();if(navigator.share)navigator.share({text:`“${t}”`,url:'https://fieldnotes.example/214'}).catch(()=>{});else{(navigator.clipboard?navigator.clipboard.writeText('https://fieldnotes.example/214#:~:text='+encodeURIComponent(t.slice(0,60))):Promise.reject()).catch(()=>{});msg('Link to this passage copied')}tb.hidden=true};
+a.addEventListener('click',e=>{const mk=e.target.closest('mark');if(mk){mk.replaceWith(...mk.childNodes);msg('Highlight removed')}});
+</script>

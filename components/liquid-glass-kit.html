@@ -1,0 +1,233 @@
+<style>
+.lq{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;isolation:isolate;padding:22px clamp(16px,4vw,48px) 0;color:#fff;font-size:15px;-webkit-user-select:none;user-select:none;touch-action:pan-y;--spring:cubic-bezier(.3,1.5,.5,1)}
+.lq-wall{position:absolute;inset:-5%;z-index:-1;background:#0b1424 center/cover no-repeat;transition:background-image .5s}
+.lq:has(.lq-wall.drag){cursor:grabbing}
+.lq svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.lq svg.f{fill:currentColor;stroke:none}
+.lq button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+.lq button:focus-visible,.lq [tabindex]:focus-visible,.lq input:focus-visible{outline:2px solid #fff;outline-offset:3px}
+/* glass skin; Chromium swaps the blur for a refracting SVG filter in JS */
+.lq-g{position:relative;isolation:isolate;--tint:linear-gradient(160deg,#ffffff26,#ffffff05 60%),linear-gradient(#10141c22,#10141c22);background:var(--tint);box-shadow:inset 0 0 0 .5px #ffffff2e,inset 0 -10px 22px -14px #ffffff40,inset 0 8px 18px -14px #ffffff30,0 14px 34px -16px #000b;-webkit-backdrop-filter:blur(14px) saturate(1.6);backdrop-filter:blur(14px) saturate(1.6)}
+.lq-g:has(>.lq-r){-webkit-backdrop-filter:none;backdrop-filter:none}
+.lq-r{position:absolute;inset:0;z-index:-1;border-radius:inherit;overflow:hidden;pointer-events:none}
+.lq-r>i{position:absolute}.lq-r b{position:absolute}
+.lq-r::after{content:"";position:absolute;inset:0;background:var(--tint)}
+/* specular rim: bright where the light (follows the pointer) hits the edge, faint on the sides */
+.lq-g::after,.lq-th::after,.lq-kn::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.3px;background:linear-gradient(var(--la,135deg),#fffffff0,#ffffff40 20%,#fff0 42%,#fff0 60%,#ffffff30 80%,#ffffffa8);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none}
+.lq-p{transition:transform .45s var(--spring),background .25s}
+.lq-p:active{transform:scale(1.08)}
+.lq-top{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1180px;margin:0 auto}
+.lq-c{width:46px;height:46px;border-radius:50%;display:grid;place-items:center}
+.lq-grp{display:flex;height:46px;border-radius:99px;padding:0 4px}
+.lq-grp button{width:42px;display:grid;place-items:center;border-radius:99px}
+.lq-seg{display:grid;grid-template-columns:repeat(3,1fr);height:40px;padding:4px;border-radius:99px;width:min(300px,52vw)}
+.lq-seg button{position:relative;z-index:1;border-radius:99px;font-size:14px;font-weight:550;opacity:.75;transition:opacity .2s}
+.lq-seg button[aria-checked=true]{opacity:1}
+.lq-th{position:absolute;top:4px;bottom:4px;left:4px;border-radius:99px;background:#ffffff26;box-shadow:inset 0 -6px 14px -8px #ffffff50,0 6px 16px -8px #0006;pointer-events:none;transition:transform .55s var(--spring),scale .35s var(--spring)}
+.lq-th.drag{transition:scale .35s var(--spring)}
+.lq-seg .lq-th{width:calc((100% - 8px)/3);transform:translateX(calc(var(--i,0)*100%))}
+.lq-th.mv{scale:1.14 1.22}
+.lq-grid{width:100%;max-width:1180px;margin:clamp(24px,5vh,48px) auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+.lq-col{display:grid;gap:20px}
+.lq-card{border-radius:30px;padding:18px}
+.lq-np{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:center}
+.lq-art{width:64px;height:64px;border-radius:14px;background:radial-gradient(circle at 30% 30%,#ffb36b,#e2416c 45%,#3b1d8f)}
+.lq-np b{display:block;font-size:16px;letter-spacing:-.01em}.lq-np span{font-size:14px;opacity:.85}
+.lq-bar{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font:500 11px "Geist Mono",monospace;opacity:.9;font-variant-numeric:tabular-nums}
+.lq-bar i{height:5px;border-radius:9px;background:#ffffff38;overflow:hidden}.lq-bar i::before{content:"";display:block;height:100%;width:calc(var(--p,.3)*100%);background:#fff;border-radius:inherit}
+.lq-ctl{grid-column:1/-1;display:flex;justify-content:center;gap:26px}
+.lq-ctl button{width:48px;height:48px;border-radius:50%;display:grid;place-items:center}
+.lq-ctl button:hover{background:#ffffff1a}.lq-ctl svg{width:26px;height:26px}.lq-ctl .pl svg{width:32px;height:32px}
+.lq-note{display:grid;grid-template-columns:40px 1fr;gap:4px 12px;border-radius:26px;padding:14px 16px}
+.lq-note>i{grid-row:span 2;width:40px;height:40px;border-radius:11px;background:linear-gradient(#5cf27a,#20b84a);display:grid;place-items:center}
+.lq-note header{display:flex;justify-content:space-between;font-size:13px;opacity:.75}.lq-note p{margin:0;font-size:14.5px;line-height:1.4}
+.lq-cc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lq-conn{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;border-radius:30px;aspect-ratio:1}
+.lq-tg{width:100%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:#ffffff1f;transition:transform .45s var(--spring),background .25s,color .25s}
+.lq-tg:active{transform:scale(1.1)}
+.lq-tg[aria-pressed=true]{background:var(--on,#0a84ff);color:#fff}
+.lq-tg svg{width:22px;height:22px}
+.lq-vs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lq-v{position:relative;border-radius:26px;overflow:hidden;cursor:ns-resize;touch-action:none;min-height:100%}
+.lq-v::before{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--v,.5)*100%);background:#fffffff2;transition:height .12s}
+.lq-v svg{position:absolute;left:50%;bottom:14px;translate:-50% 0;color:#1c1c1e;width:22px;height:22px;mix-blend-mode:normal}
+.lq-rt{height:76px;border-radius:30px;display:grid;place-items:center}
+.lq-rt[aria-pressed=true]{--tint:linear-gradient(#fffffff2,#fffffff2);color:#1c1c1e}
+.lq-rows{border-radius:30px;padding:6px 18px}
+.lq-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:54px}
+.lq-row+.lq-row{border-top:1px solid #ffffff22}
+.lq-sw{position:relative;width:62px;height:28px;border-radius:99px;background:#ffffff38;transition:background .3s;flex:none}
+.lq-sw[aria-checked=true]{background:#34c759}
+.lq-kn{position:absolute;top:2px;left:2px;width:38px;height:24px;border-radius:99px;background:#fff;box-shadow:0 2px 6px #0003;transition:transform .5s var(--spring),scale .35s var(--spring),background .2s,box-shadow .2s;pointer-events:none}
+.lq-sw[aria-checked=true] .lq-kn{transform:translateX(20px)}
+.lq .press .lq-kn{scale:1.35 1.45;background:#ffffff30;box-shadow:inset 0 1px 0 #ffffffa0,inset 0 0 0 1px #ffffff40,0 4px 12px #0003}
+.lq-hs{position:relative;flex:1;height:28px;touch-action:none;cursor:pointer;max-width:200px}
+.lq-hs::before,.lq-hs::after{content:"";position:absolute;left:0;top:12px;height:4px;border-radius:9px}
+.lq-hs::before{right:0;background:#ffffff38}.lq-hs::after{width:calc(var(--v,.5)*100%);background:#fff}
+.lq-hs .lq-kn{top:2px;left:calc(var(--v,.5)*(100% - 38px));transition:scale .35s var(--spring),background .2s,box-shadow .2s;z-index:1}
+.lq-srch{display:flex;align-items:center;gap:10px;height:48px;padding:0 18px;border-radius:99px}
+.lq-srch input{flex:1;min-width:0;border:0;background:none;color:#fff;font:inherit;outline:0}
+.lq-srch input::placeholder{color:#ffffffb0}
+.lq-srch:focus-within{box-shadow:inset 0 1px 0 #ffffff8c,inset 0 0 0 2px #ffffffa0,0 12px 32px -14px #000a}
+.lq-btns{display:flex;gap:12px}
+.lq-btn{flex:1;height:50px;border-radius:99px;font-weight:600}
+.lq-btn.tint{--tint:linear-gradient(160deg,#3a9bffd8,#0a6cffb0);box-shadow:inset 0 1px 0 #ffffffa0,inset 0 0 0 1px #ffffff33,0 12px 30px -12px #0a6cffaa}
+.lq-tabs{position:sticky;bottom:20px;z-index:2;display:flex;justify-content:center;align-items:center;gap:12px;margin:auto auto 20px;padding-top:clamp(28px,6vh,56px)}
+.lq-tab{display:grid;grid-template-columns:repeat(4,76px);height:62px;padding:4px;border-radius:99px}
+.lq-tab button{position:relative;z-index:1;display:grid;place-items:center;align-content:center;gap:2px;font-size:10.5px;font-weight:600;border-radius:99px;opacity:.8;transition:opacity .2s,color .2s}
+.lq-tab button[aria-selected=true]{opacity:1;color:#7cc4ff}
+.lq-tab svg{width:22px;height:22px}
+.lq-tab .lq-th{width:76px;transform:translateX(calc(var(--i,0)*100%))}
+.lq-tabs .lq-c{width:62px;height:62px}
+.lq-alert{width:min(300px,calc(100% - 40px));border:0;padding:22px 18px 16px;border-radius:34px;color:#fff;text-align:center;--tint:linear-gradient(160deg,#ffffff38,#ffffff10 60%),linear-gradient(#10141c40,#10141c40);opacity:0;scale:.85;transition:opacity .25s,scale .45s var(--spring),overlay .3s allow-discrete,display .3s allow-discrete}
+.lq-alert[open]{opacity:1;scale:1}
+@starting-style{.lq-alert[open]{opacity:0;scale:.85}}
+.lq-alert::backdrop{background:#0006}
+.lq-alert h3{margin:0 0 6px;font-size:17px}.lq-alert p{margin:0 0 18px;font-size:14px;line-height:1.4;opacity:.85}
+.lq-alert .lq-btns{gap:10px}.lq-alert .lq-btn{height:46px;background:#ffffff26}.lq-alert .lq-btn.tint{background:#0a84ff}
+@media (max-width:900px){.lq-grid{grid-template-columns:1fr;max-width:420px}.lq-tab{grid-template-columns:repeat(4,64px)}.lq-tab .lq-th{width:64px}}
+@media (prefers-reduced-motion:reduce){.lq *{transition-duration:.01ms!important}}
+</style>
+<section class="lq" aria-label="Liquid glass controls">
+  <div class="lq-wall"></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <path id="lqi-back" d="M15 18l-6-6 6-6"/><path id="lqi-share" d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path id="lqi-more" d="M5 12h.01M12 12h.01M19 12h.01" stroke-width="3.4"/>
+    <path id="lqi-play" d="M8 5v14l11-7z"/><path id="lqi-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/><path id="lqi-prev" d="M11 6v12L3 12zM20 6v12l-8-6z"/><path id="lqi-next" d="M13 6v12l8-6zM4 6v12l8-6z"/>
+    <path id="lqi-wifi" d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01"/><path id="lqi-bt" d="M7 7l10 10-5 5V2l5 5L7 17"/>
+    <path id="lqi-plane" d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
+    <path id="lqi-cell" d="M12 20v-9M8.5 7.5a5 5 0 0 1 7 0M5.5 4.5a9.5 9.5 0 0 1 13 0M12 11h.01"/><path id="lqi-torch" d="M8 2h8v4l-2 4v12h-4V10L8 6zM12 13v2"/>
+    <path id="lqi-moon" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/><path id="lqi-sun" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+    <path id="lqi-vol" d="M11 5 6 9H3v6h3l5 4zM15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/><path id="lqi-search" d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5"/>
+    <path id="lqi-home" d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/><path id="lqi-music" d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM20 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+    <path id="lqi-lib" d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/><path id="lqi-user" d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0"/><path id="lqi-msg" d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-4.9A8.5 8.5 0 1 1 21 11.5z"/>
+  </defs></svg>
+  <header class="lq-top">
+    <button class="lq-g lq-c lq-p" data-glass="circle" aria-label="Back"><svg><use href="#lqi-back"/></svg></button>
+    <div class="lq-g lq-seg" data-glass="pill" role="radiogroup" aria-label="Wallpaper"><i class="lq-th"></i>
+      <button role="radio" aria-checked="true" data-w="media/glass-wall2.jpg" data-p="50% 50%">Ocean</button><button role="radio" aria-checked="false" tabindex="-1" data-w="media/glass-wall.jpg" data-p="50% 50%">City</button><button role="radio" aria-checked="false" tabindex="-1" data-w="media/glass-wall3.jpg" data-p="50% 80%">Orbit</button></div>
+    <div class="lq-g lq-grp" data-glass="pill"><button class="lq-p" aria-label="Share"><svg><use href="#lqi-share"/></svg></button><button class="lq-p" aria-label="More"><svg><use href="#lqi-more"/></svg></button></div>
+  </header>
+  <div class="lq-grid">
+    <div class="lq-col">
+      <div class="lq-g lq-card lq-np" data-glass="card" aria-label="Now playing">
+        <div class="lq-art"></div><div><b>Northbound</b><span>Mira Vale</span></div>
+        <div class="lq-bar"><span class="t0">1:12</span><i></i><span class="t1">-2:36</span></div>
+        <div class="lq-ctl"><button aria-label="Previous"><svg class="f"><use href="#lqi-prev"/></svg></button><button class="pl" aria-label="Play"><svg class="f"><use href="#lqi-play"/></svg></button><button aria-label="Next"><svg class="f"><use href="#lqi-next"/></svg></button></div>
+      </div>
+      <div class="lq-g lq-note" data-glass="card" role="status"><i><svg class="f"><use href="#lqi-msg"/></svg></i><header><b>Ana</b><span>now</span></header><p>Are you seeing the lights from up there? Send a photo.</p></div>
+    </div>
+    <div class="lq-col lq-cc">
+      <div class="lq-g lq-conn" data-glass="card" role="group" aria-label="Connectivity">
+        <button class="lq-tg" style="--on:#ff9f0a" aria-pressed="false" aria-label="Airplane mode" data-air><svg><use href="#lqi-plane"/></svg></button>
+        <button class="lq-tg" style="--on:#30d158" aria-pressed="true" aria-label="Cellular data"><svg><use href="#lqi-cell"/></svg></button>
+        <button class="lq-tg" aria-pressed="true" aria-label="Wi-Fi"><svg><use href="#lqi-wifi"/></svg></button>
+        <button class="lq-tg" aria-pressed="true" aria-label="Bluetooth"><svg><use href="#lqi-bt"/></svg></button>
+      </div>
+      <div class="lq-vs">
+        <div class="lq-g lq-v" data-glass="card" role="slider" tabindex="0" aria-label="Brightness" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65" style="--v:.65"><svg><use href="#lqi-sun"/></svg></div>
+        <div class="lq-g lq-v" data-glass="card" role="slider" tabindex="0" aria-label="Volume" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40" style="--v:.4"><svg><use href="#lqi-vol"/></svg></div>
+      </div>
+      <button class="lq-g lq-rt lq-p" data-glass="card" aria-pressed="false" aria-label="Flashlight"><svg><use href="#lqi-torch"/></svg></button>
+      <button class="lq-g lq-rt lq-p" data-glass="card" aria-pressed="true" aria-label="Do Not Disturb"><svg><use href="#lqi-moon"/></svg></button>
+    </div>
+    <div class="lq-col">
+      <div class="lq-g lq-rows" data-glass="card">
+        <div class="lq-row"><span id="lqA">Airplane Mode</span><button class="lq-sw" role="switch" aria-checked="false" aria-labelledby="lqA" data-air><i class="lq-kn"></i></button></div>
+        <div class="lq-row"><span id="lqB">Live Activities</span><button class="lq-sw" role="switch" aria-checked="true" aria-labelledby="lqB"><i class="lq-kn"></i></button></div>
+        <div class="lq-row"><span>Text Size</span><div class="lq-hs" role="slider" tabindex="0" aria-label="Text size" aria-valuemin="0" aria-valuemax="100" aria-valuenow="55" style="--v:.55"><i class="lq-kn"></i></div></div>
+      </div>
+      <label class="lq-g lq-srch" data-glass="pill"><svg><use href="#lqi-search"/></svg><input type="search" placeholder="Search" aria-label="Search"></label>
+      <div class="lq-btns"><button class="lq-g lq-btn lq-p" data-glass="pill" data-open>Airplane Mode…</button><button class="lq-g lq-btn tint lq-p" data-glass="pill">Done</button></div>
+    </div>
+  </div>
+  <div class="lq-tabs">
+    <div class="lq-g lq-tab" data-glass="pill" role="tablist" aria-label="Sections"><i class="lq-th"></i>
+      <button role="tab" aria-selected="true"><svg><use href="#lqi-home"/></svg>Home</button><button role="tab" aria-selected="false" tabindex="-1"><svg><use href="#lqi-music"/></svg>Music</button><button role="tab" aria-selected="false" tabindex="-1"><svg><use href="#lqi-lib"/></svg>Library</button><button role="tab" aria-selected="false" tabindex="-1"><svg><use href="#lqi-user"/></svg>Profile</button></div>
+    <button class="lq-g lq-c lq-p" data-glass="circle" aria-label="Search"><svg><use href="#lqi-search"/></svg></button>
+  </div>
+  <dialog class="lq-alert lq-g" data-glass="card" aria-labelledby="lqT"><h3 id="lqT">Turn on Airplane Mode?</h3><p>Calls, Wi-Fi and Bluetooth will be switched off until you turn it off again.</p>
+    <div class="lq-btns"><button class="lq-btn lq-p" value="no">Cancel</button><button class="lq-btn tint lq-p" value="yes">Turn On</button></div></dialog>
+</section>
+<script>
+(()=>{
+const root=document.querySelector(".lq"),$=s=>root.querySelector(s),$$=s=>[...root.querySelectorAll(s)];
+/* liquid glass: every panel carries its own copy of the wallpaper, kept aligned with the real one and bent through an
+   SVG displacement filter. A plain filter (not backdrop-filter) renders the same in Chromium, Safari and Firefox. */
+const RECIPE={card:{bezel:30,depth:30,disp:.07,blur:.4,sat:1.5,zoom:.04},pill:{bezel:22,depth:22,disp:.08,blur:.3,sat:1.5,zoom:.05},circle:{bezel:22,depth:22,disp:.08,blur:.3,sat:1.5,zoom:.08}};
+// refraction across the bezel: a squircle edge profile bent through glass (n=1.5) with Snell's law, normalised to 1 at the rim
+const PROF=[...Array(65)].map((_,i)=>{const t=Math.max(i/64,.002),a=Math.atan(Math.pow(1-t,3)*Math.pow(1-Math.pow(1-t,4),-.75)*.7);return Math.sin(a-Math.asin(Math.sin(a)/1.5))}),PK=PROF[0];
+const NS="http://www.w3.org/2000/svg",svg=document.createElementNS(NS,"svg");svg.style.cssText="position:absolute;width:0;height:0";document.body.append(svg);
+const mk=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e};
+// displacement map for a w×h rounded rect sitting m px inside the canvas (the margin lets the rim pull in pixels from beyond the edge)
+function map(w,h,m,r,bz,depth,zoom){const W=w+2*m,H=h+2*m,cv=document.createElement("canvas");cv.width=W;cv.height=H;
+  const x=cv.getContext("2d"),img=x.createImageData(W,H),d=img.data,ix=w/2-r,iy=h/2-r;
+  for(let py=0;py<H;py++)for(let px=0;px<W;px++){const X=px+.5-W/2,Y=py+.5-H/2,qx=Math.abs(X)-ix,qy=Math.abs(Y)-iy;let dist,nx,ny;
+    if(qx>0&&qy>0){const L=Math.hypot(qx,qy)||1;dist=L-r;nx=qx/L;ny=qy/L}else if(qx>qy){dist=qx-r;nx=1;ny=0}else{dist=qy-r;nx=0;ny=1}
+    const ins=-dist;let mm=0;if(ins>0&&ins<bz)mm=PROF[Math.round(ins/bz*64)]/PK;
+    const sx=Math.max(-1,Math.min(1,-Math.sign(X)*nx*mm-zoom*X/depth)),sy=Math.max(-1,Math.min(1,-Math.sign(Y)*ny*mm-zoom*Y/depth)),i=(py*W+px)*4;
+    d[i]=128+sx*127;d[i+1]=128+sy*127;d[i+2]=128;d[i+3]=255}
+  x.putImageData(img,0,0);return cv.toDataURL()}
+const wall=$(".lq-wall"),panes=new Set();let seq=0;
+function glass(el){const R=RECIPE[el.dataset.glass],w=el.offsetWidth,h=el.offsetHeight;if(!w||!h)return;
+  if(!el._p){el._p=document.createElement("i");el._p.className="lq-r";el._p.setAttribute("aria-hidden","true");el._p.innerHTML="<i><b></b></i>";el.prepend(el._p);panes.add(el)}
+  const cr=getComputedStyle(el).borderTopLeftRadius,r=Math.min(cr.endsWith("%")?parseFloat(cr)/100*Math.min(w,h):parseFloat(cr)||0,Math.min(w,h)/2),m=R.depth+4,W=w+2*m,H=h+2*m;
+  const url=map(w,h,m,r,Math.min(R.bezel,Math.min(w,h)/2-1),R.depth,R.zoom),id="lq-f"+ ++seq;
+  const f=mk("filter",{id,filterUnits:"userSpaceOnUse",primitiveUnits:"userSpaceOnUse",x:0,y:0,width:W,height:H,"color-interpolation-filters":"sRGB"});
+  f.append(mk("feGaussianBlur",{in:"SourceGraphic",stdDeviation:R.blur,result:"s"}),mk("feImage",{href:url,x:0,y:0,width:W,height:H,preserveAspectRatio:"none",result:"m"}));
+  [["r",1,"1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"],["g",1-R.disp,"0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0"],["b",1-2*R.disp,"0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"]].forEach(([ch,mul,mx])=>{
+    f.append(mk("feDisplacementMap",{in:"s",in2:"m",scale:R.depth*2*mul,xChannelSelector:"R",yChannelSelector:"G",result:"d"+ch}),mk("feColorMatrix",{in:"d"+ch,type:"matrix",values:mx,result:ch}))});
+  f.append(mk("feBlend",{in:"r",in2:"g",mode:"screen",result:"rg"}),mk("feBlend",{in:"rg",in2:"b",mode:"screen",result:"rgb"}),mk("feColorMatrix",{in:"rgb",type:"saturate",values:R.sat}));
+  const lay=el._p.firstChild;lay.style.inset=-m+"px";el._m=m;el._f?.remove();el._f=f;svg.append(f);lay.style.filter=`url(#${id})`;align(el)}
+// keep each copy registered with the wallpaper (resize, wallpaper drag or swap, sticky tab bar on scroll)
+function align(el){const wr=wall.getBoundingClientRect(),r=el.getBoundingClientRect(),cs=getComputedStyle(wall),sx=r.width/el.offsetWidth||1;
+  el._p.querySelector("b").style.cssText=`left:${(wr.left-r.left)/sx+el._m}px;top:${(wr.top-r.top)/sx+el._m}px;width:${wr.width/sx}px;height:${wr.height/sx}px;background:${cs.backgroundColor} ${cs.backgroundImage} ${cs.backgroundPosition}/cover no-repeat`}
+const alignAll=()=>panes.forEach(align),run=()=>$$("[data-glass]").forEach(glass);
+let af=0;addEventListener("scroll",()=>{if(!af)af=requestAnimationFrame(()=>{af=0;alignAll()})},{passive:true});
+(document.fonts?document.fonts.ready:Promise.resolve()).then(run);let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(run,150)});
+
+// wallpaper: segmented picker + drag to pan it under the glass
+let tx=0,ty=0;
+const setWall=b=>{const im=new Image();im.src=b.dataset.w;im.decode().catch(()=>{}).then(()=>{wall.style.backgroundImage=`url(${b.dataset.w})`;wall.style.backgroundPosition=b.dataset.p;alignAll()})};setWall($(".lq-seg [aria-checked=true]"));
+root.addEventListener("pointerdown",e=>{if(e.target.closest(".lq-g,button,input,dialog,[role]"))return;const sx=e.clientX-tx,sy=e.clientY-ty,mx=wall.offsetWidth*.045,my=wall.offsetHeight*.045;root.setPointerCapture(e.pointerId);wall.classList.add("drag");
+  const mv=e=>{tx=Math.max(-mx,Math.min(mx,e.clientX-sx));ty=Math.max(-my,Math.min(my,e.clientY-sy));wall.style.transform=`translate(${tx}px,${ty}px)`;alignAll()};
+  root.addEventListener("pointermove",mv);root.addEventListener("pointerup",()=>{root.removeEventListener("pointermove",mv);wall.classList.remove("drag")},{once:true})});
+
+// segmented control + tab bar share one pattern: a glass lens that slides and swells while moving
+function slider(group,attr,onPick){const btns=[...group.querySelectorAll("button")],th=group.querySelector(".lq-th");
+  const pick=(i,focus)=>{btns.forEach((b,j)=>{b.setAttribute(attr,j===i);b.tabIndex=j===i?0:-1});if(focus)btns[i].focus();
+    th.style.setProperty("--i",i);th.classList.add("mv");clearTimeout(th._t);th._t=setTimeout(()=>th.classList.remove("mv"),260);onPick?.(btns[i])};
+  btns.forEach((b,i)=>{b.onclick=()=>pick(i);b.onkeydown=e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(d){e.preventDefault();pick((i+d+btns.length)%btns.length,true)}}});
+  // drag the lens across the options; it swells while held and snaps to the nearest on release
+  group.addEventListener("pointerdown",e=>{const r=btns[0].getBoundingClientRect(),w=r.width,n=btns.length;let at=+th.style.getPropertyValue("--i")||0;
+    const mv=e=>{at=Math.max(0,Math.min(n-1,(e.clientX-r.left-w/2)/w));th.style.setProperty("--i",at)};
+    th.classList.add("drag","mv");mv(e);addEventListener("pointermove",mv);
+    addEventListener("pointerup",()=>{removeEventListener("pointermove",mv);th.classList.remove("drag");pick(Math.round(at))},{once:true})})}
+root.addEventListener("pointermove",e=>{const r=root.getBoundingClientRect();root.style.setProperty("--la",Math.round(Math.atan2(e.clientY-r.top-r.height/2,e.clientX-r.left-r.width/2)*57.3+90)+"deg")});
+slider($(".lq-seg"),"aria-checked",setWall);slider($(".lq-tab"),"aria-selected");
+
+// toggles, switches and the shared airplane state
+const setAir=on=>$$("[data-air]").forEach(b=>b.setAttribute(b.role==="switch"?"aria-checked":"aria-pressed",on));
+$$(".lq-tg,.lq-rt").forEach(b=>b.addEventListener("click",()=>{const on=b.getAttribute("aria-pressed")!=="true";b.hasAttribute("data-air")?setAir(on):b.setAttribute("aria-pressed",on)}));
+$$(".lq-sw").forEach(s=>{s.addEventListener("pointerdown",()=>s.classList.add("press"));["pointerup","pointerleave","pointercancel"].forEach(t=>s.addEventListener(t,()=>s.classList.remove("press")));
+  s.addEventListener("click",()=>{const on=s.getAttribute("aria-checked")!=="true";s.hasAttribute("data-air")?setAir(on):s.setAttribute("aria-checked",on)})});
+
+// sliders: vertical control-centre pills and a horizontal knob slider
+$$("[role=slider]").forEach(el=>{const vert=el.getAttribute("aria-orientation")==="vertical";
+  const set=v=>{v=Math.max(0,Math.min(1,v));el.style.setProperty("--v",v);el.setAttribute("aria-valuenow",Math.round(v*100))};
+  const at=e=>{const r=el.getBoundingClientRect();return vert?1-(e.clientY-r.top)/r.height:(e.clientX-r.left-19)/(r.width-38)};
+  el.addEventListener("pointerdown",e=>{el.setPointerCapture(e.pointerId);el.classList.add("press");set(at(e));const mv=e=>set(at(e));el.addEventListener("pointermove",mv);
+    el.addEventListener("pointerup",()=>{el.removeEventListener("pointermove",mv);el.classList.remove("press")},{once:true})});
+  el.addEventListener("keydown",e=>{const d={ArrowUp:.05,ArrowRight:.05,ArrowDown:-.05,ArrowLeft:-.05,PageUp:.2,PageDown:-.2}[e.key];if(d){e.preventDefault();set(el.getAttribute("aria-valuenow")/100+d)}})});
+
+// now playing
+const LEN=228,np=$(".lq-np"),pl=np.querySelector(".pl"),t0=np.querySelector(".t0"),t1=np.querySelector(".t1");let pos=72,timer=0;
+const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`,paint=()=>{np.style.setProperty("--p",pos/LEN);t0.textContent=fmt(pos);t1.textContent="-"+fmt(LEN-pos)};
+const play=on=>{clearInterval(timer);pl.setAttribute("aria-label",on?"Pause":"Play");pl.querySelector("use").setAttribute("href",on?"#lqi-pause":"#lqi-play");
+  if(on)timer=setInterval(()=>{if(++pos>=LEN){pos=LEN;play(false)}paint()},1000)};
+pl.onclick=()=>play(pl.getAttribute("aria-label")==="Play");np.querySelector("[aria-label=Previous]").onclick=()=>{pos=0;paint()};np.querySelector("[aria-label=Next]").onclick=()=>{pos=0;paint();play(true)};paint();
+
+// alert
+const dlg=$(".lq-alert");$("[data-open]").onclick=()=>{dlg.showModal();glass(dlg)};
+dlg.querySelectorAll("button").forEach(b=>b.onclick=()=>{if(b.value==="yes")setAir(true);dlg.close()});
+})();
+</script>

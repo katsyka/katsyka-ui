@@ -1,0 +1,49 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.lc2{width:min(760px,100%);padding:20px;margin:0}.lc2 figcaption{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:12px}.lc2 figcaption .b{margin-left:auto}
+.lc2-c{position:relative;height:280px;outline:0}.lc2-c:focus-visible{outline:2px solid var(--focus);outline-offset:4px;border-radius:6px}.lc2-c svg{width:100%;height:100%;overflow:visible}
+.lc2 .g{stroke:var(--line)}.lc2 .ax{fill:var(--mu);font-size:11px}.lc2 .a{fill:none;stroke:var(--ac);stroke-width:2.5}.lc2 .b2{fill:none;stroke:var(--ctl);stroke-width:2;stroke-dasharray:4 4}.lc2 .lb{font-size:12px;font-weight:650}.lc2 .x{stroke:var(--fg);stroke-opacity:.25}
+.lc2-tip{position:absolute;top:0;background:var(--fg);color:var(--bg);font-size:12px;padding:8px 10px;border-radius:8px;pointer-events:none;translate:-50% 0;white-space:nowrap;display:grid;gap:2px}.lc2-tip b{font-size:13px}
+.lc2-t{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}.lc2-t th,.lc2-t td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right}.lc2-t th:first-child,.lc2-t td:first-child{text-align:left}
+</style>
+<div class="k"><figure class="lc2 card"><figcaption><b>Monthly revenue</b><span class="mu">2026 vs 2025, € thousands</span><button class="b gh sm" id="tg" aria-pressed="false">Show table</button></figcaption><div class="lc2-c" id="c" tabindex="0" role="img" aria-label="Line chart: 2026 revenue is above 2025 in 10 of 12 months, ending at 184k versus 139k"><svg id="s"></svg><div class="lc2-tip" id="tp" hidden></div></div><table class="lc2-t" id="tb" hidden></table></figure></div>
+<script>
+const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],A=[96,101,118,112,130,141,138,150,162,158,171,184],B=[88,92,97,104,101,112,118,115,121,126,131,139];
+const s=document.getElementById('s'),c=document.getElementById('c'),tp=document.getElementById('tp');let W,H=280,L=36,R=56,T=10,Bm=24,hi=-1;
+const X=i=>L+i/11*(W-L-R),Y=v=>T+(1-(v-60)/140)*(H-T-Bm);
+function draw(){W=c.clientWidth;s.setAttribute('viewBox',`0 0 ${W} ${H}`);const p=a=>a.map((v,i)=>`${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join('L');
+s.innerHTML=[80,120,160,200].map(v=>`<line class="g" x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}"/><text class="ax" x="${L-8}" y="${Y(v)+4}" text-anchor="end">${v}</text>`).join('')+M.map((m,i)=>i%2?'':`<text class="ax" x="${X(i)}" y="${H-6}" text-anchor="middle">${m}</text>`).join('')+
+`<path class="b2" d="M${p(B)}"/><path class="a" d="M${p(A)}"/><text class="lb" x="${X(11)+8}" y="${Y(A[11])+4}" fill="var(--ac)">2026</text><text class="lb" x="${X(11)+8}" y="${Y(B[11])+4}" fill="var(--mu)">2025</text>${hi>=0?`<line class="x" x1="${X(hi)}" x2="${X(hi)}" y1="${T}" y2="${H-Bm}"/><circle cx="${X(hi)}" cy="${Y(A[hi])}" r="4.5" fill="var(--ac)" stroke="var(--bg)" stroke-width="2"/><circle cx="${X(hi)}" cy="${Y(B[hi])}" r="4" fill="var(--ctl)" stroke="var(--bg)" stroke-width="2"/>`:''}`;
+if(hi>=0){const d=A[hi]-B[hi];tp.hidden=false;tp.style.left=Math.max(70,Math.min(W-70,X(hi)))+'px';tp.innerHTML=`<b>${M[hi]}</b><span>2026: €${A[hi]}k · 2025: €${B[hi]}k</span><span>${d>=0?'+':''}${d}k (${d>=0?'+':''}${(d/B[hi]*100).toFixed(0)}%)</span>`}else tp.hidden=true}
+c.onpointermove=e=>{const r=c.getBoundingClientRect();hi=Math.max(0,Math.min(11,Math.round((e.clientX-r.left-L)/(W-L-R)*11)));draw()};c.onpointerleave=()=>{hi=-1;draw()};
+c.onkeydown=e=>{if(e.key==='ArrowRight'){hi=Math.min(11,hi+1);draw()}if(e.key==='ArrowLeft'){hi=Math.max(0,hi<0?11:hi-1);draw()}if(e.key==='Escape'){hi=-1;draw()}};
+document.getElementById('tb').innerHTML='<thead><tr><th>Month</th><th>2026</th><th>2025</th></tr></thead><tbody>'+M.map((m,i)=>`<tr><td>${m}</td><td>${A[i]}</td><td>${B[i]}</td></tr>`).join('')+'</tbody>';
+document.getElementById('tg').onclick=e=>{const t=document.getElementById('tb'),o=t.hidden;t.hidden=!o;c.hidden=o;e.currentTarget.setAttribute('aria-pressed',o);e.currentTarget.textContent=o?'Show chart':'Show table'};draw();addEventListener('resize',draw);
+</script>

@@ -1,0 +1,16 @@
+<!--Old Way vs New Way|Features|A two-column comparison of the old workflow and the new one, row by row, with the time each step takes; a toggle animates the old column striking through and totals the time saved.|features,comparison,before after,workflow,time saved-->
+<div class="k"><section class="ov2"><h2>Month-end close, two ways</h2><div class="ov2-g" id="g" data-m="0"><div class="ov2-h"><b>Spreadsheets</b><b>With Tally Books</b></div></div><div class="ov2-f"><button class="b ac" id="tg" aria-pressed="false">Show the difference</button><p class="ov2-s tn" id="sv" aria-live="polite"></p></div></section></div>
+<style>
+.ov2{width:min(820px,100%);display:grid;gap:20px}.ov2 h2{margin:0;font-size:clamp(26px,3.6vw,38px);letter-spacing:-.03em}
+.ov2-g{border:1px solid var(--line);border-radius:14px;background:var(--bg);overflow:hidden}.ov2-h,.ov2-r{display:grid;grid-template-columns:1fr 1fr}.ov2-h b{padding:12px 16px;font-size:14px;background:var(--sf)}.ov2-h b+b{border-left:1px solid var(--line)}
+.ov2-r>div{padding:14px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:15px;line-height:1.45}.ov2-r>div+div{border-left:1px solid var(--line)}.ov2-r .t{font:500 13px 'Geist Mono',monospace;color:var(--mu);white-space:nowrap}
+.ov2-r .old span:first-child{background:linear-gradient(var(--err),var(--err)) 0 55%/0 1.5px no-repeat;transition:background-size .5s cubic-bezier(.23,1,.32,1),color .3s}.ov2-g[data-m="1"] .old span:first-child{background-size:100% 1.5px;color:var(--mu)}.ov2-g[data-m="1"] .new{background:var(--ok-sf)}.ov2-r .new{transition:background .4s}
+.ov2-f{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.ov2-s{margin:0;font-size:16px;font-weight:600}
+@media (max-width:600px){.ov2-h,.ov2-r{grid-template-columns:1fr}.ov2-h b+b,.ov2-r>div+div{border-left:0}.ov2-h b+b{display:none}.ov2-r .new{border-top:0;padding-top:0}.ov2-r .new::before{content:"Now: ";font-weight:600}}
+</style>
+<script>
+const R=[["Export statements from 4 banks",45,"Banks sync every night",0],["Match transactions by hand",180,"Auto-matched, you review the 3% it's unsure about",20],["Chase receipts on Slack",60,"Receipts forwarded by email get attached automatically",5],["Rebuild the P&L tab",40,"P&L updates as you approve",0],["Email the board a PDF",15,"Share a live link",2]];
+const g=document.getElementById('g');g.insertAdjacentHTML('beforeend',R.map(([a,ta,b,tb])=>`<div class="ov2-r"><div class="old"><span>${a}</span><span class="t">${ta} min</span></div><div class="new"><span>${b}</span><span class="t">${tb?tb+' min':'0'}</span></div></div>`).join(''));
+const A=R.reduce((s,r)=>s+r[1],0),B=R.reduce((s,r)=>s+r[3],0);
+document.getElementById('tg').onclick=e=>{const b=e.currentTarget,on=g.dataset.m!=='1';g.dataset.m=on?1:0;b.setAttribute('aria-pressed',on);b.textContent=on?'Show both':'Show the difference';document.getElementById('sv').textContent=on?`${Math.floor(A/60)} h ${A%60} min → ${B} min. About ${Math.round((A-B)/60*12)} hours back each year.`:''};
+</script>

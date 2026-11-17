@@ -1,0 +1,76 @@
+<style>
+.fj-page{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;background:#f3f2ed}
+.fj{background:#f3f2ed;color:#1b3b2b;padding:72px clamp(16px,4vw,24px) 40px}
+.fj-in{max-width:1180px;margin:0 auto}
+.fj-card{background:#e7e5dc;border-radius:20px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:28px;margin-bottom:56px;flex-wrap:wrap}
+.fj-card h3{font:400 34px/1.1 "Instrument Serif",Georgia,serif;margin:0 0 6px;text-wrap:balance}
+.fj-card p{font-size:14px;color:#4a6355;margin:0}
+.fj-form{display:flex;flex-direction:column;gap:6px}
+.fj-row{display:flex;gap:10px;flex-wrap:wrap}
+.fj-form input{background:#fff;border:1px solid #d1cfc4;border-radius:999px;height:46px;padding:0 20px;font:16px Geist,sans-serif;color:#1b3b2b;width:260px;max-width:100%;outline:0;transition:border-color .2s}
+.fj-form input:focus-visible{border-color:#1b3b2b;box-shadow:0 0 0 3px #1b3b2b26}
+.fj-form.err input{border-color:#b4442c}
+.fj-form button{min-width:116px;height:46px;background:#1b3b2b;color:#f3f2ed;border:0;border-radius:999px;padding:0 24px;font:500 14px Geist,sans-serif;cursor:pointer;transition:background .2s,transform .1s}
+.fj-form button:hover{background:#c86d51}.fj-form button:active{transform:scale(.97)}
+.fj-form button:disabled{background:#4a6355;cursor:default;transform:none}
+.fj-form button:focus-visible{outline:2px solid #1b3b2b;outline-offset:3px}
+.fj-msg{min-height:18px;margin:0 0 0 20px;font-size:12.5px;color:#4a6355}.fj-msg.err{color:#b4442c}
+.fj-grid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:40px;margin-bottom:52px}
+.fj-brand{display:inline-flex;align-items:center;gap:10px;font:400 26px "Instrument Serif",Georgia,serif;color:#1b3b2b;text-decoration:none;margin-bottom:14px}
+.fj-about{font-size:14px;line-height:1.65;color:#4a6355;margin:0;max-width:270px;text-wrap:pretty}
+.fj h4{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#5a7466;margin:0 0 18px;font-weight:600}
+.fj ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.fj ul a{color:#1b3b2b;text-decoration:none;font-size:14px;transition:color .2s}
+.fj ul a:hover{color:#c86d51}
+.fj a:focus-visible{outline:2px solid #1b3b2b;outline-offset:3px;border-radius:4px}
+.fj-bot{display:flex;align-items:center;justify-content:space-between;padding-top:26px;border-top:1px solid #dcd9ce;font-size:13px;color:#5a7466;flex-wrap:wrap;gap:14px}
+.fj-pay{display:flex;gap:16px}
+@media(max-width:860px){.fj-grid{grid-template-columns:1fr 1fr}.fj-grid>div:first-child{grid-column:1/-1}.fj-card{padding:28px 24px}}
+@media(max-width:520px){.fj-form,.fj-card>div{width:100%}.fj-row{flex-direction:column}.fj-form input,.fj-form button{width:100%}.fj ul a{display:inline-block;padding:3px 0}}
+</style>
+<div class="fj-page">
+<footer class="fj">
+  <div class="fj-in">
+    <div class="fj-card">
+      <div>
+        <h3>Letters from the garden</h3>
+        <p>What&rsquo;s in bloom, what we&rsquo;re pressing next, and 15% off your first order.</p>
+      </div>
+      <form class="fj-form" novalidate>
+        <div class="fj-row">
+          <label for="fj-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+          <input id="fj-email" type="email" placeholder="Your email address" autocomplete="email" required>
+          <button type="submit">Join</button>
+        </div>
+        <p class="fj-msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="fj-grid">
+      <div>
+        <a href="#" class="fj-brand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b3b2b" stroke-width="1.8" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>Verdant Apothecary</a>
+        <p class="fj-about">Small-batch skincare from cold-pressed oils, sold in glass you can bring back to refill.</p>
+      </div>
+      <div><h4>Shop</h4><ul><li><a href="#">Facial oils</a></li><li><a href="#">Cleansing balms</a></li><li><a href="#">Home scents</a></li><li><a href="#">Refills</a></li></ul></div>
+      <div><h4>About</h4><ul><li><a href="#">Ingredients</a></li><li><a href="#">The farm</a></li><li><a href="#">Stockists</a></li><li><a href="#">Journal</a></li></ul></div>
+      <div><h4>Help</h4><ul><li><a href="#">Delivery &amp; returns</a></li><li><a href="#">Skin consultations</a></li><li><a href="#">FAQ</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="fj-bot">
+      <span>&copy; 2026 Verdant Apothecary Ltd.</span>
+      <span>Plastic-free shipping, always.</span>
+    </div>
+  </div>
+</footer>
+</div>
+<script>
+(()=>{
+  const f=document.querySelector('.fj-form'),inp=f.querySelector('input'),btn=f.querySelector('button'),msg=f.querySelector('.fj-msg');
+  const say=(t,e)=>{msg.textContent=t;msg.classList.toggle('err',!!e);f.classList.toggle('err',!!e)};
+  inp.addEventListener('input',()=>f.classList.contains('err')&&say(''));
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!inp.validity.valid){say(inp.value?'Check that email address.':'Add your email to join.',1);inp.focus();return}
+    btn.disabled=true;btn.textContent='Joining…';say('');
+    setTimeout(()=>{btn.textContent='Joined';say('Welcome in. Your code is on its way.');inp.value=''},900);
+  });
+})();
+</script>

@@ -1,0 +1,47 @@
+<!--Now Playing|A full-screen music player: artwork that shrinks back when paused, a draggable scrubber with tabular times, big transport controls in thumb reach, volume, and lyrics / output / queue at the bottom.|music,player,audio,scrubber,controls-->
+<main class="pl">
+  <div class="pl-top"><button class="ib" aria-label="Close player">@I(down)</button><span class="pl-src"><small>Playing from album</small><b>Low Tide Hours</b></span><button class="ib" aria-label="More">@I(more)</button></div>
+  <div class="pl-art"><img id="art" src="media/pics/c/1050.jpg" alt="Album artwork"></div>
+  <div class="pl-meta"><span><b>Saltwater Clock</b><small>Ferns &amp; Rowan</small></span><button class="ib" id="lk" aria-label="Love" aria-pressed="false">@I(heart)</button></div>
+  <div class="pl-sc"><input type="range" id="sk" min="0" max="214" value="47" aria-label="Seek"><div class="pl-t tn"><span id="t0">0:47</span><span id="t1">-2:47</span></div></div>
+  <div class="pl-ctl"><button class="ib pl-s" aria-label="Shuffle">@I(shuffle,20)</button><button class="ib pl-b" aria-label="Previous">@I(prev,32)</button><button class="ib pl-pp" id="pp" aria-label="Pause">@I(pause,40)</button><button class="ib pl-b" aria-label="Next">@I(next,32)</button><button class="ib pl-s" aria-label="Repeat">@I(repeat,20)</button></div>
+  <div class="pl-vol">@I(minus,16)<input type="range" min="0" max="100" value="64" aria-label="Volume" id="vo">@I(plus,16)</div>
+  <div class="pl-bot"><button class="ib" aria-label="Lyrics">@I(msg,22)</button><button class="ib" aria-label="Output: iPhone">@I(headph,22)</button><button class="ib" aria-label="Queue">@I(list,22)</button></div>
+</main>
+<style>
+.pl{flex:1;display:flex;flex-direction:column;padding:var(--st) 24px max(16px,var(--sbt));min-height:0}
+.pl-top{display:flex;align-items:center;justify-content:space-between;margin:0 -12px}
+.pl-src{text-align:center;font-size:13px;line-height:17px}.pl-src small{display:block;color:var(--mu);text-transform:uppercase;letter-spacing:.06em;font-size:11px;font-weight:600}.pl-src b{font-weight:600}
+.pl-art{flex:1;min-height:0;display:grid;place-items:center;padding:16px 0}
+.pl-art img{width:100%;max-width:342px;aspect-ratio:1;max-height:100%;object-fit:cover;border-radius:20px;box-shadow:0 24px 48px -16px light-dark(#0005,#000c);transition:transform .5s cubic-bezier(.34,1.3,.64,1),box-shadow .5s}
+.pl.paused .pl-art img{transform:scale(.82);box-shadow:0 8px 20px -10px light-dark(#0004,#000a)}
+.pl-meta{display:flex;align-items:center;gap:8px;margin-top:8px}
+.pl-meta span{flex:1;min-width:0}.pl-meta b{display:block;font-size:22px;line-height:28px;font-weight:650;letter-spacing:-.015em}.pl-meta small{display:block;font-size:17px;line-height:22px;color:var(--mu)}
+#lk{margin-right:-10px}#lk[aria-pressed=true]{color:var(--ac)}#lk[aria-pressed=true] .i{fill:currentColor}
+.pl input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:none;margin:0;cursor:pointer;--p:22%}
+.pl input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(var(--fg),var(--fg)) 0/var(--p) 100% no-repeat,color-mix(in srgb,var(--fg) 18%,transparent);transition:height .2s}
+.pl input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:color-mix(in srgb,var(--fg) 18%,transparent)}
+.pl input[type=range]::-moz-range-progress{height:6px;border-radius:3px;background:var(--fg)}
+.pl input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;margin-top:-4px;border-radius:50%;background:var(--fg);transform:scale(0);transition:transform .2s}
+.pl input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--fg)}
+.pl input[type=range]:active::-webkit-slider-thumb,.pl input[type=range]:focus-visible::-webkit-slider-thumb{transform:scale(1.4)}
+.pl-sc{margin-top:16px}.pl-t{display:flex;justify-content:space-between;margin-top:2px;font-size:12px;color:var(--mu);font-weight:500}
+.pl-ctl{display:flex;align-items:center;justify-content:space-between;margin:16px -8px 0}
+.pl-b{width:64px;height:64px;border-radius:32px}.pl-pp{width:80px;height:80px;border-radius:40px}.pl-s{color:var(--mu)}.pl-s.on{color:var(--ac)}
+.pl-vol{display:flex;align-items:center;gap:12px;margin-top:16px;color:var(--mu)}
+.pl-bot{display:flex;justify-content:space-between;margin:8px -12px 0;color:var(--mu)}
+@media (max-height:760px){.pl-vol{display:none}}
+</style>
+<script>
+const pl=document.querySelector(".pl"),PA=pp.innerHTML,PL='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:40px;height:40px"><path d="M7 4v16l13-8z" fill="currentColor"/></svg>';
+const fmt=s=>Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+const fill=r=>r.style.setProperty("--p",(r.value-r.min)/(r.max-r.min)*100+"%");
+const upd=()=>{fill(sk);t0.textContent=fmt(+sk.value);t1.textContent="-"+fmt(214-sk.value)};
+let play=true,drag=false;
+setInterval(()=>{if(play&&!drag){sk.value=(+sk.value+1)%215;upd()}},1000);
+sk.addEventListener("input",upd);sk.addEventListener("pointerdown",()=>drag=true);addEventListener("pointerup",()=>drag=false);
+vo.addEventListener("input",()=>fill(vo));fill(vo);upd();
+pp.onclick=()=>{play=!play;pl.classList.toggle("paused",!play);pp.innerHTML=play?PA:PL;pp.setAttribute("aria-label",play?"Pause":"Play")};
+lk.onclick=()=>lk.setAttribute("aria-pressed",lk.getAttribute("aria-pressed")!=="true");
+document.querySelectorAll(".pl-s").forEach(b=>b.onclick=()=>b.classList.toggle("on"));
+</script>

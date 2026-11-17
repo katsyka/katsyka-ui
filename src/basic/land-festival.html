@@ -1,0 +1,30 @@
+<!--Festival Landing|Landings|A music festival poster page: giant stacked lineup type that sizes by billing, a day filter, a ticket tier picker with quantity and a running total.|landing,festival,music,lineup,tickets,poster-->
+<div class="k pg lf">
+<header class="top"><div class="w"><a class="logo" href="#">TIDEWATER ’27</a><nav class="links"><a href="#">Lineup</a><a href="#">Tickets</a><a href="#">Getting there</a></nav><a class="b ac" href="#tk">Tickets</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lf-hero"><p class="lf-meta"><span>17–19 July 2027</span><span>Harbour Fields, Brest</span></p>
+<div class="lf-days" role="tablist" aria-label="Day"><button role="tab" aria-selected="true" data-d="all">All days</button><button role="tab" aria-selected="false" data-d="fri">Fri</button><button role="tab" aria-selected="false" data-d="sat">Sat</button><button role="tab" aria-selected="false" data-d="sun">Sun</button></div>
+<ul class="lf-line" id="ln" aria-live="polite"></ul></section>
+<section class="sec lf-tix" id="tk"><div class="w"><h2 class="h2">Tickets</h2><div class="lf-tg" id="tg"></div><div class="lf-sum"><span>Total</span><b class="tn" id="tot">€0</b><button class="b ac lg" id="buy" disabled>Checkout</button></div></div></section>
+<footer class="foot"><div class="w"><span>Tidewater is a fictional festival used as demo content.</span><span>No re-entry after 23:00</span></div></footer>
+</div>
+<style>
+.lf{--ac:light-dark(#be123c,#fb7185);--ac-h:light-dark(#9f1239,#fda4af);--ac-fg:light-dark(#fff,#2a0410)}
+.lf-hero{padding:48px 0 80px}.lf-meta{display:flex;justify-content:space-between;font:500 13px 'Geist Mono',monospace;text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--fg);padding-bottom:12px;flex-wrap:wrap;gap:8px}
+.lf-days{display:flex;gap:8px;margin:24px 0 32px;flex-wrap:wrap}.lf-days button{height:40px;padding:0 18px;border:1px solid var(--line);border-radius:999px;font-weight:550}.lf-days [aria-selected=true]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.lf-line{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:4px 18px;text-align:center;text-transform:uppercase;font-weight:750;letter-spacing:-.03em;line-height:.95}
+.lf-line li{transition:opacity .3s,color .3s}.lf-line .t1{font-size:clamp(44px,9vw,120px);width:100%}.lf-line .t2{font-size:clamp(26px,4.4vw,56px)}.lf-line .t3{font-size:clamp(17px,2.2vw,26px);font-weight:600;color:var(--mu)}.lf-line .off{opacity:.12}
+.lf-line .sep{color:var(--ac)}
+.lf-tix{background:var(--sf)}.lf-tg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.lf-t{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:10px}.lf-t.so{opacity:.55}.lf-t b{font-size:22px}.lf-q{display:flex;align-items:center;gap:8px;margin-top:8px}.lf-q output{min-width:2ch;text-align:center;font-weight:600}.lf-q .ibt{border:1px solid var(--line);width:40px;height:40px}
+.lf-sum{display:flex;align-items:center;gap:16px;justify-content:flex-end;margin-top:24px;flex-wrap:wrap}.lf-sum b{font-size:28px}
+@media (max-width:760px){.lf-tg{grid-template-columns:1fr}.lf-sum{justify-content:space-between}.lf-sum .b{width:100%}}
+</style>
+<script>
+const A=[["Marlowe Static",1,"fri"],["The Low Tides",1,"sat"],["Juno Varga",1,"sun"],["Pale Harbour",2,"fri"],["Okra Vex",2,"sat"],["Silt",2,"sun"],["Ninefold",2,"sat"],["Bianca Ruel",3,"fri"],["Moss Choir",3,"fri"],["Teo & the Kites",3,"sat"],["Dry County",3,"sun"],["Halcyon Dub",3,"sun"],["Rue Mercer",3,"sat"],["Vantablue",3,"fri"]];
+const ln=document.getElementById('ln');function draw(d){ln.innerHTML=A.map(([n,t,dd],i)=>`<li class="t${t}${d!=='all'&&dd!==d?' off':''}">${n}</li>`).join('')}draw('all');
+document.querySelectorAll('.lf-days button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.lf-days button').forEach(x=>x.setAttribute('aria-selected',x===b));draw(b.dataset.d)});
+const T=[["Day ticket",65,"Any single day"],["Weekend",149,"Fri–Sun, all stages"],["Weekend + camping",189,"Includes a pitch for 1 tent",1]],q=[0,0,0];
+const tg=document.getElementById('tg'),tot=document.getElementById('tot'),buy=document.getElementById('buy');
+tg.innerHTML=T.map(([n,p,d,so],i)=>`<div class="lf-t${so?' so':''}"><span class="eb">${n}</span><b class="tn">€${p}</b><span class="mu">${so?'Sold out. Join the waitlist':d}</span><div class="lf-q" role="group" aria-label="${n} quantity"><button class="ibt" data-i="${i}" data-d="-1" aria-label="Remove one" ${so?'disabled':''}>@I(minus,16)</button><output id="q${i}">0</output><button class="ibt" data-i="${i}" data-d="1" aria-label="Add one" ${so?'disabled':''}>@I(plus,16)</button></div></div>`).join('');
+tg.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;const i=+b.dataset.i;q[i]=Math.max(0,Math.min(8,q[i]+ +b.dataset.d));document.getElementById('q'+i).textContent=q[i];const s=q.reduce((a,v,i)=>a+v*T[i][1],0);tot.textContent='€'+s;buy.disabled=!s};
+</script>

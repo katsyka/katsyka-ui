@@ -1,0 +1,22 @@
+<!--Verify Email Banner|Auth|An “almost there” verification screen: animated envelope, the address with a change option, open-mail-app shortcuts (Gmail, Outlook), resend with cooldown, and an auto-check that flips to verified.|auth,verify,email,confirmation,onboarding-->
+<div class="k">
+<div class="card ve"><div class="ve-env" id="ev" aria-hidden="true"><svg viewBox="0 0 96 72"><rect x="4" y="10" width="88" height="58" rx="8" fill="var(--sf)" stroke="var(--ctl)" stroke-width="2"/><rect class="ve-let" x="16" y="2" width="64" height="44" rx="4" fill="var(--bg)" stroke="var(--line)" stroke-width="2"/><path class="ve-ln" d="M26 14h44M26 22h30M26 30h38" stroke="var(--ac)" stroke-width="3" stroke-linecap="round"/><path d="M4 18l44 30 44-30v42a8 8 0 0 1-8 8H12a8 8 0 0 1-8-8z" fill="var(--sf)" stroke="var(--ctl)" stroke-width="2" stroke-linejoin="round"/></svg></div>
+<h1 id="h">Verify your email</h1><p class="mu" id="p">We sent a confirmation link to <b>maya@hey.example</b>. Click it to activate your account.</p>
+<div class="ve-apps" id="ap"><a class="b sec" href="https://mail.google.com" target="_blank" rel="noopener">@I(mail,16)Open Gmail</a><a class="b sec" href="https://outlook.live.com" target="_blank" rel="noopener">@I(mail,16)Open Outlook</a></div>
+<p class="ve-st mu" id="st" aria-live="polite"><span class="ve-dot"></span>Waiting for you to click the link…</p><div class="ve-ft" id="ft"><button id="rs">Resend email</button><span>·</span><button>Change email</button></div><button class="b ac ve-sim" id="sim">Simulate clicking the link</button></div>
+</div>
+<style>
+.ve{width:min(420px,100%);padding:32px;text-align:center;display:grid;justify-items:center}.ve h1{margin:16px 0 6px;font-size:22px;letter-spacing:-.02em}.ve p{margin:0}
+.ve-env svg{width:96px;height:72px;overflow:visible}.ve-let{animation:vel 2.4s var(--ease) infinite}.ve-ln{animation:vel 2.4s var(--ease) infinite}@keyframes vel{0%,20%{transform:translateY(16px)}50%,80%{transform:translateY(-6px)}100%{transform:translateY(16px)}}
+.ve-env.ok .ve-let,.ve-env.ok .ve-ln{animation:none;transform:translateY(-10px)}
+.ve-apps{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;justify-content:center}.ve-apps .b{height:40px}
+.ve-st{display:flex;gap:8px;align-items:center;font-size:13px;margin-top:20px!important}.ve-dot{width:8px;height:8px;border-radius:50%;background:var(--warn);animation:ved 1.4s infinite}@keyframes ved{50%{opacity:.3}}
+.ve-ft{display:flex;gap:8px;margin-top:8px;font-size:13px;color:var(--mu)}.ve-ft button{color:var(--fg);text-decoration:underline;font-size:13px;min-height:32px}.ve-ft button:disabled{color:var(--mu);text-decoration:none}
+.ve-sim{margin-top:16px;height:36px;font-size:12px;opacity:.85}
+@media (prefers-reduced-motion:reduce){.ve-let,.ve-ln{animation:none}}
+</style>
+<script>
+const $=i=>document.getElementById(i);let t;
+$('rs').onclick=e=>{const b=e.currentTarget;let n=30;b.disabled=true;b.textContent='Sent · resend in 30s';clearInterval(t);t=setInterval(()=>{n--;b.textContent=n>0?`Sent · resend in ${n}s`:'Resend email';if(n<=0){clearInterval(t);b.disabled=false}},1000)};
+$('sim').onclick=()=>{$('ev').classList.add('ok');$('h').textContent='Email verified';$('p').innerHTML='Thanks, Maya. Your account is active.';$('st').innerHTML='<span class="ve-dot" style="background:var(--ok);animation:none"></span>Verified just now';$('ap').innerHTML='<a class="b ac" href="#">Continue to dashboard</a>';$('ft').hidden=true;$('sim').hidden=true};
+</script>

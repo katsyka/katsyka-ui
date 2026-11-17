@@ -1,0 +1,44 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.nr-w{width:min(560px,100%);display:grid;gap:14px}.nr-s{display:flex;gap:10px;align-items:center;height:48px;padding:0 14px;border:1px solid var(--ctl);border-radius:12px;background:var(--bg);color:var(--mu)}.nr-s:focus-within{border-color:var(--ac)}.nr-s input{border:0;outline:0;background:none;flex:1;font-size:16px;color:var(--fg);min-width:0}
+.nr-ch{display:flex;gap:6px;flex-wrap:wrap}.nr-ch button{display:inline-flex;gap:6px;align-items:center;height:32px;padding:0 6px 0 12px;border-radius:999px;background:var(--sf2);font-size:13px}.nr-ch button .i{width:14px;height:14px;color:var(--mu)}.nr-ch button:hover{background:var(--line)}
+.nr-e{padding:28px 20px;border:1px dashed var(--ctl);border-radius:14px;display:grid;gap:12px;text-align:center;justify-items:center}.nr-e h2{margin:0;font-size:18px}.nr-e p{margin:0;font-size:14px;color:var(--mu)}.nr-e .fix{color:var(--fg)}.nr-e .fix button{color:var(--ac);font-weight:600;text-decoration:underline;text-underline-offset:3px;min-height:32px}
+.nr-try{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:6px;width:100%;max-width:340px}.nr-try button{width:100%;display:flex;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:14px}.nr-try button:hover{border-color:var(--ctl)}.nr-try span{color:var(--mu);font-variant-numeric:tabular-nums}
+.nr-r{width:100%;display:grid;gap:8px;text-align:left}.nr-r div{padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);display:flex;justify-content:space-between;font-size:14px}
+</style>
+<div class="k nr"><main class="nr-w"><label class="nr-s"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" value="wirless headphnes" aria-label="Search"></label><div class="nr-ch" id="ch"></div>
+<div class="nr-e" id="e"></div></main></div>
+<script>
+let F=[["Under €50",12],["In stock",31],["Colour: Sage",19]];const ch=document.getElementById('ch'),e=document.getElementById('e'),q=document.getElementById('q');
+function draw(){ch.innerHTML=F.map(([f],i)=>`<button data-i="${i}" aria-label="Remove filter ${f}">${f}<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`).join('');const typo=/wirless|headphnes/.test(q.value);
+if(!typo&&F.length<2){e.innerHTML=`<div class="nr-r">${['Aero Wireless ANC','Pulse Buds 2','Field Over-ear'].map((n,i)=>`<div><b>${n}</b><span class="tn">€${[49,39,45][i]}</span></div>`).join('')}</div>`;return}
+e.innerHTML=`<h2>No results for “${q.value.replace(/</g,'&lt;')}”${F.length?' with these filters':''}</h2>${typo?`<p class="fix">Did you mean <button id="fx">wireless headphones</button>?</p>`:''}${F.length?`<p>Removing a filter would show:</p><ul class="nr-try">${F.map(([f,n],i)=>`<li><button data-i="${i}">Without “${f}”<span>${n} results</span></button></li>`).join('')}</ul>`:''}<p>Still nothing? <a href="#">Tell us what you were looking for</a></p>`;const fx=document.getElementById('fx');if(fx)fx.onclick=()=>{q.value='wireless headphones';draw()}}
+document.querySelector('.nr-w').addEventListener('click',ev=>{const b=ev.target.closest('[data-i]');if(!b)return;F.splice(+b.dataset.i,1);draw()});q.oninput=draw;draw();
+</script>

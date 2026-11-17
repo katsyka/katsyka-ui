@@ -1,0 +1,42 @@
+<!--Health Summary|Activity rings that fill on load, metric tiles with a heart-rate sparkline, and a weekly bar chart where tapping a bar shows its value. Colours are retuned per theme, not just inverted.|health,fitness,rings,chart,dashboard-->
+<header class="bar"><div class="nb"><span></span><h2 class="hs-t">Summary</h2><span><button class="ib" aria-label="Profile"><span class="av" style="--c:#b45309;width:32px;height:32px;font-size:13px">M</span></button></span></div></header>
+<main class="sc">
+  <p class="hs-k">Wednesday 11 November</p><h1 class="lt" style="margin-top:0">Summary</h1>
+  <section class="hs-c hs-rg"><svg viewBox="0 0 120 120" class="hs-rings" aria-hidden="true"><g fill="none" stroke-width="12" stroke-linecap="round" transform="rotate(-90 60 60)"><circle r="52" cx="60" cy="60" class="bg" style="--c:var(--r1)"/><circle r="52" cx="60" cy="60" class="fg" style="--c:var(--r1);--v:.78"/><circle r="38" cx="60" cy="60" class="bg" style="--c:var(--r2)"/><circle r="38" cx="60" cy="60" class="fg" style="--c:var(--r2);--v:.6"/><circle r="24" cx="60" cy="60" class="bg" style="--c:var(--r3)"/><circle r="24" cx="60" cy="60" class="fg" style="--c:var(--r3);--v:.92"/></g></svg>
+    <dl><div style="--c:var(--r1)"><dt>Move</dt><dd class="tn">468<small>/600 kcal</small></dd></div><div style="--c:var(--r2)"><dt>Exercise</dt><dd class="tn">18<small>/30 min</small></dd></div><div style="--c:var(--r3)"><dt>Stand</dt><dd class="tn">11<small>/12 h</small></dd></div></dl></section>
+  <div class="hs-grid">
+    <section class="hs-c"><h3>@I(zap,16) Steps</h3><b class="tn">8 412</b><small>5.9 km</small></section>
+    <section class="hs-c"><h3 style="color:var(--r1)">@I(heart,16) Heart rate</h3><b class="tn">62<small> bpm</small></b><svg class="hs-sp" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline fill="none" stroke="var(--r1)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" points="0,18 10,16 20,20 30,12 40,14 50,8 60,15 70,13 80,17 90,11 100,14"/></svg></section>
+  </div>
+  <section class="hs-c" style="margin-top:12px"><h3>@I(chart,16) Move this week</h3><p class="hs-v"><b class="tn" id="bv">468</b> <span class="mu" id="bd">kcal today</span></p><div class="hs-bars" id="bars"></div></section>
+</main>
+@PILL(chart:Summary|users:Sharing|compass:Browse;0)
+<style>
+.ph{--r1:light-dark(#e11d48,#fb7185);--r2:light-dark(#65a30d,#a3e635);--r3:light-dark(#0891b2,#67e8f9)}
+.hs-t{opacity:0;transition:opacity .2s}.bar.sd .hs-t{opacity:1}
+.hs-k{margin:4px 0 0;padding:0 var(--gut);font-size:13px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.05em}
+.hs-c{margin:0 var(--gut);padding:16px;border-radius:20px;background:var(--sf)}
+.hs-rg{display:flex;align-items:center;gap:16px;margin-top:16px}
+.hs-rings{width:132px;height:132px;flex:none}
+.hs-rings .bg{stroke:color-mix(in srgb,var(--c) 18%,transparent)}
+.hs-rings .fg{stroke:var(--c);stroke-dasharray:var(--L) var(--L);stroke-dashoffset:var(--L);transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)}
+.hs-rg dl{margin:0;display:grid;gap:8px}.hs-rg dt{font-size:13px;font-weight:600;color:var(--c)}.hs-rg dd{margin:0;font-size:22px;line-height:26px;font-weight:700}.hs-rg small{font-size:14px;font-weight:500;color:var(--mu)}
+.hs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px var(--gut) 0}.hs-grid .hs-c{margin:0}
+.hs-c h3{display:flex;align-items:center;gap:6px;margin:0 0 8px;font-size:14px;font-weight:600;color:var(--mu)}
+.hs-c>b{display:block;font-size:28px;line-height:32px;font-weight:700;letter-spacing:-.02em}.hs-c>b small{font-size:15px;color:var(--mu);font-weight:500}.hs-c>small{color:var(--mu);font-size:14px}
+.hs-sp{display:block;width:100%;height:28px;margin-top:6px}
+.hs-v{margin:0 0 12px;font-size:15px}.hs-v b{font-size:22px;font-weight:700}
+.hs-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;height:140px;align-items:end}
+.hs-bars button{display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.hs-bars i{width:100%;max-width:28px;border-radius:8px 8px 4px 4px;background:color-mix(in srgb,var(--r1) 35%,transparent);height:0;transition:height .8s cubic-bezier(.2,.8,.2,1),background .2s}
+.hs-bars button.on i{background:var(--r1)}
+.hs-bars span{font-size:12px;color:var(--mu);font-weight:600}.hs-bars button.on span{color:var(--fg)}
+</style>
+<script>
+document.querySelectorAll(".hs-rings .fg,.hs-rings .bg").forEach(c=>c.style.setProperty("--L",2*Math.PI*c.r.baseVal.value));
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll(".hs-rings .fg").forEach(c=>{const L=2*Math.PI*c.r.baseVal.value;c.style.strokeDashoffset=L*(1-parseFloat(c.style.getPropertyValue("--v")))})));
+const W=[["M",512],["T",604],["W",468],["T",0],["F",0],["S",0],["S",0]].map((d,i)=>i<3?d:[d[0],null]),MX=640;
+bars.innerHTML=W.map(([d,v],i)=>`<button aria-label="${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][i]}: ${v??"no data"}"${v===null?" disabled":""} class="${i===2?"on":""}"><i data-h="${v?v/MX*100:3}"></i><span>${d}</span></button>`).join("");
+requestAnimationFrame(()=>bars.querySelectorAll("i").forEach(i=>i.style.height=i.dataset.h+"%"));
+bars.querySelectorAll("button").forEach((b,i)=>b.onclick=()=>{bars.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));bv.textContent=W[i][1];bd.textContent="kcal "+(i===2?"today":["Monday","Tuesday"][i])});
+</script>

@@ -1,0 +1,62 @@
+<style>
+.mz{min-height:100vh;padding:56px clamp(16px,4vw,56px);background:#f4f2ee;color:#1c1a17}
+.mz h2{margin:0 0 6px;font-size:clamp(28px,3.4vw,44px);letter-spacing:-.045em;font-weight:600}.mz>p{margin:0 0 28px;color:#857f75}
+.mz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mz-t{display:block;padding:0;border:0;background:none;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.mz-t .im{aspect-ratio:4/3;border-radius:16px;background:#ddd center/cover;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.mz-t:hover .im{transform:scale(.985)}
+.mz-t b{display:block;margin-top:10px;font-size:15px;font-weight:600;letter-spacing:-.02em}.mz-t span{font-size:13px;color:#857f75}
+.mz-t:focus-visible .im{outline:3px solid #1c1a17;outline-offset:3px}
+.mz-bd{position:fixed;inset:0;z-index:40;background:#1c1a1766;backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s}
+.mz-bd.on{opacity:1;pointer-events:auto}
+.mz-dlg{position:fixed;z-index:41;left:50%;top:50%;width:min(860px,94vw);max-height:90vh;transform:translate(-50%,-50%);border-radius:22px;background:#fff;overflow:hidden;display:grid;grid-template-columns:1.2fr 1fr;box-shadow:0 40px 90px -30px #000a;visibility:hidden}
+.mz-dlg.on{visibility:visible}
+.mz-dlg .im{min-height:440px;background:#ddd center/cover}
+.mz-body{padding:28px 28px 24px;display:flex;flex-direction:column;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .4s cubic-bezier(.2,1,.3,1)}
+.mz-dlg.ready .mz-body{opacity:1;transform:none;transition-delay:.15s}
+.mz-body small{font:500 11.5px "Geist Mono",monospace;letter-spacing:.1em;color:#a39d92}
+.mz-body h3{margin:8px 0 10px;font-size:28px;letter-spacing:-.04em;font-weight:600;line-height:1.05}
+.mz-body p{margin:0 0 18px;color:#5f5a52;line-height:1.6;font-size:15px}
+.mz-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:14px 0;border-top:1px solid #1c1a1712;margin-top:auto;font-size:13px}.mz-meta b{display:block;font-weight:600}.mz-meta span{color:#857f75}
+.mz-act{display:flex;gap:8px;margin-top:14px}.mz-act a{flex:1;height:44px;border-radius:12px;display:grid;place-items:center;font-weight:600;font-size:14px;text-decoration:none;color:#1c1a17;border:1px solid #1c1a1720}.mz-act a:first-child{background:#1c1a17;color:#fff;border-color:#1c1a17}
+.mz-x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;border:0;background:#ffffffe6;color:#1c1a17;font-size:15px;cursor:pointer;box-shadow:0 4px 12px #0002;opacity:0;transition:opacity .2s}
+.mz-dlg.ready .mz-x{opacity:1}
+.mz-fly{position:fixed;z-index:42;border-radius:16px;background:#ddd center/cover;pointer-events:none}
+@media (max-width:760px){.mz-grid{grid-template-columns:1fr 1fr}.mz-dlg{grid-template-columns:1fr}.mz-dlg .im{min-height:220px}}
+</style>
+<section class="mz">
+  <h2>Selected work</h2><p>Open a project: the thumbnail itself grows into the dialog, then shrinks back to where it came from.</p>
+  <div class="mz-grid"></div>
+  <div class="mz-bd"></div>
+  <div class="mz-dlg" role="dialog" aria-modal="true" aria-labelledby="mzT"><div class="im"></div><div class="mz-body"><small></small><h3 id="mzT"></h3><p></p><div class="mz-meta"></div><div class="mz-act"><a href="#">View case study</a><a href="#">Visit site</a></div></div><button class="mz-x" aria-label="Close">✕</button></div>
+</section>
+<script>
+(()=>{
+const P=[["1060","Harbor Coffee","Identity · 2026","A roaster's identity built around the colour of a perfect crema and a type system cut from old shipping crates.","Lisbon","8 weeks"],
+ ["1074","Field Notes","App · 2025","A calm field-research app that works offline for weeks and syncs when the boat gets back to shore.","Bergen","5 months"],
+ ["1080","Orchard","Packaging · 2025","Seasonal packaging that changes colour with every harvest, printed with vegetable inks.","Valencia","10 weeks"],
+ ["1025","Pup Club","Web · 2026","A booking site for dog walkers that feels as friendly as the dogs. Bookings went up 3x.","Melbourne","12 weeks"],
+ ["1043","Northern Light","Film · 2024","A short brand film shot over one long Arctic night, for a lighting company that makes very few things.","Tromsø","3 weeks"],
+ ["1069","Atlas Maps","Product · 2026","Topographic maps redrawn for e-ink readers, legible at a glance on a windy ridge.","Zurich","6 months"]];
+const grid=document.querySelector(".mz-grid"),dlg=document.querySelector(".mz-dlg"),bd=document.querySelector(".mz-bd"),dIm=dlg.querySelector(".im");
+const url=id=>`https://picsum.photos/id/${id}/1000/750`;
+grid.innerHTML=P.map((p,i)=>`<button class="mz-t" data-i="${i}"><div class="im" style="background-image:url(${url(p[0])})"></div><b>${p[1]}</b><span>${p[2]}</span></button>`).join("");
+let from=null;
+const fly=(a,b,img,done)=>{const f=document.createElement("div");f.className="mz-fly";f.style.backgroundImage=`url(${img})`;Object.assign(f.style,{left:a.left+"px",top:a.top+"px",width:a.width+"px",height:a.height+"px"});document.body.append(f);
+  f.animate([{left:a.left+"px",top:a.top+"px",width:a.width+"px",height:a.height+"px",borderRadius:"16px"},{left:b.left+"px",top:b.top+"px",width:b.width+"px",height:b.height+"px",borderRadius:"22px 0 0 22px"}].map((k,i)=>i?k:k),
+  {duration:480,easing:"cubic-bezier(.3,1,.3,1)",fill:"forwards"}).onfinish=()=>{done();f.remove()}};
+function open(i){const t=grid.children[i],p=P[i];from=t;const im=t.querySelector(".im");
+  dlg.querySelector("small").textContent=p[2].toUpperCase();dlg.querySelector("h3").textContent=p[1];dlg.querySelector("p").textContent=p[3];
+  dlg.querySelector(".mz-meta").innerHTML=`<div><b>Studio</b><span>${p[4]}</span></div><div><b>Timeline</b><span>${p[5]}</span></div>`;dIm.style.backgroundImage=`url(${url(p[0])})`;
+  dlg.classList.add("on");dlg.style.opacity=0;bd.classList.add("on");const a=im.getBoundingClientRect(),b=dIm.getBoundingClientRect();im.style.visibility="hidden";
+  fly(a,b,url(p[0]),()=>{dlg.style.opacity=1;dlg.classList.add("ready");dlg.querySelector(".mz-x").focus()})}
+function close(){if(!from)return;const im=from.querySelector(".im"),a=dIm.getBoundingClientRect(),b=im.getBoundingClientRect(),img=dIm.style.backgroundImage.slice(5,-2);
+  dlg.classList.remove("ready");dlg.style.opacity=0;bd.classList.remove("on");const t=from;from=null;
+  const f=document.createElement("div");f.className="mz-fly";f.style.backgroundImage=`url(${img})`;document.body.append(f);
+  f.animate([{left:a.left+"px",top:a.top+"px",width:a.width+"px",height:a.height+"px",borderRadius:"22px 0 0 22px"},{left:b.left+"px",top:b.top+"px",width:b.width+"px",height:b.height+"px",borderRadius:"16px"}],{duration:420,easing:"cubic-bezier(.3,1,.3,1)",fill:"forwards"}).onfinish=()=>{im.style.visibility="";f.remove();dlg.classList.remove("on");t.focus()}}
+grid.onclick=e=>{const t=e.target.closest(".mz-t");if(t)open(+t.dataset.i)};
+bd.onclick=close;dlg.querySelector(".mz-x").onclick=close;
+addEventListener("keydown",e=>{if(!from)return;if(e.key==="Escape")close();
+  if(e.key==="Tab"){const f=[...dlg.querySelectorAll("a,button")],first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+})();
+</script>

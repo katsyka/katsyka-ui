@@ -1,0 +1,96 @@
+<style>
+.tb{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.tb :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tb ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.tb *,.tb *::before,.tb *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.tb{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.tb-pn{width:min(720px,100%);display:grid;gap:14px}
+.tb-c{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.tb-list{position:relative;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tb-list button{position:relative;flex:none;display:inline-flex;align-items:center;gap:8px;border:0;background:none;color:var(--mu);font:550 14px Geist,system-ui,sans-serif;cursor:pointer;white-space:nowrap;transition:color .15s}
+.tb-list button:hover{color:var(--fg)}
+.tb-list button[aria-selected=true]{color:var(--fg)}
+.tb-list button:focus-visible{outline-offset:-2px}
+.tb-list svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tb-list .ct{font:500 11.5px "Geist Mono",monospace;padding:1px 6px;border-radius:99px;background:var(--sf2);color:var(--mu)}
+.tb-list button[aria-selected=true] .ct{background:var(--ac-sf);color:var(--ac)}
+.tb-ind{position:absolute;left:0;transition:transform .3s var(--ease),width .3s var(--ease);pointer-events:none}
+/* underline */
+.tb-u .tb-list{padding:0 14px;border-bottom:1px solid var(--line)}
+.tb-u .tb-list button{height:46px;padding:0 10px}
+.tb-u .tb-ind{bottom:-1px;height:2px;border-radius:2px 2px 0 0;background:var(--fg)}
+/* pills */
+.tb-p .tb-list{margin:14px;padding:4px;width:max-content;max-width:calc(100% - 28px);border-radius:12px;background:var(--sf2)}
+.tb-p .tb-list button{z-index:1;height:32px;padding:0 14px;border-radius:8px}
+.tb-p .tb-ind{top:4px;bottom:4px;border-radius:8px;background:var(--bg);box-shadow:0 1px 3px #0000001f}
+.tb-panel{padding:20px 24px 24px;font-size:14.5px;line-height:1.6;color:var(--mu);animation:tb-in .3s var(--ease)}
+.tb-panel b{color:var(--fg);font-weight:600}
+.tb-panel h3{margin:0 0 6px;font-size:16px;color:var(--fg);letter-spacing:-.01em}
+.tb-panel p{margin:0}
+.tb-panel[hidden]{display:none}
+.tb-panel:focus-visible{outline-offset:-4px;border-radius:12px}
+@keyframes tb-in{from{opacity:0;transform:translateY(4px)}}
+/* vertical */
+.tb-v{display:grid;grid-template-columns:200px 1fr}
+.tb-v .tb-list{flex-direction:column;padding:12px;border-right:1px solid var(--line);gap:2px}
+.tb-v .tb-list button{z-index:1;height:38px;padding:0 12px;border-radius:9px;justify-content:flex-start}
+.tb-v .tb-ind{top:0;left:12px;right:12px;border-radius:9px;background:var(--sf2)}
+.tb-v .tb-panel{padding:22px 26px}
+.tb-kv{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin-top:12px;font-size:13.5px}
+.tb-kv dt{color:var(--mu)}.tb-kv dd{margin:0;color:var(--fg);font-weight:500}
+@media (max-width:600px){.tb-v{grid-template-columns:1fr}.tb-v .tb-list{flex-direction:row;border-right:0;border-bottom:1px solid var(--line);overflow-x:auto}}
+</style>
+<div class="tb">
+  <div class="tb-pn">
+    <div class="tb-c tb-u" data-tabs>
+      <div class="tb-list" role="tablist" aria-label="Project">
+        <button role="tab" aria-selected="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Overview</button>
+        <button role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg>Issues <span class="ct">12</span></button>
+        <button role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M6 8v8M18 16V9a3 3 0 0 0-3-3h-4"/></svg>Pull requests <span class="ct">3</span></button>
+        <button role="tab" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>Settings</button>
+        <i class="tb-ind" aria-hidden="true"></i>
+      </div>
+      <div class="tb-panel" role="tabpanel" tabindex="0"><h3>Overview</h3><p>The <b>web</b> project deployed 14 times this week with a median build of 41 s.</p></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden><h3>Issues</h3><p><b>12 open</b>, 4 assigned to you. Two are tagged as regressions.</p></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden><h3>Pull requests</h3><p><b>3 open</b>. “Refactor auth flow” is waiting on your review.</p></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden><h3>Settings</h3><p>Branch protection is <b>on</b> for main. Preview deploys expire after 30 days.</p></div>
+    </div>
+    <div class="tb-c tb-p" data-tabs>
+      <div class="tb-list" role="tablist" aria-label="Snippet language">
+        <button role="tab" aria-selected="true">npm</button><button role="tab" aria-selected="false">pnpm</button><button role="tab" aria-selected="false">yarn</button><button role="tab" aria-selected="false">bun</button>
+        <i class="tb-ind" aria-hidden="true"></i>
+      </div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" style="padding-top:4px"><p style="font-family:'Geist Mono',monospace;color:var(--fg)">npm install @katsyka/ui</p></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden style="padding-top:4px"><p style="font-family:'Geist Mono',monospace;color:var(--fg)">pnpm add @katsyka/ui</p></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden style="padding-top:4px"><p style="font-family:'Geist Mono',monospace;color:var(--fg)">yarn add @katsyka/ui</p></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden style="padding-top:4px"><p style="font-family:'Geist Mono',monospace;color:var(--fg)">bun add @katsyka/ui</p></div>
+    </div>
+    <div class="tb-c tb-v" data-tabs data-v>
+      <div class="tb-list" role="tablist" aria-label="Account" aria-orientation="vertical">
+        <button role="tab" aria-selected="true">Profile</button><button role="tab" aria-selected="false">Billing</button><button role="tab" aria-selected="false">Security</button><button role="tab" aria-selected="false">Integrations</button>
+        <i class="tb-ind" aria-hidden="true"></i>
+      </div>
+      <div class="tb-panel" role="tabpanel" tabindex="0"><h3>Profile</h3><dl class="tb-kv"><dt>Name</dt><dd>Mira Okafor</dd><dt>Email</dt><dd>mira@studio.io</dd><dt>Role</dt><dd>Owner</dd></dl></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden><h3>Billing</h3><dl class="tb-kv"><dt>Plan</dt><dd>Pro · yearly</dd><dt>Next invoice</dt><dd>Jan 12 · $120.00</dd><dt>Card</dt><dd>Visa •••• 4242</dd></dl></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden><h3>Security</h3><dl class="tb-kv"><dt>Two-factor</dt><dd>Enabled</dd><dt>Passkeys</dt><dd>2 devices</dd><dt>Last sign-in</dt><dd>Today, Lisbon</dd></dl></div>
+      <div class="tb-panel" role="tabpanel" tabindex="0" hidden><h3>Integrations</h3><dl class="tb-kv"><dt>GitHub</dt><dd>Connected</dd><dt>Slack</dt><dd>Not connected</dd><dt>Figma</dt><dd>Connected</dd></dl></div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll("[data-tabs]").forEach((w,k)=>{
+  const tabs=[...w.querySelectorAll("[role=tab]")],pans=[...w.querySelectorAll("[role=tabpanel]")],ind=w.querySelector(".tb-ind"),v=w.hasAttribute("data-v");
+  tabs.forEach((t,i)=>{t.id=`tb${k}t${i}`;pans[i].id=`tb${k}p${i}`;t.setAttribute("aria-controls",pans[i].id);pans[i].setAttribute("aria-labelledby",t.id)});
+  const place=a=>{const t=tabs.find(x=>x.getAttribute("aria-selected")==="true");if(!a)ind.style.transition="none";
+    if(v){const col=getComputedStyle(w).gridTemplateColumns.split(" ").length>1;
+      Object.assign(ind.style,col?{left:"12px",right:"12px",width:"",height:t.offsetHeight+"px",transform:`translateY(${t.offsetTop}px)`}:{left:"0",right:"auto",width:t.offsetWidth+"px",height:t.offsetHeight+"px",transform:`translate(${t.offsetLeft}px,${t.offsetTop}px)`})}
+    else{ind.style.width=t.offsetWidth+"px";ind.style.transform=`translateX(${t.offsetLeft}px)`}
+    if(!a){ind.offsetWidth;ind.style.transition=""}};
+  const sel=(t,f)=>{tabs.forEach((x,i)=>{const on=x===t;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;pans[i].hidden=!on});place(true);if(f){t.focus();t.scrollIntoView({block:"nearest",inline:"nearest"})}};
+  tabs.forEach(t=>{t.tabIndex=t.getAttribute("aria-selected")==="true"?0:-1;t.addEventListener("click",()=>sel(t))});
+  w.querySelector("[role=tablist]").addEventListener("keydown",e=>{const i=tabs.indexOf(document.activeElement);if(i<0)return;
+    const n={ArrowRight:1,ArrowLeft:-1,ArrowDown:v?1:0,ArrowUp:v?-1:0}[e.key];
+    if(n){e.preventDefault();sel(tabs[(i+n+tabs.length)%tabs.length],true)}else if(e.key==="Home"){e.preventDefault();sel(tabs[0],true)}else if(e.key==="End"){e.preventDefault();sel(tabs[tabs.length-1],true)}});
+  new ResizeObserver(()=>place(false)).observe(w);document.fonts&&document.fonts.ready.then(()=>place(false));
+});
+</script>

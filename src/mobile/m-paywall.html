@@ -1,0 +1,43 @@
+<!--Paywall|An honest subscription screen: what you get as a short list, yearly vs monthly as radio cards with the real per-month price, a trial button that says when you'll be charged, and Restore / Terms within reach.|paywall,subscription,pricing,trial,radio cards-->
+<main class="sc pw">
+  <button class="ib pw-x" aria-label="Close">@I(x)</button>
+  <div class="pw-art" aria-hidden="true"><img src="media/pics/c/1006.jpg" alt=""></div>
+  <h1>Go further with<br><em>Trailhead Pro</em></h1>
+  <ul class="pw-f">
+    <li>@I(map,22)<span><b>Offline maps</b><small>Whole regions, no signal needed</small></span></li>
+    <li>@I(nav,22)<span><b>Live share</b><small>Friends see where you are on the trail</small></span></li>
+    <li>@I(chart,22)<span><b>Elevation insights</b><small>Pace, climb and effort on every route</small></span></li>
+  </ul>
+  <div class="pw-p" role="radiogroup" aria-label="Plan">
+    <label><input type="radio" name="p" value="y" checked><span class="pw-c"><span class="pw-b">Save 44%</span><b>Yearly</b><small class="tn">$39.99 / year · $3.33 / mo</small></span></label>
+    <label><input type="radio" name="p" value="m"><span class="pw-c"><b>Monthly</b><small class="tn">$5.99 / month</small></span></label>
+  </div>
+</main>
+<div class="cta pw-cta"><button class="btn" id="go">Start 7-day free trial</button><p class="pw-n" id="nt">Free until 18 Nov, then $39.99 a year. Cancel anytime in Settings.</p><p class="pw-l"><a href="#">Restore purchase</a> · <a href="#">Terms</a> · <a href="#">Privacy</a></p></div>
+<style>
+.pw{padding:var(--st) var(--gut) 200px!important;text-align:center}
+.pw-x{position:absolute;left:8px;top:calc(var(--st) + 4px);color:var(--mu);z-index:5}
+.pw-art{width:120px;height:120px;margin:28px auto 0;border-radius:32px;overflow:hidden;transform:rotate(-4deg);box-shadow:0 16px 32px -12px light-dark(#0005,#000c)}
+.pw-art img{width:100%;height:100%;object-fit:cover}
+.pw h1{margin:24px 0 0;font-size:30px;line-height:36px;font-weight:700;letter-spacing:-.025em}
+.pw h1 em{font:italic 400 38px/1 "Instrument Serif",serif;color:var(--ac)}
+.pw-f{list-style:none;margin:24px 0 0;padding:0;text-align:left;display:grid;gap:16px}
+.pw-f li{display:flex;gap:14px;align-items:flex-start}.pw-f .i{color:var(--ac);margin-top:1px}
+.pw-f b{display:block;font-size:17px;font-weight:600}.pw-f small{font-size:15px;color:var(--mu)}
+.pw-p{display:grid;gap:10px;margin-top:28px;text-align:left}
+.pw-p label{position:relative;cursor:pointer}.pw-p input{position:absolute;opacity:0}
+.pw-c{position:relative;display:block;padding:14px 16px 14px 52px;border-radius:16px;border:1.5px solid var(--line);transition:border-color .2s,background .2s}
+.pw-c::before{content:"";position:absolute;left:16px;top:50%;width:22px;height:22px;margin-top:-11px;border-radius:50%;border:2px solid var(--ctl);box-sizing:border-box;transition:border .2s}
+.pw-p input:checked+.pw-c{border-color:var(--ac);background:var(--ac-sf)}.pw-p input:checked+.pw-c::before{border:7px solid var(--ac)}
+.pw-p input:focus-visible+.pw-c{outline:2px solid var(--focus);outline-offset:2px}
+.pw-c b{display:block;font-size:17px;font-weight:600}.pw-c small{font-size:15px;color:var(--mu)}
+.pw-b{position:absolute;right:12px;top:-10px;padding:2px 10px;border-radius:10px;background:var(--ac);color:var(--ac-fg);font-size:12px;font-weight:700}
+.pw-cta{text-align:center}
+.pw-n{margin:8px 0 0;font-size:13px;line-height:18px;color:var(--mu)}
+.pw-l{margin:4px 0 0;font-size:13px;color:var(--mu)}.pw-l a{color:var(--mu);display:inline-block;padding:10px 4px;text-decoration:underline;text-underline-offset:2px}
+</style>
+<script>
+document.querySelectorAll("[name=p]").forEach(r=>r.onchange=()=>{const y=r.value==="y";nt.textContent=y?"Free until 18 Nov, then $39.99 a year. Cancel anytime in Settings.":"Free until 18 Nov, then $5.99 a month. Cancel anytime in Settings."});
+document.querySelectorAll('a[href="#"]').forEach(a=>a.onclick=e=>e.preventDefault());
+go.onclick=()=>{go.textContent="Trial started ✓";go.disabled=true};
+</script>

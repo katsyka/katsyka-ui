@@ -1,0 +1,62 @@
+<style>
+.cm{min-height:100vh;padding:48px clamp(16px,4vw,56px);background:#0c0c0d;color:#e4e4e7;user-select:none}
+.cm h2{margin:0 0 4px;font-size:22px;letter-spacing:-.03em;font-weight:600}.cm>p{margin:0 0 24px;color:#71717a;font-size:13.5px}
+.cm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.cm-f{position:relative;padding:14px;border-radius:16px;border:1px solid transparent;cursor:default;transition:background .15s,border-color .15s}
+.cm-f:hover{background:#ffffff06}.cm-f.act{background:#ff5a1f12;border-color:#ff5a1f55}
+.cm-f.gone{animation:cm-out .3s forwards}@keyframes cm-out{to{opacity:0;transform:scale(.85)}}
+.cm-ic{height:86px;border-radius:12px;display:grid;place-items:center;background:var(--b);font:700 13px "Geist Mono",monospace;color:#0c0c0d;margin-bottom:10px}
+.cm-f b{display:block;font-size:13.5px;font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;outline:0;border-radius:4px}
+.cm-f b[contenteditable=true]{background:#fafafa;color:#0c0c0d;padding:0 4px;user-select:text;text-overflow:clip}
+.cm-f small{font:11.5px "Geist Mono",monospace;color:#52525b}
+.cm-f .st{position:absolute;top:20px;right:20px;color:#fbbf24;font-size:14px;opacity:0;transition:opacity .2s}.cm-f.star .st{opacity:1}
+.cm-menu{position:fixed;z-index:30;min-width:220px;padding:5px;border-radius:13px;background:#18181bf5;border:1px solid #ffffff17;backdrop-filter:blur(14px);box-shadow:0 20px 50px -12px #000,0 0 0 1px #0006;font-size:13.5px;opacity:0;transform:scale(.94);pointer-events:none;transition:opacity .12s,transform .16s cubic-bezier(.2,1,.3,1)}
+.cm-menu.on{opacity:1;transform:none;pointer-events:auto}
+.cm-it{position:relative;display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:8px;cursor:default;color:#e4e4e7}
+.cm-it svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;color:#a1a1aa}
+.cm-it kbd{margin-left:auto;font:11px "Geist Mono",monospace;color:#71717a}
+.cm-it.act{background:#ffffff12}.cm-it.act svg{color:#fff}
+.cm-it.del{color:#f87171}.cm-it.del svg{color:#f87171}.cm-it.del.act{background:#f871711f}
+.cm-it .ar{margin-left:auto;color:#71717a}
+.cm-sep{height:1px;margin:5px 6px;background:#ffffff0f}
+.cm-sub{left:calc(100% + 4px);top:-5px;position:absolute}
+.cm-tip{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);padding:9px 14px;border-radius:10px;background:#fafafa;color:#0c0c0d;font-size:13px;font-weight:550;opacity:0;transition:opacity .3s;pointer-events:none}.cm-tip.on{opacity:1}
+</style>
+<section class="cm"><h2>Files</h2><p>Right-click a file (or long-press on touch). Arrow keys, Enter and Esc work inside the menu.</p><div class="cm-grid"></div></section>
+<div class="cm-menu" role="menu"></div><div class="cm-tip"></div>
+<script>
+(()=>{
+const F=[["Brand guidelines.pdf","PDF","#fca5a5","2.4 MB"],["Hero shot.png","PNG","#93c5fd","4.1 MB"],["Q4 budget.xlsx","XLS","#86efac","88 KB"],["Launch film.mp4","MP4","#c4b5fd","182 MB"],["Notes.md","MD","#e4e4e7","4 KB"],["Logo final.svg","SVG","#fdba74","12 KB"],["Contracts.zip","ZIP","#fcd34d","9.8 MB"]];
+const grid=document.querySelector(".cm-grid"),menu=document.querySelector(".cm-menu"),tip=document.querySelector(".cm-tip");
+grid.innerHTML=F.map(([n,e,c,s])=>`<div class="cm-f" tabindex="0"><div class="cm-ic" style="--b:${c}">${e}</div><b>${n}</b><small>${s}</small><span class="st">★</span></div>`).join("");
+const I={open:'<path d="M14 3h7v7M10 14 21 3M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/>',ren:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/>',dup:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',star:'<path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/>',share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>',link:'<path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>',mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/>',del:'<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>'};
+const items=f=>[["open","Open","↵"],["ren","Rename","F2"],["dup","Duplicate","⌘D"],["star",f.classList.contains("star")?"Remove star":"Add star","S"],"-",["share","Share",null,[["link","Copy link"],["mail","Email"]]],"-",["del","Delete","⌫"]];
+let target=null,sel=-1,subOpen=null;
+const it=([k,l,kb,sub])=>`<div class="cm-it${k==="del"?" del":""}" role="menuitem" data-k="${k}"><svg viewBox="0 0 24 24">${I[k]}</svg>${l}${sub?'<span class="ar">›</span><div class="cm-menu cm-sub" role="menu">'+sub.map(s=>it(s)).join("")+"</div>":kb?`<kbd>${kb}</kbd>`:""}</div>`;
+function open(f,x,y){target=f;grid.querySelectorAll(".act").forEach(e=>e.classList.remove("act"));f.classList.add("act");
+  menu.innerHTML=items(f).map(i=>i==="-"?'<div class="cm-sep"></div>':it(i)).join("");menu.classList.add("on");
+  const w=menu.offsetWidth,h=menu.offsetHeight,L=Math.min(x,innerWidth-w-8),T=Math.min(y,innerHeight-h-8);menu.style.left=L+"px";menu.style.top=T+"px";
+  menu.style.transformOrigin=`${x-L}px ${y-T}px`;sel=-1;subOpen=null}
+const close=()=>{menu.classList.remove("on");target?.classList.remove("act");target=null};
+const toast=m=>{tip.textContent=m;tip.classList.add("on");clearTimeout(tip.t);tip.t=setTimeout(()=>tip.classList.remove("on"),1500)};
+function run(k){const f=target;if(!f)return;const name=f.querySelector("b").textContent;close();
+  if(k==="open")toast("Opening "+name);if(k==="link")toast("Link copied");if(k==="mail")toast("Draft created");
+  if(k==="star")f.classList.toggle("star");
+  if(k==="dup"){const c=f.cloneNode(true);c.classList.remove("act");c.querySelector("b").textContent=name.replace(/(\.\w+)$/," copy$1");f.after(c);c.animate([{opacity:0,transform:"scale(.9)"},{opacity:1,transform:"none"}],{duration:300})}
+  if(k==="del"){f.classList.add("gone");setTimeout(()=>f.remove(),300);toast("Moved to trash")}
+  if(k==="ren"){const b=f.querySelector("b");b.contentEditable=true;b.focus();const r=document.createRange(),dot=name.lastIndexOf(".");r.setStart(b.firstChild,0);r.setEnd(b.firstChild,dot>0?dot:name.length);getSelection().removeAllRanges();getSelection().addRange(r);
+    const end=e=>{if(e.type==="keydown"&&e.key!=="Enter"&&e.key!=="Escape")return;e.preventDefault?.();if(e.key==="Escape")b.textContent=name;b.contentEditable=false;b.removeEventListener("keydown",end);b.removeEventListener("blur",end)};
+    b.addEventListener("keydown",end);b.addEventListener("blur",end)}}
+grid.addEventListener("contextmenu",e=>{const f=e.target.closest(".cm-f");if(!f)return;e.preventDefault();open(f,e.clientX,e.clientY)});
+let lp;grid.addEventListener("pointerdown",e=>{if(e.pointerType!=="touch")return;const f=e.target.closest(".cm-f");if(f)lp=setTimeout(()=>open(f,e.clientX,e.clientY),500)});grid.addEventListener("pointerup",()=>clearTimeout(lp));
+grid.addEventListener("keydown",e=>{const f=e.target.closest(".cm-f");if(f&&(e.key==="ContextMenu"||(e.shiftKey&&e.key==="F10"))){e.preventDefault();const r=f.getBoundingClientRect();open(f,r.left+20,r.top+40)}});
+menu.addEventListener("mouseover",e=>{const i=e.target.closest(".cm-it");if(!i)return;menu.querySelectorAll(".cm-it.act").forEach(x=>{if(!x.contains(i))x.classList.remove("act")});i.classList.add("act");
+  menu.querySelectorAll(".cm-sub").forEach(s=>s.classList.toggle("on",s.parentElement.contains(i)&&!!s.parentElement.querySelector(".cm-sub")&&(s.parentElement===i||s.contains(i))))});
+menu.addEventListener("click",e=>{const i=e.target.closest(".cm-it");if(i&&!i.querySelector(".cm-sub"))run(i.dataset.k)});
+document.addEventListener("pointerdown",e=>{if(!menu.contains(e.target))close()});addEventListener("scroll",close);addEventListener("resize",close);
+addEventListener("keydown",e=>{if(!menu.classList.contains("on"))return;const top=[...menu.querySelectorAll(":scope > .cm-it")];
+  if(e.key==="Escape")close();
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();sel=(sel+(e.key==="ArrowDown"?1:-1)+top.length)%top.length;top.forEach((x,k)=>x.classList.toggle("act",k===sel))}
+  if(e.key==="Enter"&&top[sel]){e.preventDefault();top[sel].querySelector(".cm-sub")?(top[sel].querySelector(".cm-sub").classList.add("on")):run(top[sel].dataset.k)}});
+})();
+</script>

@@ -1,0 +1,135 @@
+=== st-404-typo
+<!--Smart 404 Page|States|A not-found page that reads the broken URL, suggests the closest real pages by edit distance, offers search prefilled with the slug words, and lists popular pages.|404,not found,error page,search,suggestions-->
+<div class="k n4"><main class="n4-w"><p class="n4-code tn">404</p><h1>We couldn't find <code id="u"></code></h1><p class="mu">The link may be old, or there's a typo. These look close:</p><ul class="n4-s" id="s"></ul>
+<form class="n4-f" onsubmit="return false"><label class="vh" for="q">Search the docs</label><input class="in" id="q" type="search"><button class="b ac">Search</button></form><p class="mu n4-p">Or go to <a href="#">Home</a> · <a href="#">Docs</a> · <a href="#">Changelog</a> · <a href="#">Status</a></p></main></div>
+<style>
+.n4-w{width:min(560px,100%);display:grid;gap:14px}.n4-code{font:600 13px 'Geist Mono',monospace;color:var(--err);margin:0;letter-spacing:.06em}.n4-w h1{margin:0;font-size:clamp(24px,4vw,32px);letter-spacing:-.02em;line-height:1.2;text-wrap:balance}.n4-w h1 code{font:500 .8em 'Geist Mono',monospace;background:var(--sf2);padding:2px 8px;border-radius:6px;word-break:break-all}.n4-w>p{margin:0}
+.n4-s{list-style:none;padding:0;margin:0;border:1px solid var(--line);border-radius:12px;background:var(--bg)}.n4-s li{border-top:1px solid var(--line)}.n4-s li:first-child{border:0}.n4-s a{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;color:inherit;text-decoration:none;align-items:center}.n4-s a:hover{background:var(--sf)}.n4-s code{font:13px 'Geist Mono',monospace}.n4-s mark{background:var(--warn-sf);color:var(--warn);border-radius:3px;padding:0 1px}.n4-s small{color:var(--mu);font-size:12px}
+.n4-f{display:flex;gap:8px}.n4-f .in{height:44px;font-size:16px}.n4-f .b{height:44px;flex:none}.n4-p{font-size:14px}.n4-p a{color:var(--fg)}
+</style>
+<script>
+const P=['/docs/getting-started','/docs/authentication','/docs/webhooks','/docs/rate-limits','/pricing','/changelog','/blog/offline-mode','/docs/sdks/javascript'],bad='/docs/authentcation';
+document.getElementById('u').textContent=bad;
+const lev=(a,b)=>{const d=Array.from({length:a.length+1},(_,i)=>[i]);for(let j=1;j<=b.length;j++)d[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]};
+function diff(a,b){let o='';for(let i=0,j=0;j<b.length;j++){if(a[i]===b[j]){o+=b[j];i++}else o+='<mark>'+b[j]+'</mark>'}return o}
+const R=P.map(p=>[p,lev(bad,p)]).sort((a,b)=>a[1]-b[1]).slice(0,3);
+document.getElementById('s').innerHTML=R.map(([p,d],i)=>`<li><a href="#"><code>${i?p:diff(bad,p)}</code><small>${i?'similar':'1 letter off'}</small></a></li>`).join('');
+document.getElementById('q').value=bad.split('/').pop().replace(/-/g,' ');
+</script>
+=== st-500-retry
+<!--Server Error Page|States|A 500 page that owns the problem: plain apology, auto-retry countdown with cancel, a copyable request ID for support, and a live status line linking to the status page.|500,error,retry,countdown,support-->
+<div class="k s5"><main class="s5-w"><div class="s5-ic">@I(zap,22)</div><h1>Something broke on our side</h1><p class="mu">Not your fault, and your work is saved. We'll try again automatically.</p>
+<div class="s5-rt"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15"/><circle cx="18" cy="18" r="15" id="rg"/></svg><span id="rl" aria-live="polite">Retrying in 10 s</span><button class="b sec sm" id="cn">Cancel</button><button class="b ac sm" id="now">Retry now</button></div>
+<div class="s5-id"><span class="mu">Request ID</span><code id="rid">req_7f3a91c2e4b8</code><button class="ibt" id="cp" aria-label="Copy request ID">@I(copy,16)</button></div>
+<p class="s5-st"><span class="s5-dot"></span>Elevated error rates on the API since 14:02 UTC. <a href="#">Status page</a></p></main></div>
+<style>
+.s5-w{width:min(480px,100%);display:grid;gap:16px;justify-items:start}.s5-ic{width:44px;height:44px;border-radius:12px;background:var(--err-sf);color:var(--err);display:grid;place-items:center}.s5-w h1{margin:0;font-size:26px;letter-spacing:-.02em}.s5-w>p{margin:-8px 0 0}
+.s5-rt{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--bg);width:100%}.s5-rt svg{width:28px;height:28px;transform:rotate(-90deg)}.s5-rt circle{fill:none;stroke-width:3}.s5-rt circle:first-child{stroke:var(--sf2)}#rg{stroke:var(--ac);stroke-dasharray:94.2;transition:stroke-dashoffset 1s linear}.s5-rt span{flex:1;font-size:14px;font-variant-numeric:tabular-nums}
+.s5-id{display:flex;gap:10px;align-items:center;font-size:13px}.s5-id code{font:13px 'Geist Mono',monospace;background:var(--sf2);padding:4px 8px;border-radius:6px}
+.s5-st{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--mu);margin:0;flex-wrap:wrap}.s5-st a{color:var(--fg)}.s5-dot{width:8px;height:8px;border-radius:50%;background:var(--warn);flex:none}
+</style>
+<script>
+const $=i=>document.getElementById(i);let n=10,t,tries=1;
+function start(){clearInterval(t);n=10;tick();t=setInterval(tick,1000)}
+function tick(){$('rg').style.strokeDashoffset=94.2*(1-n/10);$('rl').textContent=n>0?`Retrying in ${n} s (attempt ${tries} of 3)`:'Retrying…';if(n<=0){clearInterval(t);setTimeout(fail,900)}n--}
+function fail(){tries++;if(tries>3){$('rl').textContent='Still failing. We\'ve been alerted. Try again in a few minutes.';$('cn').hidden=true;return}start()}
+$('cn').onclick=()=>{clearInterval(t);$('rl').textContent='Auto-retry cancelled.';$('cn').hidden=true};$('now').onclick=()=>{$('cn').hidden=false;clearInterval(t);n=0;tick()};start();
+$('cp').onclick=e=>{const b=e.currentTarget;(navigator.clipboard?navigator.clipboard.writeText($('rid').textContent):Promise.reject()).catch(()=>{});b.innerHTML='@I(check,16)';b.setAttribute('aria-label','Copied');setTimeout(()=>{b.innerHTML='@I(copy,16)';b.setAttribute('aria-label','Copy request ID')},1400)};
+</script>
+=== st-maintenance
+<!--Maintenance Window|States|Scheduled maintenance page: the window shown in the visitor's own time zone, a step list that ticks through the migration, overall progress, and a subscribe-for-updates field.|maintenance,downtime,status,timezone,progress-->
+<div class="k mt"><main class="mt-w"><span class="pill warn">Scheduled maintenance</span><h1>We're upgrading the database</h1><p class="mu" id="win"></p>
+<div class="mt-pr"><div class="mt-bar"><i id="br"></i></div><span class="tn" id="pc"></span></div><ol class="mt-st" id="st"></ol>
+<form class="mt-f" id="f" novalidate><label class="lbl" for="em">Email me when it's done</label><div><input class="in" id="em" type="email" autocomplete="email" placeholder="you@example.com"><button class="b sec">Notify me</button></div><p class="mt-ok" id="ok" role="status"></p></form></main></div>
+<style>
+.mt-w{width:min(520px,100%);display:grid;gap:14px;justify-items:start}.mt-w h1{margin:0;font-size:28px;letter-spacing:-.02em;line-height:1.15}.mt-w>p{margin:-6px 0 0}
+.mt-pr{display:flex;gap:12px;align-items:center;width:100%}.mt-bar{flex:1;height:8px;border-radius:4px;background:var(--sf2);overflow:hidden}.mt-bar i{display:block;height:100%;background:var(--ac);width:0;transition:width .6s cubic-bezier(.23,1,.32,1)}.mt-pr span{font-size:13px;font-weight:600;min-width:36px}
+.mt-st{list-style:none;padding:0;margin:0;width:100%;display:grid;gap:2px}.mt-st li{display:flex;gap:12px;align-items:center;padding:8px 0;font-size:14px;color:var(--mu)}.mt-st li::before{content:"";width:18px;height:18px;border-radius:50%;border:2px solid var(--ctl);flex:none;box-sizing:border-box}.mt-st .run{color:var(--fg);font-weight:550}.mt-st .run::before{border-color:var(--ac);border-right-color:transparent;animation:mts .8s linear infinite}.mt-st .dn{color:var(--fg)}.mt-st .dn::before{border:0;background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/contain}.mt-st small{margin-left:auto;font-variant-numeric:tabular-nums}@keyframes mts{to{transform:rotate(1turn)}}
+.mt-f{width:100%;margin-top:8px}.mt-f>div{display:flex;gap:8px}.mt-f .in{height:44px;font-size:16px}.mt-f .b{height:44px;flex:none}.mt-ok{color:var(--ok);font-size:14px;margin:8px 0 0}.mt-ok:empty{display:none}
+</style>
+<script>
+const S=["Freeze writes","Snapshot database (412 GB)","Upgrade Postgres 15 → 17","Rebuild indexes","Run checks","Unfreeze and warm caches"],st=document.getElementById('st');let k=2;
+const s=new Date();s.setUTCHours(13,0,0,0);const e=new Date(+s+75*6e4),f=d=>d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}),tz=Intl.DateTimeFormat().resolvedOptions().timeZone;
+document.getElementById('win').textContent=`Today ${f(s)}–${f(e)} your time (${tz.replace('_',' ')}). Read-only access keeps working.`;
+function draw(){st.innerHTML=S.map((x,i)=>`<li class="${i<k?'dn':i===k?'run':''}">${x}<small>${i<k?'done':i===k?'running':''}</small></li>`).join('');const p=Math.round((k+.5)/S.length*100);document.getElementById('br').style.width=Math.min(100,p)+'%';document.getElementById('pc').textContent=(k>=S.length?100:p)+'%'}
+draw();const t=setInterval(()=>{k++;if(k>=S.length){clearInterval(t);document.querySelector('.mt-w h1').textContent='All done, we\'re back';document.querySelector('.pill').className='pill ok';document.querySelector('.pill').textContent='Completed'}draw()},2500);
+document.getElementById('f').onsubmit=ev=>{ev.preventDefault();const em=document.getElementById('em'),ok=/^\S+@\S+\.\S+$/.test(em.value);em.setAttribute('aria-invalid',!ok);document.getElementById('ok').style.color=ok?'var(--ok)':'var(--err)';document.getElementById('ok').textContent=ok?`We'll email ${em.value} as soon as we're back.`:'Enter a valid email.';if(!ok)em.focus()};
+</script>
+=== st-coming-soon
+<!--Coming Soon Countdown|States|A launch countdown with split-flap style digits that flip on change, a waitlist field with position number after joining, and a referral link that moves you up the list.|coming soon,countdown,waitlist,launch,flip-->
+<div class="k cs"><main class="cs-w"><h1>Ferry opens to everyone in</h1><div class="cs-cd" id="cd" role="timer" aria-live="off"></div>
+<form id="f" class="cs-f" novalidate><label class="vh" for="em">Email</label><input class="in" id="em" type="email" autocomplete="email" placeholder="you@example.com"><button class="b ac" id="sb">Join the waitlist</button></form><p class="cs-er" id="er" role="alert"></p>
+<div class="cs-ok" id="ok" hidden><p>You're <b class="tn" id="pos"></b> on the list.</p><p class="mu">Share your link. Each friend who joins moves you up 25 places.</p><div class="cs-rf"><code id="rf">ferry.app/r/k7q2</code><button class="b sec sm" id="cp">@I(copy,14)<span>Copy link</span></button></div></div></main></div>
+<style>
+.cs-w{width:min(560px,100%);display:grid;gap:20px;justify-items:center;text-align:center}.cs-w h1{margin:0;font-size:clamp(22px,3.4vw,30px);letter-spacing:-.02em}
+.cs-cd{display:flex;gap:6px;align-items:flex-start}.cs-u{display:grid;gap:6px;justify-items:center}.cs-u small{font-size:12px;color:var(--mu)}.cs-ds{display:flex;gap:3px}
+.cs-d{position:relative;width:clamp(28px,7vw,52px);height:clamp(42px,10vw,72px);perspective:300px;font:600 clamp(22px,6vw,46px)/1 'Geist Mono',monospace}.cs-d span{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:var(--fg);color:var(--bg);display:flex;justify-content:center;backface-visibility:hidden}.cs-d .t{top:0;border-radius:8px 8px 0 0;align-items:flex-end;line-height:0}.cs-d .b2{bottom:0;border-radius:0 0 8px 8px;align-items:flex-start;line-height:0;border-top:1px solid color-mix(in srgb,var(--bg) 25%,transparent)}
+.cs-d .t>i,.cs-d .b2>i{font-style:normal;display:block}.cs-d .t>i{transform:translateY(50%)}.cs-d .b2>i{transform:translateY(-50%)}
+.cs-d .fl{top:0;border-radius:8px 8px 0 0;align-items:flex-end;transform-origin:bottom;animation:csf .45s cubic-bezier(.4,0,.6,1) forwards;z-index:2}@keyframes csf{to{transform:rotateX(-180deg)}}
+.cs-sep{font:600 clamp(18px,5vw,46px)/clamp(42px,10vw,72px) 'Geist Mono',monospace;color:var(--mu)}
+.cs-f{display:flex;gap:8px;width:100%}.cs-f .in{height:48px;font-size:16px}.cs-f .b{height:48px;flex:none}.cs-er{color:var(--err);font-size:13px;margin:-12px 0 0}.cs-er:empty{display:none}
+.cs-ok{display:grid;gap:8px;animation:cso .3s cubic-bezier(.23,1,.32,1)}.cs-ok p{margin:0}.cs-ok b{font-size:20px}.cs-rf{display:flex;gap:8px;align-items:center;justify-content:center}.cs-rf code{font:14px 'Geist Mono',monospace;background:var(--sf2);padding:6px 10px;border-radius:8px}@keyframes cso{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.cs-d .fl{animation:none;display:none}}
+@media (max-width:480px){.cs-f{flex-direction:column}}
+</style>
+<script>
+const end=Date.now()+((3*24+7)*3600+42*60+15)*1000,cd=document.getElementById('cd'),U=['days','hours','min','sec'];
+cd.innerHTML=U.map((u,i)=>`<div class="cs-u"><div class="cs-ds" data-u="${i}"><div class="cs-d"></div><div class="cs-d"></div></div><small>${u}</small></div>${i<3?'<span class="cs-sep" aria-hidden="true">:</span>':''}`).join('');
+const prev=['','','',''];function digit(el,v,o){el.innerHTML=`<span class="t"><i>${v}</i></span><span class="b2"><i>${v}</i></span>${o!==undefined&&o!==v?`<span class="fl t"><i>${o}</i></span>`:''}`}
+function tick(){let s=Math.max(0,Math.floor((end-Date.now())/1000));const v=[Math.floor(s/86400),Math.floor(s/3600)%24,Math.floor(s/60)%60,s%60].map(x=>String(x).padStart(2,'0'));v.forEach((x,i)=>{if(x!==prev[i]){const D=cd.querySelectorAll(`[data-u="${i}"] .cs-d`);[0,1].forEach(j=>{if(x[j]!==prev[i][j])digit(D[j],x[j],prev[i][j]||undefined)});prev[i]=x}});cd.setAttribute('aria-label',`${+v[0]} days ${+v[1]} hours ${+v[2]} minutes`)}tick();setInterval(tick,1000);
+document.getElementById('f').onsubmit=e=>{e.preventDefault();const em=document.getElementById('em'),ok=/^\S+@\S+\.\S+$/.test(em.value);em.setAttribute('aria-invalid',!ok);document.getElementById('er').textContent=ok?'':'Enter your email to join.';if(!ok)return em.focus();const b=document.getElementById('sb');b.disabled=true;b.textContent='Joining…';setTimeout(()=>{document.getElementById('f').hidden=true;document.getElementById('pos').textContent='#4,218';document.getElementById('ok').hidden=false},700)};
+document.getElementById('cp').onclick=()=>{(navigator.clipboard?navigator.clipboard.writeText('https://ferry.app/r/k7q2'):Promise.reject()).catch(()=>{});document.querySelector('#cp span').textContent='Copied'};
+</script>
+=== st-offline
+<!--Offline State|States|An offline banner and queue: detects connection loss for real (online/offline events), keeps actions in an outbox you can see, retries with backoff when back, and lets you simulate going offline.|offline,network,queue,sync,banner-->
+<div class="k of"><main class="of-w"><div class="of-bn" id="bn" role="status"><span class="of-dot"></span><span id="bt"></span><button class="b gh sm" id="sim"></button></div>
+<section class="of-c"><h1>Shopping list</h1><form id="f" class="of-f"><label class="vh" for="it">Add item</label><input class="in" id="it" placeholder="Add an item" autocomplete="off"><button class="b ac">Add</button></form><ul class="of-l" id="l"></ul></section>
+<p class="of-ft mu" id="ft"></p></main></div>
+<style>
+.of-w{width:min(460px,100%);display:grid;gap:12px}.of-bn{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;font-size:14px;background:var(--ok-sf);transition:background .3s}.of-bn.off{background:var(--warn-sf)}.of-bn span:nth-child(2){flex:1}.of-dot{width:8px;height:8px;border-radius:50%;background:var(--ok)}.of-bn.off .of-dot{background:var(--warn);animation:ofp 1.4s infinite}@keyframes ofp{50%{opacity:.3}}
+.of-c{border:1px solid var(--line);border-radius:14px;background:var(--bg);padding:18px}.of-c h1{margin:0 0 12px;font-size:20px}.of-f{display:flex;gap:8px}.of-f .in{height:44px;font-size:16px}.of-f .b{height:44px}
+.of-l{list-style:none;padding:0;margin:12px 0 0}.of-l li{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:15px;animation:ofi .2s cubic-bezier(.23,1,.32,1)}.of-l li span{flex:1}.of-l small{font-size:12px;color:var(--mu);display:flex;gap:4px;align-items:center}.of-l .q small{color:var(--warn)}.of-l .s small{color:var(--ok)}@keyframes ofi{from{opacity:0;transform:translateY(-4px)}}
+.of-ft{font-size:12px;margin:0}
+</style>
+<script>
+const $=i=>document.getElementById(i);let sim=false,I=[{t:'Oat milk',s:'s'},{t:'Lemons',s:'s'}];const on=()=>navigator.onLine&&!sim;
+function draw(){$('l').innerHTML=I.map(x=>`<li class="${x.s}"><span>${x.t.replace(/</g,'&lt;')}</span><small>${x.s==='q'?'@I(clock,12) Waiting to sync':x.s==='y'?'Syncing…':'@I(check,12) Synced'}</small></li>`).join('');const q=I.filter(x=>x.s==='q').length;$('bn').classList.toggle('off',!on());$('bt').textContent=on()?(q?`Back online. Syncing ${q} change${q>1?'s':''}…`:'Online. Everything is synced.'):`You're offline. ${q?q+' change'+(q>1?'s':'')+' saved on this device.':'Changes will be saved on this device.'}`;$('sim').textContent=sim?'Reconnect':'Simulate offline';$('ft').textContent=`Real connection: ${navigator.onLine?'online':'offline'}.`}
+function flush(){if(!on())return;let d=0;I.filter(x=>x.s==='q').forEach(x=>{x.s='y';setTimeout(()=>{if(on()){x.s='s'}else x.s='q';draw()},500+(d+=350))});draw()}
+$('f').onsubmit=e=>{e.preventDefault();const v=$('it').value.trim();if(!v)return;I.unshift({t:v,s:on()?'y':'q'});$('it').value='';draw();if(on())setTimeout(()=>{I[0].s='s';draw()},500)};
+$('sim').onclick=()=>{sim=!sim;draw();if(!sim)flush()};addEventListener('online',()=>{draw();flush()});addEventListener('offline',draw);draw();
+</script>
+=== st-inbox-zero
+<!--Inbox Zero State|States|An empty inbox that rewards you: a calm message, a 7-day streak of cleared days, the next scheduled thing coming in, and quick actions instead of a blank illustration.|empty state,inbox,zero,streak,productivity-->
+<div class="k iz"><main class="iz-w"><div class="iz-ok">@I(check,26)</div><h1>Inbox clear</h1><p class="mu">Nothing needs you right now. Last message handled at <span class="tn" id="lt">16:42</span>.</p>
+<div class="iz-sk"><div class="iz-sh"><b>5-day streak</b><span class="mu">Cleared before 18:00</span></div><ol class="iz-d" id="d"></ol></div>
+<div class="iz-nx"><span class="mu">Next up</span><div><b>Weekly report from Lena</b><span class="mu">usually arrives Mondays around 09:00</span></div></div>
+<div class="iz-ac"><button class="b sec">@I(edit,16)Write a message</button><button class="b gh">@I(archive,16)Open archive</button></div></main></div>
+<style>
+.iz-w{width:min(440px,100%);display:grid;gap:16px;justify-items:center;text-align:center}.iz-ok{width:56px;height:56px;border-radius:50%;background:var(--ok-sf);color:var(--ok);display:grid;place-items:center}.iz-w h1{margin:0;font-size:24px;letter-spacing:-.02em}.iz-w>p{margin:-10px 0 0}
+.iz-sk{width:100%;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);display:grid;gap:12px}.iz-sh{display:flex;justify-content:space-between;align-items:baseline;font-size:14px}.iz-sh span{font-size:12px}
+.iz-d{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.iz-d li{display:grid;gap:6px;justify-items:center;font-size:11px;color:var(--mu)}.iz-d i{width:100%;aspect-ratio:1;max-width:40px;border-radius:10px;background:var(--sf2);display:grid;place-items:center}.iz-d .y i{background:var(--ok);color:#fff}.iz-d .t i{outline:2px solid var(--ok);outline-offset:2px}.iz-d .i{width:14px;height:14px}
+.iz-nx{width:100%;display:grid;gap:4px;text-align:left;padding:12px 16px;border-radius:12px;background:var(--sf2);font-size:14px}.iz-nx>span{font-size:12px}.iz-nx div{display:grid}.iz-nx div span{font-size:13px}
+.iz-ac{display:flex;gap:8px}.iz-ac .b{height:40px}
+</style>
+<script>
+const d=new Date(),W=['M','T','W','T','F','S','S'],ti=(d.getDay()+6)%7;
+document.getElementById('d').innerHTML=W.map((w,i)=>{const done=i<=ti&&i>ti-5;return `<li class="${done?'y':''}${i===ti?' t':''}"><i aria-label="${done?'cleared':'not cleared'}">${done?'@I(check)':''}</i>${w}</li>`}).join('');
+</script>
+=== st-no-results
+<!--No Search Results|States|An empty search state that helps: echoes the query and active filters as removable chips, suggests a spelling fix, shows how many results each filter removal would bring back, and a request link.|empty state,search,no results,filters,did you mean-->
+<div class="k nr"><main class="nr-w"><label class="nr-s">@I(search,18)<input id="q" value="wirless headphnes" aria-label="Search"></label><div class="nr-ch" id="ch"></div>
+<div class="nr-e" id="e"></div></main></div>
+<style>
+.nr-w{width:min(560px,100%);display:grid;gap:14px}.nr-s{display:flex;gap:10px;align-items:center;height:48px;padding:0 14px;border:1px solid var(--ctl);border-radius:12px;background:var(--bg);color:var(--mu)}.nr-s:focus-within{border-color:var(--ac)}.nr-s input{border:0;outline:0;background:none;flex:1;font-size:16px;color:var(--fg);min-width:0}
+.nr-ch{display:flex;gap:6px;flex-wrap:wrap}.nr-ch button{display:inline-flex;gap:6px;align-items:center;height:32px;padding:0 6px 0 12px;border-radius:999px;background:var(--sf2);font-size:13px}.nr-ch button .i{width:14px;height:14px;color:var(--mu)}.nr-ch button:hover{background:var(--line)}
+.nr-e{padding:28px 20px;border:1px dashed var(--ctl);border-radius:14px;display:grid;gap:12px;text-align:center;justify-items:center}.nr-e h2{margin:0;font-size:18px}.nr-e p{margin:0;font-size:14px;color:var(--mu)}.nr-e .fix{color:var(--fg)}.nr-e .fix button{color:var(--ac);font-weight:600;text-decoration:underline;text-underline-offset:3px;min-height:32px}
+.nr-try{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:6px;width:100%;max-width:340px}.nr-try button{width:100%;display:flex;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-size:14px}.nr-try button:hover{border-color:var(--ctl)}.nr-try span{color:var(--mu);font-variant-numeric:tabular-nums}
+.nr-r{width:100%;display:grid;gap:8px;text-align:left}.nr-r div{padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);display:flex;justify-content:space-between;font-size:14px}
+</style>
+<script>
+let F=[["Under €50",12],["In stock",31],["Colour: Sage",19]];const ch=document.getElementById('ch'),e=document.getElementById('e'),q=document.getElementById('q');
+function draw(){ch.innerHTML=F.map(([f],i)=>`<button data-i="${i}" aria-label="Remove filter ${f}">${f}@I(x)</button>`).join('');const typo=/wirless|headphnes/.test(q.value);
+if(!typo&&F.length<2){e.innerHTML=`<div class="nr-r">${['Aero Wireless ANC','Pulse Buds 2','Field Over-ear'].map((n,i)=>`<div><b>${n}</b><span class="tn">€${[49,39,45][i]}</span></div>`).join('')}</div>`;return}
+e.innerHTML=`<h2>No results for “${q.value.replace(/</g,'&lt;')}”${F.length?' with these filters':''}</h2>${typo?`<p class="fix">Did you mean <button id="fx">wireless headphones</button>?</p>`:''}${F.length?`<p>Removing a filter would show:</p><ul class="nr-try">${F.map(([f,n],i)=>`<li><button data-i="${i}">Without “${f}”<span>${n} results</span></button></li>`).join('')}</ul>`:''}<p>Still nothing? <a href="#">Tell us what you were looking for</a></p>`;const fx=document.getElementById('fx');if(fx)fx.onclick=()=>{q.value='wireless headphones';draw()}}
+document.querySelector('.nr-w').addEventListener('click',ev=>{const b=ev.target.closest('[data-i]');if(!b)return;F.splice(+b.dataset.i,1);draw()});q.oninput=draw;draw();
+</script>

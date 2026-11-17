@@ -1,0 +1,78 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+
+.k.pg{display:block;place-items:normal;padding:0;background:var(--bg);font-size:16px;min-height:0}
+.pg .w{width:min(1180px,100% - 32px);margin-inline:auto;min-width:0}
+.pg{overflow-x:clip}
+.pg img{display:block;max-width:100%}
+.pg h1,.pg h2,.pg h3,.pg p{margin:0}
+.pg .ser{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.pg .h1{font-size:clamp(40px,7vw,84px);line-height:1;letter-spacing:-.035em;font-weight:650;text-wrap:balance}
+.pg .h2{font-size:clamp(30px,4.4vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:620;text-wrap:balance}
+.pg .h3{font-size:19px;line-height:1.3;font-weight:620;letter-spacing:-.01em}
+.pg .lead{font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--mu);text-wrap:pretty;max-width:60ch}
+.pg .eb{font:500 12px/1 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pg .sec{padding:clamp(64px,10vw,128px) 0}
+.pg .b.lg{height:48px;padding:0 22px;font-size:15px;border-radius:12px}
+.pg .ph{width:100%;height:100%;object-fit:cover}
+.pg .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.pg .top .w{display:flex;align-items:center;gap:24px;height:64px}
+.pg .logo{white-space:nowrap;font-weight:700;letter-spacing:-.02em;font-size:17px;display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}
+.pg .links{display:flex;gap:24px;margin-left:auto;font-size:14px}.pg .links a{color:var(--mu);text-decoration:none}.pg .links a:hover{color:var(--fg)}
+.pg .menu{display:none;margin-left:auto;width:44px;height:44px;place-items:center;border-radius:10px}
+.pg .foot{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--mu)}.pg .foot .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:760px){.pg .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px}.pg .links a{padding:12px 0;font-size:16px}.pg .top.open .links{display:flex}.pg .menu{display:grid}.pg .top .b{display:none}}
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.ck-g{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;padding:40px 0 80px;align-items:start}.ck-f{display:grid;gap:28px}.ck-f h1{margin:0;font-size:28px;letter-spacing:-.02em}.ck-f section{display:grid;gap:12px}.ck-f h2{margin:0;font-size:16px}.ck-f .in{height:44px;font-size:16px}.ck-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ck-3{display:grid;grid-template-columns:1.3fr 1fr 1.3fr;gap:12px}
+.ck-e{display:block;color:var(--err);font-size:12px;margin-top:4px}.ck-e:empty{display:none}
+.ck-sh{display:grid;gap:8px}.ck-sh button{display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:12px;text-align:left}.ck-sh button::before{content:"";width:18px;height:18px;border-radius:50%;border:1.5px solid var(--ctl);box-sizing:border-box}.ck-sh [aria-checked=true]{border:2px solid var(--fg);padding:13px}.ck-sh [aria-checked=true]::before{border:5px solid var(--fg)}.ck-sh span{display:grid}.ck-sh small{color:var(--mu);font-size:12px}
+.ck-pt{display:flex;gap:4px;background:var(--sf2);padding:3px;border-radius:10px}.ck-pt button{flex:1;height:36px;border-radius:8px;font-weight:550;color:var(--mu)}.ck-pt [aria-selected=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 2px #0000001a}.ck-card{display:grid;gap:12px}
+.ck-sec{display:flex;gap:6px;align-items:center;font-size:12px;margin:-16px 0 0;justify-content:center}
+.ck-sum{position:sticky;top:16px;background:var(--sf);border-radius:16px;padding:20px}.ck-sum summary{display:flex;justify-content:space-between;font-weight:600;cursor:pointer;list-style:none}.ck-sum summary::-webkit-details-marker{display:none}.ck-sum ul{list-style:none;padding:0;margin:16px 0;display:grid;gap:12px}.ck-sum li{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;font-size:14px}.ck-sum img{width:48px;height:48px;border-radius:8px;object-fit:cover}
+.ck-sum dl{margin:0;display:grid;gap:8px;border-top:1px solid var(--line);padding-top:14px;font-size:14px}.ck-sum dl div{display:flex;justify-content:space-between}.ck-sum dd{margin:0}.ck-sum .tot{font-weight:700;font-size:17px;border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+@media (min-width:861px){.ck-sum summary{pointer-events:none}.ck-sum summary b{display:none}}
+@media (max-width:860px){.ck-g{grid-template-columns:1fr;gap:16px;padding-top:16px}.ck-sum{position:static;order:-1}.ck-3{grid-template-columns:1fr 1fr}.ck-3 label:first-child{grid-column:1/-1}}
+</style>
+<div class="k pg ck"><div class="w ck-g"><form class="ck-f" id="f" novalidate><h1>Checkout</h1>
+<section><h2>Contact</h2><label><span class="lbl">Email</span><input class="in" name="email" type="email" autocomplete="email" required data-m="Enter an email for the receipt."><small class="ck-e"></small></label></section>
+<section><h2>Delivery</h2><div class="ck-2"><label><span class="lbl">First name</span><input class="in" autocomplete="given-name" required data-m="Required."><small class="ck-e"></small></label><label><span class="lbl">Last name</span><input class="in" autocomplete="family-name" required data-m="Required."><small class="ck-e"></small></label></div><label><span class="lbl">Address</span><input class="in" autocomplete="street-address" required data-m="Enter a street address."><small class="ck-e"></small></label><div class="ck-3"><label><span class="lbl">Country</span><select class="in" id="cy" autocomplete="country"><option value="NL">Netherlands</option><option value="DE">Germany</option><option value="GB">United Kingdom</option></select></label><label><span class="lbl">Postcode</span><input class="in" id="pc" autocomplete="postal-code" required data-m=""><small class="ck-e"></small></label><label><span class="lbl">City</span><input class="in" autocomplete="address-level2" required data-m="Required."><small class="ck-e"></small></label></div></section>
+<section><h2>Shipping</h2><div class="ck-sh" role="radiogroup" id="sh"></div></section>
+<section><h2>Payment</h2><div class="ck-pt" role="tablist"><button type="button" role="tab" aria-selected="true">Card</button><button type="button" role="tab" aria-selected="false">iDEAL</button><button type="button" role="tab" aria-selected="false">PayPal</button></div><div class="ck-card"><label><span class="lbl">Card number</span><input class="in tn" id="cn" inputmode="numeric" autocomplete="cc-number" placeholder="1234 1234 1234 1234" required data-m="Enter a valid card number."><small class="ck-e"></small></label><div class="ck-2"><label><span class="lbl">Expiry</span><input class="in tn" id="ex" inputmode="numeric" autocomplete="cc-exp" placeholder="MM / YY" required data-m="Use MM / YY."><small class="ck-e"></small></label><label><span class="lbl">CVC</span><input class="in tn" inputmode="numeric" autocomplete="cc-csc" maxlength="4" required data-m="3 or 4 digits."><small class="ck-e"></small></label></div></div></section>
+<button class="b ac lg" id="pay"></button><p class="mu ck-sec"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg> Payments are encrypted. Demo only, no card is charged.</p></form>
+<aside class="ck-sum"><details open id="sd"><summary><span>Order summary</span><b class="tn" id="t1"></b></summary><ul><li><img src="media/pics/c/1063.jpg" alt=""><span>Stoneware mug, Moss × 2</span><b class="tn">€48.00</b></li><li><img src="media/pics/c/1072.jpg" alt=""><span>Linen apron, Rust × 1</span><b class="tn">€62.00</b></li></ul><dl><div><dt>Subtotal</dt><dd class="tn">€110.00</dd></div><div><dt>Shipping</dt><dd class="tn" id="sp"></dd></div><div class="tot"><dt>Total</dt><dd class="tn" id="t2"></dd></div></dl></details></aside></div></div>
+<script>
+const S=[["Standard",4.9,4,6],["Express",9.9,1,2],["Pick-up point",0,3,4]],$=i=>document.getElementById(i),f=$('f');let sh=0;const D=n=>new Date(Date.now()+n*864e5).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+function draw(){$('sh').innerHTML=S.map(([n,p,a,b],i)=>`<button type="button" role="radio" aria-checked="${i===sh}" data-i="${i}"><span><b>${n}</b><small>${D(a)} – ${D(b)}</small></span><b class="tn">${p?'€'+p.toFixed(2):'Free'}</b></button>`).join('');const t=110+S[sh][1];$('sp').textContent=S[sh][1]?'€'+S[sh][1].toFixed(2):'Free';$('t1').textContent=$('t2').textContent='€'+t.toFixed(2);$('pay').textContent=`Pay €${t.toFixed(2)}`}
+$('sh').onclick=e=>{const b=e.target.closest('button');if(b){sh=+b.dataset.i;draw()}};document.querySelector('.ck-pt').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x===b));document.querySelector('.ck-card').hidden=b.textContent!=='Card'};
+const PC={NL:[/^\d{4}\s?[A-Z]{2}$/i,'Use 1234 AB.'],DE:[/^\d{5}$/,'Use 5 digits.'],GB:[/^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i,'Use a UK postcode like SW1A 1AA.']};
+function val(i){let ok=i.value.trim()!=='';let m=i.dataset.m;if(i.type==='email')ok=/^\S+@\S+\.\S+$/.test(i.value);if(i.id==='pc'){const[r,msg]=PC[$('cy').value];ok=r.test(i.value.trim());m=msg}if(i.id==='cn')ok=i.value.replace(/\D/g,'').length>=15;if(i.id==='ex')ok=/^(0[1-9]|1[0-2])\s?\/\s?\d{2}$/.test(i.value);i.setAttribute('aria-invalid',!ok);const e=i.parentElement.querySelector('.ck-e');if(e)e.textContent=ok?'':m;return ok}
+f.addEventListener('focusout',e=>{if(e.target.matches('input[required]')&&e.target.value)val(e.target)});
+$('cn').oninput=e=>{e.target.value=e.target.value.replace(/\D/g,'').slice(0,16).replace(/(\d{4})(?=\d)/g,'$1 ')};$('ex').oninput=e=>{let v=e.target.value.replace(/\D/g,'').slice(0,4);e.target.value=v.length>2?v.slice(0,2)+' / '+v.slice(2):v};
+f.onsubmit=e=>{e.preventDefault();const I=[...f.querySelectorAll('input[required]')].filter(i=>!i.closest('[hidden]'));const bad=I.filter(i=>!val(i));if(bad.length){bad[0].focus();return}const b=$('pay');b.disabled=true;b.textContent='Processing…';setTimeout(()=>{b.textContent='Paid · order #A-20420'},1200)};draw();
+</script>

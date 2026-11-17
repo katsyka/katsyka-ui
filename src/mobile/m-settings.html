@@ -1,0 +1,48 @@
+<!--Settings|Inset grouped settings: an account card, coloured icon tiles, real switches, values with chevrons and footnotes under groups. The large title folds into the bar as you scroll.|settings,grouped list,switch,ios,preferences-->
+<header class="bar"><div class="nb"><span></span><h2 class="st-t">Settings</h2><span></span></div></header>
+<main class="sc" id="sc">
+  <h1 class="lt">Settings</h1>
+  <label class="st-sr"><span class="vh">Search settings</span>@I(search,18)<input type="search" placeholder="Search" enterkeyhint="search"></label>
+  <div class="grp" style="margin-top:16px"><a class="row st-me" href="#"><img src="media/pics/c/1006.jpg" alt="" class="st-av"><span class="tx"><b>Mara Lind</b><small>Account, security, devices</small></span>@I(right)</a></div>
+  <div class="grp" style="margin-top:24px;--inset:60px">
+    <label class="row"><span class="st-ic" style="--c:#f97316">@I(plane,18)</span><span class="tx"><b>Airplane mode</b></span><input type="checkbox" class="sw"></label>
+    <a class="row" href="#"><span class="st-ic" style="--c:#3b82f6">@I(wifi,18)</span><span class="tx"><b>Wi-Fi</b></span><span class="st-v">Home 5G</span>@I(right)</a>
+    <a class="row" href="#"><span class="st-ic" style="--c:#16a34a">@I(phone,18)</span><span class="tx"><b>Mobile data</b></span>@I(right)</a>
+  </div>
+  <div class="grp" style="margin-top:24px;--inset:60px">
+    <a class="row" href="#"><span class="st-ic" style="--c:#ef4444">@I(bell,18)</span><span class="tx"><b>Notifications</b></span><span class="st-v">12 apps</span>@I(right)</a>
+    <label class="row"><span class="st-ic" style="--c:#6366f1">@I(moon,18)</span><span class="tx"><b>Focus</b></span><input type="checkbox" class="sw" checked></label>
+    <a class="row" href="#"><span class="st-ic" style="--c:#8b5cf6">@I(clock,18)</span><span class="tx"><b>Screen time</b></span><span class="st-v tn">3h 12m</span>@I(right)</a>
+  </div>
+  <p class="st-f">Focus silences calls and notifications from everyone except favourites.</p>
+  <div class="grp" style="--inset:60px">
+    <a class="row" href="#"><span class="st-ic" style="--c:#64748b">@I(sun,18)</span><span class="tx"><b>Display &amp; brightness</b></span>@I(right)</a>
+    <a class="row" href="#"><span class="st-ic" style="--c:#0ea5e9">@I(type,18)</span><span class="tx"><b>Text size</b></span><span class="st-v">Default</span>@I(right)</a>
+    <a class="row" href="#"><span class="st-ic" style="--c:#14b8a6">@I(shield,18)</span><span class="tx"><b>Privacy</b></span>@I(right)</a>
+    <a class="row" href="#"><span class="st-ic" style="--c:#eab308">@I(battery,18)</span><span class="tx"><b>Battery</b></span><span class="st-v tn">82%</span>@I(right)</a>
+  </div>
+  <button class="grp st-out" style="margin-top:24px;width:calc(100% - 32px)">Sign out</button>
+  <p class="st-f" style="text-align:center">Version 4.2.0 (1180)</p>
+</main>
+<style>
+.st-t{opacity:0;transition:opacity .2s}.bar.sd .st-t{opacity:1}
+.st-sr{display:flex;align-items:center;gap:8px;margin:12px var(--gut) 0;height:40px;padding:0 10px;border-radius:12px;background:var(--sf);color:var(--mu)}
+.st-sr input{flex:1;min-width:0;border:0;background:none;outline:0;font-size:17px!important;color:var(--fg)}
+.st-sr input::placeholder{color:var(--mu)}.st-sr input::-webkit-search-cancel-button{display:none}
+.st-me{min-height:76px}.st-av{width:56px;height:56px;border-radius:50%;object-fit:cover}
+.st-me b{font-size:20px!important;font-weight:600!important}
+.row>.i:last-child{width:18px;height:18px;color:var(--ctl)}
+.st-ic{width:30px;height:30px;border-radius:8px;flex:none;display:grid;place-items:center;background:var(--c);color:#fff}
+.st-ic .i{stroke-width:2.2}
+.st-v{color:var(--mu);font-size:17px}
+.st-f{margin:8px 0 24px;padding:0 calc(var(--gut) + 16px);font-size:13px;line-height:18px;color:var(--mu)}
+.st-out{display:block;min-height:52px;font-size:17px!important;color:var(--err)!important;text-align:center}
+.st-out:active{background:var(--sf2)!important}
+.sw{appearance:none;-webkit-appearance:none;flex:none;margin:0;width:51px;height:31px;border-radius:16px;background:var(--sf2);box-shadow:inset 0 0 0 1px var(--line);position:relative;cursor:pointer;transition:background .25s}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:50%;background:#fff;box-shadow:0 2px 6px #0003,0 0 0 .5px #0000000f;transition:transform .3s var(--ease),width .2s}
+.sw:active::after{width:32px}.sw:checked:active::after{transform:translateX(15px)}
+.sw:checked{background:var(--ok);box-shadow:none}.sw:checked::after{transform:translateX(20px)}
+</style>
+<script>
+document.querySelectorAll("a.row").forEach(a=>a.onclick=e=>e.preventDefault());
+</script>

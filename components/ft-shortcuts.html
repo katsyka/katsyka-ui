@@ -1,0 +1,48 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.ks{width:min(980px,100%);display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center}.ks h2{margin:0 0 10px;font-size:clamp(28px,4vw,40px);letter-spacing:-.03em;line-height:1.1}.ks .lead{margin:0 0 20px;font-size:17px}
+.ks-k{list-style:none;padding:0;margin:0;display:grid;gap:10px}.ks-k li{display:grid;grid-template-columns:90px 1fr;align-items:center;font-size:15px}.ks-k span{display:flex;gap:4px}
+.ks kbd{display:inline-grid;place-items:center;min-width:30px;height:30px;padding:0 6px;border-radius:7px;border:1px solid var(--ctl);border-bottom-width:3px;font:600 13px 'Geist Mono',monospace;background:var(--bg);transition:transform .08s,border-bottom-width .08s,background .15s}.ks kbd.dn{transform:translateY(2px);border-bottom-width:1px;background:var(--ac-sf);border-color:var(--ac)}
+.ks-d{border:1px solid var(--line);border-radius:14px;background:var(--bg);padding:12px;min-height:280px;display:grid;align-content:start;gap:4px;outline:0;position:relative}.ks-d:focus-visible,.ks-d:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 18%,transparent)}
+.ks-s{display:flex;gap:8px;align-items:center;padding:4px 8px 8px;border-bottom:1px solid var(--line);margin-bottom:6px;color:var(--mu)}.ks-s input{border:0;outline:0;background:none;flex:1;font-size:15px;color:var(--fg)}
+.ks-d ul{list-style:none;padding:0;margin:0;display:grid;gap:2px}.ks-d li{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:8px;font-size:15px;animation:ksf .2s cubic-bezier(.23,1,.32,1)}@keyframes ksf{from{opacity:0;transform:translateY(-3px)}}.ks-d li::before{content:"";width:16px;height:16px;border-radius:50%;border:1.5px solid var(--ctl);flex:none}.ks-d li.cur{background:var(--sf2)}.ks-d li.dn{color:var(--mu);text-decoration:line-through}.ks-d li.dn::before{background:var(--ok);border-color:var(--ok)}
+.ks-hint{position:absolute;bottom:10px;right:12px;margin:0;font-size:12px;color:var(--mu)}
+@media (max-width:760px){.ks{grid-template-columns:1fr;gap:24px}}
+</style>
+<div class="k"><section class="ks"><div class="ks-t"><h2>Your hands never leave the keys</h2><p class="lead mu">Try it: click the demo, then press the keys.</p><ul class="ks-k" id="kk"><li><span><kbd>C</kbd></span>New task</li><li><span><kbd>X</kbd></span>Complete</li><li><span><kbd>J</kbd><kbd>K</kbd></span>Move down / up</li><li><span><kbd>/</kbd></span>Search</li></ul></div>
+<div class="ks-d" id="d" tabindex="0" aria-label="Demo task list. Press C, X, J, K or slash."><div class="ks-s" id="s" hidden><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span><input id="q" placeholder="Search tasks" aria-label="Search tasks"></div><ul id="l"></ul><p class="ks-hint" id="h">Click here, then press a key</p></div></section></div>
+<script>
+let T=[["Reply to Lena about the brief",0],["Book flights for Lisbon",0],["Review pull request #142",1],["Order more coffee beans",0]],cur=0,n=1;const d=document.getElementById('d'),l=document.getElementById('l'),q=document.getElementById('q');
+const flash=k=>{document.querySelectorAll('#kk kbd').forEach(x=>{if(x.textContent.toLowerCase()===k){x.classList.add('dn');setTimeout(()=>x.classList.remove('dn'),180)}})};
+function draw(){const v=q.value.toLowerCase(),V=T.map((t,i)=>[t,i]).filter(([t])=>!v||t[0].toLowerCase().includes(v));cur=Math.min(cur,Math.max(0,V.length-1));l.innerHTML=V.map(([[t,dn]],k)=>`<li class="${k===cur?'cur':''}${dn?' dn':''}">${t}</li>`).join('')}
+d.addEventListener('keydown',e=>{if(e.target===q){if(e.key==='Escape'){q.value='';document.getElementById('s').hidden=true;d.focus();draw()}else setTimeout(draw);return}const k=e.key.toLowerCase();if(!['c','x','j','k','/'].includes(k))return;e.preventDefault();flash(k);const h=document.getElementById('h');
+if(k==='c'){T.unshift([`New task ${n++}`,0]);cur=0;h.textContent='C: created a task'}if(k==='x'){const v=q.value.toLowerCase(),V=T.filter(t=>!v||t[0].toLowerCase().includes(v));if(V[cur]){V[cur][1]=V[cur][1]?0:1}h.textContent='X: toggled complete'}if(k==='j'){cur=Math.min(T.length-1,cur+1);h.textContent='J: moved down'}if(k==='k'){cur=Math.max(0,cur-1);h.textContent='K: moved up'}if(k==='/'){document.getElementById('s').hidden=false;q.focus();h.textContent='Esc to close search'}draw()});
+document.querySelectorAll('#kk kbd').forEach(x=>{x.style.cursor='pointer';x.onclick=()=>{d.focus();d.dispatchEvent(new KeyboardEvent('keydown',{key:x.textContent.toLowerCase(),bubbles:true}))}});draw();
+</script>

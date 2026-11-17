@@ -1,0 +1,39 @@
+<!--Profile|A creator profile: centred avatar, tabular stats, a primary Follow that flips to Following, Message beside it, and a grid/saved switch with a sliding indicator over a three-column photo grid.|profile,social,stats,grid,follow-->
+<header class="bar"><div class="nb"><span><button class="ib" aria-label="Back">@I(left)</button></span><h2>mara.lind</h2><span><button class="ib" aria-label="More">@I(more)</button></span></div></header>
+<main class="sc">
+  <section class="pf-h">
+    <img class="pf-av" src="media/pics/c/1006.jpg" alt="">
+    <h1>Mara Lind</h1><p class="mu">Landscape photographer · Bergen</p>
+    <dl class="pf-s"><div><dt>Posts</dt><dd>214</dd></div><div><dt>Followers</dt><dd>18.4K</dd></div><div><dt>Following</dt><dd>389</dd></div></dl>
+    <div class="pf-b"><button class="btn" id="fo" aria-pressed="false">Follow</button><button class="btn sec">Message</button><button class="ib pf-mo" aria-label="Suggested accounts">@I(users)</button></div>
+  </section>
+  <div class="pf-t" role="tablist"><button role="tab" aria-selected="true" aria-label="Posts" class="on">@I(grid)</button><button role="tab" aria-selected="false" aria-label="Saved">@I(bookmark)</button><i id="ind"></i></div>
+  <div class="pf-g" id="g"></div>
+</main>
+@PILL(home:Home|search:Search|plus:Post|user:Profile;3)
+<style>
+.pf-h{display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px var(--gut) 20px}
+.pf-av{width:96px;height:96px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 1px var(--line)}
+.pf-h h1{margin:12px 0 0;font-size:22px;line-height:28px;font-weight:650;letter-spacing:-.015em}
+.pf-h p{margin:2px 0 0;font-size:15px}
+.pf-s{display:grid;grid-template-columns:repeat(3,1fr);width:100%;margin:20px 0 0}
+.pf-s div{display:flex;flex-direction:column-reverse}
+.pf-s dd{margin:0;font-size:20px;line-height:24px;font-weight:650;font-variant-numeric:tabular-nums}
+.pf-s dt{font-size:13px;color:var(--mu)}
+.pf-b{display:flex;gap:8px;width:100%;margin-top:20px}
+.pf-b .btn{min-height:44px;border-radius:12px;font-size:15px!important;flex:1}
+.pf-mo{background:var(--sf2)!important;border-radius:12px;height:44px}
+#fo[aria-pressed=true]{background:var(--sf2)!important;color:var(--fg)!important}
+.pf-t{position:relative;display:flex;border-bottom:.5px solid var(--line)}
+.pf-t button{flex:1;height:48px;display:grid;place-items:center;color:var(--mu);transition:color .2s}
+.pf-t button.on{color:var(--fg)}
+.pf-t i{position:absolute;bottom:-.5px;left:0;width:50%;height:2px;background:var(--fg);transition:transform .35s var(--ease)}
+.pf-g{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;transition:opacity .2s}
+.pf-g img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:var(--sf)}
+</style>
+<script>
+const A=["1043","1035","1050","1022","1040","1057","1049","1039","1051","1052","1041","1056","1053","1006","564"],B=["1060","1080","1082","1073","1069","1072"];
+const show=L=>g.innerHTML=L.map(p=>`<img src="media/pics/c/${p}.jpg" alt="" loading="lazy">`).join("");show(A);
+fo.onclick=()=>{const on=fo.getAttribute("aria-pressed")!=="true";fo.setAttribute("aria-pressed",on);fo.textContent=on?"Following":"Follow"};
+document.querySelectorAll(".pf-t button").forEach((b,i,a)=>b.onclick=()=>{a.forEach(x=>{x.classList.toggle("on",x===b);x.setAttribute("aria-selected",x===b)});ind.style.transform=`translateX(${i*100}%)`;g.style.opacity=0;setTimeout(()=>{show(i?B:A);g.style.opacity=1},150)});
+</script>

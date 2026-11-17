@@ -1,0 +1,35 @@
+<!--Gelato Shop Landing|Landings|A loud, colour-blocked gelato shop page: picking a flavour repaints the whole page in that flavour's colours, a scoop stack builds up as you add scoops (max three), and an opening-hours strip shows today's hours.|landing,food,colourful,shop,interactive-->
+<div class="k pg gl" id="pg">
+<header class="top"><div class="w"><a class="logo" href="#">Scoopwerk</a><nav class="links"><a href="#fl">Flavours</a><a href="#vi">Visit</a></nav><a class="b ac" href="#fl">Build a cup</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w gl-hero"><div><p class="eb">Small batch · churned every morning</p><h1 class="gl-t">Cold,<br>bright,<br>a bit too much.</h1><p class="lead">Twelve flavours a day, made in the back room before we open. Pick one and the shop turns that colour.</p></div>
+<div class="gl-cup" aria-hidden="true"><div class="gl-st" id="st"></div><div class="gl-c"></div></div></section>
+<section class="w gl-fl" id="fl"><h2 class="h2">Today's flavours</h2><div class="gl-g" id="g" role="group" aria-label="Flavours"></div>
+<div class="gl-bar"><span id="cnt" aria-live="polite">Your cup is empty</span><button class="b" id="clr">Start over</button></div></section>
+<section class="gl-vi" id="vi"><div class="w"><div><p class="eb">Visit</p><p class="gl-ad">14 Harbour Lane<br>Open till late in summer</p></div><ul class="gl-h" id="h"></ul></div></section>
+<footer class="foot"><div class="w"><span>Scoopwerk is demo content.</span><span>No artificial colours. The page is the only fake thing here.</span></div></footer>
+</div>
+<style>
+.gl{--a:#ff5d8f;--b:#ffe3ec;--d:#5a0f2a;background:var(--b)!important;color:var(--d);transition:background .4s var(--ease),color .4s var(--ease)}
+.gl .top{background:color-mix(in srgb,var(--b) 88%,transparent);border-color:color-mix(in srgb,var(--d) 15%,transparent)}.gl .links a,.gl .lead,.gl .eb,.gl .foot{color:color-mix(in srgb,var(--d) 72%,transparent)}.gl .foot{border-color:color-mix(in srgb,var(--d) 15%,transparent)}
+.gl .b.ac{background:var(--d);color:var(--b)}.gl .b{border-color:color-mix(in srgb,var(--d) 25%,transparent);color:var(--d);background:transparent}
+.gl-hero{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center;padding:72px 0 48px}.gl-t{font-size:clamp(48px,8vw,104px);line-height:.92;letter-spacing:-.045em;font-weight:800;margin:14px 0 20px!important}.gl .lead{max-width:40ch}
+.gl-cup{display:grid;justify-items:center;align-content:end;min-height:340px}.gl-st{display:flex;flex-direction:column-reverse;align-items:center;margin-bottom:-18px}.gl-s{width:150px;height:118px;border-radius:50%;margin-top:-52px;box-shadow:inset -14px -10px 0 rgb(0 0 0/.08);animation:gls .35s var(--ease) both;position:relative}
+@keyframes gls{from{transform:translateY(-40px);opacity:0}}
+.gl-c{width:170px;height:150px;background:var(--d);clip-path:polygon(0 0,100% 0,82% 100%,18% 100%);border-radius:6px;position:relative;z-index:1}
+.gl-fl{padding:48px 0 80px}.gl-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:24px}
+.gl-f{border:0;border-radius:18px;padding:16px;min-height:120px;text-align:left;display:grid;align-content:space-between;font:inherit;cursor:pointer;transition:transform .15s var(--ease)}.gl-f:hover{transform:translateY(-3px)}.gl-f:active{transform:scale(.97)}.gl-f b{font-size:17px;letter-spacing:-.01em}.gl-f span{font-size:13px;opacity:.75}.gl-f[aria-pressed=true]{outline:3px solid var(--d);outline-offset:3px}
+.gl-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:20px;font-weight:600}
+.gl-vi{background:var(--d);color:var(--b);padding:64px 0}.gl-vi .w{display:grid;grid-template-columns:1fr 1fr;gap:32px}.gl-vi .eb{color:color-mix(in srgb,var(--b) 70%,transparent)}.gl-ad{font-size:clamp(24px,3vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-top:10px!important}
+.gl-h{list-style:none;margin:0;padding:0;display:grid;font-variant-numeric:tabular-nums}.gl-h li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid color-mix(in srgb,var(--b) 20%,transparent)}.gl-h li.now{font-weight:700}.gl-h li.now::after{content:"today";font-size:11px;background:var(--a);color:var(--d);padding:2px 8px;border-radius:99px;margin-left:8px}
+@media (max-width:760px){.gl-hero{grid-template-columns:1fr;padding-top:40px}.gl-cup{min-height:260px}.gl-vi .w{grid-template-columns:1fr}}
+</style>
+<script>
+const F=[['Blood orange','#ff6b35','#ffe8dc','#5c1e05','sharp, sunny'],['Pistachio','#93c572','#eaf6df','#24401a','salted, Sicilian'],['Ube','#8e5cd9','#efe6ff','#2c1452','nutty, purple yam'],['Raspberry','#ff5d8f','#ffe3ec','#5a0f2a','tart, real fruit'],['Mango lassi','#ffb400','#fff3d1','#4d3500','cardamom, yoghurt'],['Blue spirulina','#2fa8e0','#ddf2fc','#06344a','vanilla, very blue'],['Matcha','#4e9a4a','#e2f1df','#173315','grassy, not sweet'],['Black sesame','#3b3b3b','#ececec','#111','toasty, savoury']];
+const pg=document.getElementById('pg'),g=document.getElementById('g'),st=document.getElementById('st'),cnt=document.getElementById('cnt');let cup=[];
+F.forEach((f,i)=>{const b=document.createElement('button');b.className='gl-f';b.style.background=f[1];b.style.color=f[3];b.setAttribute('aria-pressed','false');b.innerHTML=`<span>${f[4]}</span><b>${f[0]}</b>`;b.onclick=()=>pick(i,b);g.append(b)});
+function paint(f){pg.style.setProperty('--a',f[1]);pg.style.setProperty('--b',f[2]);pg.style.setProperty('--d',f[3])}
+function pick(i,b){const f=F[i];paint(f);g.querySelectorAll('.gl-f').forEach(x=>x.setAttribute('aria-pressed',x===b));if(cup.length>=3){cnt.textContent='Three scoops is the house limit';return}cup.push(f);const s=document.createElement('div');s.className='gl-s';s.style.background=f[1];st.append(s);cnt.textContent=cup.length+(cup.length>1?' scoops: ':' scoop: ')+cup.map(c=>c[0]).join(', ')}
+document.getElementById('clr').onclick=()=>{cup=[];st.innerHTML='';cnt.textContent='Your cup is empty';g.querySelectorAll('.gl-f').forEach(x=>x.setAttribute('aria-pressed','false'))};
+const D=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],H=['12–22','closed','13–21','13–21','13–22','12–23','11–23'],t=new Date().getDay();
+document.getElementById('h').innerHTML=[1,2,3,4,5,6,0].map(d=>`<li class="${d===t?'now':''}"><span>${D[d]}</span><span>${H[d]}</span></li>`).join('');
+</script>

@@ -1,0 +1,80 @@
+<style>
+.dr{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.dr :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.dr ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.dr *,.dr *::before,.dr *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.dr{min-height:100vh;background:var(--sf);padding:28px 20px}
+.dr-top{max-width:980px;margin:0 auto 18px;display:flex;align-items:center;gap:12px}
+.dr-top h1{margin:0;font-size:22px;letter-spacing:-.03em;font-weight:650}
+.dr-top span{font-size:14px;color:var(--mu)}
+.dr-open{margin-left:auto;display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer}
+.dr-open:hover{background:var(--sf2)}
+.dr-open svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.dr-open b{min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--fg);color:var(--bg);font-size:11.5px;display:grid;place-items:center}
+.dr-grid{max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.dr-grid div{height:220px;border-radius:14px;background:var(--bg);border:1px solid var(--line);padding:14px;display:flex;flex-direction:column;justify-content:flex-end;font-size:14px;font-weight:550}
+.dr-grid div i{flex:1;margin-bottom:12px;border-radius:9px;background:var(--sf2)}
+.dr-grid div small{font-weight:400;color:var(--mu)}
+.dr dialog{position:fixed;inset:0 0 0 auto;width:min(400px,100%);max-width:100%;height:100%;max-height:100%;margin:0;padding:0;border:0;border-left:1px solid var(--line);background:var(--bg);color:var(--fg);box-shadow:-30px 0 60px -20px #00000040;transform:translateX(100%);transition:transform .32s var(--ease),overlay .32s allow-discrete,display .32s allow-discrete}
+.dr dialog[open]{transform:none}
+@starting-style{.dr dialog[open]{transform:translateX(100%)}}
+.dr dialog::backdrop{background:#0a0a0b66;opacity:0;transition:opacity .3s,overlay .32s allow-discrete,display .32s allow-discrete}
+.dr dialog[open]::backdrop{opacity:1}
+@starting-style{.dr dialog[open]::backdrop{opacity:0}}
+.dr form{display:flex;flex-direction:column;height:100%}
+.dr-hd{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}
+.dr-hd h2{margin:0;font-size:17px;font-weight:620}
+.dr-x{width:34px;height:34px;border:0;border-radius:9px;background:none;color:var(--mu);display:grid;place-items:center;cursor:pointer}
+.dr-x:hover{background:var(--sf2);color:var(--fg)}
+.dr-x svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.dr-bd{flex:1;overflow:auto;padding:6px 20px 20px}
+.dr fieldset{border:0;margin:0;padding:16px 0;border-bottom:1px solid var(--line)}
+.dr fieldset:last-child{border-bottom:0}
+.dr legend{padding:0;margin-bottom:10px;font-size:13.5px;font-weight:600}
+.dr-ck{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px;cursor:pointer}
+.dr-ck input{width:17px;height:17px;margin:0;accent-color:var(--ac)}
+.dr-ck small{margin-left:auto;font:500 12px "Geist Mono",monospace;color:var(--mu)}
+.dr-chips{display:flex;flex-wrap:wrap;gap:6px}
+.dr-chips label{cursor:pointer}
+.dr-chips input{position:absolute;opacity:0;width:1px;height:1px}
+.dr-chips span{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:9px;border:1px solid var(--line);font-size:13.5px;transition:background-color .15s,color .15s,border-color .15s}
+.dr-chips input:checked+span{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.dr-chips input:focus-visible+span{outline:2px solid var(--focus);outline-offset:2px}
+.dr-rg{display:flex;gap:10px}
+.dr-rg label{flex:1;display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--mu)}
+.dr-rg input{height:38px;padding:0 10px;border-radius:9px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);color:var(--fg);font:500 16px "Geist Mono",monospace;width:100%}
+@media (min-width:640px){.dr-rg input{font-size:14px}}
+.dr-ft{display:flex;gap:8px;padding:14px 20px;border-top:1px solid var(--line);background:var(--sf)}
+.dr-ft button{height:42px;border-radius:11px;font:550 14px Geist,system-ui,sans-serif;cursor:pointer}
+.dr-ft .cl{padding:0 16px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.dr-ft .ap{flex:1;border:0;background:var(--fg);color:var(--bg)}
+</style>
+<div class="dr">
+  <div class="dr-top"><h1>Chairs</h1><span id="drCount">48 results</span>
+    <button class="dr-open" aria-haspopup="dialog" aria-controls="drD"><svg viewBox="0 0 24 24"><path d="M3 6h18M7 12h10M10 18h4"/></svg>Filters <b id="drN">2</b></button></div>
+  <div class="dr-grid" aria-hidden="true"><div><i></i>Lounge chair<small>Oak · $890</small></div><div><i></i>Stacking chair<small>Steel · $210</small></div><div><i></i>Desk chair<small>Mesh · $540</small></div><div><i></i>Dining chair<small>Walnut · $360</small></div></div>
+  <dialog id="drD" aria-labelledby="drT">
+    <form method="dialog">
+      <div class="dr-hd"><h2 id="drT">Filters</h2><button class="dr-x" value="cancel" aria-label="Close filters"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+      <div class="dr-bd">
+        <fieldset><legend>Material</legend>
+          <label class="dr-ck"><input type="checkbox" checked> Oak<small>14</small></label><label class="dr-ck"><input type="checkbox"> Walnut<small>9</small></label><label class="dr-ck"><input type="checkbox"> Steel<small>17</small></label><label class="dr-ck"><input type="checkbox"> Mesh<small>8</small></label></fieldset>
+        <fieldset><legend>Style</legend>
+          <div class="dr-chips"><label><input type="checkbox"><span>Lounge</span></label><label><input type="checkbox" checked><span>Dining</span></label><label><input type="checkbox"><span>Office</span></label><label><input type="checkbox"><span>Outdoor</span></label><label><input type="checkbox"><span>Bar</span></label></div></fieldset>
+        <fieldset><legend>Price</legend>
+          <div class="dr-rg"><label>Min<input inputmode="numeric" value="0"></label><label>Max<input inputmode="numeric" value="1000"></label></div></fieldset>
+      </div>
+      <div class="dr-ft"><button type="button" class="cl">Clear all</button><button class="ap" value="apply">Show results</button></div>
+    </form>
+  </dialog>
+</div>
+<script>
+const D=document.getElementById("drD"),op=document.querySelector(".dr-open"),N=document.getElementById("drN"),ap=D.querySelector(".ap"),cnt=document.getElementById("drCount");
+const n=()=>D.querySelectorAll("input[type=checkbox]:checked").length;
+const upd=()=>{const k=n();ap.textContent=`Show ${Math.max(3,48-k*7)} results`};
+op.addEventListener("click",()=>{D.returnValue="";D.showModal();upd()});
+D.addEventListener("change",upd);
+D.querySelector(".cl").addEventListener("click",()=>{D.querySelectorAll("input[type=checkbox]").forEach(i=>i.checked=false);upd()});
+D.addEventListener("click",e=>{if(e.target===D)D.close("cancel")});
+D.addEventListener("close",()=>{if(D.returnValue==="apply"){const k=n();N.textContent=k;N.style.display=k?"":"none";cnt.textContent=`${Math.max(3,48-k*7)} results`}op.focus()});
+</script>

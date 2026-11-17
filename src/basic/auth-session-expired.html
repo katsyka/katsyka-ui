@@ -1,0 +1,23 @@
+<!--Session Expired Modal|Auth|A re-authentication dialog that appears over a dimmed app when the session times out: keeps unsaved work, asks only for the password, offers “sign in as someone else”, and restores focus.|auth,session,modal,dialog,timeout,reauth-->
+<div class="k se">
+<div class="se-app" aria-hidden="true"><div class="se-sb"></div><div class="se-doc"><h2>Q4 planning notes</h2><p>Draft · 1,240 words</p><i></i><i></i><i style="width:70%"></i><i></i><i style="width:40%"></i></div></div>
+<button class="b sec se-tr" id="tr">Simulate timeout</button>
+<dialog class="se-d" id="d" aria-labelledby="dt"><span class="se-ic">@I(clock,20)</span><h1 id="dt">Your session timed out</h1><p class="mu">For your security we signed you out after 30 minutes. Your unsaved draft is kept on this device.</p>
+<form id="f" method="dialog" novalidate><div class="se-u"><span class="av" style="--c:#4338ca">RA</span><div><b>Rafael Alves</b><span class="mu">rafael@example.com</span></div></div><label class="lbl" for="pw">Password</label><input class="in" id="pw" type="password" autocomplete="current-password"><p class="se-er" id="er" role="alert"></p><button class="b ac se-go" id="go" value="ok">Continue where I left off</button></form><button class="se-alt" id="alt">Sign in as someone else</button></dialog>
+</div>
+<style>
+.k.se{position:relative;padding:0;place-items:stretch;overflow:hidden}.se-app{display:grid;grid-template-columns:220px 1fr;min-height:100%;background:var(--bg)}.se-sb{background:var(--sf);border-right:1px solid var(--line)}.se-doc{padding:48px;display:grid;gap:14px;align-content:start;max-width:640px}.se-doc h2{margin:0;font-size:28px}.se-doc p{margin:0;color:var(--mu)}.se-doc i{height:10px;border-radius:5px;background:var(--sf2)}
+.se-tr{position:absolute;right:16px;bottom:16px}
+.se-d{width:min(400px,calc(100% - 32px));border:1px solid var(--line);border-radius:18px;padding:28px;background:var(--bg);color:var(--fg);box-shadow:var(--shadow)}.se-d::backdrop{background:#0006;backdrop-filter:blur(3px)}.se-d[open]{animation:sed .25s var(--ease)}@keyframes sed{from{opacity:0;transform:scale(.96) translateY(8px)}}
+.se-ic{width:40px;height:40px;border-radius:10px;background:var(--warn-sf);color:var(--warn);display:grid;place-items:center}.se-d h1{margin:14px 0 6px;font-size:20px}.se-d>p{margin:0 0 16px;font-size:14px}
+.se-u{display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;background:var(--sf);margin-bottom:14px}.se-u div{display:grid;font-size:13px}.se-u .av{width:36px;height:36px;font-size:12px}
+.se-d .in{height:44px;font-size:16px}.se-er{color:var(--err);font-size:13px;margin:6px 0 0}.se-er:empty{display:none}.se-go{width:100%;height:44px;margin-top:14px}.se-alt{display:block;margin:12px auto 0;font-size:13px;color:var(--mu);text-decoration:underline;min-height:32px}
+@media (max-width:600px){.se-app{grid-template-columns:1fr}.se-sb{display:none}.se-doc{padding:24px}}
+</style>
+<script>
+const $=i=>document.getElementById(i),d=$('d');
+$('tr').onclick=()=>{d.showModal();$('pw').value='';$('er').textContent='';$('pw').focus()};setTimeout(()=>$('tr').click(),400);
+d.addEventListener('cancel',e=>e.preventDefault());
+$('f').onsubmit=e=>{e.preventDefault();const pw=$('pw');if(!pw.value){$('er').textContent='Enter your password to continue.';pw.setAttribute('aria-invalid',true);return pw.focus()}const g=$('go');g.disabled=true;g.textContent='Signing in…';setTimeout(()=>{g.disabled=false;g.textContent='Continue where I left off';d.close();$('tr').focus()},700)};
+$('alt').onclick=()=>{$('alt').textContent='Signing out…'};
+</script>

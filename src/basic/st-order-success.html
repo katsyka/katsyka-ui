@@ -1,0 +1,17 @@
+<!--Order Confirmed State|States|An order confirmation that answers what's next: the delivery window as a date, a 4-step progress line, items summary, add-to-calendar file download, and a change-address link valid for the next hour.|success,order,confirmation,checkout,ics,timeline-->
+<div class="k os"><main class="os-w"><div class="os-ok">@I(check,24)</div><h1>Order confirmed</h1><p class="mu">#A-20419 · confirmation sent to ana@example.com</p>
+<section class="os-dl"><span class="mu">Arrives</span><b id="eta"></b><ol class="os-tl"><li class="dn">Ordered</li><li class="on">Packing</li><li>Shipped</li><li>Delivered</li></ol></section>
+<ul class="os-it"><li><span class="os-th" style="--c:#4d7c0f"></span><div><b>Stoneware mug, Moss</b><span class="mu">Qty 2</span></div><span class="tn">€48.00</span></li><li><span class="os-th" style="--c:#c2410c"></span><div><b>Linen apron, Rust</b><span class="mu">Qty 1</span></div><span class="tn">€62.00</span></li><li class="tot"><span></span><b>Total paid</b><b class="tn">€118.90</b></li></ul>
+<div class="os-ac"><button class="b sec" id="ics">@I(cal,16)Add delivery to calendar</button><a class="b gh" href="#" id="ch">Change address</a></div><p class="mu os-n" id="cn"></p></main></div>
+<style>
+.os-w{width:min(480px,100%);display:grid;gap:14px}.os-ok{width:48px;height:48px;border-radius:50%;background:var(--ok-sf);color:var(--ok);display:grid;place-items:center}.os-w h1{margin:0;font-size:26px;letter-spacing:-.02em}.os-w>p{margin:-8px 0 0;font-size:14px}
+.os-dl{padding:16px;border-radius:14px;background:var(--sf2);display:grid;gap:4px}.os-dl span{font-size:12px}.os-dl b{font-size:20px;letter-spacing:-.01em}
+.os-tl{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(4,1fr);font-size:12px;color:var(--mu)}.os-tl li{display:grid;gap:8px;position:relative}.os-tl li::before{content:"";height:4px;background:var(--line);border-radius:2px;margin-right:4px}.os-tl .dn::before{background:var(--ok)}.os-tl .on::before{background:linear-gradient(90deg,var(--ok) 40%,var(--line) 40%)}.os-tl .dn,.os-tl .on{color:var(--fg);font-weight:550}
+.os-it{list-style:none;padding:0;margin:0;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.os-it li{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-top:1px solid var(--line);font-size:14px}.os-it li:first-child{border:0}.os-it div{display:grid}.os-it span.mu{font-size:12px}.os-th{width:40px;height:40px;border-radius:8px;background:var(--c)}.os-it .tot{background:var(--sf)}
+.os-ac{display:flex;gap:8px;flex-wrap:wrap}.os-ac .b{height:40px}.os-n{font-size:12px;margin:-6px 0 0}
+</style>
+<script>
+const a=new Date(Date.now()+3*864e5),b=new Date(Date.now()+4*864e5),f=d=>d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});document.getElementById('eta').textContent=`${f(a)} or ${f(b).split(' ')[0]}`;
+const until=new Date(Date.now()+36e5);document.getElementById('cn').textContent=`You can change the address until ${until.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}.`;
+document.getElementById('ics').onclick=()=>{const z=d=>d.toISOString().slice(0,10).replace(/-/g,''),ics=`BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nUID:A-20419@mossware\nDTSTART;VALUE=DATE:${z(a)}\nDTEND;VALUE=DATE:${z(new Date(+b+864e5))}\nSUMMARY:Mossware delivery #A-20419\nEND:VEVENT\nEND:VCALENDAR`,l=document.createElement('a');l.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));l.download='delivery.ics';l.click()};
+</script>

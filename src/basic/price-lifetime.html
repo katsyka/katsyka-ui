@@ -1,0 +1,18 @@
+<!--Lifetime Deal Pricing|Pricing|A limited lifetime-licence offer: tiers by number of devices, a stock meter showing licences left, an honest end date, a versus-subscription break-even line and a refund note.|pricing,lifetime,license,limited,scarcity-->
+<div class="k">
+<section class="card pl"><div class="pl-h"><span class="pill warn">@I(clock,12)Ends 31 Dec</span><h2>Own Darkroom forever</h2><p class="mu">Pay once, get every 3.x update. No subscription, no account.</p></div>
+<div class="pl-t" role="radiogroup" aria-label="Licence" id="t"></div>
+<div class="pl-st"><div class="pl-sh"><span><b class="tn">412</b> of 1,000 lifetime licences left</span><span class="mu tn">59% sold</span></div><div class="pl-bar"><i style="--w:59%"></i></div></div>
+<p class="pl-be" id="be"></p><button class="b ac lg pl-go" id="go"></button><p class="mu pl-r">14-day refund. Works offline. Licence is transferable once.</p></section>
+</div>
+<style>
+.pl{width:min(480px,100%);padding:28px;display:grid;gap:18px}.pl-h{display:grid;gap:8px;justify-items:start}.pl-h h2{margin:0;font-size:24px;letter-spacing:-.02em}.pl-h p{margin:0}
+.pl-t{display:grid;gap:8px}.pl-t button{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:12px;text-align:left;min-height:56px}.pl-t button span{display:grid}.pl-t small{color:var(--mu);font-size:12px}.pl-t b{font-size:20px;font-variant-numeric:tabular-nums}.pl-t s{color:var(--mu);font-size:13px;margin-right:8px}.pl-t [aria-checked=true]{border:2px solid var(--ac);padding:13px 15px;background:var(--ac-sf)}
+.pl-sh{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}.pl-bar{height:8px;border-radius:4px;background:var(--sf2);overflow:hidden}.pl-bar i{display:block;height:100%;width:var(--w);background:var(--warn);border-radius:4px}
+.pl-be{margin:0;font-size:13px;padding:10px 12px;background:var(--sf);border-radius:10px}.pl-go{width:100%}.pl-r{margin:-6px 0 0;font-size:12px;text-align:center}
+</style>
+<script>
+const T=[["1 device","For a laptop",59,99],["3 devices","Laptop, desktop and one more",89,149],["Studio · 10 devices","For small teams",249,399]],t=document.getElementById('t');let s=1;
+function draw(){t.innerHTML=T.map(([n,d,p,o],i)=>`<button role="radio" aria-checked="${i===s}" data-i="${i}"><span><strong>${n}</strong><small>${d}</small></span><span><s class="tn">€${o}</s><b>€${p}</b></span></button>`).join('');const p=T[s][2],mo=Math.ceil(p/8);document.getElementById('be').textContent=`Equal to ${mo} months of the €8/mo subscription. After that, it's free.`;document.getElementById('go').textContent=`Buy lifetime for €${p}`}
+t.onclick=e=>{const b=e.target.closest('[data-i]');if(b){s=+b.dataset.i;draw();t.querySelector(`[data-i="${s}"]`).focus()}};draw();
+</script>

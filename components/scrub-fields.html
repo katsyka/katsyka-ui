@@ -1,0 +1,62 @@
+<style>
+.sf3{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sf3 :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sf3 ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sf3 *,.sf3 *::before,.sf3 *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sf3{min-height:100vh;display:grid;grid-template-columns:1fr 300px;background:var(--bg)}
+.sf3-can{position:relative;display:grid;place-items:center;background:var(--sf);background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:20px 20px;overflow:hidden}
+.sf3-obj{position:absolute;left:0;top:0;background:linear-gradient(135deg,#ff8a4c,#c2410c);box-shadow:0 0 0 1px var(--focus);transform-origin:center}
+.sf3-obj::after{content:attr(data-s);position:absolute;left:50%;bottom:-26px;transform:translateX(-50%);padding:2px 6px;border-radius:4px;background:var(--focus);color:light-dark(#fff,#0b1020);font:500 11px "Geist Mono",monospace;white-space:nowrap}
+.sf3-p{border-left:1px solid var(--line);padding:16px;font-size:13px;overflow:auto}
+.sf3-p h4{margin:0 0 10px;font-size:12px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.06em}
+.sf3-sec{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.sf3-g{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sf3-g>*{min-width:0}
+.sf3-f{position:relative;display:flex;align-items:center;height:36px;border-radius:8px;background:var(--sf);border:1px solid transparent;transition:border-color .15s}
+.sf3-f:hover{border-color:var(--line)}.sf3-f:focus-within{border-color:var(--focus)}
+.sf3-f label{flex:none;width:30px;height:100%;display:grid;place-items:center;color:var(--mu);font:500 12px "Geist Mono",monospace;cursor:ew-resize;user-select:none;touch-action:none;border-radius:8px 0 0 8px}
+.sf3-f label:hover,.sf3-f.scrub label{color:var(--fg);background:var(--sf2)}
+.sf3-f input{flex:1;min-width:0;height:100%;border:0;background:none;color:var(--fg);font:500 14px "Geist Mono",monospace;padding:0 8px 0 4px;outline:0}
+.sf3-f em{font-style:normal;color:var(--mu);font-size:12px;padding-right:8px}
+.sf3-f.bad{border-color:var(--err)}
+.sf3-lock{grid-column:1/-1;display:flex;align-items:center;gap:8px;height:32px;padding:0 8px;border:0;border-radius:8px;background:none;color:var(--mu);font:500 13px Geist,sans-serif;cursor:pointer}
+.sf3-lock[aria-pressed=true]{color:var(--ac);background:var(--ac-sf)}
+.sf3-help{color:var(--mu);line-height:1.6;font-size:12.5px}.sf3-help kbd{font:11px "Geist Mono",monospace;padding:1px 5px;border-radius:4px;border:1px solid var(--ctl)}
+body.sf3-scrubbing{cursor:ew-resize!important}
+@media (max-width:760px){.sf3{grid-template-columns:1fr;grid-template-rows:50vh auto}.sf3-p{border-left:0;border-top:1px solid var(--line)}}
+</style>
+<section class="sf3">
+  <div class="sf3-can"><div class="sf3-obj" data-s=""></div></div>
+  <aside class="sf3-p" aria-label="Properties">
+    <div class="sf3-sec"><h4>Position</h4><div class="sf3-g"><div class="sf3-f"><label for="sfx">X</label><input id="sfx" data-k="x" inputmode="decimal"></div><div class="sf3-f"><label for="sfy">Y</label><input id="sfy" data-k="y" inputmode="decimal"></div>
+      <div class="sf3-f"><label for="sfr" aria-label="Rotation">↻</label><input id="sfr" data-k="r" inputmode="decimal"><em>°</em></div></div></div>
+    <div class="sf3-sec"><h4>Size</h4><div class="sf3-g"><div class="sf3-f"><label for="sfw">W</label><input id="sfw" data-k="w" inputmode="decimal"></div><div class="sf3-f"><label for="sfh">H</label><input id="sfh" data-k="h" inputmode="decimal"></div>
+      <button class="sf3-lock" aria-pressed="false">🔗 Lock aspect ratio</button></div></div>
+    <div class="sf3-sec"><h4>Appearance</h4><div class="sf3-g"><div class="sf3-f"><label for="sfc" aria-label="Corner radius">◜</label><input id="sfc" data-k="c" inputmode="decimal"></div><div class="sf3-f"><label for="sfo" aria-label="Opacity">◐</label><input id="sfo" data-k="o" inputmode="decimal"><em>%</em></div></div></div>
+    <div class="sf3-help">Drag a label to scrub. Hold <kbd>Shift</kbd> for ×10, <kbd>Alt</kbd> for ×0.1. Fields accept math like <kbd>120*2</kbd>. <kbd>↑</kbd><kbd>↓</kbd> step by 1.</div>
+  </aside>
+</section>
+<script>
+(()=>{
+const S={x:-40,y:-20,r:12,w:220,h:150,c:24,o:100},LIM={w:[1,2000],h:[1,2000],c:[0,1000],o:[0,100],r:[-360,360]},obj=document.querySelector(".sf3-obj"),can=document.querySelector(".sf3-can");let lock=false;
+const clamp=(k,v)=>LIM[k]?Math.min(LIM[k][1],Math.max(LIM[k][0],v)):v;
+const round=v=>Math.round(v*10)/10;
+function set(k,v){v=clamp(k,round(v));if(lock&&(k==="w"||k==="h")){const ratio=S.w/S.h;if(k==="w")S.h=round(clamp("h",v/ratio));else S.w=round(clamp("w",v*ratio))}S[k]=v;render()}
+function render(){const cx=can.clientWidth/2,cy=can.clientHeight/2;
+  Object.assign(obj.style,{width:S.w+"px",height:S.h+"px",borderRadius:Math.min(S.c,S.w/2,S.h/2)+"px",opacity:S.o/100,transform:`translate(${cx+S.x-S.w/2}px,${cy+S.y-S.h/2}px) rotate(${S.r}deg)`});
+  obj.dataset.s=`${Math.round(S.w)} × ${Math.round(S.h)}`;
+  document.querySelectorAll(".sf3 input").forEach(i=>{if(document.activeElement!==i)i.value=S[i.dataset.k]})}
+// safe arithmetic: digits, operators, parens and dots only
+const calc=s=>{if(!/^[\d\s+\-*/().]+$/.test(s))return NaN;try{return Function(`"use strict";return(${s})`)()}catch{return NaN}};
+document.querySelectorAll(".sf3-f").forEach(f=>{const inp=f.querySelector("input"),lab=f.querySelector("label"),k=inp.dataset.k;
+  const commit=()=>{const v=calc(inp.value);if(isFinite(v)){f.classList.remove("bad");set(k,v);inp.value=S[k]}else{f.classList.add("bad");inp.setAttribute("aria-invalid","true")}};
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter"){commit();inp.select()}if(e.key==="Escape"){inp.value=S[k];f.classList.remove("bad");inp.blur()}
+    if(e.key==="ArrowUp"||e.key==="ArrowDown"){e.preventDefault();set(k,S[k]+(e.key==="ArrowUp"?1:-1)*(e.shiftKey?10:e.altKey?.1:1));inp.value=S[k];inp.select()}});
+  inp.addEventListener("blur",()=>{commit();inp.removeAttribute("aria-invalid")});inp.addEventListener("focus",()=>inp.select());
+  let sx=null,base;
+  lab.addEventListener("pointerdown",e=>{e.preventDefault();sx=e.clientX;base=S[k];lab.setPointerCapture(e.pointerId);f.classList.add("scrub");document.body.classList.add("sf3-scrubbing")});
+  lab.addEventListener("pointermove",e=>{if(sx===null)return;const m=e.shiftKey?10:e.altKey?.1:1;set(k,base+(e.clientX-sx)*m)});
+  lab.addEventListener("pointerup",()=>{sx=null;f.classList.remove("scrub");document.body.classList.remove("sf3-scrubbing")})});
+document.querySelector(".sf3-lock").onclick=e=>{lock=!lock;e.currentTarget.setAttribute("aria-pressed",lock)};
+new ResizeObserver(render).observe(can);render();
+})();
+</script>

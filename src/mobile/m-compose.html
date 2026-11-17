@@ -1,0 +1,44 @@
+<!--Compose Sheet|A card-style compose sheet over a scaled-back inbox: Cancel / Send header that only enables when there is a recipient and a body, recipient tokens you can add with return or comma and remove with backspace, and an auto-growing body.|compose,email,sheet,tokens,form-->
+<div class="cp-under" aria-hidden="true"><h1 class="lt" style="padding-top:var(--st)">Inbox</h1><div class="cp-fake"></div><div class="cp-fake"></div><div class="cp-fake"></div></div>
+<section class="cp" role="dialog" aria-modal="true" aria-labelledby="cph">
+  <i class="cp-gr"></i>
+  <header class="cp-h"><button id="cc">Cancel</button><h2 id="cph">New message</h2><button class="cp-send" id="sd" aria-label="Send" disabled>@I(send,20)</button></header>
+  <label class="cp-f" id="tf"><span>To:</span><span class="cp-tk" id="tk"></span><input id="to" type="email" inputmode="email" autocomplete="email" autocapitalize="off" enterkeyhint="next" aria-label="Recipients"></label>
+  <label class="cp-f"><span>Subject:</span><input id="sj" enterkeyhint="next" aria-label="Subject"></label>
+  <textarea id="bd" placeholder="Write your message" aria-label="Message"></textarea>
+  <div class="cp-tb"><button class="ib" aria-label="Attach file">@I(clip,22)</button><button class="ib" aria-label="Add photo">@I(image,22)</button><button class="ib" aria-label="Formatting">@I(type,22)</button><span id="sv" class="mu">Draft saved</span></div>
+</section>
+<style>
+.ph{background:#000}
+.cp-under{position:absolute;inset:0;background:var(--bg);transform:scale(.92) translateY(calc(var(--st) - 24px));border-radius:24px;opacity:.6;transform-origin:top}
+.cp-fake{height:72px;margin:12px 16px;border-radius:12px;background:var(--sf)}
+.cp{position:absolute;inset:calc(var(--st) + 12px) 0 0;background:var(--bg);border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:up .45s var(--ease)}
+@keyframes up{from{transform:translateY(100%)}}
+.cp-gr{display:block;width:36px;height:5px;border-radius:3px;background:var(--line);margin:6px auto 0}
+.cp-h{display:flex;align-items:center;justify-content:space-between;padding:4px 8px 4px var(--gut)}
+.cp-h h2{margin:0;font-size:17px;font-weight:600}.cp-h>button:first-child{min-height:44px;color:var(--ac);font-size:17px}
+.cp-send{width:36px;height:36px;margin:4px;border-radius:50%;background:var(--ac)!important;color:var(--ac-fg)!important;display:grid;place-items:center;transition:opacity .2s,transform .15s}.cp-send:disabled{opacity:.3}.cp-send:active{transform:scale(.9)}
+.cp-f{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-height:48px;padding:6px var(--gut);border-bottom:.5px solid var(--line);font-size:17px}
+.cp-f>span:first-child{color:var(--mu)}
+.cp-f input{flex:1;min-width:80px;border:0;background:none;outline:0;font-size:17px!important;height:32px}
+.cp-tk{display:contents}
+.cp-tk button{display:inline-flex;align-items:center;gap:4px;height:30px;padding:0 10px;border-radius:15px;background:var(--ac-sf)!important;color:var(--ac)!important;font-size:15px!important;font-weight:500!important}
+.cp-tk button.bad{background:var(--err-sf)!important;color:var(--err)!important}
+.cp-tk button.sel{background:var(--ac)!important;color:var(--ac-fg)!important}
+#bd{flex:1;border:0;background:none;outline:0;resize:none;padding:12px var(--gut);font:17px/1.5 Geist,system-ui;color:var(--fg)}
+#bd::placeholder{color:var(--mu)}
+.cp-tb{display:flex;align-items:center;gap:4px;padding:4px 8px max(8px,var(--sbt));border-top:.5px solid var(--line);color:var(--mu)}.cp-tb span{margin-left:auto;font-size:13px;padding-right:8px;opacity:0;transition:opacity .3s}.cp-tb span.on{opacity:1}
+</style>
+<script>
+const R=[];const ok=e=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+const draw=()=>{tk.innerHTML=R.map((r,i)=>`<button type="button" class="${ok(r)?"":"bad"}" data-i="${i}" aria-label="Remove ${r}">${r}</button>`).join("");sd.disabled=!(R.some(ok)&&bd.value.trim())};
+const add=()=>{const v=to.value.trim().replace(/,$/,"");if(v){R.push(v);to.value="";draw()}};
+to.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===","){e.preventDefault();add();if(e.key==="Enter"&&!to.value)sj.focus()}else if(e.key==="Backspace"&&!to.value&&R.length){const s=tk.querySelector(".sel");if(s){R.pop();draw()}else tk.lastElementChild.classList.add("sel")}});
+to.addEventListener("blur",add);
+tk.onclick=e=>{const b=e.target.closest("button");if(b){R.splice(+b.dataset.i,1);draw();to.focus()}};
+sj.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();bd.focus()}});
+let st;bd.addEventListener("input",()=>{draw();sv.classList.remove("on");clearTimeout(st);st=setTimeout(()=>sv.classList.add("on"),900)});
+R.push("ines@duarte.no");draw();
+cc.onclick=()=>{bd.value="";sj.value="";R.length=0;draw()};
+sd.onclick=()=>{sd.innerHTML='<svg class="i" viewBox="0 0 24 24" style="width:20px;height:20px"><path d="M20 6 9 17l-5-5"/></svg>';sd.disabled=true;sv.textContent="Sent";sv.classList.add("on")};
+</script>

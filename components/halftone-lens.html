@@ -1,0 +1,51 @@
+<style>
+.ht{position:relative;height:100vh;min-height:520px;overflow:hidden;background:#0d0c0b;color:#f3efe8;font-family:Geist,system-ui,sans-serif;touch-action:pan-y}
+.ht canvas,.ht img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ht canvas{cursor:none}
+.ht.ok img{visibility:hidden}
+.ht-c{position:absolute;left:clamp(20px,5vw,64px);bottom:clamp(24px,7vh,64px);display:flex;align-items:end;gap:24px;flex-wrap:wrap;pointer-events:none}
+.ht small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:#f3efe8cc}
+.ht h2{margin:10px 0 0;font-size:clamp(40px,5.4vw,84px);line-height:.9;letter-spacing:-.06em;font-weight:600}
+.ht em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.025em}
+.ht label{position:absolute;right:clamp(20px,4vw,48px);bottom:clamp(24px,7vh,64px);display:grid;gap:8px;font:500 11px "Geist Mono",monospace;letter-spacing:.14em;color:#f3efe8cc}
+.ht input{width:150px;accent-color:#f3efe8}
+.ht input:focus-visible{outline:2px solid #f3efe8;outline-offset:4px}
+@media (max-width:640px){.ht label{top:20px;bottom:auto}}
+</style>
+<section class="ht" aria-label="Halftone lens">
+  <img src="media/pics/w/1074.jpg" alt="Close portrait of a lioness looking into the camera" crossorigin="anonymous">
+  <canvas aria-hidden="true"></canvas>
+  <div class="ht-c"><div><small>PRINT EDITION · 1 OF 40</small><h2>Every dot <em>is a decision.</em></h2></div></div>
+  <label>DOT SIZE<input type="range" min="7" max="22" value="11" aria-label="Dot size"></label>
+</section>
+<script>
+(()=>{
+// The photo is sampled once per grid cell (needs CORS, so the image loads with crossorigin) and drawn as dots sized by darkness;
+// dots swell near the lens, and inside it the real photo shows through.
+const root=document.querySelector(".ht"),img=root.querySelector("img"),c=root.querySelector("canvas"),x=c.getContext("2d"),range=root.querySelector("input");
+const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let cells=null,cols=0,rows=0,step=0,d=1,lx=-1e4,ly=-1e4,tx=-1e4,ty=-1e4,lr=0,want=0,last=-1e9,vis=false,raf=0,t0=0,cover;
+function sample(){d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;step=+range.value*d;
+  const s=Math.max(c.width/img.naturalWidth,c.height/img.naturalHeight);cover=[(c.width-img.naturalWidth*s)/2,(c.height-img.naturalHeight*s)/2,img.naturalWidth*s,img.naturalHeight*s];
+  cols=Math.ceil(c.width/step);rows=Math.ceil(c.height/step);const o=document.createElement("canvas");o.width=cols;o.height=rows;const ox=o.getContext("2d");
+  ox.drawImage(img,cover[0]/step,cover[1]/step,cover[2]/step,cover[3]/step);
+  try{cells=ox.getImageData(0,0,cols,rows).data}catch(e){cells=null;return}root.classList.add("ok");draw()}
+function draw(){if(!cells)return;x.fillStyle="#0d0c0b";x.fillRect(0,0,c.width,c.height);const R=lr*d,h=step/2;
+  for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const k=(j*cols+i)*4,r=cells[k],g=cells[k+1],b=cells[k+2],l=(.3*r+.59*g+.11*b)/255;
+    const cx=i*step+h,cy=j*step+h,dist=Math.hypot(cx-lx*d,cy-ly*d),near=R?Math.max(0,1-(dist-R)/(R*1.2)):0;
+    const rad=h*Math.min(1.42,Math.sqrt(l)*(1+near*.5));if(rad<.4)continue;x.fillStyle=`rgb(${r},${g},${b})`;x.beginPath();x.arc(cx,cy,rad,0,6.2832);x.fill()}
+  if(R>1){x.save();x.beginPath();x.arc(lx*d,ly*d,R,0,6.2832);x.clip();x.drawImage(img,...cover);x.restore();
+    x.strokeStyle="#f3efe8";x.lineWidth=1.5*d;x.beginPath();x.arc(lx*d,ly*d,R,0,6.2832);x.stroke()}}
+function frame(t){raf=0;const idle=!still&&t-last>2500;
+  if(idle){const k=(t-t0)/1000,w=c.clientWidth,hh=c.clientHeight;tx=w*.55+Math.sin(k*.7)*w*.18;ty=hh*.45+Math.sin(k*1.1)*hh*.16;want=1;if(lx<-1e3){lx=tx;ly=ty}}
+  lx+=(tx-lx)*.18;ly+=(ty-ly)*.18;lr+=(want*Math.min(170,c.clientWidth*.2)-lr)*.15;draw();
+  if(vis&&(idle||Math.abs(tx-lx)+Math.abs(ty-ly)>.3||Math.abs(want*170-lr)>.5))raf=requestAnimationFrame(frame)}
+const go=()=>{if(!raf&&cells)raf=requestAnimationFrame(frame)};
+c.addEventListener("pointermove",e=>{const r=c.getBoundingClientRect();tx=e.clientX-r.left;ty=e.clientY-r.top;if(lr<2){lx=tx;ly=ty}want=1;last=performance.now();go()});
+c.addEventListener("pointerleave",()=>{want=0;last=performance.now();go()});
+range.addEventListener("input",()=>{if(img.naturalWidth)sample()});
+const ready=()=>{sample();go()};img.complete&&img.naturalWidth?ready():img.addEventListener("load",ready);
+new ResizeObserver(()=>{if(img.naturalWidth)sample()}).observe(c);
+new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis){t0=performance.now();go()}}).observe(root);
+})();
+</script>

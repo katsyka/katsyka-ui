@@ -1,0 +1,25 @@
+<!--SSO Provider Picker|Auth|An enterprise sign in that detects SSO from the email domain: typing a company address swaps the form to “Continue with Okta”, other domains show password; plus Google, GitHub and Microsoft buttons.|auth,sso,saml,oauth,enterprise-->
+<div class="k">
+<div class="card sp"><h1>Sign in to Beacon</h1>
+<div class="sp-oa"><button class="b sec">@I(globe,16)Google</button><button class="b sec"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" stroke="none" d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>GitHub</button><button class="b sec">@I(grid,16)Microsoft</button></div>
+<div class="sp-or"><span>or with your work email</span></div>
+<form id="f" novalidate><label class="lbl" for="em">Email</label><input class="in" id="em" type="email" autocomplete="email" placeholder="you@company.com">
+<div class="sp-sso" id="sso" hidden><span class="sp-org" id="org"></span><p class="mu">Your organisation uses single sign-on. You'll be redirected to <b id="idp"></b>.</p></div>
+<div id="pwb"><label class="lbl" for="pw" style="margin-top:14px">Password</label><input class="in" id="pw" type="password" autocomplete="current-password"></div>
+<button class="b ac sp-go" id="go">Continue</button></form><p class="sp-h mu">Try <code>ana@northwind.com</code> or <code>ana@gmail.com</code></p></div>
+</div>
+<style>
+.sp{width:min(400px,100%);padding:32px}.sp h1{margin:0 0 20px;font-size:22px;letter-spacing:-.02em}
+.sp-oa{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.sp-oa .b{height:44px;padding:0 8px}
+.sp-or{display:flex;align-items:center;gap:12px;color:var(--mu);font-size:12px;margin:20px 0}.sp-or::before,.sp-or::after{content:"";flex:1;height:1px;background:var(--line)}
+.sp .in{height:44px;font-size:16px}.sp-go{width:100%;height:44px;margin-top:16px}
+.sp-sso{margin-top:12px;padding:12px;border:1px solid var(--line);background:var(--sf);border-radius:12px;display:grid;gap:6px;animation:spf .25s var(--ease)}.sp-sso p{margin:0;font-size:13px}.sp-org{font-weight:650;display:flex;gap:8px;align-items:center}.sp-org i{width:22px;height:22px;border-radius:6px;background:var(--c);display:grid;place-items:center;color:#fff;font:700 11px/1 Geist,sans-serif;font-style:normal}
+#pwb{display:grid;grid-template-rows:1fr;transition:grid-template-rows .25s var(--ease)}#pwb.hid{grid-template-rows:0fr;overflow:hidden}#pwb>*{min-height:0}
+.sp-h{font-size:12px;text-align:center;margin:16px 0 0}.sp-h code{font-family:'Geist Mono',monospace;background:var(--sf);padding:1px 4px;border-radius:4px}
+@keyframes spf{from{opacity:0;transform:translateY(-4px)}}
+</style>
+<script>
+const $=i=>document.getElementById(i),D={'northwind.com':['Northwind Traders','Okta','#b45309'],'fjordline.io':['Fjordline','Azure AD','#2563eb']},em=$('em');
+em.oninput=()=>{const d=(em.value.split('@')[1]||'').toLowerCase(),o=D[d];$('sso').hidden=!o;$('pwb').className=o?'hid':'';$('pw').disabled=!!o;if(o){$('org').innerHTML=`<i style="--c:${o[2]}">${o[0][0]}</i>${o[0]}`;$('idp').textContent=o[1];$('go').textContent='Continue with '+o[1]}else $('go').textContent='Continue'};
+$('f').onsubmit=e=>{e.preventDefault();const g=$('go'),t=g.textContent;g.disabled=true;g.textContent=$('sso').hidden?'Signing in…':'Redirecting…';setTimeout(()=>{g.disabled=false;g.textContent=t},1200)};
+</script>

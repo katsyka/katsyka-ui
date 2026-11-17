@@ -1,0 +1,40 @@
+<!--Send Money|A transfer screen with its own keypad: big amount that scales down as it grows, decimal rules, a shake when you go over balance, a note field and a Send button that only wakes up for a valid amount.|payments,keypad,transfer,amount,finance-->
+<header class="bar"><div class="nb"><span><button class="ib" aria-label="Close">@I(x)</button></span><h2>Send</h2><span></span></div></header>
+<main class="tr">
+  <button class="tr-to"><span class="av" style="--c:#15803d">I</span><span class="tx"><small>To</small><b>Ines Duarte</b></span><span class="tr-ch">Change</span></button>
+  <div class="tr-amt" id="aw"><span class="tr-cur">$</span><output id="amt" class="tn" aria-live="polite">0</output></div>
+  <p class="tr-bal" id="bl">Balance <span class="tn">$4 218.60</span></p>
+  <label class="tr-note fw"><span class="vh">Note</span>@I(edit,18)<input placeholder="What's it for?" enterkeyhint="done" maxlength="40"></label>
+  <div class="tr-k" id="k">
+    <button>1</button><button>2</button><button>3</button><button>4</button><button>5</button><button>6</button><button>7</button><button>8</button><button>9</button><button>.</button><button>0</button><button aria-label="Delete">@I(arrowl)</button>
+  </div>
+  <button class="btn" id="go" disabled>Send</button>
+</main>
+<style>
+.tr{flex:1;display:flex;flex-direction:column;padding:calc(var(--st) + 52px) var(--gut) max(16px,var(--sbt));min-height:0}
+.tr-to{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:var(--sf)!important;text-align:left}
+.tr-to .tx{flex:1}.tr-to small{display:block;font-size:13px;color:var(--mu)}.tr-to b{font-size:17px;font-weight:600}.tr-ch{color:var(--ac);font-size:15px;font-weight:500}
+.tr-amt{flex:1;min-height:96px;display:flex;align-items:center;justify-content:center;gap:4px}
+.tr-cur{font-size:calc(var(--fs,72px) * .55);font-weight:600;color:var(--mu);transition:font-size .2s}
+#amt{font-size:var(--fs,72px);font-weight:700;letter-spacing:-.04em;line-height:1;transition:font-size .2s}
+.tr-amt.zero #amt{color:var(--mu)}
+.tr-amt.bad{animation:sh .4s}.tr-amt.bad #amt{color:var(--err)}
+@keyframes sh{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.tr-bal{margin:0 0 12px;text-align:center;font-size:14px;color:var(--mu)}.tr-bal.e{color:var(--err)}
+.tr-note{display:flex;align-items:center;gap:8px;height:44px;padding:0 14px;border-radius:14px;background:var(--sf);color:var(--mu)}
+.tr-note input{flex:1;border:0;background:none;outline:0;font-size:16px!important;color:var(--fg)}.tr-note input::placeholder{color:var(--mu)}
+.tr-k{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:12px 0}
+.tr-k button{height:60px;border-radius:16px;font-size:28px;font-weight:500;font-variant-numeric:tabular-nums;display:grid;place-items:center;transition:background .1s}
+.tr-k button:active{background:var(--sf2)}
+@media (max-height:760px){.tr-k button{height:52px}}
+</style>
+<script>
+let v="0";const BAL=4218.6;
+const draw=(bad)=>{amt.textContent=v.replace(/\B(?=(\d{3})+(?!\d))/g," ").replace(/ (?=[^.]*\.)/g,m=>m);const n=parseFloat(v);aw.classList.toggle("zero",!n);aw.style.setProperty("--fs",(v.length>7?44:v.length>5?56:72)+"px");const over=n>BAL;bl.classList.toggle("e",over);bl.firstChild.textContent=over?"Over your balance of ":"Balance ";go.disabled=!n||over;go.textContent=n?"Send $"+v:"Send";if(bad){aw.classList.remove("bad");void aw.offsetWidth;aw.classList.add("bad")}};
+const press=key=>{let nv=v;if(key==="del")nv=v.length>1?v.slice(0,-1):"0";else if(key==="."){if(!v.includes("."))nv=v+"."}else{if(/\.\d\d$/.test(v))return draw(true);nv=v==="0"?key:v+key;if(nv.replace(".","").length>8)return draw(true)}
+ if(parseFloat(nv)>BAL&&key!=="del"){v=nv;return draw(true)}v=nv;draw()};
+k.querySelectorAll("button").forEach((b,i)=>b.onclick=()=>press(i===11?"del":b.textContent));
+addEventListener("keydown",e=>{if(e.target.tagName==="INPUT")return;if(/^[0-9.]$/.test(e.key))press(e.key);else if(e.key==="Backspace")press("del")});
+go.onclick=()=>{go.textContent="Sent ✓";go.disabled=true;setTimeout(()=>{v="0";draw()},1500)};
+draw();
+</script>

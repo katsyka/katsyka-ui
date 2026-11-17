@@ -1,0 +1,21 @@
+<!--Password Reset|Auth|The full reset flow in one card: request (email), code sent, and set new password with live requirement checks that tick off as you type and a matching confirmation field.|auth,password,reset,requirements,validation-->
+<div class="k">
+<div class="card pr"><div id="a"><h1>Reset your password</h1><p class="mu">Enter your email and we'll send a 6-digit code.</p><label class="lbl" for="em">Email</label><input class="in" id="em" type="email" autocomplete="email" value="lena@example.com"><button class="b ac pr-go" id="sa">Send code</button></div>
+<div id="b" hidden><h1>Choose a new password</h1><p class="mu">Code sent to lena@example.com. For this demo it's already filled in.</p><label class="lbl" for="cd">Code</label><input class="in tn pr-cd" id="cd" value="482 913" inputmode="numeric" autocomplete="one-time-code">
+<label class="lbl" for="p1" style="margin-top:14px">New password</label><input class="in" id="p1" type="password" autocomplete="new-password"><ul class="pr-rq" id="rq"><li data-r="len">At least 10 characters</li><li data-r="num">Contains a number</li><li data-r="case">Upper and lower case</li><li data-r="old">Not your previous password</li></ul>
+<label class="lbl" for="p2">Confirm password</label><input class="in" id="p2" type="password" autocomplete="new-password" aria-describedby="mm"><small id="mm" class="pr-mm"></small><button class="b ac pr-go" id="sb" disabled>Update password</button></div>
+<div id="c" hidden class="pr-ok">@I(check,26)<h1>Password updated</h1><p class="mu">You've been signed out on other devices.</p><button class="b sec pr-go">Back to sign in</button></div></div>
+</div>
+<style>
+.pr{width:min(400px,100%);padding:32px}.pr h1{margin:0 0 6px;font-size:22px;letter-spacing:-.02em}.pr p{margin:0 0 20px}.pr .in{height:44px;font-size:16px}.pr-cd{letter-spacing:.2em;font-family:'Geist Mono',monospace}.pr-go{width:100%;height:44px;margin-top:16px}
+.pr-rq{list-style:none;padding:0;margin:10px 0 14px;display:grid;gap:6px;font-size:13px;color:var(--mu)}.pr-rq li{display:flex;gap:8px;align-items:center;transition:color .2s}.pr-rq li::before{content:"";width:16px;height:16px;border-radius:50%;border:1.5px solid var(--ctl);flex:none;transition:all .2s}.pr-rq li.ok{color:var(--fg)}.pr-rq li.ok::before{background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain;border-color:var(--ok)}
+.pr-mm{display:block;font-size:13px;margin-top:6px}.pr-mm:empty{display:none}.pr-ok{text-align:center;display:grid;justify-items:center}.pr-ok>.i{width:52px;height:52px;padding:12px;border-radius:50%;background:var(--ok-sf);color:var(--ok);margin-bottom:14px}
+#b,#c{animation:prf .3s var(--ease)}@keyframes prf{from{opacity:0;transform:translateY(6px)}}
+</style>
+<script>
+const $=i=>document.getElementById(i),R={len:v=>v.length>=10,num:v=>/\d/.test(v),case:v=>/[a-z]/.test(v)&&/[A-Z]/.test(v),old:v=>v&&v!=='Summer2024!'};
+$('sa').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Sending…';setTimeout(()=>{$('a').hidden=true;$('b').hidden=false;$('p1').focus()},700)};
+function chk(){const v=$('p1').value,c=$('p2').value;let all=true;$('rq').querySelectorAll('li').forEach(l=>{const ok=R[l.dataset.r](v);l.classList.toggle('ok',ok);all=all&&ok});const mm=$('mm');mm.textContent=c?(c===v?'Passwords match':'Passwords don\'t match yet'):'';mm.style.color=c===v?'var(--ok)':'var(--err)';$('p2').setAttribute('aria-invalid',!!c&&c!==v);$('sb').disabled=!(all&&c===v)}
+$('p1').oninput=$('p2').oninput=chk;
+$('sb').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Updating…';setTimeout(()=>{$('b').hidden=true;$('c').hidden=false},800)};
+</script>

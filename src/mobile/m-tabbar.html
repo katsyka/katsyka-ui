@@ -1,0 +1,27 @@
+<!--Liquid Glass Tab Bar|A floating glass pill tab bar like YukiChat: a springy lens stretches between tabs like a drop of liquid, and the round search button beside it stretches into a full search field.|tab bar,liquid glass,navigation,ios,bottom nav-->
+<header class="bar"><div class="nb"><span></span><h2 id="tt">Home</h2><span><button class="ib" aria-label="Notifications">@I(bell)</button></span></div></header>
+<main class="sc" id="sc">
+  <h1 class="lt" id="lt">Home</h1>
+  <p class="sub" id="ls">Scroll: the pill blurs whatever passes under it.</p>
+  <div class="tb-g" id="g"></div>
+</main>
+@PILL(home:Home|compass:Explore|bookmark:Saved|user:Profile;0;s)
+<style>
+.tb-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:16px var(--gut) 0;transition:opacity .2s,transform .3s var(--ease)}
+.tb-g.out{opacity:0;transform:translateY(8px)}
+.tb-g figure{margin:0;position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--sf)}
+.tb-g figure:nth-child(3n){grid-column:span 2;aspect-ratio:16/10}
+.tb-g img{width:100%;height:100%;object-fit:cover;display:block}
+.tb-g figcaption{position:absolute;left:12px;bottom:10px;color:#fff;font-size:15px;font-weight:600;text-shadow:0 1px 8px #0008}
+.bar{opacity:0;transition:opacity .2s}.bar.sd{opacity:1}
+.bar~.sc{padding-top:var(--st)}
+</style>
+<script>
+const SETS=[["1043 Valley","1035 Falls","1050 Coast","1022 Aurora","1040 Castle","1057 Cliffs","1049 Island"],["1067 City","1031 Towers","1048 Glass","1078 Windows","1047 Alley","1026 Rails","1063 Tunnel"],["1080 Berries","1060 Coffee","1082 Keys","1073 Pages","1072 Truck","1069 Jelly","564 Canyon"],["1006 Summit","1051 Pier","1052 Sea stack","1041 Wave","1056 Sky","1053 Foam","1039 Green"]];
+const NAMES=["Home","Explore","Saved","Profile"],SUB=["Scroll: the pill blurs whatever passes under it.","Places worth the detour.","12 photos, 3 collections.","Your shots this year."];
+const g=document.getElementById("g"),sc=document.getElementById("sc");
+const fill=i=>{g.innerHTML=SETS[i].map(s=>{const[id,...n]=s.split(" ");return`<figure><img src="media/pics/c/${id}.jpg" alt="" loading="lazy"><figcaption>${n.join(" ")}</figcaption></figure>`}).join("")};
+fill(0);
+document.addEventListener("tab",e=>{const i=e.detail;g.classList.add("out");setTimeout(()=>{fill(i);sc.scrollTop=0;g.classList.remove("out")},180);lt.textContent=tt.textContent=NAMES[i];ls.textContent=SUB[i]});
+sc.addEventListener("scroll",()=>document.querySelector(".bar").classList.toggle("sd",sc.scrollTop>40),{passive:true});
+</script>

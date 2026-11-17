@@ -1,0 +1,44 @@
+<!--Camera|A camera interface: viewfinder with grid and zoom chips, a mode strip you swipe or tap that snaps under a fixed marker, a shutter that flashes and drops the shot into the thumbnail, and flip / flash controls. Always dark, like real camera apps.|camera,viewfinder,shutter,modes,dark-->
+<div class="cm">
+  <div class="cm-top"><button class="ib" id="fl" aria-label="Flash: auto" aria-pressed="false">@I(bolt,22)</button><span class="cm-pill tn">4:3</span><button class="ib" aria-label="Live photo">@I(sun,22)</button></div>
+  <div class="cm-vf" id="vf"><img src="media/pics/c/1047.jpg" alt="Camera preview" id="pv"><i class="cm-grid" aria-hidden="true"></i><span class="cm-fx" id="fx"></span>
+    <div class="cm-zm" role="radiogroup" aria-label="Zoom"><button role="radio" aria-checked="false" data-z=".5">.5</button><button role="radio" aria-checked="true" data-z="1">1×</button><button role="radio" aria-checked="false" data-z="2">2</button></div></div>
+  <div class="cm-modes" id="md" role="tablist" aria-label="Camera mode"><button role="tab">Slo-mo</button><button role="tab">Video</button><button role="tab" class="on" aria-selected="true">Photo</button><button role="tab">Portrait</button><button role="tab">Pano</button></div>
+  <div class="cm-bot"><button class="cm-th" id="th" aria-label="Last photo"><img src="media/pics/c/1043.jpg" alt=""></button><button class="cm-sh" id="sh" aria-label="Take photo"><i></i></button><button class="ib cm-flip" aria-label="Switch camera">@I(refresh,26)</button></div>
+</div>
+<style>
+.ph{background:#000;color-scheme:dark}
+.cm{flex:1;display:flex;flex-direction:column;background:#000;color:#fff;padding-top:var(--st);min-height:0}
+.cm-top{display:flex;align-items:center;justify-content:space-between;padding:0 8px;height:48px}.cm-top .ib{color:#fff}
+#fl[aria-pressed=true]{color:#facc15}
+.cm-pill{font-size:13px;font-weight:600;padding:4px 10px;border-radius:12px;background:#ffffff1f}
+.cm-vf{position:relative;flex:1;min-height:0;overflow:hidden}
+.cm-vf img{width:100%;height:100%;object-fit:cover;transform:scale(1.3);transition:transform .35s var(--ease)}
+.cm-grid{position:absolute;inset:0;background:linear-gradient(90deg,transparent calc(33.33% - .5px),#ffffff40 0 calc(33.33% + .5px),transparent 0 calc(66.66% - .5px),#ffffff40 0 calc(66.66% + .5px),transparent 0),linear-gradient(transparent calc(33.33% - .5px),#ffffff40 0 calc(33.33% + .5px),transparent 0 calc(66.66% - .5px),#ffffff40 0 calc(66.66% + .5px),transparent 0)}
+.cm-fx{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}.cm-fx.go{animation:fx .25s}
+@keyframes fx{30%{opacity:1}}
+.cm-zm{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:6px;padding:4px;border-radius:24px;background:#0006}
+.cm-zm button{width:38px;height:38px;border-radius:50%;font-size:12px;font-weight:700;color:#fff;background:#0006!important;font-variant-numeric:tabular-nums;transition:transform .2s}
+.cm-zm [aria-checked=true]{color:#facc15;transform:scale(1.12)}
+.cm-modes{display:flex;gap:4px;justify-content:center;padding:14px 0 8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:transform .35s var(--ease)}
+.cm-modes button{min-height:36px;padding:0 10px;color:#ffffffa6;transition:color .2s}.cm-modes .on{color:#facc15}
+.cm-bot{display:flex;align-items:center;justify-content:space-between;padding:12px 28px max(28px,calc(var(--sbt) + 8px))}
+.cm-th{width:52px;height:52px;border-radius:10px;overflow:hidden;box-shadow:0 0 0 2px #fff3}.cm-th img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.cm-th.new img{animation:nt .4s var(--ease)}@keyframes nt{from{transform:scale(0)}}
+.cm-sh{width:78px;height:78px;border-radius:50%;box-shadow:inset 0 0 0 4px #fff;display:grid;place-items:center}
+.cm-sh i{width:62px;height:62px;border-radius:50%;background:#fff;transition:transform .12s,border-radius .3s,background .3s}
+.cm-sh:active i{transform:scale(.88)}
+.cm.vid .cm-sh i{background:#ef4444}.cm.vid.rec .cm-sh i{transform:scale(.5);border-radius:10px}
+.cm-flip{width:52px;height:52px;border-radius:50%;background:#ffffff1f!important;color:#fff}.cm-flip .i{transition:transform .5s var(--ease)}
+</style>
+<script>
+const cm=document.querySelector(".cm"),M=[...md.children];let mode=2;
+const setMode=i=>{mode=i;M.forEach((b,j)=>{b.classList.toggle("on",j===i);b.setAttribute("aria-selected",j===i)});const c=M[i];md.style.transform=`translateX(${md.clientWidth/2-(c.offsetLeft+c.offsetWidth/2)}px)`;cm.classList.toggle("vid",i<2);cm.classList.remove("rec");sh.setAttribute("aria-label",i<2?"Start recording":"Take photo")};
+M.forEach((b,i)=>b.onclick=()=>setMode(i));setMode(2);
+let sx=null;vf.addEventListener("pointerdown",e=>sx=e.clientX);vf.addEventListener("pointerup",e=>{if(sx===null)return;const d=e.clientX-sx;if(Math.abs(d)>40)setMode(Math.max(0,Math.min(4,mode+(d<0?1:-1))));sx=null});
+document.querySelectorAll(".cm-zm button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".cm-zm button").forEach(x=>x.setAttribute("aria-checked",x===b));pv.style.transform=`scale(${{".5":1,"1":1.3,"2":2.2}[b.dataset.z]})`});
+const SH=["1031","1048","1078","1067","1063"];let k=0;
+sh.onclick=()=>{if(mode<2){cm.classList.toggle("rec");sh.setAttribute("aria-label",cm.classList.contains("rec")?"Stop recording":"Start recording");return}fx.classList.remove("go");void fx.offsetWidth;fx.classList.add("go");setTimeout(()=>{th.querySelector("img").src=pv.src;th.classList.remove("new");void th.offsetWidth;th.classList.add("new");pv.src=`media/pics/c/${SH[k++%SH.length]}.jpg`},200)};
+fl.onclick=()=>{const on=fl.getAttribute("aria-pressed")!=="true";fl.setAttribute("aria-pressed",on);fl.setAttribute("aria-label","Flash: "+(on?"on":"auto"))};
+let r=0;document.querySelector(".cm-flip").onclick=e=>{r+=180;e.currentTarget.querySelector(".i").style.transform=`rotate(${r}deg)`};
+</script>

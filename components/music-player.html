@@ -1,0 +1,62 @@
+<style>
+.mp{min-height:100vh;display:grid;place-items:center;padding:30px 16px;background:radial-gradient(circle at 30% 20%,#3b1d12,transparent 55%),radial-gradient(circle at 80% 80%,#1d2440,transparent 55%),#0c0b0b;color:#f4eee8}
+.mp-card{width:min(380px,100%);padding:18px;border-radius:28px;background:#ffffff0d;border:1px solid #ffffff17;backdrop-filter:blur(30px) saturate(1.4);box-shadow:0 40px 80px -30px #000}
+.mp-art{position:relative;aspect-ratio:1;border-radius:18px;overflow:hidden;background:#222 center/cover;box-shadow:0 20px 40px -18px #000;transition:transform .6s cubic-bezier(.3,1.4,.5,1)}
+.mp.paused .mp-art{transform:scale(.92)}
+.mp-meta{display:flex;justify-content:space-between;align-items:center;margin:18px 4px 12px}
+.mp-meta b{display:block;font-size:19px;letter-spacing:-.03em;font-weight:600}.mp-meta span{font-size:14px;color:#b3aaa0}
+.mp-like{width:38px;height:38px;border-radius:50%;border:0;background:#ffffff12;color:#f4eee8;cursor:pointer;font-size:16px;transition:transform .3s cubic-bezier(.3,1.8,.5,1),color .2s}
+.mp-like.on{color:#ff6b4a;transform:scale(1.15)}
+.mp-wave{position:relative;display:flex;align-items:center;gap:2px;height:44px;margin:0 4px;cursor:pointer;touch-action:none}
+.mp-wave i{flex:1;border-radius:2px;background:#ffffff33;height:var(--h);transition:background .15s}
+.mp-wave i.p{background:#f4eee8}
+.mp-time{display:flex;justify-content:space-between;margin:6px 4px 0;font:12px "Geist Mono",monospace;color:#9a9188}
+.mp-ctl{display:flex;justify-content:space-between;align-items:center;margin:12px 6px 4px}
+.mp-ctl button{border:0;background:none;color:#f4eee8;cursor:pointer;display:grid;place-items:center;border-radius:50%;transition:transform .2s,background .2s}
+.mp-ctl button:active{transform:scale(.9)}
+.mp-ctl .s{width:40px;height:40px;color:#b3aaa0}.mp-ctl .s.on{color:#ff8a5c}
+.mp-ctl .k{width:48px;height:48px}.mp-ctl .k:hover{background:#ffffff12}
+.mp-ctl .pp{width:66px;height:66px;background:#f4eee8;color:#0c0b0b}
+.mp svg{width:22px;height:22px;fill:currentColor}
+.mp-ctl .s svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mp-vol{display:flex;align-items:center;gap:10px;margin:8px 6px 0;color:#9a9188}
+.mp-vol input{flex:1;accent-color:#f4eee8;height:4px}
+.mp-vol svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+</style>
+<section class="mp paused"><div class="mp-card">
+  <div class="mp-art"></div>
+  <div class="mp-meta"><div><b></b><span></span></div><button class="mp-like" aria-label="Like">♥</button></div>
+  <div class="mp-wave" role="slider" aria-label="Seek" tabindex="0"></div>
+  <div class="mp-time"><span data-t="c">0:00</span><span data-t="d">0:00</span></div>
+  <div class="mp-ctl">
+    <button class="s" data-a="shuf" aria-label="Shuffle"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></button>
+    <button class="k" data-a="prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+    <button class="pp" data-a="play" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+    <button class="k" data-a="next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+    <button class="s" data-a="rep" aria-label="Repeat"><svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></svg></button>
+  </div>
+  <div class="mp-vol"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4zM15.5 8.5a5 5 0 0 1 0 7"/></svg><input type="range" min="0" max="100" value="70" aria-label="Volume"></div>
+</div></section>
+<script>
+(()=>{
+// UI only: there is no audio. Hook play/seek into an <audio> element to make it real.
+const Q=[["Night Swim","Lumen Harbor",214,"1084"],["Paper Moons","The Quiet Hours",187,"1041"],["Coastline","Sora & June",241,"1015"]];
+const root=document.querySelector(".mp"),wave=root.querySelector(".mp-wave"),pp=root.querySelector(".pp"),N=56;let i=0,t=0,playing=false,last=0;
+const PLAY='<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',PAUSE='<svg viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+const fmt=s=>`${s/60|0}:${String(s%60|0).padStart(2,"0")}`;
+function load(k){i=(k+Q.length)%Q.length;const[ti,ar,dur,id]=Q[i];t=0;root.querySelector(".mp-meta b").textContent=ti;root.querySelector(".mp-meta span").textContent=ar;
+  root.querySelector(".mp-art").style.backgroundImage=`url(https://picsum.photos/id/${id}/700/700)`;root.querySelector("[data-t=d]").textContent=fmt(dur);
+  let s=id*7;const r=()=>(s=(s*16807)%2147483647)/2147483647;wave.innerHTML=[...Array(N)].map((_,j)=>`<i style="--h:${(18+Math.sin(j/N*Math.PI)*50+r()*32).toFixed(0)}%"></i>`).join("");draw()}
+function draw(){const dur=Q[i][2],k=t/dur;wave.querySelectorAll("i").forEach((b,j)=>b.classList.toggle("p",j/N<k));root.querySelector("[data-t=c]").textContent=fmt(t);wave.setAttribute("aria-valuenow",Math.round(k*100))}
+const setPlay=p=>{playing=p;root.classList.toggle("paused",!p);pp.innerHTML=p?PAUSE:PLAY;pp.setAttribute("aria-label",p?"Pause":"Play");last=performance.now()};
+root.querySelector(".mp-ctl").onclick=e=>{const b=e.target.closest("button");if(!b)return;const a=b.dataset.a;
+  if(a==="play")setPlay(!playing);if(a==="next")load(i+1);if(a==="prev")t>3?(t=0,draw()):load(i-1);if(a==="shuf"||a==="rep")b.classList.toggle("on")};
+root.querySelector(".mp-like").onclick=e=>e.currentTarget.classList.toggle("on");
+let sk=false;const seek=e=>{const r=wave.getBoundingClientRect();t=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*Q[i][2];draw()};
+wave.onpointerdown=e=>{sk=true;wave.setPointerCapture(e.pointerId);seek(e)};wave.onpointermove=e=>{if(sk)seek(e)};wave.onpointerup=()=>sk=false;
+wave.onkeydown=e=>{if(e.key==="ArrowRight")t=Math.min(Q[i][2],t+5);if(e.key==="ArrowLeft")t=Math.max(0,t-5);draw()};
+addEventListener("keydown",e=>{if(e.code==="Space"&&e.target.tagName!=="INPUT"){e.preventDefault();setPlay(!playing)}});
+(function f(now){requestAnimationFrame(f);if(playing){t+=(now-last)/1000;if(t>=Q[i][2]){root.querySelector("[data-a=rep]").classList.contains("on")?t=0:load(i+1)}draw()}last=now})(performance.now());
+load(0);
+})();
+</script>

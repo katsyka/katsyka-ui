@@ -1,0 +1,14 @@
+<!--Time Saved Calculator|Features|An honest savings calculator: team size, hours per week on the task and hourly cost as sliders; it shows hours and money saved per year with the assumption spelled out, and a “use conservative estimate” toggle.|features,calculator,roi,savings,sliders-->
+<div class="k"><section class="rc2"><div><h2>What would it save you?</h2><p class="mu">Based on customers saving 60% of time on invoicing (median of 312 teams, 2025).</p>
+<label><span class="lbl">People who do invoicing <b class="tn" id="v1"></b></span><input type="range" id="tm" min="1" max="30" value="4"></label><label><span class="lbl">Hours each per week <b class="tn" id="v2"></b></span><input type="range" id="hr" min="1" max="20" value="5"></label><label><span class="lbl">Cost per hour <b class="tn" id="v3"></b></span><input type="range" id="ct" min="20" max="150" step="5" value="45"></label><label class="rc2-c"><input type="checkbox" id="cs"> Use a conservative estimate (40%)</label></div>
+<div class="rc2-o" aria-live="polite"><span class="mu">Each year you'd get back</span><b class="tn" id="h"></b><span class="mu">worth about</span><b class="tn rc2-m" id="e"></b><p class="mu" id="pb"></p><a class="b ac lg" href="#">Start a free trial</a></div></section></div>
+<style>
+.rc2{width:min(900px,100%);display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}.rc2 h2{margin:0 0 6px;font-size:clamp(26px,3.6vw,36px);letter-spacing:-.03em}.rc2>div:first-child{display:grid;gap:18px}.rc2>div:first-child>p{margin:0 0 6px;font-size:14px}.rc2 .lbl{display:flex;justify-content:space-between}.rc2 input[type=range]{width:100%;accent-color:var(--fg)}.rc2-c{display:flex;gap:8px;align-items:center;font-size:14px}.rc2-c input{width:18px;height:18px;accent-color:var(--fg)}
+.rc2-o{display:grid;gap:4px;padding:28px;border-radius:16px;background:var(--sf2)}.rc2-o b{font-size:clamp(36px,5vw,52px);letter-spacing:-.04em;line-height:1.05}.rc2-m{color:var(--ok)}.rc2-o p{margin:8px 0 16px;font-size:13px}
+@media (max-width:760px){.rc2{grid-template-columns:1fr}}
+</style>
+<script>
+const $=i=>document.getElementById(i),f=new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+function up(){const t=+$('tm').value,h=+$('hr').value,c=+$('ct').value,r=$('cs').checked?.4:.6,H=Math.round(t*h*46*r),E=H*c;$('v1').textContent=t;$('v2').textContent=h+' h';$('v3').textContent='€'+c;$('h').textContent=H.toLocaleString('en')+' hours';$('e').textContent=f.format(E);$('pb').textContent=`${t} × ${h} h × 46 working weeks × ${r*100}%. Plan costs ${f.format(t*12*12)} a year for ${t} seat${t>1?'s':''}.`}
+['tm','hr','ct'].forEach(i=>$(i).oninput=up);$('cs').onchange=up;up();
+</script>

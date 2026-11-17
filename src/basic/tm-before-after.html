@@ -1,0 +1,15 @@
+<!--Before and After Quotes|Testimonials|Paired “before” and “after” quotes from the same people, shown as a split row per person with a toggle to read all befores or all afters, making the change the product made the subject.|testimonials,before after,comparison,quotes-->
+<div class="k"><section class="ba"><div class="ba-h"><h2>Same people, a year apart</h2><div class="ba-t" role="radiogroup" aria-label="Show"><button role="radio" aria-checked="true" data-m="both">Both</button><button role="radio" aria-checked="false" data-m="b">Before</button><button role="radio" aria-checked="false" data-m="a">After</button></div></div><ul class="ba-l" id="l" data-m="both"></ul></section></div>
+<style>
+.ba{width:min(900px,100%)}.ba-h{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:16px}.ba-h h2{margin:0;font-size:clamp(24px,3vw,32px);letter-spacing:-.02em}
+.ba-t{display:flex;background:var(--sf2);border-radius:10px;padding:3px}.ba-t button{height:32px;padding:0 12px;border-radius:8px;font-size:13px;font-weight:550;color:var(--mu)}.ba-t [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 2px #0000001a}
+.ba-l{list-style:none;padding:0;margin:0;display:grid;gap:10px}.ba-l li{display:grid;grid-template-columns:150px 1fr 1fr;gap:16px;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--bg);align-items:start}.ba-l .who{display:grid;font-size:14px}.ba-l .who span{font-size:12px;color:var(--mu)}
+.ba-l q{quotes:none;min-width:0;font-size:15px;line-height:1.55;display:grid;gap:6px;transition:opacity .25s}.ba-l q::before{content:attr(data-l);font:600 11px 'Geist Mono',monospace;letter-spacing:.06em;text-transform:uppercase}.ba-l .bf::before{color:var(--mu)}.ba-l .af::before{color:var(--ok)}.ba-l .bf{color:var(--mu)}
+.ba-l[data-m=a] .bf,.ba-l[data-m=b] .af{opacity:.12}
+@media (max-width:640px){.ba-l li{grid-template-columns:1fr}.ba-l[data-m=a] .bf,.ba-l[data-m=b] .af{display:none}}
+</style>
+<script>
+const P=[["Rosa M.","Studio owner","I lose two evenings a week chasing class payments.","Payments come in with the booking. I don't chase anyone."],["Jonah F.","IT lead, 80 people","Every new hire costs me half a day of account setup.","New people get access from one template in ten minutes."],["Keiko M.","Engineer","I check four dashboards before standup.","One page, and it tells me what changed overnight."]];
+const l=document.getElementById('l');l.innerHTML=P.map(([n,r,b,a])=>`<li><div class="who"><b>${n}</b><span>${r}</span></div><q class="bf" data-l="Before">${b}</q><q class="af" data-l="After">${a}</q></li>`).join('');
+document.querySelector('.ba-t').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));l.dataset.m=b.dataset.m};
+</script>

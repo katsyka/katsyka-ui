@@ -1,0 +1,97 @@
+<style>
+.bgp{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.bgp :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.bgp ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.bgp *,.bgp *::before,.bgp *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.bgp{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.bgp-pn{width:min(680px,100%);display:grid;gap:14px}
+.bgp-c{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow)}
+.bgp-lb{font:500 11px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:16px}
+.bgp-g{display:inline-flex;border-radius:10px;box-shadow:0 1px 2px #0000000f;isolation:isolate}
+.bgp-g>button,.bgp-g>.bgp-sp>button{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 14px;margin-left:-1px;border:1px solid color-mix(in oklab,var(--line),var(--fg) 14%);background:var(--bg);color:var(--fg);font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer;transition:background-color .15s,color .15s}
+.bgp-g>button:first-child{margin-left:0;border-radius:10px 0 0 10px}
+.bgp-g>button:last-child,.bgp-g>.bgp-sp:last-child>button{border-radius:0 10px 10px 0}
+.bgp-g>button:hover{background:var(--sf)}
+.bgp-g>button:focus-visible{z-index:2;outline-offset:0}
+.bgp-g>button[aria-pressed=true]{background:var(--sf2);color:var(--fg);z-index:1}
+.bgp-g>button[aria-pressed=false]{color:var(--mu)}
+.bgp-g svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bgp-g .n{font:500 12px "Geist Mono",monospace;color:var(--mu);padding-left:8px;margin-left:2px;border-left:1px solid var(--line)}
+.bgp-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+/* split button */
+.bgp-split{display:inline-flex;position:relative}
+.bgp-split>button{height:38px;border:0;background:var(--fg);color:var(--bg);font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.bgp-split>button:hover{background:color-mix(in oklab,var(--fg) 85%,var(--bg))}
+.bgp-split .m{padding:0 16px;border-radius:10px 0 0 10px}
+.bgp-split .t{width:36px;justify-content:center;border-radius:0 10px 10px 0;border-left:1px solid color-mix(in oklab,var(--bg) 22%,transparent)}
+.bgp-split .t svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;transition:transform .2s var(--ease)}
+.bgp-split .t[aria-expanded=true] svg{transform:rotate(180deg)}
+.bgp-menu{position:absolute;top:calc(100% + 6px);right:0;z-index:5;width:250px;padding:5px;border-radius:12px;background:var(--bg);border:1px solid var(--line);box-shadow:0 12px 32px -8px #0003,0 2px 6px #0000001a;opacity:0;transform:translateY(-4px) scale(.98);transform-origin:top right;pointer-events:none;transition:opacity .15s,transform .15s var(--ease)}
+.bgp-menu.on{opacity:1;transform:none;pointer-events:auto}
+.bgp-menu button{display:grid;grid-template-columns:18px 1fr;gap:2px 10px;width:100%;padding:8px 10px;border:0;border-radius:8px;background:none;color:var(--fg);text-align:left;cursor:pointer;font:500 13.5px Geist,system-ui,sans-serif}
+.bgp-menu button:hover,.bgp-menu button:focus-visible{background:var(--sf2);outline:0}
+.bgp-menu button small{grid-column:2;color:var(--mu);font-size:12px;font-weight:400}
+.bgp-menu svg{width:16px;height:16px;margin-top:1px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;color:var(--mu)}
+.bgp-menu .ck{color:var(--ac);opacity:0}.bgp-menu [aria-checked=true] .ck{opacity:1}
+.bgp-out{margin-top:14px;font-size:13px;color:var(--mu);min-height:20px}
+.bgp-out b{color:var(--fg);font-weight:550}
+</style>
+<div class="bgp">
+  <div class="bgp-pn">
+    <div class="bgp-c">
+      <div class="bgp-lb">Toggle group</div>
+      <div class="bgp-row">
+        <div class="bgp-g" role="group" aria-label="Range" data-single>
+          <button aria-pressed="false">Day</button><button aria-pressed="true">Week</button><button aria-pressed="false">Month</button><button aria-pressed="false">Year</button>
+        </div>
+        <div class="bgp-g" role="group" aria-label="Filter" data-single>
+          <button aria-pressed="true">All <span class="n">128</span></button><button aria-pressed="false">Open <span class="n">24</span></button><button aria-pressed="false">Closed <span class="n">104</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="bgp-c">
+      <div class="bgp-lb">Action group</div>
+      <div class="bgp-row">
+        <div class="bgp-g" role="group" aria-label="History">
+          <button aria-label="Undo"><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button><button aria-label="Redo"><svg viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+        </div>
+        <div class="bgp-g" role="group" aria-label="File">
+          <button><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button><button><svg viewBox="0 0 24 24"><path d="M12 15V3M7 10l5 5 5-5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Download</button><button><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>Delete</button>
+        </div>
+      </div>
+    </div>
+    <div class="bgp-c">
+      <div class="bgp-lb">Split button</div>
+      <div class="bgp-split">
+        <button class="m" id="bgpMain">Merge pull request</button>
+        <button class="t" aria-label="More merge options" aria-haspopup="menu" aria-expanded="false" aria-controls="bgpMenu"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button>
+        <div class="bgp-menu" id="bgpMenu" role="menu" aria-label="Merge method">
+          <button role="menuitemradio" aria-checked="true" data-l="Merge pull request"><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Create a merge commit<small>All commits keep their history.</small></button>
+          <button role="menuitemradio" aria-checked="false" data-l="Squash and merge"><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Squash and merge<small>Combine into one commit.</small></button>
+          <button role="menuitemradio" aria-checked="false" data-l="Rebase and merge"><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Rebase and merge<small>Replay commits on top of main.</small></button>
+        </div>
+      </div>
+      <div class="bgp-out" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll(".bgp-g[data-single]").forEach(g=>{
+  const bs=[...g.querySelectorAll("button")];
+  bs.forEach(b=>b.addEventListener("click",()=>bs.forEach(x=>x.setAttribute("aria-pressed",x===b))));
+});
+const tg=document.querySelector(".bgp-split .t"),mn=document.getElementById("bgpMenu"),main=document.getElementById("bgpMain"),out=document.querySelector(".bgp-out");
+const items=[...mn.querySelectorAll("button")];
+const open=(o,focus)=>{mn.classList.toggle("on",o);tg.setAttribute("aria-expanded",o);items.forEach(i=>i.tabIndex=o?0:-1);if(o&&focus)(items.find(i=>i.getAttribute("aria-checked")==="true")||items[0]).focus()};
+open(false);
+tg.addEventListener("click",()=>open(!mn.classList.contains("on"),true));
+tg.addEventListener("keydown",e=>{if(e.key==="ArrowDown"){e.preventDefault();open(true,true)}});
+mn.addEventListener("keydown",e=>{
+  const i=items.indexOf(document.activeElement);
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();items[(i+(e.key==="ArrowDown"?1:-1)+items.length)%items.length].focus()}
+  else if(e.key==="Escape"||e.key==="Tab"){open(false);if(e.key==="Escape")tg.focus()}
+});
+items.forEach(it=>it.addEventListener("click",()=>{items.forEach(x=>x.setAttribute("aria-checked",x===it));main.textContent=it.dataset.l;open(false);main.focus()}));
+main.addEventListener("click",()=>{out.innerHTML="<b>"+main.textContent+"</b> — done. 3 commits landed on main."});
+document.addEventListener("pointerdown",e=>{if(!e.target.closest(".bgp-split"))open(false)});
+</script>

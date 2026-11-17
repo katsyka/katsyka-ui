@@ -1,0 +1,142 @@
+=== price-toggle-cards
+<!--Billing Toggle Pricing|Pricing|Three plans with a monthly/yearly switch that animates prices with a rolling number, shows the yearly saving per plan, and highlights the recommended tier without a glow.|pricing,plans,toggle,yearly,cards-->
+<div class="k">
+<section class="pt"><header><h2>Plans that scale with your team</h2><div class="pt-sw" role="radiogroup" aria-label="Billing period"><button role="radio" aria-checked="false" data-y="0">Monthly</button><button role="radio" aria-checked="true" data-y="1">Yearly <span class="pill ok">−20%</span></button></div></header>
+<div class="pt-g" id="g"></div><p class="mu pt-fn">Prices in EUR, VAT excluded. Cancel any time.</p></section>
+</div>
+<style>
+.pt{width:min(1040px,100%)}.pt header{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}.pt h2{margin:0;font-size:clamp(24px,3vw,32px);letter-spacing:-.02em}
+.pt-sw{display:flex;background:var(--sf2);border-radius:12px;padding:4px}.pt-sw button{height:36px;padding:0 14px;border-radius:9px;font-weight:550;color:var(--mu);display:flex;gap:6px;align-items:center}.pt-sw [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:var(--shadow)}
+.pt-g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.pt-c{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:16px;align-content:start}.pt-c.rec{border:2px solid var(--fg);position:relative}.pt-c.rec::before{content:"Most teams pick this";position:absolute;top:-12px;left:20px;background:var(--fg);color:var(--bg);font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+.pt-c h3{margin:0;font-size:16px}.pt-c>p{margin:-8px 0 0;color:var(--mu);font-size:14px;min-height:42px}.pt-pr{display:flex;align-items:baseline;gap:6px;height:48px}.pt-pr b{font-size:44px;letter-spacing:-.03em;display:inline-flex;overflow:hidden;height:48px;line-height:48px}.pt-pr b span{display:inline-block;transition:transform .45s var(--ease)}.pt-pr small{color:var(--mu)}
+.pt-sv{font-size:13px;color:var(--ok);min-height:18px;margin-top:-10px}.pt-c .b{height:44px}.pt-c ul{list-style:none;padding:16px 0 0;margin:0;border-top:1px solid var(--line);display:grid;gap:10px;font-size:14px}.pt-c li{display:flex;gap:8px}.pt-c li .i{color:var(--ok);width:16px;height:16px;margin-top:2px}
+.pt-fn{font-size:13px;margin-top:16px}
+@media (max-width:820px){.pt-g{grid-template-columns:1fr}}
+</style>
+<script>
+const P=[["Starter","For freelancers and side projects.",12,"Start free trial",["3 projects","5 GB storage","Email support"]],["Team","For teams shipping every week.",29,"Start free trial",["Unlimited projects","100 GB storage","Roles & permissions","Priority support"],1],["Scale","For companies with compliance needs.",79,"Talk to sales",["Everything in Team","SSO & SCIM","Audit log","99.9% SLA"]]];
+const g=document.getElementById('g');let y=1;
+g.innerHTML=P.map(([n,d,p,c,f,r],i)=>`<article class="pt-c${r?' rec':''}"><h3>${n}</h3><p>${d}</p><div class="pt-pr"><span>€</span><b class="tn" id="p${i}"></b><small>/ user / mo</small></div><div class="pt-sv" id="s${i}"></div><a class="b ${r?'ac':'sec'}" href="#">${c}</a><ul>${f.map(x=>`<li>@I(check)${x}</li>`).join('')}</ul></article>`).join('');
+function digits(el,v){const s=String(v);if(el.children.length!==s.length)el.innerHTML=s.split('').map(()=>'<span>'+[...Array(10).keys()].join('<br>')+'</span>').join('');[...el.children].forEach((c,i)=>c.style.transform=`translateY(${-s[i]*48}px)`);el.setAttribute('aria-label','€'+v)}
+function upd(){P.forEach(([,, p],i)=>{const v=y?Math.round(p*.8):p;digits(document.getElementById('p'+i),v);document.getElementById('s'+i).textContent=y?`€${(p-v)*12} saved per user a year`:''})}
+document.querySelectorAll('.pt-sw button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.pt-sw button').forEach(x=>x.setAttribute('aria-checked',x===b));y=+b.dataset.y;upd()});upd();
+</script>
+=== price-compare-table
+<!--Plan Comparison Table|Pricing|A full feature matrix with sticky plan headers, grouped rows that collapse, tooltips on feature names, check/limit cells, and a mobile mode that shows one plan at a time with tabs.|pricing,comparison,table,features,sticky-->
+<div class="k">
+<section class="pc"><div class="pc-tabs" role="tablist" aria-label="Plan" id="tb"></div><div class="pc-w"><table class="pc-t" id="t"></table></div></section>
+</div>
+<style>
+.pc{width:min(980px,100%)}.pc-w{border:1px solid var(--line);border-radius:16px;background:var(--bg);overflow:auto;max-height:620px}
+.pc-t{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}.pc-t th,.pc-t td{padding:12px 16px;border-bottom:1px solid var(--line);text-align:center}.pc-t th:first-child,.pc-t td:first-child{text-align:left}
+.pc-t thead th{position:sticky;top:0;background:var(--bg);z-index:2;vertical-align:bottom;padding:20px 16px}.pc-t thead b{display:block;font-size:16px}.pc-t thead span{display:block;font-weight:400;color:var(--mu);font-size:13px;margin:2px 0 10px}.pc-t thead .b{height:36px;width:100%}
+.pc-t .grp td{background:var(--sf);font-weight:650;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:0}.pc-t .grp button{width:100%;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;min-height:40px;font:inherit;text-transform:inherit;letter-spacing:inherit}.pc-t .grp .i{transition:transform .2s}.pc-t .grp.cl .i{transform:rotate(-90deg)}
+.pc-t .ft{display:inline-flex;gap:6px;align-items:center}.pc-t .tip{width:18px;height:18px;border-radius:50%;color:var(--mu);display:inline-grid;place-items:center;position:relative}.pc-t .tip .i{width:14px;height:14px}.pc-t .tip:hover::after,.pc-t .tip:focus-visible::after{content:attr(data-t);position:absolute;left:24px;top:50%;translate:0 -50%;width:220px;background:var(--fg);color:var(--bg);font-size:12px;padding:8px 10px;border-radius:8px;text-align:left;z-index:3;font-weight:400}
+.pc-t .y .i{color:var(--ok)}.pc-t .n{color:var(--mu)}.pc-t .hl{background:color-mix(in srgb,var(--ac) 5%,transparent)}
+.pc-tabs{display:none}
+@media (max-width:700px){.pc-tabs{display:flex;gap:4px;margin-bottom:12px;background:var(--sf2);padding:4px;border-radius:12px}.pc-tabs button{flex:1;height:40px;border-radius:9px;font-weight:550;color:var(--mu)}.pc-tabs [aria-selected=true]{background:var(--bg);color:var(--fg)}.pc-t [data-c]:not(.on){display:none}}
+</style>
+<script>
+const PL=[["Free","€0"],["Pro","€15 / mo"],["Business","€45 / mo"]],G=[["Core",[["Projects","How many active projects you can have at once.",["3","Unlimited","Unlimited"]],["Storage","Total file storage across the workspace.",["2 GB","100 GB","1 TB"]],["Version history","How far back you can restore any file.",["7 days","90 days","Unlimited"]]]],["Collaboration",[["Guests","Invite clients who can view and comment.",[0,1,1]],["Comments & mentions","",[1,1,1]],["Shared libraries","Publish components across projects.",[0,1,1]]]],["Security",[["SSO (SAML)","Sign in with Okta, Azure AD or Google Workspace.",[0,0,1]],["Audit log","Every permission change and export, kept 1 year.",[0,0,1]],["Data residency","Choose EU or US hosting.",[0,0,1]]]]];
+const t=document.getElementById('t'),tb=document.getElementById('tb');let c=1;
+const cell=(v,i)=>`<td data-c="${i}" class="${i===1?'hl ':''}${i===c?'on ':''}${v===1?'y':v===0?'n':''}">${v===1?'@I(check)<span class="vh">Included</span>':v===0?'–<span class="vh">Not included</span>':v}</td>`;
+function draw(){t.innerHTML=`<thead><tr><th><span class="vh">Feature</span></th>${PL.map(([n,p],i)=>`<th data-c="${i}" class="${i===1?'hl ':''}${i===c?'on':''}"><b>${n}</b><span>${p}</span><a class="b ${i===1?'ac':'sec'}" href="#">${i?'Choose '+n:'Get started'}</a></th>`).join('')}</tr></thead>`+G.map(([g,R],gi)=>`<tbody data-g="${gi}"><tr class="grp"><td colspan="4"><button aria-expanded="true">${g}@I(down,16)</button></td></tr>${R.map(([f,tip,v])=>`<tr><td><span class="ft">${f}${tip?`<button class="tip" data-t="${tip}" aria-label="${tip}">@I(info)</button>`:''}</span></td>${v.map(cell).join('')}</tr>`).join('')}</tbody>`).join('');
+tb.innerHTML=PL.map(([n],i)=>`<button role="tab" aria-selected="${i===c}" data-i="${i}">${n}</button>`).join('')}draw();
+t.onclick=e=>{const b=e.target.closest('.grp button');if(!b)return;const tr=b.closest('tr'),cl=tr.classList.toggle('cl');b.setAttribute('aria-expanded',!cl);let r=tr.nextElementSibling;while(r){r.hidden=cl;r=r.nextElementSibling}};
+tb.onclick=e=>{const b=e.target.closest('button');if(!b)return;c=+b.dataset.i;draw()};
+</script>
+=== price-seats-slider
+<!--Seats Slider Pricing|Pricing|Per-seat pricing with a slider that snaps to volume tiers, a live total that rolls, tier markers on the track showing the discount at each break, and an annual toggle.|pricing,slider,seats,volume,calculator-->
+<div class="k">
+<div class="card ps"><h2>How many people?</h2><div class="ps-n"><output id="o" class="tn">25</output><span class="mu">seats</span></div>
+<div class="ps-tr"><input type="range" id="r" min="1" max="200" value="25" aria-label="Seats" aria-valuetext="25 seats"><div class="ps-tk" id="tk" aria-hidden="true"></div></div>
+<label class="ps-yr"><input type="checkbox" id="y" role="switch" checked><span class="ps-sw" aria-hidden="true"></span>Pay yearly (2 months free)</label>
+<dl class="ps-sum"><div><dt class="mu">Per seat</dt><dd class="tn" id="ps"></dd></div><div><dt class="mu">Volume discount</dt><dd class="tn" id="vd"></dd></div><div class="tot"><dt>Total</dt><dd class="tn" id="tt"></dd></div></dl><a class="b ac ps-go" href="#" id="go">Start with 25 seats</a></div>
+</div>
+<style>
+.ps{width:min(460px,100%);padding:28px}.ps h2{margin:0;font-size:16px;font-weight:550;color:var(--mu)}.ps-n{display:flex;align-items:baseline;gap:8px;margin:4px 0 12px}.ps-n output{font-size:56px;font-weight:650;letter-spacing:-.04em}
+.ps-tr{position:relative;padding-bottom:28px}.ps-tr input{width:100%;accent-color:var(--ac);height:28px;position:relative;z-index:1}.ps-tk{position:absolute;left:0;right:0;top:30px;height:24px}.ps-tk span{position:absolute;translate:-50% 0;font-size:11px;color:var(--mu);white-space:nowrap;display:grid;justify-items:center}.ps-tk span::before{content:"";width:1px;height:6px;background:var(--ctl)}.ps-tk span.on{color:var(--ac);font-weight:650}
+.ps-yr{display:flex;gap:10px;align-items:center;font-size:14px;cursor:pointer;min-height:44px;margin-top:4px}.ps-yr input{position:absolute;opacity:0}.ps-sw{width:40px;height:24px;border-radius:12px;background:var(--ctl);position:relative;transition:background .2s;flex:none}.ps-sw::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .2s var(--ease)}.ps-yr input:checked+.ps-sw{background:var(--ac)}.ps-yr input:checked+.ps-sw::after{transform:translateX(16px)}.ps-yr input:focus-visible+.ps-sw{outline:2px solid var(--focus);outline-offset:2px}
+.ps-sum{margin:16px 0;display:grid;gap:8px}.ps-sum div{display:flex;justify-content:space-between}.ps-sum dt,.ps-sum dd{margin:0}.ps-sum .tot{border-top:1px solid var(--line);padding-top:12px;margin-top:4px;font-weight:650}.ps-sum .tot dd{font-size:24px;letter-spacing:-.02em}.ps-go{width:100%;height:44px}
+</style>
+<script>
+const $=i=>document.getElementById(i),T=[[1,0],[10,10],[50,20],[100,30]],B=12,r=$('r');
+$('tk').innerHTML=T.slice(1).map(([n,d])=>`<span data-n="${n}" style="left:${(n-1)/199*100}%">${n}+ · −${d}%</span>`).join('');
+const f=n=>'€'+n.toLocaleString('en',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2});
+function up(){const n=+r.value,d=T.filter(t=>n>=t[0]).pop()[1],y=$('y').checked,per=B*(1-d/100)*(y?10/12:1);$('o').textContent=n;r.setAttribute('aria-valuetext',n+' seats');$('ps').textContent=f(+per.toFixed(2))+' / mo';$('vd').textContent=d?'−'+d+'%':'–';$('tt').textContent=y?f(Math.round(per*n*12))+' / yr':f(Math.round(per*n))+' / mo';$('go').textContent=`Start with ${n} seat${n>1?'s':''}`;$('tk').querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.n===T.filter(t=>n>=t[0]).pop()[0]))}
+r.oninput=$('y').onchange=up;up();
+</script>
+=== price-usage-meter
+<!--Usage-based Pricing|Pricing|Pay-as-you-go pricing for an API: three meters (requests, storage, bandwidth) with steppers, a free-tier line on each bar, the cost breakdown and a monthly estimate.|pricing,usage,api,metered,calculator-->
+<div class="k">
+<div class="card pu"><h2>Estimate your bill</h2><p class="mu">You only pay above the free tier (the black tick on each bar). It resets monthly.</p><div id="m" class="pu-m"></div><div class="pu-tot"><span>Estimated monthly cost</span><b class="tn" id="tt"></b></div></div>
+</div>
+<style>
+.pu{width:min(520px,100%);padding:28px}.pu h2{margin:0;font-size:20px;letter-spacing:-.02em}.pu>p{margin:4px 0 20px;font-size:14px}
+.pu-m{display:grid;gap:22px}.pu-r{display:grid;gap:8px}.pu-h{display:flex;justify-content:space-between;align-items:center;gap:12px}.pu-h b{font-size:14px}.pu-h small{display:block;color:var(--mu);font-size:12px;font-weight:400}.pu-c{font-variant-numeric:tabular-nums;font-weight:600;font-size:14px}
+.pu-bar{position:relative;height:10px;border-radius:5px;background:var(--sf2)}.pu-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;background:var(--ac);transition:width .3s var(--ease)}.pu-bar s{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg);border-radius:1px}
+.pu-st{display:flex;align-items:center;gap:8px}.pu-st .ibt{width:36px;height:36px;border:1px solid var(--line)}.pu-st output{min-width:84px;text-align:center;font-variant-numeric:tabular-nums;font-size:14px}
+.pu-tot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);margin-top:24px;padding-top:16px}.pu-tot b{font-size:32px;letter-spacing:-.03em}
+</style>
+<script>
+const M=[["Requests","€0.40 per 1M after 10M",[1,5,10,25,50,100,250],"M",10,.4],["Storage","€0.02 per GB after 50 GB",[10,50,100,250,500,1000],"GB",50,.02],["Bandwidth","€0.05 per GB after 100 GB",[50,100,250,500,1000,2500],"GB",100,.05]],v=[3,2,2];
+const m=document.getElementById('m');
+function draw(){let tot=0;m.innerHTML=M.map(([n,d,S,u,fr,p],i)=>{const q=S[v[i]],c=Math.max(0,q-fr)*p;tot+=c;const mx=S[S.length-1];return `<div class="pu-r"><div class="pu-h"><b>${n}<small>${d}</small></b><span class="pu-c">${c?'€'+c.toFixed(2):'Free'}</span></div><div class="pu-bar"><i style="width:${q/mx*100}%"></i><s style="left:${fr/mx*100}%"></s></div><div class="pu-st"><button class="ibt" data-i="${i}" data-d="-1" aria-label="Less ${n}" ${v[i]?'':'disabled'}>@I(minus,16)</button><output>${q.toLocaleString('en')} ${u}</output><button class="ibt" data-i="${i}" data-d="1" aria-label="More ${n}" ${v[i]<S.length-1?'':'disabled'}>@I(plus,16)</button></div></div>`}).join('');document.getElementById('tt').textContent='€'+tot.toFixed(2)}
+m.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;v[b.dataset.i]+= +b.dataset.d;draw();m.querySelector(`[data-i="${b.dataset.i}"][data-d="${b.dataset.d}"]`)?.focus()};draw();
+</script>
+=== price-single-plan
+<!--Single Plan Pricing|Pricing|One honest plan: a large price with everything included listed in two columns, a monthly/yearly segmented control, a team-size note and a money-back guarantee strip.|pricing,single plan,simple,guarantee-->
+<div class="k">
+<section class="card p1"><div class="p1-l"><span class="eb">One plan. Everything in it.</span><h2>Bramble Pro</h2><div class="p1-seg" role="radiogroup" aria-label="Billing"><button role="radio" aria-checked="true" data-p="8">Monthly</button><button role="radio" aria-checked="false" data-p="6.5">Yearly</button></div><div class="p1-pr"><b class="tn" id="pr">€8</b><span class="mu">per person / month<br><span id="bl">billed monthly</span></span></div><a class="b ac lg p1-go" href="#">Start 14-day trial</a><p class="mu p1-n">No card needed. Teams of 50+ get invoicing.</p></div>
+<div class="p1-r"><p class="lbl">Included</p><ul><li>@I(check,16)Unlimited notes &amp; boards</li><li>@I(check,16)Offline on every device</li><li>@I(check,16)End-to-end encryption</li><li>@I(check,16)Version history forever</li><li>@I(check,16)Guests for free</li><li>@I(check,16)API &amp; webhooks</li><li>@I(check,16)Export to Markdown/PDF</li><li>@I(check,16)Human support, &lt;4 h</li></ul><div class="p1-g">@I(shield,18)<span>30-day money-back guarantee, no questions asked.</span></div></div></section>
+</div>
+<style>
+.p1{width:min(860px,100%);display:grid;grid-template-columns:1fr 1.2fr;overflow:hidden}.p1-l{padding:32px;display:grid;gap:16px;align-content:start;border-right:1px solid var(--line)}.p1-l h2{margin:0;font-size:28px;letter-spacing:-.02em}
+.p1-seg{display:inline-flex;background:var(--sf2);border-radius:10px;padding:3px;justify-self:start}.p1-seg button{height:34px;padding:0 14px;border-radius:8px;font-weight:550;color:var(--mu)}.p1-seg [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:var(--shadow)}
+.p1-pr{display:flex;gap:12px;align-items:center}.p1-pr b{font-size:64px;letter-spacing:-.04em;line-height:1}.p1-pr>span{font-size:13px;line-height:1.4}.p1-go{width:100%}.p1-n{font-size:13px;margin:0}
+.p1-r{padding:32px;background:var(--sf);display:grid;gap:16px;align-content:start}.p1-r ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;font-size:14px}.p1-r li{display:flex;gap:8px}.p1-r li .i{color:var(--ok);margin-top:2px}
+.p1-g{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font-size:13px;margin-top:8px}.p1-g .i{color:var(--ok)}
+@media (max-width:760px){.p1{grid-template-columns:1fr}.p1-l{border-right:0;border-bottom:1px solid var(--line)}.p1-r ul{grid-template-columns:1fr}}
+</style>
+<script>
+document.querySelectorAll('.p1-seg button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.p1-seg button').forEach(x=>x.setAttribute('aria-checked',x===b));const p=+b.dataset.p;document.getElementById('pr').textContent='€'+(p%1?p.toFixed(2):p);document.getElementById('bl').textContent=p<8?'billed €78 yearly':'billed monthly'});
+</script>
+=== price-editorial
+<!--Editorial Pricing|Pricing|A magazine-style subscription page: serif headline, plans as ruled rows (digital, print + digital, patron) with what arrives and when, a gift toggle that changes copy, and a small FAQ.|pricing,subscription,editorial,serif,magazine,gift-->
+<div class="k">
+<section class="pe"><p class="eb">The Long Quarterly</p><h2 class="ser">Read slowly.<br>Subscribe once a year.</h2><label class="pe-gf"><input type="checkbox" id="gf"> This is a gift</label>
+<div class="pe-l" role="radiogroup" aria-label="Subscription" id="l"></div><button class="b ac lg pe-go" id="go"></button><details class="pe-q"><summary>When does the first issue arrive?</summary><p>Within 10 days of ordering in the EU, 3 weeks elsewhere. Digital access starts immediately.</p></details><details class="pe-q"><summary>Can I pause?</summary><p>Yes, skip any issue from your account up to a week before it ships.</p></details></section>
+</div>
+<style>
+.pe{width:min(680px,100%)}.pe h2{font-size:clamp(36px,6vw,60px);line-height:1;margin:12px 0 24px;font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.02em}.pe .eb{font:500 12px 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pe-gf{display:inline-flex;gap:8px;align-items:center;font-size:14px;min-height:44px}.pe-gf input{width:18px;height:18px;accent-color:var(--ac)}
+.pe-l{border-top:2px solid var(--fg);margin-top:8px}.pe-l button{display:grid;grid-template-columns:28px 1fr auto;gap:16px;width:100%;text-align:left;padding:20px 0;border-bottom:1px solid var(--line);align-items:start}.pe-l .rd{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ctl);margin-top:4px;display:grid;place-items:center}.pe-l [aria-checked=true] .rd{border-color:var(--ac)}.pe-l [aria-checked=true] .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ac)}
+.pe-l b{font:400 26px/1.1 'Instrument Serif',serif}.pe-l p{margin:6px 0 0;color:var(--mu);font-size:14px}.pe-l .pr{font:400 26px 'Instrument Serif',serif;text-align:right}.pe-l .pr small{display:block;font:12px Geist,sans-serif;color:var(--mu)}
+.pe-go{margin:24px 0;width:100%}.pe-q{border-top:1px solid var(--line);padding:14px 0}.pe-q summary{cursor:pointer;font-weight:550;min-height:28px}.pe-q p{color:var(--mu);margin:8px 0 0;font-size:14px}
+</style>
+<script>
+const S=[["Digital","Every essay online and in the app, plus the archive back to 2009.",39],["Print + digital","Four 180-page issues a year, posted in a recycled sleeve.",79,1],["Patron","Everything, plus your name in the colophon and a signed print.",180]],l=document.getElementById('l'),gf=document.getElementById('gf'),go=document.getElementById('go');let s=1;
+function draw(){const g=gf.checked;l.innerHTML=S.map(([n,d,p],i)=>`<button role="radio" aria-checked="${i===s}" data-i="${i}"><span class="rd"></span><span><b>${n}</b><p>${g?d.replace('your name','their name').replace('Every essay','They get every essay'):d}</p></span><span class="pr tn">€${p}<small>per year</small></span></button>`).join('');go.textContent=`${g?'Give':'Subscribe to'} ${S[s][0].toLowerCase()}, €${S[s][2]}`}
+l.onclick=e=>{const b=e.target.closest('[data-i]');if(b){s=+b.dataset.i;draw();l.querySelector(`[data-i="${s}"]`).focus()}};gf.onchange=draw;draw();
+</script>
+=== price-credits
+<!--Credit Packs Pricing|Pricing|Prepaid credit bundles for an AI image tool: pack cards with per-credit price falling as packs grow, a “what can I make” estimator, a custom amount input and a sticky checkout summary.|pricing,credits,packs,ai,prepaid-->
+<div class="k">
+<section class="cr"><h2>Buy credits</h2><p class="mu">Credits never expire. 1 image = 4 credits, 1 upscale = 2.</p><div class="cr-g" id="g" role="radiogroup" aria-label="Credit pack"></div>
+<div class="cr-cu"><label class="lbl" for="cu">Or a custom amount</label><div class="cr-in"><input class="in tn" id="cu" inputmode="numeric" placeholder="e.g. 3500"><span class="mu">credits</span></div></div>
+<div class="card cr-sum"><div><span class="mu">You'll get</span><b class="tn" id="cn"></b><small class="mu" id="mk"></small></div><button class="b ac lg" id="buy"></button></div></section>
+</div>
+<style>
+.cr{width:min(760px,100%)}.cr h2{margin:0;font-size:24px;letter-spacing:-.02em}.cr>p{margin:4px 0 20px}
+.cr-g{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.cr-g button{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:4px;text-align:left;position:relative;transition:border-color .15s}.cr-g button:hover{border-color:var(--ctl)}.cr-g [aria-checked=true]{border:2px solid var(--ac);padding:15px}.cr-g b{font-size:22px;letter-spacing:-.02em}.cr-g .pp{font-size:12px;color:var(--mu)}.cr-g .pr{font-weight:650;margin-top:8px}.cr-g .sv{position:absolute;top:10px;right:10px}
+.cr-cu{margin-top:16px}.cr-in{display:flex;gap:10px;align-items:center;max-width:280px}.cr-in .in{height:44px;font-size:16px}
+.cr-sum{margin-top:20px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.cr-sum div{display:grid}.cr-sum b{font-size:24px;letter-spacing:-.02em}.cr-sum .b{height:48px}
+@media (max-width:700px){.cr-g{grid-template-columns:1fr 1fr}.cr-sum .b{width:100%}}
+</style>
+<script>
+const K=[[500,5],[2000,18],[5000,40],[15000,105]],g=document.getElementById('g'),cu=document.getElementById('cu');let sel=1,custom=0;
+g.innerHTML=K.map(([c,p],i)=>{const per=p/c*100,sv=Math.round((1-per)*100);return `<button role="radio" aria-checked="${i===sel}" data-i="${i}">${sv>0?`<span class="pill ok sv">−${sv}%</span>`:''}<b class="tn">${c.toLocaleString('en')}</b><span class="pp">credits · ${per.toFixed(2)}¢ each</span><span class="pr tn">€${p}</span></button>`}).join('');
+function up(){const [c,p]=custom?[custom,+(custom*.0095).toFixed(2)]:K[sel];document.getElementById('cn').textContent=c.toLocaleString('en')+' credits';document.getElementById('mk').textContent=`≈ ${Math.floor(c/4).toLocaleString('en')} images or ${Math.floor(c/2).toLocaleString('en')} upscales`;const b=document.getElementById('buy');b.textContent=c>=100?`Pay €${p}`:'Minimum 100 credits';b.disabled=c<100}
+g.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;sel=+b.dataset.i;custom=0;cu.value='';g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));up()};
+cu.oninput=()=>{cu.value=cu.value.replace(/\D/g,'').slice(0,6);custom=+cu.value;g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',!custom&&+x.dataset.i===sel));up()};up();
+</script>

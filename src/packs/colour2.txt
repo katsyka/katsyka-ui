@@ -1,0 +1,98 @@
+=== color-tabs
+<!--Colour Tabs|Navigation|Tabs where each tab owns a colour: a filled pill slides between tabs and the whole panel recolours with it; arrow keys, Home and End move between tabs.|tabs,navigation,colourful,pill,animated-->
+<div class="k ct" id="r"><div class="ct-w"><div class="ct-tl" role="tablist" aria-label="Sections" id="tl"><span class="ct-pill" id="pl" aria-hidden="true"></span></div><div class="ct-p" role="tabpanel" id="pn" tabindex="0"><h2 id="h"></h2><p id="d"></p></div></div></div>
+<style>
+.ct{--c:#ff5d8f;--f:#3d0a1d}.ct-w{width:min(620px,100%);display:grid;gap:14px}
+.ct-tl{position:relative;display:flex;gap:4px;padding:5px;border-radius:99px;background:var(--sf2);overflow-x:auto;scrollbar-width:none}
+.ct-pill{position:absolute;top:5px;bottom:5px;left:0;border-radius:99px;background:var(--c);transition:transform .3s var(--ease),width .3s var(--ease),background .3s var(--ease)}
+.ct-tl button{position:relative;z-index:1;flex:1;height:44px;padding:0 16px;border:0;background:none;border-radius:99px;font:600 15px Geist,sans-serif;color:var(--mu);cursor:pointer;white-space:nowrap;transition:color .25s}.ct-tl button[aria-selected=true]{color:var(--f)}
+.ct-p{border-radius:24px;padding:28px;background:var(--c);color:var(--f);min-height:200px;transition:background .3s var(--ease),color .3s var(--ease)}.ct-p h2{margin:0 0 8px;font-size:32px;letter-spacing:-.03em;font-weight:800}.ct-p p{margin:0;font-size:17px;line-height:1.5;max-width:44ch}
+.ct-p.in h2,.ct-p.in p{animation:cti .3s var(--ease) both}.ct-p.in p{animation-delay:40ms}@keyframes cti{from{opacity:0;transform:translateY(6px)}}
+</style>
+<script>
+const T=[['Design','#ff5d8f','#3d0a1d','Wireframes, prototypes and a design system your team will actually use.'],['Build','#ffc53d','#3a2600','Fast front ends with real accessibility, shipped behind feature flags.'],['Launch','#3dd6c6','#003330','Launch plans, analytics and the boring checklists that save launch day.'],['Grow','#7c6cff','#fff','Experiments every week, and the patience to read the results properly.']];
+const r=document.getElementById('r'),tl=document.getElementById('tl'),pl=document.getElementById('pl'),pn=document.getElementById('pn');let cur=0;
+T.forEach((t,i)=>{const b=document.createElement('button');b.role='tab';b.id='t'+i;b.textContent=t[0];b.setAttribute('aria-controls','pn');b.onclick=()=>sel(i);tl.append(b)});
+const bs=[...tl.querySelectorAll('button')];
+function sel(i,f){cur=i;const t=T[i],b=bs[i];pn.style.background=t[1];pn.style.color=t[2];r.style.setProperty('--c',t[1]);r.style.setProperty('--f',t[2]);pl.style.width=b.offsetWidth+'px';pl.style.transform=`translateX(${b.offsetLeft}px)`;bs.forEach((x,k)=>{x.setAttribute('aria-selected',k===i);x.tabIndex=k===i?0:-1});pn.setAttribute('aria-labelledby','t'+i);document.getElementById('h').textContent=t[0];document.getElementById('d').textContent=t[3];pn.classList.remove('in');void pn.offsetWidth;pn.classList.add('in');if(f)b.focus()}
+tl.onkeydown=e=>{const k={ArrowRight:cur+1,ArrowLeft:cur-1+T.length,Home:0,End:T.length-1}[e.key];if(k==null)return;e.preventDefault();sel(k%T.length,1)};
+sel(0);addEventListener('resize',()=>sel(cur));
+</script>
+=== rainbow-upload
+<!--Rainbow Upload Progress|Feedback|A file upload card with a multicolour striped progress bar that moves while uploading, per-file percentages, cancel, a failure and retry state, and a colour-block success tick.|upload,progress,feedback,colourful,files-->
+<div class="k ru"><div class="card ru-c"><div class="ru-h"><h2>Uploading 3 files</h2><span class="mu" id="sm">0%</span></div><ul class="ru-l" id="l"></ul><div class="ru-a"><button class="b" id="rs">Start again</button></div></div></div>
+<style>
+.ru-c{width:min(460px,100%);padding:20px;display:grid;gap:14px}.ru-h{display:flex;justify-content:space-between;align-items:baseline}.ru-h h2{margin:0;font-size:17px;font-weight:650}
+.ru-l{list-style:none;margin:0;padding:0;display:grid;gap:14px}.ru-l li{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center}
+.ru-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font:700 10px 'Geist Mono',monospace;color:#fff}
+.ru-n{display:grid;gap:6px;min-width:0}.ru-n b{font-size:14px;font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ru-n small{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums}
+.ru-bar{height:8px;border-radius:99px;background:var(--sf2);overflow:hidden}.ru-bar i{display:block;height:100%;width:0;border-radius:inherit;background:repeating-linear-gradient(-45deg,#ff3d7f 0 10px,#ff8a00 10px 20px,#ffd23f 20px 30px,#3dd6c6 30px 40px,#5b6cff 40px 50px);background-size:70.7px 100%;animation:rus 1s linear infinite;transition:width .2s linear}
+@keyframes rus{to{background-position:70.7px 0}}@media (prefers-reduced-motion:reduce){.ru-bar i{animation:none}}
+li.ok .ru-bar i{background:#1fbf75;animation:none}li.err .ru-bar i{background:var(--err);animation:none}li.err small{color:var(--err)}
+.ru-x{width:36px;height:36px}.ru-ok{width:28px;height:28px;border-radius:50%;background:#1fbf75;color:#fff;display:grid;place-items:center;animation:ruo .3s var(--ease)}@keyframes ruo{from{transform:scale(.4)}}
+.ru-a{display:flex;justify-content:flex-end}
+</style>
+<script>
+const F=[['holiday-reel.mp4',48e6,'#ff3d7f','MP4'],['brand-colours.pdf',3.2e6,'#5b6cff','PDF',1],['moodboard.png',9.8e6,'#ff8a00','PNG']],l=document.getElementById('l'),sm=document.getElementById('sm');let S=[];
+const mb=b=>(b/1e6).toFixed(1)+' MB';
+function start(){S.forEach(s=>clearInterval(s.t));l.innerHTML='';S=F.map((f,i)=>{const li=document.createElement('li');li.innerHTML=`<span class="ru-ic" style="background:${f[2]}">${f[3]}</span><div class="ru-n"><b>${f[0]}</b><div class="ru-bar" role="progressbar" aria-label="${f[0]}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><small>0 of ${mb(f[1])}</small></div><button class="ibt ru-x" aria-label="Cancel ${f[0]}">@I(x,16)</button>`;l.append(li);const s={li,p:0,f,done:0};li.querySelector('button').onclick=()=>act(s);run(s);return s})}
+function run(s){s.li.className='';s.t=setInterval(()=>{s.p=Math.min(100,s.p+Math.random()*(s.f[1]>2e7?3:7));if(s.f[4]&&s.p>62&&!s.failed){s.failed=1;return fail(s)}upd(s);if(s.p>=100){clearInterval(s.t);s.done=1;s.li.className='ok';const x=s.li.querySelector('button');x.outerHTML='<span class="ru-ok" role="img" aria-label="Uploaded">@I(check,16)</span>'}tot()},120)}
+function fail(s){clearInterval(s.t);s.li.className='err';s.li.querySelector('small').textContent='Connection dropped at '+Math.round(s.p)+'%';const b=s.li.querySelector('button');b.innerHTML='@I(refresh,16)';b.setAttribute('aria-label','Retry '+s.f[0]);tot()}
+function act(s){if(s.li.className==='err'){const b=s.li.querySelector('button');b.innerHTML='@I(x,16)';b.setAttribute('aria-label','Cancel '+s.f[0]);run(s)}else{clearInterval(s.t);s.li.remove();S=S.filter(x=>x!==s);tot()}}
+function upd(s){s.li.querySelector('.ru-bar i').style.width=s.p+'%';s.li.querySelector('.ru-bar').setAttribute('aria-valuenow',Math.round(s.p));s.li.querySelector('small').textContent=(s.p>=100?'Done · ':'')+mb(s.f[1]*s.p/100)+' of '+mb(s.f[1])}
+function tot(){if(!S.length){sm.textContent='Cancelled';return}const p=S.reduce((a,s)=>a+s.p,0)/S.length;sm.textContent=S.every(s=>s.done)?'All done':Math.round(p)+'%'}
+document.getElementById('rs').onclick=start;start();
+</script>
+=== gradient-maker
+<!--Gradient Maker|Custom|A mesh-style gradient builder: four colour points you can drag around a canvas, change each point's colour, shuffle into a new colourful set, and copy the CSS (layered radial gradients).|gradient,colour,generator,tool,css,colourful-->
+<div class="k gm"><div class="gm-w"><div class="gm-c" id="c" aria-label="Gradient canvas. Drag the points."></div><div class="gm-s"><div class="gm-pts" id="pts"></div><div class="gm-a"><button class="b" id="sh">@I(shuffle,16)Shuffle</button><button class="b ac" id="cp">@I(copy,16)Copy CSS</button></div><pre class="gm-code" id="code"></pre><span role="status" class="mu gm-st" id="st"></span></div></div></div>
+<style>
+.k.gm{padding:16px}.gm-w{display:grid;grid-template-columns:1fr 280px;gap:16px;width:min(980px,100%)}
+.gm-c{position:relative;aspect-ratio:4/3;border-radius:22px;touch-action:none;overflow:hidden}
+.gm-h{position:absolute;width:28px;height:28px;margin:-14px 0 0 -14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgb(0 0 0/.3);cursor:grab;padding:0}.gm-h:active{cursor:grabbing;scale:1.15}
+.gm-s{display:grid;gap:12px;align-content:start}.gm-pts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.gm-pts label{display:grid;gap:4px;font:12px 'Geist Mono',monospace;color:var(--mu);justify-items:center}
+.gm-pts input{width:100%;height:48px;border:1px solid var(--line);border-radius:12px;padding:3px;background:var(--bg);cursor:pointer}
+.gm-a{display:flex;gap:8px}.gm-a .b{flex:1;display:flex;gap:6px;align-items:center;justify-content:center}
+.gm-code{margin:0;font:12px/1.5 'Geist Mono',monospace;background:var(--sf2);border-radius:12px;padding:12px;white-space:pre-wrap;word-break:break-all;max-height:180px;overflow:auto}.gm-st{font-size:13px;min-height:1.2em}
+@media (max-width:760px){.gm-w{grid-template-columns:1fr}}
+</style>
+<script>
+let P=[[20,25,'#ff3d7f'],[80,20,'#ffd23f'],[25,80,'#5b6cff'],[78,75,'#3dd6c6']];
+const c=document.getElementById('c'),pts=document.getElementById('pts'),code=document.getElementById('code'),st=document.getElementById('st');
+const css=()=>P.map(p=>`radial-gradient(at ${p[0]|0}% ${p[1]|0}%, ${p[2]} 0, transparent 60%)`).join(',\n  ')+`,\n  ${P[0][2]}`;
+function paint(){c.style.background=css().replace(/\n\s*/g,'');code.textContent='background:\n  '+css()+';';c.querySelectorAll('.gm-h').forEach((h,i)=>{h.style.left=P[i][0]+'%';h.style.top=P[i][1]+'%';h.style.background=P[i][2]})}
+function build(){c.innerHTML='';pts.innerHTML='';P.forEach((p,i)=>{const h=document.createElement('button');h.className='gm-h';h.setAttribute('aria-label','Point '+(i+1)+', arrows to move');h.onpointerdown=e=>{e.preventDefault();h.setPointerCapture(e.pointerId);h.onpointermove=ev=>{const r=c.getBoundingClientRect();P[i][0]=Math.max(0,Math.min(100,(ev.clientX-r.left)/r.width*100));P[i][1]=Math.max(0,Math.min(100,(ev.clientY-r.top)/r.height*100));paint()};h.onpointerup=()=>h.onpointermove=null};
+h.onkeydown=e=>{const k={ArrowLeft:[-2,0],ArrowRight:[2,0],ArrowUp:[0,-2],ArrowDown:[0,2]}[e.key];if(!k)return;e.preventDefault();P[i][0]=Math.max(0,Math.min(100,P[i][0]+k[0]));P[i][1]=Math.max(0,Math.min(100,P[i][1]+k[1]));paint()};c.append(h);
+const l=document.createElement('label');l.innerHTML=`<input type="color" value="${p[2]}" aria-label="Colour ${i+1}">${i+1}`;l.querySelector('input').oninput=e=>{P[i][2]=e.target.value;paint()};pts.append(l)});paint()}
+const hx=h=>{const f=n=>{const k=(n+h/30)%12,a=.85*Math.min(.6,.4);return Math.round(255*(.6-a*Math.max(-1,Math.min(k-3,9-k,1)))).toString(16).padStart(2,'0')};return'#'+f(0)+f(8)+f(4)};
+document.getElementById('sh').onclick=()=>{const b=Math.random()*360;P=P.map((p,i)=>[10+Math.random()*80,10+Math.random()*80,hx((b+i*(60+Math.random()*50))%360)]);build()};
+document.getElementById('cp').onclick=()=>{const t='background:\n  '+css()+';',done=()=>{st.textContent='CSS copied';setTimeout(()=>st.textContent='',1500)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(done).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove();done()})};
+build();
+</script>
+=== land-plant-swap
+<!--Plant Swap Landing|Landings|A neighbourhood plant-swap page in bold greens with sunny accents: a "have / want" matcher that shows who nearby is swapping what you want, event date card with add-to-calendar, and a swap rules strip.|landing,community,plants,colourful,event-->
+<div class="k pg ps">
+<header class="top"><div class="w"><a class="logo" href="#">Leaf Swap</a><nav class="links"><a href="#m">Matcher</a><a href="#ev">Next swap</a></nav><a class="b ac" href="#ev">I'm coming</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="ps-hero"><div class="w"><h1 class="ps-t">Bring a cutting.<br><em>Leave with a jungle.</em></h1><p class="ps-l">A free plant swap on the first Sunday of every month. 140 neighbours, no money, plenty of pothos.</p></div></section>
+<section class="w ps-m" id="m"><h2 class="h2">What are you after?</h2><div class="ps-ch" role="group" aria-label="Plants you want" id="ch"></div><ul class="ps-r" id="r" aria-live="polite"></ul></section>
+<section class="w ps-ev" id="ev"><div class="ps-d"><span>Sun</span><b>6</b><span>Dec</span></div><div><h3 class="h3">December swap · Community garden shed</h3><p class="mu">11:00–14:00 · Bring pots if you have spares</p></div><button class="b ac lg" id="cal">Add to calendar</button></section>
+<section class="ps-rules"><div class="w"><span>1 · Bring what you can</span><span>2 · Label your cuttings</span><span>3 · Take what you'll care for</span><span>4 · Leftovers go to the school</span></div></section>
+<footer class="foot"><div class="w"><span>Leaf Swap is demo content.</span><span>Run by volunteers</span></div></footer>
+</div>
+<style>
+.ps{--gr:light-dark(#0f5132,#7ee2a8);--su:#ffd23f;--pk:#ff8fb1}.ps .b.ac{background:var(--su);color:#2a2000}
+.ps-hero{background:#0f5132;color:#eafff2;padding:80px 0}.ps-t{font-size:clamp(44px,8vw,104px);line-height:.95;letter-spacing:-.045em;font-weight:800}.ps-t em{font-style:normal;color:var(--su)}.ps-l{font-size:19px;max-width:44ch;margin-top:20px!important;opacity:.9}
+.ps-m{padding:72px 0 40px}.ps-ch{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}.ps-ch button{height:44px;padding:0 16px;border-radius:99px;border:2px solid var(--gr);background:none;color:var(--gr);font:600 15px Geist,sans-serif;cursor:pointer}.ps-ch button[aria-pressed=true]{background:var(--gr);color:var(--bg)}
+.ps-r{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.ps-r li{border-radius:18px;padding:16px;display:grid;gap:6px;color:#1b1b1b;animation:psi .3s var(--ease) both}.ps-r li b{font-size:17px}.ps-r li span{font-size:14px;opacity:.75}.ps-r .e{background:var(--sf2);color:var(--mu);grid-column:1/-1}
+@keyframes psi{from{opacity:0;transform:translateY(8px)}}
+.ps-ev{display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:24px;border-radius:24px;background:var(--sf2);margin-bottom:56px}.ps-ev>div:nth-child(2){flex:1;min-width:200px}.ps-d{width:84px;height:96px;border-radius:18px;background:var(--pk);color:#3d0a1d;display:grid;place-items:center;align-content:center;font-weight:700}.ps-d b{font-size:36px;line-height:1}.ps-d span{font-size:12px;text-transform:uppercase}
+.ps-rules{background:var(--su);color:#2a2000;padding:20px 0;font-weight:700}.ps-rules .w{display:flex;flex-wrap:wrap;gap:12px 32px}
+</style>
+<script>
+const PL={Monstera:'#9be7b4',Pothos:'#c6f37e',Calathea:'#ffcf87','Snake plant':'#ffe27a',Fern:'#a5e3ff','String of pearls':'#ffb3cb',Cactus:'#d9c6ff'};
+const P=[['Mira','Monstera','Pothos','3 min walk'],['Jonas','Fern','Calathea','Same street'],['Aiko','Pothos','Cactus','5 min walk'],['Sam','String of pearls','Fern','8 min walk'],['Dev','Monstera','Snake plant','Next block'],['Lena','Calathea','Monstera','4 min walk'],['Omar','Snake plant','String of pearls','6 min walk']];
+const ch=document.getElementById('ch'),r=document.getElementById('r'),want=new Set(['Monstera']);
+Object.keys(PL).forEach(p=>{const b=document.createElement('button');b.textContent=p;b.onclick=()=>{want.has(p)?want.delete(p):want.add(p);draw()};ch.append(b)});
+function draw(){ch.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',want.has(b.textContent)));const m=P.filter(x=>want.has(x[1]));r.innerHTML=m.length?m.map((x,i)=>`<li style="background:${PL[x[1]]};animation-delay:${i*40}ms"><b>${x[0]} has ${x[1].toLowerCase()}</b><span>Wants ${x[2].toLowerCase()} · ${x[3]}</span></li>`).join(''):'<li class="e">Pick a plant to see who is bringing one.</li>'}draw();
+document.getElementById('cal').onclick=e=>{const ics='BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:Leaf Swap\nDTSTART:20261206T110000\nDTEND:20261206T140000\nLOCATION:Community garden shed\nEND:VEVENT\nEND:VCALENDAR',a=document.createElement('a');a.href='data:text/calendar,'+encodeURIComponent(ics);a.download='leaf-swap.ics';a.click();e.target.textContent='Added ✓'};
+</script>

@@ -1,0 +1,46 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.to{width:min(860px,100%);resize:horizontal;overflow:hidden}.to-b{display:flex;align-items:center;border-bottom:1px solid var(--line);position:relative;white-space:nowrap}.to-b>button{height:44px;padding:0 14px;font-size:14px;font-weight:550;color:var(--mu);flex:none}.to-b>button[aria-selected=true]{color:var(--fg)}.to-b>button:hover{color:var(--fg)}
+.to-in{position:absolute;bottom:-1px;height:2px;background:var(--fg);transition:left .25s cubic-bezier(.23,1,.32,1),width .25s cubic-bezier(.23,1,.32,1)}
+.to-mw{position:relative;margin-left:auto;flex:none}.to-mb{height:44px;padding:0 12px;font-size:14px;font-weight:550;color:var(--mu);display:flex;gap:4px;align-items:center}.to-mb.act{color:var(--fg)}
+.to-m{position:absolute;right:0;top:44px;min-width:180px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:4px;z-index:5;box-shadow:0 10px 24px -10px #0004;transform-origin:top right;animation:tom .15s cubic-bezier(.23,1,.32,1)}@keyframes tom{from{opacity:0;transform:scale(.96)}}.to-m button{display:block;width:100%;text-align:left;padding:8px 10px;border-radius:7px;font-size:14px}.to-m button:hover,.to-m button:focus-visible{background:var(--sf)}.to-m [aria-selected=true]{font-weight:650}
+.to-p{padding:20px 0;margin:0}
+</style>
+<div class="k"><div class="to"><div class="to-b" id="b" role="tablist" aria-label="Project sections"><span class="to-in" id="ind" aria-hidden="true"></span></div><p class="mu to-p" id="p" role="tabpanel"></p><p class="mu" style="font-size:12px">Resize the window to see tabs move into More.</p></div></div>
+<script>
+const T=['Overview','Tasks','Timeline','Files','Discussions','Docs','Automations','Reports','Integrations','Settings'],b=document.getElementById('b'),ind=document.getElementById('ind');let act=0,open=false;
+function draw(){b.querySelectorAll('button,.to-mw').forEach(x=>x.remove());const W=b.clientWidth-90;let vis=[],used=0;const widths=T.map(t=>t.length*8+30);const ordered=[act,...T.map((_,i)=>i).filter(i=>i!==act)];const keep=new Set();for(const i of ordered){if(used+widths[i]<=W){keep.add(i);used+=widths[i]}}
+T.forEach((t,i)=>{if(keep.has(i))b.insertAdjacentHTML('beforeend',`<button role="tab" aria-selected="${i===act}" tabindex="${i===act?0:-1}" data-i="${i}">${t}</button>`)});const hid=T.map((t,i)=>[t,i]).filter(([,i])=>!keep.has(i));
+if(hid.length)b.insertAdjacentHTML('beforeend',`<div class="to-mw"><button class="to-mb" aria-haspopup="true" aria-expanded="${open}">More (${hid.length}) <svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><path d="m6 9 6 6 6-6"/></svg></button>${open?`<div class="to-m" role="menu">${hid.map(([t,i])=>`<button role="menuitem" data-i="${i}">${t}</button>`).join('')}</div>`:''}</div>`);
+const a=b.querySelector(`[role=tab][data-i="${act}"]`);if(a){ind.style.left=a.offsetLeft+'px';ind.style.width=a.offsetWidth+'px'}document.getElementById('p').textContent=`${T[act]}: content for this section.`}
+b.onclick=e=>{const mb=e.target.closest('.to-mb');if(mb){open=!open;draw();if(open)b.querySelector('.to-m button').focus();return}const t=e.target.closest('[data-i]');if(t){act=+t.dataset.i;open=false;draw();b.querySelector(`[role=tab][data-i="${act}"]`).focus()}};
+b.onkeydown=e=>{if(!e.target.matches('[role=tab]'))return;const tabs=[...b.querySelectorAll('[role=tab]')],i=tabs.indexOf(e.target);if(e.key==='ArrowRight'&&tabs[i+1]){act=+tabs[i+1].dataset.i;draw();b.querySelector(`[role=tab][data-i="${act}"]`).focus()}if(e.key==='ArrowLeft'&&tabs[i-1]){act=+tabs[i-1].dataset.i;draw();b.querySelector(`[role=tab][data-i="${act}"]`).focus()}};
+document.addEventListener('pointerdown',e=>{if(open&&!e.target.closest('.to-mw')){open=false;draw()}});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&open){open=false;draw();b.querySelector('.to-mb').focus()}});new ResizeObserver(()=>draw()).observe(b);
+</script>

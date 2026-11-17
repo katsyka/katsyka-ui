@@ -1,0 +1,47 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.rs{width:min(520px,100%);display:grid;grid-template-columns:72px 1fr;gap:20px;padding:22px}.rs-dt{display:grid;text-align:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;align-self:start}.rs-dt span{background:var(--err);color:#fff;font-size:11px;font-weight:700;text-transform:uppercase;padding:3px 0;letter-spacing:.06em}.rs-dt b{font-size:28px;padding:6px 0}
+.rs-i{display:grid;gap:8px}.rs-i h1{margin:0;font-size:20px;letter-spacing:-.02em}.rs-i>p{margin:0;font-size:14px}.rs-l{display:flex;gap:8px;align-items:flex-start}.rs-l .i{margin-top:3px;color:var(--mu)}.rs-l a{color:var(--fg)}
+.rs-at{display:flex;gap:10px;align-items:center;margin:4px 0}.rs-av{display:flex}.rs-av .av{width:28px;height:28px;font-size:10px;border:2px solid var(--bg);margin-left:-8px}.rs-av .av:first-child{margin:0}.rs-av .me{animation:rsi .3s cubic-bezier(.23,1,.32,1)}@keyframes rsi{from{transform:scale(.5);opacity:0}}.rs-at span{font-size:13px}
+.rs-b{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.rs-b button{height:44px;border:1px solid var(--ctl);border-radius:10px;font-weight:600;font-size:14px;display:flex;gap:6px;align-items:center;justify-content:center}.rs-b [data-r=y][aria-checked=true]{background:var(--ok);color:#fff;border-color:var(--ok)}.rs-b [data-r=m][aria-checked=true]{background:var(--warn-sf);color:var(--warn);border-color:var(--warn)}.rs-b [data-r=n][aria-checked=true]{background:var(--sf2);border-color:var(--fg)}
+.rs-x{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;animation:rsi .2s}.rs-x label{display:flex;gap:8px;align-items:center}.rs-x input{width:18px;height:18px;accent-color:var(--ok)}
+@media (max-width:420px){.rs{grid-template-columns:1fr}.rs-dt{width:72px}}
+</style>
+<div class="k"><article class="rs card"><div class="rs-dt"><span id="mo"></span><b id="dd"></b></div><div class="rs-i"><h1>Studio summer dinner</h1><p class="mu" id="wh"></p><p class="rs-l"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Restaurant Fennel, Vesterbrogade 41 · <a href="#">Map</a></span></p><p class="rs-l"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:15px;height:15px"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>Hosted by Hana Ito</span></p>
+<div class="rs-at"><div class="rs-av" id="av"></div><span class="mu tn" id="ct"></span></div>
+<div class="rs-b" role="radiogroup" aria-label="Your response"><button role="radio" aria-checked="false" data-r="y"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M20 6 9 17l-5-5"/></svg>Going</button><button role="radio" aria-checked="false" data-r="m">Maybe</button><button role="radio" aria-checked="false" data-r="n"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M18 6 6 18M6 6l12 12"/></svg>Can't go</button></div>
+<div class="rs-x" id="x" hidden><label><input type="checkbox" id="p1"> Bringing a +1</label><button class="b gh sm" id="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Add to calendar</button></div></div></article></div>
+<script>
+const d=new Date(Date.now()+3*864e5);d.setHours(19,30,0,0);document.getElementById('mo').textContent=d.toLocaleDateString('en-GB',{month:'short'});document.getElementById('dd').textContent=d.getDate();document.getElementById('wh').textContent=`${d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'})}, 19:30 · in 3 days`;
+const A=[["HI","#0f766e"],["JL","#7c3aed"],["PD","#b45309"],["MK","#2563eb"],["SO","#be123c"]],base={y:9,m:3,n:2};let me=null,plus=0;
+function draw(){const c={...base};if(me)c[me]++;if(me==='y'&&plus)c.y++;document.getElementById('av').innerHTML=(me==='y'?'<span class="av me" style="--c:#15803d">You</span>':'')+A.map(([i,col])=>`<span class="av" style="--c:${col}">${i}</span>`).join('');document.getElementById('ct').textContent=`${c.y} going · ${c.m} maybe · ${c.n} can't`;document.getElementById('x').hidden=me!=='y'}
+document.querySelector('.rs-b').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));me=b.dataset.r;draw()};document.getElementById('p1').onchange=e=>{plus=e.target.checked;draw()};
+document.getElementById('ic').onclick=()=>{const z=x=>x.toISOString().replace(/[-:]/g,'').slice(0,15)+'Z',ics=`BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nUID:summer-dinner@studio\nDTSTART:${z(d)}\nDTEND:${z(new Date(+d+3*36e5))}\nSUMMARY:Studio summer dinner\nLOCATION:Restaurant Fennel, Vesterbrogade 41\nEND:VEVENT\nEND:VCALENDAR`,a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='summer-dinner.ics';a.click()};draw();
+</script>

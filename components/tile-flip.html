@@ -1,0 +1,56 @@
+<style>
+.tf{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.tf :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tf ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.tf *,.tf *::before,.tf *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.tf{min-height:100vh;display:grid;place-content:center;gap:20px;padding:40px clamp(16px,4vw,56px);background:var(--bg);color:var(--fg);font-family:Geist,system-ui,sans-serif}
+.tf-s{--c:8;--r:5;position:relative;width:min(1100px,calc(100vw - 32px));aspect-ratio:16/9;display:grid;grid-template-columns:repeat(var(--c),1fr);grid-template-rows:repeat(var(--r),1fr);perspective:1400px;border-radius:var(--r3);overflow:hidden;background:var(--sf2)}
+.tf-s:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.tf-t{position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.65,0,.35,1)}
+.tf-t i{position:absolute;inset:-.5px;backface-visibility:hidden;background-size:calc(var(--c)*100%) calc(var(--r)*100%)}
+.tf-t i+i{transform:rotateY(180deg)}
+.tf-b{display:flex;align-items:center;gap:16px;width:min(1100px,calc(100vw - 32px))}
+.tf-b div{margin-right:auto;min-width:0}
+.tf-b b{display:block;font-size:clamp(20px,2.2vw,28px);letter-spacing:-.03em;font-weight:600}
+.tf-b span{font:500 12px "Geist Mono",monospace;letter-spacing:.1em;color:var(--mu)}
+.tf-b button{width:44px;height:44px;border-radius:50%;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);display:grid;place-items:center;cursor:pointer;flex:none}
+.tf-b button:hover{background:var(--sf)}
+.tf-b svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tf-p{height:2px;background:var(--sf2);border-radius:2px;overflow:hidden;width:min(1100px,calc(100vw - 32px))}
+.tf-p i{display:block;height:100%;width:100%;background:var(--fg);transform-origin:left;transform:scaleX(0)}
+@media (max-width:640px){.tf-s{--c:5;--r:4}}
+@media (prefers-reduced-motion:reduce){.tf-t{transition-duration:.01ms}}
+</style>
+<section class="tf" aria-label="Tile flip slideshow" aria-roledescription="carousel">
+  <div class="tf-s" tabindex="0" role="img" aria-label="Slideshow"></div>
+  <div class="tf-p" aria-hidden="true"><i></i></div>
+  <div class="tf-b"><div aria-live="polite"><b></b><span></span></div>
+    <button type="button" data-d="-1" aria-label="Previous image"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" data-d="1" aria-label="Next image"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
+</section>
+<script>
+(()=>{
+// Every tile shows a slice of the photo on both faces; a step rotates each tile 180° with a diagonal delay, after loading the next photo onto the hidden face.
+const root=document.querySelector(".tf"),st=root.querySelector(".tf-s"),bar=root.querySelector(".tf-p i"),cap=root.querySelector(".tf-b b"),meta=root.querySelector(".tf-b span");
+const S=[[1018,"Green ridge","Highlands"],[1036,"Snowfield camp","Winter route"],[1039,"Fern falls","Rainforest"],[1040,"Castle in the pines","Old town"],[1044,"Glacier river","Valley floor"],[1019,"Weather front","Open sea"]];
+const url=i=>`url(media/pics/w/${S[i][0]}.jpg)`,DUR=5200,still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+S.forEach(s=>{new Image().src=`media/pics/w/${s[0]}.jpg`});
+let cur=0,rot=0,tiles=[],C=0,R=0,t0=performance.now(),paused=false,raf=0,busy=false;
+function build(){const cs=getComputedStyle(st);C=+cs.getPropertyValue("--c");R=+cs.getPropertyValue("--r");st.innerHTML="";tiles=[];rot=0;
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){const t=document.createElement("div");t.className="tf-t";t.innerHTML="<i></i><i></i>";
+    const pos=`${C>1?c/(C-1)*100:0}% ${R>1?r/(R-1)*100:0}%`;t.querySelectorAll("i").forEach(f=>{f.style.backgroundPosition=pos;f.style.backgroundImage=url(cur)});
+    t.dataset.d=c+r;st.append(t);tiles.push(t)}label()}
+function label(){cap.textContent=S[cur][1];meta.textContent=`${String(cur+1).padStart(2,"0")} / ${String(S.length).padStart(2,"0")} · ${S[cur][2].toUpperCase()}`;st.setAttribute("aria-label",`${S[cur][1]}, ${S[cur][2]}`)}
+function go(d){if(busy)return;busy=true;cur=(cur+d+S.length)%S.length;rot+=d*180;const face=Math.abs(rot/180)%2;const max=C+R-2;
+  tiles.forEach(t=>{const k=d>0?+t.dataset.d:max-t.dataset.d;t.children[face].style.backgroundImage=url(cur);t.style.transitionDelay=(still?0:k*45)+"ms";t.style.transform=`rotateY(${rot}deg)`});
+  label();t0=performance.now();setTimeout(()=>busy=false,still?50:900+max*45)}
+function tick(t){const p=paused?0:Math.min(1,(t-t0)/DUR);if(paused)t0=t-(+bar.dataset.p||0)*DUR;else bar.dataset.p=p;bar.style.transform=`scaleX(${bar.dataset.p||0})`;
+  if(!paused&&p>=1)go(1);raf=requestAnimationFrame(tick)}
+root.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>go(+b.dataset.d)));
+st.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();go(e.key==="ArrowRight"?1:-1)}});
+root.addEventListener("pointerenter",()=>paused=true);root.addEventListener("pointerleave",()=>paused=false);
+root.addEventListener("focusin",()=>paused=true);root.addEventListener("focusout",()=>paused=false);
+let w=innerWidth;addEventListener("resize",()=>{if((innerWidth<=640)!==(w<=640))build();w=innerWidth});
+build();if(!still)new IntersectionObserver(e=>{if(e[0].isIntersecting){if(!raf){t0=performance.now();raf=requestAnimationFrame(tick)}}else{cancelAnimationFrame(raf);raf=0}}).observe(root);
+})();
+</script>

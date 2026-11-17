@@ -1,0 +1,24 @@
+<!--Two-Factor Setup|Auth|Authenticator app enrolment: QR code with a copyable setup key fallback, a 6-box code input with paste support and auto-advance, verification with error shake, then success.|auth,2fa,totp,qr,security,otp-->
+<div class="k">
+<div class="card tf"><div id="s1"><span class="eb">Step 1 of 2</span><h1>Scan with your authenticator</h1><p class="mu">Use 1Password, Authy, Google Authenticator or any TOTP app.</p><div class="tf-qr"><canvas id="qr" width="168" height="168" aria-label="QR code for authenticator setup" role="img"></canvas><div><span class="lbl">Can't scan? Enter this key</span><code id="key" class="tf-k">JBSW Y3DP EHPK 3PXP</code><button class="b sec sm" id="cp">@I(copy,14)<span>Copy key</span></button></div></div>
+<span class="eb" style="display:block;margin-top:24px">Step 2 of 2</span><label class="tf-l" id="ll">Enter the 6-digit code from the app</label><div class="tf-c" id="cb" role="group" aria-labelledby="ll"></div><p class="tf-er" id="er" role="alert"></p><button class="b ac tf-go" id="vf" disabled>Verify and enable</button><p class="mu tf-h">Demo: any code except 000000 works.</p></div>
+<div id="s2" hidden class="tf-ok">@I(shield,28)<h1>Two-factor is on</h1><p class="mu">Next time you sign in we'll ask for a code from your app.</p><button class="b sec tf-go">Download recovery codes</button></div></div>
+</div>
+<style>
+.tf{width:min(460px,100%);padding:28px}.tf h1{margin:6px 0 6px;font-size:20px;letter-spacing:-.02em}.tf p{margin:0}
+.tf-qr{display:flex;gap:20px;align-items:center;margin-top:20px;padding:16px;border:1px solid var(--line);border-radius:14px;flex-wrap:wrap}.tf-qr canvas{background:#fff;border-radius:8px;width:136px;height:136px;padding:6px}.tf-qr>div{display:grid;gap:8px;justify-items:start;flex:1;min-width:160px}.tf-k{font:14px 'Geist Mono',monospace;letter-spacing:.06em;background:var(--sf);padding:6px 8px;border-radius:6px}
+.tf-l{display:block;font-weight:550;margin:6px 0 10px}.tf-c{display:flex;gap:8px}.tf-c input{width:100%;min-width:0;height:52px;text-align:center;font:600 22px 'Geist Mono',monospace;border:1px solid var(--ctl);border-radius:10px;background:var(--bg);outline:0}.tf-c input:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}.tf-c input:nth-child(3){margin-right:10px}
+.tf-c.bad{animation:tfx .4s}.tf-c.bad input{border-color:var(--err)}@keyframes tfx{20%,60%{translate:-6px}40%,80%{translate:6px}}
+.tf-er{color:var(--err);font-size:13px;margin-top:8px!important}.tf-er:empty{display:none}.tf-go{width:100%;height:44px;margin-top:16px}.tf-h{font-size:12px;text-align:center;margin-top:10px!important}
+.tf-ok{text-align:center;display:grid;justify-items:center;gap:6px}.tf-ok>.i{width:56px;height:56px;padding:14px;border-radius:50%;background:var(--ok-sf);color:var(--ok);margin-bottom:8px}
+</style>
+<script>
+const $=i=>document.getElementById(i),cv=$('qr'),x=cv.getContext('2d'),N=25,u=168/N;let s=11;const r=()=>(s=s*48271%2147483647)/2147483647;x.fillStyle='#111';
+const fin=(a,b)=>{x.fillRect(a*u,b*u,7*u,7*u);x.clearRect((a+1)*u,(b+1)*u,5*u,5*u);x.fillRect((a+2)*u,(b+2)*u,3*u,3*u)};
+for(let i=0;i<N;i++)for(let j=0;j<N;j++){const f=(i<8&&j<8)||(i>N-9&&j<8)||(i<8&&j>N-9);if(!f&&r()>.52)x.fillRect(i*u,j*u,u,u)}fin(0,0);fin(N-7,0);fin(0,N-7);
+$('cp').onclick=()=>{const t=$('key').textContent.replace(/ /g,''),d=()=>{$('cp').querySelector('span').textContent='Copied';setTimeout(()=>$('cp').querySelector('span').textContent='Copy key',1500)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(d).catch(d)};
+const cb=$('cb');for(let i=0;i<6;i++){const e=document.createElement('input');e.inputMode='numeric';e.maxLength=1;e.autocomplete=i?'off':'one-time-code';e.setAttribute('aria-label','Digit '+(i+1));cb.append(e)}const I=[...cb.children];
+const val=()=>I.map(i=>i.value).join('');function upd(){$('vf').disabled=val().length<6;cb.classList.remove('bad');$('er').textContent=''}
+I.forEach((e,i)=>{e.oninput=()=>{e.value=e.value.replace(/\D/g,'').slice(-1);if(e.value&&i<5)I[i+1].focus();upd()};e.onkeydown=k=>{if(k.key==='Backspace'&&!e.value&&i)I[i-1].focus();if(k.key==='Enter'&&val().length==6)$('vf').click()};e.onpaste=p=>{p.preventDefault();const d=(p.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,6);d.split('').forEach((c,j)=>I[j].value=c);I[Math.min(5,d.length)].focus();upd()}});
+$('vf').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Verifying…';setTimeout(()=>{b.textContent='Verify and enable';if(val()==='000000'){cb.classList.remove('bad');void cb.offsetWidth;cb.classList.add('bad');$('er').textContent='That code didn\'t match. Codes refresh every 30 seconds, try the newest one.';I.forEach(i=>i.value='');I[0].focus()}else{$('s1').hidden=true;$('s2').hidden=false}},700)};
+</script>

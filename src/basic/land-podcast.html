@@ -1,0 +1,27 @@
+<!--Podcast Landing|Landings|A podcast home: a big player for the latest episode with a working fake scrubber, chapter list that seeks, an episode archive with play states and subscribe links.|landing,podcast,audio,player,episodes-->
+<div class="k pg lp">
+<header class="top"><div class="w"><a class="logo" href="#"><span class="lp-mk" aria-hidden="true"></span>Slow Signal</a><nav class="links"><a href="#">Episodes</a><a href="#">Hosts</a><a href="#">Newsletter</a></nav><a class="b sec" href="#">Subscribe</a><button class="menu ibt" aria-label="Menu" aria-expanded="false">@I(list,22)</button></div></header>
+<section class="w lp-hero"><div><p class="eb">A podcast about how things are made · every other Tuesday</p><h1 class="h1">Slow Signal</h1><p class="lead">Long conversations with people who build things slowly on purpose: luthiers, type designers, bridge engineers.</p></div>
+<div class="lp-pl card"><div class="lp-cv"><img class="ph" src="media/pics/c/1082.jpg" alt=""></div><div class="lp-in"><span class="eb">Ep. 48 · 62 min</span><h2 class="h3">Tuning a piano that hasn't been played in 40 years</h2>
+<div class="lp-ctl"><button class="lp-pp" id="pp" aria-label="Play">@I(play,22)</button><div class="lp-tr"><input type="range" id="sk" min="0" max="3720" value="0" aria-label="Seek"><div class="lp-tm tn mu"><span id="cur">0:00</span><span>62:00</span></div></div></div>
+<ol class="lp-ch" id="ch"><li data-t="0">Cold open</li><li data-t="410">The felt has turned to dust</li><li data-t="1520">Pitch raising in three passes</li><li data-t="2900">What the owner heard</li></ol></div></div></section>
+<section class="sec w"><h2 class="h2">Archive</h2><ul class="lp-ar"><li><button class="ibt" aria-label="Play episode 47">@I(play)</button><div><b>The last letterpress in Leeds</b><span class="mu">Ep. 47 · 54 min</span></div><span class="lp-d mu">Oct 28</span></li><li><button class="ibt" aria-label="Play episode 46">@I(play)</button><div><b>Why bridges hum</b><span class="mu">Ep. 46 · 71 min</span></div><span class="lp-d mu">Oct 14</span></li><li class="pl"><button class="ibt" aria-label="Played: episode 45">@I(check)</button><div><b>A typeface for road signs at 120 km/h</b><span class="mu">Ep. 45 · 48 min · played</span></div><span class="lp-d mu">Sep 30</span></li><li><button class="ibt" aria-label="Play episode 44">@I(play)</button><div><b>Sourdough at industrial scale</b><span class="mu">Ep. 44 · 66 min</span></div><span class="lp-d mu">Sep 16</span></li></ul></section>
+<footer class="foot"><div class="w"><span>Listen on any app: search “Slow Signal”</span><span>RSS</span></div></footer>
+</div>
+<style>
+.lp{--ac:light-dark(#4338ca,#a5b4fc);--ac-h:light-dark(#3730a3,#c7d2fe);--ac-fg:light-dark(#fff,#1e1b4b)}
+.lp-mk{width:18px;height:18px;border-radius:50%;border:4px solid var(--ac)}
+.lp-hero{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;padding:72px 0;align-items:center}.lp-hero>div:first-child{display:grid;gap:20px}
+.lp-pl{display:grid;grid-template-columns:160px 1fr;gap:20px;padding:20px}.lp-cv{aspect-ratio:1;border-radius:12px;overflow:hidden;filter:grayscale(1)}.lp-in{display:grid;gap:10px;align-content:start}
+.lp-ctl{display:flex;gap:12px;align-items:center}.lp-pp{width:52px;height:52px;border-radius:50%;background:var(--ac);color:var(--ac-fg);display:grid;place-items:center;flex:none;transition:transform .15s}.lp-pp:active{transform:scale(.94)}.lp-tr{flex:1;min-width:0}.lp-tr input{width:100%;accent-color:var(--ac);height:24px}.lp-tm{display:flex;justify-content:space-between;font-size:12px}
+.lp-ch{grid-column:1/-1;margin:8px 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}.lp-ch li{padding:10px 4px;border-bottom:1px solid var(--line);font-size:14px;cursor:pointer;display:flex;justify-content:space-between;border-radius:6px}.lp-ch li:hover{background:var(--sf)}.lp-ch li::after{content:attr(data-l);color:var(--mu);font-variant-numeric:tabular-nums}.lp-ch li.on{color:var(--ac);font-weight:600}
+.lp-ar{list-style:none;padding:0;margin:32px 0 0}.lp-ar li{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}.lp-ar li div{display:grid;gap:2px}.lp-ar .ibt{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;color:var(--fg)}.lp-ar .pl b{color:var(--mu)}.lp-ar .pl .ibt{color:var(--ok)}
+@media (max-width:760px){.lp-hero{grid-template-columns:1fr;padding-top:40px}.lp-pl{grid-template-columns:88px 1fr}.lp-ctl{grid-column:1/-1}.lp-d{display:none}}
+</style>
+<script>
+const sk=document.getElementById('sk'),cur=document.getElementById('cur'),pp=document.getElementById('pp'),chs=[...document.querySelectorAll('#ch li')];let t=null;
+const fm=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');chs.forEach(c=>c.dataset.l=fm(+c.dataset.t));
+function up(){cur.textContent=fm(+sk.value);chs.forEach((c,i)=>c.classList.toggle('on',+sk.value>=+c.dataset.t&&(i==chs.length-1||+sk.value<+chs[i+1].dataset.t)))}
+sk.oninput=up;chs.forEach(c=>c.onclick=()=>{sk.value=c.dataset.t;up()});
+const PL='@I(play,22)',PA='@I(pause,22)';pp.onclick=()=>{if(t){clearInterval(t);t=null;pp.innerHTML=PL;pp.setAttribute('aria-label','Play')}else{t=setInterval(()=>{sk.value=+sk.value+1;up()},1000);pp.innerHTML=PA;pp.setAttribute('aria-label','Pause')}};up();
+</script>

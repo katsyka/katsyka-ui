@@ -1,0 +1,23 @@
+<!--Plan Comparison Table|Pricing|A full feature matrix with sticky plan headers, grouped rows that collapse, tooltips on feature names, check/limit cells, and a mobile mode that shows one plan at a time with tabs.|pricing,comparison,table,features,sticky-->
+<div class="k">
+<section class="pc"><div class="pc-tabs" role="tablist" aria-label="Plan" id="tb"></div><div class="pc-w"><table class="pc-t" id="t"></table></div></section>
+</div>
+<style>
+.pc{width:min(980px,100%)}.pc-w{border:1px solid var(--line);border-radius:16px;background:var(--bg);overflow:auto;max-height:620px}
+.pc-t{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}.pc-t th,.pc-t td{padding:12px 16px;border-bottom:1px solid var(--line);text-align:center}.pc-t th:first-child,.pc-t td:first-child{text-align:left}
+.pc-t thead th{position:sticky;top:0;background:var(--bg);z-index:2;vertical-align:bottom;padding:20px 16px}.pc-t thead b{display:block;font-size:16px}.pc-t thead span{display:block;font-weight:400;color:var(--mu);font-size:13px;margin:2px 0 10px}.pc-t thead .b{height:36px;width:100%}
+.pc-t .grp td{background:var(--sf);font-weight:650;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:0}.pc-t .grp button{width:100%;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;min-height:40px;font:inherit;text-transform:inherit;letter-spacing:inherit}.pc-t .grp .i{transition:transform .2s}.pc-t .grp.cl .i{transform:rotate(-90deg)}
+.pc-t .ft{display:inline-flex;gap:6px;align-items:center}.pc-t .tip{width:18px;height:18px;border-radius:50%;color:var(--mu);display:inline-grid;place-items:center;position:relative}.pc-t .tip .i{width:14px;height:14px}.pc-t .tip:hover::after,.pc-t .tip:focus-visible::after{content:attr(data-t);position:absolute;left:24px;top:50%;translate:0 -50%;width:220px;background:var(--fg);color:var(--bg);font-size:12px;padding:8px 10px;border-radius:8px;text-align:left;z-index:3;font-weight:400}
+.pc-t .y .i{color:var(--ok)}.pc-t .n{color:var(--mu)}.pc-t .hl{background:color-mix(in srgb,var(--ac) 5%,transparent)}
+.pc-tabs{display:none}
+@media (max-width:700px){.pc-tabs{display:flex;gap:4px;margin-bottom:12px;background:var(--sf2);padding:4px;border-radius:12px}.pc-tabs button{flex:1;height:40px;border-radius:9px;font-weight:550;color:var(--mu)}.pc-tabs [aria-selected=true]{background:var(--bg);color:var(--fg)}.pc-t [data-c]:not(.on){display:none}}
+</style>
+<script>
+const PL=[["Free","€0"],["Pro","€15 / mo"],["Business","€45 / mo"]],G=[["Core",[["Projects","How many active projects you can have at once.",["3","Unlimited","Unlimited"]],["Storage","Total file storage across the workspace.",["2 GB","100 GB","1 TB"]],["Version history","How far back you can restore any file.",["7 days","90 days","Unlimited"]]]],["Collaboration",[["Guests","Invite clients who can view and comment.",[0,1,1]],["Comments & mentions","",[1,1,1]],["Shared libraries","Publish components across projects.",[0,1,1]]]],["Security",[["SSO (SAML)","Sign in with Okta, Azure AD or Google Workspace.",[0,0,1]],["Audit log","Every permission change and export, kept 1 year.",[0,0,1]],["Data residency","Choose EU or US hosting.",[0,0,1]]]]];
+const t=document.getElementById('t'),tb=document.getElementById('tb');let c=1;
+const cell=(v,i)=>`<td data-c="${i}" class="${i===1?'hl ':''}${i===c?'on ':''}${v===1?'y':v===0?'n':''}">${v===1?'@I(check)<span class="vh">Included</span>':v===0?'–<span class="vh">Not included</span>':v}</td>`;
+function draw(){t.innerHTML=`<thead><tr><th><span class="vh">Feature</span></th>${PL.map(([n,p],i)=>`<th data-c="${i}" class="${i===1?'hl ':''}${i===c?'on':''}"><b>${n}</b><span>${p}</span><a class="b ${i===1?'ac':'sec'}" href="#">${i?'Choose '+n:'Get started'}</a></th>`).join('')}</tr></thead>`+G.map(([g,R],gi)=>`<tbody data-g="${gi}"><tr class="grp"><td colspan="4"><button aria-expanded="true">${g}@I(down,16)</button></td></tr>${R.map(([f,tip,v])=>`<tr><td><span class="ft">${f}${tip?`<button class="tip" data-t="${tip}" aria-label="${tip}">@I(info)</button>`:''}</span></td>${v.map(cell).join('')}</tr>`).join('')}</tbody>`).join('');
+tb.innerHTML=PL.map(([n],i)=>`<button role="tab" aria-selected="${i===c}" data-i="${i}">${n}</button>`).join('')}draw();
+t.onclick=e=>{const b=e.target.closest('.grp button');if(!b)return;const tr=b.closest('tr'),cl=tr.classList.toggle('cl');b.setAttribute('aria-expanded',!cl);let r=tr.nextElementSibling;while(r){r.hidden=cl;r=r.nextElementSibling}};
+tb.onclick=e=>{const b=e.target.closest('button');if(!b)return;c=+b.dataset.i;draw()};
+</script>

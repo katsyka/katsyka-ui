@@ -1,0 +1,17 @@
+<!--Spectrum Slider|Forms|A colour slider whose track is the full hue spectrum: the thumb takes the colour under it, a live swatch and hex readout follow, and arrow keys step by 1° (Shift for 10°). Built on a native range input.|slider,colour,hue,range,colourful,forms-->
+<div class="k hs"><div class="hs-w"><div class="hs-top"><label for="r">Accent hue</label><output id="o" for="r">#FF3D3D</output></div><input type="range" id="r" min="0" max="359" value="0" aria-valuetext="Red"><div class="hs-prev" id="p"><b>Preview button</b><span>Your accent at a glance</span></div></div></div>
+<style>
+.hs-w{width:min(420px,100%);display:grid;gap:14px}.hs-top{display:flex;justify-content:space-between;align-items:baseline}.hs-top label{font-weight:600}.hs-top output{font:600 14px 'Geist Mono',monospace;color:var(--mu)}
+#r{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;cursor:pointer;--c:#ff3d3d}
+#r::-webkit-slider-runnable-track{height:16px;border-radius:99px;background:linear-gradient(90deg,hsl(0 90% 60%),hsl(60 90% 55%),hsl(120 75% 45%),hsl(180 80% 45%),hsl(240 85% 62%),hsl(300 85% 60%),hsl(359 90% 60%))}
+#r::-moz-range-track{height:16px;border-radius:99px;background:linear-gradient(90deg,hsl(0 90% 60%),hsl(60 90% 55%),hsl(120 75% 45%),hsl(180 80% 45%),hsl(240 85% 62%),hsl(300 85% 60%),hsl(359 90% 60%))}
+#r::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;margin-top:-7px;border-radius:50%;background:var(--c);border:4px solid #fff;box-shadow:0 2px 6px rgb(0 0 0/.3);transition:scale .15s var(--ease)}#r:active::-webkit-slider-thumb{scale:1.15}
+#r::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--c);border:4px solid #fff;box-shadow:0 2px 6px rgb(0 0 0/.3)}
+.hs-prev{border-radius:18px;padding:18px;display:grid;gap:4px;background:var(--c2);color:var(--c3);transition:background .15s}.hs-prev b{justify-self:start;background:var(--c);color:var(--c4);padding:10px 16px;border-radius:12px;font-size:15px}.hs-prev span{font-size:14px;margin-top:6px}
+</style>
+<script>
+const r=document.getElementById('r'),o=document.getElementById('o'),p=document.getElementById('p'),N=['Red','Orange','Yellow','Lime','Green','Teal','Cyan','Sky','Blue','Violet','Purple','Pink','Red'];
+const hx=(h,s,l)=>{s/=100;l/=100;const a=s*Math.min(l,1-l),f=n=>{const k=(n+h/30)%12;return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1)))).toString(16).padStart(2,'0')};return('#'+f(0)+f(8)+f(4)).toUpperCase()};
+function up(){const h=+r.value,c=hx(h,88,h>40&&h<190?45:60);r.style.setProperty('--c',c);p.style.setProperty('--c',c);p.style.setProperty('--c2',hx(h,80,94));p.style.setProperty('--c3',hx(h,60,18));p.style.setProperty('--c4',h>40&&h<200?'#111':'#fff');o.textContent=c;r.setAttribute('aria-valuetext',N[Math.round(h/30)]+', '+c)}
+r.oninput=up;r.onkeydown=e=>{if(e.shiftKey&&/Arrow/.test(e.key)){e.preventDefault();r.value=(+r.value+(/Right|Up/.test(e.key)?10:-10)+360)%360;up()}};up();
+</script>

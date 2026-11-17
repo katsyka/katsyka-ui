@@ -1,0 +1,63 @@
+<style>
+.ni{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ni :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ni ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ni *,.ni *::before,.ni *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ni{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.ni-pn{width:min(480px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.ni-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 22px}
+.ni-row+.ni-row{border-top:1px solid var(--line)}
+.ni-row b{display:block;font-size:14.5px;font-weight:550}
+.ni-row small{display:block;font-size:13px;color:var(--mu)}
+.ni-st{flex:none;display:flex;align-items:center;height:40px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);box-shadow:0 1px 2px #0000000a;transition:border-color .15s,box-shadow .15s}
+.ni-st:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.ni-st button{display:grid;place-items:center;width:38px;height:100%;border:0;background:none;color:var(--fg);cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.ni-st button:first-child{border-radius:9px 0 0 9px}.ni-st button:last-child{border-radius:0 9px 9px 0}
+.ni-st button:hover:not(:disabled){background:var(--sf2)}
+.ni-st button:disabled{color:var(--mu);opacity:.4;cursor:not-allowed}
+.ni-st button:focus-visible{outline-offset:-2px}
+.ni-st svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.25;stroke-linecap:round}
+.ni-st input{width:56px;height:100%;border:0;border-left:1px solid var(--line);border-right:1px solid var(--line);background:none;color:var(--fg);text-align:center;font:500 16px "Geist Mono",monospace;outline:0;font-variant-numeric:tabular-nums}
+@media (min-width:640px){.ni-st input{font-size:14px}}
+.ni-st.wide input{width:96px}
+.ni-st.pill{border-radius:99px;height:36px}.ni-st.pill button{width:36px;border-radius:99px}.ni-st.pill input{border:0;width:40px}
+.ni-st.err{border-color:var(--err)}
+.ni-sum{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;background:var(--sf);border-top:1px solid var(--line);font-size:14px}
+.ni-sum b{font:600 18px Geist,system-ui,sans-serif;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ni-msg{padding:0 22px 14px;margin-top:-6px;font-size:12.5px;color:var(--err);display:none}
+.ni-msg.on{display:block}
+.ni-st input:focus-visible{outline:0}
+</style>
+<div class="ni">
+  <div class="ni-pn">
+    <div class="ni-row"><div><b id="niL1">Seats</b><small>$12 per seat / month · max 50</small></div>
+      <div class="ni-st" data-min="1" data-max="50" data-step="1" data-price="12"><button type="button" aria-label="Remove seat"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><input value="5" inputmode="numeric" role="spinbutton" aria-labelledby="niL1"><button type="button" aria-label="Add seat"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+    <div class="ni-row"><div><b id="niL2">Storage</b><small>Steps of 50 GB · $0.02 per GB</small></div>
+      <div class="ni-st wide" data-min="50" data-max="2000" data-step="50" data-price=".02" data-unit=" GB"><button type="button" aria-label="Decrease storage"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><input value="250 GB" inputmode="numeric" role="spinbutton" aria-labelledby="niL2"><button type="button" aria-label="Increase storage"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+    <div class="ni-row"><div><b id="niL3">Add-on: priority support</b><small>Quantity, pill style</small></div>
+      <div class="ni-st pill" data-min="0" data-max="3" data-step="1" data-price="29"><button type="button" aria-label="Decrease"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button><input value="0" inputmode="numeric" role="spinbutton" aria-labelledby="niL3"><button type="button" aria-label="Increase"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></div></div>
+    <div class="ni-msg" role="alert"></div>
+    <div class="ni-sum"><span>Monthly total</span><b id="niT" aria-live="polite"></b></div>
+  </div>
+</div>
+<script>
+const steppers=[...document.querySelectorAll(".ni-st")],tot=document.getElementById("niT"),msg=document.querySelector(".ni-msg");
+const total=()=>{const s=steppers.reduce((a,s)=>a+s._v*+s.dataset.price,0);tot.textContent="$"+s.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})};
+steppers.forEach(s=>{
+  const [dn,up]=s.querySelectorAll("button"),inp=s.querySelector("input"),min=+s.dataset.min,max=+s.dataset.max,st=+s.dataset.step,u=s.dataset.unit||"";
+  s._v=parseInt(inp.value,10);
+  const set=(n,warn)=>{const c=Math.max(min,Math.min(max,Math.round(n/st)*st));
+    if(warn&&c!==n){msg.textContent=`Allowed range is ${min}–${max}${u}.`;msg.classList.add("on");s.classList.add("err");setTimeout(()=>{msg.classList.remove("on");s.classList.remove("err")},2000)}
+    s._v=c;inp.value=c+u;inp.setAttribute("aria-valuenow",c);inp.setAttribute("aria-valuemin",min);inp.setAttribute("aria-valuemax",max);dn.disabled=c<=min;up.disabled=c>=max;total()};
+  let rt,iv;const stop=()=>{clearTimeout(rt);clearInterval(iv)};
+  [[dn,-1],[up,1]].forEach(([b,d])=>{
+    b.addEventListener("pointerdown",e=>{if(b.disabled)return;e.preventDefault();set(s._v+d*st);rt=setTimeout(()=>iv=setInterval(()=>{set(s._v+d*st);if(b.disabled)stop()},70),420)});
+    ["pointerup","pointerleave","pointercancel"].forEach(ev=>b.addEventListener(ev,stop));
+    b.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();set(s._v+d*st)}});
+  });
+  inp.addEventListener("keydown",e=>{const d={ArrowUp:st,ArrowDown:-st,PageUp:st*10,PageDown:-st*10}[e.key];if(d){e.preventDefault();set(s._v+d)}else if(e.key==="Home"){e.preventDefault();set(min)}else if(e.key==="End"){e.preventDefault();set(max)}else if(e.key==="Enter")inp.blur()});
+  inp.addEventListener("focus",()=>{inp.value=s._v;inp.select()});
+  inp.addEventListener("blur",()=>{const n=parseInt(inp.value.replace(/[^\d-]/g,""),10);set(isNaN(n)?s._v:n,true)});
+  set(s._v);
+});
+</script>

@@ -1,0 +1,83 @@
+<style>
+.po{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.po :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.po ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.po *,.po *::before,.po *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.po{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.po-wrap{width:min(860px,100%);display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--bg);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.po-img{position:relative;display:grid;place-items:center;min-height:440px;background:color-mix(in oklab,var(--c) 22%,var(--sf));transition:background-color .4s}
+.po-img svg{width:62%;filter:drop-shadow(0 24px 30px #00000030);transition:transform .4s var(--ease)}
+.po-img .body{fill:var(--c);transition:fill .4s}
+.po-img .tag{position:absolute;top:18px;left:18px;padding:4px 10px;border-radius:99px;background:var(--bg);font-size:12px;font-weight:600}
+.po-info{padding:30px 30px 28px;display:flex;flex-direction:column;gap:20px}
+.po-info h2{margin:0;font-size:24px;letter-spacing:-.03em;font-weight:650}
+.po-pr{display:flex;align-items:baseline;gap:10px;margin-top:4px}
+.po-pr b{font-size:20px;font-weight:600}
+.po-pr s{color:var(--mu);font-size:14px}
+.po-g legend{padding:0;margin-bottom:10px;font-size:13.5px;font-weight:550;display:flex;width:100%}
+.po-g legend span{font-weight:400;color:var(--mu);margin-left:6px}
+.po-g legend a{margin-left:auto;font-weight:450;font-size:13px;color:var(--mu);text-underline-offset:3px}
+.po fieldset{border:0;margin:0;padding:0;min-width:0}
+.po-sw{display:flex;gap:10px;flex-wrap:wrap}
+.po-sw label{position:relative;cursor:pointer}
+.po-sw input,.po-sz input{position:absolute;opacity:0;width:1px;height:1px}
+.po-sw i{display:block;width:34px;height:34px;border-radius:50%;background:var(--sw);box-shadow:inset 0 0 0 1px #0000001f;transition:box-shadow .15s}
+.po-sw input:checked+i{box-shadow:inset 0 0 0 1px #0000001f,0 0 0 2px var(--bg),0 0 0 4px var(--fg)}
+.po-sw input:focus-visible+i{outline:2px solid var(--focus);outline-offset:6px}
+.po-sz{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.po-sz label{cursor:pointer}
+.po-sz span{display:grid;place-items:center;height:42px;border-radius:10px;border:1px solid var(--line);font-size:14px;font-weight:550;transition:border-color .15s,background-color .15s,color .15s}
+.po-sz label:hover span{border-color:var(--ctl)}
+.po-sz input:checked+span{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.po-sz input:focus-visible+span{outline:2px solid var(--focus);outline-offset:2px}
+.po-sz input:disabled+span{color:var(--mu);cursor:not-allowed;background:repeating-linear-gradient(135deg,transparent 0 6px,var(--sf2) 6px 7px);border-style:dashed}
+.po-sz label:has(input:disabled){cursor:not-allowed}
+.po-stock{font-size:13px;color:var(--mu);display:flex;align-items:center;gap:7px;margin-top:-8px}
+.po-stock i{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.po-stock.low i{background:var(--warn)}
+.po-add{display:flex;gap:10px;margin-top:auto}
+.po-add button{height:48px;border-radius:12px;font:600 15px Geist,system-ui,sans-serif;cursor:pointer}
+.po-add .buy{flex:1;border:0;background:var(--fg);color:var(--bg);display:flex;align-items:center;justify-content:center;gap:10px}
+.po-add .buy:hover{background:color-mix(in oklab,var(--fg) 85%,var(--bg))}
+.po-add .fav{width:48px;border:1px solid var(--line);background:var(--bg);color:var(--fg);display:grid;place-items:center}
+.po-add .fav:hover{background:var(--sf)}
+.po-add svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.po-add .fav[aria-pressed=true]{color:var(--err)}.po-add .fav[aria-pressed=true] svg{fill:currentColor}
+@media (max-width:720px){.po-wrap{grid-template-columns:1fr}.po-img{min-height:280px}.po-info{padding:22px}}
+</style>
+<div class="po">
+  <div class="po-wrap" style="--c:#c2410c">
+    <div class="po-img"><span class="tag">New colour</span>
+      <svg viewBox="0 0 200 200" aria-hidden="true"><path class="body" d="M70 40h60l10 20v110a10 10 0 0 1-10 10H70a10 10 0 0 1-10-10V60z"/><rect x="78" y="22" width="44" height="22" rx="5" fill="#27272a"/><rect x="72" y="80" width="56" height="60" rx="6" fill="#ffffff2e"/><path d="M84 104h32M84 116h22" stroke="#fff" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/></svg></div>
+    <div class="po-info">
+      <div><h2>Field Bottle 750</h2><div class="po-pr"><b>$34.00</b><s>$42.00</s></div></div>
+      <fieldset class="po-g"><legend>Colour<span id="poCn">Ember</span></legend>
+        <div class="po-sw">
+          <label title="Ember"><input type="radio" name="poC" value="Ember" data-c="#c2410c" checked><i style="--sw:#c2410c"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Ember</span></label>
+          <label title="Moss"><input type="radio" name="poC" value="Moss" data-c="#4d7c0f"><i style="--sw:#4d7c0f"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Moss</span></label>
+          <label title="Tide"><input type="radio" name="poC" value="Tide" data-c="#0e7490"><i style="--sw:#0e7490"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Tide</span></label>
+          <label title="Dusk"><input type="radio" name="poC" value="Dusk" data-c="#6d28d9"><i style="--sw:#6d28d9"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Dusk</span></label>
+          <label title="Chalk"><input type="radio" name="poC" value="Chalk" data-c="#e7e5e4"><i style="--sw:#e7e5e4"></i><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Chalk</span></label>
+        </div></fieldset>
+      <fieldset class="po-g"><legend>Size<a href="#">Size guide</a></legend>
+        <div class="po-sz">
+          <label><input type="radio" name="poS" value="350" disabled><span>350</span></label>
+          <label><input type="radio" name="poS" value="500"><span>500</span></label>
+          <label><input type="radio" name="poS" value="750" checked><span>750</span></label>
+          <label><input type="radio" name="poS" value="1000"><span>1 L</span></label>
+          <label><input type="radio" name="poS" value="1500" disabled><span>1.5 L</span></label>
+        </div></fieldset>
+      <div class="po-stock" aria-live="polite"><i></i><span>In stock · ships tomorrow</span></div>
+      <div class="po-add"><button class="buy">Add to bag<svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg></button><button class="fav" aria-pressed="false" aria-label="Save to wishlist"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></button></div>
+    </div>
+  </div>
+</div>
+<script>
+const wrap=document.querySelector(".po-wrap"),cn=document.getElementById("poCn"),st=document.querySelector(".po-stock"),stx=st.querySelector("span");
+const low={Dusk:3,Chalk:2};
+const upd=()=>{const c=document.querySelector("[name=poC]:checked");wrap.style.setProperty("--c",c.dataset.c);cn.textContent=c.value;const n=low[c.value];st.classList.toggle("low",!!n);stx.textContent=n?`Only ${n} left in this colour`:"In stock · ships tomorrow"};
+document.querySelectorAll("[name=poC]").forEach(r=>r.addEventListener("change",upd));
+const buy=document.querySelector(".buy");buy.addEventListener("click",()=>{const s=document.querySelector("[name=poS]:checked").parentElement.textContent;buy.firstChild.textContent=`Added · ${cn.textContent}, ${s} `;setTimeout(()=>buy.firstChild.textContent="Add to bag",1800)});
+const fav=document.querySelector(".fav");fav.addEventListener("click",()=>fav.setAttribute("aria-pressed",fav.getAttribute("aria-pressed")!=="true"));
+document.querySelector('.po a[href="#"]').addEventListener("click",e=>e.preventDefault());
+</script>

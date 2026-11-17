@@ -1,0 +1,57 @@
+<style>
+.ol{position:relative;height:440vh;background:#000;color:#fff}
+.ol-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.ol canvas{position:absolute;inset:0;width:100%;height:100%}
+.ol-nav{position:absolute;left:clamp(20px,4vw,56px);right:clamp(20px,4vw,56px);top:22px;display:flex;align-items:center;gap:26px;font-size:14px}
+.ol-nav b{display:flex;align-items:center;gap:10px;font-weight:650;font-size:16px;letter-spacing:-.02em;margin-right:auto}
+.ol-nav b::before{content:"";width:14px;height:14px;border-radius:50%;border:1.5px solid;border-right-color:transparent;rotate:45deg}
+.ol-nav a{color:#ffffffd0;text-decoration:none}.ol-nav a:hover{color:#fff}
+.ol-clk{position:absolute;right:clamp(20px,4vw,56px);top:78px;text-align:right;font:500 12px/1.8 "Geist Mono",monospace;letter-spacing:.1em;color:#ffffffd0;font-variant-numeric:tabular-nums}
+.ol-clk strong{display:block;color:#fff;font:500 clamp(22px,2.4vw,30px)/1.1 "Geist Mono",monospace;letter-spacing:-.04em}
+.ol-t{position:absolute;left:clamp(20px,4vw,56px);top:clamp(96px,15vh,140px);max-width:640px}
+.ol-t small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:#ffffffc8}
+.ol-t h2{margin:16px 0 0;font-size:clamp(46px,6.6vw,104px);line-height:.9;letter-spacing:-.06em;font-weight:600}
+.ol em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.025em}
+.ol-cta{margin-top:28px}
+.ol-cta{display:flex;flex-wrap:wrap;gap:10px}
+.ol-cta a{display:inline-flex;align-items:center;height:46px;padding:0 22px;border-radius:99px;font-size:15px;font-weight:550;text-decoration:none;color:#000;background:#fff;transition:transform .2s}
+.ol-cta a+a{background:none;color:#fff;box-shadow:inset 0 0 0 1px #ffffffa0}
+.ol-cta a:hover{transform:translateY(-2px)}
+.ol .bt{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .9s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.ol .bt.on{opacity:1;transform:none;pointer-events:auto}
+.ol-after{height:40vh;display:grid;place-items:center;background:#000;color:#6b6b6b;font-size:15px}
+@media (max-width:700px){.ol-nav a{display:none}.ol-clk{top:64px}.ol-t{top:150px}}
+@media (prefers-reduced-motion:reduce){.ol .bt{transform:none;transition:opacity .3s}}
+</style>
+<section class="ol" aria-label="Meridian 4 launch">
+  <div class="ol-pin">
+    <canvas role="img" aria-label="Low orbit over the night side of Earth until the sun breaks over the horizon"></canvas>
+    <nav class="ol-nav"><b>Meridian</b><a href="#">Imagery</a><a href="#">API</a><a href="#">Pricing</a><a href="#">Sign in</a></nav>
+    <div class="ol-clk" aria-hidden="true"><span>SUNRISE IN 05:40</span><strong>05:06:00 UTC</strong></div>
+    <div class="ol-t bt on"><small>NIGHT SIDE · 412 KM</small><h2>Every night,<br><em>the planet goes dark.</em></h2></div>
+    <div class="ol-t bt"><small>LAUNCHING TODAY</small><h2>Meridian 4<br><em>sees it first.</em></h2><div class="ol-cta"><a href="#">Request access</a><a href="#">Launch notes</a></div></div>
+  </div>
+</section>
+<div class="ol-after">The page continues.</div>
+<script>
+(()=>{
+// 120 frames scrubbed by scroll. The sun crests at frame 68; the mission clock counts down to it.
+const N=120,DIR="media/orbit/",RISE=68,T0=5*3600+6*60,SPAN=9*60;
+const root=document.querySelector(".ol"),c=root.querySelector("canvas"),x=c.getContext("2d"),$=s=>root.querySelector(s);
+const [night,day]=root.querySelectorAll(".ol-t"),cd=$(".ol-clk span"),clk=$(".ol-clk strong");
+const imgs=[],load=i=>{if(imgs[i])return;const im=imgs[i]=new Image();im.onload=()=>{if(Math.abs(i-cur)<9)draw(true)};im.src=DIR+String(i+1).padStart(3,"0")+".jpg"};
+load(0);new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){o.disconnect();[8,4,2,1].forEach(s=>{for(let i=0;i<N;i+=s)load(i)})}},{rootMargin:"100%"}).observe(root);
+let cur=0,tgt=0,shown=-1,raf=0;
+const pick=f=>{for(let d=0;d<N;d++)for(const j of[f-d,f+d]){const im=imgs[j];if(im&&im.complete&&im.naturalWidth)return im}};
+function draw(force){const f=Math.round(cur);if(f===shown&&!force)return;const im=pick(f);if(!im)return;shown=f;
+  const s=Math.max(c.width/im.naturalWidth,c.height/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;x.drawImage(im,(c.width-w)/2,(c.height-h)/2,w,h)}
+new ResizeObserver(()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;draw(true)}).observe(c);
+const pad=n=>String(n).padStart(2,"0"),hms=s=>`${pad(Math.floor(s/3600))}:${pad(Math.floor(s/60)%60)}:${pad(s%60)}`,ms=s=>`${pad(Math.floor(s/60))}:${pad(s%60)}`;
+function update(){draw();const p=cur/(N-1),sec=Math.round(T0+p*SPAN),rise=Math.round(T0+RISE/(N-1)*SPAN);
+  clk.textContent=hms(sec)+" UTC";cd.textContent=sec<rise?"SUNRISE IN "+ms(rise-sec):"SUNRISE +"+ms(sec-rise);
+  night.classList.toggle("on",p<.4);day.classList.toggle("on",p>.62)}
+const tick=()=>{cur+=(tgt-cur)*.2;if(Math.abs(tgt-cur)<.05)cur=tgt;update();raf=cur===tgt?0:requestAnimationFrame(tick)};
+const onScroll=()=>{const r=root.getBoundingClientRect();tgt=Math.max(0,Math.min(1,-r.top/(root.offsetHeight-innerHeight)))*(N-1);if(!raf)raf=requestAnimationFrame(tick)};
+addEventListener("scroll",onScroll,{passive:true});onScroll();
+})();
+</script>

@@ -1,0 +1,19 @@
+<!--Callouts|Feedback|Inline callouts for docs and settings: Note, Tip, Warning and Danger, each with its own icon and title so meaning never depends on colour, optional action link and a dismiss button.|callout,admonition,alert,docs,note-->
+<div class="k"><div class="co-w">
+  <aside class="co" style="--c:var(--info);--s:var(--info-sf)" role="note">@I(info,20)<div><b>Note</b><p>Exports include only the photos you've starred. Unstarred ones stay in your library.</p></div><button class="ibt" aria-label="Dismiss">@I(x,16)</button></aside>
+  <aside class="co" style="--c:var(--ok);--s:var(--ok-sf)" role="note">@I(zap,20)<div><b>Tip</b><p>Press <kbd>S</kbd> while viewing a photo to star it without opening the menu.</p></div><button class="ibt" aria-label="Dismiss">@I(x,16)</button></aside>
+  <aside class="co" style="--c:var(--warn);--s:var(--warn-sf)" role="note">@I(clock,20)<div><b>Your trial ends in 3 days</b><p>Pick a plan to keep offline maps and live sharing. <a href="#">Compare plans</a></p></div><button class="ibt" aria-label="Dismiss">@I(x,16)</button></aside>
+  <aside class="co" style="--c:var(--err);--s:var(--err-sf)" role="alert">@I(shield,20)<div><b>Deleting a workspace can't be undone</b><p>All 214 projects and their files will be removed for every member.</p></div></aside>
+</div></div>
+<style>
+.co-w{width:min(560px,100%);display:grid;gap:12px}
+.co{display:flex;gap:12px;align-items:flex-start;padding:14px 12px 14px 16px;border-radius:12px;background:var(--s);border:1px solid color-mix(in srgb,var(--c) 30%,transparent);transition:opacity .2s,transform .2s}
+.co>.i{color:var(--c);margin-top:1px}.co div{flex:1}.co b{display:block;font-weight:650;color:var(--fg)}.co p{margin:2px 0 0;line-height:21px;color:color-mix(in srgb,var(--fg) 82%,var(--c))}
+.co a{color:var(--c);font-weight:600;text-underline-offset:2px}.co .ibt{margin:-6px -4px 0 0;color:color-mix(in srgb,var(--fg) 60%,var(--c))}.co .ibt:hover{background:color-mix(in srgb,var(--c) 14%,transparent)}
+.co kbd{font:600 12px "Geist Mono",monospace;padding:1px 6px;border-radius:5px;background:var(--bg);border:1px solid var(--line);border-bottom-width:2px}
+.co.out{opacity:0;transform:translateY(-4px)}
+</style>
+<script>
+document.querySelectorAll(".co .ibt").forEach(b=>b.onclick=()=>{const c=b.closest(".co");c.classList.add("out");setTimeout(()=>c.remove(),200)});
+document.querySelectorAll('a[href="#"]').forEach(a=>a.onclick=e=>e.preventDefault());
+</script>

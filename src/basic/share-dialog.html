@@ -1,0 +1,32 @@
+<!--Share Dialog|Overlays|A share modal: invite by email with a permission, people with access and their roles, general access (restricted vs anyone with the link), and Copy link with feedback. Focus is trapped and returns to the trigger.|share,dialog,modal,permissions,link-->
+<div class="k"><button class="b" id="op">@I(share,16)Share</button>
+<dialog class="card sd" id="dl" aria-labelledby="sdh"><header><h2 id="sdh">Share “Valley prints”</h2><button class="ibt" id="x" aria-label="Close">@I(x,16)</button></header>
+  <form class="sd-inv" id="f"><input class="in" id="em" type="email" placeholder="Add people by email" aria-label="Email"><select class="in sd-s" aria-label="Permission"><option>Can edit</option><option selected>Can view</option></select><button class="b ac">Invite</button></form>
+  <h3>People with access</h3><ul class="sd-l" id="l"></ul>
+  <h3>General access</h3><div class="sd-g"><span class="sd-gi" id="gi">@I(lock,18)</span><span class="tx"><select class="sd-ga" id="ga" aria-label="General access"><option value="r">Restricted</option><option value="a">Anyone with the link</option></select><small class="mu" id="gd">Only people added can open</small></span></div>
+  <footer><button class="b sec" id="cp">@I(copy,16)<span>Copy link</span></button><button class="b" id="dn">Done</button></footer></dialog></div>
+<style>
+.sd{width:min(480px,calc(100% - 32px));padding:20px;color:var(--fg)}
+.sd::backdrop{background:#0006;backdrop-filter:blur(2px)}
+.sd[open]{animation:sdi .2s var(--ease)}@keyframes sdi{from{opacity:0;transform:translateY(8px) scale(.98)}}
+.sd header{display:flex;justify-content:space-between;align-items:center}.sd h2{margin:0;font-size:17px;font-weight:650}
+.sd-inv{display:flex;gap:8px;margin-top:16px}.sd-inv input{flex:1;min-width:0}.sd-s{width:auto;appearance:auto}
+.sd h3{margin:20px 0 8px;font-size:13px;font-weight:600;color:var(--mu)}
+.sd-l{list-style:none;margin:0;padding:0;max-height:200px;overflow:auto}.sd-l li{display:flex;align-items:center;gap:10px;padding:6px 0}.sd-l .av{width:32px;height:32px;font-size:12px}
+.sd-l .tx{flex:1;min-width:0}.sd-l b{display:block;font-weight:550}.sd-l small{color:var(--mu);font-size:12px}
+.sd-l select,.sd-ga{border:0;background:none;font-size:13px;font-weight:550;color:var(--fg);padding:4px;border-radius:6px;cursor:pointer}.sd-l select:hover,.sd-ga:hover{background:var(--sf)}
+.sd-g{display:flex;align-items:center;gap:10px}.sd-gi{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--sf2)}.sd-gi.on{background:var(--ok-sf);color:var(--ok)}
+.sd-g .tx{display:flex;flex-direction:column;align-items:flex-start}.sd-ga{margin-left:-4px;font-size:14px}.sd-g small{font-size:12px}
+.sd footer{display:flex;justify-content:space-between;margin-top:20px}
+</style>
+<script>
+const P=[["Mara Lind (you)","mara@fieldprints.no","Owner","#b45309"],["Ines Duarte","ines@duarte.no","Can edit","#15803d"],["Theo Wright","theo@wright.io","Can view","#0369a1"]];
+const li=([n,e,r,c])=>`<li><span class="av" style="--c:${c}">${n[0]}</span><span class="tx"><b>${n}</b><small>${e}</small></span>${r==="Owner"?'<span class="mu" style="font-size:13px">Owner</span>':`<select aria-label="Access for ${n}"><option${r==="Can edit"?" selected":""}>Can edit</option><option${r==="Can view"?" selected":""}>Can view</option><option>Remove access</option></select>`}</li>`;
+const draw=()=>{l.innerHTML=P.map(li).join("");l.querySelectorAll("select").forEach((s,i)=>s.onchange=()=>{if(s.value==="Remove access"){P.splice(i+1,1);draw()}else P[i+1][2]=s.value})};draw();
+op.onclick=()=>{dl.showModal();em.focus()};const close=()=>{dl.close()};x.onclick=dn.onclick=close;dl.addEventListener("close",()=>op.focus());
+dl.addEventListener("click",e=>{if(e.target===dl)close()});
+f.onsubmit=e=>{e.preventDefault();const v=em.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){em.setAttribute("aria-invalid","true");return}em.removeAttribute("aria-invalid");P.push([v.split("@")[0],v,f.querySelector("select").value,"#7c3aed"]);em.value="";draw()};
+const LK='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',GL='<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>';
+ga.onchange=()=>{const a=ga.value==="a";gi.innerHTML=a?GL:LK;gi.classList.toggle("on",a);gd.textContent=a?"Anyone on the internet with the link can view":"Only people added can open"};
+cp.onclick=()=>{const t="https://fieldprints.no/s/valley-8h2k",s=cp.querySelector("span"),ok=()=>{s.textContent="Link copied";setTimeout(()=>s.textContent="Copy link",1400)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(ok).catch(()=>{const a=document.createElement("textarea");a.value=t;dl.append(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();ok()})};
+</script>

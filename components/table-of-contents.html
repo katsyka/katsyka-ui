@@ -1,0 +1,73 @@
+<style>
+.toc{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.toc :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.toc ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.toc *,.toc *::before,.toc *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.toc{background:var(--bg)}
+.toc-wrap{max-width:1040px;margin:0 auto;padding:56px 24px 40vh;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:64px}
+.toc article{max-width:62ch}
+.toc article .eb{font:500 12px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--ac)}
+.toc article h1{margin:8px 0 14px;font-size:clamp(30px,4vw,42px);line-height:1.08;letter-spacing:-.04em;font-weight:650}
+.toc article h2{margin:48px 0 10px;font-size:22px;letter-spacing:-.025em;font-weight:620;scroll-margin-top:24px}
+.toc article h3{margin:28px 0 8px;font-size:17px;letter-spacing:-.015em;font-weight:600;scroll-margin-top:24px}
+.toc article p{margin:0 0 14px;font-size:16px;line-height:1.7;color:color-mix(in oklab,var(--fg) 82%,var(--bg))}
+.toc article .lead{font-size:18px;color:var(--mu)}
+.toc aside{position:relative}
+.toc nav{position:sticky;top:40px}
+.toc nav b{display:block;margin-bottom:12px;font-size:13px;font-weight:600}
+.toc nav ul{list-style:none;margin:0;padding:0;position:relative;border-left:1px solid var(--line)}
+.toc nav li a{display:block;padding:5px 0 5px 14px;font-size:13.5px;line-height:1.4;color:var(--mu);text-decoration:none;transition:color .15s}
+.toc nav li.sub a{padding-left:28px;font-size:13px}
+.toc nav li a:hover{color:var(--fg)}
+.toc nav li a[aria-current=true]{color:var(--fg);font-weight:550}
+.toc-ind{position:absolute;top:0;left:-1px;width:2px;border-radius:1px;background:var(--ac);transition:transform .3s var(--ease),height .3s var(--ease)}
+.toc-prog{display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--mu)}
+.toc-prog svg{width:20px;height:20px;transform:rotate(-90deg)}
+.toc-prog circle{fill:none;stroke-width:3}
+.toc-prog .bg{stroke:var(--sf2)}.toc-prog .fg{stroke:var(--ac);stroke-dasharray:50.27;stroke-linecap:round}
+.toc-top{display:block;margin-top:10px;border:0;background:none;padding:0;color:var(--mu);font:500 12.5px Geist,system-ui,sans-serif;cursor:pointer}
+.toc-top:hover{color:var(--fg)}
+@media (max-width:820px){.toc-wrap{grid-template-columns:1fr;gap:0}.toc aside{order:-1;margin-bottom:24px}.toc nav{position:static;padding:16px;border:1px solid var(--line);border-radius:12px}.toc-ind,.toc-prog{display:none}}
+</style>
+<div class="toc">
+  <div class="toc-wrap">
+    <article>
+      <div class="eb">Guide · 6 min read</div>
+      <h1>Designing forms people finish</h1>
+      <p class="lead">Most form abandonment comes from a handful of avoidable mistakes. Here is how to remove them one by one.</p>
+      <h2 id="toc-1">Ask for less</h2>
+      <p>Every field is a question the user has to answer. Before adding one, decide what you will actually do with the answer, and whether you could get it later.</p>
+      <p>Optional fields deserve particular suspicion: they look free, but they still cost attention.</p>
+      <h3 id="toc-1a">Defer what you can</h3>
+      <p>Billing address, company size and job title can almost always wait until after the first success moment.</p>
+      <h2 id="toc-2">Label everything</h2>
+      <p>Placeholders disappear the moment someone types. A visible label above the field is the cheapest accessibility win available.</p>
+      <p>Keep labels short and put help text below the field, linked with aria-describedby.</p>
+      <h2 id="toc-3">Validate kindly</h2>
+      <p>Validate on blur, not on every keystroke, and never before someone has had a chance to finish. Once a field is wrong, re-check it live so the error clears the instant it is fixed.</p>
+      <h3 id="toc-3a">Write useful errors</h3>
+      <p>“Invalid input” tells nobody anything. Say what is wrong and how to fix it, in the same place the eye already is.</p>
+      <h2 id="toc-4">Make the button honest</h2>
+      <p>“Submit” describes the mechanism. “Create account” or “Send message” describes the outcome. Disable it only while a request is in flight, and say so.</p>
+      <p>When it succeeds, show what happened and what comes next.</p>
+    </article>
+    <aside>
+      <nav aria-label="On this page"><b>On this page</b>
+        <ul><li><a href="#toc-1">Ask for less</a></li><li class="sub"><a href="#toc-1a">Defer what you can</a></li><li><a href="#toc-2">Label everything</a></li><li><a href="#toc-3">Validate kindly</a></li><li class="sub"><a href="#toc-3a">Write useful errors</a></li><li><a href="#toc-4">Make the button honest</a></li><i class="toc-ind" aria-hidden="true"></i></ul>
+        <div class="toc-prog"><svg viewBox="0 0 20 20" aria-hidden="true"><circle class="bg" cx="10" cy="10" r="8"/><circle class="fg" cx="10" cy="10" r="8"/></svg><span id="tocP">0% read</span></div>
+        <button class="toc-top" type="button">↑ Back to top</button>
+      </nav>
+    </aside>
+  </div>
+</div>
+<script>
+const links=[...document.querySelectorAll(".toc nav li a")],heads=links.map(a=>document.getElementById(a.hash.slice(1))),ind=document.querySelector(".toc-ind"),ring=document.querySelector(".toc-prog .fg"),P=document.getElementById("tocP");
+let lock=0;
+const setAct=i=>{links.forEach((a,j)=>a.setAttribute("aria-current",j===i));const li=links[i].parentElement;ind.style.height=li.offsetHeight+"px";ind.style.transform=`translateY(${li.offsetTop}px)`};
+const onScroll=()=>{const y=innerHeight*.3;let i=0;heads.forEach((h,j)=>{if(h.getBoundingClientRect().top<y)i=j});if(Date.now()>lock)setAct(i);
+  const art=document.querySelector(".toc article"),r=art.getBoundingClientRect(),p=Math.max(0,Math.min(1,(innerHeight*.5-r.top)/r.height));ring.style.strokeDashoffset=50.27*(1-p);P.textContent=Math.round(p*100)+"% read"};
+addEventListener("scroll",onScroll,{passive:true});
+links.forEach((a,i)=>a.addEventListener("click",e=>{e.preventDefault();lock=Date.now()+700;setAct(i);const sm=!matchMedia("(prefers-reduced-motion:reduce)").matches;heads[i].scrollIntoView({behavior:sm?"smooth":"auto"});heads[i].setAttribute("tabindex","-1");heads[i].focus({preventScroll:true})}));
+document.querySelector(".toc-top").addEventListener("click",()=>scrollTo({top:0,behavior:"smooth"}));
+onScroll();
+</script>

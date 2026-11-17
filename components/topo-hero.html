@@ -1,0 +1,57 @@
+<style>
+.topo{position:relative;min-height:100vh;overflow:hidden;background:#0d0f0d;color:#ece6d6;font-family:Geist,system-ui,sans-serif}
+.topo canvas{position:absolute;inset:0;width:100%;height:100%}
+.topo-top{position:absolute;left:clamp(16px,5vw,64px);right:clamp(16px,5vw,64px);top:28px;display:flex;justify-content:space-between;gap:16px;font:12px/1 "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#8f8a7c}
+.topo-copy{position:absolute;left:clamp(16px,5vw,64px);bottom:clamp(28px,9vh,80px);max-width:560px;pointer-events:none}
+.topo-copy h1{margin:0 0 16px;font:400 clamp(48px,7.5vw,104px)/.92 "Instrument Serif",serif;letter-spacing:-.01em}
+.topo-copy h1 em{color:#ff9a5c}
+.topo-copy p{margin:0 0 24px;max-width:400px;font-size:15px;line-height:1.55;color:#a9a393}
+.topo-copy a{pointer-events:auto;display:inline-flex;align-items:center;height:44px;padding:0 20px;border-radius:999px;background:#ece6d6;color:#0d0f0d;font-weight:550;font-size:14px;text-decoration:none}
+.topo-copy a+a{background:none;color:#ece6d6;border:1px solid #ece6d640;margin-left:8px}
+.topo-copy a:focus-visible{outline:2px solid #93c5fd;outline-offset:3px}
+.topo-el{position:absolute;left:0;top:0;pointer-events:none;font:11px/1 "Geist Mono",monospace;color:#ffb184;white-space:nowrap;opacity:0;transition:opacity .3s}
+.topo.in .topo-el{opacity:1}
+.topo-el::before{content:"";position:absolute;left:-4px;top:-4px;width:8px;height:8px;border:1px solid #ffb184;border-radius:50%}
+.topo-el span{position:absolute;left:12px;top:-5px}
+</style>
+<section class="topo">
+  <canvas aria-hidden="true"></canvas>
+  <div class="topo-top"><span>Sheet 12 · Bernese Oberland</span><span>Contour 50 m</span></div>
+  <div class="topo-copy"><h1>Read the ground<br><em>before</em> you build.</h1><p>Elevation models that update as the survey comes in. Move the pointer to raise the terrain under it.</p><a href="#">Open the map</a><a href="#">How it works</a></div>
+  <div class="topo-el" aria-hidden="true"><span></span></div>
+</section>
+<script>
+(()=>{
+// Marching squares over animated fbm value noise; the pointer adds a gaussian hill.
+const R=document.querySelector(".topo"),cv=R.querySelector("canvas"),x=cv.getContext("2d"),el=R.querySelector(".topo-el"),lab=el.querySelector("span");
+const red=matchMedia("(prefers-reduced-motion:reduce)").matches,C=12,LV=22,T=[[],[3,2],[2,1],[3,1],[0,1],[3,0,2,1],[0,2],[3,0],[3,0],[0,2],[0,1,3,2],[0,1],[3,1],[2,1],[3,2],[]];
+let W,H,cols,rows,F,t=0,mx=-1e4,my=-1e4,tmx=-1e4,tmy=-1e4,amp=0,inside=0,vis=1,dirty=1;
+const hash=(i,j,k)=>{let h=Math.imul(i,374761393)+Math.imul(j,668265263)+Math.imul(k,1440662683)|0;h=Math.imul(h^h>>>13,1274126177);return((h^h>>>16)>>>0)/4294967296};
+const sm=v=>v*v*(3-2*v),lp=(a,b,f)=>a+(b-a)*f;
+const n3=(X,Y,Z)=>{const i=Math.floor(X),j=Math.floor(Y),k=Math.floor(Z),fx=sm(X-i),fy=sm(Y-j),fz=sm(Z-k);
+  return lp(lp(lp(hash(i,j,k),hash(i+1,j,k),fx),lp(hash(i,j+1,k),hash(i+1,j+1,k),fx),fy),lp(lp(hash(i,j,k+1),hash(i+1,j,k+1),fx),lp(hash(i,j+1,k+1),hash(i+1,j+1,k+1),fx),fy),fz)};
+const field=(px,py)=>{const s=1/300;return n3(px*s,py*s,t)*.62+n3(px*s*2.2+5.2,py*s*2.2,t*1.3)*.26+n3(px*s*4.6+11,py*s*4.6,t*1.7)*.12};
+const size=()=>{const d=Math.min(devicePixelRatio||1,2);W=R.clientWidth;H=R.clientHeight;cv.width=W*d;cv.height=H*d;x.setTransform(d,0,0,d,0,0);cols=Math.ceil(W/C)+2;rows=Math.ceil(H/C)+2;F=new Float32Array(cols*rows);dirty=1};
+new ResizeObserver(size).observe(R);size();
+const fill=()=>{const r2=150*150;for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const px=i*C,py=j*C,dx=px-mx,dy=py-my;F[j*cols+i]=field(px,py)+amp*Math.exp(-(dx*dx+dy*dy)/r2)}};
+const draw=()=>{x.clearRect(0,0,W,H);
+  const near=inside&&amp>.02;
+  for(let l=1;l<LV;l++){const v=.12+l*.055,idx=l%5===0;x.beginPath();
+    for(let j=0;j<rows-1;j++)for(let i=0;i<cols-1;i++){const o=j*cols+i,a=F[o],b=F[o+1],c=F[o+cols+1],d=F[o+cols];
+      const k=(a>v)<<3|(b>v)<<2|(c>v)<<1|(d>v);if(k===0||k===15)continue;const x0=i*C,y0=j*C,s=T[k];
+      for(let q=0;q<s.length;q+=2)for(let e=0;e<2;e++){const E=s[q+e];let px,py;
+        if(E===0){px=x0+C*(v-a)/(b-a);py=y0}else if(E===1){px=x0+C;py=y0+C*(v-b)/(c-b)}else if(E===2){px=x0+C*(v-d)/(c-d);py=y0+C}else{px=x0;py=y0+C*(v-a)/(d-a)}
+        e?x.lineTo(px,py):x.moveTo(px,py)}}
+    let st;if(near){st=x.createRadialGradient(mx,my,0,mx,my,340);st.addColorStop(0,idx?"rgba(255,154,92,.95)":"rgba(255,190,150,.6)");st.addColorStop(1,idx?"rgba(236,230,214,.3)":"rgba(236,230,214,.12)")}
+    else st=idx?"rgba(236,230,214,.3)":"rgba(236,230,214,.12)";
+    x.strokeStyle=st;x.lineWidth=idx?1.2:.8;x.stroke()}};
+R.addEventListener("pointermove",e=>{const r=R.getBoundingClientRect();tmx=e.clientX-r.left;tmy=e.clientY-r.top;if(!inside){mx=tmx;my=tmy}inside=1;R.classList.add("in");dirty=1});
+R.addEventListener("pointerleave",()=>{inside=0;R.classList.remove("in");dirty=1});
+new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(R);
+let last=0;(function loop(ts){requestAnimationFrame(loop);if(!vis||ts-last<32)return;last=ts;
+  const ta=inside?.38:0;amp+=(ta-amp)*.08;mx+=(tmx-mx)*.15;my+=(tmy-my)*.15;
+  if(!red){t+=.004;dirty=1}if(Math.abs(ta-amp)>.002||inside)dirty=1;if(!dirty)return;dirty=0;fill();draw();
+  if(inside){const i=Math.round(mx/C),j=Math.round(my/C),f=F[Math.max(0,Math.min(rows-1,j))*cols+Math.max(0,Math.min(cols-1,i))]||0;
+    el.style.transform=`translate(${mx}px,${my}px)`;lab.textContent=`${Math.round(900+f*2600).toLocaleString("en")} m`}})(0);
+})();
+</script>

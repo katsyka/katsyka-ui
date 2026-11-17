@@ -1,0 +1,72 @@
+<style>
+.ia{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ia :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ia ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ia *,.ia *::before,.ia *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ia{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.ia-pn{width:min(560px,100%);display:grid;gap:20px;padding:28px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.ia-f{display:flex;flex-direction:column;gap:6px}
+.ia-f>label,.ia-f>.lb{font-size:14px;font-weight:550}
+.ia-g{display:flex;align-items:stretch;height:40px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);box-shadow:0 1px 2px #0000000a;transition:border-color .15s,box-shadow .15s}
+.ia-g:hover{border-color:var(--ctl)}
+.ia-g:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.ia-g input{flex:1;min-width:0;padding:0 12px;border:0;background:none;color:var(--fg);font:16px Geist,system-ui,sans-serif;outline:0}
+.ia-g input:focus-visible{outline:0}
+@media (min-width:640px){.ia-g input{font-size:14.5px}}
+.ia-ad{display:flex;align-items:center;padding:0 12px;background:var(--sf);color:var(--mu);font-size:14px;white-space:nowrap}
+.ia-ad:first-child{border-right:1px solid var(--line);border-radius:9px 0 0 9px}
+.ia-ad:last-child{border-left:1px solid var(--line);border-radius:0 9px 9px 0}
+.ia-in{display:flex;align-items:center;padding-left:12px;color:var(--mu);font-size:14px}
+.ia-in+input{padding-left:4px}
+.ia-sel{position:relative;display:flex;align-items:center}
+.ia-sel select{appearance:none;height:100%;padding:0 28px 0 12px;border:0;background:none;color:var(--fg);font:500 14px Geist,system-ui,sans-serif;cursor:pointer;outline:0}
+.ia-sel select:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;border-radius:9px}
+.ia-sel svg{position:absolute;right:8px;width:14px;height:14px;fill:none;stroke:var(--mu);stroke-width:2;stroke-linecap:round;pointer-events:none}
+.ia-sel:first-child{border-right:1px solid var(--line)}
+.ia-sel:last-child{border-left:1px solid var(--line)}
+.ia-btn{margin:4px;padding:0 14px;border:0;border-radius:7px;background:var(--fg);color:var(--bg);font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.ia-btn:hover{background:color-mix(in oklab,var(--fg) 85%,var(--bg))}
+.ia-btn:disabled{opacity:.4;cursor:not-allowed}
+.ia-hint{font-size:13px;color:var(--mu);min-height:19px}
+.ia-hint b{color:var(--fg);font-weight:550;font-family:"Geist Mono",monospace;font-size:12.5px}
+.ia-hint.ok{color:var(--ok)}
+.ia-kbd{display:flex;align-items:center;gap:3px;padding-right:8px}
+.ia-kbd kbd{font:500 11px "Geist Mono",monospace;padding:2px 6px;border-radius:5px;border:1px solid var(--line);background:var(--sf);color:var(--mu)}
+.ia-g .ia-ic{width:16px;height:16px;margin-left:12px;fill:none;stroke:var(--mu);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;align-self:center;flex:none}
+.ia-g .ia-ic+input{padding-left:8px}
+</style>
+<div class="ia">
+  <div class="ia-pn">
+    <div class="ia-f"><label for="iaU">Website</label>
+      <div class="ia-g"><span class="ia-ad">https://</span><input id="iaU" value="northwind.dev" aria-describedby="iaUh"></div>
+      <div class="ia-hint" id="iaUh">Preview: <b>https://northwind.dev</b></div></div>
+    <div class="ia-f"><label for="iaS">Workspace URL</label>
+      <div class="ia-g"><input id="iaS" value="northwind" aria-describedby="iaSh" style="text-align:right;padding-right:2px"><span class="ia-ad">.example.app</span></div>
+      <div class="ia-hint" id="iaSh"></div></div>
+    <div class="ia-f"><label for="iaA">Amount</label>
+      <div class="ia-g"><span class="ia-in" id="iaSym">$</span><input id="iaA" inputmode="decimal" value="1,250.00"><span class="ia-sel"><select aria-label="Currency" id="iaC"><option>USD</option><option>EUR</option><option>GBP</option><option>JPY</option></select><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span></div></div>
+    <div class="ia-f"><label for="iaP">Phone</label>
+      <div class="ia-g"><span class="ia-sel"><select aria-label="Country code"><option>🇵🇹 +351</option><option>🇩🇪 +49</option><option>🇺🇸 +1</option><option>🇯🇵 +81</option></select><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></span><input id="iaP" type="tel" inputmode="tel" placeholder="912 345 678" autocomplete="tel-national"></div></div>
+    <div class="ia-f"><label for="iaN">Newsletter</label>
+      <div class="ia-g"><svg class="ia-ic" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><input id="iaN" type="email" placeholder="you@company.com"><button class="ia-btn" type="button" disabled>Subscribe</button></div>
+      <div class="ia-hint" id="iaNh" aria-live="polite">One email a month. No spam.</div></div>
+    <div class="ia-f"><label for="iaK">Search docs</label>
+      <div class="ia-g"><svg class="ia-ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="iaK" placeholder="Search…"><span class="ia-kbd" aria-hidden="true"><kbd>⌘</kbd><kbd>K</kbd></span></div></div>
+  </div>
+</div>
+<script>
+const U=document.getElementById("iaU"),Uh=document.querySelector("#iaUh b");
+U.addEventListener("input",()=>{U.value=U.value.replace(/^https?:\/\//,"");Uh.textContent="https://"+(U.value||"…")});
+const S=document.getElementById("iaS"),Sh=document.getElementById("iaSh"),taken=["admin","app","www","acme"];
+const cs=()=>{const v=S.value=S.value.toLowerCase().replace(/[^a-z0-9-]/g,"");const ok=v.length>=3&&!taken.includes(v);Sh.className="ia-hint"+(ok?" ok":"");Sh.textContent=!v?"Lowercase letters, numbers and dashes.":v.length<3?"At least 3 characters.":ok?`✓ ${v}.example.app is available`:`${v} is taken`};
+S.addEventListener("input",cs);cs();
+const A=document.getElementById("iaA"),C=document.getElementById("iaC"),sym={USD:"$",EUR:"€",GBP:"£",JPY:"¥"};
+C.addEventListener("change",()=>{document.getElementById("iaSym").textContent=sym[C.value];fa()});
+const fa=()=>{const n=parseFloat(A.value.replace(/[^\d.]/g,""));if(!isNaN(n))A.value=n.toLocaleString("en-US",C.value==="JPY"?{maximumFractionDigits:0}:{minimumFractionDigits:2,maximumFractionDigits:2})};
+A.addEventListener("blur",fa);
+const N=document.getElementById("iaN"),Nb=N.nextElementSibling,Nh=document.getElementById("iaNh");
+N.addEventListener("input",()=>Nb.disabled=!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(N.value));
+const sub=()=>{if(Nb.disabled)return;Nh.textContent=`Subscribed ${N.value} ✓`;Nh.className="ia-hint ok";N.value="";Nb.disabled=true};
+Nb.addEventListener("click",sub);N.addEventListener("keydown",e=>{if(e.key==="Enter")sub()});
+const K=document.getElementById("iaK");document.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();K.focus()}});
+</script>

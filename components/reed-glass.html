@@ -1,0 +1,62 @@
+<style>
+.rg{position:relative;height:100vh;min-height:520px;overflow:hidden;background:#1a0d08;color:#fff;font-family:Geist,system-ui,sans-serif;touch-action:pan-y;cursor:ew-resize}
+.rg img,.rg canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rg.gl img{visibility:hidden}
+.rg-c{position:absolute;left:clamp(20px,5vw,64px);bottom:clamp(40px,10vh,96px);pointer-events:none;max-width:560px}
+.rg small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:#ffffffe0}
+.rg h2{margin:12px 0 0;font-size:clamp(44px,6.4vw,104px);line-height:.9;letter-spacing:-.06em;font-weight:600}
+.rg em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.025em}
+</style>
+<section class="rg" aria-label="Photo behind ribbed glass">
+  <img src="media/pics/w/564.jpg" alt="Light falling through the curved orange walls of a sandstone slot canyon" crossorigin="anonymous">
+  <canvas aria-hidden="true"></canvas>
+  <div class="rg-c"><small>MOVE TO SLIDE THE GLASS</small><h2>Behind <em>the reeds.</em></h2></div>
+</section>
+<script>
+(()=>{
+// Ribbed (fluted) glass: every rib is a cylinder lens that shows a squeezed, mirrored copy of a wider strip of the photo.
+const root=document.querySelector(".rg"),img=root.querySelector("img"),c=root.querySelector("canvas");
+const gl=c.getContext("webgl",{antialias:false});if(!gl)return;
+const RIB=34,BEND=.6,FROST=.3;
+const vs="attribute vec2 p;varying vec2 v;void main(){v=p*.5+.5;v.y=1.-v.y;gl_Position=vec4(p,0,1);}";
+const fs=`precision highp float;varying vec2 v;uniform sampler2D T;uniform float pitch,shift;uniform vec2 R,cv;
+vec3 src(vec2 q){return texture2D(T,clamp((q-.5)*cv+.5,0.,1.)).rgb;}
+void main(){
+  float x=v.x*R.x+shift*pitch,u=fract(x/pitch),n=u*2.-1.;
+  float rc=(floor(x/pitch)+.5)*pitch-shift*pitch;
+  float sx=(rc+(n+.35*n*n*n)*.5*pitch*${(.15+(-2.4-.15)*BEND).toFixed(3)})/R.x;
+  vec3 c=vec3(0);float b=${(FROST*.012).toFixed(4)};
+  for(int i=-2;i<=2;i++){float f=float(i);c+=src(vec2(sx+f*b*.4,v.y+f*b))*.2;}
+  float ca=${(.0018*BEND).toFixed(5)}*n;
+  c.r=mix(c.r,src(vec2(sx+ca,v.y)).r,.5);c.b=mix(c.b,src(vec2(sx-ca,v.y)).b,.5);
+  c*=1.-.28*pow(abs(n),3.);
+  c+=smoothstep(.86,1.,abs(n))*.06;
+  c+=pow(max(0.,1.-abs(n-.55+shift*.2)*4.),4.)*.07;
+  gl_FragColor=vec4(c,1);
+}`;
+const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o},pr=gl.createProgram();
+gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))return;gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+const pl=gl.getAttribLocation(pr,"p");gl.enableVertexAttribArray(pl);gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+const U=n=>gl.getUniformLocation(pr,n);
+gl.bindTexture(gl.TEXTURE_2D,gl.createTexture());
+for(const[k,v]of[[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE],[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR]])gl.texParameteri(gl.TEXTURE_2D,k,v);
+const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let ready=false,vis=false,raf=0,shift=0,target=0,touched=-1e9,d=1;
+function size(){d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;gl.viewport(0,0,c.width,c.height);
+  gl.uniform2f(U("R"),c.width,c.height);gl.uniform1f(U("pitch"),RIB*d);
+  const ca=c.width/c.height,ia=img.naturalWidth/img.naturalHeight;gl.uniform2f(U("cv"),ca>ia?1:ca/ia,ca>ia?ia/ca:1)}
+function frame(t){raf=0;if(!vis||!ready)return;
+  if(!still&&t-touched>2500)target=Math.sin(t/2600)*.6;
+  shift+=(target-shift)*.08;gl.uniform1f(U("shift"),shift);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  if(!still||Math.abs(target-shift)>.001)raf=requestAnimationFrame(frame)}
+const go=()=>{if(!raf)raf=requestAnimationFrame(frame)};
+function load(){try{gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,img)}catch(e){return}
+  ready=true;root.classList.add("gl");size();go()}
+img.complete&&img.naturalWidth?load():img.addEventListener("load",load);
+new ResizeObserver(()=>{if(ready){size();go()}}).observe(c);
+new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)go()}).observe(root);
+const move=e=>{const r=root.getBoundingClientRect();target=((e.clientX-r.left)/r.width-.5)*2;touched=performance.now();go()};
+root.addEventListener("pointermove",move);root.addEventListener("pointerdown",move);
+})();
+</script>

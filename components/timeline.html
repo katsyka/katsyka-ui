@@ -1,0 +1,57 @@
+<style>
+.tl{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.tl :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.tl ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.tl *,.tl *::before,.tl *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.tl{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.tl-pn{width:min(560px,100%);padding:22px 24px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.tl-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.tl-hd b{font-size:15px;font-weight:620}
+.tl-hd select{height:30px;padding:0 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 12.5px Geist,system-ui,sans-serif}
+.tl ol{list-style:none;margin:0;padding:0}
+.tl li{position:relative;display:grid;grid-template-columns:32px 1fr;gap:12px;padding-bottom:20px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:15.5px;top:34px;bottom:2px;width:1px;background:var(--line)}
+.tl li:last-child::before{display:none}
+.tl-ic{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--sf);border:1px solid var(--line);color:var(--mu)}
+.tl-ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tl-ic.av{border:0;color:#fff;font:650 11.5px Geist,system-ui,sans-serif}
+.tl-ic.ok{background:var(--ok-sf);border-color:color-mix(in oklab,var(--ok) 30%,transparent);color:var(--ok)}
+.tl-ic.er{background:var(--err-sf);border-color:color-mix(in oklab,var(--err) 30%,transparent);color:var(--err)}
+.tl-ic.ac{background:var(--ac-sf);border-color:color-mix(in oklab,var(--ac) 30%,transparent);color:var(--ac)}
+.tl-b{padding-top:6px;font-size:14px;line-height:1.5;color:var(--mu)}
+.tl-b b{color:var(--fg);font-weight:550}
+.tl-b time{margin-left:6px;font-size:12.5px;white-space:nowrap}
+.tl-b code{font:500 12.5px "Geist Mono",monospace;padding:1px 6px;border-radius:5px;background:var(--sf2);color:var(--fg)}
+.tl-q{margin-top:8px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--sf);color:var(--fg);font-size:14px}
+.tl-tags{display:inline-flex;gap:4px;vertical-align:1px}
+.tl-tags span{font-size:11.5px;font-weight:600;padding:1px 7px;border-radius:99px}
+.tl-day{margin:4px 0 14px 44px;font:500 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.tl-cm{display:flex;gap:8px;margin-top:4px}
+.tl-cm input{flex:1;min-width:0;height:38px;padding:0 12px;border-radius:10px;border:1px solid color-mix(in oklab,var(--ctl) 70%,var(--bg));background:var(--bg);color:var(--fg);font:16px Geist,system-ui,sans-serif}
+@media (min-width:640px){.tl-cm input{font-size:14px}}
+.tl-cm input:focus-visible{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.tl-cm button{height:38px;padding:0 14px;border:0;border-radius:10px;background:var(--fg);color:var(--bg);font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer}
+.tl-cm button:disabled{opacity:.35;cursor:not-allowed}
+.tl li.new{animation:tl-in .35s var(--ease)}
+@keyframes tl-in{from{opacity:0;transform:translateY(-6px)}}
+</style>
+<div class="tl">
+  <section class="tl-pn" aria-labelledby="tlH">
+    <div class="tl-hd"><b id="tlH">Activity</b><select aria-label="Filter activity"><option>All activity</option><option>Comments</option><option>Status changes</option></select></div>
+    <div class="tl-day">Today</div>
+    <ol id="tlL">
+      <li><span class="tl-ic ok"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div class="tl-b"><b>Deploy succeeded</b> for <code>main@4f9a2c1</code><time>2m ago</time></div></li>
+      <li><span class="tl-ic av" style="background:#c2410c">MO</span><div class="tl-b"><b>Mira Okafor</b> commented<time>18m ago</time><div class="tl-q">Header looks great. Can we bump the CTA contrast a little in dark mode?</div></div></li>
+      <li><span class="tl-ic"><svg viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8zM7 7h.01"/></svg></span><div class="tl-b"><b>Jun Li</b> added labels <span class="tl-tags"><span style="background:var(--info-sf);color:var(--info)">frontend</span><span style="background:var(--ac-sf);color:var(--ac)">priority</span></span><time>1h ago</time></div></li>
+      <li><span class="tl-ic er"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></span><div class="tl-b"><b>Build failed</b> on <code>feat/pricing</code> · type error in <code>Plan.tsx</code><time>3h ago</time></div></li>
+      <li><span class="tl-ic ac"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M6 8v8M18 16V9a3 3 0 0 0-3-3h-4"/></svg></span><div class="tl-b"><b>Sofia Ruiz</b> opened pull request <b>#482 Refactor auth flow</b><time>5h ago</time></div></li>
+    </ol>
+    <form class="tl-cm" onsubmit="return false"><input placeholder="Leave a comment…" aria-label="Comment"><button disabled>Post</button></form>
+  </section>
+</div>
+<script>
+const f=document.querySelector(".tl-cm"),i=f.querySelector("input"),b=f.querySelector("button"),L=document.getElementById("tlL");
+i.addEventListener("input",()=>b.disabled=!i.value.trim());
+f.addEventListener("submit",()=>{if(!i.value.trim())return;const li=document.createElement("li");li.className="new";li.innerHTML=`<span class="tl-ic av" style="background:#0e7490">You</span><div class="tl-b"><b>You</b> commented<time>just now</time><div class="tl-q"></div></div>`;li.querySelector(".tl-q").textContent=i.value.trim();L.prepend(li);i.value="";b.disabled=true});
+</script>

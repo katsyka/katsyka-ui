@@ -1,0 +1,49 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.pt{width:min(1040px,100%)}.pt header{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}.pt h2{margin:0;font-size:clamp(24px,3vw,32px);letter-spacing:-.02em}
+.pt-sw{display:flex;background:var(--sf2);border-radius:12px;padding:4px}.pt-sw button{height:36px;padding:0 14px;border-radius:9px;font-weight:550;color:var(--mu);display:flex;gap:6px;align-items:center}.pt-sw [aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:var(--shadow)}
+.pt-g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.pt-c{background:var(--bg);border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:16px;align-content:start}.pt-c.rec{border:2px solid var(--fg);position:relative}.pt-c.rec::before{content:"Most teams pick this";position:absolute;top:-12px;left:20px;background:var(--fg);color:var(--bg);font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+.pt-c h3{margin:0;font-size:16px}.pt-c>p{margin:-8px 0 0;color:var(--mu);font-size:14px;min-height:42px}.pt-pr{display:flex;align-items:baseline;gap:6px;height:48px}.pt-pr b{font-size:44px;letter-spacing:-.03em;display:inline-flex;overflow:hidden;height:48px;line-height:48px}.pt-pr b span{display:inline-block;transition:transform .45s var(--ease)}.pt-pr small{color:var(--mu)}
+.pt-sv{font-size:13px;color:var(--ok);min-height:18px;margin-top:-10px}.pt-c .b{height:44px}.pt-c ul{list-style:none;padding:16px 0 0;margin:0;border-top:1px solid var(--line);display:grid;gap:10px;font-size:14px}.pt-c li{display:flex;gap:8px}.pt-c li .i{color:var(--ok);width:16px;height:16px;margin-top:2px}
+.pt-fn{font-size:13px;margin-top:16px}
+@media (max-width:820px){.pt-g{grid-template-columns:1fr}}
+</style>
+<div class="k">
+<section class="pt"><header><h2>Plans that scale with your team</h2><div class="pt-sw" role="radiogroup" aria-label="Billing period"><button role="radio" aria-checked="false" data-y="0">Monthly</button><button role="radio" aria-checked="true" data-y="1">Yearly <span class="pill ok">−20%</span></button></div></header>
+<div class="pt-g" id="g"></div><p class="mu pt-fn">Prices in EUR, VAT excluded. Cancel any time.</p></section>
+</div>
+<script>
+const P=[["Starter","For freelancers and side projects.",12,"Start free trial",["3 projects","5 GB storage","Email support"]],["Team","For teams shipping every week.",29,"Start free trial",["Unlimited projects","100 GB storage","Roles & permissions","Priority support"],1],["Scale","For companies with compliance needs.",79,"Talk to sales",["Everything in Team","SSO & SCIM","Audit log","99.9% SLA"]]];
+const g=document.getElementById('g');let y=1;
+g.innerHTML=P.map(([n,d,p,c,f,r],i)=>`<article class="pt-c${r?' rec':''}"><h3>${n}</h3><p>${d}</p><div class="pt-pr"><span>€</span><b class="tn" id="p${i}"></b><small>/ user / mo</small></div><div class="pt-sv" id="s${i}"></div><a class="b ${r?'ac':'sec'}" href="#">${c}</a><ul>${f.map(x=>`<li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>${x}</li>`).join('')}</ul></article>`).join('');
+function digits(el,v){const s=String(v);if(el.children.length!==s.length)el.innerHTML=s.split('').map(()=>'<span>'+[...Array(10).keys()].join('<br>')+'</span>').join('');[...el.children].forEach((c,i)=>c.style.transform=`translateY(${-s[i]*48}px)`);el.setAttribute('aria-label','€'+v)}
+function upd(){P.forEach(([,, p],i)=>{const v=y?Math.round(p*.8):p;digits(document.getElementById('p'+i),v);document.getElementById('s'+i).textContent=y?`€${(p-v)*12} saved per user a year`:''})}
+document.querySelectorAll('.pt-sw button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.pt-sw button').forEach(x=>x.setAttribute('aria-checked',x===b));y=+b.dataset.y;upd()});upd();
+</script>

@@ -1,0 +1,64 @@
+<style>
+.plt{min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:#cfd2d4;font-family:Geist,system-ui,sans-serif;color:#1f2224}
+.plt-in{width:min(860px,100%)}
+.plt-bed{position:relative;aspect-ratio:1.45;border-radius:14px;background:#2b2e31;padding:18px;box-shadow:inset 0 1px 0 #ffffff1a,0 30px 60px -30px #0008}
+.plt-bed canvas{width:100%;height:100%;display:block;border-radius:4px}
+.plt-ctl{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.plt-seg{display:flex;gap:4px;padding:4px;border-radius:999px;background:#ffffff80}
+.plt-seg button{height:32px;padding:0 13px;border:0;border-radius:999px;background:none;color:#4b5055;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.plt-seg button[aria-pressed="true"]{background:#1f2224;color:#fff}
+.plt-ink{display:flex;gap:6px}
+.plt-ink button{width:24px;height:24px;border-radius:50%;border:2px solid #fff;background:var(--c);cursor:pointer;box-shadow:0 0 0 1px #0003}
+.plt-ink button[aria-pressed="true"]{box-shadow:0 0 0 2px #1f2224}
+.plt-ctl label{display:flex;align-items:center;gap:8px;font-size:13px;color:#4b5055}
+.plt-ctl input{accent-color:#1f2224;width:110px}
+.plt-go{height:36px;padding:0 16px;border-radius:999px;border:0;background:#1f2224;color:#fff;font:500 13px Geist,system-ui,sans-serif;cursor:pointer;margin-left:auto}
+.plt button:focus-visible,.plt input:focus-visible{outline:2px solid #1d4ed8;outline-offset:2px}
+.plt-st{margin-top:10px;font:12px/1 "Geist Mono",monospace;color:#5b6166}
+</style>
+<section class="plt">
+  <div class="plt-in">
+    <div class="plt-bed"><canvas role="img" aria-label="A pen plotter drawing on paper"></canvas></div>
+    <div class="plt-ctl">
+      <div class="plt-seg" role="group" aria-label="Design"><button data-d="spiro" aria-pressed="true">Spirograph</button><button data-d="harmo" aria-pressed="false">Harmonograph</button><button data-d="flow" aria-pressed="false">Flow field</button></div>
+      <div class="plt-ink" role="group" aria-label="Ink"><button style="--c:#1d1f22" aria-label="Black ink" aria-pressed="true"></button><button style="--c:#1f4fbf" aria-label="Blue ink" aria-pressed="false"></button><button style="--c:#c2361f" aria-label="Red ink" aria-pressed="false"></button></div>
+      <label>Speed <input type="range" min="2" max="40" value="12" aria-label="Plot speed"></label>
+      <button class="plt-go">Replot</button>
+    </div>
+    <div class="plt-st" aria-live="off"></div>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".plt"),cv=R.querySelector("canvas"),x=cv.getContext("2d"),st=R.querySelector(".plt-st"),spd=R.querySelector("input"),ds=[...R.querySelectorAll("[data-d]")],inks=[...R.querySelectorAll(".plt-ink button")];
+const paper=document.createElement("canvas"),px=paper.getContext("2d");
+let W,H,dpr,design="spiro",ink="#1d1f22",P=[],pi=0,si=0,head={x:0,y:0},down=false,total=0,done=0,vis=true;
+const hsh=(i,j)=>{let h=Math.imul(i,374761393)+Math.imul(j,668265263)|0;h=Math.imul(h^h>>>13,1274126177);return((h^h>>>16)>>>0)/4294967296};
+const sm=t=>t*t*(3-2*t),noise=(X,Y)=>{const i=Math.floor(X),j=Math.floor(Y),fx=sm(X-i),fy=sm(Y-j),a=hsh(i,j),b=hsh(i+1,j),c=hsh(i,j+1),d=hsh(i+1,j+1);return a+(b-a)*fx+(c-a)*fy+(a-b-c+d)*fx*fy};
+const build=()=>{const cx=W/2,cy=H/2,s=Math.min(W,H)*.4,out=[];
+  if(design==="spiro"){for(let k=0;k<3;k++){const Rr=8,r=[3.2,2.35,1.55][k],d=[4.4,3.2,2.2][k],pts=[];for(let t=0;t<=Math.PI*2*30;t+=.02){const a=(Rr-r)/r;pts.push([cx+((Rr-r)*Math.cos(t)+d*Math.cos(a*t))*s/(Rr-r+d),cy+((Rr-r)*Math.sin(t)-d*Math.sin(a*t))*s/(Rr-r+d)]);if(pts.length>1&&t>.1&&Math.hypot(pts.at(-1)[0]-pts[0][0],pts.at(-1)[1]-pts[0][1])<.6)break}out.push(pts)}}
+  else if(design==="harmo"){const pts=[];for(let t=0;t<90;t+=.012){const e=Math.exp(-t*.018);pts.push([cx+s*e*(.6*Math.sin(2.01*t+.3)+.4*Math.sin(3*t)),cy+s*e*(.6*Math.sin(3.003*t+1.2)+.4*Math.sin(2*t+.6))])}out.push(pts)}
+  else{for(let k=0;k<260;k++){let X=W*.08+hsh(k,7)*W*.84,Y=H*.1+hsh(k,13)*H*.8;const pts=[[X,Y]];for(let n=0;n<46;n++){const a=noise(X/170,Y/170)*Math.PI*4;X+=Math.cos(a)*4;Y+=Math.sin(a)*4;if(X<W*.05||X>W*.95||Y<H*.06||Y>H*.94)break;pts.push([X,Y])}if(pts.length>6)out.push(pts)}}
+  return out};
+const reset=()=>{px.setTransform(dpr,0,0,dpr,0,0);px.fillStyle="#f6f1e6";px.fillRect(0,0,W,H);P=build();pi=0;si=0;down=false;head={x:W*.04,y:H*.05};total=P.reduce((a,p)=>a+p.length,0);done=0};
+const size=()=>{dpr=Math.min(devicePixelRatio||1,2);W=cv.clientWidth;H=cv.clientHeight;cv.width=paper.width=W*dpr;cv.height=paper.height=H*dpr;reset()};
+new ResizeObserver(size).observe(cv);
+const step=budget=>{while(budget>0&&pi<P.length){const path=P[pi];
+    if(!down){const [tx,ty]=path[0],dx=tx-head.x,dy=ty-head.y,d=Math.hypot(dx,dy),mv=budget*3;if(d<=mv){head.x=tx;head.y=ty;budget-=d/3;down=true;si=1}else{head.x+=dx/d*mv;head.y+=dy/d*mv;return}continue}
+    if(si>=path.length){down=false;pi++;continue}
+    const [tx,ty]=path[si],dx=tx-head.x,dy=ty-head.y,d=Math.hypot(dx,dy);px.strokeStyle=ink;px.lineWidth=.9;px.lineCap="round";px.globalAlpha=.85;px.beginPath();px.moveTo(head.x,head.y);
+    if(d<=budget){head.x=tx;head.y=ty;si++;done++;budget-=d}else{head.x+=dx/d*budget;head.y+=dy/d*budget;budget=0}px.lineTo(head.x,head.y);px.stroke();px.globalAlpha=1}
+  if(pi>=P.length){down=false;head.x+=(W*.04-head.x)*.08;head.y+=(H*.05-head.y)*.08}};
+const draw=()=>{x.setTransform(1,0,0,1,0,0);x.drawImage(paper,0,0);x.setTransform(dpr,0,0,dpr,0,0);
+  x.fillStyle="rgba(0,0,0,.12)";x.fillRect(0,head.y-7+4,W,14);                   // beam shadow
+  x.fillStyle="#9aa0a6";x.fillRect(0,head.y-7,W,14);x.fillStyle="#c3c8cc";x.fillRect(0,head.y-7,W,3);
+  x.fillStyle="#2b2e31";x.beginPath();x.roundRect(head.x-16,head.y-14,32,28,5);x.fill();
+  x.beginPath();x.arc(head.x,head.y,5,0,7);x.fillStyle=down?ink:"#f6f1e6";x.fill();x.lineWidth=2;x.strokeStyle=down?"#f6f1e6":ink;x.stroke();
+  st.textContent=`${design.toUpperCase()} · ${Math.round(done/Math.max(1,total)*100)}% · PEN ${pi>=P.length?"PARKED":down?"DOWN":"UP"}`};
+ds.forEach(b=>b.onclick=()=>{design=b.dataset.d;ds.forEach(o=>o.setAttribute("aria-pressed",o===b));reset()});
+inks.forEach(b=>b.onclick=()=>{ink=getComputedStyle(b).getPropertyValue("--c").trim();inks.forEach(o=>o.setAttribute("aria-pressed",o===b))});
+R.querySelector(".plt-go").onclick=reset;
+new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(R);
+(function loop(){requestAnimationFrame(loop);if(!vis||!W)return;step(+spd.value*(matchMedia("(prefers-reduced-motion:reduce)").matches?4:1));draw()})();
+})();
+</script>

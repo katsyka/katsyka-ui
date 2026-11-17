@@ -1,0 +1,29 @@
+<!--Team Members|Forms|Manage a team: invite by email with a role, a members list with role selects (the last owner can't be demoted), pending invites you can resend or revoke, and remove with confirmation in place.|team,members,roles,invite,settings-->
+<div class="k"><section class="card tm"><h2>Team members</h2><p class="mu">Invite people to collaborate on Field Prints.</p>
+  <form class="tm-inv" id="f" novalidate><label class="vh" for="em">Email</label><input class="in" id="em" type="email" placeholder="name@company.com" autocomplete="off"><label class="vh" for="rl">Role</label><select class="in tm-sel" id="rl"><option>Member</option><option>Admin</option><option>Viewer</option></select><button class="b ac">Invite</button></form>
+  <p class="tm-err" id="er" role="alert"></p>
+  <ul class="tm-l" id="l"></ul></section></div>
+<style>
+.tm{width:min(600px,100%);padding:24px}.tm h2{margin:0;font-size:17px;font-weight:650}.tm>p{margin:4px 0 16px}
+.tm-inv{display:flex;gap:8px;flex-wrap:wrap}.tm-inv input{flex:1;min-width:180px}.k .tm-sel{width:auto;padding-right:28px;appearance:auto}
+.tm-err{min-height:18px;margin:6px 0 4px;font-size:13px;color:var(--err)}
+.tm-l{list-style:none;margin:0;padding:0}
+.tm-i{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.tm-i .av{width:36px;height:36px;font-size:13px}.tm-i .tx{flex:1;min-width:0}.tm-i b{display:block;font-weight:550}.tm-i small{color:var(--mu);font-size:13px}
+.k .tm-i select.in{height:32px;width:auto;flex:none;font-size:13px;appearance:auto}
+.tm-i.pend .av{background:var(--sf2);color:var(--mu)}
+.tm-cf{display:flex;gap:6px;align-items:center;font-size:13px}
+.tm-i.new{animation:ni .3s var(--ease)}@keyframes ni{from{opacity:0;transform:translateY(-4px)}}
+</style>
+<script>
+const M=[["Mara Lind","mara@fieldprints.no","Owner","#b45309"],["Ines Duarte","ines@fieldprints.no","Admin","#15803d"],["Theo Wright","theo@fieldprints.no","Member","#0369a1"],["jun@kato.studio","Invited 2 days ago","Member",null]];
+const X='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M18 6 6 18M6 6l12 12"/></svg>';
+const row=([n,e,r,c],nw)=>{const li=document.createElement("li");li.className="tm-i"+(c?"":" pend")+(nw?" new":"");const ini=c?n.split(" ").map(w=>w[0]).join(""):"@";
+ li.innerHTML=`<span class="av" style="--c:${c||"none"}">${ini}</span><span class="tx"><b>${n}</b><small>${e}</small></span>`+(c?`<select class="in" aria-label="Role for ${n}"><option${r==="Owner"?" selected":""}>Owner</option><option${r==="Admin"?" selected":""}>Admin</option><option${r==="Member"?" selected":""}>Member</option><option>Viewer</option></select>`:`<button class="b gh sm rs">Resend</button>`)+`<button class="ibt rm" aria-label="Remove ${n}">${X}</button>`;l.append(li);
+ const sel=li.querySelector("select");if(sel)sel.onchange=()=>{const owners=[...l.querySelectorAll("select")].filter(s=>s.value==="Owner").length;if(!owners){sel.value="Owner";er.textContent="A team needs at least one owner."}else er.textContent=""};
+ const rs=li.querySelector(".rs");if(rs)rs.onclick=()=>{rs.textContent="Sent ✓";rs.disabled=true};
+ li.querySelector(".rm").onclick=()=>{const sv=li.innerHTML;if(sel&&sel.value==="Owner"&&[...l.querySelectorAll("select")].filter(s=>s.value==="Owner").length<2){er.textContent="Transfer ownership before removing the last owner.";return}
+  const cf=document.createElement("span");cf.className="tm-cf";cf.innerHTML=`Remove? <button class="b sm" style="background:var(--err);color:#fff">Remove</button><button class="b sec sm">Cancel</button>`;li.querySelectorAll("select,.rs,.rm").forEach(x=>x.hidden=true);li.append(cf);cf.children[0].focus();cf.children[0].onclick=()=>li.remove();cf.children[1].onclick=()=>{cf.remove();li.querySelectorAll("select,.rs,.rm").forEach(x=>x.hidden=false)}}};
+M.forEach(m=>row(m));
+f.onsubmit=e=>{e.preventDefault();const v=em.value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){er.textContent="Enter a valid email address.";em.setAttribute("aria-invalid","true");em.focus();return}er.textContent="";em.removeAttribute("aria-invalid");row([v,"Invited just now",rl.value,null],1);em.value=""};
+</script>

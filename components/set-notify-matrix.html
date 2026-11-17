@@ -1,0 +1,48 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.k.nm{align-items:start}.nm-w{width:min(720px,100%);display:grid;gap:16px}.nm-h{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.nm-h h1{margin:0;font-size:24px;letter-spacing:-.02em}.nm-sn{display:flex;gap:10px;align-items:center;font-size:14px}.nm-sn .in{width:auto;height:36px}
+.nm-ps{margin:0;padding:10px 14px;border-radius:10px;background:var(--warn-sf);font-size:14px}
+.nm-tw{border:1px solid var(--line);border-radius:14px;background:var(--bg);overflow-x:auto;position:relative}.nm-t{width:100%;border-collapse:collapse;font-size:14px}.nm-t th,.nm-t td{padding:12px 16px;border-bottom:1px solid var(--line);text-align:center}.nm-t th:first-child,.nm-t td:first-child{text-align:left}.nm-t tr:last-child td{border:0}
+.nm-t thead th{font-weight:550;font-size:13px}.nm-t thead button{display:grid;justify-items:center;gap:2px;margin:0 auto;font:inherit;min-height:44px;padding:0 6px;border-radius:8px}.nm-t thead button:hover{background:var(--sf)}.nm-t thead small{font-size:11px;color:var(--mu);font-weight:400}
+.nm-t td small{display:block;color:var(--mu);font-size:12px}.nm-t .grp td{background:var(--sf);font-size:12px;font-weight:650;color:var(--mu);padding:8px 16px}
+.nm-t input{width:20px;height:20px;accent-color:var(--ac);cursor:pointer}.nm-w.paused .nm-t tbody{opacity:.5}
+.nm-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);flex-wrap:wrap}.nm-q>div:first-child{display:grid}.nm-q span.mu{font-size:13px}.nm-qt{display:flex;gap:8px;align-items:center}.nm-qt .in{width:auto;height:38px}
+</style>
+<div class="k nm"><div class="nm-w"><div class="nm-h"><h1>Notifications</h1><div class="nm-sn"><label for="sn" class="mu">Pause all</label><select class="in" id="sn"><option value="">Off</option><option value="1h">For 1 hour</option><option value="tm">Until tomorrow 09:00</option><option value="wk">For a week</option></select></div></div><p class="nm-ps" id="ps" role="status" hidden></p>
+<div class="nm-tw"><table class="nm-t" id="t"></table></div>
+<section class="nm-q"><div><b>Quiet hours</b><span class="mu">Push notifications wait until the morning.</span></div><div class="nm-qt"><label><span class="vh">From</span><input class="in" type="time" value="22:00"></label><span class="mu">to</span><label><span class="vh">To</span><input class="in" type="time" value="08:00"></label></div></section></div></div>
+<script>
+const CH=['Email','Push','In-app'],G=[["Your work",[["Mentions","Someone @mentions you",[1,1,1]],["Replies","Replies to your comments",[1,0,1]],["Assigned to you","Tasks and reviews",[1,1,1]]]],["Team",[["New members","Someone joins the workspace",[0,0,1]],["Weekly digest","Monday summary",[1,0,0]]]],["Account",[["Security alerts","New sign-ins, password changes",[1,1,1],1]]]];
+const t=document.getElementById('t');
+function draw(){t.innerHTML=`<thead><tr><th>Event</th>${CH.map((c,j)=>`<th><button data-col="${j}" aria-label="Toggle all ${c}">${c}<small>toggle all</small></button></th>`).join('')}</tr></thead><tbody>${G.map(([g,R],gi)=>`<tr class="grp"><td colspan="4">${g}</td></tr>${R.map(([n,d,v,lock],ri)=>`<tr><td>${n}<small>${d}${lock?' · always on':''}</small></td>${v.map((x,j)=>`<td><input type="checkbox" ${x?'checked':''} ${lock?'disabled':''} data-g="${gi}" data-r="${ri}" data-c="${j}" aria-label="${n} by ${CH[j]}"></td>`).join('')}</tr>`).join('')}`).join('')}</tbody>`}
+t.onchange=e=>{const i=e.target;G[i.dataset.g][1][i.dataset.r][2][i.dataset.c]=i.checked?1:0};
+t.onclick=e=>{const b=e.target.closest('[data-col]');if(!b)return;const j=+b.dataset.col,rows=G.flatMap(g=>g[1]).filter(r=>!r[3]),on=rows.some(r=>!r[2][j]);rows.forEach(r=>r[2][j]=on?1:0);draw();t.querySelector(`[data-col="${j}"]`).focus()};
+document.getElementById('sn').onchange=e=>{const v=e.target.value,ps=document.getElementById('ps');document.querySelector('.nm-w').classList.toggle('paused',!!v);ps.hidden=!v;const u={'1h':new Date(Date.now()+36e5).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}),tm:'tomorrow 09:00',wk:new Date(Date.now()+6048e5).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'})}[v];ps.textContent=v?`All notifications paused until ${u}. Security alerts still come through.`:''};draw();
+</script>

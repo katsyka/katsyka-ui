@@ -1,0 +1,20 @@
+<!--Credit Packs Pricing|Pricing|Prepaid credit bundles for an AI image tool: pack cards with per-credit price falling as packs grow, a “what can I make” estimator, a custom amount input and a sticky checkout summary.|pricing,credits,packs,ai,prepaid-->
+<div class="k">
+<section class="cr"><h2>Buy credits</h2><p class="mu">Credits never expire. 1 image = 4 credits, 1 upscale = 2.</p><div class="cr-g" id="g" role="radiogroup" aria-label="Credit pack"></div>
+<div class="cr-cu"><label class="lbl" for="cu">Or a custom amount</label><div class="cr-in"><input class="in tn" id="cu" inputmode="numeric" placeholder="e.g. 3500"><span class="mu">credits</span></div></div>
+<div class="card cr-sum"><div><span class="mu">You'll get</span><b class="tn" id="cn"></b><small class="mu" id="mk"></small></div><button class="b ac lg" id="buy"></button></div></section>
+</div>
+<style>
+.cr{width:min(760px,100%)}.cr h2{margin:0;font-size:24px;letter-spacing:-.02em}.cr>p{margin:4px 0 20px}
+.cr-g{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.cr-g button{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:4px;text-align:left;position:relative;transition:border-color .15s}.cr-g button:hover{border-color:var(--ctl)}.cr-g [aria-checked=true]{border:2px solid var(--ac);padding:15px}.cr-g b{font-size:22px;letter-spacing:-.02em}.cr-g .pp{font-size:12px;color:var(--mu)}.cr-g .pr{font-weight:650;margin-top:8px}.cr-g .sv{position:absolute;top:10px;right:10px}
+.cr-cu{margin-top:16px}.cr-in{display:flex;gap:10px;align-items:center;max-width:280px}.cr-in .in{height:44px;font-size:16px}
+.cr-sum{margin-top:20px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.cr-sum div{display:grid}.cr-sum b{font-size:24px;letter-spacing:-.02em}.cr-sum .b{height:48px}
+@media (max-width:700px){.cr-g{grid-template-columns:1fr 1fr}.cr-sum .b{width:100%}}
+</style>
+<script>
+const K=[[500,5],[2000,18],[5000,40],[15000,105]],g=document.getElementById('g'),cu=document.getElementById('cu');let sel=1,custom=0;
+g.innerHTML=K.map(([c,p],i)=>{const per=p/c*100,sv=Math.round((1-per)*100);return `<button role="radio" aria-checked="${i===sel}" data-i="${i}">${sv>0?`<span class="pill ok sv">−${sv}%</span>`:''}<b class="tn">${c.toLocaleString('en')}</b><span class="pp">credits · ${per.toFixed(2)}¢ each</span><span class="pr tn">€${p}</span></button>`}).join('');
+function up(){const [c,p]=custom?[custom,+(custom*.0095).toFixed(2)]:K[sel];document.getElementById('cn').textContent=c.toLocaleString('en')+' credits';document.getElementById('mk').textContent=`≈ ${Math.floor(c/4).toLocaleString('en')} images or ${Math.floor(c/2).toLocaleString('en')} upscales`;const b=document.getElementById('buy');b.textContent=c>=100?`Pay €${p}`:'Minimum 100 credits';b.disabled=c<100}
+g.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;sel=+b.dataset.i;custom=0;cu.value='';g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));up()};
+cu.oninput=()=>{cu.value=cu.value.replace(/\D/g,'').slice(0,6);custom=+cu.value;g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',!custom&&+x.dataset.i===sel));up()};up();
+</script>

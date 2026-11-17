@@ -1,0 +1,57 @@
+<style>
+.ft{min-height:100vh;display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;padding:60px clamp(20px,5vw,80px);background:#0b0b0c;color:#ededef}
+.ft h2{margin:0 0 30px;font-size:clamp(32px,3.8vw,52px);line-height:1;letter-spacing:-.05em;font-weight:600}.ft h2 em{font-family:"Instrument Serif",serif;font-weight:400;color:#ff9a6b}
+.ft-list{display:flex;flex-direction:column}
+.ft-t{position:relative;padding:18px 0 18px 22px;border:0;background:none;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.ft-t::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:2px;border-radius:2px;background:#ffffff14}
+.ft-t i{position:absolute;left:0;top:18px;width:2px;height:calc(100% - 36px);border-radius:2px;background:#ff7a3d;transform-origin:top;transform:scaleY(0)}
+.ft-t b{display:block;font-size:18px;font-weight:550;letter-spacing:-.02em;color:#71717a;transition:color .3s}
+.ft-t p{margin:0;max-height:0;overflow:hidden;color:#a1a1aa;font-size:15px;line-height:1.55;transition:max-height .5s cubic-bezier(.6,0,.2,1),margin .5s}
+.ft-t.on b{color:#fafafa}.ft-t.on p{max-height:80px;margin-top:8px}
+.ft-stage{position:relative;aspect-ratio:5/4;border-radius:24px;background:#121214;border:1px solid #ffffff0f;overflow:hidden}
+.ft-v{position:absolute;inset:0;padding:28px;opacity:0;transform:translateY(16px) scale(.98);transition:opacity .45s,transform .6s cubic-bezier(.2,1,.3,1)}
+.ft-v.on{opacity:1;transform:none}
+.ft-win{height:100%;border-radius:14px;background:#0b0b0c;border:1px solid #ffffff12;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ft-row{display:flex;align-items:center;gap:10px;height:42px;padding:0 12px;border-radius:10px;background:#ffffff06;font-size:13.5px;color:#d4d4d8}
+.ft-row em{margin-left:auto;font-style:normal;font:12px "Geist Mono",monospace;color:#71717a}
+.ft-row .d{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.ft-v.on .ft-row{animation:ft-in .5s cubic-bezier(.2,1,.3,1) both}.ft-v.on .ft-row:nth-child(2){animation-delay:.08s}.ft-v.on .ft-row:nth-child(3){animation-delay:.16s}.ft-v.on .ft-row:nth-child(4){animation-delay:.24s}
+@keyframes ft-in{from{opacity:0;transform:translateX(-10px)}}
+.ft-bars{flex:1;display:flex;align-items:flex-end;gap:10px;padding:10px 6px 0}
+.ft-bars span{flex:1;border-radius:8px 8px 3px 3px;background:linear-gradient(#ff8a5c,#ff5a1f33);height:var(--h);transform-origin:bottom}
+.ft-v.on .ft-bars span{animation:ft-g .8s cubic-bezier(.2,1,.3,1) both;animation-delay:calc(var(--i)*60ms)}
+@keyframes ft-g{from{transform:scaleY(0)}}
+.ft-code{font:13px/1.8 "Geist Mono",monospace;color:#a1a1aa;white-space:pre}.ft-code b{color:#ff9a6b;font-weight:400}.ft-code u{color:#86efac;text-decoration:none}
+@media (max-width:860px){.ft{grid-template-columns:1fr}}
+</style>
+<section class="ft">
+  <div><h2>One tool, <em>three jobs.</em></h2>
+    <div class="ft-list">
+      <button class="ft-t"><i></i><b>Triage everything</b><p>Requests from email, Slack and forms land in one queue, already labelled by urgency.</p></button>
+      <button class="ft-t"><i></i><b>See where time goes</b><p>Every task rolls up into a live view of effort by team, project and week.</p></button>
+      <button class="ft-t"><i></i><b>Automate the boring bits</b><p>Write rules in plain code. They run on every event, with logs you can actually read.</p></button>
+    </div></div>
+  <div class="ft-stage">
+    <div class="ft-v"><div class="ft-win"><div class="ft-row"><span class="d" style="--c:#f87171"></span>Checkout fails on Safari<em>urgent</em></div><div class="ft-row"><span class="d" style="--c:#fbbf24"></span>Invoice PDF missing logo<em>high</em></div><div class="ft-row"><span class="d" style="--c:#60a5fa"></span>Add dark mode to emails<em>normal</em></div><div class="ft-row"><span class="d" style="--c:#a1a1aa"></span>Typo on pricing page<em>low</em></div></div></div>
+    <div class="ft-v"><div class="ft-win"><span style="font-size:13px;color:#a1a1aa">Hours by week</span><div class="ft-bars"><span style="--h:38%;--i:0"></span><span style="--h:52%;--i:1"></span><span style="--h:44%;--i:2"></span><span style="--h:70%;--i:3"></span><span style="--h:62%;--i:4"></span><span style="--h:84%;--i:5"></span><span style="--h:76%;--i:6"></span><span style="--h:92%;--i:7"></span></div></div></div>
+    <div class="ft-v"><div class="ft-win"><div class="ft-code"><b>on</b>(<u>"ticket.created"</u>, t =&gt; {
+  <b>if</b> (t.text.includes(<u>"refund"</u>))
+    t.assign(<u>"billing"</u>)
+  <b>if</b> (t.customer.plan === <u>"scale"</u>)
+    t.priority = <u>"high"</u>
+})</div></div></div>
+  </div>
+</section>
+<script>
+(()=>{
+const stage=document.querySelector(".ft-stage");
+const tabs=[...document.querySelectorAll(".ft-t")],views=[...stage.querySelectorAll(".ft-v")],DUR=5200;let cur=-1,anim,paused=false;
+function go(i){cur=i;tabs.forEach((t,k)=>t.classList.toggle("on",k===i));views.forEach((v,k)=>v.classList.toggle("on",k===i));
+  tabs.forEach(t=>t.querySelector("i").getAnimations().forEach(a=>a.cancel()));
+  anim=tabs[i].querySelector("i").animate([{transform:"scaleY(0)"},{transform:"scaleY(1)"}],{duration:DUR,easing:"linear",fill:"forwards"});
+  anim.onfinish=()=>go((cur+1)%tabs.length);if(paused)anim.pause()}
+tabs.forEach((t,i)=>t.onclick=()=>go(i));
+stage.addEventListener("mouseenter",()=>{paused=true;anim?.pause()});stage.addEventListener("mouseleave",()=>{paused=false;anim?.play()});
+go(0);
+})();
+</script>

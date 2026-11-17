@@ -1,0 +1,34 @@
+<!--Habit Tracker|Daily habits as big tap targets: tap to complete with a check that draws in, a progress line for the day, streak flames, a week of dots per habit and a celebratory line when all are done.|habits,tracker,streak,checklist,progress-->
+<header class="bar"><div class="nb"><span></span><h2 class="hb-t">Today</h2><span><button class="ib" aria-label="Add habit">@I(plus)</button></span></div></header>
+<main class="sc">
+  <p class="hs-k">Wed 11 November</p><h1 class="lt" style="margin-top:0">Today</h1>
+  <div class="hb-p"><span class="tn" id="pt">2 of 5 done</span><i><i id="pb"></i></i></div>
+  <ul class="hb-l" id="l"></ul>
+</main>
+@PILL(check:Today|chart:Stats|settings:Settings;0)
+<style>
+.hb-t{opacity:0;transition:opacity .2s}.bar.sd .hb-t{opacity:1}
+.hs-k{margin:4px 0 0;padding:0 var(--gut);font-size:13px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.05em}
+.hb-p{padding:12px var(--gut) 8px;font-size:15px;color:var(--mu);font-weight:500}.hb-p>i{display:block;height:6px;border-radius:3px;margin-top:8px;background:var(--sf2);overflow:hidden}
+.hb-p>i>i{display:block;height:100%;border-radius:3px;background:var(--ok);width:0;transition:width .5s var(--ease)}
+.hb-p.all span{color:var(--ok)}
+.hb-l{list-style:none;margin:0;padding:8px var(--gut);display:grid;gap:10px}
+.hb-c{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border-radius:20px;background:var(--sf)!important;text-align:left;transition:transform .15s,background .3s}
+.hb-c:active{transform:scale(.98)}
+.hb-e{width:44px;height:44px;flex:none;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c)}
+.hb-c .tx{flex:1;min-width:0}.hb-c b{display:block;font-size:17px;font-weight:600}.hb-c small{display:flex;align-items:center;gap:4px;font-size:14px;color:var(--mu)}
+.hb-c small .i{width:14px;height:14px;color:light-dark(#ea580c,#fb923c)}
+.hb-w{display:flex;gap:4px;margin-top:6px}.hb-w i{width:8px;height:8px;border-radius:50%;background:var(--sf2)}.hb-w i.y{background:var(--c)}
+.hb-k{width:32px;height:32px;flex:none;border-radius:50%;border:2px solid var(--ctl);display:grid;place-items:center;transition:background .25s,border-color .25s}
+.hb-k svg{width:18px;height:18px;fill:none;stroke:var(--bg);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .3s .05s var(--ease)}
+.hb-c[aria-pressed=true] .hb-k{background:var(--c);border-color:var(--c)}.hb-c[aria-pressed=true] .hb-k svg{stroke-dashoffset:0}
+.hb-c[aria-pressed=true] b{color:var(--mu)}
+</style>
+<script>
+const H=[["Morning walk","20 min outside",'<path d="M13 4a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM7 21l3-7 3 2v5M10 14l1-5 4 2 2 3M8 10l3-1"/>',"#16a34a",12,1,"1111101"],["Read","15 pages",'<path d="M4 4v16M9 4v16M14 4l6 16"/>',"#7c3aed",5,1,"0111101"],["Drink water","8 glasses",'<path d="M12 2.7s7 7.3 7 12.3a7 7 0 0 1-14 0c0-5 7-12.3 7-12.3z"/>',"#0284c7",21,0,"1111110"],["Stretch","10 min",'<path d="M6 7v10M18 7v10M3 9v6M21 9v6M6 12h12"/>',"#ea580c",3,0,"0011100"],["No phone after 22","Wind down",'<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/>',"#db2777",0,0,"0000000"]];
+const F='<svg class="i" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-4-3-6-4-9-1.5 2-2 3-3.5 3.5C11 7 11 4 9 2 9 6 5 9 5 15a7 7 0 0 0 7 7z" fill="currentColor" stroke="none"/></svg>';
+const draw=()=>{l.innerHTML=H.map(([n,s,ic,c,st,d,w],i)=>`<li><button class="hb-c" style="--c:${c}" aria-pressed="${!!d}" data-i="${i}"><span class="hb-e"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ic}</svg></span><span class="tx"><b>${n}</b><small>${st+d?F+(st+d)+" day streak":s}</small><span class="hb-w" aria-hidden="true">${[...w].map((x,j)=>`<i class="${x==="1"||(j===6&&d)?"y":""}"></i>`).join("")}</span></span><span class="hb-k"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></button></li>`).join("");prog()};
+const prog=()=>{const n=H.filter(h=>h[5]).length;pt.textContent=n===H.length?"All done. See you tomorrow.":`${n} of ${H.length} done`;pb.style.width=n/H.length*100+"%";pt.parentElement.classList.toggle("all",n===H.length)};
+l.onclick=e=>{const b=e.target.closest(".hb-c");if(!b)return;const h=H[b.dataset.i];h[5]=h[5]?0:1;b.setAttribute("aria-pressed",!!h[5]);const sm=b.querySelector("small");sm.innerHTML=h[4]+h[5]?F+(h[4]+h[5])+" day streak":h[1];b.querySelectorAll(".hb-w i")[6].classList.toggle("y",!!h[5]);prog()};
+draw();
+</script>

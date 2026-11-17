@@ -1,0 +1,42 @@
+<!--To-do List|A task list made for thumbs: add from a glass field at the bottom, tap the ring to complete (it moves to Done with a strike), drag the handle to reorder, and see the count per section.|todo,tasks,reorder,drag,checklist-->
+<header class="bar"><div class="nb"><span></span><h2 class="td-t">Today</h2><span><button class="ib" aria-label="More">@I(more)</button></span></div></header>
+<main class="sc td" id="sc"><h1 class="lt">Today</h1><p class="sub" id="sm"></p>
+  <ul class="td-l" id="l" aria-label="To do"></ul>
+  <h2 class="td-h">Done <span id="dc" class="tn"></span></h2>
+  <ul class="td-l done" id="d" aria-label="Done"></ul>
+</main>
+<form class="td-add" id="f"><label class="td-in gl fw"><span class="vh">New task</span>@I(plus,20)<input id="in" placeholder="Add a task" enterkeyhint="done" autocomplete="off"></label></form>
+<style>
+.td-t{opacity:0;transition:opacity .2s}.bar.sd .td-t{opacity:1}
+.td{padding-bottom:calc(var(--sbt) + 96px)!important}
+.td-l{list-style:none;margin:12px 0 0;padding:0 var(--gut)}
+.td-i{display:flex;align-items:center;gap:4px;min-height:56px;border-bottom:.5px solid var(--line);background:var(--bg);transition:transform .2s var(--ease)}
+.td-i.drag{position:relative;z-index:5;transition:none;box-shadow:0 12px 24px -8px #0004;border-radius:12px;border-color:transparent;transform:scale(1.02)}
+.td-ck{width:44px;height:44px;margin-left:-10px;display:grid;place-items:center;flex:none}
+.td-ck i{width:24px;height:24px;border-radius:50%;border:2px solid var(--ctl);display:grid;place-items:center;transition:background .2s,border-color .2s}
+.td-ck svg{width:14px;height:14px;fill:none;stroke:var(--bg);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .25s .05s}
+.done .td-ck i{background:var(--ok);border-color:var(--ok)}.done .td-ck svg{stroke-dashoffset:0}
+.td-i .tx{flex:1;min-width:0;font-size:17px;line-height:22px}.td-i small{display:block;font-size:13px;color:var(--mu)}.td-i small.due{color:var(--err)}
+.done .tx{color:var(--mu);text-decoration:line-through}
+.td-hd{width:44px;height:44px;display:grid;place-items:center;color:var(--ctl);cursor:grab;touch-action:none;margin-right:-10px}
+.done .td-hd{display:none}
+.td-h{margin:0;padding:28px var(--gut) 0;font-size:15px;font-weight:600;color:var(--mu)}
+.td-add{position:absolute;left:var(--gut);right:var(--gut);bottom:max(12px,calc(var(--sbt) - 4px));z-index:70;margin:0}
+.td-in{display:flex;align-items:center;gap:10px;height:56px;border-radius:28px;padding:0 20px;color:var(--ac)}
+.td-in input{flex:1;border:0;background:none;outline:0;font-size:17px!important;color:var(--fg)}.td-in input::placeholder{color:var(--mu)}
+.td-i.in{animation:ti .35s var(--ease)}@keyframes ti{from{opacity:0;transform:translateY(-8px)}}
+</style>
+<script>
+const I=p=>`<svg viewBox="0 0 24 24" aria-hidden="true" class="i">${p}</svg>`,GR=I('<circle cx="9" cy="6" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="18" r="1"/>');
+const item=(t,s,due)=>{const li=document.createElement("li");li.className="td-i";li.innerHTML=`<button class="td-ck" aria-label="Complete: ${t}"><i><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i></button><span class="tx">${t.replace(/</g,"&lt;")}${s?`<small class="${due?"due":""}">${s}</small>`:""}</span><span class="td-hd" aria-hidden="true">${GR}</span>`;return li};
+[["Book dentist","Overdue · Tue",1],["Pick up prints from framer","Today 16:00"],["Reply to Ines about Saturday"],["Pack for Oslo","Tomorrow"]].forEach(a=>l.append(item(...a)));
+d.append(item("Morning walk"));
+const cnt=()=>{const n=l.children.length;sm.textContent=n?`${n} to do`:"All clear for today";dc.textContent=d.children.length;};cnt();
+document.querySelector(".td").addEventListener("click",e=>{const b=e.target.closest(".td-ck");if(!b)return;const li=b.closest("li");const toDone=li.parentElement===l;li.style.opacity=0;setTimeout(()=>{(toDone?d:l)[toDone?"prepend":"append"](li);li.style.opacity="";b.setAttribute("aria-label",(toDone?"Mark not done: ":"Complete: ")+li.querySelector(".tx").firstChild.textContent);cnt()},180)});
+f.onsubmit=e=>{e.preventDefault();const v=in_.value.trim();if(!v)return;const li=item(v);li.classList.add("in");l.prepend(li);in_.value="";cnt()};const in_=document.getElementById("in");
+let drag=null,sy=0,start=0,h=0;
+l.addEventListener("pointerdown",e=>{const hd=e.target.closest(".td-hd");if(!hd)return;drag=hd.closest("li");h=drag.offsetHeight;sy=e.clientY;start=[...l.children].indexOf(drag);drag.classList.add("drag");hd.setPointerCapture(e.pointerId)});
+l.addEventListener("pointermove",e=>{if(!drag)return;const dy=e.clientY-sy;drag.style.transform=`translateY(${dy}px) scale(1.02)`;const to=Math.max(0,Math.min(l.children.length-1,start+Math.round(dy/h)));[...l.children].forEach((c,i)=>{if(c===drag)return;let s=0;if(start<to&&i>start&&i<=to)s=-h;if(start>to&&i<start&&i>=to)s=h;c.style.transform=s?`translateY(${s}px)`:""});drag.dataset.to=to});
+const drop=()=>{if(!drag)return;const to=+(drag.dataset.to??start);[...l.children].forEach(c=>{c.style.transition="none";c.style.transform=""});drag.classList.remove("drag");l.removeChild(drag);l.insertBefore(drag,l.children[to]||null);requestAnimationFrame(()=>[...l.children].forEach(c=>c.style.transition=""));drag=null};
+l.addEventListener("pointerup",drop);l.addEventListener("pointercancel",drop);
+</script>

@@ -1,0 +1,44 @@
+<style>
+.tm{position:relative;height:420vh;background:#f4ece2;color:#2b1608;font-family:Geist,system-ui,sans-serif}
+.tm-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.tm svg{position:absolute;inset:0;width:100%;height:100%}
+.tm text{font:700 100px Geist,system-ui,sans-serif;letter-spacing:-.04em}
+.tm-k{position:absolute;left:0;right:0;top:clamp(24px,7vh,64px);text-align:center;font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:#6f4a2f;transition:opacity .4s}
+.tm-c{position:absolute;left:clamp(20px,5vw,64px);top:clamp(28px,9vh,80px);max-width:520px;opacity:0;translate:0 24px;transition:opacity .6s,translate .8s cubic-bezier(.2,.8,.2,1)}
+.tm-c.on{opacity:1;translate:0}
+.tm-c small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:#2b1608}
+.tm-c h3{margin:12px 0 0;font-size:clamp(34px,4.4vw,64px);line-height:.94;letter-spacing:-.055em;font-weight:600}
+.tm-c em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.025em}
+.tm-after{height:40vh;display:grid;place-items:center;background:#f4ece2;color:#6f4a2f;font-size:15px}
+</style>
+<section class="tm" aria-label="Arid: a desert story">
+  <div class="tm-pin">
+    <svg aria-hidden="true">
+      <defs><mask id="tm-m" maskUnits="userSpaceOnUse"><rect class="tm-bg" fill="#000"/><text fill="#fff" text-anchor="middle">ARID</text></mask></defs>
+      <text class="tm-ms" fill="none" text-anchor="middle">ARID</text>
+      <image href="media/pics/w/525.jpg" preserveAspectRatio="xMidYMid slice" mask="url(#tm-m)"/>
+    </svg>
+    <p class="tm-k">SCROLL INTO THE DUNE</p>
+    <div class="tm-c"><small>CHAPTER ONE</small><h3>Nine days, <em>no shade.</em></h3></div>
+  </div>
+</section>
+<div class="tm-after">The page continues.</div>
+<script>
+(()=>{
+// Text inside <mask> is not laid out, so an invisible copy (.tm-ms) gives the I's position; canvas measureText gives its ink centre.
+// The photo is masked by one word; scroll scales the word around the stem of its "I" until the stem covers the screen and the photo is all that's left.
+const root=document.querySelector(".tm"),svg=root.querySelector("svg"),txt=svg.querySelector("text"),bg=svg.querySelector(".tm-bg"),im=svg.querySelector("image"),ms=svg.querySelector(".tm-ms"),k=root.querySelector(".tm-k"),cap=root.querySelector(".tm-c");
+let W=0,H=0,ox=0,oy=0,fs=0,raf=0;
+function layout(){W=svg.clientWidth;H=svg.clientHeight;svg.setAttribute("viewBox",`0 0 ${W} ${H}`);for(const el of[bg,im]){el.setAttribute("width",W);el.setAttribute("height",H)}
+  fs=Math.min(W*.36,H*.5);for(const t of[txt,ms]){t.style.fontSize=fs+"px";t.setAttribute("x",W/2);t.setAttribute("y",H/2+fs*.36)}
+  const e=ms.getExtentOfChar(2),g=document.createElement("canvas").getContext("2d");g.font=`700 ${fs}px Geist`;const mI=g.measureText("I");
+  ox=e.x+(mI.actualBoundingBoxRight-mI.actualBoundingBoxLeft)/2;oy=H/2;update()}
+function update(){raf=0;const r=root.getBoundingClientRect(),p=Math.max(0,Math.min(1,-r.top/(root.offsetHeight-innerHeight))),q=Math.min(1,p/.8);
+  const s=Math.pow(Math.max(W,H)*1.4/(fs*.1),q*q);
+  txt.setAttribute("transform",`translate(${ox} ${oy}) scale(${s}) translate(${-ox} ${-oy})`);
+  im.setAttribute("transform",`translate(${W/2} ${H/2}) scale(${1.25-.25*q}) translate(${-W/2} ${-H/2})`);
+  k.style.opacity=p<.08?1:0;cap.classList.toggle("on",p>.84)}
+addEventListener("scroll",()=>{if(!raf)raf=requestAnimationFrame(update)},{passive:true});
+new ResizeObserver(layout).observe(svg);document.fonts.ready.then(layout);
+})();
+</script>

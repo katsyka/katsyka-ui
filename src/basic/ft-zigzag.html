@@ -1,0 +1,14 @@
+<!--Alternating Feature Rows|Features|Feature rows that alternate photo and text sides, each with one claim, two sentences and a small proof line (a number with its source); images reveal with a soft clip as they enter.|features,alternating,zigzag,photo,editorial-->
+<div class="k pg zz"><section class="w zz-w"><h2 class="h2 zz-h">Built for kitchens that cook all day</h2>
+<article><img src="media/pics/c/1060.jpg" alt="Coffee being brewed by hand"><div><h3 class="h3">Prep lists that write themselves</h3><p class="lead">Tonight's covers and tomorrow's bookings turn into a prep list by 6 a.m. Chefs tick items off on a tablet by the pass.</p><small class="mu">Average prep planning time: 9 minutes, down from 40. From 28 kitchens using it since spring.</small></div></article>
+<article><img src="media/pics/c/1080.jpg" alt="A tray of fresh strawberries"><div><h3 class="h3">Waste you can see</h3><p class="lead">Log what goes in the bin with two taps. Each Friday you get the three items costing you most, with suggested order changes.</p><small class="mu">Typical kitchens cut produce waste by a fifth in the first two months.</small></div></article>
+<article><img src="media/pics/c/1073.jpg" alt="Stacked open books"><div><h3 class="h3">Recipes with the real numbers</h3><p class="lead">Every recipe shows its cost per plate at today's supplier prices, so you know when a dish quietly stopped making money.</p><small class="mu">Prices update from 14 supplier price lists, nightly.</small></div></article></section></div>
+<style>
+.zz-w{padding:96px 0;display:grid;gap:96px}.zz-h{max-width:18ch}.zz-w article{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}.zz-w article:nth-of-type(even) img{order:2}.zz-w img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;clip-path:inset(8% 8% 8% 8% round 14px);opacity:.4;transition:clip-path .9s cubic-bezier(.23,1,.32,1),opacity .6s}.zz-w img.vis{clip-path:inset(0 0 0 0 round 14px);opacity:1}
+.zz-w article div{display:grid;gap:14px}.zz-w small{font-size:13px;padding-top:14px;border-top:1px solid var(--line);max-width:46ch}
+@media (max-width:760px){.zz-w{gap:56px;padding:56px 0}.zz-w article{grid-template-columns:1fr;gap:20px}.zz-w article:nth-of-type(even) img{order:0}}
+@media (prefers-reduced-motion:reduce){.zz-w img{clip-path:none;opacity:1;transition:none}}
+</style>
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.25});document.querySelectorAll('.zz-w img').forEach(i=>io.observe(i));
+</script>

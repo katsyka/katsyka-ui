@@ -1,0 +1,19 @@
+<!--Account Switcher|Auth|A popover for switching between signed-in accounts, like a mail app: current account with storage meter, other accounts with unread counts, add account and sign out of all, keyboard accessible.|auth,account,switcher,popover,multi-account-->
+<div class="k">
+<div class="ax"><button class="ax-t" id="t" aria-haspopup="true" aria-expanded="true" aria-controls="p"><span class="av" style="--c:#0f766e">EM</span><span>Elif Mert</span>@I(down,16)</button>
+<div class="card ax-p" id="p" role="menu" aria-label="Accounts"><div class="ax-cur"><span class="av lg" style="--c:#0f766e">EM</span><b>Elif Mert</b><span class="mu">elif@hey.example</span><div class="ax-sto"><i style="--w:62%"></i></div><small class="mu">9.3 GB of 15 GB used</small><button class="b sec sm" role="menuitem">Manage account</button></div>
+<div class="ax-ls" id="ls"></div><button class="ax-row" role="menuitem">@I(plus,18)<span>Add another account</span></button><button class="ax-row" role="menuitem">@I(off,18)<span>Sign out of all accounts</span></button></div></div>
+</div>
+<style>
+.ax{position:relative;width:min(340px,100%);display:grid;justify-items:end;align-self:start;margin-top:24px}.ax-t{display:flex;gap:8px;align-items:center;height:44px;padding:0 10px 0 4px;border-radius:999px;border:1px solid var(--line);background:var(--bg);font-weight:550}.ax-t .av{width:34px;height:34px;font-size:12px}
+.ax-p{width:100%;margin-top:8px;padding:8px;transform-origin:top right;animation:axp .18s var(--ease)}.ax-p[hidden]{display:none}@keyframes axp{from{opacity:0;transform:scale(.96)}}
+.ax-cur{display:grid;justify-items:center;text-align:center;gap:4px;padding:16px 12px;border-radius:12px;background:var(--sf)}.ax-cur .lg{width:56px;height:56px;font-size:18px;margin-bottom:6px}.ax-cur .b{margin-top:10px}.ax-sto{width:100%;height:4px;border-radius:2px;background:var(--sf2);margin-top:8px;overflow:hidden}.ax-sto i{display:block;height:100%;width:var(--w);background:var(--ac)}.ax-cur small{font-size:11px}
+.ax-ls{display:grid;margin:6px 0;border-bottom:1px solid var(--line);padding-bottom:6px}.ax-row{display:flex;gap:12px;align-items:center;width:100%;padding:10px;border-radius:10px;text-align:left;min-height:48px}.ax-row:hover,.ax-row:focus-visible{background:var(--sf)}.ax-row>.i{color:var(--mu);width:32px}.ax-row .av{width:32px;height:32px;font-size:11px}.ax-row div{display:grid;flex:1;min-width:0;font-size:13px}.ax-row div span{overflow:hidden;text-overflow:ellipsis}.ax-row em{font-style:normal;font-size:11px;font-weight:700;background:var(--ac);color:var(--ac-fg);border-radius:999px;padding:2px 7px}
+</style>
+<script>
+const A=[["Elif Mert","elif@studio.example","#7c3aed",12],["Elif (personal)","elif.m@mail.example","#b45309",0]],ls=document.getElementById('ls'),p=document.getElementById('p'),t=document.getElementById('t');
+ls.innerHTML=A.map(([n,e,c,u],i)=>`<button class="ax-row" role="menuitem" data-i="${i}"><span class="av" style="--c:${c}">${n.split(' ').map(w=>w[0]).join('').slice(0,2).replace('(','')}</span><div><b>${n}</b><span class="mu">${e}</span></div>${u?`<em aria-label="${u} unread">${u}</em>`:''}</button>`).join('');
+t.onclick=()=>{const o=p.hidden;p.hidden=!o;t.setAttribute('aria-expanded',o);if(o)p.querySelector('[role=menuitem]').focus()};
+p.addEventListener('keydown',e=>{const I=[...p.querySelectorAll('[role=menuitem]')],i=I.indexOf(document.activeElement);if(e.key==='ArrowDown'){I[(i+1)%I.length].focus();e.preventDefault()}if(e.key==='ArrowUp'){I[(i-1+I.length)%I.length].focus();e.preventDefault()}if(e.key==='Escape'){p.hidden=true;t.setAttribute('aria-expanded',false);t.focus()}});
+ls.onclick=e=>{const b=e.target.closest('[data-i]');if(b)b.querySelector('.mu').textContent='Switching…'};
+</script>

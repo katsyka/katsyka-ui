@@ -1,0 +1,75 @@
+<style>
+.ge{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ge :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ge ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ge *,.ge *::before,.ge *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ge{min-height:100vh;display:grid;grid-template-columns:1fr 340px}
+.ge-pv{position:relative;display:grid;place-items:center;padding:32px;background:var(--sf)}
+.ge-pv div{width:min(520px,100%);aspect-ratio:4/3;border-radius:24px;box-shadow:var(--shadow);background:var(--g)}
+.ge-p{padding:22px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
+.ge-p h3{margin:0;font-size:16px;font-weight:600}
+.ge-lbl{font-size:13px;font-weight:550;margin-bottom:8px;display:block}
+.ge-type{display:flex;padding:4px;border-radius:12px;background:var(--sf2)}
+.ge-type button{flex:1;height:36px;border:0;border-radius:9px;background:none;color:var(--mu);font:550 13.5px Geist,sans-serif;cursor:pointer}
+.ge-type button[aria-checked=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 3px light-dark(#0000001f,#0008)}
+.ge-bar{position:relative;height:36px;margin:0 12px;border-radius:8px;background:var(--lin),repeating-conic-gradient(#ccc 0 25%,#fff 0 50%) 0 0/12px 12px;box-shadow:inset 0 0 0 1px #0000001a;cursor:copy}
+.ge-st{position:absolute;top:-6px;width:24px;height:48px;margin-left:-12px;border:0;padding:0;background:none;cursor:grab;touch-action:none}
+.ge-st::before{content:"";position:absolute;left:2px;right:2px;top:6px;bottom:6px;border-radius:7px;background:var(--c);border:3px solid #fff;box-shadow:0 0 0 1px #0005,0 2px 6px #0004}
+.ge-st[aria-current=true]::before{border-color:var(--fg);box-shadow:0 0 0 1px var(--bg),0 2px 6px #0004}
+.ge-st:focus-visible{outline-offset:0;border-radius:8px}
+.ge-row{display:grid;grid-template-columns:44px 1fr 84px 40px;gap:8px;align-items:center}
+.ge-row input[type=color]{width:44px;height:40px;padding:2px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);cursor:pointer}
+.ge-row input[type=text],.ge-row input[type=number]{height:40px;min-width:0;padding:0 10px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:500 14px "Geist Mono",monospace}
+.ge-row button{height:40px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);color:var(--err);font-size:16px;cursor:pointer}.ge-row button:disabled{opacity:.35;cursor:not-allowed}
+.ge-ang{display:flex;align-items:center;gap:12px}
+.ge-ang input{flex:1;accent-color:var(--ac);height:24px}.ge-ang output{width:48px;text-align:right;font:500 14px "Geist Mono",monospace}
+.ge-out{position:relative;padding:12px;border-radius:12px;background:var(--sf);font:12.5px/1.6 "Geist Mono",monospace;color:var(--fg);word-break:break-all;padding-right:72px}
+.ge-out button{position:absolute;top:8px;right:8px;height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:500 12.5px Geist,sans-serif;cursor:pointer}
+.ge-hint{font-size:12.5px;color:var(--mu);margin:-8px 0 0}
+@media (max-width:820px){.ge{grid-template-columns:1fr}.ge-p{border-left:0}}
+</style>
+<section class="ge">
+  <div class="ge-pv"><div role="img" aria-label="Gradient preview"></div></div>
+  <div class="ge-p"><h3>Gradient</h3>
+    <div><span class="ge-lbl">Type</span><div class="ge-type" role="radiogroup" aria-label="Gradient type"><button role="radio" aria-checked="true" data-t="linear">Linear</button><button role="radio" aria-checked="false" data-t="radial">Radial</button><button role="radio" aria-checked="false" data-t="conic">Conic</button></div></div>
+    <div><span class="ge-lbl">Stops</span><div class="ge-bar" title="Click to add a stop"></div></div>
+    <p class="ge-hint">Click the bar to add · drag a stop · arrows nudge 1% · Delete removes.</p>
+    <div class="ge-row"><input type="color" aria-label="Stop colour"><input type="text" aria-label="Stop hex" spellcheck="false"><input type="number" min="0" max="100" aria-label="Stop position percent"><button aria-label="Delete stop">🗑</button></div>
+    <div class="ge-ang"><label class="ge-lbl" for="geA" style="margin:0">Angle</label><input id="geA" type="range" min="0" max="360" value="135"><output>135°</output></div>
+    <div class="ge-out"><code></code><button>Copy</button></div>
+  </div>
+</section>
+<script>
+(()=>{
+let stops=[{c:"#ff6b35",p:0},{c:"#f7c59f",p:45},{c:"#2e1760",p:100}],sel=0,type="linear",ang=135;
+const root=document.querySelector(".ge"),bar=root.querySelector(".ge-bar"),[col,hex,pos,del]=root.querySelectorAll(".ge-row > *"),ain=root.querySelector("#geA");
+const css=()=>{const s=[...stops].sort((a,b)=>a.p-b.p).map(x=>`${x.c} ${Math.round(x.p)}%`).join(", ");
+  return type==="linear"?`linear-gradient(${ang}deg, ${s})`:type==="radial"?`radial-gradient(circle at 50% 50%, ${s})`:`conic-gradient(from ${ang}deg, ${s})`};
+function render(){const s=[...stops].sort((a,b)=>a.p-b.p).map(x=>`${x.c} ${x.p}%`).join(",");
+  bar.style.setProperty("--lin",`linear-gradient(90deg,${s})`);root.style.setProperty("--g",css());
+  bar.querySelectorAll(".ge-st").forEach(b=>b.remove());
+  stops.forEach((st,i)=>{const b=document.createElement("button");b.className="ge-st";b.style.left=st.p+"%";b.style.setProperty("--c",st.c);b.setAttribute("role","slider");b.setAttribute("aria-label",`Stop ${i+1}, ${st.c}`);
+    b.setAttribute("aria-valuenow",Math.round(st.p));b.setAttribute("aria-valuemin",0);b.setAttribute("aria-valuemax",100);b.setAttribute("aria-current",i===sel);b.dataset.i=i;bar.append(b)});
+  const s0=stops[sel];col.value=s0.c;if(document.activeElement!==hex)hex.value=s0.c;if(document.activeElement!==pos)pos.value=Math.round(s0.p);del.disabled=stops.length<=2;
+  root.querySelector(".ge-out code").textContent=`background: ${css()};`;ain.disabled=type==="radial";root.querySelector(".ge-ang output").textContent=ang+"°"}
+const pct=e=>{const r=bar.getBoundingClientRect();return Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))};
+const mix=p=>{const s=[...stops].sort((a,b)=>a.p-b.p);let a=s[0],b=s[s.length-1];for(let i=0;i<s.length-1;i++)if(p>=s[i].p&&p<=s[i+1].p){a=s[i];b=s[i+1]}
+  const t=(p-a.p)/((b.p-a.p)||1),h=c=>[1,3,5].map(k=>parseInt(c.slice(k,k+2),16));const A=h(a.c),B=h(b.c);return"#"+A.map((v,k)=>Math.round(v+(B[k]-v)*t).toString(16).padStart(2,"0")).join("")};
+let drag=null;
+bar.addEventListener("pointerdown",e=>{const st=e.target.closest(".ge-st");if(st){sel=+st.dataset.i;drag={i:sel,y:e.clientY};bar.setPointerCapture(e.pointerId);render();bar.querySelector(`[data-i="${sel}"]`).focus();return}
+  const p=Math.round(pct(e));stops.push({c:mix(p),p});sel=stops.length-1;drag={i:sel,y:e.clientY};bar.setPointerCapture(e.pointerId);render()});
+bar.addEventListener("pointermove",e=>{if(!drag)return;stops[drag.i].p=Math.round(pct(e));const off=Math.abs(e.clientY-drag.y)>60&&stops.length>2;bar.style.opacity=off?.5:1;render()});
+bar.addEventListener("pointerup",e=>{if(!drag)return;if(Math.abs(e.clientY-drag.y)>60&&stops.length>2){stops.splice(drag.i,1);sel=0}bar.style.opacity=1;drag=null;render();bar.querySelector(`[data-i="${sel}"]`)?.focus()});
+bar.addEventListener("keydown",e=>{const st=e.target.closest(".ge-st");if(!st)return;const i=+st.dataset.i,d={ArrowLeft:-1,ArrowRight:1,ArrowDown:-1,ArrowUp:1}[e.key];
+  if(d){e.preventDefault();stops[i].p=Math.max(0,Math.min(100,stops[i].p+d*(e.shiftKey?10:1)));sel=i;render();bar.querySelector(`[data-i="${i}"]`).focus()}
+  if((e.key==="Delete"||e.key==="Backspace")&&stops.length>2){stops.splice(i,1);sel=0;render();bar.querySelector('[data-i="0"]').focus()}});
+col.oninput=()=>{stops[sel].c=col.value;render()};
+hex.onchange=()=>{if(/^#[0-9a-f]{6}$/i.test(hex.value))stops[sel].c=hex.value.toLowerCase();render()};
+pos.oninput=()=>{stops[sel].p=Math.max(0,Math.min(100,+pos.value||0));render()};
+del.onclick=()=>{if(stops.length>2){stops.splice(sel,1);sel=0;render()}};
+ain.oninput=()=>{ang=+ain.value;render()};
+root.querySelectorAll(".ge-type button").forEach((b,i,all)=>{b.onclick=()=>{all.forEach(x=>x.setAttribute("aria-checked",x===b));type=b.dataset.t;render()}});
+root.querySelector(".ge-out button").onclick=async e=>{const t=root.querySelector(".ge-out code").textContent;try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement("textarea");a.value=t;document.body.append(a);a.select();document.execCommand("copy");a.remove()}e.target.textContent="Copied";setTimeout(()=>e.target.textContent="Copy",1300)};
+render();
+})();
+</script>

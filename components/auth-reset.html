@@ -1,0 +1,48 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.pr{width:min(400px,100%);padding:32px}.pr h1{margin:0 0 6px;font-size:22px;letter-spacing:-.02em}.pr p{margin:0 0 20px}.pr .in{height:44px;font-size:16px}.pr-cd{letter-spacing:.2em;font-family:'Geist Mono',monospace}.pr-go{width:100%;height:44px;margin-top:16px}
+.pr-rq{list-style:none;padding:0;margin:10px 0 14px;display:grid;gap:6px;font-size:13px;color:var(--mu)}.pr-rq li{display:flex;gap:8px;align-items:center;transition:color .2s}.pr-rq li::before{content:"";width:16px;height:16px;border-radius:50%;border:1.5px solid var(--ctl);flex:none;transition:all .2s}.pr-rq li.ok{color:var(--fg)}.pr-rq li.ok::before{background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain;border-color:var(--ok)}
+.pr-mm{display:block;font-size:13px;margin-top:6px}.pr-mm:empty{display:none}.pr-ok{text-align:center;display:grid;justify-items:center}.pr-ok>.i{width:52px;height:52px;padding:12px;border-radius:50%;background:var(--ok-sf);color:var(--ok);margin-bottom:14px}
+#b,#c{animation:prf .3s var(--ease)}@keyframes prf{from{opacity:0;transform:translateY(6px)}}
+</style>
+<div class="k">
+<div class="card pr"><div id="a"><h1>Reset your password</h1><p class="mu">Enter your email and we'll send a 6-digit code.</p><label class="lbl" for="em">Email</label><input class="in" id="em" type="email" autocomplete="email" value="lena@example.com"><button class="b ac pr-go" id="sa">Send code</button></div>
+<div id="b" hidden><h1>Choose a new password</h1><p class="mu">Code sent to lena@example.com. For this demo it's already filled in.</p><label class="lbl" for="cd">Code</label><input class="in tn pr-cd" id="cd" value="482 913" inputmode="numeric" autocomplete="one-time-code">
+<label class="lbl" for="p1" style="margin-top:14px">New password</label><input class="in" id="p1" type="password" autocomplete="new-password"><ul class="pr-rq" id="rq"><li data-r="len">At least 10 characters</li><li data-r="num">Contains a number</li><li data-r="case">Upper and lower case</li><li data-r="old">Not your previous password</li></ul>
+<label class="lbl" for="p2">Confirm password</label><input class="in" id="p2" type="password" autocomplete="new-password" aria-describedby="mm"><small id="mm" class="pr-mm"></small><button class="b ac pr-go" id="sb" disabled>Update password</button></div>
+<div id="c" hidden class="pr-ok"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:26px;height:26px"><path d="M20 6 9 17l-5-5"/></svg><h1>Password updated</h1><p class="mu">You've been signed out on other devices.</p><button class="b sec pr-go">Back to sign in</button></div></div>
+</div>
+<script>
+const $=i=>document.getElementById(i),R={len:v=>v.length>=10,num:v=>/\d/.test(v),case:v=>/[a-z]/.test(v)&&/[A-Z]/.test(v),old:v=>v&&v!=='Summer2024!'};
+$('sa').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Sending…';setTimeout(()=>{$('a').hidden=true;$('b').hidden=false;$('p1').focus()},700)};
+function chk(){const v=$('p1').value,c=$('p2').value;let all=true;$('rq').querySelectorAll('li').forEach(l=>{const ok=R[l.dataset.r](v);l.classList.toggle('ok',ok);all=all&&ok});const mm=$('mm');mm.textContent=c?(c===v?'Passwords match':'Passwords don\'t match yet'):'';mm.style.color=c===v?'var(--ok)':'var(--err)';$('p2').setAttribute('aria-invalid',!!c&&c!==v);$('sb').disabled=!(all&&c===v)}
+$('p1').oninput=$('p2').oninput=chk;
+$('sb').onclick=e=>{const b=e.currentTarget;b.disabled=true;b.textContent='Updating…';setTimeout(()=>{$('b').hidden=true;$('c').hidden=false},800)};
+</script>

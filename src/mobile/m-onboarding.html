@@ -1,0 +1,33 @@
+<!--Onboarding|Three swipeable intro pages with scroll-snap, a pager that stretches the active dot, Skip in the corner and one primary button in thumb reach that becomes Get started on the last page.|onboarding,intro,carousel,pager,swipe-->
+<div class="ob-top"><button class="ob-skip" id="skip">Skip</button></div>
+<main class="ob" id="ob" aria-roledescription="carousel">
+  <section class="ob-p" aria-label="1 of 3"><figure><img src="media/pics/c/1043.jpg" alt=""></figure><h2>Find trails near you</h2><p>Routes from people who walked them last week, not ten years ago.</p></section>
+  <section class="ob-p" aria-label="2 of 3"><figure><img src="media/pics/c/1051.jpg" alt=""></figure><h2>Works with no signal</h2><p>Maps and directions download with the route, so the mountain can't strand you.</p></section>
+  <section class="ob-p" aria-label="3 of 3"><figure><img src="media/pics/c/1006.jpg" alt=""></figure><h2>Share the summit</h2><p>Send a live location to friends and let them know when you're back down.</p></section>
+</main>
+<div class="cta ob-cta"><div class="ob-dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div><button class="btn" id="next">Continue</button></div>
+<style>
+.ob-top{position:absolute;top:var(--st);right:8px;z-index:20}
+.ob-skip{min-height:44px;padding:0 12px;font-size:17px;font-weight:500;color:var(--mu)}
+.ob{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.ob::-webkit-scrollbar{display:none}
+.ob-p{flex:none;width:100%;scroll-snap-align:center;scroll-snap-stop:always;padding:calc(var(--st) + 52px) 24px 0;display:flex;flex-direction:column}
+.ob-p figure{margin:0;flex:1;max-height:440px;border-radius:32px;overflow:hidden;background:var(--sf)}
+.ob-p img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);transition:transform .8s var(--ease)}
+.ob-p.vis img{transform:none}
+.ob-p h2{margin:32px 0 0;font-size:28px;line-height:34px;font-weight:700;letter-spacing:-.025em;text-wrap:balance}
+.ob-p p{margin:8px 0 0;font-size:17px;line-height:24px;color:var(--mu);text-wrap:pretty;max-width:32ch}
+.ob-cta{position:static;background:none;padding-top:24px}
+.ob-dots{display:flex;gap:6px;margin-bottom:24px;padding-left:8px}
+.ob-dots i{width:8px;height:8px;border-radius:4px;background:var(--line);transition:width .35s var(--ease),background .35s}
+.ob-dots i.on{width:24px;background:var(--fg)}
+.ob-cta .btn{transition:transform .15s,background .3s}
+</style>
+<script>
+const ps=[...ob.children],ds=[...dots.children];let cur=0;
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){cur=ps.indexOf(e.target);e.target.classList.add("vis");ds.forEach((d,i)=>d.classList.toggle("on",i===cur));next.textContent=cur===2?"Get started":"Continue";skip.style.visibility=cur===2?"hidden":""}}),{root:ob,threshold:.6});
+ps.forEach(p=>io.observe(p));
+const to=i=>ob.scrollTo({left:i*ob.clientWidth,behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"});
+next.onclick=()=>cur<2?to(cur+1):(next.textContent="Let's go",next.disabled=true);
+skip.onclick=()=>to(2);
+</script>

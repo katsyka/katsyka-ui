@@ -1,0 +1,16 @@
+<!--Inbox Zero State|States|An empty inbox that rewards you: a calm message, a 7-day streak of cleared days, the next scheduled thing coming in, and quick actions instead of a blank illustration.|empty state,inbox,zero,streak,productivity-->
+<div class="k iz"><main class="iz-w"><div class="iz-ok">@I(check,26)</div><h1>Inbox clear</h1><p class="mu">Nothing needs you right now. Last message handled at <span class="tn" id="lt">16:42</span>.</p>
+<div class="iz-sk"><div class="iz-sh"><b>5-day streak</b><span class="mu">Cleared before 18:00</span></div><ol class="iz-d" id="d"></ol></div>
+<div class="iz-nx"><span class="mu">Next up</span><div><b>Weekly report from Lena</b><span class="mu">usually arrives Mondays around 09:00</span></div></div>
+<div class="iz-ac"><button class="b sec">@I(edit,16)Write a message</button><button class="b gh">@I(archive,16)Open archive</button></div></main></div>
+<style>
+.iz-w{width:min(440px,100%);display:grid;gap:16px;justify-items:center;text-align:center}.iz-ok{width:56px;height:56px;border-radius:50%;background:var(--ok-sf);color:var(--ok);display:grid;place-items:center}.iz-w h1{margin:0;font-size:24px;letter-spacing:-.02em}.iz-w>p{margin:-10px 0 0}
+.iz-sk{width:100%;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);display:grid;gap:12px}.iz-sh{display:flex;justify-content:space-between;align-items:baseline;font-size:14px}.iz-sh span{font-size:12px}
+.iz-d{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.iz-d li{display:grid;gap:6px;justify-items:center;font-size:11px;color:var(--mu)}.iz-d i{width:100%;aspect-ratio:1;max-width:40px;border-radius:10px;background:var(--sf2);display:grid;place-items:center}.iz-d .y i{background:var(--ok);color:#fff}.iz-d .t i{outline:2px solid var(--ok);outline-offset:2px}.iz-d .i{width:14px;height:14px}
+.iz-nx{width:100%;display:grid;gap:4px;text-align:left;padding:12px 16px;border-radius:12px;background:var(--sf2);font-size:14px}.iz-nx>span{font-size:12px}.iz-nx div{display:grid}.iz-nx div span{font-size:13px}
+.iz-ac{display:flex;gap:8px}.iz-ac .b{height:40px}
+</style>
+<script>
+const d=new Date(),W=['M','T','W','T','F','S','S'],ti=(d.getDay()+6)%7;
+document.getElementById('d').innerHTML=W.map((w,i)=>{const done=i<=ti&&i>ti-5;return `<li class="${done?'y':''}${i===ti?' t':''}"><i aria-label="${done?'cleared':'not cleared'}">${done?'@I(check)':''}</i>${w}</li>`}).join('');
+</script>

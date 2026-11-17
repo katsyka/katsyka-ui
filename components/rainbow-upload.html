@@ -1,0 +1,51 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.ru-c{width:min(460px,100%);padding:20px;display:grid;gap:14px}.ru-h{display:flex;justify-content:space-between;align-items:baseline}.ru-h h2{margin:0;font-size:17px;font-weight:650}
+.ru-l{list-style:none;margin:0;padding:0;display:grid;gap:14px}.ru-l li{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center}
+.ru-ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font:700 10px 'Geist Mono',monospace;color:#fff}
+.ru-n{display:grid;gap:6px;min-width:0}.ru-n b{font-size:14px;font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ru-n small{font-size:12px;color:var(--mu);font-variant-numeric:tabular-nums}
+.ru-bar{height:8px;border-radius:99px;background:var(--sf2);overflow:hidden}.ru-bar i{display:block;height:100%;width:0;border-radius:inherit;background:repeating-linear-gradient(-45deg,#ff3d7f 0 10px,#ff8a00 10px 20px,#ffd23f 20px 30px,#3dd6c6 30px 40px,#5b6cff 40px 50px);background-size:70.7px 100%;animation:rus 1s linear infinite;transition:width .2s linear}
+@keyframes rus{to{background-position:70.7px 0}}@media (prefers-reduced-motion:reduce){.ru-bar i{animation:none}}
+li.ok .ru-bar i{background:#1fbf75;animation:none}li.err .ru-bar i{background:var(--err);animation:none}li.err small{color:var(--err)}
+.ru-x{width:36px;height:36px}.ru-ok{width:28px;height:28px;border-radius:50%;background:#1fbf75;color:#fff;display:grid;place-items:center;animation:ruo .3s var(--ease)}@keyframes ruo{from{transform:scale(.4)}}
+.ru-a{display:flex;justify-content:flex-end}
+</style>
+<div class="k ru"><div class="card ru-c"><div class="ru-h"><h2>Uploading 3 files</h2><span class="mu" id="sm">0%</span></div><ul class="ru-l" id="l"></ul><div class="ru-a"><button class="b" id="rs">Start again</button></div></div></div>
+<script>
+const F=[['holiday-reel.mp4',48e6,'#ff3d7f','MP4'],['brand-colours.pdf',3.2e6,'#5b6cff','PDF',1],['moodboard.png',9.8e6,'#ff8a00','PNG']],l=document.getElementById('l'),sm=document.getElementById('sm');let S=[];
+const mb=b=>(b/1e6).toFixed(1)+' MB';
+function start(){S.forEach(s=>clearInterval(s.t));l.innerHTML='';S=F.map((f,i)=>{const li=document.createElement('li');li.innerHTML=`<span class="ru-ic" style="background:${f[2]}">${f[3]}</span><div class="ru-n"><b>${f[0]}</b><div class="ru-bar" role="progressbar" aria-label="${f[0]}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div><small>0 of ${mb(f[1])}</small></div><button class="ibt ru-x" aria-label="Cancel ${f[0]}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M18 6 6 18M6 6l12 12"/></svg></button>`;l.append(li);const s={li,p:0,f,done:0};li.querySelector('button').onclick=()=>act(s);run(s);return s})}
+function run(s){s.li.className='';s.t=setInterval(()=>{s.p=Math.min(100,s.p+Math.random()*(s.f[1]>2e7?3:7));if(s.f[4]&&s.p>62&&!s.failed){s.failed=1;return fail(s)}upd(s);if(s.p>=100){clearInterval(s.t);s.done=1;s.li.className='ok';const x=s.li.querySelector('button');x.outerHTML='<span class="ru-ok" role="img" aria-label="Uploaded"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M20 6 9 17l-5-5"/></svg></span>'}tot()},120)}
+function fail(s){clearInterval(s.t);s.li.className='err';s.li.querySelector('small').textContent='Connection dropped at '+Math.round(s.p)+'%';const b=s.li.querySelector('button');b.innerHTML='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/></svg>';b.setAttribute('aria-label','Retry '+s.f[0]);tot()}
+function act(s){if(s.li.className==='err'){const b=s.li.querySelector('button');b.innerHTML='<svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M18 6 6 18M6 6l12 12"/></svg>';b.setAttribute('aria-label','Cancel '+s.f[0]);run(s)}else{clearInterval(s.t);s.li.remove();S=S.filter(x=>x!==s);tot()}}
+function upd(s){s.li.querySelector('.ru-bar i').style.width=s.p+'%';s.li.querySelector('.ru-bar').setAttribute('aria-valuenow',Math.round(s.p));s.li.querySelector('small').textContent=(s.p>=100?'Done · ':'')+mb(s.f[1]*s.p/100)+' of '+mb(s.f[1])}
+function tot(){if(!S.length){sm.textContent='Cancelled';return}const p=S.reduce((a,s)=>a+s.p,0)/S.length;sm.textContent=S.every(s=>s.done)?'All done':Math.round(p)+'%'}
+document.getElementById('rs').onclick=start;start();
+</script>

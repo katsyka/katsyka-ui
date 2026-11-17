@@ -1,0 +1,39 @@
+<style>
+.ot-stage{min-height:100vh;display:grid;place-items:center;background:#09090b;padding:24px}
+.ot{text-align:center}
+.ot h2{margin:0 0 8px;font-size:26px;letter-spacing:-.04em;font-weight:600}
+.ot p{margin:0 0 28px;color:#85858f;font-size:14.5px}.ot p b{color:#e6e6ea;font-weight:500}
+.ot-row{position:relative;display:inline-flex;gap:10px}
+.ot-row input{position:absolute;inset:0;opacity:0;font-size:16px;letter-spacing:4em;caret-color:transparent}
+.ot-c{width:56px;height:68px;border-radius:14px;background:#111114;border:1px solid #ffffff17;display:grid;place-items:center;font:600 28px "Geist Mono",monospace;transition:border-color .2s,box-shadow .2s,transform .3s cubic-bezier(.3,1.6,.5,1)}
+.ot-c.f{border-color:#ff7a45;box-shadow:0 0 0 4px #ff5a1f20}
+.ot-c.f:empty::after{content:"";width:2px;height:26px;background:#ff7a45;animation:ot-b 1s steps(1) infinite}
+@keyframes ot-b{50%{opacity:0}}
+.ot-c.pop{transform:scale(1.08)}
+.ot-row.ok .ot-c{border-color:#3ddc84;color:#3ddc84;box-shadow:none}
+.ot-row.bad .ot-c{border-color:#ff5c5c;color:#ff7b7b;box-shadow:none}
+.ot-sep{width:12px;align-self:center;height:2px;background:#ffffff26;border-radius:2px}
+.ot-msg{height:20px;margin-top:18px;font-size:13.5px;color:#6f6f79}
+.ot-msg a{color:#f4f3ef;cursor:pointer}
+@media (max-width:460px){.ot-c{width:44px;height:56px;font-size:22px}.ot-row{gap:6px}}
+</style>
+<div class="ot-stage"><div class="ot">
+  <h2>Check your inbox</h2><p>We sent a 6-digit code to <b>mira@northstar.io</b></p>
+  <div class="ot-row"><input inputmode="numeric" autocomplete="one-time-code" maxlength="6" aria-label="One-time code">
+    <div class="ot-c"></div><div class="ot-c"></div><div class="ot-c"></div><span class="ot-sep"></span><div class="ot-c"></div><div class="ot-c"></div><div class="ot-c"></div></div>
+  <div class="ot-msg">Try <b style="color:#e6e6ea">424242</b> · didn't get it? <a>Resend</a></div>
+</div></div>
+<script>
+(()=>{
+const row=document.querySelector(".ot-row"),inp=row.querySelector("input"),cells=[...row.querySelectorAll(".ot-c")],msg=document.querySelector(".ot-msg");
+const draw=()=>{const v=inp.value,focus=document.activeElement===inp;
+  cells.forEach((c,i)=>{const was=c.textContent;c.textContent=v[i]||"";c.classList.toggle("f",focus&&i===Math.min(v.length,5)&&!row.classList.contains("ok"));
+    if(!was&&v[i]){c.classList.add("pop");setTimeout(()=>c.classList.remove("pop"),120)}})};
+inp.addEventListener("input",()=>{inp.value=inp.value.replace(/\D/g,"").slice(0,6);row.classList.remove("bad");draw();
+  if(inp.value.length===6){if(inp.value==="424242"){row.classList.add("ok");inp.blur();msg.textContent="Verified. Redirecting…"}
+    else{row.classList.add("bad");row.animate([{transform:"translateX(0)"},{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(-4px)"},{transform:"translateX(0)"}],{duration:380});
+      setTimeout(()=>{inp.value="";row.classList.remove("bad");draw()},700)}}});
+["focus","blur","keyup","click"].forEach(t=>inp.addEventListener(t,draw));
+setTimeout(()=>inp.focus(),300);draw();
+})();
+</script>

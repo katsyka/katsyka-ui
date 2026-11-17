@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Katsyka UI</title></head>
+<body style="margin:0;background:#09090b">
+<script>
+// Standalone full-page render of one component: view.html#<id>
+(async()=>{
+  const id=location.hash.slice(1).replace(/[^a-z0-9-]/g,"");if(!id)return;
+  const src=await (await fetch(`components/${id}.html`,{cache:"no-cache"})).text();
+  const FONTS='<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">';
+  const RESET="*,*::before,*::after{box-sizing:border-box}html,body{margin:0}body{font-family:Geist,system-ui,sans-serif;background:#09090b;color:#fafafa;-webkit-font-smoothing:antialiased}";
+  document.open();document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${id} — Katsyka UI</title>${FONTS}<style>${RESET}</style></head><body>${src}</body></html>`);document.close();
+  addEventListener("hashchange",()=>location.reload());
+})();
+</script>
+</body></html>

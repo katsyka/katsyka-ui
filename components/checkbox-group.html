@@ -1,0 +1,66 @@
+<style>
+.cg{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.cg :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.cg ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.cg *,.cg *::before,.cg *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.cg{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.cg-pn{width:min(520px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.cg-hd{padding:22px 24px 4px}
+.cg-hd h2{margin:0;font-size:17px;font-weight:600;letter-spacing:-.015em}
+.cg-hd p{margin:4px 0 0;font-size:13.5px;color:var(--mu)}
+fieldset{border:0;margin:0;padding:12px 24px 20px}
+legend{padding:0}
+.cg-c{display:flex;gap:12px;align-items:flex-start;padding:9px 0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cg-c input{position:absolute;opacity:0;width:1px;height:1px}
+.cg-box{flex:none;position:relative;width:18px;height:18px;margin-top:2px;border-radius:5px;border:1.5px solid var(--ctl);background:var(--bg);display:grid;place-items:center;transition:background-color .15s,border-color .15s,box-shadow .15s}
+.cg-c:hover .cg-box{border-color:var(--fg)}
+.cg-box svg{width:12px;height:12px;fill:none;stroke:var(--ac-fg);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.cg-box .ck{stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .22s var(--ease)}
+.cg-box .ind{opacity:0;transform:scaleX(.3);transition:opacity .15s,transform .2s var(--ease)}
+.cg-c input:checked+.cg-box,.cg-c input:indeterminate+.cg-box{background:var(--ac);border-color:var(--ac)}
+.cg-c input:checked+.cg-box .ck{stroke-dashoffset:0}
+.cg-c input:indeterminate+.cg-box .ck{stroke-dashoffset:20}
+.cg-c input:indeterminate+.cg-box .ind{opacity:1;transform:none}
+.cg-c input:focus-visible+.cg-box{outline:2px solid var(--focus);outline-offset:2px}
+.cg-c input:disabled+.cg-box{opacity:.45}
+.cg-c:has(input:disabled){cursor:not-allowed}
+.cg-c:has(input:disabled) .cg-t{opacity:.55}
+.cg-t b{display:block;font-size:14.5px;font-weight:550}
+.cg-t small{display:block;font-size:13px;color:var(--mu);margin-top:1px}
+.cg-par{padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.cg-kids{padding-left:30px}
+.cg-ft{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;background:var(--sf);border-top:1px solid var(--line);font-size:13px;color:var(--mu)}
+.cg-ft b{color:var(--fg);font-weight:600}
+.cg-ft button{height:34px;padding:0 14px;border:0;border-radius:9px;background:var(--fg);color:var(--bg);font:550 13px Geist,system-ui,sans-serif;cursor:pointer}
+.cg-ft button:disabled{opacity:.35;cursor:not-allowed}
+.cg-inline{display:flex;flex-wrap:wrap;gap:6px 22px;padding:4px 24px 20px}
+.cg-inline .cg-c{padding:4px 0}
+.cg-inline .cg-t{font-size:14px}
+.cg-sub{padding:16px 24px 6px;border-top:1px solid var(--line);font:500 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+</style>
+<div class="cg">
+  <div class="cg-pn">
+    <div class="cg-hd"><h2>Export data</h2><p>Choose what to include in the archive.</p></div>
+    <fieldset>
+      <legend class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Data to export</legend>
+      <label class="cg-c cg-par"><input type="checkbox" id="cgAll"><span class="cg-box"><svg viewBox="0 0 24 24"><path class="ck" d="M20 6 9 17l-5-5"/><path class="ind" d="M6 12h12"/></svg></span><span class="cg-t"><b>Everything</b><small>All workspace data</small></span></label>
+      <div class="cg-kids" role="group" aria-label="Individual data sets">
+        <label class="cg-c"><input type="checkbox" checked data-sz="1.2"><span class="cg-box"><svg viewBox="0 0 24 24"><path class="ck" d="M20 6 9 17l-5-5"/><path class="ind" d="M6 12h12"/></svg></span><span class="cg-t"><b>Projects</b><small>Boards, tasks and comments · 1.2 GB</small></span></label>
+        <label class="cg-c"><input type="checkbox" checked data-sz="0.4"><span class="cg-box"><svg viewBox="0 0 24 24"><path class="ck" d="M20 6 9 17l-5-5"/><path class="ind" d="M6 12h12"/></svg></span><span class="cg-t"><b>Documents</b><small>Pages and version history · 420 MB</small></span></label>
+        <label class="cg-c"><input type="checkbox" data-sz="3.8"><span class="cg-box"><svg viewBox="0 0 24 24"><path class="ck" d="M20 6 9 17l-5-5"/><path class="ind" d="M6 12h12"/></svg></span><span class="cg-t"><b>Attachments</b><small>Uploaded files and images · 3.8 GB</small></span></label>
+        <label class="cg-c"><input type="checkbox" disabled><span class="cg-box"><svg viewBox="0 0 24 24"><path class="ck" d="M20 6 9 17l-5-5"/><path class="ind" d="M6 12h12"/></svg></span><span class="cg-t"><b>Audit log</b><small>Available on the Business plan</small></span></label>
+      </div>
+    </fieldset>
+    <div class="cg-sub">Format</div>
+    <div class="cg-inline"><label class="cg-c"><input type="checkbox" checked><span class="cg-box"><svg viewBox="0 0 24 24"><path class="ck" d="M20 6 9 17l-5-5"/></svg></span><span class="cg-t">JSON</span></label><label class="cg-c"><input type="checkbox"><span class="cg-box"><svg viewBox="0 0 24 24"><path class="ck" d="M20 6 9 17l-5-5"/></svg></span><span class="cg-t">CSV</span></label><label class="cg-c"><input type="checkbox"><span class="cg-box"><svg viewBox="0 0 24 24"><path class="ck" d="M20 6 9 17l-5-5"/></svg></span><span class="cg-t">Markdown</span></label></div>
+    <div class="cg-ft"><span aria-live="polite"><b id="cgN"></b></span><button id="cgGo">Export</button></div>
+  </div>
+</div>
+<script>
+const all=document.getElementById("cgAll"),kids=[...document.querySelectorAll(".cg-kids input:not(:disabled)")],n=document.getElementById("cgN"),go=document.getElementById("cgGo");
+const sync=()=>{const c=kids.filter(k=>k.checked);all.checked=c.length===kids.length;all.indeterminate=c.length>0&&c.length<kids.length;
+  const sz=c.reduce((a,k)=>a+ +k.dataset.sz,0);n.textContent=c.length?`${c.length} of ${kids.length} selected · ${sz>=1?sz.toFixed(1)+" GB":Math.round(sz*1000)+" MB"}`:"Nothing selected";go.disabled=!c.length};
+all.addEventListener("change",()=>{kids.forEach(k=>k.checked=all.checked);sync()});
+kids.forEach(k=>k.addEventListener("change",sync));sync();
+go.addEventListener("click",()=>{go.textContent="Preparing…";go.disabled=true;setTimeout(()=>{go.textContent="Export";sync()},1400)});
+</script>

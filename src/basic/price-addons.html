@@ -1,0 +1,19 @@
+<!--Plan Builder Pricing|Pricing|Build-your-plan pricing: a base plan plus toggleable add-ons with their own prices and dependency rules (add-on B requires A), a live itemised receipt and a share-this-quote link.|pricing,builder,add-ons,configurator,quote-->
+<div class="k">
+<section class="pb"><div class="pb-l"><h2>Build your plan</h2><div class="pb-base"><b>Base · Hosting</b><span class="mu">2 vCPU, 4 GB RAM, 80 GB SSD</span><span class="tn">€12</span></div><ul class="pb-a" id="a"></ul></div>
+<aside class="card pb-r"><p class="lbl">Your quote</p><ul id="r" class="tn"></ul><div class="pb-t"><span>Monthly</span><b class="tn" id="t"></b></div><button class="b ac pb-go">Deploy this plan</button><button class="b gh pb-go" id="sh">@I(share,16)<span>Copy quote link</span></button></aside></section>
+</div>
+<style>
+.pb{width:min(920px,100%);display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}.pb h2{margin:0 0 14px;font-size:22px;letter-spacing:-.02em}
+.pb-base{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:16px;border-radius:14px;background:var(--sf);margin-bottom:10px}.pb-base span:last-child{grid-row:1/3;grid-column:2;align-self:center;font-weight:650}
+.pb-a{list-style:none;padding:0;margin:0;display:grid;gap:8px}.pb-a label{display:grid;grid-template-columns:auto 1fr auto;gap:2px 14px;align-items:center;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);cursor:pointer;transition:border-color .15s}.pb-a label:has(input:checked){border-color:var(--ac)}.pb-a input{width:20px;height:20px;accent-color:var(--ac);grid-row:1/3}.pb-a small{color:var(--mu);font-size:13px;grid-column:2}.pb-a .pr{grid-row:1/3;grid-column:3;font-weight:600;font-variant-numeric:tabular-nums}.pb-a .dis{opacity:.5;cursor:not-allowed}.pb-a .req{color:var(--warn)}
+.pb-r{padding:20px;position:sticky;top:16px;display:grid;gap:12px}.pb-r ul{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:14px}.pb-r li{display:flex;justify-content:space-between;animation:pbi .25s var(--ease)}@keyframes pbi{from{opacity:0;transform:translateX(-4px)}}
+.pb-t{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:12px}.pb-t b{font-size:28px;letter-spacing:-.02em}.pb-go{width:100%;height:44px}
+@media (max-width:760px){.pb{grid-template-columns:1fr}.pb-r{position:static}}
+</style>
+<script>
+const A=[["db","Managed Postgres","Daily backups, 10 GB",15],["rep","Read replica","Requires Managed Postgres",15,"db"],["cdn","Global CDN","1 TB egress included",8],["img","Image resizing","On-the-fly, requires CDN",5,"cdn"],["sup","Priority support","1-hour response, 24/7",29]],on=new Set(['db','cdn']),a=document.getElementById('a');
+function draw(){a.innerHTML=A.map(([k,n,d,p,req])=>{const dis=req&&!on.has(req);if(dis)on.delete(k);return `<li><label class="${dis?'dis':''}"><input type="checkbox" data-k="${k}" ${on.has(k)?'checked':''} ${dis?'disabled':''}><b>${n}</b><small class="${dis?'req':''}">${d}</small><span class="pr">+€${p}</span></label></li>`}).join('');const L=[["Hosting",12],...A.filter(x=>on.has(x[0])).map(x=>[x[1],x[3]])];document.getElementById('r').innerHTML=L.map(([n,p])=>`<li><span>${n}</span><span>€${p}</span></li>`).join('');document.getElementById('t').textContent='€'+L.reduce((s,x)=>s+x[1],0)}
+a.onchange=e=>{const k=e.target.dataset.k;e.target.checked?on.add(k):on.delete(k);draw();a.querySelector(`[data-k="${k}"]`).focus()};draw();
+document.getElementById('sh').onclick=()=>{const u=location.href.split('#')[0]+'#plan='+[...on].join(','),s=document.querySelector('#sh span'),d=()=>{s.textContent='Link copied';setTimeout(()=>s.textContent='Copy quote link',1500)};(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(d).catch(d)};
+</script>

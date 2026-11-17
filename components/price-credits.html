@@ -1,0 +1,47 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.cr{width:min(760px,100%)}.cr h2{margin:0;font-size:24px;letter-spacing:-.02em}.cr>p{margin:4px 0 20px}
+.cr-g{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.cr-g button{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;gap:4px;text-align:left;position:relative;transition:border-color .15s}.cr-g button:hover{border-color:var(--ctl)}.cr-g [aria-checked=true]{border:2px solid var(--ac);padding:15px}.cr-g b{font-size:22px;letter-spacing:-.02em}.cr-g .pp{font-size:12px;color:var(--mu)}.cr-g .pr{font-weight:650;margin-top:8px}.cr-g .sv{position:absolute;top:10px;right:10px}
+.cr-cu{margin-top:16px}.cr-in{display:flex;gap:10px;align-items:center;max-width:280px}.cr-in .in{height:44px;font-size:16px}
+.cr-sum{margin-top:20px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.cr-sum div{display:grid}.cr-sum b{font-size:24px;letter-spacing:-.02em}.cr-sum .b{height:48px}
+@media (max-width:700px){.cr-g{grid-template-columns:1fr 1fr}.cr-sum .b{width:100%}}
+</style>
+<div class="k">
+<section class="cr"><h2>Buy credits</h2><p class="mu">Credits never expire. 1 image = 4 credits, 1 upscale = 2.</p><div class="cr-g" id="g" role="radiogroup" aria-label="Credit pack"></div>
+<div class="cr-cu"><label class="lbl" for="cu">Or a custom amount</label><div class="cr-in"><input class="in tn" id="cu" inputmode="numeric" placeholder="e.g. 3500"><span class="mu">credits</span></div></div>
+<div class="card cr-sum"><div><span class="mu">You'll get</span><b class="tn" id="cn"></b><small class="mu" id="mk"></small></div><button class="b ac lg" id="buy"></button></div></section>
+</div>
+<script>
+const K=[[500,5],[2000,18],[5000,40],[15000,105]],g=document.getElementById('g'),cu=document.getElementById('cu');let sel=1,custom=0;
+g.innerHTML=K.map(([c,p],i)=>{const per=p/c*100,sv=Math.round((1-per)*100);return `<button role="radio" aria-checked="${i===sel}" data-i="${i}">${sv>0?`<span class="pill ok sv">−${sv}%</span>`:''}<b class="tn">${c.toLocaleString('en')}</b><span class="pp">credits · ${per.toFixed(2)}¢ each</span><span class="pr tn">€${p}</span></button>`}).join('');
+function up(){const [c,p]=custom?[custom,+(custom*.0095).toFixed(2)]:K[sel];document.getElementById('cn').textContent=c.toLocaleString('en')+' credits';document.getElementById('mk').textContent=`≈ ${Math.floor(c/4).toLocaleString('en')} images or ${Math.floor(c/2).toLocaleString('en')} upscales`;const b=document.getElementById('buy');b.textContent=c>=100?`Pay €${p}`:'Minimum 100 credits';b.disabled=c<100}
+g.onclick=e=>{const b=e.target.closest('[data-i]');if(!b)return;sel=+b.dataset.i;custom=0;cu.value='';g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));up()};
+cu.oninput=()=>{cu.value=cu.value.replace(/\D/g,'').slice(0,6);custom=+cu.value;g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',!custom&&+x.dataset.i===sel));up()};up();
+</script>

@@ -1,0 +1,78 @@
+<style>
+.pc2{min-height:100vh;display:grid;grid-template-columns:auto 380px;gap:56px;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 30% 30%,#1b1712,#0b0a09 60%);color:#efe9e1}
+.pc2-card{width:380px;aspect-ratio:1.586;perspective:1200px}
+.pc2-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,1.1,.3,1)}
+.pc2-card.flip .pc2-in{transform:rotateY(180deg)}
+.pc2-f,.pc2-b{position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;overflow:hidden;box-shadow:0 30px 60px -24px #000c,inset 0 1px 0 #ffffff30}
+.pc2-f{padding:22px 24px;display:flex;flex-direction:column;justify-content:space-between;background:var(--bg);transition:background .6s}
+.pc2-f::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 0%,#ffffff30,transparent 45%),repeating-linear-gradient(115deg,#ffffff06 0 2px,transparent 2px 9px);pointer-events:none}
+.pc2-top{display:flex;justify-content:space-between;align-items:flex-start}
+.pc2-chip{width:42px;height:32px;border-radius:7px;background:linear-gradient(135deg,#e9d6a6,#b8995a);box-shadow:inset 0 0 0 1px #00000026}
+.pc2-brand{font:700 italic 22px Geist,sans-serif;letter-spacing:-.04em;height:32px;display:flex;align-items:center;transition:opacity .3s}
+.pc2-num{font:500 22px "Geist Mono",monospace;letter-spacing:.06em;text-shadow:0 1px 1px #0005;display:flex;gap:14px}
+.pc2-num span{display:inline-flex}.pc2-num i{font-style:normal;display:inline-block;width:.62em;text-align:center;transition:transform .2s}
+.pc2-num i.new{animation:pc2-d .25s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pc2-d{from{transform:translateY(-8px);opacity:0}}
+.pc2-row{display:flex;justify-content:space-between;align-items:flex-end;font-size:11px;letter-spacing:.08em;opacity:.95}
+.pc2-row b{display:block;font:500 14.5px "Geist Mono",monospace;letter-spacing:.04em;margin-top:3px;text-transform:uppercase;max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc2-b{transform:rotateY(180deg);background:var(--bg)}
+.pc2-b .strip{height:44px;margin-top:26px;background:#111}
+.pc2-b .sig{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin:20px 24px;height:40px;padding:0 12px;border-radius:6px;background:repeating-linear-gradient(-45deg,#f5efe5,#f5efe5 6px,#e9e1d4 6px 12px);color:#111;font:600 16px "Geist Mono",monospace}
+.pc2-b small{display:block;margin:0 24px;font-size:10px;line-height:1.4;opacity:.7}
+.pc2-hi{position:absolute;border-radius:10px;border:1.5px solid #ffffffb0;pointer-events:none;transition:all .35s cubic-bezier(.3,1.2,.4,1);opacity:0}
+.pc2-form h2{margin:0 0 4px;font-size:22px;letter-spacing:-.03em;font-weight:600}.pc2-form>p{margin:0 0 22px;color:#958c80;font-size:14px}
+.pc2-fl{margin-bottom:14px}.pc2-fl label{display:block;font-size:12.5px;font-weight:550;color:#c9c0b4;margin-bottom:6px}
+.pc2-fl input{width:100%;height:46px;padding:0 14px;border-radius:11px;border:1px solid #ffffff17;background:#ffffff08;color:#efe9e1;font:15px "Geist Mono",monospace;outline:0;transition:border-color .2s,box-shadow .2s}
+.pc2-fl input:focus{border-color:#ffb37a;box-shadow:0 0 0 4px #ffb37a1a}
+.pc2-fl input.bad{border-color:#f87171}
+.pc2-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pc2-pay{width:100%;height:50px;margin-top:8px;border:0;border-radius:12px;background:#efe9e1;color:#0b0a09;font:600 15px Geist,sans-serif;cursor:pointer;transition:transform .15s,background .3s}
+.pc2-pay:active{transform:scale(.98)}.pc2-pay.ok{background:#4ade80}
+.pc2-note{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:12px;font-size:12px;color:#7d756a}
+@media (max-width:860px){.pc2{grid-template-columns:1fr;justify-items:center}.pc2-card{width:min(340px,90vw)}.pc2-form{width:min(380px,100%)}}
+</style>
+<section class="pc2">
+  <div class="pc2-card" style="--bg:linear-gradient(135deg,#3a332b,#16130f)"><div class="pc2-in">
+    <div class="pc2-f"><div class="pc2-top"><div class="pc2-chip"></div><div class="pc2-brand">CARD</div></div>
+      <div class="pc2-num"></div>
+      <div class="pc2-row"><div>CARD HOLDER<b data-o="name">YOUR NAME</b></div><div style="text-align:right">EXPIRES<b data-o="exp">MM/YY</b></div></div></div>
+    <div class="pc2-b"><div class="strip"></div><div class="sig"><span>CVC</span><b data-o="cvc">•••</b></div><small>Demo only. Nothing typed here leaves this page.</small></div>
+    <div class="pc2-hi"></div>
+  </div></div>
+  <form class="pc2-form" autocomplete="off" novalidate>
+    <h2>Payment details</h2><p>Live card preview with brand detection. Demo only.</p>
+    <div class="pc2-fl"><label for="pcN">Card number</label><input id="pcN" inputmode="numeric" placeholder="4242 4242 4242 4242" data-f="num"></div>
+    <div class="pc2-fl"><label for="pcH">Name on card</label><input id="pcH" placeholder="Mira Okafor" data-f="name" style="font-family:Geist,sans-serif"></div>
+    <div class="pc2-two"><div class="pc2-fl"><label for="pcE">Expiry</label><input id="pcE" inputmode="numeric" placeholder="MM/YY" data-f="exp"></div><div class="pc2-fl"><label for="pcC">CVC</label><input id="pcC" inputmode="numeric" placeholder="123" data-f="cvc"></div></div>
+    <button class="pc2-pay">Pay $249.00</button>
+    <div class="pc2-note">🔒 Simulated checkout · no data is sent</div>
+  </form>
+</section>
+<script>
+(()=>{
+const card=document.querySelector(".pc2-card"),num=card.querySelector(".pc2-num"),brand=card.querySelector(".pc2-brand"),hi=card.querySelector(".pc2-hi"),form=document.querySelector(".pc2-form");
+const B=[[/^4/,"VISA","linear-gradient(135deg,#1e3a8a,#0b1533)",16],[/^(5[1-5]|2[2-7])/,"MASTER","linear-gradient(135deg,#7c2d12,#1c0a04)",16],[/^3[47]/,"AMEX","linear-gradient(135deg,#065f46,#03221a)",15],[/^6/,"DISCOVER","linear-gradient(135deg,#9a3412,#2a0f05)",16]];
+let prev="";
+const brandOf=v=>B.find(b=>b[0].test(v));
+function drawNum(v){const b=brandOf(v),len=b?b[3]:16,groups=len===15?[4,6,5]:[4,4,4,4];let i=0,html="";
+  groups.forEach(g=>{html+="<span>";for(let k=0;k<g;k++,i++){const ch=v[i]||"•",isNew=v[i]&&v[i]!==prev[i];html+=`<i class="${isNew?"new":""}">${i>=4&&i<len-4&&v[i]?"•":ch}</i>`}html+="</span>"});
+  num.innerHTML=html;prev=v;brand.textContent=b?b[1]:"CARD";card.style.setProperty("--bg",b?b[2]:"linear-gradient(135deg,#3a332b,#16130f)")}
+const luhn=v=>{let s=0;[...v].reverse().forEach((d,i)=>{let n=+d;if(i%2){n*=2;if(n>9)n-=9}s+=n});return v.length>12&&s%10===0};
+const target={num:".pc2-num",name:"[data-o=name]",exp:"[data-o=exp]",cvc:".sig"};
+const frame=f=>{if(f==="cvc"){hi.style.opacity=0;return}const el=card.querySelector(target[f]),r=el.getBoundingClientRect(),c=card.getBoundingClientRect();
+  Object.assign(hi.style,{left:r.left-c.left-8+"px",top:r.top-c.top-6+"px",width:r.width+16+"px",height:r.height+12+"px",opacity:1})};
+form.querySelectorAll("input").forEach(inp=>{const f=inp.dataset.f;
+  inp.addEventListener("focus",()=>{card.classList.toggle("flip",f==="cvc");frame(f)});
+  inp.addEventListener("blur",()=>{hi.style.opacity=0;if(f==="cvc")card.classList.remove("flip")});
+  inp.addEventListener("input",()=>{inp.classList.remove("bad");
+    if(f==="num"){const b=brandOf(inp.value.replace(/\D/g,"")),max=b?b[3]:16,v=inp.value.replace(/\D/g,"").slice(0,max);inp.value=(max===15?v.replace(/^(\d{4})(\d{0,6})(\d{0,5}).*/,(m,a,b2,c)=>[a,b2,c].filter(Boolean).join(" ")):v.replace(/(\d{4})(?=\d)/g,"$1 "));drawNum(v);if(v.length===max)form.querySelector("#pcH").focus()}
+    if(f==="name")card.querySelector("[data-o=name]").textContent=inp.value||"YOUR NAME";
+    if(f==="exp"){let v=inp.value.replace(/\D/g,"").slice(0,4);if(v.length>=3)v=v.slice(0,2)+"/"+v.slice(2);inp.value=v;card.querySelector("[data-o=exp]").textContent=v||"MM/YY";if(v.length===5)form.querySelector("#pcC").focus()}
+    if(f==="cvc"){inp.value=inp.value.replace(/\D/g,"").slice(0,4);card.querySelector("[data-o=cvc]").textContent=inp.value.padEnd(3,"•")}})});
+form.onsubmit=e=>{e.preventDefault();const n=form.querySelector("#pcN"),x=form.querySelector("#pcE"),c=form.querySelector("#pcC"),[mm,yy]=x.value.split("/").map(Number);let ok=true;
+  if(!luhn(n.value.replace(/\D/g,""))){n.classList.add("bad");ok=false}if(!(mm>=1&&mm<=12&&yy>=26)){x.classList.add("bad");ok=false}if(c.value.length<3){c.classList.add("bad");ok=false}
+  const b=form.querySelector(".pc2-pay");if(!ok){form.animate([{transform:"translateX(0)"},{transform:"translateX(-6px)"},{transform:"translateX(6px)"},{transform:"none"}],{duration:300});return}
+  b.textContent="Processing…";setTimeout(()=>{b.classList.add("ok");b.textContent="Paid ✓"},1100)};
+drawNum("");
+})();
+</script>

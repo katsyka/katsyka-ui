@@ -1,0 +1,52 @@
+<!--Article Reader|A reading view: a hairline progress bar, a header that hides while you read down and returns when you scroll up, and an Aa panel with text size and Light / Sepia / Dark reading themes.|reader,article,typography,progress,reading-->
+<div class="rd" id="rd">
+<header class="rd-h" id="hd"><button class="ib" aria-label="Back">@I(left)</button><span class="rd-src">Fjord Weekly</span><button class="ib" id="aa" aria-label="Reading settings" aria-expanded="false"><b style="font:600 17px Geist">Aa</b></button><i class="rd-pr" id="pr"></i></header>
+<main class="sc rd-sc" id="sc"><article class="rd-a">
+  <p class="rd-k">Long read · 7 min</p>
+  <h1>The ferry that runs on time, every time</h1>
+  <p class="rd-by">By Kari Holm · 11 November</p>
+  <img src="media/pics/c/1051.jpg" alt="An old wooden pier reaching into a calm fjord">
+  <p>There is a ferry on the west coast that has not been late in nine years. Not because the weather is kind, it isn't, but because the crew decided long ago that a timetable is a promise, and promises are kept in small, unglamorous ways.</p>
+  <p>Captain Arne Vik starts each morning at 05:10 with the same walk around the deck. He checks the ramps, the lines, the life rafts. "Most delays aren't storms," he says. "They're a loose bolt nobody noticed on Tuesday."</p>
+  <h2>Small margins, every day</h2>
+  <p>The crossing takes 22 minutes. The schedule gives it 25. Those three minutes are the whole secret: never spent, always saved, folded into the next departure when the wind turns.</p>
+  <blockquote>“A timetable is a promise. You keep it in the boring parts.”</blockquote>
+  <p>Passengers notice. Commuters set their alarms by it; the café at the terminal times its first batch of buns to the ferry's horn. When a winter storm closed the road last February, the ferry was the only thing still running, on time.</p>
+  <p>Asked whether he worries about the streak ending, Vik shrugs. "It'll end one day. Then we start counting again."</p>
+</article></main>
+<div class="rd-pn" id="pn" hidden><p class="rd-pl">Text size</p><div class="rd-sz"><span style="font-size:14px">A</span><input type="range" id="fs" min="15" max="24" value="18" step="1" aria-label="Text size"><span style="font-size:22px">A</span></div><p class="rd-pl">Theme</p><div class="rd-th" role="radiogroup"><button data-t="l" aria-checked="true" role="radio">Auto</button><button data-t="s" aria-checked="false" role="radio">Sepia</button><button data-t="d" aria-checked="false" role="radio">Dark</button></div></div>
+</div>
+<style>
+.rd{position:relative;flex:1;min-height:0;display:flex;flex-direction:column;--rbg:var(--bg);--rfg:var(--fg);--rmu:var(--mu);background:var(--rbg);color:var(--rfg);transition:background .3s,color .3s}
+.rd.s{--rbg:#f4ecd8;--rfg:#3b2f1e;--rmu:#6e5d45}.rd.d{--rbg:#121212;--rfg:#e6e1d8;--rmu:#9a958c}
+.rd-h{position:absolute;inset:0 0 auto;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:var(--st) 8px 0;min-height:calc(var(--st) + 48px);background:color-mix(in srgb,var(--rbg) 90%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);transition:transform .3s var(--ease),background .3s}
+.rd-h.hide{transform:translateY(calc(-100% + 3px))}
+.rd-src{font-size:15px;font-weight:600}
+.rd-pr{position:absolute;left:0;bottom:0;height:3px;width:100%;background:var(--ac);transform-origin:left;transform:scaleX(0)}
+.rd-sc{padding-top:calc(var(--st) + 56px)!important}
+.rd-a{padding:0 20px 48px;font:var(--fs,18px)/1.65 "Instrument Serif",Georgia,serif;font-family:Georgia,"Times New Roman",serif}
+.rd-a p{margin:0 0 1em;font-size:var(--fs,18px);text-wrap:pretty}
+.rd-k{font:700 12px/1 Geist!important;letter-spacing:.08em;text-transform:uppercase;color:var(--ac)}
+.rd-a h1{margin:0;font:400 36px/1.08 "Instrument Serif",serif;letter-spacing:-.01em;text-wrap:balance}
+.rd-by{font:500 14px Geist!important;color:var(--rmu);margin:12px 0 20px!important}
+.rd-a img{width:calc(100% + 40px);margin:0 -20px 20px;display:block;aspect-ratio:4/3;object-fit:cover}
+.rd.d .rd-a img{filter:brightness(.88)}
+.rd-a h2{font:650 21px/1.3 Geist;letter-spacing:-.015em;margin:1.4em 0 .5em}
+.rd-a blockquote{margin:1.4em 0;padding-left:16px;border-left:3px solid var(--ac);font:italic 400 26px/1.25 "Instrument Serif",serif}
+.rd-pn{position:absolute;right:12px;top:calc(var(--st) + 52px);z-index:60;width:260px;padding:8px 16px 16px;border-radius:20px;background:var(--sf);color:var(--fg);box-shadow:0 20px 40px -12px #0006,0 0 0 .5px var(--line);transform-origin:top right;animation:pop .25s var(--ease)}
+@keyframes pop{from{opacity:0;transform:scale(.9)}}
+.rd-pl{margin:8px 0;font-size:13px;font-weight:600;color:var(--mu)}
+.rd-sz{display:flex;align-items:center;gap:10px}.rd-sz input{flex:1;accent-color:var(--ac)}
+.rd-th{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.rd-th button{min-height:44px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:inset 0 0 0 1px var(--line)}
+.rd-th [data-t=l]{background:var(--bg)!important;color:var(--fg)!important}.rd-th [data-t=s]{background:#f4ecd8!important;color:#3b2f1e!important}.rd-th [data-t=d]{background:#121212!important;color:#e6e1d8!important}
+.rd-th [aria-checked=true]{box-shadow:0 0 0 2px var(--ac)}
+</style>
+<script>
+let ly=0;sc.addEventListener("scroll",()=>{const y=sc.scrollTop,m=sc.scrollHeight-sc.clientHeight;pr.style.transform=`scaleX(${m>0?y/m:0})`;if(Math.abs(y-ly)>6){hd.classList.toggle("hide",y>ly&&y>80);if(y>ly&&!pn.hidden)toggle(false);ly=y}},{passive:true});
+const toggle=o=>{pn.hidden=!o;aa.setAttribute("aria-expanded",o)};
+aa.onclick=()=>toggle(pn.hidden);
+fs.oninput=()=>rd.style.setProperty("--fs",fs.value+"px");
+pn.querySelectorAll(".rd-th button").forEach(b=>b.onclick=()=>{pn.querySelectorAll(".rd-th button").forEach(x=>x.setAttribute("aria-checked",x===b));rd.className="rd "+(b.dataset.t==="l"?"":b.dataset.t)});
+addEventListener("keydown",e=>{if(e.key==="Escape")toggle(false)});
+</script>

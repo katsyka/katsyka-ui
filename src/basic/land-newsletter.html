@@ -1,0 +1,26 @@
+<!--Newsletter Landing|Landings|A writer's newsletter page in a reading layout: serif hero, a subscribe field with validation and a confirmation state, three recent issues with reading times, and a subscriber count.|landing,newsletter,writing,subscribe,serif-->
+<div class="k pg lw">
+<section class="w lw-hero"><p class="eb">Every Sunday · free</p><h1 class="ser lw-t">Field Notes</h1><p class="lw-l">One essay a week about cities, maps and the infrastructure you walk past without noticing. Read by 41,000 people who like to know how things work.</p>
+<form class="lw-f" id="f" novalidate><label class="vh" for="em">Email address</label><input class="in" id="em" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="er"><button class="b ac lg" id="sb">Subscribe</button></form><p class="lw-er" id="er" role="alert"></p>
+<div class="lw-ok" id="ok" hidden>@I(mail,28)<div><b>Check your inbox.</b><span class="mu">We sent a confirmation link to <span id="oe"></span>. Click it and you're in.</span></div></div></section>
+<section class="w lw-is"><p class="eb">Recent issues</p>
+<a href="#"><span class="tn mu">No. 214</span><b>Why every manhole cover in Tokyo is different</b><span class="mu">7 min read</span></a>
+<a href="#"><span class="tn mu">No. 213</span><b>The 400-year-old reason your street bends</b><span class="mu">11 min read</span></a>
+<a href="#"><span class="tn mu">No. 212</span><b>Reading a city from its power lines</b><span class="mu">9 min read</span></a>
+<a href="#" class="lw-all">Archive of all 214 issues @I(arrowr,16)</a></section>
+<footer class="foot"><div class="w"><span>Field Notes is demo content.</span><span>No ads, no tracking pixels</span></div></footer>
+</div>
+<style>
+.lw{--ac:light-dark(#9a3412,#fdba74);--ac-h:light-dark(#7c2d12,#fed7aa);--ac-fg:light-dark(#fff,#2b1105);background:light-dark(#fbf8f3,#141210)!important}
+.lw .w{width:min(680px,100% - 32px)}.lw-hero{padding:96px 0 64px;display:grid;gap:20px}.lw-t{font-size:clamp(64px,12vw,128px);line-height:.9;letter-spacing:-.03em}.lw-l{font:400 21px/1.5 'Instrument Serif',serif;color:var(--fg)}
+.lw-f{display:flex;gap:8px;margin-top:12px}.lw-f .in{height:48px;font-size:16px;flex:1;min-width:0;background:var(--bg)}.lw-er{color:var(--err);font-size:14px}.lw-er:empty{display:none}
+.lw-ok{display:flex;gap:14px;align-items:flex-start;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);animation:lwi .35s var(--ease)}.lw-ok .i{color:var(--ac);width:28px;height:28px}.lw-ok div{display:grid;gap:4px}@keyframes lwi{from{opacity:0;transform:translateY(6px)}}
+.lw-is{padding-bottom:96px;display:grid}.lw-is .eb{margin-bottom:12px}.lw-is a{display:grid;grid-template-columns:72px 1fr auto;gap:16px;padding:20px 0;border-top:1px solid var(--line);color:inherit;text-decoration:none;align-items:baseline}.lw-is a b{font:400 22px/1.25 'Instrument Serif',serif}.lw-is a:hover b{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.lw-is .lw-all{display:flex;gap:8px;align-items:center;color:var(--ac);font-weight:550;border-top:1px solid var(--line)}
+@media (max-width:600px){.lw-f{flex-direction:column}.lw-is a{grid-template-columns:1fr}.lw-is a span:last-child{display:none}}
+</style>
+<script>
+const f=document.getElementById('f'),em=document.getElementById('em'),er=document.getElementById('er'),sb=document.getElementById('sb');
+f.onsubmit=e=>{e.preventDefault();const ok=/^\S+@\S+\.\S{2,}$/.test(em.value.trim());em.setAttribute('aria-invalid',!ok);er.textContent=ok?'':em.value?'That email looks incomplete.':'Enter your email to subscribe.';if(!ok){em.focus();return}sb.disabled=true;sb.textContent='Subscribing…';setTimeout(()=>{f.hidden=true;document.getElementById('oe').textContent=em.value.trim();document.getElementById('ok').hidden=false},800)};
+em.oninput=()=>{if(er.textContent){er.textContent='';em.removeAttribute('aria-invalid')}};
+</script>

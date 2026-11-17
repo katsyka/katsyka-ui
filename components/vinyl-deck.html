@@ -1,0 +1,65 @@
+<style>
+.vnd{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.vnd :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.vnd ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.vnd *,.vnd *::before,.vnd *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.vnd{min-height:100vh;display:grid;place-items:center;padding:48px 16px}
+.vnd-deck{position:relative;width:min(560px,100%);aspect-ratio:1.25;border-radius:24px;background:linear-gradient(160deg,var(--sf),var(--sf2));box-shadow:inset 0 0 0 1px var(--line),var(--shadow);touch-action:none}
+.vnd-plat{position:absolute;left:6%;top:9%;width:66%;aspect-ratio:1;border-radius:50%;background:#111;box-shadow:0 14px 30px -12px rgb(0 0 0/.55)}
+.vnd-rec{position:absolute;inset:3%;border-radius:50%;cursor:grab;background:repeating-radial-gradient(circle,#1b1b1d 0 1px,#0c0c0d 1px 3px),#0c0c0d;box-shadow:inset 0 0 0 2px #000}
+.vnd-rec::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 30deg,transparent 0 10%,rgb(255 255 255/.09) 14%,transparent 20% 60%,rgb(255 255 255/.07) 64%,transparent 70%)}
+.vnd-rec:active{cursor:grabbing}
+.vnd-lab{position:absolute;inset:34%;border-radius:50%;background:var(--ac);color:var(--ac-fg);display:grid;place-items:center;text-align:center;font:600 10px/1.2 Geist,system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.vnd-lab::after{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:#ccc;box-shadow:inset 0 1px 2px #0008}
+.vnd-arm{position:absolute;right:13%;top:9%;width:24px;height:62%;transform-origin:12px 12px;transform:rotate(var(--a,0deg));cursor:grab;touch-action:none;border:0;background:none;padding:0}
+.vnd-arm::before{content:"";position:absolute;left:0;top:0;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e5e5e5,#8a8a8a);box-shadow:0 2px 6px rgb(0 0 0/.3)}
+.vnd-arm::after{content:"";position:absolute;left:10px;top:12px;width:4px;height:calc(100% - 12px);border-radius:2px;background:linear-gradient(90deg,#d4d4d4,#9a9a9a)}
+.vnd-arm i{position:absolute;left:3px;bottom:-14px;width:18px;height:26px;border-radius:3px;background:#2a2a2a;transform:rotate(-14deg);box-shadow:0 2px 4px rgb(0 0 0/.35)}
+.vnd-arm:active{cursor:grabbing}
+.vnd-info{position:absolute;right:6%;bottom:8%;width:28%;display:grid;gap:10px}
+.vnd-info b{font:600 15px/1.2 Geist,system-ui,sans-serif}.vnd-info span{color:var(--mu);font-size:13px;font-variant-numeric:tabular-nums}
+.vnd-play{min-height:44px;border-radius:var(--r2);border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:500 14px Geist,system-ui,sans-serif;cursor:pointer}
+.vnd-play:active{transform:scale(.97)}
+.vnd-rpm{display:flex;gap:4px}.vnd-rpm button{flex:1;min-height:36px;border-radius:8px;border:1px solid var(--line);background:none;color:var(--mu);font:500 12px "Geist Mono",monospace;cursor:pointer}
+.vnd-rpm button[aria-pressed=true]{color:var(--fg);border-color:var(--fg)}
+.vnd-hint{position:absolute;left:6%;bottom:4%;font-size:12px;color:var(--mu)}
+@media (max-width:520px){.vnd-deck{aspect-ratio:.82}.vnd-plat{width:78%;left:4%}.vnd-info{left:6%;right:6%;width:auto;grid-template-columns:1fr 1fr;align-items:end}.vnd-hint{display:none}}
+</style>
+<section class="vnd">
+  <div class="vnd-deck">
+    <div class="vnd-plat"><div class="vnd-rec" aria-hidden="true"><div class="vnd-lab">Side A<br>Night Ferry</div></div></div>
+    <button class="vnd-arm" type="button" aria-label="Tonearm. Drag onto the record, or press to drop the needle"><i></i></button>
+    <div class="vnd-info"><div><b>Night Ferry</b><br><span data-tm>0:00 / 4:38</span></div>
+      <button class="vnd-play" type="button" aria-pressed="false">Play</button>
+      <div class="vnd-rpm" role="group" aria-label="Speed"><button type="button" aria-pressed="true" data-r="33">33</button><button type="button" aria-pressed="false" data-r="45">45</button></div></div>
+    <span class="vnd-hint">Drag the arm onto the record. Drag the record to scratch.</span>
+    <span aria-live="polite" class="vnd-live" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"></span>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".vnd"),rec=R.querySelector(".vnd-rec"),arm=R.querySelector(".vnd-arm"),btn=R.querySelector(".vnd-play"),tm=R.querySelector("[data-tm]"),live=R.querySelector(".vnd-live");
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,REST=0,START=24,END=44,LEN=278;
+let a=REST,rot=0,v=0,rpm=33,drag=null,scratch=null,last=performance.now(),dropped=false;
+const on=()=>a>=START-1&&a<=END+2;
+const fmt=s=>Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+function setA(x){a=Math.max(REST,Math.min(END+2,x));arm.style.setProperty("--a",a+"deg")}
+function frame(t){const dt=Math.min(.05,(t-last)/1000);last=t;
+  const target=on()&&!scratch?rpm/60*360:0;v+=(target-v)*Math.min(1,dt*(target?1.6:2.2));
+  if(!scratch)rot+=v*dt;rec.style.transform=`rotate(${rot}deg)`;
+  if(on()&&!drag&&!scratch&&v>rpm*5){setA(a+dt*(END-START)/LEN*(rpm/33.3));if(a>=END){dropped=false;setTarget(REST);live.textContent="Side finished"}}
+  const p=on()?Math.max(0,(a-START)/(END-START)):0;tm.textContent=fmt(p*LEN)+" / "+fmt(LEN);
+  btn.textContent=on()?"Lift needle":"Play";btn.setAttribute("aria-pressed",on());requestAnimationFrame(frame)}
+function setTarget(x){const from=a,t0=performance.now();(function step(t){const k=Math.min(1,(t-t0)/400),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;setA(from+(x-from)*e);if(k<1)requestAnimationFrame(step)})(t0)}
+arm.addEventListener("pointerdown",e=>{arm.setPointerCapture(e.pointerId);const r=arm.parentNode.getBoundingClientRect();drag={cx:r.left+r.width*.87-12,cy:r.top+r.height*.09+12,moved:false}});
+arm.addEventListener("pointermove",e=>{if(!drag)return;drag.moved=true;const ang=Math.atan2(e.clientX-drag.cx,e.clientY-drag.cy)*-180/Math.PI;setA(ang)});
+arm.addEventListener("pointerup",()=>{if(!drag)return;const moved=drag.moved;drag=null;if(!moved){toggle();return}if(a<START-6)setTarget(REST);else if(a<START)setTarget(START);live.textContent=on()?"Playing":"Stopped"});
+function toggle(){if(on()){setTarget(REST);live.textContent="Stopped"}else{setTarget(START);live.textContent="Playing"}}
+btn.onclick=toggle;
+rec.addEventListener("pointerdown",e=>{rec.setPointerCapture(e.pointerId);const b=rec.getBoundingClientRect();scratch={cx:b.left+b.width/2,cy:b.top+b.height/2,p:Math.atan2(e.clientY-b.top-b.height/2,e.clientX-b.left-b.width/2)}});
+rec.addEventListener("pointermove",e=>{if(!scratch)return;const p=Math.atan2(e.clientY-scratch.cy,e.clientX-scratch.cx);let d=p-scratch.p;if(d>Math.PI)d-=2*Math.PI;if(d<-Math.PI)d+=2*Math.PI;rot+=d*180/Math.PI;scratch.p=p});
+rec.addEventListener("pointerup",()=>scratch=null);rec.addEventListener("pointercancel",()=>scratch=null);
+R.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{rpm=+b.dataset.r;R.querySelectorAll("[data-r]").forEach(x=>x.setAttribute("aria-pressed",x===b))});
+setA(REST);requestAnimationFrame(frame);
+})();
+</script>

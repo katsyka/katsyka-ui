@@ -1,0 +1,63 @@
+<style>
+.cpb{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.cpb :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.cpb ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.cpb *,.cpb *::before,.cpb *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.cpb{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.cpb-pn{width:min(600px,100%);display:grid;gap:16px}
+.cpb-c{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow)}
+.cpb-lb{font:500 11px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:12px}
+.cpb-cmd{display:flex;align-items:center;gap:10px;height:48px;padding:0 6px 0 16px;border-radius:12px;background:light-dark(#18181b,#09090b);color:#e4e4e7;font:500 14px "Geist Mono",monospace;border:1px solid light-dark(#18181b,#27272a)}
+.cpb-cmd code{flex:1;min-width:0;overflow:auto;white-space:nowrap;scrollbar-width:none}
+.cpb-cmd code::before{content:"$ ";color:#71717a}
+.cpb-cmd .k{color:#ff8a4c}
+.cpb-b{position:relative;flex:none;display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:9px;background:transparent;color:inherit;cursor:pointer;transition:background-color .15s}
+.cpb-b:hover{background:color-mix(in oklab,currentColor 12%,transparent)}
+.cpb-b svg{grid-area:1/1;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s var(--ease),opacity .2s}
+.cpb-b .ck{opacity:0;transform:scale(.4);color:var(--ok)}
+.cpb-cmd .cpb-b .ck{color:#4ade80}
+.cpb-b.done .cp{opacity:0;transform:scale(.4)}
+.cpb-b.done .ck{opacity:1;transform:none}
+.cpb-b .tip{position:absolute;bottom:calc(100% + 8px);left:50%;padding:5px 9px;border-radius:7px;background:var(--fg);color:var(--bg);font:500 12px/1 Geist,system-ui,sans-serif;white-space:nowrap;pointer-events:none;opacity:0;transform:translate(-50%,4px);transition:opacity .15s,transform .15s}
+.cpb-b:hover .tip,.cpb-b:focus-visible .tip,.cpb-b.done .tip{opacity:1;transform:translate(-50%,0)}
+.cpb-f{display:flex;gap:8px}
+.cpb-f input{flex:1;min-width:0;height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--sf);color:var(--fg);font:500 14px "Geist Mono",monospace}
+.cpb-f input:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.cpb-t{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:10px;border:1px solid color-mix(in oklab,var(--line),var(--fg) 14%);background:var(--bg);color:var(--fg);font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer;min-width:118px;justify-content:center;transition:background-color .15s,border-color .15s,color .15s}
+.cpb-t:hover{background:var(--sf)}
+.cpb-t svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cpb-t.done{border-color:var(--ok);color:var(--ok);background:var(--ok-sf)}
+.cpb-kv{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 14px;font-size:14px}
+.cpb-kv dt{color:var(--mu)}
+.cpb-kv dd{margin:0;font:500 13.5px "Geist Mono",monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cpb-kv .cpb-b{width:30px;height:30px;color:var(--mu)}
+.cpb-kv .cpb-b:hover{color:var(--fg)}
+</style>
+<div class="cpb">
+  <div class="cpb-pn">
+    <div class="cpb-c">
+      <div class="cpb-lb">Install</div>
+      <div class="cpb-cmd"><code><span class="k">npm</span> install @katsyka/ui</code>
+        <button class="cpb-b" data-copy="npm install @katsyka/ui" aria-label="Copy command"><svg class="cp" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span class="tip">Copy</span></button></div>
+    </div>
+    <div class="cpb-c">
+      <div class="cpb-lb">Invite link</div>
+      <div class="cpb-f"><input readonly value="https://acme.app/join/7Hk2-pQ9x" aria-label="Invite link" id="cpbIn"><button class="cpb-t" data-from="cpbIn"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg><span>Copy link</span></button></div>
+    </div>
+    <div class="cpb-c">
+      <div class="cpb-lb">API credentials</div>
+      <dl class="cpb-kv">
+        <dt>Project ID</dt><dd>prj_8f3k29dLmQ</dd><button class="cpb-b" data-copy="prj_8f3k29dLmQ" aria-label="Copy project ID"><svg class="cp" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span class="tip">Copy</span></button>
+        <dt>Public key</dt><dd>pk_live_51Hx…c9Tq</dd><button class="cpb-b" data-copy="pk_live_51HxQ2bR7mVc9Tq" aria-label="Copy public key"><svg class="cp" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><svg class="ck" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span class="tip">Copy</span></button>
+      </dl>
+    </div>
+    <div class="cpb-live" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></div>
+  </div>
+</div>
+<script>
+const live=document.querySelector(".cpb-live");
+const copy=async t=>{try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement("textarea");a.value=t;a.style.cssText="position:fixed;opacity:0";document.body.append(a);a.select();try{document.execCommand("copy")}catch{}a.remove()}};
+const flash=(b,set,reset)=>{clearTimeout(b._t);b.classList.add("done");set();live.textContent="Copied to clipboard";b._t=setTimeout(()=>{b.classList.remove("done");reset()},1800)};
+document.querySelectorAll(".cpb-b").forEach(b=>{const tip=b.querySelector(".tip");b.addEventListener("click",()=>{copy(b.dataset.copy);flash(b,()=>tip.textContent="Copied!",()=>tip.textContent="Copy")})});
+document.querySelectorAll(".cpb-t").forEach(b=>{const s=b.querySelector("span"),ic=b.querySelector("svg").innerHTML;b.addEventListener("click",()=>{const i=document.getElementById(b.dataset.from);copy(i.value);i.select();flash(b,()=>{s.textContent="Copied";b.querySelector("svg").innerHTML='<path d="M20 6 9 17l-5-5"/>'},()=>{s.textContent="Copy link";b.querySelector("svg").innerHTML=ic})})});
+</script>

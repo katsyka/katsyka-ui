@@ -1,0 +1,117 @@
+<style>
+.gg{position:relative;height:100vh;min-height:620px;overflow:hidden;background:#020515;color:#f3f6ff;isolation:isolate}
+.gg canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.gg-glass{position:relative;background:linear-gradient(160deg,#ffffff1f,#ffffff06 60%);box-shadow:inset 0 1px 0 #ffffff59,inset 0 -1px 0 #ffffff12,inset 0 0 0 1px #ffffff1c,0 12px 32px -14px #000a;-webkit-backdrop-filter:blur(14px) saturate(1.5);backdrop-filter:blur(14px) saturate(1.5)}
+.gg-nav{position:absolute;top:22px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:4px;height:52px;padding:0 6px 0 18px;border-radius:99px;z-index:3}
+.gg-nav b{font-size:15px;letter-spacing:-.03em;margin-right:14px;display:flex;align-items:center;gap:8px}
+.gg-nav b i{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#7aa2ff 60%,#1a3dd6)}
+.gg-nav a{padding:8px 14px;border-radius:99px;font-size:14px;color:#dfe6ffbb;text-decoration:none;transition:color .2s,background .2s}
+.gg-nav a:hover{color:#fff;background:#ffffff12}
+.gg-nav a.cta{background:#f3f6ff;color:#06123f;font-weight:600;margin-left:6px}
+.gg-mid{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:0 20px}
+.gg-mid h1{font-size:clamp(54px,10.5vw,168px);line-height:.86;letter-spacing:-.065em;font-weight:600;margin:0}
+.gg-mid h1 em{font-family:"Instrument Serif",serif;font-weight:400;letter-spacing:-.03em}
+.gg-mid p{font-size:17px;color:#dfe6ffa6;max-width:440px;margin:26px auto 30px;line-height:1.55}
+.gg-btns{display:flex;gap:10px;justify-content:center}
+.gg-btns a{height:50px;padding:0 24px;border-radius:99px;display:inline-flex;align-items:center;font-weight:550;font-size:15px;color:#fff;text-decoration:none;transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+.gg-btns a:hover{transform:scale(1.05)}
+.gg-lens{position:absolute;left:68%;top:58%;width:190px;height:190px;border-radius:50%;cursor:grab;touch-action:none;z-index:4;transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.gg-lens.drag{cursor:grabbing;transform:scale(1.06)}
+.gg-lens::after{content:"drag me";position:absolute;left:50%;bottom:-28px;transform:translateX(-50%);font:500 11px "Geist Mono",monospace;color:#dfe6ff88;letter-spacing:.1em;transition:opacity .3s}
+.gg-lens.moved::after{opacity:0}
+.gg-pal{position:absolute;right:22px;bottom:22px;display:flex;gap:6px;padding:6px;border-radius:99px;z-index:3}
+.gg-pal button{width:26px;height:26px;border-radius:50%;border:0;cursor:pointer;background:var(--c);box-shadow:inset 0 0 0 1px #ffffff40;transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.gg-pal button.on{transform:scale(1.18);box-shadow:inset 0 0 0 1px #ffffff40,0 0 0 2px #ffffffcc}
+.gg-meta{position:absolute;left:24px;bottom:28px;font:500 11px "Geist Mono",monospace;color:#dfe6ff70;letter-spacing:.08em}
+@media (max-width:700px){.gg-nav a:not(.cta){display:none}.gg-lens{width:140px;height:140px;left:55%;top:66%}}
+.gg.nogl{background:radial-gradient(ellipse 60% 50% at 45% 45%,#b6ccff,#0b2ad0 55%,#01030f)}
+</style>
+<section class="gg">
+  <canvas></canvas>
+  <nav class="gg-nav gg-glass" data-glass="nav"><b><i></i>Nocturne</b><a href="#">Product</a><a href="#">Journal</a><a href="#">Pricing</a><a class="cta" href="#">Join</a></nav>
+  <div class="gg-mid"><div>
+    <h1>Quiet light,<br><em>loud ideas.</em></h1>
+    <p>A grain-soaked field of light under real refracting glass. Drag the lens across the headline.</p>
+    <div class="gg-btns"><a class="gg-glass" data-glass="btn" href="#">Start building</a><a class="gg-glass" data-glass="btn" href="#">Watch the film</a></div>
+  </div></div>
+  <div class="gg-lens gg-glass" data-glass="lens"></div>
+  <div class="gg-pal gg-glass" data-glass="nav"><button class="on" style="--c:#2347e8" data-p="cobalt"></button><button style="--c:#c2410c" data-p="dusk"></button><button style="--c:#3f6b4f" data-p="moss"></button></div>
+  <div class="gg-meta">GRAIN 0.22 · GLASS: SVG DISPLACEMENT</div>
+</section>
+<script>
+(()=>{
+const root=document.querySelector(".gg");
+/* ---------- grain light field (WebGL) ---------- */
+const PAL={cobalt:["#01030f","#0b2ad0","#b6ccff"],dusk:["#0d0302","#b3360b","#ffd2a8"],moss:["#020604","#2b5a3d","#d6efc9"]};
+const FS=`precision highp float;uniform vec2 r,m;uniform float t;uniform vec3 c0,c1,c2;
+float h(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}
+void main(){vec2 uv=gl_FragCoord.xy/r,p=(gl_FragCoord.xy-.5*r)/r.y;float T=t*.09;
+ vec2 a=vec2(sin(T*1.3)*.32,cos(T)*.16-.02)+(m-.5)*.18,b=vec2(cos(T*.8)*-.5,sin(T*1.1)*.22+.1);
+ float l=exp(-dot(p-a,p-a)*2.6)*.95+exp(-dot(p-b,p-b)*5.5)*.5+.18*(n(p*1.8+T)-.5);
+ vec3 col=mix(c0,c1,smoothstep(-.05,.55,l));col=mix(col,c2,smoothstep(.55,1.15,l)*.9);
+ float g=h(floor(gl_FragCoord.xy/max(1.,floor(r.y/900.)))+fract(t*13.)*vec2(91.,57.));
+ col+=(g-.5)*.24*(.35+l);
+ col*=mix(1.,.5,step(.9,h(gl_FragCoord.xy*1.31+fract(t*7.)*31.))*(1.-min(l,1.)*.5));
+ col*=1.-.55*pow(length(uv-.5)*1.3,2.);
+ gl_FragColor=vec4(col,1);}`;
+(()=>{
+const c=root.querySelector("canvas"),gl=c.getContext("webgl");
+if(!gl){root.classList.add("nogl");return}
+const sh=(k,s)=>{const o=gl.createShader(k);gl.shaderSource(o,s);gl.compileShader(o);return o};
+const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,"attribute vec2 p;void main(){gl_Position=vec4(p,0,1);}"));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));
+gl.bindAttribLocation(pr,0,"p");gl.linkProgram(pr);
+// fall back to a CSS gradient if the GPU refuses the shader instead of leaving a blank canvas
+if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){console.error(gl.getProgramInfoLog(pr));root.classList.add("nogl");return}
+gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+const U=k=>gl.getUniformLocation(pr,k),hex=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)/255);
+// grain wants real CSS pixels: render at 1x and upscale pixelated
+const fit=()=>{const d=Math.min(devicePixelRatio,2);c.width=c.clientWidth*d;c.height=c.clientHeight*d;gl.viewport(0,0,c.width,c.height)};new ResizeObserver(fit).observe(c);fit();
+let cur=PAL.cobalt.map(hex),tgt=cur,m=[.5,.5],mt=[.5,.5],vis=true;
+root.addEventListener("pointermove",e=>{const b=root.getBoundingClientRect();mt=[(e.clientX-b.left)/b.width,1-(e.clientY-b.top)/b.height]});
+new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(root);
+root.querySelectorAll(".gg-pal button").forEach(b=>b.onclick=()=>{root.querySelector(".gg-pal .on").classList.remove("on");b.classList.add("on");tgt=PAL[b.dataset.p].map(hex)});
+const t0=performance.now();
+(function f(now){requestAnimationFrame(f);if(!vis)return;cur=cur.map((a,i)=>a.map((v,j)=>v+(tgt[i][j]-v)*.05));m=m.map((v,i)=>v+(mt[i]-v)*.03);
+  gl.uniform2f(U("r"),c.width,c.height);gl.uniform2f(U("m"),m[0],m[1]);gl.uniform1f(U("t"),(now-t0)/1000);
+  ["c0","c1","c2"].forEach((k,i)=>gl.uniform3fv(U(k),cur[i]));gl.drawArrays(gl.TRIANGLES,0,3)})(t0);
+})();
+
+/* ---------- liquid glass: SVG displacement map as backdrop-filter (Chromium) ----------
+   The map pulls the backdrop inward along the rim of a convex bezel and splits
+   R/G/B slightly for dispersion. Other engines keep the CSS blur skin above. */
+const RECIPE={nav:{bezel:16,depth:10,disp:.04,blur:2,sat:1.6,zoom:0},btn:{bezel:14,depth:9,disp:.05,blur:1.5,sat:1.6,zoom:0},lens:{bezel:44,depth:34,disp:.08,blur:0,sat:1.4,zoom:.14}};
+const chromium=/Chrome\//.test(navigator.userAgent)&&!/Firefox\//.test(navigator.userAgent);
+const NS="http://www.w3.org/2000/svg",svg=document.createElementNS(NS,"svg");svg.style.cssText="position:absolute;width:0;height:0";document.body.append(svg);
+const mk=(n,a)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e};
+// the map spans the default filter region (-10%..110%): a tight 0..1 region renders offset in Chromium
+function map(w,h,r,bz,depth,zoom){const cw=Math.round(w*1.2),ch=Math.round(h*1.2),cv=document.createElement("canvas");cv.width=cw;cv.height=ch;
+  const x=cv.getContext("2d"),img=x.createImageData(cw,ch),d=img.data,hw=w/2,hh=h/2,ix=hw-r,iy=hh-r;
+  for(let py=0;py<ch;py++)for(let px=0;px<cw;px++){const X=px+.5-cw/2,Y=py+.5-ch/2,qx=Math.abs(X)-ix,qy=Math.abs(Y)-iy;let dist,nx,ny;
+    if(qx>0&&qy>0){const L=Math.hypot(qx,qy)||1;dist=L-r;nx=qx/L;ny=qy/L}else if(qx>qy){dist=qx-r;nx=1;ny=0}else{dist=qy-r;nx=0;ny=1}
+    const ins=-dist;let mm=0;if(ins>0&&ins<bz){const tt=1-ins/bz;mm=Math.pow(tt,2.4)*(1-.15*tt)}
+    const sx=Math.max(-1,Math.min(1,-Math.sign(X)*nx*mm-zoom*X/depth)),sy=Math.max(-1,Math.min(1,-Math.sign(Y)*ny*mm-zoom*Y/depth)),i=(py*cw+px)*4;
+    d[i]=128+sx*127;d[i+1]=128+sy*127;d[i+2]=128;d[i+3]=255}
+  x.putImageData(img,0,0);return cv.toDataURL()}
+let seq=0;
+function glass(el){const R=RECIPE[el.dataset.glass],w=el.offsetWidth,h=el.offsetHeight;if(!w||!h)return;
+  const cr=getComputedStyle(el).borderTopLeftRadius,r=Math.min(cr.endsWith("%")?parseFloat(cr)/100*Math.min(w,h):parseFloat(cr)||0,Math.min(w,h)/2);
+  const url=map(w,h,r,Math.min(R.bezel,Math.min(w,h)/2-1),R.depth,R.zoom),id="gg-f"+ ++seq,f=mk("filter",{id,"color-interpolation-filters":"sRGB"});
+  f.append(mk("feGaussianBlur",{in:"SourceGraphic",stdDeviation:R.blur,result:"s"}),mk("feImage",{href:url,preserveAspectRatio:"none",result:"m"}));
+  [["r",1,"1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"],["g",1-R.disp,"0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0"],["b",1-2*R.disp,"0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"]].forEach(([ch,mul,mx])=>{
+    f.append(mk("feDisplacementMap",{in:"s",in2:"m",scale:R.depth*2*mul,xChannelSelector:"R",yChannelSelector:"G",result:"d"+ch}),mk("feColorMatrix",{in:"d"+ch,type:"matrix",values:mx,result:ch}))});
+  f.append(mk("feBlend",{in:"r",in2:"g",mode:"screen",result:"rg"}),mk("feBlend",{in:"rg",in2:"b",mode:"screen",result:"rgb"}),mk("feColorMatrix",{in:"rgb",type:"saturate",values:R.sat}));
+  // apply only once the map has decoded: attaching it earlier can leave the backdrop rendered offset
+  const im=new Image();im.src=url;im.decode().catch(()=>{}).then(()=>{el._f?.remove();el._f=f;svg.append(f);el.style.backdropFilter=el.style.webkitBackdropFilter=`url(#${id})`})}
+if(chromium){const all=[...root.querySelectorAll("[data-glass]")];const run=()=>all.forEach(glass);
+  document.fonts?document.fonts.ready.then(run):run();let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(run,150)})}
+
+/* ---------- draggable lens ---------- */
+const lens=root.querySelector(".gg-lens");let dr=null;
+lens.addEventListener("pointerdown",e=>{const b=lens.getBoundingClientRect();dr={dx:e.clientX-b.left,dy:e.clientY-b.top};lens.setPointerCapture(e.pointerId);lens.classList.add("drag","moved")});
+lens.addEventListener("pointermove",e=>{if(!dr)return;const b=root.getBoundingClientRect();lens.style.left=e.clientX-b.left-dr.dx+"px";lens.style.top=e.clientY-b.top-dr.dy+"px"});
+lens.addEventListener("pointerup",()=>{dr=null;lens.classList.remove("drag")});
+})();
+</script>

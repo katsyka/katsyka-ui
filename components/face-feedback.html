@@ -1,0 +1,58 @@
+<style>
+.ff{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ff :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ff ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ff *,.ff *::before,.ff *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ff{--hue:40;min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:light-dark(oklch(.97 .03 var(--hue)),oklch(.2 .03 var(--hue)));transition:background .3s}
+.ff-card{width:min(420px,100%);padding:28px 24px;border-radius:28px;background:var(--bg);box-shadow:var(--shadow);text-align:center}
+.ff-card h2{margin:0 0 4px;font-size:20px;letter-spacing:-.025em;font-weight:600}.ff-card>p{margin:0 0 16px;color:var(--mu);font-size:14.5px}
+.ff-face{width:150px;height:150px;margin:8px auto 10px;display:block}
+.ff-face .bg{fill:oklch(.86 .14 var(--hue))}
+.ff-face .ft{fill:none;stroke:oklch(.3 .06 var(--hue));stroke-width:5;stroke-linecap:round}
+.ff-face .ey{fill:oklch(.3 .06 var(--hue))}
+.ff-lbl{font-size:17px;font-weight:600;height:26px}
+.ff-sl{position:relative;height:44px;margin:14px 6px 4px;touch-action:none;cursor:pointer}
+.ff-sl .tr{position:absolute;left:0;right:0;top:19px;height:6px;border-radius:3px;background:linear-gradient(90deg,oklch(.7 .16 25),oklch(.78 .15 70),oklch(.8 .15 110),oklch(.75 .15 145))}
+.ff-sl .th{position:absolute;top:8px;width:28px;height:28px;margin-left:-14px;border-radius:50%;background:#fff;border:2px solid oklch(.4 .08 var(--hue));box-shadow:0 2px 6px #0003}
+.ff-sl:focus-visible{outline-offset:6px;border-radius:8px}
+.ff-ends{display:flex;justify-content:space-between;font-size:12.5px;color:var(--mu);margin:0 2px 4px}
+.ff-more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}.ff-more.on{grid-template-rows:1fr}.ff-more>div{overflow:hidden}
+.ff-more label{display:block;text-align:left;font-size:14px;font-weight:550;margin:16px 0 6px}
+.ff-more textarea{width:100%;min-height:88px;padding:10px 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);color:var(--fg);font:16px/1.5 Geist,sans-serif;resize:vertical}
+.ff-more textarea:focus-visible{outline:2px solid var(--focus);outline-offset:1px;border-color:transparent}
+.ff-more button{width:100%;height:48px;margin-top:12px;border:0;border-radius:12px;background:var(--fg);color:var(--bg);font:600 15px Geist,sans-serif;cursor:pointer}
+.ff-thx{display:none;padding:12px 0}.ff-card.sent .ff-thx{display:block}.ff-card.sent .ff-form{display:none}
+</style>
+<section class="ff"><div class="ff-card"><div class="ff-form">
+  <h2>How was your checkout?</h2><p>Drag, tap or use arrow keys.</p>
+  <svg class="ff-face" viewBox="0 0 150 150" aria-hidden="true"><circle class="bg" cx="75" cy="75" r="70"/><path class="ft br l"/><path class="ft br r"/><ellipse class="ey l" cx="52" cy="66" rx="7"/><ellipse class="ey r" cx="98" cy="66" rx="7"/><path class="ft mo"/></svg>
+  <div class="ff-lbl" aria-hidden="true"></div>
+  <div class="ff-sl" role="slider" tabindex="0" aria-label="Rating" aria-valuemin="0" aria-valuemax="4"><div class="tr"></div><div class="th"></div></div>
+  <div class="ff-ends"><span>Awful</span><span>Great</span></div>
+  <div class="ff-more" aria-hidden="true"><div><label for="ffT"></label><textarea id="ffT" placeholder="Optional"></textarea><button>Send feedback</button></div></div>
+</div><div class="ff-thx" role="status"><h2>Thank you 🙏</h2><p style="color:var(--mu);margin:6px 0 0">We read every note.</p></div></div></section>
+<script>
+(()=>{
+const L=["Awful","Not great","Okay","Good","Great"],Q=["What went wrong?","What went wrong?","What could be better?","What could be better?","What did you love?"];
+const root=document.querySelector(".ff"),card=root.querySelector(".ff-card"),sl=root.querySelector(".ff-sl"),th=sl.querySelector(".th"),more=root.querySelector(".ff-more"),s=root.querySelector("svg");
+let v=2,t=2,touched=false;
+// v is continuous 0..4 for the face; the committed rating snaps to integers
+function face(k){const n=k/4,m=s.querySelector(".mo");
+  m.setAttribute("d",`M47 ${104-n*4} Q75 ${88+n*34} 103 ${104-n*4}`);
+  s.querySelector(".br.l").setAttribute("d",`M40 ${46+n*4} L62 ${44+(1-n)*8}`);s.querySelector(".br.r").setAttribute("d",`M88 ${44+(1-n)*8} L110 ${46+n*4}`);
+  s.querySelectorAll(".ey").forEach(e=>e.setAttribute("ry",5+n*4));root.style.setProperty("--hue",25+n*120)}
+function commit(n){t=Math.round(Math.max(0,Math.min(4,n)));sl.setAttribute("aria-valuenow",t);sl.setAttribute("aria-valuetext",L[t]);root.querySelector(".ff-lbl").textContent=L[t];
+  if(touched){more.classList.add("on");more.setAttribute("aria-hidden","false");root.querySelector("label[for=ffT]").textContent=Q[t]}}
+const pos=n=>th.style.left=n/4*100+"%";
+let drag=false;
+const from=e=>{const r=sl.getBoundingClientRect();return Math.max(0,Math.min(4,(e.clientX-r.left)/r.width*4))};
+sl.addEventListener("pointerdown",e=>{drag=true;touched=true;sl.setPointerCapture(e.pointerId);v=from(e);pos(v);commit(v)});
+sl.addEventListener("pointermove",e=>{if(drag){v=from(e);pos(v);commit(v)}});
+sl.addEventListener("pointerup",()=>{drag=false;v=t;pos(t)});
+sl.addEventListener("keydown",e=>{const d={ArrowRight:1,ArrowUp:1,ArrowLeft:-1,ArrowDown:-1}[e.key];if(d!==undefined||e.key==="Home"||e.key==="End"){e.preventDefault();touched=true;
+  const n=e.key==="Home"?0:e.key==="End"?4:t+d;commit(n);v=t;pos(t)}});
+let shown=2;(function f(){requestAnimationFrame(f);shown+=(v-shown)*.2;face(shown)})();
+root.querySelector(".ff-more button").onclick=()=>card.classList.add("sent");
+pos(2);commit(2);
+})();
+</script>

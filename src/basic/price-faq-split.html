@@ -1,0 +1,18 @@
+<!--Pricing with FAQ|Pricing|A compact two-plan pricing block on the left and a searchable billing FAQ on the right: questions filter as you type, matched words highlight, and an empty state links to support.|pricing,faq,search,billing,accordion-->
+<div class="k">
+<section class="pf"><div class="pf-p"><h2>Simple pricing</h2><div class="pf-c"><div><b>Free</b><span class="mu">Forever, for personal use</span></div><span class="tn">€0</span></div><div class="pf-c on"><div><b>Plus</b><span class="mu">Unlimited everything</span></div><span class="tn">€6<small>/mo</small></span></div><a class="b ac" href="#" style="height:44px">Get Plus</a></div>
+<div class="pf-q"><label class="pf-s">@I(search,16)<input id="q" type="search" placeholder="Search billing questions" aria-label="Search billing questions"></label><div id="l"></div></div></section>
+</div>
+<style>
+.pf{width:min(960px,100%);display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start}.pf h2{margin:0 0 14px;font-size:24px;letter-spacing:-.02em}
+.pf-p{display:grid;gap:10px}.pf-c{display:flex;justify-content:space-between;align-items:center;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}.pf-c div{display:grid}.pf-c span.mu{font-size:13px}.pf-c>span{font-size:24px;font-weight:650;letter-spacing:-.02em}.pf-c small{font-size:13px;color:var(--mu);font-weight:500}.pf-c.on{border:2px solid var(--fg);padding:15px}
+.pf-s{display:flex;gap:8px;align-items:center;height:44px;padding:0 14px;border:1px solid var(--ctl);border-radius:12px;color:var(--mu);background:var(--bg)}.pf-s:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}.pf-s input{border:0;outline:0;background:none;flex:1;font-size:16px;color:var(--fg);min-width:0}
+#l{margin-top:12px}#l details{border-bottom:1px solid var(--line)}#l summary{padding:14px 0;cursor:pointer;font-weight:550;list-style:none;display:flex;justify-content:space-between;gap:12px}#l summary::-webkit-details-marker{display:none}#l summary::after{content:"+";color:var(--mu);font-size:20px;line-height:1}#l [open] summary::after{content:"−"}#l p{margin:0 0 14px;color:var(--mu);font-size:14px}#l mark{background:color-mix(in srgb,var(--ac) 25%,transparent);color:inherit;border-radius:2px}
+.pf-em{padding:24px;text-align:center;color:var(--mu);font-size:14px}.pf-em a{color:var(--ac)}
+@media (max-width:760px){.pf{grid-template-columns:1fr}}
+</style>
+<script>
+const Q=[["Can I cancel any time?","Yes. Cancel from Settings → Billing and you keep Plus until the end of the period."],["Do you offer refunds?","Within 14 days of any payment, just reply to the receipt."],["Which payment methods do you accept?","Cards, Apple Pay, Google Pay, SEPA debit and PayPal."],["Is there a discount for yearly billing?","Yes, yearly is €60, two months free."],["What happens to my data if I downgrade?","Nothing is deleted. Items over the free limit become read-only."],["Do you charge VAT?","EU customers pay their local VAT. Businesses with a VAT ID are reverse-charged."]],l=document.getElementById('l'),q=document.getElementById('q');
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function draw(){const v=q.value.trim(),re=v?new RegExp('('+v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'):null,hl=s=>re?esc(s).replace(re,'<mark>$1</mark>'):esc(s);const R=Q.filter(([a,b])=>!re||re.test(a)||(re.lastIndex=0,re.test(b)));if(re)re.lastIndex=0;l.innerHTML=R.length?R.map(([a,b])=>`<details ${v?'open':''}><summary>${hl(a)}</summary><p>${hl(b)}</p></details>`).join(''):`<p class="pf-em">No answers for “${esc(v)}”. <a href="#">Ask billing support</a></p>`}q.oninput=draw;draw();
+</script>

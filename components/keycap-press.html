@@ -1,0 +1,51 @@
+<style>
+.kcp{--fg:#f1ebe2;--mu:#8a847a;position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;background:#000;color:var(--fg);font-family:Geist,system-ui,sans-serif;user-select:none;-webkit-user-select:none}
+.kcp-in{display:flex;flex-direction:column;align-items:center;gap:8px;padding:32px 16px;text-align:center}
+.kcp-key{position:relative;width:min(460px,84vw);aspect-ratio:760/720;padding:0;border:0;background:none;border-radius:28px;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}
+.kcp-key canvas{width:100%;height:100%;display:block}
+.kcp-key:focus-visible{outline:2px solid #93c5fd;outline-offset:-24px}
+.kcp-ring{position:absolute;left:50%;bottom:5%;width:46%;height:4px;translate:-50% 0;border-radius:2px;background:#ffffff1a;overflow:hidden}
+.kcp-ring i{display:block;height:100%;width:calc(var(--p,0)*100%);background:#ff9a4d}
+.kcp small{font:12px/1 "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.kcp h2{margin:6px 0 2px;font:400 clamp(36px,5vw,56px)/1 "Instrument Serif",serif}
+.kcp p{margin:0;font-size:14px;color:var(--mu);min-height:21px}
+.kcp kbd{font:12px "Geist Mono",monospace;padding:2px 6px;border:1px solid #ffffff2e;border-radius:5px;color:var(--fg)}
+.kcp-log{margin-top:14px;font:12px/1.7 "Geist Mono",monospace;color:var(--mu);min-height:62px}
+.kcp-log b{color:#ff9a4d;font-weight:500}
+</style>
+<section class="kcp">
+  <div class="kcp-in">
+    <small>Release 4.2.0 · main</small>
+    <h2>Hold to ship.</h2>
+    <button class="kcp-key" aria-label="Hold to deploy. Hold Space or Enter for one second." aria-describedby="kcpS"><canvas></canvas><span class="kcp-ring"><i></i></span></button>
+    <p id="kcpS" aria-live="polite">Hold the key, or <kbd>Space</kbd>, until it lights.</p>
+    <div class="kcp-log"></div>
+  </div>
+</section>
+<script>
+(()=>{
+// 78 frames: 0–30 press down, 30–54 held with glow, 54–77 spring back.
+const FRAMES=78,DOWN=30,UP=54,SRC=i=>`media/keycap/${String(i+1).padStart(2,"0")}.jpg`;
+const R=document.querySelector(".kcp"),key=R.querySelector(".kcp-key"),cv=key.querySelector("canvas"),x=cv.getContext("2d"),st=R.querySelector("#kcpS"),log=R.querySelector(".kcp-log"),ring=R.querySelector(".kcp-ring");
+const imgs=[...Array(FRAMES)].map((_,i)=>{const im=new Image();im.src=SRC(i);if(i===0)im.onload=()=>paint(0);return im});
+let f=0,shown=-1,mode="idle",held=0,ships=0,last=0;
+const paint=n=>{const im=imgs[n];if(!im.complete||!im.naturalWidth)return;shown=n;x.drawImage(im,0,0,cv.width,cv.height)};
+new ResizeObserver(()=>{const d=Math.min(devicePixelRatio||1,2);cv.width=cv.clientWidth*d;cv.height=cv.clientHeight*d;shown=-1}).observe(cv);
+const press=()=>{if(mode==="down"||mode==="hold")return;if(mode==="up")f=Math.max(0,DOWN-(f-UP));mode="down";held=0;st.textContent="Keep holding…"};
+const release=()=>{if(mode==="down"){mode="back";st.textContent="Too quick — hold until it lights."}else if(mode==="hold"){mode="up";f=UP}};
+const ship=()=>{ships++;const t=new Date().toTimeString().slice(0,8);st.textContent="Shipped. Let go.";
+  log.innerHTML=`<b>✓ deployed</b> 4.2.${ships-1} → production · ${t}<br>`+log.innerHTML.split("<br>").slice(0,2).join("<br>")};
+key.addEventListener("pointerdown",e=>{key.setPointerCapture(e.pointerId);press()});
+key.addEventListener("pointerup",release);key.addEventListener("pointercancel",release);
+key.addEventListener("keydown",e=>{if((e.key===" "||e.key==="Enter")&&!e.repeat){e.preventDefault();press()}});
+key.addEventListener("keyup",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();release()}});
+key.addEventListener("click",e=>e.preventDefault());
+(function loop(t){requestAnimationFrame(loop);const dt=Math.min(3,(t-(last||t))/(1000/30));last=t;
+  if(mode==="down"){f+=dt;if(f>=DOWN){f=DOWN;mode="hold";ship()}}
+  else if(mode==="hold"){held+=dt;f=DOWN+(Math.sin(held/9)*.5+.5)*(UP-DOWN-4)} // breathe inside the lit stretch
+  else if(mode==="back"){f-=dt*1.6;if(f<=0){f=0;mode="idle"}}
+  else if(mode==="up"){f+=dt;if(f>=FRAMES-1){f=0;mode="idle";st.textContent="Hold again to ship the next build."}}
+  ring.style.setProperty("--p",mode==="down"||mode==="back"?f/DOWN:mode==="hold"?1:0);
+  const n=Math.round(f);if(n!==shown)paint(n)})();
+})();
+</script>

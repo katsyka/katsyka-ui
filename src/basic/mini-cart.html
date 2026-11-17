@@ -1,0 +1,36 @@
+<!--Mini Cart|Overlays|A header cart button with a live count badge that bumps on add, opening a dropdown cart: items with steppers, free-shipping progress, subtotal and Checkout. Closes on outside click and Escape, returns focus.|cart,dropdown,header,ecommerce,popover-->
+<div class="k"><header class="card mc-hd"><b class="mc-lg">Field Prints</b><nav class="mc-n"><a href="#">Prints</a><a href="#">Frames</a><a href="#">Gifts</a></nav>
+  <div class="mc-w"><button class="b gh mc-btn" id="cb" aria-expanded="false" aria-controls="dd" aria-label="Cart, 2 items">@I(bag,20)<span class="mc-c tn" id="cc">2</span></button>
+  <div class="card mc-dd" id="dd" hidden><div class="mc-ship"><span id="st"></span><i><i id="sb"></i></i></div><ul id="l"></ul><dl><dt>Subtotal</dt><dd class="tn" id="sub"></dd></dl><button class="b ac" style="width:100%;height:42px">Checkout</button><button class="b gh" style="width:100%;margin-top:4px">View cart</button></div></div></header>
+  <button class="b sec mc-add" id="add">@I(plus,16)Add “Low tide” to cart</button></div>
+<style>
+.k{place-items:start center;padding-top:40px;align-content:start;gap:24px}
+.mc-hd{width:min(820px,100%);display:flex;align-items:center;gap:24px;padding:10px 12px 10px 20px;border-radius:14px}.mc-lg{font:400 24px/1 "Instrument Serif",serif}
+.mc-n{display:flex;gap:4px;flex:1}.mc-n a{padding:6px 10px;border-radius:8px;color:var(--mu);text-decoration:none;font-weight:500}.mc-n a:hover{color:var(--fg);background:var(--sf)}
+.mc-w{position:relative}.mc-btn{width:44px;padding:0;position:relative}
+.mc-c{position:absolute;top:2px;right:0;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ac);color:var(--ac-fg);font-size:11px;font-weight:700;display:grid;place-items:center}
+.mc-c.bump{animation:bp .4s cubic-bezier(.3,1.6,.5,1)}@keyframes bp{40%{transform:scale(1.4)}}
+.mc-dd{position:absolute;right:0;top:calc(100% + 8px);z-index:10;width:340px;padding:16px;transform-origin:top right;animation:dd .18s var(--ease)}
+@keyframes dd{from{opacity:0;transform:scale(.96) translateY(-4px)}}
+.mc-ship{font-size:13px;margin-bottom:8px}.mc-ship>i{display:block;height:6px;border-radius:3px;background:var(--sf2);margin-top:6px;overflow:hidden}.mc-ship>i>i{display:block;height:100%;background:var(--ok);transition:width .4s var(--ease)}
+.mc-dd ul{list-style:none;margin:0;padding:0;max-height:240px;overflow:auto}
+.mc-dd li{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.mc-dd img{width:44px;height:52px;border-radius:6px;object-fit:cover}
+.mc-dd li .tx{flex:1;min-width:0}.mc-dd li b{display:block;font-weight:550}.mc-dd li small{color:var(--mu);font-size:12px}
+.mc-q{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px}.mc-q button{width:28px;height:28px;display:grid;place-items:center;color:var(--mu)}.mc-q button:hover{color:var(--fg)}.mc-q output{min-width:20px;text-align:center;font-size:13px;font-weight:600}
+.mc-dd dl{display:flex;justify-content:space-between;margin:12px 0;font-weight:650}.mc-dd dd{margin:0}
+.mc-e{padding:24px 0;text-align:center;color:var(--mu)}
+@media (max-width:600px){.mc-n{display:none}.mc-hd{justify-content:space-between}.mc-dd{width:min(340px,calc(100vw - 32px))}}
+</style>
+<script>
+const C=[["1043","Valley floor","50×70 · Oak",106,1],["1080","Strawberries","30×40",38,1]];const FREE=150;
+const draw=()=>{const n=C.reduce((a,c)=>a+c[4],0),s=C.reduce((a,c)=>a+c[3]*c[4],0);cc.textContent=n;cc.hidden=!n;cb.setAttribute("aria-label",`Cart, ${n} item${n===1?"":"s"}`);
+ l.innerHTML=C.length?C.map(([p,t,v,pr,q],i)=>`<li><img src="media/pics/c/${p}.jpg" alt=""><span class="tx"><b>${t}</b><small>${v} · <span class="tn">$${pr*q}</span></small></span><span class="mc-q"><button data-i="${i}" data-d="-1" aria-label="Decrease ${t}">−</button><output>${q}</output><button data-i="${i}" data-d="1" aria-label="Increase ${t}">+</button></span></li>`).join(""):'<li class="mc-e">Your cart is empty.</li>';
+ sub.textContent="$"+s;st.innerHTML=s>=FREE?"You've got <b>free shipping</b>":`<b class="tn">$${FREE-s}</b> away from free shipping`;sb.style.width=Math.min(100,s/FREE*100)+"%"};
+l.onclick=e=>{const b=e.target.closest("[data-d]");if(!b)return;const c=C[b.dataset.i];c[4]+=+b.dataset.d;if(c[4]<=0)C.splice(b.dataset.i,1);draw()};
+const open=o=>{dd.hidden=!o;cb.setAttribute("aria-expanded",o)};
+cb.onclick=()=>open(dd.hidden);
+document.addEventListener("click",e=>{if(!e.target.closest(".mc-w")&&e.target!==add&&!add.contains(e.target))open(false)});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!dd.hidden){open(false);cb.focus()}});
+add.onclick=()=>{const c=C.find(c=>c[1]==="Low tide");if(c)c[4]++;else C.push(["1050","Low tide","50×70",48,1]);draw();cc.classList.remove("bump");void cc.offsetWidth;cc.classList.add("bump")};
+document.querySelectorAll('a[href="#"]').forEach(a=>a.onclick=e=>e.preventDefault());draw();
+</script>

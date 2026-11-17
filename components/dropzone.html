@@ -1,0 +1,74 @@
+<style>
+.dz-stage{min-height:100vh;display:grid;place-items:center;padding:40px 16px;background:#0a0a0b}
+.dz{width:min(560px,100%)}
+.dz h2{margin:0 0 4px;font-size:20px;letter-spacing:-.03em;font-weight:600}.dz>p{margin:0 0 18px;color:#71717a;font-size:14px}
+.dz-area{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;padding:38px 20px;border-radius:20px;background:#101012;cursor:pointer;text-align:center;transition:background .3s,transform .3s cubic-bezier(.3,1.4,.5,1);outline:0}
+.dz-area svg.b{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.dz-area svg.b rect{fill:none;stroke:#3f3f46;stroke-width:1.5;stroke-dasharray:7 7;transition:stroke .3s}
+.dz-area:hover svg.b rect,.dz-area:focus-visible svg.b rect{stroke:#71717a}
+.dz-area.over{background:#1a120d;transform:scale(1.01)}
+.dz-area.over svg.b rect{stroke:#ff7a3d;animation:dz-march .6s linear infinite}
+@keyframes dz-march{to{stroke-dashoffset:-14}}
+.dz-ic{width:52px;height:52px;border-radius:15px;background:#18181b;border:1px solid #ffffff12;display:grid;place-items:center;color:#e4e4e7;transition:transform .4s cubic-bezier(.3,1.5,.5,1)}
+.dz-area.over .dz-ic{transform:translateY(-6px) rotate(-6deg);color:#ff7a3d}
+.dz-ic svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.dz-area b{font-size:15px;font-weight:550}.dz-area b u{text-decoration:none;color:#ff8a5c}.dz-area small{font-size:12.5px;color:#71717a}
+.dz-demo{margin-top:12px;height:30px;padding:0 12px;border-radius:8px;border:1px solid #ffffff14;background:none;color:#a1a1aa;font:500 12.5px Geist,sans-serif;cursor:pointer}.dz-demo:hover{color:#fff}
+.dz-list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.dz-f{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:10px 12px 10px 10px;border-radius:14px;background:#111113;border:1px solid #ffffff0d;animation:dz-in .4s cubic-bezier(.2,1,.3,1)}
+.dz-f.out{animation:dz-out .3s forwards}
+@keyframes dz-in{from{opacity:0;transform:translateY(-8px) scale(.98)}}@keyframes dz-out{to{opacity:0;transform:translateX(30px)}}
+.dz-th{width:44px;height:44px;border-radius:10px;background:#1c1c20 center/cover;display:grid;place-items:center;font:700 10px "Geist Mono",monospace;color:#0a0a0b}
+.dz-meta{min-width:0}.dz-meta b{display:block;font-size:13.5px;font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dz-meta small{display:block;margin-top:2px;font:12px "Geist Mono",monospace;color:#71717a}
+.dz-meta small.err{color:#f87171}.dz-meta small.ok{color:#4ade80}
+.dz-bar{height:3px;margin-top:7px;border-radius:2px;background:#ffffff0d;overflow:hidden}.dz-bar i{display:block;height:100%;width:0;background:#ff7a3d;border-radius:2px;transition:width .2s linear}
+.dz-f.done .dz-bar{display:none}
+.dz-x{width:30px;height:30px;border-radius:8px;border:0;background:none;color:#71717a;cursor:pointer;font-size:13px}.dz-x:hover{background:#ffffff0d;color:#fff}
+.dz-retry{height:28px;padding:0 10px;border-radius:7px;border:1px solid #ffffff17;background:none;color:#e4e4e7;font:500 12px Geist,sans-serif;cursor:pointer}
+.dz-sum{display:flex;justify-content:space-between;margin-top:12px;font:12px "Geist Mono",monospace;color:#52525b}
+</style>
+<div class="dz-stage"><div class="dz">
+  <h2>Upload assets</h2><p>PNG, JPG, PDF or ZIP · up to 10 MB each</p>
+  <div class="dz-area" tabindex="0" role="button" aria-label="Upload files">
+    <svg class="b"><rect x=".75" y=".75" rx="19.5" style="width:calc(100% - 1.5px);height:calc(100% - 1.5px)"/></svg>
+    <div class="dz-ic"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M20 16.5V19a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2.5"/></svg></div>
+    <b>Drop files here or <u>browse</u></b><small>Paste from clipboard works too</small>
+    <button class="dz-demo" type="button">Add sample files</button>
+    <input type="file" multiple hidden>
+  </div>
+  <ul class="dz-list"></ul>
+  <div class="dz-sum"><span></span><span></span></div>
+</div></div>
+<script>
+(()=>{
+const area=document.querySelector(".dz-area"),input=area.querySelector("input"),list=document.querySelector(".dz-list"),sum=document.querySelectorAll(".dz-sum span"),MAX=10*1048576;
+const fmt=b=>b<1048576?(b/1024).toFixed(0)+" KB":(b/1048576).toFixed(1)+" MB";
+const COL={PNG:"#38bdf8",JPG:"#a78bfa",PDF:"#f87171",ZIP:"#fbbf24"};
+let files=[];
+function add(name,size,url){const ext=(name.split(".").pop()||"").toUpperCase().slice(0,3),f={name,size,ext,p:0,el:document.createElement("li")};f.el.className="dz-f";
+  f.el.innerHTML=`<div class="dz-th" style="${url?`background-image:url(${url})`:`background:${COL[ext]||"#71717a"}`}">${url?"":ext}</div><div class="dz-meta"><b></b><small></small><div class="dz-bar"><i></i></div></div><button class="dz-x" aria-label="Remove">✕</button>`;
+  f.el.querySelector("b").textContent=name;f.el.querySelector(".dz-x").onclick=()=>{clearInterval(f.t);f.el.classList.add("out");setTimeout(()=>f.el.remove(),300);files=files.filter(x=>x!==f);stat()};
+  list.prepend(f.el);files.push(f);size>MAX?fail(f,`Too large · ${fmt(size)} (max 10 MB)`):upload(f)}
+function upload(f){const m=f.el.querySelector("small"),bar=f.el.querySelector(".dz-bar i"),speed=(1.5+Math.random()*3)*1048576;f.el.classList.remove("done");m.className="";
+  const willFail=/corrupt/i.test(f.name);
+  f.t=setInterval(()=>{f.p=Math.min(1,f.p+speed*.2/f.size);bar.style.width=f.p*100+"%";
+    const left=Math.max(0,(1-f.p)*f.size/speed);m.textContent=`${fmt(f.p*f.size)} of ${fmt(f.size)} · ${left<1?"<1":Math.ceil(left)}s left`;
+    if(willFail&&f.p>.62){clearInterval(f.t);fail(f,"Upload failed · connection reset",true);return}
+    if(f.p>=1){clearInterval(f.t);f.el.classList.add("done");m.className="ok";m.textContent=`${fmt(f.size)} · Uploaded`;f.ok=1;stat()}},200);stat()}
+function fail(f,msg,retry){const m=f.el.querySelector("small");m.className="err";m.textContent=msg;f.el.classList.add("done");
+  if(retry&&!f.el.querySelector(".dz-retry")){const r=document.createElement("button");r.className="dz-retry";r.textContent="Retry";f.el.querySelector(".dz-x").before(r);f.el.style.gridTemplateColumns="44px 1fr auto auto";
+    r.onclick=()=>{r.remove();f.el.style.gridTemplateColumns="";f.p=0;f.name=f.name.replace(/corrupt-?/i,"");upload(f)}}stat()}
+function stat(){const ok=files.filter(f=>f.ok),tot=files.reduce((a,f)=>a+f.size,0);sum[0].textContent=files.length?`${ok.length}/${files.length} uploaded`:"";sum[1].textContent=files.length?fmt(tot)+" total":""}
+const take=fl=>[...fl].forEach(f=>add(f.name,f.size,f.type.startsWith("image/")?URL.createObjectURL(f):null));
+area.onclick=e=>{if(!e.target.closest(".dz-demo"))input.click()};area.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();input.click()}};
+input.onchange=()=>{take(input.files);input.value=""};
+let depth=0;
+area.addEventListener("dragenter",e=>{e.preventDefault();depth++;area.classList.add("over")});area.addEventListener("dragover",e=>e.preventDefault());
+area.addEventListener("dragleave",()=>{if(--depth<=0){depth=0;area.classList.remove("over")}});
+area.addEventListener("drop",e=>{e.preventDefault();depth=0;area.classList.remove("over");take(e.dataTransfer.files)});
+addEventListener("paste",e=>take(e.clipboardData.files));
+area.querySelector(".dz-demo").onclick=()=>{add("hero-shot@2x.png",2.4*1048576,"https://picsum.photos/id/1067/120/120");setTimeout(()=>add("brand-guidelines.pdf",6.1*1048576),250);
+  setTimeout(()=>add("corrupt-export.zip",3.3*1048576),500);setTimeout(()=>add("raw-footage.zip",48*1048576),750)};
+})();
+</script>

@@ -1,0 +1,43 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.na2{width:min(720px,100%)}.na2-h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}.na2-h h1{margin:0;font-size:26px;letter-spacing:-.02em}.na2-h select{height:36px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font:inherit;color:var(--fg);padding:0 8px}
+.na2-s{display:flex;gap:8px;align-items:center;height:44px;padding:0 12px;border:1px solid var(--ctl);border-radius:10px;color:var(--mu);background:var(--bg)}.na2-s input{border:0;outline:0;background:none;flex:1;font-size:16px;color:var(--fg);min-width:0}.na2-s:focus-within{border-color:var(--ac)}.na2-c{font-size:13px;margin:10px 0}
+.na2 h2{font:600 13px 'Geist Mono',monospace;color:var(--mu);margin:20px 0 4px;scroll-margin-top:16px}.na2 ol{list-style:none;padding:0;margin:0}.na2 li a{display:grid;grid-template-columns:64px 1fr auto;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);color:inherit;text-decoration:none;align-items:baseline}.na2 li a:hover b{text-decoration:underline;text-underline-offset:3px}.na2 code{font:13px 'Geist Mono',monospace;color:var(--mu)}.na2 li div{display:grid;gap:2px}.na2 li b{font-weight:600}.na2 li span{font-size:14px;color:var(--mu)}.na2 .rd b{color:var(--mu);font-weight:500}.na2 .rd::after{content:"read";font-size:11px;color:var(--mu)}.na2 mark{background:var(--warn-sf);color:inherit}
+</style>
+<div class="k"><div class="na2"><div class="na2-h"><h1>Field Notes archive</h1><select id="yr" aria-label="Jump to year"></select></div><label class="na2-s"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search 214 issues" aria-label="Search issues"></label><p class="mu na2-c" id="c" aria-live="polite"></p><div id="l"></div></div></div>
+<script>
+const I=[[214,2026,"Why every manhole cover in Tokyo is different","Sewers, public relations and 6,000 designs."],[213,2026,"The 400-year-old reason your street bends","Medieval field boundaries are still steering your commute."],[212,2026,"Reading a city from its power lines","What the wires overhead say about past decisions."],[188,2026,"A bridge that hums","Wind, cables and an unintended musical instrument."],[160,2025,"The colour of bus stops","Why transit agencies choose the colours they do."],[141,2025,"Street names after the war","Renaming as politics, block by block."],[102,2024,"How a roundabout spreads","The diffusion of a traffic idea across Europe."],[87,2024,"Cobblestones are a technology","Drainage, repair and why they keep coming back."]];
+let read=new Set();try{read=new Set(JSON.parse(localStorage.getItem('na2-read')||'[]'))}catch(e){}
+const q=document.getElementById('q'),Y=[...new Set(I.map(i=>i[1]))];document.getElementById('yr').innerHTML='<option value="">Jump to year</option>'+Y.map(y=>`<option>${y}</option>`).join('');
+function draw(){const v=q.value.trim().toLowerCase(),re=v?new RegExp('('+v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'):null,h=s=>re?s.replace(re,'<mark>$1</mark>'):s,L=I.filter(i=>!v||(i[2]+' '+i[3]).toLowerCase().includes(v));document.getElementById('c').textContent=v?`${L.length} issue${L.length!==1?'s':''} match`:'';
+document.getElementById('l').innerHTML=Y.map(y=>{const Ly=L.filter(i=>i[1]===y);return Ly.length?`<h2 id="y${y}">${y}</h2><ol>${Ly.map(([n,,t,s])=>`<li><a href="#" data-n="${n}" class="${read.has(n)?'rd':''}"><code>No. ${n}</code><div><b>${h(t)}</b><span>${h(s)}</span></div></a></li>`).join('')}</ol>`:''}).join('')}
+document.getElementById('l').onclick=e=>{const a=e.target.closest('[data-n]');if(!a)return;e.preventDefault();read.add(+a.dataset.n);try{localStorage.setItem('na2-read',JSON.stringify([...read]))}catch(_){}a.classList.add('rd')};
+document.getElementById('yr').onchange=e=>{const t=document.getElementById('y'+e.target.value);if(t)t.scrollIntoView({behavior:'smooth'});e.target.value=''};q.oninput=draw;draw();
+</script>

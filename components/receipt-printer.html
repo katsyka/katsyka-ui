@@ -1,0 +1,87 @@
+<style>
+.rcp{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.rcp :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.rcp ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.rcp *,.rcp *::before,.rcp *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.rcp{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;overflow:hidden}
+.rcp-head{width:min(340px,100%);display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:18px}
+.rcp-head h3{margin:0;font-size:16px;font-weight:600}.rcp-head p{margin:2px 0 0;font-size:13px;color:var(--mu)}
+.rcp-btns{display:flex;gap:6px}
+.rcp-btns button{height:34px;padding:0 12px;border-radius:var(--r2);border:1px solid var(--line);background:var(--sf);color:var(--fg);font:500 13px Geist,system-ui,sans-serif;white-space:nowrap;cursor:pointer}
+.rcp-btns button:hover:not(:disabled){background:var(--sf2)}.rcp-btns button:disabled{opacity:.45;cursor:default}
+.rcp-btns .rcp-print{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.rcp-btns .rcp-print:hover:not(:disabled){background:var(--fg);opacity:.88}
+.rcp-dev{width:min(340px,100%);position:relative}
+.rcp-body{position:relative;z-index:2;height:92px;border-radius:14px 14px 20px 20px;background:linear-gradient(#323238,#1d1d21);box-shadow:inset 0 1px 0 #ffffff21,inset 0 -2px 0 #0006,0 14px 30px -14px #000a;display:flex;align-items:center;gap:10px;padding:24px 20px 0}
+.rcp-led{width:7px;height:7px;border-radius:50%;background:#3a3a40}
+.rcp.busy .rcp-led{background:#4ade80;animation:rcp-bl .35s steps(1) infinite}
+.rcp.ready .rcp-led{background:#4ade80}
+@keyframes rcp-bl{50%{background:#14532d}}
+.rcp-name{font:11px/1 "Geist Mono",monospace;letter-spacing:.12em;color:#9a9aa3}
+.rcp-slot{position:absolute;left:22px;right:22px;top:15px;height:7px;border-radius:4px;background:#050506;box-shadow:inset 0 2px 3px #000,0 1px 0 #ffffff14}
+.rcp.busy .rcp-body{animation:rcp-bz .07s linear infinite}
+@keyframes rcp-bz{50%{transform:translateY(.6px)}}
+.rcp-out{position:relative;z-index:1;margin:0 30px -18.5px;clip-path:inset(-2000px -400px 0 -400px)}
+.rcp-out.free{clip-path:none;z-index:3}
+.rcp-feed{position:absolute;left:0;right:0;bottom:0;transform:translateY(100%);transform-origin:50% 100%;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 6px 10px #0000002e);touch-action:none}
+.rcp.ready .rcp-feed{cursor:grab}.rcp.ready .rcp-feed:active{cursor:grabbing}
+.rcp-paper{--m:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/10px 51% repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/10px 51% repeat-x;
+  -webkit-mask:var(--m);mask:var(--m);background:#fbfaf5;color:#26231e;font:12px/1.6 "Geist Mono",monospace;padding:22px 18px 30px}
+.rcp-paper .c{text-align:center}.rcp-paper .b{font-weight:600;font-size:14px;letter-spacing:.14em}.rcp-paper .m{color:#26231e99}
+.rcp-paper hr{border:0;border-top:1px dashed #26231e59;margin:10px 0}
+.rcp-paper .r{display:flex;justify-content:space-between;gap:10px}
+.rcp-paper .t{font-size:17px;font-weight:600;margin-top:4px}
+.rcp-bc{display:flex;justify-content:center;height:40px;margin:14px 0 2px}.rcp-bc i{display:block;height:100%}
+.rcp-cut{margin-top:12px;text-align:center;color:#26231e80;letter-spacing:.2em;font-size:10px}
+.rcp-st{min-height:20px;margin-top:14px;font-size:13px;color:var(--mu);text-align:center}
+</style>
+<section class="rcp">
+  <div class="rcp-head"><div><h3>Order complete</h3><p>Print a receipt, then pull it up to tear.</p></div>
+    <div class="rcp-btns"><button class="rcp-tear" disabled>Tear off</button><button class="rcp-print">Print</button></div></div>
+  <div class="rcp-dev">
+    <div class="rcp-out"><div class="rcp-feed" aria-label="Receipt"><div class="rcp-paper">
+      <div class="c b">KATSYKA SUPPLY</div><div class="c m">14 Mill Lane, Unit 3</div><div class="c m">31.10.2026 · 14:08 · #A-2417</div>
+      <hr>
+      <div class="r"><span>Low-profile keyboard</span><span>129.00</span></div>
+      <div class="r"><span>2× Linen keycap set</span><span>36.00</span></div>
+      <div class="r"><span>Braided cable 1.5 m</span><span>14.00</span></div>
+      <div class="r"><span>Desk mat, moss</span><span>22.00</span></div>
+      <hr>
+      <div class="r m"><span>Subtotal</span><span>201.00</span></div><div class="r m"><span>VAT 20%</span><span>40.20</span></div>
+      <div class="r t"><span>TOTAL</span><span>$241.20</span></div>
+      <div class="r m"><span>VISA ···· 4242</span><span>APPROVED</span></div>
+      <hr>
+      <div class="c m">Returns accepted until 30 Nov.<br>Thank you for building with us.</div>
+      <div class="rcp-bc" aria-hidden="true"></div><div class="c m">A2417 0031 1026</div>
+      <div class="rcp-cut">✂ - - - - TEAR HERE - - - -</div>
+    </div></div></div>
+    <div class="rcp-body"><span class="rcp-led"></span><span class="rcp-name">KATSYKA TP-80</span><span class="rcp-slot"></span></div>
+  </div>
+  <div class="rcp-st" aria-live="polite"></div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".rcp"),out=R.querySelector(".rcp-out"),feed=R.querySelector(".rcp-feed"),pb=R.querySelector(".rcp-print"),tb=R.querySelector(".rcp-tear"),st=R.querySelector(".rcp-st"),bc=R.querySelector(".rcp-bc");
+const red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+let s=11,html="";const rnd=()=>(s=s*16807%2147483647)/2147483647;
+for(let i=0;i<54;i++)html+=`<i style="width:${1+Math.floor(rnd()*3)}px;background:${i%2?"transparent":"#26231e"}"></i>`;bc.innerHTML=html;
+let fed=0,H=0,state="idle",raf=0,pull=null;
+const set=(y,extra="")=>{feed.style.transform=`translateY(${H-y}px)${extra}`};
+const reset=()=>{cancelAnimationFrame(raf);feed.style.transition="none";feed.style.opacity=1;out.classList.remove("free");H=feed.offsetHeight;out.style.height=H+"px";fed=0;set(0);R.classList.remove("ready")};
+const done=()=>{state="ready";R.classList.remove("busy");R.classList.add("ready");pb.disabled=false;tb.disabled=false;st.textContent="Printed. Pull the receipt up to tear it off."};
+const print=()=>{if(state==="printing")return;reset();state="printing";R.classList.add("busy");pb.disabled=tb.disabled=true;st.textContent="Printing…";
+  if(red){fed=H;set(H);return done()}
+  let last=0;const tick=t=>{if(t-last>=24){last=t;fed=Math.min(H,fed+5);set(fed)}fed<H?raf=requestAnimationFrame(tick):done()};raf=requestAnimationFrame(tick)};
+const tear=dir=>{if(state!=="ready")return;state="torn";R.classList.remove("ready");out.classList.add("free");tb.disabled=true;pull=null;
+  feed.style.transition=red?"opacity .3s":"transform .9s cubic-bezier(.5,0,.8,.3),opacity .9s";
+  if(!red)feed.style.transform=`translate(${dir*2}px,${innerHeight}px) rotate(${dir>=0?16:-16}deg)`;feed.style.opacity=0;
+  st.textContent="Torn off. Print another?"};
+feed.addEventListener("pointerdown",e=>{if(state!=="ready")return;pull={x:e.clientX,y:e.clientY};feed.style.transition="none";feed.setPointerCapture(e.pointerId)});
+feed.addEventListener("pointermove",e=>{if(!pull)return;const dy=Math.max(0,pull.y-e.clientY),dx=e.clientX-pull.x;
+  if(dy>120)return tear(dx);set(H+dy*.3,` rotate(${dx*.02}deg)`)});
+const let_go=()=>{if(!pull)return;pull=null;feed.style.transition="transform .45s cubic-bezier(.3,1.6,.5,1)";set(H)};
+feed.addEventListener("pointerup",let_go);feed.addEventListener("pointercancel",let_go);
+pb.onclick=print;tb.onclick=()=>tear(30);
+setTimeout(print,400);
+})();
+</script>

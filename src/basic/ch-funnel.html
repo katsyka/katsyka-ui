@@ -1,0 +1,13 @@
+<!--Conversion Funnel Chart|Charts|A horizontal funnel of signup steps with bar widths proportional to users, the drop-off between steps shown as a gap with a percentage, the biggest leak highlighted, and a segment switch.|chart,funnel,conversion,drop-off,product analytics-->
+<div class="k"><figure class="fn2 card"><figcaption><b>Signup funnel</b><select id="sg" aria-label="Segment"><option value="all">All visitors</option><option value="mob">Mobile</option><option value="desk">Desktop</option></select></figcaption><ol class="fn2-l" id="l"></ol></figure></div>
+<style>
+.fn2{width:min(680px,100%);padding:20px;margin:0}.fn2 figcaption{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.fn2 select{height:32px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font:inherit;font-size:13px;color:var(--fg)}
+.fn2-l{list-style:none;padding:0;margin:0;display:grid;gap:0}.fn2-l li{display:grid;grid-template-columns:150px 1fr 90px;gap:12px;align-items:center}.fn2-l .bar{height:36px;border-radius:6px;background:#1e3a8a;width:var(--w);transition:width .5s cubic-bezier(.23,1,.32,1)}.fn2-l li:nth-of-type(n) .bar{background:color-mix(in srgb,#1e3a8a calc(100% - var(--k)*14%),#93c5fd)}.fn2-l b{font-variant-numeric:tabular-nums;text-align:right}.fn2-l b small{display:block;font-weight:400;font-size:11px;color:var(--mu)}
+.fn2-l .dp{grid-column:2;font-size:12px;color:var(--mu);padding:6px 0 6px 10px;border-left:2px dashed var(--line);margin-left:6px}.fn2-l .dp.big{color:var(--err);border-color:var(--err);font-weight:600}
+@media (max-width:560px){.fn2-l li{grid-template-columns:1fr 70px}.fn2-l li>span{grid-column:1/-1;font-size:13px}.fn2-l .bar{grid-column:1}.fn2-l .dp{grid-column:1/-1}}
+</style>
+<script>
+const ST=['Visited pricing','Started signup','Verified email','Created project','Invited a teammate'],SG={all:[12400,3720,2980,1640,610],mob:[7100,1630,1180,520,140],desk:[5300,2090,1800,1120,470]};
+const l=document.getElementById('l');function draw(){const v=SG[document.getElementById('sg').value];let worst=0,wi=0;v.slice(1).forEach((x,i)=>{const d=1-x/v[i];if(d>worst){worst=d;wi=i}});
+l.innerHTML=v.map((x,i)=>`${i?`<li class="dpl" aria-hidden="true"><span></span><span class="dp${i-1===wi?' big':''}">−${Math.round((1-x/v[i-1])*100)}% dropped${i-1===wi?' · biggest leak':''}</span></li>`:''}<li><span>${ST[i]}</span><span class="bar" style="--w:${x/v[0]*100}%;--k:${i}" role="img" aria-label="${ST[i]}: ${x.toLocaleString('en')} users"></span><b>${x.toLocaleString('en')}<small>${(x/v[0]*100).toFixed(1)}%</small></b></li>`).join('')}document.getElementById('sg').onchange=draw;draw();
+</script>

@@ -1,0 +1,70 @@
+<style>
+.ibt{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ibt :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ibt ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ibt *,.ibt *::before,.ibt *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ibt{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.ibt-pn{width:min(640px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.ibt-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:22px 24px;border-top:1px solid var(--line)}
+.ibt-row:first-child{border-top:0}
+.ibt-lb{width:100%;font:500 11px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:2px}
+.ibt-b{--s:40px;position:relative;display:grid;place-items:center;width:var(--s);height:var(--s);border-radius:10px;border:1px solid transparent;background:transparent;color:var(--fg);cursor:pointer;transition:background-color .15s,color .15s,border-color .15s,transform .1s}
+.ibt-b:active{transform:scale(.94)}
+.ibt-b svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ibt-b.gho{color:var(--mu)}.ibt-b.gho:hover{background:var(--sf2);color:var(--fg)}
+.ibt-b.out{border-color:color-mix(in oklab,var(--line),var(--fg) 14%);box-shadow:0 1px 2px #0000000f}.ibt-b.out:hover{background:var(--sf)}
+.ibt-b.sol{background:var(--fg);color:var(--bg)}.ibt-b.sol:hover{background:color-mix(in oklab,var(--fg) 85%,var(--bg))}
+.ibt-b.acc{background:var(--ac);color:var(--ac-fg)}.ibt-b.acc:hover{background:var(--ac-h)}
+.ibt-b.sft{background:var(--ac-sf);color:var(--ac)}.ibt-b.sft:hover{background:color-mix(in oklab,var(--ac-sf),var(--ac) 12%)}
+.ibt-b.rnd{border-radius:50%}
+.ibt-b.xs{--s:28px;border-radius:7px}.ibt-b.xs svg{width:14px;height:14px}
+.ibt-b.sm{--s:34px;border-radius:9px}.ibt-b.sm svg{width:16px;height:16px}
+.ibt-b.lg{--s:48px;border-radius:12px}.ibt-b.lg svg{width:20px;height:20px}
+.ibt-b.xl{--s:56px;border-radius:16px}.ibt-b.xl svg{width:22px;height:22px}
+.ibt-b .bdg{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--ac);color:var(--ac-fg);font:600 11px/18px Geist,system-ui,sans-serif;text-align:center;box-shadow:0 0 0 2px var(--bg)}
+.ibt-b .dot{position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--err);box-shadow:0 0 0 2px var(--bg)}
+.ibt-b[aria-pressed=true].tgl{color:var(--err)}
+.ibt-b[aria-pressed=true].tgl svg{fill:currentColor;animation:ibt-pop .35s var(--ease)}
+.ibt-b[aria-pressed=true].bm{color:var(--ac)}
+.ibt-b[aria-pressed=true].bm svg{fill:currentColor;animation:ibt-pop .35s var(--ease)}
+@keyframes ibt-pop{40%{transform:scale(1.25)}}
+.ibt-b[data-tip]::after{content:attr(data-tip);position:absolute;top:calc(100% + 8px);left:50%;padding:5px 8px;border-radius:7px;background:var(--fg);color:var(--bg);font:500 12px/1 Geist,system-ui,sans-serif;white-space:nowrap;pointer-events:none;opacity:0;transform:translate(-50%,-3px);transition:opacity .15s .3s,transform .15s .3s;z-index:3}
+.ibt-b[data-tip]:hover::after,.ibt-b[data-tip]:focus-visible::after{opacity:1;transform:translate(-50%,0)}
+.ibt-sep{width:1px;height:24px;background:var(--line);margin:0 4px}
+.ibt-cnt{display:inline-flex;align-items:center;gap:2px;font:500 13px "Geist Mono",monospace;color:var(--mu)}
+</style>
+<div class="ibt">
+  <div class="ibt-pn">
+    <div class="ibt-row"><div class="ibt-lb">Variants</div>
+      <button class="ibt-b gho" aria-label="Search" data-tip="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button class="ibt-b out" aria-label="Settings" data-tip="Settings"><svg viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg></button>
+      <button class="ibt-b sol" aria-label="Compose" data-tip="Compose"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+      <button class="ibt-b acc" aria-label="Add" data-tip="Add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button class="ibt-b sft" aria-label="Upload" data-tip="Upload"><svg viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg></button>
+      <span class="ibt-sep"></span>
+      <button class="ibt-b out rnd" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+      <button class="ibt-b out rnd" aria-label="Next"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+    </div>
+    <div class="ibt-row"><div class="ibt-lb">Sizes</div>
+      <button class="ibt-b out xs" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <button class="ibt-b out sm" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <button class="ibt-b out" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <button class="ibt-b out lg" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      <button class="ibt-b sol xl" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M7 4v16l13-8z" fill="currentColor"/></svg></button>
+    </div>
+    <div class="ibt-row"><div class="ibt-lb">Indicators &amp; toggles</div>
+      <button class="ibt-b out" aria-label="Notifications, 3 unread"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="bdg">3</span></button>
+      <button class="ibt-b out" aria-label="Messages, new"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><span class="dot"></span></button>
+      <span class="ibt-sep"></span>
+      <button class="ibt-b gho tgl" aria-pressed="false" aria-label="Like"><svg viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></svg></button><span class="ibt-cnt" aria-live="polite">248</span>
+      <button class="ibt-b gho bm" aria-pressed="true" aria-label="Bookmark"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
+      <button class="ibt-b gho" aria-label="More options" data-tip="More"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg></button>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll(".ibt-b[aria-pressed]").forEach(b=>b.addEventListener("click",()=>{
+  const on=b.getAttribute("aria-pressed")!=="true";b.setAttribute("aria-pressed",on);
+  const c=b.nextElementSibling;if(c&&c.classList.contains("ibt-cnt"))c.textContent=+c.textContent+(on?1:-1);
+}));
+</script>

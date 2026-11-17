@@ -1,0 +1,69 @@
+<style>
+.dio{--fg:#d9d4cb;--mu:#7d786f;--cord:#bdb4a5;position:relative;min-height:100vh;overflow:hidden;background:#000;color:var(--fg);font-family:Geist,system-ui,sans-serif;user-select:none;-webkit-user-select:none;transition:color .8s}
+.dio[data-on="1"]{--fg:#fff3e2;--mu:#b9a48a;--cord:#e7cfa8}
+.dio canvas{position:absolute;left:50%;top:50%;width:min(76vh,88vw);aspect-ratio:1;translate:-50% -50%}
+.dio-rope{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.dio-rope path{fill:none;stroke:var(--cord);stroke-width:1.6;stroke-linecap:round;transition:stroke .8s}
+.dio-bead{position:absolute;left:0;top:0;width:20px;height:28px;margin:-1px 0 0 -10px;padding:0;border:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e0b07a,#8a5a2b 72%);cursor:grab;touch-action:none;transform-origin:50% 1px;transition:scale .15s}
+.dio-bead:active{cursor:grabbing}.dio.arm .dio-bead{scale:1.18}
+.dio-bead:focus-visible{outline:2px solid #93c5fd;outline-offset:4px}
+.dio-copy{position:absolute;left:clamp(16px,5vw,64px);bottom:clamp(24px,7vh,64px);max-width:340px}
+.dio-copy small{font:12px/1 "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.dio-copy h2{margin:10px 0 8px;font:400 clamp(40px,6vw,72px)/.95 "Instrument Serif",serif}
+.dio-copy p{margin:0;font-size:14px;line-height:1.5;color:var(--mu);transition:color .8s}
+.dio-st{position:absolute;right:clamp(16px,5vw,64px);bottom:clamp(24px,7vh,64px);font:12px/1.6 "Geist Mono",monospace;color:var(--mu);text-align:right}
+@media (max-width:640px){.dio canvas{top:40%}.dio-st{display:none}}
+</style>
+<section class="dio" data-on="0">
+  <canvas aria-hidden="true"></canvas>
+  <svg class="dio-rope" aria-hidden="true"><path/></svg>
+  <button class="dio-bead" aria-label="Reading lamp pull cord" aria-pressed="false"></button>
+  <div class="dio-copy"><small>Room 04 · Reading corner</small><h2>Pull for light.</h2><p>Grab the bead, pull it down and let go — or just press it.</p></div>
+  <div class="dio-st" aria-live="polite">LAMP OFF<br>0 PULLS</div>
+</section>
+<script>
+(()=>{
+// Room frames (dark → lit) are scrubbed toward the lamp state; the cord is a verlet rope.
+const FRAMES=38,SRC=i=>`media/room/${String(i+1).padStart(2,"0")}.jpg`;
+const R=document.querySelector(".dio"),cv=R.querySelector("canvas"),x=cv.getContext("2d"),path=R.querySelector(".dio-rope path"),bead=R.querySelector(".dio-bead"),h=R.querySelector(".dio-copy h2"),p=R.querySelector(".dio-copy p"),st=R.querySelector(".dio-st");
+const red=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const imgs=[...Array(FRAMES)].map((_,i)=>{const im=new Image();im.src=SRC(i);if(i===0)im.onload=()=>paint(0);return im});
+let cur=0,shown=-1;
+const paint=f=>{const im=imgs[f];if(!im.complete||!im.naturalWidth)return;shown=f;x.drawImage(im,0,0,cv.width,cv.height)};
+const fit=()=>{const d=Math.min(devicePixelRatio||1,2);cv.width=cv.clientWidth*d;cv.height=cv.clientHeight*d;shown=-1};
+const N=18,S=14,L=(N-1)*S,MAX=L+90,ARM=L+42;
+let P=[],A={x:0,y:0},drag=null,on=0,pulls=0,clickAt=0;
+const anc=()=>{const r=R.getBoundingClientRect(),c=cv.getBoundingClientRect();A.x=Math.min(r.width-28,c.right-r.left+28);A.y=0};
+const init=()=>{anc();P=Array.from({length:N},(_,i)=>({x:A.x,y:i*S,px:A.x,py:i*S}))};
+init();
+new ResizeObserver(()=>{fit();const ox=A.x;anc();const dx=A.x-ox;P.forEach(q=>{q.x+=dx;q.px+=dx})}).observe(R);
+const solve=()=>{for(let it=0;it<20;it++)for(let i=0;i<N-1;i++){const a=P[i],b=P[i+1],pa=i===0,pb=drag&&i+1===N-1;if(pa&&pb)continue;
+  const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,df=(d-S)/d,wa=pa?0:pb?1:.5,wb=pb?0:pa?1:.5;
+  a.x+=dx*df*wa;a.y+=dy*df*wa;b.x-=dx*df*wb;b.y-=dy*df*wb}};
+const step=()=>{for(let i=1;i<N;i++){const q=P[i];if(drag&&i===N-1)continue;const vx=(q.x-q.px)*.985,vy=(q.y-q.py)*.985;q.px=q.x;q.py=q.y;q.x+=vx;q.y+=vy+.45}
+  P[0].x=A.x;P[0].y=A.y;solve()};
+const draw=()=>{let d=`M${P[0].x.toFixed(1)} ${P[0].y.toFixed(1)}`;for(let i=1;i<N-1;i++)d+=`Q${P[i].x.toFixed(1)} ${P[i].y.toFixed(1)} ${((P[i].x+P[i+1].x)/2).toFixed(1)} ${((P[i].y+P[i+1].y)/2).toFixed(1)}`;
+  const e=P[N-1],f=P[N-2];d+=`L${e.x.toFixed(1)} ${e.y.toFixed(1)}`;path.setAttribute("d",d);
+  bead.style.transform=`translate(${e.x}px,${e.y}px) rotate(${-Math.atan2(e.x-f.x,e.y-f.y)}rad)`};
+const toggle=tug=>{if(tug)P[N-1].py=P[N-1].y-16;on^=1;pulls++;R.dataset.on=on;bead.setAttribute("aria-pressed",!!on);
+  h.textContent=on?"There you go.":"Pull for light.";p.textContent=on?"Pull again to switch it off.":"Grab the bead, pull it down and let go — or just press it.";
+  st.innerHTML=`LAMP ${on?"ON · 2700K":"OFF"}<br>${pulls} PULL${pulls===1?"":"S"}`};
+let off={x:0,y:0},moved=0;
+bead.addEventListener("pointerdown",e=>{const r=R.getBoundingClientRect(),q=P[N-1];off={x:e.clientX-r.left-q.x,y:e.clientY-r.top-q.y};drag={sx:e.clientX,sy:e.clientY};moved=0;bead.setPointerCapture(e.pointerId)});
+bead.addEventListener("pointermove",e=>{if(!drag)return;const r=R.getBoundingClientRect();let px=e.clientX-r.left-off.x,py=e.clientY-r.top-off.y;
+  moved=Math.max(moved,Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy));const dx=px-A.x,dy=py-A.y,d=Math.hypot(dx,dy);
+  if(d>MAX){px=A.x+dx/d*MAX;py=A.y+dy/d*MAX}const q=P[N-1];q.x=q.px=px;q.y=q.py=py;R.classList.toggle("arm",d>ARM)});
+const up=()=>{if(!drag)return;drag=null;const armed=R.classList.contains("arm");R.classList.remove("arm");
+  // keep only a quarter of the snap-back so the cord bounces instead of launching
+  const b=P.map(q=>[q.x,q.y]);solve();P.forEach((q,i)=>{q.px=q.x-(q.x-b[i][0])*.25;q.py=q.y-(q.y-b[i][1])*.25});
+  if(armed||moved<4){clickAt=performance.now();toggle(!armed)}};
+bead.addEventListener("pointerup",up);bead.addEventListener("pointercancel",up);
+bead.addEventListener("click",()=>{if(performance.now()-clickAt<500)return;toggle(true)});
+// brushing the cord sways it; the bead itself is left alone so it stays grabbable
+R.addEventListener("pointermove",e=>{if(drag||e.target===bead)return;const r=R.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,m=Math.max(-12,Math.min(12,e.movementX||0));
+  for(let i=1;i<N-1;i++){const q=P[i];if(Math.abs(q.x-mx)<22&&Math.abs(q.y-my)<22)q.px-=m*.25}});
+(function loop(){requestAnimationFrame(loop);step();draw();
+  const tgt=on?FRAMES-1:0;cur=red?tgt:cur+Math.sign(tgt-cur)*Math.min(Math.abs(tgt-cur),.55);
+  const f=Math.round(cur);if(f!==shown)paint(f)})();
+})();
+</script>

@@ -1,0 +1,62 @@
+<style>
+.ul{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.ul :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.ul ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.ul *,.ul *::before,.ul *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.ul{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.ul-pn{width:min(520px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.ul-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.ul-hd b{font-size:15px;font-weight:620}
+.ul-hd span{display:block;font-size:12.5px;color:var(--mu);margin-top:1px}
+.ul-add{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:550 13px Geist,system-ui,sans-serif;cursor:pointer}
+.ul-add:hover{background:var(--sf2)}
+.ul-add svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ul ul{list-style:none;margin:0;padding:6px 8px 8px}
+.ul li{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;padding:10px 10px;border-radius:12px;animation:ul-in .3s var(--ease)}
+.ul li:hover{background:var(--sf)}
+@keyframes ul-in{from{opacity:0;transform:translateY(-4px)}}
+.ul-ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font:700 10px "Geist Mono",monospace;letter-spacing:.02em;color:#fff}
+.ul-nm{min-width:0}
+.ul-nm b{display:block;font-size:14px;font-weight:550;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ul-nm small{display:flex;gap:6px;font-size:12.5px;color:var(--mu);font-variant-numeric:tabular-nums}
+.ul-bar{height:4px;margin-top:7px;border-radius:2px;background:var(--sf2);overflow:hidden}
+.ul-bar i{display:block;height:100%;width:0;background:var(--fg);border-radius:2px;transition:width .25s linear}
+.ul li[data-s=done] .ul-bar,.ul li[data-s=error] .ul-bar{display:none}
+.ul li[data-s=paused] .ul-bar i{background:var(--ctl)}
+.ul li[data-s=error] small{color:var(--err)}
+.ul li[data-s=done] small .ok{color:var(--ok);font-weight:550}
+.ul-ac{display:flex;gap:2px}
+.ul-ac button{width:30px;height:30px;border:0;border-radius:8px;background:none;color:var(--mu);display:grid;place-items:center;cursor:pointer}
+.ul-ac button:hover{background:var(--sf2);color:var(--fg)}
+.ul-ac svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ul-ft{display:flex;align-items:center;gap:10px;padding:12px 20px;border-top:1px solid var(--line);background:var(--sf);font-size:12.5px;color:var(--mu)}
+.ul-ft .tot{flex:1;height:4px;border-radius:2px;background:var(--sf2);overflow:hidden}
+.ul-ft .tot i{display:block;height:100%;width:0;background:var(--ac);transition:width .25s}
+</style>
+<div class="ul">
+  <div class="ul-pn">
+    <div class="ul-hd"><div><b>Uploads</b><span id="ulSum"></span></div><button class="ul-add" type="button"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add file</button></div>
+    <ul id="ulL" aria-live="polite"></ul>
+    <div class="ul-ft"><span id="ulPct">0%</span><span class="tot"><i></i></span><span id="ulEta"></span></div>
+  </div>
+</div>
+<script>
+const T={pdf:"#dc2626",jpg:"#0e7490",fig:"#7c3aed",zip:"#71717a",mp4:"#c2410c",csv:"#15803d"};
+const I={pause:'<path d="M9 5v14M15 5v14"/>',play:'<path d="M7 4v16l13-8z"/>',x:'<path d="M18 6 6 18M6 6l12 12"/>',retry:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/>',trash:'<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>'};
+let files=[{n:"Brand guidelines 2026.pdf",sz:8.4,p:1,s:"done"},{n:"hero-shot-final.jpg",sz:3.2,p:.62,s:"up"},{n:"Onboarding flow.fig",sz:24.6,p:.18,s:"up"},{n:"assets-archive.zip",sz:112,p:.41,s:"paused"},{n:"customers-export.csv",sz:1.1,p:.3,s:"error"}];
+const pool=[["product-demo.mp4",48],["Q4 report.pdf",2.7],["moodboard.jpg",5.4]];
+const L=document.getElementById("ulL");
+const fmt=m=>m>=1?m.toFixed(1)+" MB":Math.round(m*1000)+" KB";
+const btn=(a,l)=>`<button type="button" data-a="${a}" aria-label="${l}"><svg viewBox="0 0 24 24">${I[a==="resume"?"play":a==="cancel"?"x":a]}</svg></button>`;
+const row=(f,i)=>{const ext=f.n.split(".").pop();const meta=f.s==="done"?`<span>${fmt(f.sz)}</span>·<span class="ok">Uploaded</span>`:f.s==="error"?`<span>Upload failed · network error</span>`:f.s==="paused"?`<span>${fmt(f.sz*f.p)} of ${fmt(f.sz)}</span>·<span>Paused</span>`:`<span>${fmt(f.sz*f.p)} of ${fmt(f.sz)}</span>·<span>${Math.round(f.p*100)}%</span>`;
+  const acts=f.s==="done"?btn("trash","Remove "+f.n):f.s==="error"?btn("retry","Retry "+f.n)+btn("cancel","Remove "+f.n):f.s==="paused"?btn("resume","Resume "+f.n)+btn("cancel","Cancel "+f.n):btn("pause","Pause "+f.n)+btn("cancel","Cancel "+f.n);
+  return `<li data-i="${i}" data-s="${f.s}"><span class="ul-ic" style="background:${T[ext]||"#71717a"}">${ext.toUpperCase()}</span><div class="ul-nm"><b>${f.n}</b><small>${meta}</small><div class="ul-bar" role="progressbar" aria-label="${f.n}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(f.p*100)}"><i style="width:${f.p*100}%"></i></div></div><div class="ul-ac">${acts}</div></li>`};
+const draw=()=>{L.innerHTML=files.map(row).join("");const tot=files.reduce((a,f)=>a+f.sz,0),got=files.reduce((a,f)=>a+f.sz*f.p,0),pc=tot?got/tot:0,act=files.filter(f=>f.s==="up").length;
+  document.getElementById("ulSum").textContent=`${files.filter(f=>f.s==="done").length} of ${files.length} complete`;document.getElementById("ulPct").textContent=Math.round(pc*100)+"%";document.querySelector(".ul-ft .tot i").style.width=pc*100+"%";document.getElementById("ulEta").textContent=act?`${act} uploading · ~${Math.max(1,Math.round((tot-got)/6))}s left`:"Idle"};
+const step=()=>{let ch=false;files.forEach(f=>{if(f.s==="up"){f.p=Math.min(1,f.p+(1.6+Math.random()*2)/f.sz/4);if(f.p>=1)f.s="done";ch=true}});if(ch){const sc=L.querySelector("li [data-a]:focus");const k=sc&&sc.closest("li").dataset.i+sc.dataset.a;draw();if(k){const b=L.querySelector(`li[data-i="${k[0]}"] [data-a]`);b&&b.focus()}}};
+setInterval(step,300);
+L.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const i=+b.closest("li").dataset.i,f=files[i];
+  ({pause:()=>f.s="paused",resume:()=>f.s="up",retry:()=>{f.s="up";f.p=0},cancel:()=>files.splice(i,1),trash:()=>files.splice(i,1)})[b.dataset.a]();draw()});
+document.querySelector(".ul-add").addEventListener("click",()=>{const p=pool.shift();if(!p)return;files.push({n:p[0],sz:p[1],p:0,s:"up"});draw();if(!pool.length)document.querySelector(".ul-add").disabled=true});
+draw();
+</script>

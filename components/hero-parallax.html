@@ -1,0 +1,50 @@
+<style>
+.px{position:relative;background:#140e24;color:#fff4e8}
+.px-stage{position:relative;height:100vh;min-height:560px;overflow:hidden;background:linear-gradient(#1b1640 0%,#5b3a6e 38%,#d9836e 72%,#f6b98a 100%)}
+.px-sun{position:absolute;left:66%;top:57%;width:18vmin;height:18vmin;margin:-9vmin 0 0 -9vmin;border-radius:50%;background:radial-gradient(circle,#fff1d6 0 55%,#ffd3a1 56%,#ffd3a100 72%);will-change:transform}
+.px svg{position:absolute;left:-3%;width:106%;bottom:0;height:100%;will-change:transform}
+.px-copy{position:absolute;left:0;right:0;top:20vh;text-align:center;will-change:transform,opacity;padding:0 20px}
+.px-copy small{font:500 12px "Geist Mono",monospace;letter-spacing:.24em;text-transform:uppercase;opacity:.8}
+.px-copy h1{font-size:clamp(56px,11vw,180px);line-height:.85;letter-spacing:-.06em;font-weight:600;margin:16px 0 0}
+.px-copy h1 em{font-family:"Instrument Serif",serif;font-weight:400;letter-spacing:-.025em}
+.px-front{z-index:3}
+.px-cue{position:absolute;left:50%;bottom:22px;z-index:4;transform:translateX(-50%);font:500 11px "Geist Mono",monospace;letter-spacing:.2em;color:#fff4e8aa;display:flex;flex-direction:column;align-items:center;gap:8px}
+.px-cue i{width:1px;height:34px;background:linear-gradient(#fff4e8,transparent);animation:px-cue 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes px-cue{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.px-after{position:relative;z-index:4;background:#140e24;padding:90px clamp(20px,8vw,120px) 120px;display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.px-after h2{font-size:clamp(30px,3.6vw,48px);letter-spacing:-.04em;line-height:1.05;margin:0;font-weight:500}
+.px-after p{color:#c9b9c9;font-size:17px;line-height:1.65;margin:0}
+@media (max-width:760px){.px-after{grid-template-columns:1fr;gap:20px}}
+</style>
+<section class="px">
+  <div class="px-stage">
+    <div class="px-sun" data-d=".15"></div>
+    <svg data-d=".1"  viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice"><path fill="#c98a8e"/></svg>
+    <svg data-d=".22" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice"><path fill="#9a6080"/></svg>
+    <div class="px-copy" data-d=".5"><small>Field journal · Vol. 03</small><h1>Go further<br><em>than the map.</em></h1></div>
+    <svg data-d=".38" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice"><path fill="#5d3b66"/></svg>
+    <svg data-d=".58" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice"><path fill="#33244a"/></svg>
+    <svg class="px-front" data-d=".85" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice"><path fill="#140e24"/></svg>
+    <div class="px-cue">SCROLL<i></i></div>
+  </div>
+  <div class="px-after"><h2>Routes drawn by people who walked them first.</h2><p>Each layer of this hero is a procedurally generated ridge moving at its own speed. The headline sits between ridges, so the near mountains pass in front of it as you scroll.</p></div>
+</section>
+<script>
+(()=>{
+const root=document.querySelector(".px"),layers=[...root.querySelectorAll("[data-d]")];
+// seeded ridge lines: each further layer is higher, smoother and lower-contrast
+let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const ridges=[...root.querySelectorAll("svg path")];
+ridges.forEach((p,li)=>{const base=[430,480,540,610,690][li],amp=[70,90,110,120,110][li],oct=[3,4,5,6,6][li];
+  const ph=[...Array(oct)].map(()=>rnd()*6.28);let d=`M0 800 L0 ${base}`;
+  for(let x=0;x<=1440;x+=8){let y=0;for(let o=0;o<oct;o++)y+=Math.sin(x/(260/(o+1)**1.35)+ph[o])/(o+1)**1.1;d+=` L${x} ${(base-y*amp*.55).toFixed(1)}`}
+  p.setAttribute("d",d+" L1440 800Z")});
+let mx=0,cur=0;
+root.addEventListener("pointermove",e=>mx=e.clientX/innerWidth-.5);
+const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+(function f(){requestAnimationFrame(f);cur+=(mx-cur)*.05;const y=Math.min(scrollY,innerHeight*1.2);
+  layers.forEach(l=>{const d=+l.dataset.d;
+    if(l.classList.contains("px-copy")){l.style.transform=`translate3d(${cur*-14}px,${y*d}px,0)`;l.style.opacity=Math.max(0,1-y/(innerHeight*.55));return}
+    l.style.transform=`translate3d(${still?0:cur*d*-60}px,${y*(.9-d)*.5}px,0)`})})();
+})();
+</script>

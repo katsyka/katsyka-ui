@@ -1,0 +1,77 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+
+.k.pg{display:block;place-items:normal;padding:0;background:var(--bg);font-size:16px;min-height:0}
+.pg .w{width:min(1180px,100% - 32px);margin-inline:auto;min-width:0}
+.pg{overflow-x:clip}
+.pg img{display:block;max-width:100%}
+.pg h1,.pg h2,.pg h3,.pg p{margin:0}
+.pg .ser{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.pg .h1{font-size:clamp(40px,7vw,84px);line-height:1;letter-spacing:-.035em;font-weight:650;text-wrap:balance}
+.pg .h2{font-size:clamp(30px,4.4vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:620;text-wrap:balance}
+.pg .h3{font-size:19px;line-height:1.3;font-weight:620;letter-spacing:-.01em}
+.pg .lead{font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--mu);text-wrap:pretty;max-width:60ch}
+.pg .eb{font:500 12px/1 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pg .sec{padding:clamp(64px,10vw,128px) 0}
+.pg .b.lg{height:48px;padding:0 22px;font-size:15px;border-radius:12px}
+.pg .ph{width:100%;height:100%;object-fit:cover}
+.pg .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.pg .top .w{display:flex;align-items:center;gap:24px;height:64px}
+.pg .logo{white-space:nowrap;font-weight:700;letter-spacing:-.02em;font-size:17px;display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}
+.pg .links{display:flex;gap:24px;margin-left:auto;font-size:14px}.pg .links a{color:var(--mu);text-decoration:none}.pg .links a:hover{color:var(--fg)}
+.pg .menu{display:none;margin-left:auto;width:44px;height:44px;place-items:center;border-radius:10px}
+.pg .foot{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--mu)}.pg .foot .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:760px){.pg .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px}.pg .links a{padding:12px 0;font-size:16px}.pg .top.open .links{display:flex}.pg .menu{display:grid}.pg .top .b{display:none}}
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.lc{--ac:light-dark(#0f766e,#5eead4);--ac-h:light-dark(#115e59,#99f6e4);--ac-fg:light-dark(#fff,#042f2e)}
+.lc-mk{font:600 14px 'Geist Mono',monospace;background:var(--fg);color:var(--bg);border-radius:6px;padding:2px 6px}
+.lc-hero{padding:96px 0 48px;display:grid;gap:24px;justify-items:start}.lc-hero .h1{font-size:clamp(38px,6.4vw,76px)}.lc-ac{color:var(--ac)}
+.lc-inst{min-width:0;width:fit-content;display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:var(--sf);border-radius:12px;padding:8px 8px 8px 16px;max-width:100%}.lc-inst code{min-width:0;flex:1;font:14px 'Geist Mono',monospace;white-space:nowrap;overflow:auto}
+.lc-term{border-radius:14px;background:#0c0c0e;color:#e4e4e7;border:1px solid #27272a;overflow:hidden;box-shadow:var(--shadow)}.lc-tb{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid #27272a;font:12px 'Geist Mono',monospace;color:#a1a1aa}.lc-tb i{width:10px;height:10px;border-radius:50%;background:#3f3f46}.lc-tb span{margin-left:8px}
+.lc-term pre{margin:0;padding:20px;font:13.5px/1.7 'Geist Mono',monospace;min-height:260px;white-space:pre-wrap}.lc-term .g{color:#5eead4}.lc-term .d{color:#71717a}.lc-term .y{color:#fde68a}
+.lc-feat{display:grid;grid-template-columns:1fr 1.3fr;gap:48px}.lc-feat .lead{margin-top:16px}
+.lc-tbl{width:100%;border-collapse:collapse;font-size:14px}.lc-tbl th{text-align:left;font-weight:550;color:var(--mu);padding:0 12px 12px 0;border-bottom:1px solid var(--line)}.lc-tbl td{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}.lc-tbl code{font:13px 'Geist Mono',monospace;color:var(--ac)}
+@media (max-width:760px){.lc-feat{grid-template-columns:1fr}.lc-hero{padding-top:48px}.lc-tbl th:nth-child(2),.lc-tbl td:nth-child(2){display:none}}
+</style>
+<div class="k pg lc">
+<header class="top"><div class="w"><a class="logo" href="#"><span class="lc-mk">›_</span>shipit</a><nav class="links"><a href="#">Docs</a><a href="#">Changelog</a><a href="#">GitHub</a></nav><a class="b sec" href="#"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>v2.4.0</a><button class="menu ibt" aria-label="Menu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></button></div></header>
+<section class="w lc-hero"><p class="eb">Open source · MIT · 4 MB binary</p><h1 class="h1">Deploy from the terminal<br>in <span class="lc-ac">one command.</span></h1><p class="lead">shipit builds, uploads and rolls out your app with zero config. Previews per branch, instant rollbacks, logs that stream back to your shell.</p>
+<div class="lc-inst"><code><span class="mu">$</span> curl -fsSL shipit.sh/install | sh</code><button class="b sec sm" id="cp" aria-live="polite"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg><span>Copy</span></button></div></section>
+<section class="w"><div class="lc-term" role="img" aria-label="Terminal running shipit deploy"><div class="lc-tb"><i></i><i></i><i></i><span>~/harbor-web</span></div><pre id="tt"></pre></div></section>
+<section class="sec w lc-feat"><div><h2 class="h2">Boring on purpose.</h2><p class="lead">No dashboard to learn. Everything is a flag, every flag has a sane default.</p></div><table class="lc-tbl"><thead><tr><th>Flag</th><th>Default</th><th>What it does</th></tr></thead><tbody><tr><td><code>--prod</code></td><td class="mu">off</td><td>Promote straight to production</td></tr><tr><td><code>--env</code></td><td class="mu">.env</td><td>Read secrets from a file</td></tr><tr><td><code>--region</code></td><td class="mu">auto</td><td>Pin to a region, e.g. fra1</td></tr><tr><td><code>--rollback</code></td><td class="mu">none</td><td>Restore the previous release in ~2 s</td></tr><tr><td><code>--watch</code></td><td class="mu">off</td><td>Redeploy on every save</td></tr></tbody></table></section>
+<footer class="foot"><div class="w"><span>shipit is maintained by 9 people and 214 contributors.</span><span class="tn">MIT License</span></div></footer>
+</div>
+<script>
+document.querySelectorAll('.pg .menu').forEach(m=>m.addEventListener('click',()=>{const t=m.closest('.top');const o=t.classList.toggle('open');m.setAttribute('aria-expanded',o)}));
+const L=[['$ ','shipit deploy',1],['d','› Detected Next.js 15 · pnpm'],['d','› Building… 41 files changed'],['','  ✓ Compiled in 8.2s'],['','  ✓ Uploaded 3.1 MB to fra1'],['y','› Preview  https://harbor-web-git-feat-cart.shipit.app'],['g','✓ Live in 14s · rollback with shipit --rollback']];
+const pre=document.getElementById('tt');const red=matchMedia('(prefers-reduced-motion:reduce)').matches;
+async function run(){pre.innerHTML='';for(const [c,t,typed] of L){const s=document.createElement('span');s.className=c==='$ '?'g':c;pre.append(s);if(typed&&!red){s.textContent='$ ';for(const ch of t){s.textContent+=ch;await new Promise(r=>setTimeout(r,45))}}else s.textContent=(c==='$ '?'$ ':'')+t;pre.append('\n');await new Promise(r=>setTimeout(r,red?0:420))}}
+new IntersectionObserver((e,o)=>{if(e[0].isIntersecting){run();o.disconnect()}}).observe(pre);
+const cp=document.getElementById('cp');cp.onclick=()=>{const t='curl -fsSL shipit.sh/install | sh',done=()=>{cp.querySelector('span').textContent='Copied';setTimeout(()=>cp.querySelector('span').textContent='Copy',1600)};(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(done).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove();done()})};
+</script>

@@ -1,0 +1,55 @@
+<style>
+.plc{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.plc :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.plc ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.plc *,.plc *::before,.plc *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.plc{min-height:100vh;display:grid;place-items:center;padding:0 16px 48px;transition:background .35s ease-out,color .35s ease-out}
+.plc[data-mode=dark]{color-scheme:dark}.plc[data-mode=light]{color-scheme:light}
+.plc-room{position:relative;width:min(520px,100%);height:560px}
+.plc-lamp{position:absolute;left:50%;top:0;transform:translateX(-50%);width:2px;height:150px;background:var(--ctl)}
+.plc-shade{position:absolute;left:50%;top:150px;width:150px;height:74px;transform:translateX(-50%);border-radius:75px 75px 6px 6px;background:var(--fg)}
+.plc-bulb{position:absolute;left:50%;top:214px;width:34px;height:20px;transform:translateX(-50%);border-radius:0 0 17px 17px;background:var(--sf2);transition:background .3s ease-out}
+.plc-cone{position:absolute;left:50%;top:224px;width:520px;height:340px;transform:translateX(-50%);clip-path:polygon(43% 0,57% 0,100% 100%,0 100%);background:linear-gradient(#ffd9851f,transparent 80%);opacity:0;transition:opacity .35s ease-out;pointer-events:none}
+.plc[data-on=true] .plc-bulb{background:#ffd985}.plc[data-on=true] .plc-cone{opacity:1}
+.plc svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.plc-knob{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border:0;padding:0;background:none;cursor:grab;touch-action:none;display:grid;place-items:center}
+.plc-knob i{width:16px;height:26px;border-radius:8px;background:var(--fg);box-shadow:0 3px 8px rgb(0 0 0/.25)}
+.plc-knob:active{cursor:grabbing}
+.plc-copy{position:absolute;left:0;right:0;bottom:0;text-align:center}
+.plc-copy h2{font:400 40px/1.05 "Instrument Serif",serif;margin:0 0 8px}.plc-copy p{margin:0;color:var(--mu);font-size:15px}
+</style>
+<section class="plc" data-mode="light" data-on="true">
+  <div class="plc-room">
+    <div class="plc-cone" aria-hidden="true"></div>
+    <div class="plc-lamp" aria-hidden="true"></div><div class="plc-shade" aria-hidden="true"></div><div class="plc-bulb" aria-hidden="true"></div>
+    <svg aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    <button class="plc-knob" type="button" aria-pressed="false" aria-label="Pull the cord to switch to dark mode"><i></i></button>
+    <div class="plc-copy"><h2>Lights on</h2><p>Pull the cord to switch themes. Or press it.</p></div>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".plc"),room=R.querySelector(".plc-room"),knob=R.querySelector(".plc-knob"),path=R.querySelector("path"),h2=R.querySelector("h2");
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,N=12,SEG=9,AX=R.querySelector(".plc-room").clientWidth/2+60,AY=200;
+let pts=[...Array(N)].map((_,i)=>({x:AX,y:AY+i*SEG,px:AX,py:AY+i*SEG})),drag=null,armed=false,dark=false;
+function ax(){return room.clientWidth/2+60}
+function step(){const A=ax();pts[0].x=pts[0].px=A;pts[0].y=pts[0].py=AY;
+  for(let i=1;i<N;i++){const p=pts[i];const vx=(p.x-p.px)*.97,vy=(p.y-p.py)*.97;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy+.6}
+  const last=pts[N-1];if(drag){last.x=drag.x;last.y=drag.y}
+  for(let k=0;k<14;k++)for(let i=0;i<N-1;i++){const a=pts[i],b=pts[i+1];const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1;
+    const L=drag?SEG*Math.min(1.9,1+Math.max(0,(drag.y-(AY+SEG*(N-1)))/((N-1)*SEG)*.55)):SEG;const df=(d-L)/d*.5;
+    if(i>0){a.x+=dx*df;a.y+=dy*df}if(!(drag&&i+1===N-1)){b.x-=dx*df;b.y-=dy*df}}
+  path.setAttribute("d","M"+pts.map(p=>p.x.toFixed(1)+" "+p.y.toFixed(1)).join("L"));knob.style.left=last.x+"px";knob.style.top=last.y+13+"px";
+  requestAnimationFrame(step)}
+function flip(){dark=!dark;R.dataset.mode=dark?"dark":"light";R.dataset.on=!dark;h2.textContent=dark?"Lights off":"Lights on";
+  knob.setAttribute("aria-pressed",dark);knob.setAttribute("aria-label",dark?"Pull the cord to switch to light mode":"Pull the cord to switch to dark mode")}
+knob.addEventListener("pointerdown",e=>{knob.setPointerCapture(e.pointerId);const b=room.getBoundingClientRect();drag={x:e.clientX-b.left,y:e.clientY-b.top-13,sy:e.clientY,moved:false};armed=false});
+knob.addEventListener("pointermove",e=>{if(!drag)return;const b=room.getBoundingClientRect();const rest=AY+SEG*(N-1);let y=e.clientY-b.top-13,over=y-rest;
+  if(over>0)y=rest+Math.pow(over,.82);drag.x=e.clientX-b.left;drag.y=y;if(Math.abs(e.clientY-drag.sy)>4)drag.moved=true;armed=over>60});
+knob.addEventListener("pointerup",()=>{if(!drag)return;const m=drag.moved;drag=null;if(armed||!m)flip();if(!m){const l=pts[N-1];l.py=l.y-14}});
+knob.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();const l=pts[N-1];l.py=l.y-18;flip()}});
+if(matchMedia("(prefers-color-scheme: dark)").matches)flip();
+if(RM){pts.forEach((p,i)=>{p.x=p.px=AX;p.y=p.py=AY+i*SEG})}
+step();
+})();
+</script>

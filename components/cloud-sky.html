@@ -1,0 +1,85 @@
+<style>
+.bg-csx{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;--ink:#0c2340;--fb:#dcebff;--ink2:var(--ink);background:var(--fb);color:var(--ink);isolation:isolate;font:16px/1.5 Geist,system-ui,sans-serif}
+.bg-csx canvas,.bg-csx>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.bg-csx>img{display:none;filter:none}
+.bg-csx.nogl canvas{display:none}.bg-csx.nogl>img{display:block}
+.bg-csx-nav{display:flex;align-items:center;gap:28px;padding:20px clamp(16px,4vw,48px)}
+.bg-csx-nav nav{display:flex;gap:22px}
+.bg-csx-nav b{font-weight:600;font-size:16px;letter-spacing:-.01em}
+.bg-csx-nav a{color:inherit;text-decoration:none;font-size:14px;opacity:.72;transition:opacity .15s ease-out}.bg-csx-nav a:hover{opacity:1}
+.bg-csx-main{flex:1;display:grid;padding:clamp(24px,5vw,64px) clamp(16px,4vw,48px) clamp(32px,6vw,72px)}
+.bg-csx-eye{margin:0;font:500 11px/1.4 "Geist Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;opacity:.72}
+.bg-csx-sub{font-size:17px;line-height:1.55;max-width:44ch;margin:0;opacity:.8;text-wrap:pretty}
+.bg-csx-mono{font:13px "Geist Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.bg-csx-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border:0;border-radius:10px;background:var(--ink);color:var(--fb);font:600 15px Geist,system-ui,sans-serif;text-decoration:none;cursor:pointer;transition:transform .15s ease-out,opacity .15s ease-out}
+.bg-csx-btn:active{transform:scale(.97)}.bg-csx-ghost{background:none;color:inherit;box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--ink) 35%,transparent)}
+.bg-csx-card{background:color-mix(in oklab,var(--fb) 84%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid color-mix(in oklab,var(--ink) 12%,transparent);border-radius:16px;padding:20px}
+.bg-csx-card>.bg-csx-eye:first-child{margin-bottom:10px}
+.bg-csx-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.bg-csx-pal{margin-left:auto;display:flex;gap:2px}
+.bg-csx-pal button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
+.bg-csx-pal button i{width:18px;height:18px;border-radius:50%;background:var(--g);box-shadow:0 0 0 1px color-mix(in oklab,var(--ink) 30%,transparent);transition:transform .15s ease-out}
+.bg-csx-pal button[aria-pressed=true] i{box-shadow:0 0 0 2px var(--fb),0 0 0 3.5px var(--ink)}
+.bg-csx :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media (max-width:760px){.bg-csx-main{grid-template-columns:1fr!important;gap:28px!important}.bg-csx-nav nav{display:none}}
+
+.bg-csx-main{grid-template-rows:1fr auto;gap:28px}
+.bg-csx-now{display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.bg-csx-now .bg-csx-deg{font:200 clamp(110px,20vw,240px)/.8 Geist,system-ui,sans-serif;letter-spacing:-.07em;font-variant-numeric:tabular-nums;margin:0}
+.bg-csx-now p{margin:0 0 12px;font-size:18px;line-height:1.4}
+.bg-csx-hrs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));text-align:center;padding:18px 8px}
+.bg-csx-hrs div{display:grid;gap:10px;font-variant-numeric:tabular-nums;font-size:15px}.bg-csx-hrs b{font-size:20px;font-weight:500}
+.bg-csx-hrs svg{margin:0 auto}
+
+</style>
+<section class="bg-csx">
+  <canvas aria-hidden="true"></canvas>
+  <header class="bg-csx-nav"><b>Overcast</b><nav aria-label="Overcast"><a href="#">Today</a><a href="#">10 days</a><a href="#">Radar</a></nav><div class="bg-csx-pal" role="group" aria-label="Colour"><button type="button" aria-pressed="true" data-k="#2f6fcf,#a9d1ff,#ffffff" style="--g:linear-gradient(135deg,#2f6fcf,#a9d1ff)" aria-label="Noon"><i></i></button><button type="button" aria-pressed="false" data-k="#3b4d8f,#ffb27a,#fff3e2" style="--g:linear-gradient(135deg,#3b4d8f,#ffb27a)" aria-label="Golden"><i></i></button><button type="button" aria-pressed="false" data-k="#232a35,#6a7684,#d9dee5" style="--g:linear-gradient(135deg,#232a35,#6a7684)" aria-label="Storm"><i></i></button></div></header>
+  <main class="bg-csx-main">
+<div><p class="bg-csx-eye">Harbour district · updated 2 min ago</p><div class="bg-csx-now"><p class="bg-csx-deg">14°</p><p>Mostly cloudy<br>Light wind from the west, 12 km/h</p></div></div>
+<div class="bg-csx-card bg-csx-hrs" role="list" aria-label="Next six hours">
+<div role="listitem"><span>Now</span><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 11a3.5 3.5 0 0 0 1 7z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b>14°</b></div>
+<div role="listitem"><span>15:00</span><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 11a3.5 3.5 0 0 0 1 7z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b>15°</b></div>
+<div role="listitem"><span>16:00</span><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.6"/></svg><b>15°</b></div>
+<div role="listitem"><span>17:00</span><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.6"/></svg><b>13°</b></div>
+<div role="listitem"><span>18:00</span><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 11a3.5 3.5 0 0 0 1 7z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b>12°</b></div>
+<div role="listitem"><span>19:00</span><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 15h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 8a3.5 3.5 0 0 0 1 7zM9 18l-1 3M13 18l-1 3M17 18l-1 3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><b>11°</b></div></div>
+</main>
+</section>
+<script>
+(()=>{
+const S=document.currentScript?document.currentScript.previousElementSibling:document.querySelector(".bg-csx");
+const root=S&&S.classList.contains("bg-csx")?S:document.querySelector(".bg-csx");
+const cv=root.querySelector("canvas"),gl=cv.getContext("webgl",{antialias:false});
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,IMG=false;
+const off=()=>root.classList.add("nogl");
+if(!gl)return off();
+const FS="precision highp float;uniform vec2 r,m,us;uniform float t,ld;uniform sampler2D u;uniform vec3 k0,k1,k2;\nfloat h(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}\nvec2 h2(vec2 p){vec3 q=fract(vec3(p.xyx)*vec3(.1031,.103,.0973));q+=dot(q,q.yzx+33.33);return fract((q.xx+q.yz)*q.zy);}\nfloat n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+1.),f.x),f.y);}\nfloat fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=mat2(.8,.6,-.6,.8)*p*2.03+1.7;a*=.5;}return v;}\nvec2 cover(vec2 q){float ra=r.x/r.y,ia=us.x/us.y;vec2 s=ra>ia?vec2(1.,ia/ra):vec2(ra/ia,1.);return (q-.5)*s+.5;}\nvec3 img(vec2 q){return texture2D(u,clamp(q,.001,.999)).rgb;}\nfloat lum(vec3 c){return dot(c,vec3(.299,.587,.114));}\n\nfloat cl(vec2 p){float v=0.,a=.55;for(int i=0;i<6;i++){v+=a*n(p);p=mat2(.8,.6,-.6,.8)*p*2.1;a*=.5;}return v;}\nvoid main(){vec2 uv=gl_FragCoord.xy/r,p=gl_FragCoord.xy/r.y;vec2 w=vec2(t*.025,0.);\nvec3 sky=mix(k1,k0,pow(uv.y,.8));vec2 sun=m*vec2(r.x/r.y,1.);float sd=length(p-sun);sky+=k2*exp(-sd*5.)*.35;\nfloat d=cl(p*1.6+w)+.35*cl(p*4.+w*2.)-.1;float cov=smoothstep(.48,.85,d+(uv.y-.5)*.15);\nvec2 dir=normalize(sun-p+1e-4);float lit=clamp((d-(cl((p+dir*.04)*1.6+w)+.35*cl((p+dir*.04)*4.+w*2.)-.1))*4.+.6,0.,1.);\nvec3 cc=mix(mix(k1,k0,.5)*.75,k2,lit);gl_FragColor=vec4(mix(sky,cc,cov),1);}";
+const sh=(ty,s)=>{const o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o};
+const P=gl.createProgram();gl.attachShader(P,sh(gl.VERTEX_SHADER,"attribute vec2 a;void main(){gl_Position=vec4(a,0,1);}"));gl.attachShader(P,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(P);
+if(!gl.getProgramParameter(P,gl.LINK_STATUS))return off();
+gl.useProgram(P);gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
+const U={};["r","m","us","t","ld","k0","k1","k2"].forEach(k=>U[k]=gl.getUniformLocation(P,k));
+const hex=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16)/255);
+let fr=0,ready=!IMG,vis=true,raf=0,t0=performance.now(),mx=.5,my=.5,sx=.5,sy=.5,ld=0,ldT=0;
+const pal=k=>{k.split(",").forEach((c,i)=>gl.uniform3fv(U["k"+i],hex(c)));if(RM)draw()};
+if(IMG){const im=root.querySelector("img"),tx=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tx);
+  [[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE],[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR]].forEach(p=>gl.texParameteri(gl.TEXTURE_2D,...p));
+  const go=()=>{try{gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,im)}catch(e){return off()}gl.uniform2f(U.us,im.naturalWidth,im.naturalHeight);ready=true;ldT=performance.now();loop()};
+  im.complete&&im.naturalWidth?go():(im.onload=go,im.onerror=off)}
+function size(){const d=Math.min(devicePixelRatio||1,1.5)*1,w=Math.round(cv.clientWidth*d),h=Math.round(cv.clientHeight*d);if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)}gl.uniform2f(U.r,w,h)}
+function draw(){if(!ready)return;size();const now=performance.now();sx+=(mx-sx)*.06;sy+=(my-sy)*.06;
+  gl.uniform1f(U.t,RM?8:(now-t0)/1000);gl.uniform2f(U.m,sx,sy);gl.uniform1f(U.ld,IMG?Math.min(1,(now-ldT)/900):1);gl.drawArrays(gl.TRIANGLES,0,3)}
+function loop(){cancelAnimationFrame(raf);if(RM){draw();if(IMG&&performance.now()-ldT<1000)raf=requestAnimationFrame(loop);return}if(!vis||document.hidden)return;if(fr++%1===0)draw();raf=requestAnimationFrame(loop)}
+root.addEventListener("pointermove",e=>{const b=root.getBoundingClientRect();mx=(e.clientX-b.left)/b.width;my=1-(e.clientY-b.top)/b.height});
+root.addEventListener("pointerleave",()=>{mx=.5;my=.5});
+new IntersectionObserver(([e])=>{vis=e.isIntersecting;loop()}).observe(root);
+document.addEventListener("visibilitychange",loop);
+new ResizeObserver(()=>{if(RM)draw()}).observe(root);
+root.querySelectorAll("[data-tg]").forEach(b=>b.addEventListener("click",()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true")));
+root.querySelectorAll("[data-one]").forEach(b=>b.addEventListener("click",()=>b.parentNode.querySelectorAll("[data-one]").forEach(x=>x.setAttribute("aria-pressed",x===b))));
+const btns=[...root.querySelectorAll("[data-k]")];
+btns.forEach(b=>b.onclick=()=>{btns.forEach(x=>x.setAttribute("aria-pressed",x===b));pal(b.dataset.k);const s=root.style;["ink","fb"].forEach(k=>b.dataset[k]?s.setProperty("--"+k,b.dataset[k]):s.removeProperty("--"+k))});
+pal("#2f6fcf,#a9d1ff,#ffffff");loop();
+})();
+</script>

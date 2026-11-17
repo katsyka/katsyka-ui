@@ -1,0 +1,52 @@
+<style>
+.lck{min-height:100vh;display:grid;place-items:center;padding:32px 16px;background:#16181b;font-family:Geist,system-ui,sans-serif;color:#ece8e1;user-select:none;-webkit-user-select:none}
+.lck-in{display:flex;flex-direction:column;align-items:center;gap:22px}
+.lck-pad{position:relative;width:300px;padding-top:110px}
+.lck-sh{position:absolute;left:50%;top:0;width:180px;height:170px;margin-left:-90px;border:22px solid;border-bottom:0;border-radius:90px 90px 0 0;border-color:#c9ccd3 #8e939c #8e939c #dfe2e7;transition:translate .5s cubic-bezier(.3,1.6,.5,1)}
+.lck.open .lck-sh{translate:0 -34px}
+.lck-sh::after{content:"";position:absolute;right:-22px;bottom:-30px;width:22px;height:34px;background:#8e939c}
+.lck-body{position:relative;z-index:1;height:210px;border-radius:26px;background:linear-gradient(160deg,#e3b555,#b07f22 55%,#8a6014);box-shadow:inset 0 2px 0 #fff6,inset 0 -4px 0 #0003,0 30px 50px -24px #000;display:flex;align-items:center;justify-content:center;gap:8px}
+.lck-w{position:relative;width:52px;height:132px;border-radius:10px;background:linear-gradient(#0d0e10,#2a2d33 30%,#3a3e45 50%,#2a2d33 70%,#0d0e10);box-shadow:inset 0 0 0 2px #0007,0 1px 0 #fff4;overflow:hidden;cursor:ns-resize;touch-action:none}
+.lck-w:focus-visible{outline:2px solid #93c5fd;outline-offset:3px}
+.lck-w span{position:absolute;left:0;right:0;top:50%;height:44px;margin-top:-22px;display:grid;place-items:center;font:600 30px/1 "Geist Mono",monospace;color:#f4f1ea}
+.lck-w::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;margin-top:-22px;border-block:1px solid #ffffff1f;pointer-events:none}
+.lck-st{font-size:14px;color:#9ba0a8;min-height:21px}
+.lck.open .lck-st{color:#4ade80}
+.lck-row{display:flex;gap:8px}
+.lck-row button{height:40px;padding:0 18px;border-radius:999px;border:1px solid #ece8e133;background:none;color:#ece8e1;font:500 13px Geist,system-ui,sans-serif;cursor:pointer}
+.lck-row button:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+</style>
+<section class="lck">
+  <div class="lck-in">
+    <div class="lck-pad">
+      <div class="lck-sh" aria-hidden="true"></div>
+      <div class="lck-body" role="group" aria-label="Combination, four digits">
+        <div class="lck-w" tabindex="0" role="spinbutton" aria-label="Digit 1" aria-valuemin="0" aria-valuemax="9"></div>
+        <div class="lck-w" tabindex="0" role="spinbutton" aria-label="Digit 2" aria-valuemin="0" aria-valuemax="9"></div>
+        <div class="lck-w" tabindex="0" role="spinbutton" aria-label="Digit 3" aria-valuemin="0" aria-valuemax="9"></div>
+        <div class="lck-w" tabindex="0" role="spinbutton" aria-label="Digit 4" aria-valuemin="0" aria-valuemax="9"></div>
+      </div>
+    </div>
+    <div class="lck-st" aria-live="polite">Drag, scroll or use ↑↓ on each wheel. Hint: this year.</div>
+    <div class="lck-row"><button class="lck-mix">Scramble</button></div>
+  </div>
+</section>
+<script>
+(()=>{
+const R=document.querySelector(".lck"),st=R.querySelector(".lck-st"),CODE=[2,0,2,6],H=44,mod=n=>(n%10+10)%10;
+const W=[...R.querySelectorAll(".lck-w")].map((el,i)=>{el.innerHTML="<span></span>".repeat(5);return{el,sp:[...el.children],pos:[7,3,9,1][i],tgt:[7,3,9,1][i],drag:null}});
+const val=w=>mod(Math.round(w.tgt));
+const check=()=>{const ok=W.every((w,i)=>val(w)===CODE[i]);if(ok!==R.classList.contains("open")){R.classList.toggle("open",ok);st.textContent=ok?"Unlocked.":"Locked."}};
+const set=(w,n)=>{w.tgt=n;w.el.setAttribute("aria-valuenow",val(w));check()};
+W.forEach(w=>{const el=w.el;
+  el.addEventListener("pointerdown",e=>{w.drag={y:e.clientY,p:w.pos};el.setPointerCapture(e.pointerId);el.focus()});
+  el.addEventListener("pointermove",e=>{if(!w.drag)return;w.pos=w.tgt=w.drag.p-(e.clientY-w.drag.y)/H});
+  const up=()=>{if(!w.drag)return;w.drag=null;set(w,Math.round(w.pos))};el.addEventListener("pointerup",up);el.addEventListener("pointercancel",up);
+  el.addEventListener("wheel",e=>{e.preventDefault();set(w,Math.round(w.tgt)+(e.deltaY>0?1:-1))},{passive:false});
+  el.addEventListener("keydown",e=>{const d={ArrowUp:-1,ArrowDown:1}[e.key];if(d){e.preventDefault();set(w,Math.round(w.tgt)+d)}else if(/^[0-9]$/.test(e.key)){set(w,Math.round(w.tgt)-val(w)+ +e.key);(el.nextElementSibling||el).focus()}});
+  set(w,w.tgt)});
+R.querySelector(".lck-mix").onclick=()=>W.forEach(w=>set(w,Math.round(w.tgt)+3+Math.floor(Math.random()*12)));
+(function loop(){requestAnimationFrame(loop);for(const w of W){if(!w.drag)w.pos+=(w.tgt-w.pos)*.22;const b=Math.round(w.pos),f=w.pos-b;
+  w.sp.forEach((s,k)=>{const o=k-2,y=(o-f)*H;s.textContent=mod(b+o);s.style.transform=`translateY(${y}px) scaleY(${Math.cos(Math.min(1.4,Math.abs(y)/H*.55)).toFixed(3)})`;s.style.opacity=(1-Math.min(1,Math.abs(y)/(H*1.6))).toFixed(2)})}})();
+})();
+</script>

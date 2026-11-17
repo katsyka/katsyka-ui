@@ -1,0 +1,19 @@
+<!--Candlestick Chart|Charts|An OHLC candlestick chart with volume bars beneath, a crosshair readout of open/high/low/close, a 20-day moving average line and range buttons (1M, 3M, 6M).|chart,candlestick,stock,finance,ohlc,volume-->
+<div class="k"><figure class="cd card"><figcaption><div><b>NRDW</b><span class="mu" id="hd"></span></div><div class="cd-r" role="radiogroup" aria-label="Range"><button role="radio" aria-checked="false" data-n="22">1M</button><button role="radio" aria-checked="true" data-n="66">3M</button><button role="radio" aria-checked="false" data-n="130">6M</button></div></figcaption><div class="cd-c" id="c"><svg id="s" role="img" aria-label="Candlestick price chart"></svg></div></figure></div>
+<style>
+.cd{width:min(780px,100%);padding:20px;margin:0}.cd figcaption{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap}.cd figcaption div:first-child{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.cd figcaption .mu{font-size:12px;font-variant-numeric:tabular-nums}
+.cd-r{display:flex;background:var(--sf2);border-radius:8px;padding:2px}.cd-r button{height:28px;padding:0 10px;border-radius:6px;font:600 12px 'Geist Mono',monospace;color:var(--mu)}.cd-r [aria-checked=true]{background:var(--bg);color:var(--fg)}
+.cd-c{height:320px}.cd-c svg{width:100%;height:100%;display:block}.cd .g{stroke:var(--line)}.cd .ax{fill:var(--mu);font-size:10px}.cd .up{fill:#15803d;stroke:#15803d}.cd .dn{fill:#b91c1c;stroke:#b91c1c}.cd .vol{opacity:.35}.cd .ma{fill:none;stroke:#7c3aed;stroke-width:1.5}.cd .x{stroke:var(--fg);stroke-opacity:.3;stroke-dasharray:3 3}
+</style>
+<script>
+let sd=11;const rnd=()=>(sd=sd*16807%2147483647)/2147483647,ALL=[];let p=84;for(let i=0;i<130;i++){const o=p,c=Math.max(40,o*(1+(rnd()-.47)*.045)),h=Math.max(o,c)*(1+rnd()*.018),l=Math.min(o,c)*(1-rnd()*.018);ALL.push({o,h,l,c,v:2e5+rnd()*8e5});p=c}
+const s=document.getElementById('s'),c=document.getElementById('c');let n=66,hi=-1;
+function draw(){const D=ALL.slice(-n),W=c.clientWidth,H=320,L=8,R=44,VH=60,T=8,mx=Math.max(...D.map(d=>d.h)),mn=Math.min(...D.map(d=>d.l)),Y=v=>T+(1-(v-mn)/(mx-mn))*(H-VH-T-20),bw=(W-L-R)/n,X=i=>L+i*bw+bw/2,mv=Math.max(...D.map(d=>d.v));
+s.setAttribute('viewBox',`0 0 ${W} ${H}`);let h=[0,.25,.5,.75,1].map(f=>{const v=mn+f*(mx-mn);return`<line class="g" x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}"/><text class="ax" x="${W-R+6}" y="${Y(v)+3}">${v.toFixed(1)}</text>`}).join('');
+D.forEach((d,i)=>{const k=d.c>=d.o?'up':'dn',x=X(i),w=Math.max(1,bw*.65);h+=`<line class="${k}" x1="${x}" x2="${x}" y1="${Y(d.h)}" y2="${Y(d.l)}"/><rect class="${k}" x="${x-w/2}" y="${Y(Math.max(d.o,d.c))}" width="${w}" height="${Math.max(1,Math.abs(Y(d.o)-Y(d.c)))}"/><rect class="${k} vol" x="${x-w/2}" y="${H-d.v/mv*VH}" width="${w}" height="${d.v/mv*VH}"/>`});
+const ma=D.map((_,i)=>{const j=ALL.length-n+i,w=ALL.slice(Math.max(0,j-19),j+1);return w.reduce((a,x)=>a+x.c,0)/w.length});h+=`<path class="ma" d="M${ma.map((v,i)=>`${X(i)},${Y(v)}`).join('L')}"/>`;
+if(hi>=0)h+=`<line class="x" x1="${X(hi)}" x2="${X(hi)}" y1="${T}" y2="${H}"/>`;s.innerHTML=h;const d=D[hi>=0?hi:D.length-1],dt=new Date(Date.now()-(D.length-1-(hi>=0?hi:D.length-1))*864e5*1.4);
+document.getElementById('hd').textContent=`${dt.toLocaleDateString('en-GB',{day:'numeric',month:'short'})}  O ${d.o.toFixed(2)}  H ${d.h.toFixed(2)}  L ${d.l.toFixed(2)}  C ${d.c.toFixed(2)}  ${((d.c-d.o)/d.o*100).toFixed(2)}%`}
+c.onpointermove=e=>{const r=c.getBoundingClientRect();hi=Math.max(0,Math.min(n-1,Math.floor((e.clientX-r.left-8)/((r.width-52)/n))));draw()};c.onpointerleave=()=>{hi=-1;draw()};
+document.querySelector('.cd-r').onclick=e=>{const b=e.target.closest('button');if(!b)return;b.parentElement.querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',x===b));n=+b.dataset.n;draw()};draw();addEventListener('resize',draw);
+</script>

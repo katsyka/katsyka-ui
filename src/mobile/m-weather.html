@@ -1,0 +1,44 @@
+<!--Weather|A weather screen with real hierarchy: a thin oversized temperature, an hourly strip, a 10-day list where each range bar sits on the week's scale, and detail tiles for UV, wind, humidity and sunset.|weather,forecast,hourly,range bar,tiles-->
+<main class="sc wx">
+  <section class="wx-h"><p class="wx-l">@I(nav,14) Bergen</p><b class="wx-t tn">8°</b><p class="wx-c">Showers clearing by noon</p><p class="wx-hl tn">H 11° · L 4°</p></section>
+  <section class="wx-card"><p class="wx-cap">Rain stops around 12:00. Wind easing through the afternoon.</p><div class="wx-hr" id="hr"></div></section>
+  <section class="wx-card"><p class="wx-cap">@I(cal,14) 10-day forecast</p><div id="dd"></div></section>
+  <div class="wx-g">
+    <section class="wx-card"><p class="wx-cap">@I(sun,14) UV index</p><b class="tn">2</b><span>Low</span><i class="wx-uv"><i style="left:18%"></i></i></section>
+    <section class="wx-card"><p class="wx-cap">@I(wind,14) Wind</p><b class="tn">24 <small>km/h</small></b><span>Gusts 41 km/h from SW</span></section>
+    <section class="wx-card"><p class="wx-cap">@I(drop,14) Humidity</p><b class="tn">86%</b><span>Dew point is 6° right now</span></section>
+    <section class="wx-card"><p class="wx-cap">@I(moon,14) Sunset</p><b class="tn">16:12</b><span>Sunrise 08:21</span></section>
+  </div>
+</main>
+@PILL(cloud:Weather|pin:Places|map:Map;0)
+<style>
+.wx{padding-left:var(--gut)!important;padding-right:var(--gut)!important}
+.wx-h{text-align:center;padding:32px 0 24px}
+.wx-l{margin:0;display:inline-flex;align-items:center;gap:4px;font-size:22px;font-weight:600}
+.wx-t{display:block;font-size:104px;line-height:1;font-weight:200;letter-spacing:-.06em;margin:4px 0 0 .1em}
+.wx-c{margin:4px 0 0;font-size:20px;font-weight:500}.wx-hl{margin:2px 0 0;font-size:17px;color:var(--mu)}
+.wx-card{background:var(--sf);border-radius:20px;padding:12px 16px 14px;margin-bottom:12px}
+.wx-cap{display:flex;align-items:center;gap:6px;margin:0 0 10px;padding-bottom:10px;border-bottom:.5px solid var(--line);font-size:13px;font-weight:600;color:var(--mu)}
+.wx-hr{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}.wx-hr::-webkit-scrollbar{display:none}
+.wx-hr div{flex:none;width:52px;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:15px;font-weight:600}
+.wx-hr small{font-size:13px;font-weight:500;color:var(--mu)}.wx-hr div:first-child small{color:var(--fg);font-weight:700}
+.wx-hr .i{width:22px;height:22px}.wx-hr .p{font-size:11px;color:var(--info);font-weight:700;margin-top:-6px;min-height:13px}
+.wx-d{display:grid;grid-template-columns:48px 28px 36px 1fr 36px;align-items:center;gap:8px;min-height:44px;font-size:17px;font-weight:500;border-top:.5px solid var(--line)}
+.wx-d:first-child{border:0}.wx-d .lo{color:var(--mu);text-align:right}.wx-d .i{width:22px;height:22px}
+.wx-r{position:relative;height:5px;border-radius:3px;background:var(--sf2)}
+.wx-r i{position:absolute;top:0;bottom:0;border-radius:3px;background:linear-gradient(90deg,light-dark(#0284c7,#38bdf8),light-dark(#16a34a,#4ade80),light-dark(#ca8a04,#facc15));background-size:var(--bw) 100%;background-position:var(--bx) 0}
+.wx-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}.wx-g .wx-card{margin:0;min-height:150px;display:flex;flex-direction:column}
+.wx-g b{font-size:32px;line-height:36px;font-weight:600}.wx-g b small{font-size:17px}.wx-g span{margin-top:auto;font-size:14px;line-height:19px}
+.wx-uv{position:relative;display:block;height:5px;border-radius:3px;margin-top:8px;background:linear-gradient(90deg,#16a34a,#facc15,#f97316,#dc2626,#9333ea)}
+.wx-uv i{position:absolute;top:-2px;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:var(--bg);box-shadow:0 0 0 1.5px var(--fg)}
+</style>
+<script>
+const I=p=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+const CL='<path d="M17.5 19H7a5 5 0 1 1 .9-9.9A6 6 0 0 1 19 11a4 4 0 0 1-1.5 8z"/>',RN=CL+'<path d="M8 22v-1M12 22v-1M16 22v-1"/>',SN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+const ICO={c:I(CL),r:I(RN.replace('M17.5 19','M17.5 17').replace('H7a5','H7a5')),s:I(SN)};
+const H=[["Now","r",8,"70%"],["10","r",8,"60%"],["11","r",9,"40%"],["12","c",10,""],["13","c",11,""],["14","s",11,""],["15","s",10,""],["16","c",9,""],["17","c",7,""],["18","c",6,""]];
+hr.innerHTML=H.map(([t,i,d,p])=>`<div><small>${t}</small>${ICO[i]}<span class="p">${p}</span><span class="tn">${d}°</span></div>`).join("");
+const D=[["Today","r",4,11],["Thu","c",5,10],["Fri","r",3,8],["Sat","s",1,7],["Sun","s",-1,6],["Mon","c",2,9],["Tue","r",5,12],["Wed","r",6,12],["Thu","c",4,9],["Fri","s",2,8]];
+const mn=Math.min(...D.map(d=>d[2])),mx=Math.max(...D.map(d=>d[3])),R=mx-mn;
+dd.innerHTML=D.map(([d,i,l,h])=>{const a=(l-mn)/R*100,w=(h-l)/R*100;return`<div class="wx-d"><span>${d}</span>${ICO[i]}<span class="lo tn">${l}°</span><span class="wx-r"><i style="left:${a}%;width:${w}%;--bw:${100/w*100}%;--bx:${a/(100-w||1)*100}%"></i></span><span class="tn">${h}°</span></div>`}).join("");
+</script>

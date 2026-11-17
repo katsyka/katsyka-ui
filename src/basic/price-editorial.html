@@ -1,0 +1,17 @@
+<!--Editorial Pricing|Pricing|A magazine-style subscription page: serif headline, plans as ruled rows (digital, print + digital, patron) with what arrives and when, a gift toggle that changes copy, and a small FAQ.|pricing,subscription,editorial,serif,magazine,gift-->
+<div class="k">
+<section class="pe"><p class="eb">The Long Quarterly</p><h2 class="ser">Read slowly.<br>Subscribe once a year.</h2><label class="pe-gf"><input type="checkbox" id="gf"> This is a gift</label>
+<div class="pe-l" role="radiogroup" aria-label="Subscription" id="l"></div><button class="b ac lg pe-go" id="go"></button><details class="pe-q"><summary>When does the first issue arrive?</summary><p>Within 10 days of ordering in the EU, 3 weeks elsewhere. Digital access starts immediately.</p></details><details class="pe-q"><summary>Can I pause?</summary><p>Yes, skip any issue from your account up to a week before it ships.</p></details></section>
+</div>
+<style>
+.pe{width:min(680px,100%)}.pe h2{font-size:clamp(36px,6vw,60px);line-height:1;margin:12px 0 24px;font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.02em}.pe .eb{font:500 12px 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pe-gf{display:inline-flex;gap:8px;align-items:center;font-size:14px;min-height:44px}.pe-gf input{width:18px;height:18px;accent-color:var(--ac)}
+.pe-l{border-top:2px solid var(--fg);margin-top:8px}.pe-l button{display:grid;grid-template-columns:28px 1fr auto;gap:16px;width:100%;text-align:left;padding:20px 0;border-bottom:1px solid var(--line);align-items:start}.pe-l .rd{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ctl);margin-top:4px;display:grid;place-items:center}.pe-l [aria-checked=true] .rd{border-color:var(--ac)}.pe-l [aria-checked=true] .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ac)}
+.pe-l b{font:400 26px/1.1 'Instrument Serif',serif}.pe-l p{margin:6px 0 0;color:var(--mu);font-size:14px}.pe-l .pr{font:400 26px 'Instrument Serif',serif;text-align:right}.pe-l .pr small{display:block;font:12px Geist,sans-serif;color:var(--mu)}
+.pe-go{margin:24px 0;width:100%}.pe-q{border-top:1px solid var(--line);padding:14px 0}.pe-q summary{cursor:pointer;font-weight:550;min-height:28px}.pe-q p{color:var(--mu);margin:8px 0 0;font-size:14px}
+</style>
+<script>
+const S=[["Digital","Every essay online and in the app, plus the archive back to 2009.",39],["Print + digital","Four 180-page issues a year, posted in a recycled sleeve.",79,1],["Patron","Everything, plus your name in the colophon and a signed print.",180]],l=document.getElementById('l'),gf=document.getElementById('gf'),go=document.getElementById('go');let s=1;
+function draw(){const g=gf.checked;l.innerHTML=S.map(([n,d,p],i)=>`<button role="radio" aria-checked="${i===s}" data-i="${i}"><span class="rd"></span><span><b>${n}</b><p>${g?d.replace('your name','their name').replace('Every essay','They get every essay'):d}</p></span><span class="pr tn">€${p}<small>per year</small></span></button>`).join('');go.textContent=`${g?'Give':'Subscribe to'} ${S[s][0].toLowerCase()}, €${S[s][2]}`}
+l.onclick=e=>{const b=e.target.closest('[data-i]');if(b){s=+b.dataset.i;draw();l.querySelector(`[data-i="${s}"]`).focus()}};gf.onchange=draw;draw();
+</script>

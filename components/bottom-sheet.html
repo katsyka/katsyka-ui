@@ -1,0 +1,60 @@
+<style>
+.bs-stage{min-height:100vh;display:grid;place-items:center;padding:30px 16px;background:#e9e6df}
+.bs-phone{position:relative;width:360px;height:740px;max-height:94vh;border-radius:46px;padding:10px;background:#1a1917;box-shadow:0 40px 80px -30px #0007}
+.bs-scr{position:relative;width:100%;height:100%;border-radius:37px;overflow:hidden;background:#dfe7dc}
+.bs-map{position:absolute;inset:0;background:
+  linear-gradient(90deg,transparent 47%,#fff 47% 53%,transparent 53%) 0 0/160px 100%,
+  linear-gradient(0deg,transparent 47%,#fff 47% 53%,transparent 53%) 0 0/100% 210px,
+  linear-gradient(32deg,transparent 48%,#f6e9b8 48% 52%,transparent 52%) 0 0/100% 100%,
+  radial-gradient(circle at 70% 30%,#c8dcc0 0 70px,transparent 71px),radial-gradient(circle at 20% 70%,#bcd3e8 0 90px,transparent 91px),#e8ece4;transition:transform .4s,filter .4s}
+.bs-pin{position:absolute;width:30px;height:30px;margin:-30px 0 0 -15px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--c);box-shadow:0 4px 10px #0003;display:grid;place-items:center}
+.bs-pin i{width:10px;height:10px;border-radius:50%;background:#fff}
+.bs-top{position:absolute;top:14px;left:14px;right:14px;height:46px;border-radius:14px;background:#fff;box-shadow:0 6px 18px -6px #0003;display:flex;align-items:center;gap:10px;padding:0 14px;font-size:14px;color:#8a857b}
+.bs-dim{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+.bs-sheet{position:absolute;left:0;right:0;bottom:0;height:calc(100% - 40px);border-radius:26px 26px 0 0;background:#fffdf9;box-shadow:0 -10px 30px -10px #0003;display:flex;flex-direction:column;will-change:transform;touch-action:none}
+.bs-grab{flex:none;padding:10px 0 6px;cursor:grab}.bs-grab:active{cursor:grabbing}
+.bs-grab i{display:block;width:40px;height:5px;margin:0 auto;border-radius:3px;background:#d6d1c7}
+.bs-h{flex:none;padding:6px 20px 12px}.bs-h b{font-size:20px;letter-spacing:-.03em;color:#1d1b18}.bs-h span{display:block;font-size:13px;color:#8a857b;margin-top:2px}
+.bs-chips{display:flex;gap:6px;padding:0 20px 12px;overflow-x:auto;scrollbar-width:none;flex:none}.bs-chips button{flex:none;height:32px;padding:0 13px;border-radius:99px;border:1px solid #e6e1d7;background:#fff;font:500 13px Geist,sans-serif;color:#3d3a34;cursor:pointer}
+.bs-chips button.on{background:#1d1b18;color:#fff;border-color:#1d1b18}
+.bs-list{flex:1;overflow:hidden;padding:0 12px 20px}
+.bs-sheet.full .bs-list{overflow:auto}
+.bs-it{display:flex;gap:12px;align-items:center;padding:10px 8px;border-radius:14px;color:#1d1b18}
+.bs-it img{width:62px;height:62px;border-radius:12px;object-fit:cover;background:#ddd}
+.bs-it b{display:block;font-size:15px;font-weight:600;letter-spacing:-.01em}.bs-it small{font-size:12.5px;color:#8a857b}
+.bs-it em{margin-left:auto;font-style:normal;font:600 12px "Geist Mono",monospace;color:#1d1b18;padding:4px 8px;border-radius:8px;background:#f2eee6}
+.bs-hint{position:absolute;left:calc(50% + 220px);top:50%;transform:translateY(-50%);max-width:220px;font-size:13.5px;line-height:1.55;color:#6f6a60}
+.bs-hint b{display:block;color:#1d1b18;font-size:16px;margin-bottom:4px}
+@media (max-width:900px){.bs-hint{display:none}}
+</style>
+<div class="bs-stage">
+  <div class="bs-phone"><div class="bs-scr">
+    <div class="bs-map"><span class="bs-pin" style="left:30%;top:28%;--c:#e8590c"><i></i></span><span class="bs-pin" style="left:66%;top:40%;--c:#1d1b18"><i></i></span><span class="bs-pin" style="left:48%;top:20%;--c:#e8590c"><i></i></span></div>
+    <div class="bs-top">⌕ Search coffee nearby</div>
+    <div class="bs-dim"></div>
+    <div class="bs-sheet"><div class="bs-grab" aria-label="Drag to resize"><i></i></div>
+      <div class="bs-h"><b>Coffee near you</b><span>14 places open now</span></div>
+      <div class="bs-chips"><button class="on">Open now</button><button>Wi-Fi</button><button>Quiet</button><button>Pastries</button><button>Outdoor</button></div>
+      <div class="bs-list"></div></div>
+  </div></div>
+  <div class="bs-hint"><b>Snap-point bottom sheet</b>Drag the handle: it snaps to peek, half and full with velocity, dims the map and only scrolls its list when fully open.</div>
+</div>
+<script>
+(()=>{
+const P=[["Fable Roasters","4 min · Specialty","4.8","1060"],["Morning Glory","6 min · Bakery","4.6","1080"],["Kettle & Co","9 min · Quiet","4.7","1070"],["Small Batch","11 min · Outdoor","4.5","1059"],["Northside","12 min · Wi-Fi","4.4","1035"],["Ritual","15 min · Pastries","4.9","1025"]];
+const scr=document.querySelector(".bs-scr"),sh=scr.querySelector(".bs-sheet"),dim=scr.querySelector(".bs-dim"),map=scr.querySelector(".bs-map");
+sh.querySelector(".bs-list").innerHTML=P.map(([n,s,r,id])=>`<div class="bs-it"><img src="https://picsum.photos/id/${id}/140/140" alt=""><div><b>${n}</b><small>${s}</small></div><em>★ ${r}</em></div>`).join("");
+sh.querySelectorAll(".bs-chips button").forEach(b=>b.onclick=()=>b.classList.toggle("on"));
+let H,snaps,y,vel=0,drag=null;
+const layout=()=>{H=sh.offsetHeight;snaps=[H-150,H*.5,0];if(y===undefined)y=snaps[0];apply()};
+const apply=()=>{const k=1-y/snaps[0];sh.style.transform=`translateY(${y}px)`;dim.style.opacity=Math.max(0,k-.35)*.55;map.style.transform=`translateY(${-k*40}px)`;sh.classList.toggle("full",y<2)};
+const go=to=>{const from=y,t0=performance.now();(function f(now){const p=Math.min(1,(now-t0)/380),e=1-Math.pow(1-p,3)*(1-p*.3);y=from+(to-from)*e;apply();if(p<1&&!drag)requestAnimationFrame(f)})(t0)};
+const start=e=>{const list=sh.querySelector(".bs-list");if(sh.classList.contains("full")&&list.contains(e.target)&&list.scrollTop>0)return;drag={y:e.clientY,s:y,t:performance.now(),ly:e.clientY};sh.setPointerCapture(e.pointerId)};
+sh.addEventListener("pointerdown",e=>{if(e.target.closest("button"))return;start(e)});
+sh.addEventListener("pointermove",e=>{if(!drag)return;const now=performance.now();vel=(e.clientY-drag.ly)/Math.max(1,now-drag.t);drag.t=now;drag.ly=e.clientY;
+  let ny=drag.s+(e.clientY-drag.y);if(ny<0)ny*=.3;if(ny>snaps[0])ny=snaps[0]+(ny-snaps[0])*.3;y=ny;apply()});
+sh.addEventListener("pointerup",()=>{if(!drag)return;drag=null;const proj=y+vel*180;let best=snaps.reduce((a,b)=>Math.abs(b-proj)<Math.abs(a-proj)?b:a);go(best)});
+sh.querySelector(".bs-grab").addEventListener("click",()=>{const i=snaps.indexOf(snaps.reduce((a,b)=>Math.abs(b-y)<Math.abs(a-y)?b:a));go(snaps[(i+1)%3])});
+dim.style.pointerEvents="none";new ResizeObserver(()=>{y=undefined;layout()}).observe(scr);
+})();
+</script>

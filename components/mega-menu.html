@@ -1,0 +1,93 @@
+<style>
+.mm-page{min-height:100vh;background:#f6f5f2;color:#18181b}
+.mm-bar{position:relative;display:flex;align-items:center;gap:28px;height:68px;padding:0 clamp(16px,4vw,40px);border-bottom:1px solid #18181b12;background:#f6f5f2}
+.mm-logo{display:flex;align-items:center;gap:9px;font-weight:650;letter-spacing:-.03em;font-size:17px}
+.mm-logo i{width:22px;height:22px;border-radius:7px;background:#18181b;position:relative}.mm-logo i::after{content:"";position:absolute;inset:6px;border-radius:50%;background:#ff5a1f}
+.mm-nav{display:flex;gap:2px;height:100%;align-items:center}
+.mm-nav>button,.mm-nav>a{display:flex;align-items:center;gap:5px;height:36px;padding:0 12px;border:0;border-radius:9px;background:none;color:#52525b;font:500 14.5px Geist,sans-serif;cursor:pointer;text-decoration:none;transition:color .2s,background .2s}
+.mm-nav>button svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.2;transition:transform .3s}
+.mm-nav>button.on,.mm-nav>button:hover,.mm-nav>a:hover{color:#18181b;background:#18181b0a}
+.mm-nav>button.on svg{transform:rotate(180deg)}
+.mm-end{margin-left:auto;display:flex;gap:8px}
+.mm-end a{height:38px;padding:0 16px;border-radius:10px;display:inline-flex;align-items:center;font-weight:550;font-size:14px;text-decoration:none;color:#18181b}
+.mm-end a+a{background:#18181b;color:#f6f5f2}
+.mm-drop{position:absolute;top:60px;left:0;z-index:20;border-radius:18px;background:#fff;box-shadow:0 0 0 1px #18181b0f,0 24px 60px -18px #18181b40,0 6px 16px -8px #18181b1a;opacity:0;pointer-events:none;transform:translateY(-6px) scale(.98);transform-origin:top center;transition:opacity .2s,transform .25s cubic-bezier(.2,1,.3,1),left .38s cubic-bezier(.3,1,.3,1),width .38s cubic-bezier(.3,1,.3,1),height .38s cubic-bezier(.3,1,.3,1)}
+.mm-drop.open{opacity:1;pointer-events:auto;transform:none}
+.mm-drop.instant{transition:opacity .2s,transform .25s cubic-bezier(.2,1,.3,1)}
+.mm-caret{position:absolute;top:-6px;width:12px;height:12px;background:#fff;transform:rotate(45deg);border-radius:2px;box-shadow:-1px -1px 0 #18181b0f;transition:left .38s cubic-bezier(.3,1,.3,1)}
+.mm-clip{position:relative;width:100%;height:100%;overflow:hidden;border-radius:inherit}
+.mm-p{position:absolute;top:0;left:0;padding:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .38s cubic-bezier(.3,1,.3,1)}
+.mm-p.on{opacity:1;pointer-events:auto;transform:none!important}
+.mm-grid{display:grid;grid-template-columns:repeat(2,250px);gap:2px}
+.mm-it{display:flex;gap:12px;padding:12px;border-radius:12px;text-decoration:none;color:inherit;transition:background .2s}
+.mm-it:hover{background:#f4f3ef}
+.mm-it i{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:#f4f3ef;color:#18181b;transition:background .2s,color .2s}
+.mm-it:hover i{background:#18181b;color:#fff}
+.mm-it svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mm-it b{display:block;font-size:14px;font-weight:600;letter-spacing:-.01em}.mm-it span{font-size:12.5px;color:#71717a;line-height:1.4}
+.mm-row{display:flex;gap:14px}
+.mm-feat{width:230px;border-radius:14px;padding:18px;color:#fff;background:radial-gradient(circle at 80% 10%,#ff8a5c,transparent 55%),linear-gradient(160deg,#27272a,#09090b);display:flex;flex-direction:column;justify-content:flex-end;min-height:220px;text-decoration:none}
+.mm-feat small{font:500 11px "Geist Mono",monospace;letter-spacing:.08em;opacity:.7}.mm-feat b{font-size:17px;letter-spacing:-.02em;margin:6px 0 4px}.mm-feat span{font-size:13px;opacity:.75}
+.mm-cols{display:grid;grid-template-columns:repeat(3,170px);gap:8px;padding:6px}
+.mm-cols h5{margin:6px 8px 8px;font:500 11px "Geist Mono",monospace;letter-spacing:.08em;color:#a1a1aa;text-transform:uppercase}
+.mm-cols a{display:block;padding:7px 8px;border-radius:8px;font-size:14px;color:#3f3f46;text-decoration:none}.mm-cols a:hover{background:#f4f3ef;color:#18181b}
+.mm-foot{display:flex;justify-content:space-between;align-items:center;margin:8px -14px -14px;padding:12px 22px;background:#fafaf9;border-top:1px solid #18181b0d;font-size:13px;color:#71717a}
+.mm-foot a{color:#18181b;font-weight:550;text-decoration:none}
+.mm-body{padding:80px clamp(16px,4vw,40px);max-width:720px}
+.mm-body h1{font-size:clamp(36px,5vw,64px);letter-spacing:-.05em;line-height:1;margin:0 0 14px;font-weight:600}.mm-body p{color:#71717a;font-size:17px;margin:0}
+@media (max-width:760px){.mm-nav{display:none}}
+</style>
+<div class="mm-page">
+  <header class="mm-bar">
+    <span class="mm-logo"><i></i>Orbital</span>
+    <nav class="mm-nav">
+      <button data-p="0">Product<svg viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3"/></svg></button>
+      <button data-p="1">Solutions<svg viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3"/></svg></button>
+      <button data-p="2">Resources<svg viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3"/></svg></button>
+      <a href="#">Pricing</a>
+    </nav>
+    <div class="mm-end"><a href="#">Log in</a><a href="#">Start free</a></div>
+    <div class="mm-drop"><span class="mm-caret"></span><div class="mm-clip">
+      <div class="mm-p"><div class="mm-row"><div class="mm-grid">
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></i><div><b>Analytics</b><span>Events, funnels and retention</span></div></a>
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></i><div><b>Dashboards</b><span>Share live views with anyone</span></div></a>
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/></svg></i><div><b>Experiments</b><span>Flags and A/B tests built in</span></div></a>
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></i><div><b>Surveys</b><span>Ask users at the right moment</span></div></a>
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></i><div><b>Warehouse</b><span>SQL over every event, ever</span></div></a>
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></i><div><b>Governance</b><span>Roles, audit log, retention</span></div></a>
+      </div><a class="mm-feat" href="#"><small>NEW · v5</small><b>Session replay is here</b><span>Watch the exact moment users get stuck.</span></a></div>
+      <div class="mm-foot"><span>Trusted by 40,000 teams</span><a href="#">See all features →</a></div></div>
+      <div class="mm-p"><div class="mm-grid" style="grid-template-columns:repeat(2,240px)">
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></i><div><b>Engineering</b><span>Ship with confidence</span></div></a>
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg></i><div><b>Product</b><span>Decide with real usage</span></div></a>
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8z"/></svg></i><div><b>Marketing</b><span>Attribution that adds up</span></div></a>
+        <a class="mm-it" href="#"><i><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></i><div><b>Startups</b><span>Free for your first year</span></div></a>
+      </div></div>
+      <div class="mm-p"><div class="mm-cols">
+        <div><h5>Learn</h5><a href="#">Documentation</a><a href="#">Guides</a><a href="#">API reference</a><a href="#">Changelog</a></div>
+        <div><h5>Community</h5><a href="#">Forum</a><a href="#">Events</a><a href="#">Champions</a><a href="#">Open source</a></div>
+        <div><h5>Company</h5><a href="#">About</a><a href="#">Blog</a><a href="#">Careers</a><a href="#">Contact</a></div>
+      </div></div>
+    </div></div>
+  </header>
+  <div class="mm-body"><h1>One dropdown that morphs between menus.</h1><p>Move between Product, Solutions and Resources. The panel resizes and slides instead of closing and reopening, and the caret follows you.</p></div>
+</div>
+<script>
+(()=>{
+const bar=document.querySelector(".mm-bar"),drop=bar.querySelector(".mm-drop"),caret=drop.querySelector(".mm-caret"),btns=[...bar.querySelectorAll(".mm-nav>button")],panels=[...drop.querySelectorAll(".mm-p")];
+let cur=-1,closeT;
+const open=i=>{clearTimeout(closeT);if(i===cur)return;const was=cur>=0,p=panels[i],b=btns[i];
+  drop.classList.toggle("instant",!was);
+  panels.forEach((q,k)=>{q.classList.toggle("on",k===i);if(k!==i)q.style.transform=`translateX(${k<i?-40:40}px)`});
+  if(was)p.style.transform=`translateX(${i>cur?40:-40}px)`;void p.offsetWidth;p.classList.add("on");
+  const w=p.offsetWidth,h=p.offsetHeight,br=b.getBoundingClientRect(),bb=bar.getBoundingClientRect();
+  const left=Math.max(12,Math.min(bb.width-w-12,br.left-bb.left+br.width/2-w/2));
+  drop.style.width=w+"px";drop.style.height=h+"px";drop.style.left=left+"px";caret.style.left=br.left-bb.left+br.width/2-left-6+"px";
+  btns.forEach((x,k)=>x.classList.toggle("on",k===i));drop.classList.add("open");cur=i};
+const close=()=>{closeT=setTimeout(()=>{drop.classList.remove("open");btns.forEach(x=>x.classList.remove("on"));cur=-1},160)};
+btns.forEach((b,i)=>{b.addEventListener("mouseenter",()=>open(i));b.addEventListener("focus",()=>open(i));b.addEventListener("click",()=>cur===i?close():open(i))});
+[...btns,drop].forEach(el=>el.addEventListener("mouseleave",close));drop.addEventListener("mouseenter",()=>clearTimeout(closeT));
+bar.querySelector(".mm-nav>a").addEventListener("mouseenter",close);
+addEventListener("keydown",e=>{if(e.key==="Escape"){clearTimeout(closeT);drop.classList.remove("open");btns.forEach(x=>x.classList.remove("on"));cur=-1}});
+})();
+</script>

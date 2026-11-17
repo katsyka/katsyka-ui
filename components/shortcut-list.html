@@ -1,0 +1,49 @@
+<style>
+.kb{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.kb :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.kb ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.kb *,.kb *::before,.kb *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.kb{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.kb-pn{width:min(620px,100%);background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.kb-hd{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.kb-hd h2{margin:0;font-size:16px;font-weight:620}
+.kb-os{margin-left:auto;display:flex;padding:3px;border-radius:9px;background:var(--sf2)}
+.kb-os button{height:26px;padding:0 10px;border:0;border-radius:6px;background:none;color:var(--mu);font:550 12.5px Geist,system-ui,sans-serif;cursor:pointer}
+.kb-os button[aria-pressed=true]{background:var(--bg);color:var(--fg);box-shadow:0 1px 2px #0000001f}
+.kb-s{padding:6px 22px 4px}
+.kb-s input{width:100%;height:38px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:var(--sf);color:var(--fg);font:16px Geist,system-ui,sans-serif;margin:10px 0 4px}
+@media (min-width:640px){.kb-s input{font-size:14px}}
+.kb-s input:focus-visible{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in oklab,var(--focus) 22%,transparent)}
+.kb-g{padding:4px 22px 16px;max-height:380px;overflow:auto}
+.kb-g h3{margin:14px 0 4px;font:500 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu)}
+.kb-r{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.kb-r:last-child{border-bottom:0}
+.kb-k{display:flex;align-items:center;gap:4px;color:var(--mu);font-size:12px}
+kbd{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:6px;border:1px solid color-mix(in oklab,var(--line),var(--fg) 8%);border-bottom-width:2px;background:linear-gradient(var(--bg),var(--sf));color:var(--fg);font:500 12px "Geist Mono",monospace;box-shadow:0 1px 1px #0000000d;transition:transform .08s,border-bottom-width .08s,background-color .1s}
+kbd.dn{transform:translateY(1px);border-bottom-width:1px;background:var(--ac-sf);color:var(--ac);border-color:var(--ac)}
+.kb-empty{padding:30px 0;text-align:center;color:var(--mu);font-size:14px}
+.kb-ft{padding:12px 22px;border-top:1px solid var(--line);background:var(--sf);font-size:12.5px;color:var(--mu)}
+</style>
+<div class="kb">
+  <section class="kb-pn" aria-labelledby="kbH">
+    <div class="kb-hd"><h2 id="kbH">Keyboard shortcuts</h2><div class="kb-os" role="group" aria-label="Platform"><button aria-pressed="true" data-os="mac">macOS</button><button aria-pressed="false" data-os="win">Windows</button></div></div>
+    <div class="kb-s"><input type="search" placeholder="Filter shortcuts…" aria-label="Filter shortcuts" id="kbF"></div>
+    <div class="kb-g" id="kbG"></div>
+    <div class="kb-ft">Press keys on your keyboard: matching caps light up.</div>
+  </section>
+</div>
+<script>
+const S=[["General",[["Command palette","Mod K"],["Search","/"],["Settings","Mod ,"],["Show shortcuts","?"]]],["Editing",[["Undo","Mod Z"],["Redo","Mod Shift Z"],["Bold","Mod B"],["Insert link","Mod K"],["Duplicate","Mod D"]]],["Navigation",[["Go to inbox","G I"],["Go to projects","G P"],["Next item","J"],["Previous item","K"]]]];
+let os="mac";const G=document.getElementById("kbG"),F=document.getElementById("kbF");
+const map=k=>({Mod:os==="mac"?"⌘":"Ctrl",Shift:os==="mac"?"⇧":"Shift",Alt:os==="mac"?"⌥":"Alt"}[k]||k);
+const draw=()=>{const q=F.value.trim().toLowerCase();let h="";S.forEach(([g,rs])=>{const f=rs.filter(r=>r[0].toLowerCase().includes(q));if(!f.length)return;
+  h+=`<h3>${g}</h3>`+f.map(([n,k])=>{const seq=k.split(" "),then=g==="Navigation"&&seq.length===2;return `<div class="kb-r"><span>${n}</span><span class="kb-k">${seq.map(x=>`<kbd data-k="${x}">${map(x)}</kbd>`).join(then?"<span>then</span>":"")}</span></div>`}).join("")});
+  G.innerHTML=h||`<div class="kb-empty">No shortcuts match “${F.value.replace(/[<>&]/g,"")}”</div>`};
+document.querySelectorAll(".kb-os button").forEach(b=>b.addEventListener("click",()=>{os=b.dataset.os;document.querySelectorAll(".kb-os button").forEach(x=>x.setAttribute("aria-pressed",x===b));draw()}));
+F.addEventListener("input",draw);
+const name=e=>e.key==="Meta"||e.key==="Control"?"Mod":e.key==="Shift"?"Shift":e.key==="Alt"?"Alt":e.key.length===1?e.key.toUpperCase():e.key;
+addEventListener("keydown",e=>{const n=name(e);G.querySelectorAll(`kbd[data-k="${CSS.escape(n)}"]`).forEach(k=>k.classList.add("dn"))});
+addEventListener("keyup",e=>{const n=name(e);G.querySelectorAll(`kbd[data-k="${CSS.escape(n)}"]`).forEach(k=>k.classList.remove("dn"))});
+addEventListener("blur",()=>G.querySelectorAll("kbd.dn").forEach(k=>k.classList.remove("dn")));
+draw();
+</script>

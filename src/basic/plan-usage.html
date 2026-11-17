@@ -1,0 +1,18 @@
+<!--Plan & Usage|Data|A billing card: current plan with renewal date, usage meters that turn amber near the limit and red over it, with numbers in text so colour isn't the only signal, plus Upgrade and Manage actions.|billing,plan,usage,meter,subscription-->
+<div class="k"><section class="card pu"><header class="pu-h"><div><span class="pill info">Pro</span><h2>Pro plan · <span class="tn">$24</span>/month</h2><p class="mu">Renews on 1 December 2026 · Visa ·· 4242</p></div><div class="pu-a"><button class="b sec">Manage</button><button class="b ac">@I(zap,16)Upgrade</button></div></header>
+<div class="pu-g" id="g"></div></section></div>
+<style>
+.pu{width:min(680px,100%);padding:24px}
+.pu-h{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid var(--line)}.pu h2{margin:8px 0 2px;font-size:18px;font-weight:650}.pu-h p{margin:0}.pu-a{display:flex;gap:8px;align-items:flex-start}
+.pu-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 32px;margin-top:20px}
+.pu-m header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}.pu-m b{font-weight:550}.pu-m span{font-size:13px;color:var(--mu)}
+.pu-bar{height:8px;border-radius:4px;background:var(--sf2);overflow:hidden}.pu-bar i{display:block;height:100%;border-radius:4px;background:var(--fg);width:0;transition:width .9s var(--ease)}
+.pu-m.warn i{background:var(--warn)}.pu-m.over i{background:var(--err)}
+.pu-m small{display:block;margin-top:6px;font-size:12px;color:var(--mu)}.pu-m.warn small{color:var(--warn)}.pu-m.over small{color:var(--err)}
+</style>
+<script>
+const U=[["Storage",38.2,50,"GB"],["Seats",9,10,""],["API requests",128400,100000,""],["Bandwidth",212,1000,"GB"]];
+const f=(v,u)=>(v>=1e4?v.toLocaleString("en"):v)+(u?" "+u:"");
+g.innerHTML=U.map(([n,v,m,u])=>{const p=v/m,c=p>1?"over":p>=.85?"warn":"";return`<div class="pu-m ${c}"><header><b>${n}</b><span class="tn">${f(v,u)} of ${f(m,u)}</span></header><div class="pu-bar" role="meter" aria-valuemin="0" aria-valuemax="${m}" aria-valuenow="${v}" aria-label="${n}"><i data-w="${Math.min(100,p*100)}"></i></div><small>${p>1?`Over by ${f(Math.round(v-m),u)} · billed at $2 per 10k`:p>=.85?`${Math.round(p*100)}% used · close to your limit`:`${Math.round(p*100)}% used`}</small></div>`}).join("");
+requestAnimationFrame(()=>requestAnimationFrame(()=>g.querySelectorAll("i").forEach(i=>i.style.width=i.dataset.w+"%")));
+</script>

@@ -1,0 +1,61 @@
+<style>
+.sk{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.sk :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.sk ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.sk *,.sk *::before,.sk *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sk{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.sk-wrap{width:min(720px,100%)}
+.sk-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sk-bar b{font-size:15px;font-weight:620}
+.sk-bar button{height:34px;padding:0 14px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:550 13px Geist,system-ui,sans-serif;cursor:pointer}
+.sk-bar button:hover{background:var(--sf2)}
+.sk-g{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.sk-c{padding:18px;background:var(--bg);border:1px solid var(--line);border-radius:16px}
+.sk-c.full{grid-column:1/-1}
+.s{display:block;border-radius:6px;background:var(--sf2);position:relative;overflow:hidden}
+.s::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,color-mix(in oklab,var(--bg) 55%,transparent),transparent);animation:sk-sh 1.5s ease-in-out infinite}
+@keyframes sk-sh{to{transform:translateX(100%)}}
+.s.ln{height:10px;margin-top:10px}.s.ttl{height:14px;width:55%}
+.s.img{aspect-ratio:16/9;border-radius:10px;margin-bottom:14px}
+.s.av{width:42px;height:42px;border-radius:50%;flex:none}
+.sk-row{display:flex;gap:12px;align-items:center}
+.sk-row+.sk-row{margin-top:16px}
+.sk-row>div{flex:1}
+.sk-t{display:grid;gap:0}
+.sk-t .r{display:grid;grid-template-columns:28px 1.4fr 1fr 70px;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.sk-t .r:first-child{border-top:0}
+.sk [hidden]{display:none!important}
+.real img,.real .im{display:block;aspect-ratio:16/9;border-radius:10px;margin-bottom:14px;background:linear-gradient(135deg,#fdba74,#c2410c 60%,#7c2d12)}
+.real h3{margin:0;font-size:16px;font-weight:620;letter-spacing:-.01em}
+.real p{margin:6px 0 0;font-size:14px;color:var(--mu);line-height:1.5}
+.real .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:14px;font-weight:650;flex:none}
+.real b{font-size:14px;font-weight:600}.real small{display:block;font-size:13px;color:var(--mu)}
+.real .r span{font-size:13.5px}.real .r .ck{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--ctl)}
+.real .r em{font-style:normal;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--ok-sf);color:var(--ok);justify-self:start}
+.real{animation:sk-in .4s var(--ease)}
+@keyframes sk-in{from{opacity:0}}
+@media (max-width:620px){.sk-g{grid-template-columns:1fr}}
+</style>
+<div class="sk">
+  <div class="sk-wrap">
+    <div class="sk-bar"><b>Dashboard</b><button id="skT" aria-pressed="false">Show loaded state</button></div>
+    <div class="sk-g" aria-busy="true" id="skG">
+      <div class="sk-c">
+        <div class="ske"><span class="s img"></span><span class="s ttl"></span><span class="s ln"></span><span class="s ln" style="width:80%"></span></div>
+        <div class="real" hidden><div class="im"></div><h3>Autumn collection is live</h3><p>42 new pieces across five categories, photographed in Porto.</p></div>
+      </div>
+      <div class="sk-c">
+        <div class="ske"><div class="sk-row"><span class="s av"></span><div><span class="s ln" style="margin:0;width:60%"></span><span class="s ln" style="width:40%;margin-top:8px"></span></div></div><div class="sk-row"><span class="s av"></span><div><span class="s ln" style="margin:0;width:70%"></span><span class="s ln" style="width:35%;margin-top:8px"></span></div></div><div class="sk-row"><span class="s av"></span><div><span class="s ln" style="margin:0;width:55%"></span><span class="s ln" style="width:45%;margin-top:8px"></span></div></div></div>
+        <div class="real" hidden><div class="sk-row"><span class="av" style="background:#c2410c">MO</span><div><b>Mira Okafor</b><small>Approved the layout</small></div></div><div class="sk-row"><span class="av" style="background:#0e7490">JL</span><div><b>Jun Li</b><small>Uploaded 12 photos</small></div></div><div class="sk-row"><span class="av" style="background:#7c3aed">SR</span><div><b>Sofia Ruiz</b><small>Commented on pricing</small></div></div></div>
+      </div>
+      <div class="sk-c full">
+        <div class="ske sk-t"><div class="r"><span class="s" style="height:16px;width:16px;border-radius:4px"></span><span class="s ln" style="margin:0"></span><span class="s ln" style="margin:0;width:70%"></span><span class="s ln" style="margin:0;height:18px;border-radius:99px"></span></div><div class="r"><span class="s" style="height:16px;width:16px;border-radius:4px"></span><span class="s ln" style="margin:0;width:85%"></span><span class="s ln" style="margin:0;width:50%"></span><span class="s ln" style="margin:0;height:18px;border-radius:99px"></span></div><div class="r"><span class="s" style="height:16px;width:16px;border-radius:4px"></span><span class="s ln" style="margin:0;width:75%"></span><span class="s ln" style="margin:0;width:60%"></span><span class="s ln" style="margin:0;height:18px;border-radius:99px"></span></div></div>
+        <div class="real sk-t" hidden><div class="r"><span class="ck"></span><span>Order #2041 · Lounge chair</span><span style="color:var(--mu)">Oct 30</span><em>Paid</em></div><div class="r"><span class="ck"></span><span>Order #2040 · Desk lamp</span><span style="color:var(--mu)">Oct 30</span><em>Paid</em></div><div class="r"><span class="ck"></span><span>Order #2039 · Side table</span><span style="color:var(--mu)">Oct 29</span><em>Paid</em></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const T=document.getElementById("skT"),G=document.getElementById("skG");
+T.addEventListener("click",()=>{const on=T.getAttribute("aria-pressed")!=="true";T.setAttribute("aria-pressed",on);T.textContent=on?"Show loading state":"Show loaded state";G.setAttribute("aria-busy",!on);G.querySelectorAll(".ske").forEach(x=>x.hidden=on);G.querySelectorAll(".real").forEach(x=>x.hidden=!on)});
+</script>

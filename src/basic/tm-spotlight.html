@@ -1,0 +1,17 @@
+<!--Spotlight Testimonial|Testimonials|One large quote at a time with a row of faces underneath; picking a face cross-fades the quote, name and role, with arrow-key navigation and an optional slow auto-advance that pauses on hover.|testimonials,quote,spotlight,avatars,switcher-->
+<div class="k"><section class="ts"><blockquote id="q" aria-live="polite"><p></p><footer><b></b><span class="mu"></span></footer></blockquote><div class="ts-f" role="tablist" aria-label="Choose a testimonial" id="f"></div></section></div>
+<style>
+.ts{width:min(760px,100%);display:grid;gap:32px;justify-items:center;text-align:center}.ts blockquote{margin:0;display:grid;gap:20px;min-height:220px;align-content:center;transition:opacity .25s cubic-bezier(.23,1,.32,1),transform .25s cubic-bezier(.23,1,.32,1)}.ts blockquote.out{opacity:0;transform:translateY(6px)}
+.ts p{margin:0;font-size:clamp(22px,3.2vw,32px);line-height:1.3;letter-spacing:-.02em;font-weight:500;text-wrap:balance}.ts footer{display:grid;gap:2px;font-size:15px}
+.ts-f{display:flex;gap:10px}.ts-f button{width:52px;height:52px;border-radius:50%;padding:0;overflow:hidden;opacity:.45;filter:grayscale(1);transition:opacity .2s,filter .2s,transform .2s cubic-bezier(.23,1,.32,1);outline-offset:3px}.ts-f button:hover{opacity:.8}.ts-f [aria-selected=true]{opacity:1;filter:none;transform:scale(1.08)}.ts-f img{width:100%;height:100%;object-fit:cover}
+@media (prefers-reduced-motion:reduce){.ts blockquote{transition:opacity .15s}.ts blockquote.out{transform:none}}
+</style>
+<script>
+const T=[["We closed the books in two days instead of nine. The first month I didn't trust it, so I ran both. Same numbers.","Ines Aldana","Finance lead, a 40-person logistics firm","media/pics/c/1014.jpg"],["Our support queue used to have a Monday mountain. Now it's a Monday hill, and the team stopped dreading it.","Tomas Reuter","Head of Support, outdoor retailer","media/pics/c/1012.jpg"],["I expected another dashboard. It turned out to be the thing my co-founder and I argue less about.","Priya Nand","Co-founder, two-person studio","media/pics/c/1006.jpg"],["The import took an afternoon. Migrating our last tool took a quarter.","Ola Bergkvist","Operations, family-owned bakery chain","media/pics/c/1083.jpg"]];
+const f=document.getElementById('f'),q=document.getElementById('q');let i=0,timer;
+f.innerHTML=T.map((t,j)=>`<button role="tab" aria-selected="${!j}" aria-label="${t[1]}" tabindex="${j?-1:0}"><img src="${t[3]}" alt=""></button>`).join('');const B=[...f.children];
+function show(n,focus){i=(n+T.length)%T.length;q.classList.add('out');setTimeout(()=>{q.querySelector('p').textContent='“'+T[i][0]+'”';q.querySelector('b').textContent=T[i][1];q.querySelector('.mu').textContent=T[i][2];q.classList.remove('out')},180);B.forEach((b,j)=>{b.setAttribute('aria-selected',j===i);b.tabIndex=j===i?0:-1});if(focus)B[i].focus()}
+B.forEach((b,j)=>b.onclick=()=>{show(j);restart()});f.onkeydown=e=>{if(e.key==='ArrowRight'){show(i+1,1);restart()}if(e.key==='ArrowLeft'){show(i-1,1);restart()}};
+const red=matchMedia('(prefers-reduced-motion:reduce)').matches;function restart(){clearInterval(timer);if(!red)timer=setInterval(()=>show(i+1),7000)}
+document.querySelector('.ts').addEventListener('pointerenter',()=>clearInterval(timer));document.querySelector('.ts').addEventListener('pointerleave',restart);show(0);restart();
+</script>

@@ -1,0 +1,77 @@
+<style>
+.k{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.k :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.k ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.k *,.k *::before,.k *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.k{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:48px 16px;background:var(--sf);font-size:14px}
+.k :where(button,input,select,textarea){font:inherit;color:inherit}
+.k :where(button){cursor:pointer;background:none;border:0;padding:0}
+.k [hidden]{display:none!important}
+.k .i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.k .card{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.k .b{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 16px;border-radius:10px;border:1px solid transparent;font-size:14px;font-weight:550;background:var(--fg);color:var(--bg);white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.k .b:active{transform:translateY(1px)}.k .b:disabled{opacity:.45;cursor:not-allowed}
+.k .b.sec{background:var(--bg);color:var(--fg);border-color:var(--line)}.k .b.sec:hover{background:var(--sf)}
+.k .b.ac{background:var(--ac);color:var(--ac-fg)}.k .b.ac:hover{background:var(--ac-h)}
+.k .b.gh{background:none;color:var(--fg)}.k .b.gh:hover{background:var(--sf)}
+.k .b.sm{height:32px;padding:0 12px;font-size:13px;border-radius:8px}
+.k .ibt{width:32px;height:32px;border-radius:8px;display:inline-grid;place-items:center;color:var(--mu);transition:background .15s,color .15s}.k .ibt:hover{background:var(--sf);color:var(--fg)}
+.k .av{width:40px;height:40px;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--c,#6b7280)}
+.k .mu{color:var(--mu)}.k .tn{font-variant-numeric:tabular-nums}
+.k .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.k .in{height:40px;width:100%;padding:0 12px;border-radius:10px;border:1px solid var(--ctl);background:var(--bg);font-size:14px;outline:0;transition:border-color .15s,box-shadow .15s}
+.k .in:focus{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 20%,transparent)}
+.k .in[aria-invalid=true]{border-color:var(--err)}
+.k .lbl{display:block;margin-bottom:6px;font-size:13px;font-weight:550}
+.k .pill{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:11px;font-size:12px;font-weight:600;background:var(--sf2);color:var(--mu)}
+.k .pill.ok{background:var(--ok-sf);color:var(--ok)}.k .pill.warn{background:var(--warn-sf);color:var(--warn)}.k .pill.err{background:var(--err-sf);color:var(--err)}.k .pill.info{background:var(--info-sf);color:var(--info)}
+
+
+.k.pg{display:block;place-items:normal;padding:0;background:var(--bg);font-size:16px;min-height:0}
+.pg .w{width:min(1180px,100% - 32px);margin-inline:auto;min-width:0}
+.pg{overflow-x:clip}
+.pg img{display:block;max-width:100%}
+.pg h1,.pg h2,.pg h3,.pg p{margin:0}
+.pg .ser{font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.01em}
+.pg .h1{font-size:clamp(40px,7vw,84px);line-height:1;letter-spacing:-.035em;font-weight:650;text-wrap:balance}
+.pg .h2{font-size:clamp(30px,4.4vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:620;text-wrap:balance}
+.pg .h3{font-size:19px;line-height:1.3;font-weight:620;letter-spacing:-.01em}
+.pg .lead{font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:var(--mu);text-wrap:pretty;max-width:60ch}
+.pg .eb{font:500 12px/1 'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
+.pg .sec{padding:clamp(64px,10vw,128px) 0}
+.pg .b.lg{height:48px;padding:0 22px;font-size:15px;border-radius:12px}
+.pg .ph{width:100%;height:100%;object-fit:cover}
+.pg .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.pg .top .w{display:flex;align-items:center;gap:24px;height:64px}
+.pg .logo{white-space:nowrap;font-weight:700;letter-spacing:-.02em;font-size:17px;display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none}
+.pg .links{display:flex;gap:24px;margin-left:auto;font-size:14px}.pg .links a{color:var(--mu);text-decoration:none}.pg .links a:hover{color:var(--fg)}
+.pg .menu{display:none;margin-left:auto;width:44px;height:44px;place-items:center;border-radius:10px}
+.pg .foot{border-top:1px solid var(--line);padding:32px 0;font-size:13px;color:var(--mu)}.pg .foot .w{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media (max-width:760px){.pg .links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 16px}.pg .links a{padding:12px 0;font-size:16px}.pg .top.open .links{display:flex}.pg .menu{display:grid}.pg .top .b{display:none}}
+.k .card{box-shadow:0 1px 2px color-mix(in srgb,var(--fg) 7%,transparent)}
+.lu{--ac:light-dark(#a16207,#facc15);--ac-h:light-dark(#854d0e,#fde047);--ac-fg:light-dark(#fff,#1f1500)}
+.lu-hero{padding:88px 0 48px;display:grid;gap:24px;justify-items:start}.lu-cta{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.lu-syl{margin-top:32px;border-left:2px solid var(--line);margin-left:11px}
+.lu-m{position:relative;padding-left:28px}.lu-m::before{content:attr(data-n);position:absolute;left:-13px;top:18px;width:24px;height:24px;border-radius:50%;background:var(--bg);border:2px solid var(--ctl);font:600 11px/20px 'Geist Mono',monospace;text-align:center}.lu-m.open::before{border-color:var(--ac);background:var(--ac);color:var(--ac-fg)}
+.lu-m>button{width:100%;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 0;text-align:left;border-bottom:1px solid var(--line);min-height:56px}.lu-m>button b{font-size:18px;font-weight:600}.lu-m>button span{color:var(--mu);font-size:13px;white-space:nowrap;display:flex;gap:8px;align-items:center}.lu-m>button .i{transition:transform .25s var(--ease)}.lu-m.open>button .i{transform:rotate(180deg)}
+.lu-l{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s var(--ease)}.lu-m.open .lu-l{grid-template-rows:1fr}.lu-l ul{overflow:hidden;margin:0;padding:0;list-style:none}.lu-l li{padding:10px 0;font-size:14px;color:var(--mu);display:flex;justify-content:space-between;border-bottom:1px dashed var(--line)}
+.lu-note{background:var(--sf)}.lu-ng{display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:center}.lu-ng img{aspect-ratio:3/4;object-fit:cover;border-radius:14px;width:100%}.lu-ng blockquote{margin:0;display:grid;gap:20px}.lu-ng p{font:400 clamp(24px,3vw,36px)/1.25 'Instrument Serif',serif}.lu-ng footer{display:grid}
+.lu-g{display:flex;gap:20px;align-items:flex-start}.lu-g .i{color:var(--ac);width:32px;height:32px}.lu-g div:last-child{display:grid;gap:6px}
+.lu-bar{display:none}
+@media (max-width:760px){.lu-ng{grid-template-columns:1fr}.lu-ng img{width:120px}.lu-bar{display:flex;position:sticky;bottom:0;z-index:5;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px max(12px,env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line)}.lu-bar div{display:grid}.lu-bar b{font-size:20px}}
+</style>
+<div class="k pg lu">
+<header class="top"><div class="w"><a class="logo" href="#">Low Level Club</a><nav class="links"><a href="#syl">Syllabus</a><a href="#">Instructor</a><a href="#">FAQ</a></nav><a class="b ac" href="#">Enroll for €79</a><button class="menu ibt" aria-label="Menu" aria-expanded="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:22px;height:22px"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></button></div></header>
+<section class="w lu-hero"><p class="eb">Self-paced · 9 modules · 64 lessons</p><h1 class="h1">Learn C by writing<br>the tools you use.</h1><p class="lead">No toy exercises. You'll build a shell, a memory allocator, a tiny HTTP server and a text editor, and understand every byte along the way.</p><div class="lu-cta"><a class="b ac lg" href="#">Enroll for €79</a><span class="mu">Lifetime access · 30-day refund</span></div></section>
+<section class="sec w" id="syl"><h2 class="h2">Syllabus</h2><div class="lu-syl" id="sy"></div></section>
+<section class="sec lu-note"><div class="w lu-ng"><img src="media/pics/c/1047.jpg" alt=""><blockquote><p>“I wrote this course for the version of me who could use React but panicked when a segfault appeared. Every lesson ends with something that runs.”</p><footer><b>Course author</b><span class="mu">Systems engineer, 11 years</span></footer></blockquote></div></section>
+<section class="sec w lu-g"><div><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:32px;height:32px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><h2 class="h3">30-day refund, no form to fill.</h2><p class="mu">Reply to your receipt email and you get the money back. Keep what you've downloaded.</p></div></section>
+<div class="lu-bar"><div><b>€79</b><span class="mu">one payment</span></div><a class="b ac lg" href="#">Enroll</a></div>
+<footer class="foot"><div class="w"><span>© Low Level Club</span><span>Prices include VAT</span></div></footer>
+</div>
+<script>
+document.querySelectorAll('.pg .menu').forEach(m=>m.addEventListener('click',()=>{const t=m.closest('.top');const o=t.classList.toggle('open');m.setAttribute('aria-expanded',o)}));
+const M=[["Pointers without fear",7,["Memory is an array","Addresses you can print","Pointer arithmetic","Arrays decay","Strings are bytes","const in all positions","Project: hexdump"]],["Build a shell",8,["fork and exec","Parsing a command line","Pipes","Redirection","Signals","Job control","Builtins","Project: tsh"]],["Write malloc",7,["sbrk and mmap","Free lists","Coalescing","Alignment","Debugging heap bugs","Valgrind and ASan","Project: my_malloc"]],["Sockets and HTTP",8,["Sockets API","Blocking vs non-blocking","Parsing requests","Serving files","poll()","Keep-alive","Benchmarks","Project: tiny-httpd"]],["A text editor",9,["Raw mode","Escape sequences","A gap buffer","Rendering","Search","Syntax colours","Undo","Saving safely","Project: kilo-like"]]];
+const sy=document.getElementById('sy');sy.innerHTML=M.map(([t,n,L],i)=>`<div class="lu-m${i?'':' open'}" data-n="${i+1}"><button aria-expanded="${!i}" aria-controls="ml${i}"><b>${t}</b><span>${n} lessons <svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:18px;height:18px"><path d="m6 9 6 6 6-6"/></svg></span></button><div class="lu-l" id="ml${i}"><ul>${L.map((l,j)=>`<li><span>${l}</span><span class="tn">${8+(j*7+i*3)%17} min</span></li>`).join('')}</ul></div></div>`).join('');
+sy.onclick=e=>{const b=e.target.closest('.lu-m>button');if(!b)return;const m=b.parentElement,o=m.classList.toggle('open');b.setAttribute('aria-expanded',o)};
+</script>

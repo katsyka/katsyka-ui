@@ -1,0 +1,39 @@
+<style>
+.vs{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.vs :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.vs ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.vs *,.vs *::before,.vs *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.vs{background:var(--bg);color:var(--fg);font-family:Geist,system-ui,sans-serif;padding:clamp(56px,12vh,120px) 0;overflow:hidden}
+.vs-h{max-width:1180px;margin:0 auto 40px;padding:0 clamp(16px,4vw,56px)}
+.vs small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:var(--mu)}
+.vs h2{margin:14px 0 0;font-size:clamp(40px,5.6vw,84px);line-height:.92;letter-spacing:-.06em;font-weight:600}
+.vs em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.025em}
+.vs-r{display:flex;gap:16px;width:max-content;padding:8px 0;will-change:transform}
+.vs-r+.vs-r{margin-top:8px}
+.vs-r img{width:clamp(150px,17vw,250px);aspect-ratio:4/5;object-fit:cover;border-radius:var(--r2);flex:none;background:var(--sf2)}
+.vs-r:nth-child(odd) img:nth-child(3n){aspect-ratio:1}
+.vs-f{max-width:1180px;margin:48px auto 0;padding:0 clamp(16px,4vw,56px);color:var(--mu);font-size:15px}
+.vs-after{height:60vh}
+</style>
+<section class="vs" aria-label="Velocity film strip">
+  <div class="vs-h"><small>ROLL 24 · 36 EXPOSURES</small><h2>Scroll faster, <em>it leans in.</em></h2></div>
+  <div class="vs-rows" aria-hidden="true">
+    <div class="vs-r" data-ids="1000 1002 1011 1015 1018 1021 1023 1028" data-d="-1"></div>
+    <div class="vs-r" data-ids="1036 1037 1043 1044 1045 1050 1058 1064" data-d="1"></div>
+  </div>
+  <p class="vs-f">Two rows drift on their own; page scroll speed pushes them faster and skews them in the direction of travel.</p>
+</section>
+<div class="vs-after"></div>
+<script>
+(()=>{
+// Each row is its photo set repeated twice and wrapped at half its width. Speed = base drift + scroll velocity; skew follows velocity and eases back.
+const root=document.querySelector(".vs"),still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+const rows=[...root.querySelectorAll(".vs-r")].map(r=>{const ids=r.dataset.ids.split(" ");r.innerHTML=[...ids,...ids].map(i=>`<img src="media/pics/t/${i}.jpg" alt="" loading="lazy">`).join("");return{r,d:+r.dataset.d,x:0}});
+let v=0,sk=0,lastY=scrollY,vis=false,raf=0,lt=0;
+addEventListener("scroll",()=>{v+=(scrollY-lastY)*.5;lastY=scrollY},{passive:true});
+function tick(t){raf=0;if(!vis)return;const dt=Math.min(50,t-(lt||t));lt=t;v*=.9;sk+=((still?0:Math.max(-12,Math.min(12,v*.35)))-sk)*.12;
+  rows.forEach(o=>{const half=o.r.scrollWidth/2;o.x+=(still?0:(.04*dt+Math.abs(v)*.25))*(v<-.5?-1:1);if(half)o.x=((o.x%half)+half)%half;
+    o.r.style.transform=`translate3d(${o.d>0?o.x-half:-o.x}px,0,0) skewX(${(sk*o.d*-1).toFixed(2)}deg)`});raf=requestAnimationFrame(tick)}
+new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis&&!raf){lt=0;raf=requestAnimationFrame(tick)}}).observe(root);
+})();
+</script>

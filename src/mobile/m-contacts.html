@@ -1,0 +1,33 @@
+<!--Contacts Index|A contacts list with sticky letter headers and an A–Z index on the edge: drag along it to scrub, a big letter bubble follows your thumb, and search filters as you type.|contacts,index,scrubber,sticky headers,list-->
+<header class="bar"><div class="nb"><span></span><h2>Contacts</h2><span><button class="ib" aria-label="Add contact">@I(plus)</button></span></div><label class="st-sr fw"><span class="vh">Search contacts</span>@I(search,18)<input id="q" type="search" placeholder="Search" enterkeyhint="search"></label></header>
+<main class="sc ct" id="sc"><div id="l"></div><p class="ct-e" id="em" hidden>No contacts match.</p></main>
+<nav class="ct-ix" id="ix" aria-label="Jump to letter"></nav>
+<span class="ct-bub" id="bub" aria-hidden="true"></span>
+<style>
+.st-sr{display:flex;align-items:center;gap:8px;margin:0 var(--gut) 8px;height:40px;padding:0 10px;border-radius:12px;background:var(--sf);color:var(--mu)}
+.st-sr input{flex:1;min-width:0;border:0;background:none;outline:0;font-size:17px!important;color:var(--fg)}.st-sr input::placeholder{color:var(--mu)}.st-sr input::-webkit-search-cancel-button{display:none}
+.bar~.sc{padding-top:calc(var(--st) + 92px)}
+.ct{padding-bottom:var(--sbt)!important}
+.ct-h{position:sticky;top:0;z-index:2;margin:0;padding:4px var(--gut);font-size:15px;font-weight:650;background:var(--sf);color:var(--mu)}
+.ct .row{min-height:52px;padding-right:36px}.ct .row .av{width:36px;height:36px;font-size:14px}
+.ct .row b{font-weight:400!important}.ct .row b strong{font-weight:650}
+.ct-ix{position:absolute;right:2px;top:calc(var(--st) + 100px);bottom:calc(var(--sbt) + 12px);z-index:20;display:flex;flex-direction:column;justify-content:center;width:24px;touch-action:none;user-select:none}
+.ct-ix span{flex:0 1 18px;display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--ac);cursor:pointer}
+.ct-bub{position:absolute;right:48px;z-index:30;width:64px;height:64px;margin-top:-32px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:30px;font-weight:700;opacity:0;transform:scale(.6);transition:opacity .15s,transform .2s var(--ease);pointer-events:none}
+.ct-bub.on{opacity:1;transform:none}
+.ct-e{text-align:center;color:var(--mu);padding:40px}
+</style>
+<script>
+const N=["Ana Vidal","Arne Vik","Astrid Berg","Bjørn Lie","Clara Moe","Daniel Ruud","Eirik Dahl","Elin Strand","Frida Holm","Gunnar Aas","Hanna Lund","Ines Duarte","Ivar Bakke","Jonas Nygård","Jun Kato","Kari Holm","Leo Sandvik","Lise Brandt","Mara Lind","Maja Eide","Nils Hauge","Olek Nowak","Petra Fjell","Rune Haug","Sana Ali","Siri Aasen","Sofie Berge","Theo Wright","Tora Næss","Ulrik Moen","Vera Solberg","Wenche Lie","Ylva Riis","Øystein Aune"];
+const C=["#b45309","#0369a1","#7c3aed","#15803d","#be185d","#0f766e","#a16207","#9333ea"];
+const LET=[..."ABCDEFGHIJKLMNOPQRSTUVWXYZ","Ø"];
+const draw=w=>{w=(w||"").toLowerCase();const G={};N.filter(n=>n.toLowerCase().includes(w)).forEach(n=>{const k=n.split(" ").pop()[0];(G[k]=G[k]||[]).push(n)});const ks=Object.keys(G).sort((a,b)=>LET.indexOf(a)-LET.indexOf(b));
+ l.innerHTML=ks.map(k=>`<section id="s-${k}"><h2 class="ct-h">${k}</h2><div class="lst" style="--inset:64px">${G[k].sort((a,b)=>a.split(" ").pop().localeCompare(b.split(" ").pop())).map(n=>{const[f,...r]=n.split(" ");return`<a class="row" href="#"><span class="av" style="--c:${C[n.length%8]}">${f[0]}${r.join(" ")[0]}</span><span class="tx"><b>${f} <strong>${r.join(" ")}</strong></b></span></a>`}).join("")}</div></section>`).join("");em.hidden=ks.length>0;ix.style.visibility=w?"hidden":""};
+draw();q.addEventListener("input",()=>draw(q.value));
+l.addEventListener("click",e=>{if(e.target.closest("a"))e.preventDefault()});
+ix.innerHTML=LET.map(c=>`<span>${c}</span>`).join("");
+const jump=y=>{const r=ix.getBoundingClientRect(),ph=document.querySelector(".ph").getBoundingClientRect();const items=[...ix.children];let i=Math.floor((y-items[0].getBoundingClientRect().top)/items[0].offsetHeight);i=Math.max(0,Math.min(items.length-1,i));const c=LET[i];bub.textContent=c;bub.style.top=(y-ph.top)+"px";bub.classList.add("on");
+ let t=null;for(let j=i;j<LET.length&&!t;j++)t=document.getElementById("s-"+LET[j]);if(!t)for(let j=i;j>=0&&!t;j--)t=document.getElementById("s-"+LET[j]);if(t)sc.scrollTop=t.offsetTop-sc.querySelector("#l").offsetTop;if(c!==jump.l){jump.l=c;navigator.vibrate&&navigator.vibrate(5)}};
+let on=false;ix.addEventListener("pointerdown",e=>{on=true;ix.setPointerCapture(e.pointerId);jump(e.clientY)});ix.addEventListener("pointermove",e=>on&&jump(e.clientY));
+const end=()=>{on=false;bub.classList.remove("on")};ix.addEventListener("pointerup",end);ix.addEventListener("pointercancel",end);
+</script>

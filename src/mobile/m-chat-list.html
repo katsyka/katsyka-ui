@@ -1,0 +1,36 @@
+<!--Chat List|Messenger home: large title that hands off to the bar on scroll, filter chips, pinned chats, unread badges, typing state, and the glass pill with a search button that stretches open.|chat,messenger,list,unread,large title-->
+<header class="bar"><div class="nb"><span><button class="ib" aria-label="Edit" style="width:auto;padding:0 8px;color:var(--ac);font-size:17px">Edit</button></span><h2 class="cl-t">Chats</h2><span><button class="ib" aria-label="New chat">@I(edit)</button></span></div></header>
+<main class="sc" id="sc">
+  <h1 class="lt">Chats</h1>
+  <div class="chips" role="tablist" style="padding-top:12px;padding-bottom:8px"><button class="chip on" role="tab" aria-selected="true">All</button><button class="chip" role="tab" aria-selected="false">Unread <span class="cl-n">3</span></button><button class="chip" role="tab" aria-selected="false">Groups</button><button class="chip" role="tab" aria-selected="false">Channels</button></div>
+  <div class="lst" id="l" style="--inset:80px"></div>
+</main>
+@PILL(msg:Chats|phone:Calls|user:Profile;0;s)
+<style>
+.cl-t{opacity:0;transition:opacity .2s}.bar.sd .cl-t{opacity:1}
+.cl-n{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--ac);color:var(--ac-fg);font-size:12px;font-weight:600;display:inline-grid;place-items:center}
+.chip.on .cl-n{background:var(--bg);color:var(--fg)}
+.lst .row{min-height:76px;align-items:center}
+.lst .av{width:56px;height:56px;font-size:20px}
+.cl-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.cl-top b{font-size:17px;font-weight:600}
+.cl-top time{flex:none;font-size:14px;color:var(--mu)}
+.cl-bot{display:flex;gap:8px;align-items:center;margin-top:2px}
+.cl-bot small{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cl-bot .ty{color:var(--ac)}
+.cl-u{flex:none;min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:var(--ac);color:var(--ac-fg);font-size:13px;font-weight:600;display:grid;place-items:center}
+.cl-u.mute{background:var(--ctl);color:var(--bg)}
+.cl-pin{width:16px;height:16px;color:var(--ctl);transform:rotate(45deg)}
+.row.unread time{color:var(--ac)}
+.cl-on{position:relative}.cl-on::after{content:"";position:absolute;right:1px;bottom:1px;width:14px;height:14px;border-radius:50%;background:var(--ok);border:3px solid var(--bg)}
+.cl-e{padding:48px 32px;text-align:center;color:var(--mu)}
+</style>
+<script>
+const D=[["Design crit","#7c3aed","Ana: I pushed the new spacing tokens","09:24",3,1,1,0,1],["Mara Lind","#b45309","typing…","09:12",1,1,0,1,0],["Theo","#0369a1","Photo","08:47",0,0,0,1,0],["Weekend trip","#15803d","Jun: Booked the cabin for Friday","Tue",12,0,1,0,1],["Mum","#be185d","Call me when you land","Tue",0,0,0,0,0],["Release notes","#334155","v2.4 is out: offline mode, faster sync","Mon",0,0,1,0,0],["Ines Duarte","#a16207","Thanks! See you then","Sun",0,0,0,0,0],["Olek","#0f766e","Voice message · 0:42","Sat",0,0,0,1,0],["Sana","#9333ea","Ha, exactly","Fri",0,0,0,0,0]];
+const PIN='<svg class="i cl-pin" viewBox="0 0 24 24"><path d="M12 17v5M9 3h6l-1 6 3 3v2H7v-2l3-3z"/></svg>';
+const render=f=>{const L=D.filter(d=>f==0||(f==1&&d[4])||(f==2&&d[6])||(f==3&&d[0]==="Release notes"));
+ l.innerHTML=L.length?L.map(([n,c,m,t,u,pin,grp,on])=>`<a class="row${u?" unread":""}" href="#"><span class="av${on?" cl-on":""}" style="--c:${c}">${n.split(" ").map(w=>w[0]).join("").slice(0,2)}</span><span class="tx"><span class="cl-top"><b>${n}</b><time>${t}</time></span><span class="cl-bot"><small class="${m==="typing…"?"ty":""}">${m}</small>${u?`<span class="cl-u${grp&&u>9?" mute":""}">${u}</span>`:pin?PIN:""}</span></span></a>`).join(""):`<p class="cl-e">No chats here yet.</p>`};
+render(0);
+document.querySelectorAll(".chips .chip").forEach((c,i,a)=>c.onclick=()=>{a.forEach(x=>{x.classList.toggle("on",x===c);x.setAttribute("aria-selected",x===c)});render(i)});
+l.addEventListener("click",e=>{if(e.target.closest("a"))e.preventDefault()});
+</script>

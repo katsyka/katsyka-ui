@@ -1,0 +1,24 @@
+<!--Sticker Board|Custom|A colourful sticker sheet: drag stickers onto a board, they land with a slight random tilt and a peel shadow, double-click or press Delete to remove, keyboard arrows move the focused sticker.|stickers,drag,playful,board,colourful-->
+<div class="k sb"><div class="sb-w"><div class="sb-sheet" id="sh" aria-label="Sticker sheet"></div><div class="sb-board" id="bd" aria-label="Board. Drag stickers here."><p class="sb-e mu" id="e">Drag stickers here</p></div></div></div>
+<style>
+.k.sb{padding:16px;background:var(--bg)}.sb-w{display:grid;grid-template-columns:200px 1fr;gap:16px;width:min(960px,100%);height:min(620px,calc(100dvh - 32px))}
+.sb-sheet{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-content:start;padding:14px;border-radius:18px;background:var(--sf2)}
+.sb-board{position:relative;border-radius:18px;border:2px dashed var(--line);overflow:hidden;display:grid;place-items:center;background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:20px 20px}
+.sb-s{width:72px;height:72px;display:grid;place-items:center;border-radius:20px;font:850 15px/1 Geist,sans-serif;text-transform:uppercase;cursor:grab;touch-action:none;user-select:none;border:3px solid #fff;box-shadow:0 2px 4px rgb(0 0 0/.18);letter-spacing:-.01em;text-align:center}
+.sb-s.circ{border-radius:50%}.sb-s.tag{border-radius:10px;width:84px;height:52px}.sb-s.star{clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);border:0;border-radius:0}
+.sb-board .sb-s{position:absolute;transition:box-shadow .15s var(--ease),scale .15s var(--ease)}.sb-board .sb-s.drag{scale:1.08;box-shadow:0 14px 24px rgb(0 0 0/.25);cursor:grabbing;z-index:9}
+.sb-ghost{position:fixed;pointer-events:none;z-index:99;scale:1.08}
+@media (max-width:640px){.sb-w{grid-template-columns:1fr;grid-template-rows:auto 1fr}.sb-sheet{grid-template-columns:repeat(4,1fr);overflow-x:auto}.sb-s{width:60px;height:60px;font-size:12px}.sb-s.tag{width:66px;height:44px}}
+</style>
+<script>
+const S=[['Wow','#ff3d7f','#fff',''],['Yes!','#ffd23f','#2a1a00','circ'],['New','#3dd6c6','#003330','tag'],['','#ff8a00','#fff','star'],['Hi','#5b6cff','#fff','circ'],['Cool','#a3e635','#1a2e00',''],['Sale','#e11d48','#fff','tag'],['Ok','#a855f7','#fff','']];
+const sh=document.getElementById('sh'),bd=document.getElementById('bd'),em=document.getElementById('e');
+function mk(s){const d=document.createElement('div');d.className='sb-s '+s[3];d.style.background=s[1];d.style.color=s[2];d.textContent=s[0];return d}
+S.forEach(s=>{const d=mk(s);d.tabIndex=0;d.role='button';d.setAttribute('aria-label',(s[0]||'Star')+' sticker. Press Enter to add to board');d.onkeydown=e=>{if(e.key==='Enter'){const r=bd.getBoundingClientRect();put(s,r.width/2-36+(Math.random()-.5)*120,r.height/2-36+(Math.random()-.5)*120)}};d.onpointerdown=e=>start(e,s,null);sh.append(d)});
+function put(s,x,y){em.hidden=true;const d=mk(s);d.style.left=x+'px';d.style.top=y+'px';d.style.rotate=(Math.random()*20-10)+'deg';d.tabIndex=0;d.role='img';d.setAttribute('aria-label',(s[0]||'Star')+' sticker. Arrows move, Delete removes');d.onpointerdown=e=>start(e,s,d);d.ondblclick=()=>rm(d);d.onkeydown=e=>{const k={ArrowLeft:[-8,0],ArrowRight:[8,0],ArrowUp:[0,-8],ArrowDown:[0,8]}[e.key];if(k){e.preventDefault();d.style.left=d.offsetLeft+k[0]+'px';d.style.top=d.offsetTop+k[1]+'px'}if(e.key==='Delete'||e.key==='Backspace')rm(d)};bd.append(d);d.focus();return d}
+function rm(d){d.remove();if(!bd.querySelector('.sb-s'))em.hidden=false}
+function start(e,s,d){e.preventDefault();const r=(d||e.currentTarget).getBoundingClientRect(),ox=e.clientX-r.left,oy=e.clientY-r.top;let g=d;if(!g){g=mk(s);g.classList.add('sb-ghost');document.body.append(g)}else g.classList.add('drag');
+const mv=ev=>{if(g.classList.contains('sb-ghost')){g.style.left=ev.clientX-ox+'px';g.style.top=ev.clientY-oy+'px'}else{const b=bd.getBoundingClientRect();g.style.left=ev.clientX-b.left-ox+'px';g.style.top=ev.clientY-b.top-oy+'px'}};mv(e);
+const up=ev=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);const b=bd.getBoundingClientRect();if(g.classList.contains('sb-ghost')){g.remove();if(ev.clientX>b.left&&ev.clientX<b.right&&ev.clientY>b.top&&ev.clientY<b.bottom)put(s,ev.clientX-b.left-ox,ev.clientY-b.top-oy)}else{g.classList.remove('drag');if(ev.clientX<b.left||ev.clientX>b.right||ev.clientY<b.top||ev.clientY>b.bottom)rm(g)}};addEventListener('pointermove',mv);addEventListener('pointerup',up)}
+const b0=()=>{const r=bd.getBoundingClientRect();if(r.width<50)return setTimeout(b0,100);put(S[0],r.width*.3,r.height*.3);put(S[3],r.width*.55,r.height*.45);document.activeElement.blur()};b0();
+</script>

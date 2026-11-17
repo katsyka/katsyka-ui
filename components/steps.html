@@ -1,0 +1,84 @@
+<style>
+.st{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.st :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.st ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.st *,.st *::before,.st *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.st{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.st-pn{width:min(760px,100%);display:grid;grid-template-columns:1.5fr 1fr;gap:14px}
+.st-c{background:var(--bg);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:24px}
+.st-c.full{grid-column:1/-1}
+.st-h{list-style:none;margin:0;padding:0;display:flex;counter-reset:s}
+.st-h li{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-size:13px;color:var(--mu)}
+.st-h li::before{content:"";position:absolute;top:15px;left:calc(-50% + 22px);right:calc(50% + 22px);height:2px;border-radius:1px;background:var(--sf2)}
+.st-h li:first-child::before{display:none}
+.st-h li::after{content:"";position:absolute;top:15px;left:calc(-50% + 22px);height:2px;border-radius:1px;width:0;background:var(--ac);transition:width .45s var(--ease)}
+.st-h li:first-child::after{display:none}
+.st-h li.done::after,.st-h li.cur::after{width:calc(100% - 44px)}
+.st-dot{position:relative;z-index:1;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:2px solid var(--sf2);font:600 13px Geist,system-ui,sans-serif;color:var(--mu);transition:background-color .3s,border-color .3s,color .3s}
+.st-dot svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.st-h li.done .st-dot{background:var(--ac);border-color:var(--ac);color:var(--ac-fg)}
+.st-h li.cur .st-dot{border-color:var(--ac);color:var(--ac);box-shadow:0 0 0 4px color-mix(in oklab,var(--ac) 16%,transparent)}
+.st-h li.cur,.st-h li.done{color:var(--fg)}
+.st-h li b{font-weight:550;display:block}
+.st-h li small{font-size:12px;color:var(--mu)}
+.st-body{margin-top:26px;padding:18px;border-radius:12px;background:var(--sf);font-size:14px;color:var(--mu);min-height:72px}
+.st-body b{color:var(--fg);display:block;margin-bottom:2px;font-size:15px}
+.st-nav{display:flex;justify-content:space-between;margin-top:16px}
+.st-nav button{height:38px;padding:0 16px;border-radius:10px;font:550 13.5px Geist,system-ui,sans-serif;cursor:pointer}
+.st-nav .bk{border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+.st-nav .bk:hover:not(:disabled){background:var(--sf)}
+.st-nav .nx{border:0;background:var(--fg);color:var(--bg)}
+.st-nav button:disabled{opacity:.4;cursor:not-allowed}
+/* vertical */
+.st-v{list-style:none;margin:0;padding:0}
+.st-v li{position:relative;display:grid;grid-template-columns:24px 1fr;gap:12px;padding-bottom:20px}
+.st-v li:last-child{padding-bottom:0}
+.st-v li::before{content:"";position:absolute;left:11px;top:28px;bottom:4px;width:2px;border-radius:1px;background:var(--sf2)}
+.st-v li:last-child::before{display:none}
+.st-v li.done::before{background:var(--ok)}
+.st-v .d{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--sf2);background:var(--bg)}
+.st-v .d svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.st-v li.done .d{background:var(--ok);border-color:var(--ok);color:light-dark(#fff,#052e14)}
+.st-v li.cur .d{border-color:var(--ac)}
+.st-v li.cur .d::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ac);animation:st-p 1.6s ease-in-out infinite}
+@keyframes st-p{50%{transform:scale(.6);opacity:.6}}
+.st-v b{display:block;font-size:14px;font-weight:550}
+.st-v small{font-size:12.5px;color:var(--mu)}
+.st-v li:not(.done):not(.cur) b{color:var(--mu);font-weight:500}
+.st-bar{display:flex;align-items:center;gap:14px}
+.st-bar .seg{flex:1;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.st-bar .seg i{height:6px;border-radius:3px;background:var(--sf2)}
+.st-bar .seg i.on{background:var(--fg)}
+.st-bar span{font:500 12.5px "Geist Mono",monospace;color:var(--mu);white-space:nowrap}
+.st-lb{font:500 11px/1 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:16px}
+@media (max-width:680px){.st-pn{grid-template-columns:1fr}.st-h li small{display:none}}
+</style>
+<div class="st">
+  <div class="st-pn">
+    <div class="st-c full">
+      <ol class="st-h" aria-label="Checkout progress"></ol>
+      <div class="st-body" aria-live="polite"></div>
+      <div class="st-nav"><button class="bk">Back</button><button class="nx">Continue</button></div>
+    </div>
+    <div class="st-c"><div class="st-lb">Vertical · order status</div>
+      <ol class="st-v">
+        <li class="done"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Order placed</b><small>Oct 28, 10:42</small></div></li>
+        <li class="done"><span class="d"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Packed</b><small>Oct 29, 08:15 · Lisbon warehouse</small></div></li>
+        <li class="cur" aria-current="step"><span class="d"></span><div><b>In transit</b><small>Expected Nov 2</small></div></li>
+        <li><span class="d"></span><div><b>Delivered</b><small>Signature not required</small></div></li>
+      </ol></div>
+    <div class="st-c"><div class="st-lb">Compact</div>
+      <div class="st-bar"><div class="seg" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div><span>Step 3 of 5</span></div>
+      <p style="margin:14px 0 0;font-size:14px;font-weight:550">Connect your domain</p>
+      <p style="margin:2px 0 0;font-size:13px;color:var(--mu)">Point an A record to 76.76.21.21</p></div>
+  </div>
+</div>
+<script>
+const S=[["Cart","3 items","Review your bag","Three items, $186.00 before shipping."],["Shipping","Address","Where should we send it?","Rua do Alecrim 42, 1200-018 Lisbon."],["Payment","Card","How would you like to pay?","Visa ending 4242, billing address same as shipping."],["Review","Confirm","Check everything once more","Delivery Nov 4–6. You can still edit any step."]];
+let cur=1;const ol=document.querySelector(".st-h"),body=document.querySelector(".st-body"),bk=document.querySelector(".st-nav .bk"),nx=document.querySelector(".st-nav .nx");
+const ck='<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+const draw=()=>{ol.innerHTML=S.map((s,i)=>`<li class="${i<cur?"done":i===cur?"cur":""}"${i===cur?' aria-current="step"':""}><span class="st-dot">${i<cur?ck:i+1}</span><span><b>${s[0]}</b><small>${s[1]}</small></span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">${i<cur?"completed":i===cur?"current":"not started"}</span></li>`).join("");
+  body.innerHTML=cur<S.length?`<b>${S[cur][2]}</b>${S[cur][3]}`:"<b>Order placed 🎉</b>Confirmation #A-20931 is on its way to your inbox.";
+  bk.disabled=cur===0||cur>=S.length;nx.disabled=cur>=S.length;nx.textContent=cur===S.length-1?"Place order":cur>=S.length?"Done":"Continue"};
+nx.onclick=()=>{cur++;draw()};bk.onclick=()=>{cur--;draw()};draw();
+</script>

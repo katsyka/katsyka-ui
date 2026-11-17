@@ -1,0 +1,25 @@
+<!--Invoice|Display|A printable invoice: sender and client blocks, status badge, a line-item table with right-aligned tabular numbers, totals, payment details and Download / Print actions that hide when printing.|invoice,billing,table,print,document-->
+<div class="k"><article class="card iv">
+  <header class="iv-h"><div><b class="iv-lg">Field Prints</b><p class="mu">Strandgaten 12, 5013 Bergen<br>hello@fieldprints.no</p></div><div class="iv-r"><span class="pill warn">Due in 9 days</span><h1>Invoice <span class="tn">#0412</span></h1><p class="mu">Issued <span class="tn">6 Nov 2026</span><br>Due <span class="tn">20 Nov 2026</span></p></div></header>
+  <div class="iv-to"><span class="lbl mu">Bill to</span><b>Northwind AS</b><p class="mu">Attn. Ines Duarte<br>Kong Oscars gate 4, 5017 Bergen</p></div>
+  <table class="iv-t"><thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>
+  <tr><td>Framed print, Valley floor 70×100<small>Oak frame, museum glass</small></td><td class="tn">3</td><td class="tn">$184.00</td><td class="tn">$552.00</td></tr>
+  <tr><td>Framed print, Low tide 50×70</td><td class="tn">2</td><td class="tn">$106.00</td><td class="tn">$212.00</td></tr>
+  <tr><td>Installation on site</td><td class="tn">1</td><td class="tn">$120.00</td><td class="tn">$120.00</td></tr></tbody></table>
+  <dl class="iv-s"><div><dt>Subtotal</dt><dd class="tn">$884.00</dd></div><div><dt>VAT 25%</dt><dd class="tn">$221.00</dd></div><div class="tot"><dt>Total due</dt><dd class="tn">$1 105.00</dd></div></dl>
+  <footer class="iv-f"><p class="mu">Pay to IBAN NO93 8601 1117 947 · Ref 0412</p><div><button class="b sec" onclick="print()">@I(file,16)Print</button><button class="b">@I(download,16)Download PDF</button></div></footer></article></div>
+<style>
+.iv{width:min(720px,100%);padding:32px}
+.iv-h{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}.iv-lg{font:400 28px/1 "Instrument Serif",serif}.iv-h p{margin:8px 0 0;line-height:20px}
+.iv-r{text-align:right}.iv-r h1{margin:8px 0 0;font-size:22px;font-weight:650}
+.iv-to{margin-top:28px}.iv-to b{font-size:15px}.iv-to p{margin:2px 0 0;line-height:20px}
+.iv-t{width:100%;margin-top:24px;border-collapse:collapse}
+.iv-t th{text-align:left;font-size:12px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.04em;padding:8px 0;border-bottom:1px solid var(--line)}
+.iv-t td{padding:12px 0;border-bottom:1px solid var(--line);vertical-align:top}.iv-t small{display:block;color:var(--mu);font-size:13px}
+.iv-t th:not(:first-child),.iv-t td:not(:first-child){text-align:right;padding-left:16px;white-space:nowrap}
+.iv-s{margin:16px 0 0 auto;width:min(260px,100%)}.iv-s div{display:flex;justify-content:space-between;padding:4px 0}.iv-s dt{color:var(--mu)}.iv-s dd{margin:0}
+.iv-s .tot{margin-top:6px;padding-top:10px;border-top:1px solid var(--line);font-size:17px;font-weight:650}.iv-s .tot dt{color:var(--fg)}
+.iv-f{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}.iv-f p{margin:0;font-size:13px}.iv-f div{display:flex;gap:8px}
+@media print{.k{background:none;padding:0}.iv{box-shadow:none;border:0}.iv-f div{display:none}}
+@media (max-width:560px){.iv{padding:20px}.iv-r{text-align:left}.iv-t th:nth-child(3),.iv-t td:nth-child(3){display:none}}
+</style>

@@ -1,0 +1,34 @@
+<style>
+.it{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.it :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.it ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.it *,.it *::before,.it *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.it{position:relative;height:100vh;min-height:520px;overflow:hidden;background:var(--bg);color:var(--fg);font-family:Geist,system-ui,sans-serif;touch-action:pan-y}
+.it-t{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:16px;pointer-events:none}
+.it-t small{font:500 12px "Geist Mono",monospace;letter-spacing:.16em;color:var(--mu)}
+.it-t h2{margin:16px 0 0;font-size:clamp(52px,9vw,148px);line-height:.86;letter-spacing:-.065em;font-weight:600}
+.it-t em{font:italic 400 1.05em "Instrument Serif",serif;letter-spacing:-.03em}
+.it img{position:absolute;left:0;top:0;width:clamp(120px,15vw,220px);aspect-ratio:4/5;object-fit:cover;border-radius:6px;pointer-events:none;will-change:transform,opacity;
+  animation:it-in .5s cubic-bezier(.2,.9,.25,1) both,it-out .6s .7s cubic-bezier(.5,0,.75,0) forwards}
+@keyframes it-in{from{scale:.4;opacity:0}}
+@keyframes it-out{to{scale:.82;opacity:0;translate:0 24px}}
+</style>
+<section class="it" aria-label="Cursor photo trail">
+  <div class="it-t"><small>MOVE YOUR CURSOR</small><h2>Meet <em>the locals.</em></h2></div>
+</section>
+<script>
+(()=>{
+// Drops a photo every GAP pixels of pointer travel; each one animates in, then out, and is removed. Idle: a slow figure-eight demo while visible.
+const root=document.querySelector(".it"),IDS=[433,1074,1025,659,593,582,837,1084,718,1024,1003,1062],GAP=90,still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+IDS.forEach(i=>{new Image().src=`media/pics/t/${i}.jpg`});
+let n=0,lx=null,ly=null,last=-1e9,vis=false,raf=0,t0=0;
+function drop(x,y){const im=new Image();im.src=`media/pics/t/${IDS[n++%IDS.length]}.jpg`;im.alt="";root.append(im);
+  const w=im.offsetWidth||180,h=w*1.25;im.style.transform=`translate(${x-w/2}px,${y-h/2}px) rotate(${(Math.random()-.5)*10}deg)`;
+  im.addEventListener("animationend",e=>{if(e.animationName==="it-out")im.remove()});if(root.querySelectorAll("img").length>14)root.querySelector("img").remove()}
+function at(x,y){if(lx===null||Math.hypot(x-lx,y-ly)>GAP){drop(x,y);lx=x;ly=y}}
+root.addEventListener("pointermove",e=>{const r=root.getBoundingClientRect();last=performance.now();at(e.clientX-r.left,e.clientY-r.top)});
+root.addEventListener("pointerleave",()=>{lx=null;last=performance.now()});
+function demo(t){raf=0;if(!vis||still)return;if(t-last>2200){const k=(t-t0)/1000,w=root.clientWidth,h=root.clientHeight;at(w/2+Math.sin(k*.8)*w*.34,h/2+Math.sin(k*1.6)*h*.26)}raf=requestAnimationFrame(demo)}
+new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis&&!raf){t0=performance.now();raf=requestAnimationFrame(demo)}}).observe(root);
+})();
+</script>

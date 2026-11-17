@@ -1,0 +1,58 @@
+<style>
+.pb{color-scheme:light dark;--bg:light-dark(#ffffff,#0f0f11);--sf:light-dark(#f6f6f4,#18181b);--sf2:light-dark(#ececea,#26262b);--fg:light-dark(#18181b,#f4f4f5);--mu:light-dark(#5b5b66,#a1a1aa);--line:light-dark(#e4e4e1,#2a2a2f);--ctl:light-dark(#8a8a94,#71717a);--ac:light-dark(#c2410c,#ff8a4c);--ac-h:light-dark(#9a3412,#ffa36e);--ac-fg:light-dark(#ffffff,#1a0a03);--ac-sf:light-dark(#fff1e8,#2a1409);--focus:light-dark(#1d4ed8,#93c5fd);--ok:light-dark(#15803d,#4ade80);--ok-sf:light-dark(#ecfdf3,#0b2a17);--warn:light-dark(#a16207,#facc15);--warn-sf:light-dark(#fefce8,#2a2306);--err:light-dark(#b91c1c,#f87171);--err-sf:light-dark(#fef2f2,#2c1010);--info:light-dark(#1d4ed8,#93c5fd);--info-sf:light-dark(#eff6ff,#0f1b33);--shadow:light-dark(0 1px 2px #0000000d\,0 8px 24px -8px #00000026,0 1px 2px #0006\,0 12px 32px -8px #000a);--r1:6px;--r2:10px;--r3:14px;--ease:cubic-bezier(.2,.8,.2,1);font:16px/1.5 Geist,system-ui,sans-serif;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased}
+.pb :focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.pb ::selection{background:var(--ac);color:var(--ac-fg)}
+@media (prefers-reduced-motion:reduce){.pb *,.pb *::before,.pb *::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.pb{min-height:100vh;display:grid;place-items:center;padding:48px 16px;background:var(--sf)}
+.pb-pn{width:min(560px,100%);display:grid;gap:28px;padding:28px;background:var(--bg);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.pb-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;font-size:14px}
+.pb-hd b{font-weight:550}.pb-hd span{font:500 13px "Geist Mono",monospace;color:var(--mu);font-variant-numeric:tabular-nums}
+.pb-t{position:relative;height:8px;border-radius:99px;background:var(--sf2);overflow:hidden}
+.pb-t>i{display:block;height:100%;width:var(--v,0%);border-radius:inherit;background:var(--ac);transition:width .5s var(--ease)}
+.pb-t.thin{height:4px}.pb-t.thin>i{background:var(--fg)}
+.pb-t.ind>i{position:absolute;width:40%;animation:pb-ind 1.4s cubic-bezier(.65,0,.35,1) infinite;background:var(--fg)}
+@keyframes pb-ind{0%{left:-40%}100%{left:100%}}
+.pb-t.str>i{background:var(--ok);background-image:repeating-linear-gradient(-45deg,#ffffff33 0 8px,transparent 8px 16px);background-size:22.6px 22.6px;animation:pb-str 1s linear infinite}
+@keyframes pb-str{to{background-position:22.6px 0}}
+.pb-sub{margin-top:6px;font-size:12.5px;color:var(--mu)}
+.pb-stk{display:flex;height:10px;border-radius:99px;overflow:hidden;gap:2px;background:var(--sf2)}
+.pb-stk i{height:100%;transition:flex-grow .5s var(--ease)}
+.pb-lg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:12.5px;color:var(--mu)}
+.pb-lg span{display:flex;align-items:center;gap:6px}
+.pb-lg i{width:8px;height:8px;border-radius:2px}
+.pb-lg b{color:var(--fg);font-weight:550}
+.pb-seg{display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.pb-seg i{height:18px;border-radius:3px;background:var(--sf2);transition:background-color .2s}
+.pb-seg i.on{background:var(--fg)}
+.pb-seg i.warn{background:var(--warn)}
+.pb-ctl{display:flex;gap:8px}
+.pb-ctl button{height:34px;padding:0 12px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:550 13px Geist,system-ui,sans-serif;cursor:pointer}
+.pb-ctl button:hover{background:var(--sf2)}
+</style>
+<div class="pb">
+  <div class="pb-pn">
+    <div><div class="pb-hd"><b id="pbL1">Uploading assets</b><span id="pbV1">0%</span></div>
+      <div class="pb-t" role="progressbar" aria-labelledby="pbL1" aria-valuemin="0" aria-valuemax="100" id="pbA"><i></i></div>
+      <div class="pb-sub" id="pbS1">Starting…</div></div>
+    <div><div class="pb-hd"><b id="pbL2">Deploying</b><span>Building…</span></div>
+      <div class="pb-t thin ind" role="progressbar" aria-labelledby="pbL2" aria-busy="true"><i></i></div></div>
+    <div><div class="pb-hd"><b id="pbL3">Backup</b><span>Syncing</span></div>
+      <div class="pb-t str" role="progressbar" aria-labelledby="pbL3" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="--v:72%"><i></i></div></div>
+    <div><div class="pb-hd"><b>Storage</b><span>38.4 of 50 GB</span></div>
+      <div class="pb-stk" role="img" aria-label="Storage: photos 18.2 GB, video 12.6 GB, documents 5.1 GB, other 2.5 GB, 11.6 GB free"><i style="flex-grow:18.2;background:#c2410c"></i><i style="flex-grow:12.6;background:#0e7490"></i><i style="flex-grow:5.1;background:#7c3aed"></i><i style="flex-grow:2.5;background:#a1a1aa"></i><i style="flex-grow:11.6;background:transparent"></i></div>
+      <div class="pb-lg"><span><i style="background:#c2410c"></i>Photos <b>18.2</b></span><span><i style="background:#0e7490"></i>Video <b>12.6</b></span><span><i style="background:#7c3aed"></i>Docs <b>5.1</b></span><span><i style="background:#a1a1aa"></i>Other <b>2.5</b></span></div></div>
+    <div><div class="pb-hd"><b id="pbL5">API requests</b><span id="pbV5"></span></div>
+      <div class="pb-seg" role="meter" aria-labelledby="pbL5" aria-valuemin="0" aria-valuemax="10000" id="pbSeg"></div></div>
+    <div class="pb-ctl"><button id="pbR">Restart upload</button><button id="pbU">+1,000 requests</button></div>
+  </div>
+</div>
+<script>
+const A=document.getElementById("pbA"),V=document.getElementById("pbV1"),S=document.getElementById("pbS1");let p=0,tm;
+const files=["hero.webp","logo.svg","fonts.woff2","app.js","styles.css","og-image.png"];
+const tick=()=>{p=Math.min(100,p+Math.random()*9+2);A.style.setProperty("--v",p+"%");A.setAttribute("aria-valuenow",Math.round(p));V.textContent=Math.round(p)+"%";
+  S.textContent=p>=100?"✓ 6 files uploaded · 4.2 MB":`${files[Math.min(5,p/100*6|0)]} · ${(p/100*4.2).toFixed(1)} of 4.2 MB`;if(p<100)tm=setTimeout(tick,180+Math.random()*220)};
+document.getElementById("pbR").onclick=()=>{clearTimeout(tm);p=0;tick()};tick();
+const seg=document.getElementById("pbSeg");seg.innerHTML="<i></i>".repeat(10);let used=6200;
+const ds=()=>{seg.querySelectorAll("i").forEach((x,i)=>{const on=i<Math.round(used/1000);x.className=on?(used>=8000?"warn":"on"):""});seg.setAttribute("aria-valuenow",used);document.getElementById("pbV5").textContent=`${used.toLocaleString("en-US")} / 10,000`};
+document.getElementById("pbU").onclick=()=>{used=used>=10000?2000:Math.min(10000,used+1000);ds()};ds();
+</script>
