@@ -38,3 +38,4 @@ work/
 .DS_Store
 media/
 test/
+*.bak*
